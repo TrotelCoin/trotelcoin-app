@@ -24,11 +24,6 @@ const Buy = () => {
         {/* Render the ComingSoon component */}
         <ComingSoon></ComingSoon>
 
-        {/* Render the TrotelPriceChart component */}
-        <div className="flex justify-center mx-4 lg:mx-10 my-20 overflow-hidden">
-          <TrotelPriceChart></TrotelPriceChart>
-        </div>
-
         {/* Render the Footer component with the current page */}
         <Footer currentPage="/buy"></Footer>
       </div>
