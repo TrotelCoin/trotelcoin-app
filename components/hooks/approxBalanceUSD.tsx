@@ -36,25 +36,30 @@ const ApproxUSD = () => {
           });
         }
 
-        // Fetch token price from Moralis EvmApi
-        const response = await Moralis.EvmApi.token.getTokenPrice({
-          chain: "0x38", // Binance Smart Chain
-          include: "percent_change",
-          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
-        });
+        // Check if the token price is already cached in localStorage
+        const cachedTokenPrice = localStorage.getItem("tokenPrice");
 
-        // If the data is still loading, return 0
-        if (isLoading) return 0;
+        if (cachedTokenPrice) {
+          const tokenPrice = parseFloat(cachedTokenPrice);
+          setApproxUSD(tokenPrice * parseFloat(data?.formatted || "0"));
+        } else {
+          // Fetch token price from Moralis EvmApi
+          const response = await Moralis.EvmApi.token.getTokenPrice({
+            chain: "0x38", // Binance Smart Chain
+            include: "percent_change",
+            address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+          });
 
-        // If there is an error, return 0
-        if (isError) return 0;
+          // Parse the balance value from the formatted data or default to 0
+          const balance: number = parseFloat(data?.formatted as string) || 0;
 
-        // Parse the balance value from the formatted data or default to 0
-        const balance: number = parseFloat(data?.formatted as string) || 0;
+          // Calculate the approximate USD value based on token balance and price
+          const approxUSD: number = balance * response.raw.usdPrice;
+          setApproxUSD(approxUSD);
 
-        // Calculate the approximate USD value based on token balance and price
-        const approxUSD: number = balance * response.raw.usdPrice;
-        setApproxUSD(approxUSD);
+          // Cache the token price in localStorage for future use
+          localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
+        }
       } catch (error) {
         console.error("Error fetching token information:", error);
       }
@@ -62,6 +67,12 @@ const ApproxUSD = () => {
 
     // Call the fetchTokenInfo function when the component mounts
     fetchTokenInfo();
+
+    // Set up a timer to fetch and update the token price periodically (every 5 minutes)
+    const refreshInterval = setInterval(fetchTokenInfo, 300000);
+
+    // Clear the timer when the component unmounts
+    return () => clearInterval(refreshInterval);
   }, []);
 
   // Render the approximate USD value with two decimal places

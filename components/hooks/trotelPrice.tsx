@@ -3,7 +3,7 @@ import Moralis from "moralis";
 
 export default function TrotelPrice() {
   // State to hold the token price
-  const [tokenPrice, setTokenPrice] = useState<number>(0);
+  const [tokenPrice, setTokenPrice] = useState<number | null>(null);
 
   useEffect(() => {
     // Function to fetch token information from Moralis
@@ -18,15 +18,26 @@ export default function TrotelPrice() {
           });
         }
 
-        // Fetch token price from Moralis EvmApi
-        const response = await Moralis.EvmApi.token.getTokenPrice({
-          chain: "0x38", // Binance Smart Chain
-          include: "percent_change",
-          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
-        });
+        // Check if the token price is already cached in localStorage
+        const cachedTokenPrice = localStorage.getItem("tokenPrice");
 
-        // Set the token price in state
-        setTokenPrice(response.raw.usdPrice);
+        if (cachedTokenPrice) {
+          // Use the cached token price
+          setTokenPrice(parseFloat(cachedTokenPrice));
+        } else {
+          // Fetch token price from Moralis EvmApi
+          const response = await Moralis.EvmApi.token.getTokenPrice({
+            chain: "0x38", // Binance Smart Chain
+            include: "percent_change",
+            address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+          });
+
+          // Set the token price in state
+          setTokenPrice(response.raw.usdPrice);
+
+          // Cache the token price in localStorage for future use
+          localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
+        }
       } catch (e) {
         console.error(e);
       }
@@ -34,8 +45,18 @@ export default function TrotelPrice() {
 
     // Call the fetchTokenInfo function when the component mounts
     fetchTokenInfo();
+
+    // Set up a timer to fetch and update the token price periodically
+    const refreshInterval = setInterval(fetchTokenInfo, 300000); // Every 5 minutes
+
+    // Clear the timer when the component unmounts
+    return () => clearInterval(refreshInterval);
   }, []);
 
   // Return the token price as a formatted string with three decimal places
-  return <span>{tokenPrice.toFixed(3)}</span>;
+  return tokenPrice !== null ? (
+    <span>{tokenPrice.toFixed(3)}</span>
+  ) : (
+    <span>Loading...</span>
+  );
 }
