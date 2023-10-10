@@ -310,12 +310,6 @@ export default function Modules() {
                     </div>
                     <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
                       <p className="truncate">{submodule.description}</p>
-                      <svg
-                        viewBox="0 0 2 2"
-                        className="h-0.5 w-0.5 flex-none fill-gray-500 dark:fill-gray-300"
-                      >
-                        <circle cx={1} cy={1} r={1} />
-                      </svg>
                     </div>
                   </div>
                   <div
