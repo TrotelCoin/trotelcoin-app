@@ -251,7 +251,7 @@ export default function Modules() {
                   <p className="whitespace-nowrap">{module.statusText}</p>
                 </div>
               </div>
-              <div className="items-center">
+              <div className="items-center flex gap-x-4">
                 <div
                   className={classNames(
                     environments[module.environment],
@@ -314,7 +314,7 @@ export default function Modules() {
                       <p className="truncate">{submodule.description}</p>
                     </div>
                   </div>
-                  <div className="items-center">
+                  <div className="items-cente flex gap-x-4">
                     <div
                       className={classNames(
                         environments[submodule.environment],
