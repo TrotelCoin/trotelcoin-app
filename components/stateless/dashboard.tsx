@@ -19,8 +19,8 @@ const ApproxBalanceUSDNoSSR = dynamic(
   }
 );
 
-// Define the Dashboard component as an asynchronous function
-export default async function Dashboard() {
+// Define the Dashboard component as a function
+export default function Dashboard() {
   const [completed] = useState(0);
   const [trotelCoinEarnedUSD] = useState(0); // Placeholder for Trotel coin earned in USD (to be updated later)
 

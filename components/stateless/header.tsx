@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
               className="h-12 w-auto"
               width={128}
               height={128}
-              src="/trotelcoin-white.png"
+              src="/assets/logo/trotelcoin-white.png"
               alt={""}
             ></Image>
           </div>
@@ -121,7 +121,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
                 className="h-12 w-auto"
                 width={128}
                 height={128}
-                src="/trotelcoin-white.png"
+                src="/assets/logo/trotelcoin-white.png"
                 alt={""}
               ></Image>
             </div>

@@ -34,5 +34,5 @@ export default function TrotelPrice() {
   }, []);
 
   // Return the token price as a formatted string with three decimal places
-  return <span>${tokenPrice.toFixed(3)}</span>;
+  return <span>{tokenPrice.toFixed(3)}</span>;
 }
