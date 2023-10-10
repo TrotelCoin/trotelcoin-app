@@ -156,6 +156,14 @@ export default function Modules() {
     Module | Submodule | null
   >(null);
 
+  // Create a mapping from environment to status
+  const environmentToStatusMapping: Record<string, string> = {
+    "Coming Soon": "ready",
+    Ready: "ready",
+    Finished: "finished",
+    Ongoing: "ongoing",
+  };
+
   // Calculate statusText for a module based on its submodules
   const calculateStatusText = (module: Module) => {
     const finishedSubmodules = module.submodules.filter(
@@ -170,6 +178,10 @@ export default function Modules() {
 
   // Iterate through modules and calculate statusText for each
   modules.forEach((module) => {
+    module.status = environmentToStatusMapping[module.environment] as
+      | "ready"
+      | "finished"
+      | "ongoing";
     module.statusText = calculateStatusText(module);
   });
 
