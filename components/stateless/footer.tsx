@@ -233,6 +233,7 @@ const Footer: React.FC<FooterProps> = ({ currentPage }) => {
               <div key={item.name} className="pb-6">
                 <Link
                   href={item.href}
+                  key={item.name}
                   className="text-sm leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300"
                 >
                   {item.name}
@@ -268,6 +269,7 @@ const Footer: React.FC<FooterProps> = ({ currentPage }) => {
           {navigation.main.map((item) => (
             <Link
               href={item.href}
+              key={item.name}
               className="my-auto text-gray-900 flex flex-col items-center gap-y-2 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
             >
               {currentPage === item.href && item.iconSolid && item.iconSolid()}{" "}
