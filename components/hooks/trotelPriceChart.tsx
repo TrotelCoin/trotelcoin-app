@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
-import echarts from "echarts";
+import ApexCharts from "react-apexcharts";
 
 export default function TrotelPriceChart() {
   // State to hold the token price
@@ -53,49 +53,44 @@ export default function TrotelPriceChart() {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  // Render the ECharts chart with the historical price data
-  useEffect(() => {
-    if (priceHistory.length > 0) {
-      const chartContainer = document.getElementById("echarts-container");
-      if (chartContainer) {
-        const chart = echarts.init(chartContainer);
-        chart.setOption({
-          title: {
-            text: "Trotel Price Chart (7 Days)",
-          },
-          tooltip: {
-            trigger: "axis",
-            axisPointer: {
-              type: "cross",
-            },
-          },
-          xAxis: {
-            type: "category",
-            data: priceHistory.map((_, index) => `Day ${index + 1}`),
-          },
-          yAxis: {
-            type: "value",
-            name: "Price (USD)",
-          },
-          series: [
-            {
-              data: priceHistory,
-              type: "line",
-            },
-          ],
-        });
-      }
-    }
-  }, [priceHistory]);
+  // Define the ApexCharts configuration options
+  const chartOptions = {
+    chart: {
+      id: "price-chart",
+    },
+    xaxis: {
+      type: "datetime",
+      categories: priceHistory.map((_, index) =>
+        new Date(
+          new Date().getTime() - (7 - index) * 24 * 60 * 60 * 1000
+        ).getTime()
+      ),
+    },
+    yaxis: {
+      title: {
+        text: "Price (USD)",
+      },
+    },
+  };
 
-  // Return the component with the ECharts container
+  // Define the ApexCharts series data
+  const chartSeries = [
+    {
+      name: "Trotel Price (USD)",
+      data: priceHistory,
+    },
+  ];
+
+  // Return the component with the ApexCharts container
   return (
     <div>
       {tokenPrice !== null ? (
-        <div
-          id="echarts-container"
-          style={{ width: "100%", height: "400px" }}
-        ></div>
+        <ApexCharts
+          options={chartOptions}
+          series={chartSeries}
+          type="line"
+          height={400}
+        />
       ) : (
         <span className="animate-pulse">0.000</span>
       )}
