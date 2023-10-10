@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from "react";
 import TrotelBalanceNumber from "./trotelBalanceNumber";
-import TrotelPrice from "./trotelPrice";
+import Moralis from "moralis";
 
-// Define a component named ApproxUSD
 const ApproxUSD = () => {
   // Define state variables to store the token price and approximate USD value
   const [tokenPrice, setTokenPrice] = useState<number>(0);
   const [approxUSD, setApproxUSD] = useState<number>(0);
 
-  // Use the useEffect hook to fetch token information when the component mounts
   useEffect(() => {
     const fetchTokenInfo = async () => {
       try {
-        // Set the token price in state by calling the TrotelPrice function
-        const price: string = TrotelPrice();
-        setTokenPrice(parseFloat(price));
+        // Initialize Moralis with the API key
+        await Moralis.start({
+          apiKey:
+            "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
+        });
 
-        // Get the token balance value by calling the TrotelBalanceNumber function
+        // Fetch token price from Moralis EvmApi
+        const response = await Moralis.EvmApi.token.getTokenPrice({
+          chain: "0x38", // Binance Smart Chain
+          include: "percent_change",
+          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+        });
+
+        // Fetch the token price by rendering the TrotelPrice component
+        const price: number = response.raw.usdPrice;
+        setTokenPrice(price);
+
+        // Get the token balance value by rendering the TrotelBalanceNumber component
         const tokenBalanceValue: number = TrotelBalanceNumber();
 
         // Calculate the approximate USD value based on token balance and price
-        const approxUSD: number = tokenBalanceValue * tokenPrice;
+        const approxUSD: number = tokenBalanceValue * price;
         setApproxUSD(approxUSD);
       } catch (error) {
         console.error("Error fetching token information:", error);
@@ -32,7 +43,7 @@ const ApproxUSD = () => {
   }, []);
 
   // Render the approximate USD value with two decimal places
-  return <span>{approxUSD.toFixed(2).toString()}</span>;
+  return <span>{approxUSD.toFixed(2)}</span>;
 };
 
 export default ApproxUSD;
