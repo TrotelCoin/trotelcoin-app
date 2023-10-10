@@ -26,14 +26,11 @@ const ApproxUSD = () => {
           address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
         });
 
-        // Fetch the token price by rendering the TrotelPrice component
-        setTokenPrice(response.raw.usdPrice);
-
-        // Get the token balance value by rendering the TrotelBalanceNumber component
+        // Fetch the token balance value by calling TrotelBalanceNumber (assuming it's a hook)
         const tokenBalanceValue: number = TrotelBalanceNumber();
 
         // Calculate the approximate USD value based on token balance and price
-        const approxUSD: number = tokenBalanceValue * tokenPrice;
+        const approxUSD: number = tokenBalanceValue * response.raw.usdPrice;
         setApproxUSD(approxUSD);
       } catch (error) {
         console.error("Error fetching token information:", error);
