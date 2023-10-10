@@ -13,13 +13,18 @@ export default function TrotelPriceChange() {
 
     const fetchTokenInfo = async () => {
       try {
-        await Moralis.start({
-          apiKey:
-            "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
-        });
+        // Check if Moralis is already started
+        if (!Moralis.Core.isStarted) {
+          // Initialize Moralis with the API key
+          await Moralis.start({
+            apiKey:
+              "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ", // TrotelCoin (TROTEL) token address
+          });
+        }
 
+        // Fetch token price from Moralis EvmApi
         const response = await Moralis.EvmApi.token.getTokenPrice({
-          chain: "0x38",
+          chain: "0x38", // Binance Smart Chain
           include: "percent_change",
           address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5",
         });

@@ -9,11 +9,14 @@ export default function TrotelPrice() {
     // Function to fetch token information from Moralis
     const fetchTokenInfo = async () => {
       try {
-        // Initialize Moralis with the API key
-        await Moralis.start({
-          apiKey:
-            "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
-        });
+        // Check if Moralis is already started
+        if (!Moralis.Core.isStarted) {
+          // Initialize Moralis with the API key
+          await Moralis.start({
+            apiKey:
+              "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
+          });
+        }
 
         // Fetch token price from Moralis EvmApi
         const response = await Moralis.EvmApi.token.getTokenPrice({
