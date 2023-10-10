@@ -63,7 +63,6 @@ const modules: Module[] = [
         href: "",
         module: "Introduction to Wallets",
         status: "ready",
-        statusText: "0%",
         description:
           "Get an overview of digital wallets and their importance in the world of cryptocurrency",
         environment: "Coming Soon",
@@ -73,7 +72,6 @@ const modules: Module[] = [
         href: "",
         module: "Securing Your Wallet",
         status: "ready",
-        statusText: "0%",
         description:
           "Learn best practices for securing your digital wallet and keeping your cryptocurrencies safe",
         environment: "Coming Soon",
