@@ -3,6 +3,7 @@ import React from "react";
 import Header from "@/components/stateless/header";
 import Footer from "@/components/stateless/footer";
 import ComingSoon from "@/components/stateless/comingSoon";
+import TrotelPriceChart from "@/components/hooks/trotelPriceChart";
 
 // Import metadata from the _document.js file
 import { metadata } from "./_document";
@@ -22,6 +23,11 @@ const Buy = () => {
 
         {/* Render the ComingSoon component */}
         <ComingSoon></ComingSoon>
+
+        {/* Render the TrotelPriceChart component */}
+        <div className="flex justify-center mx-4 lg:mx-10 my-20 overflow-hidden">
+          <TrotelPriceChart></TrotelPriceChart>
+        </div>
 
         {/* Render the Footer component with the current page */}
         <Footer currentPage="/buy"></Footer>
