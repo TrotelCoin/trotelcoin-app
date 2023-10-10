@@ -17,13 +17,16 @@ export default function Document() {
         <meta name="description" content={metadata.description} />
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
-        <meta property="og:image" content="/trotelcoin-banner.png" />
+        <meta
+          property="og:image"
+          content="/assets/banner/trotelcoin-banner.png"
+        />
         <meta property="og:url" content="https://app.trotelcoin.com" />
         <meta charSet="UTF-8"></meta>
         <meta name="theme-color" content="#fff" />
         <meta name="apple-mobile-web-app-capable" content="yes"></meta>
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/trotelcoin.png"></link>
+        <link rel="apple-touch-icon" href="/assets/logo/trotelcoin.png"></link>
 
         {/* Define Apple splash screen images for different devices */}
         <link
