@@ -57,6 +57,6 @@ export default function TrotelPrice() {
   return tokenPrice !== null ? (
     <span>{tokenPrice.toFixed(3)}</span>
   ) : (
-    <span>0.toFixed(3)</span>
+    <span className="animate-pulse">0.000</span>
   );
 }
