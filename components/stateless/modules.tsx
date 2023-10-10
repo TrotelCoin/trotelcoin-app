@@ -1,7 +1,7 @@
 // Import necessary React components and modules
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
-import Fade from "react-reveal";
+import { Fade, Slide } from "react-reveal";
 
 // Define the Module interface
 interface Module {
@@ -154,32 +154,40 @@ function classNames(...classes: string[]) {
 
 // Define the Modules component
 export default function Modules() {
+  const [expandedModules, setExpandedModules] = useState<number[]>([]);
   const [selectedModule, setSelectedModule] = useState<Module | null>(null);
 
-  // Handle click event to open a module
+  // Handle click event to open or close a module
   const handleModuleClick = (module: Module) => {
-    setSelectedModule(module);
+    if (selectedModule === module) {
+      setSelectedModule(null);
+    } else {
+      setSelectedModule(module);
+    }
   };
 
-  // Handle click event to go back to the main module list
+  // Handle click event to go back to the list of modules
   const handleGoBack = () => {
     setSelectedModule(null);
   };
 
-  // Render a list of modules or submodules
-  const renderModuleList = (moduleList: (Module | Submodule)[]) => {
+  // Render a list of modules
+  const renderModuleList = () => {
     return (
-      <>
+      <Slide right duration={400}>
         <ul
           role="list"
-          className="divide-y my-6 divide-black/10 dark:divide-white/10"
+          className={`divide-y my-6 divide-black/10 dark:divide-white/10 ${
+            selectedModule ? "hidden" : "block"
+          }`}
         >
-          {moduleList.map((module) => (
+          {modules.map((module) => (
             <li
               key={module.id}
               className="relative flex items-center space-x-4 py-4 cursor-pointer"
-              onClick={() => handleModuleClick(module as Module)}
+              onClick={() => handleModuleClick(module)}
             >
+              {/* Module content */}
               <div className="min-w-0 flex-auto">
                 <div className="flex items-center gap-x-3">
                   <div
@@ -223,38 +231,109 @@ export default function Modules() {
             </li>
           ))}
         </ul>
-      </>
+      </Slide>
     );
   };
 
-  // Render the module list or a selected module's submodules
-  if (selectedModule) {
-    return (
-      <Fade>
-        <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5">
-          <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-            {selectedModule.module}
-          </h2>
-          {renderModuleList(selectedModule.submodules)}
-          <button
-            onClick={handleGoBack}
-            className="bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+  // Render the submodules for the selected module
+  const renderSubmodules = () => {
+    if (selectedModule) {
+      return (
+        <Slide left duration={300}>
+          <ul
+            role="list"
+            className={`divide-y my-6 divide-black/10 dark:divide-white/10 ${
+              selectedModule ? "block" : "hidden"
+            }`}
           >
-            Go Back
-          </button>
-        </div>
-      </Fade>
-    );
-  } else {
-    return (
+            {selectedModule.submodules.map((submodule) => (
+              <li
+                key={submodule.id}
+                className="relative flex items-center space-x-4 py-4 cursor-pointer"
+                onClick={() => handleModuleClick(submodule)}
+              >
+                {/* Submodule content */}
+                <div className="min-w-0 flex-auto">
+                  <div className="flex items-center gap-x-3">
+                    <div
+                      className={classNames(
+                        statuses[submodule.status],
+                        "flex-none rounded-full p-1"
+                      )}
+                    >
+                      <div className="h-2 w-2 rounded-full bg-current" />
+                    </div>
+                    <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+                      <a href={submodule.href} className="flex gap-x-2">
+                        <span className="whitespace-nowrap">
+                          {submodule.module}
+                        </span>
+                        <span className="absolute inset-0" />
+                      </a>
+                    </h2>
+                  </div>
+                  <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
+                    <p className="truncate">{submodule.description}</p>
+                    <svg
+                      viewBox="0 0 2 2"
+                      className="h-0.5 w-0.5 flex-none fill-gray-500 dark:fill-gray-300"
+                    >
+                      <circle cx={1} cy={1} r={1} />
+                    </svg>
+                    <p className="whitespace-nowrap">{submodule.statusText}</p>
+                  </div>
+                </div>
+                <div
+                  className={classNames(
+                    environments[submodule.environment],
+                    "hidden lg:flex rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset"
+                  )}
+                >
+                  {submodule.environment}
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                  />
+                </svg>
+              </li>
+            ))}
+          </ul>
+        </Slide>
+      );
+    }
+    return null;
+  };
+
+  // Render the module list or a selected module's submodules
+  return (
+    <div className="lg:mx-10 mx-4 my-8">
       <Fade>
-        <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5">
+        <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
           <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-            Courses
+            {selectedModule ? selectedModule.module : "Courses"}
           </h2>
-          {renderModuleList(modules)}
+          {renderModuleList()}
+          {renderSubmodules()}
+          {selectedModule && (
+            <button
+              onClick={handleGoBack}
+              className="bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+            >
+              Go Back
+            </button>
+          )}
         </div>
       </Fade>
-    );
-  }
+    </div>
+  );
 }
