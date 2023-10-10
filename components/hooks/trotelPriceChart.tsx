@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
-import ApexCharts from "react-apexcharts";
+import ReactECharts from 'echarts-for-react';
 
 export default function TrotelPriceChart() {
   // State to hold the token price
@@ -53,44 +53,33 @@ export default function TrotelPriceChart() {
     return () => clearInterval(refreshInterval);
   }, []);
 
-  // Define the ApexCharts configuration options
+  // Define the ECharts configuration options
   const chartOptions = {
-    chart: {
-      id: "price-chart",
-    },
-    xaxis: {
-      type: "datetime",
-      categories: priceHistory.map((_, index) =>
-        new Date(
-          new Date().getTime() - (7 - index) * 24 * 60 * 60 * 1000
-        ).getTime()
+    xAxis: {
+      type: "time",
+      data: priceHistory.map(
+        (_, index) =>
+          new Date(new Date().getTime() - (7 - index) * 24 * 60 * 60 * 1000)
       ),
     },
-    yaxis: {
-      title: {
-        text: "Price (USD)",
-      },
+    yAxis: {
+      type: "value",
+      name: "Price (USD)",
     },
+    series: [
+      {
+        name: "Trotel Price (USD)",
+        type: "line",
+        data: priceHistory,
+      },
+    ],
   };
 
-  // Define the ApexCharts series data
-  const chartSeries = [
-    {
-      name: "Trotel Price (USD)",
-      data: priceHistory,
-    },
-  ];
-
-  // Return the component with the ApexCharts container
+  // Return the component with the ECharts container
   return (
     <div>
       {tokenPrice !== null ? (
-        <ApexCharts
-          options={chartOptions}
-          series={chartSeries}
-          type="line"
-          height={400}
-        />
+        <ReactECharts option={chartOptions} style={{ height: "400px" }} />
       ) : (
         <span className="animate-pulse">0.000</span>
       )}
