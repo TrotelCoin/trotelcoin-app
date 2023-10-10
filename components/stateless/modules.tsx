@@ -21,7 +21,6 @@ interface Submodule {
   href: string;
   module: string;
   status: "ready" | "finished" | "ongoing";
-  statusText: string;
   environment: "Coming Soon" | "Ready" | "Finished" | "Ongoing";
   description: string;
 }
@@ -97,7 +96,6 @@ const modules: Module[] = [
         href: "",
         module: "What is Bitcoin?",
         status: "ready",
-        statusText: "0%",
         description:
           "Learn the basics of Bitcoin, its history, and its underlying technology, blockchain",
         environment: "Coming Soon",
@@ -107,7 +105,6 @@ const modules: Module[] = [
         href: "",
         module: "Bitcoin Mining",
         status: "ready",
-        statusText: "0%",
         description:
           "Dive into the process of Bitcoin mining and how it supports the network",
         environment: "Coming Soon",
@@ -130,7 +127,6 @@ const modules: Module[] = [
         href: "",
         module: "Introduction to Ethereum",
         status: "ready",
-        statusText: "0%",
         description:
           "Get introduced to Ethereum, its founder, and its goals in the world of blockchain technology",
         environment: "Coming Soon",
@@ -140,7 +136,6 @@ const modules: Module[] = [
         href: "",
         module: "Smart Contracts",
         status: "ready",
-        statusText: "0%",
         description:
           "Explore the concept of smart contracts and their role in decentralized applications (DApps)",
         environment: "Coming Soon",
@@ -160,6 +155,23 @@ export default function Modules() {
   const [selectedModule, setSelectedModule] = useState<
     Module | Submodule | null
   >(null);
+
+  // Calculate statusText for a module based on its submodules
+  const calculateStatusText = (module: Module) => {
+    const finishedSubmodules = module.submodules.filter(
+      (submodule) => submodule.environment === "Finished"
+    );
+    const statusText =
+      ((finishedSubmodules.length / module.submodules.length) * 100).toFixed(
+        0
+      ) + "%";
+    return statusText;
+  };
+
+  // Iterate through modules and calculate statusText for each
+  modules.forEach((module) => {
+    module.statusText = calculateStatusText(module);
+  });
 
   // Handle click event to open or close a module
   const handleModuleClick = (module: Module) => {
@@ -294,9 +306,6 @@ export default function Modules() {
                       >
                         <circle cx={1} cy={1} r={1} />
                       </svg>
-                      <p className="whitespace-nowrap">
-                        {submodule.statusText}
-                      </p>
                     </div>
                   </div>
                   <div
