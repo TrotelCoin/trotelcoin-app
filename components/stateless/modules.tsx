@@ -36,6 +36,8 @@ const statuses: Record<string, string> = {
 };
 
 const environments: Record<string, string> = {
+  "Coming Soon":
+    "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
   Ready:
     "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
   Finished:
