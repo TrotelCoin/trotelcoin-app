@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { AppProps } from "next/app";
 import { NextPage } from "next";
 import Hotjar from "@hotjar/browser";
-import "../app/globals.css";
+import "@/public/globals.css";
 import NextNProgress from "nextjs-progressbar";
 import { useRouter } from "next/router";
 

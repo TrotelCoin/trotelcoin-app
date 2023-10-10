@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
 
 export default function TrotelPrice() {
+  // State to hold the token price
   const [tokenPrice, setTokenPrice] = useState<number>(0);
 
   useEffect(() => {
+    // Function to fetch token information from Moralis
     const fetchTokenInfo = async () => {
       try {
+        // Initialize Moralis with the API key
         await Moralis.start({
           apiKey:
             "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
@@ -26,8 +29,10 @@ export default function TrotelPrice() {
       }
     };
 
+    // Call the fetchTokenInfo function when the component mounts
     fetchTokenInfo();
   }, []);
 
+  // Return the token price as a formatted string with three decimal places
   return tokenPrice.toFixed(3).toString();
 }
