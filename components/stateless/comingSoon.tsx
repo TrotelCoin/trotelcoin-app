@@ -1,10 +1,9 @@
 import React from "react";
-import Fade from "react-reveal";
 
 // Define a functional component called ComingSoon
 const ComingSoon = () => {
   return (
-    <Fade>
+    <>
       {/* Container for the "Coming Soon" message */}
       <div className="flex justify-center mx-4 lg:mx-10 my-20 overflow-hidden">
         {/* Card with a "Coming Soon" message */}
@@ -15,7 +14,7 @@ const ComingSoon = () => {
           </span>
         </div>
       </div>
-    </Fade>
+    </>
   );
 };
 
