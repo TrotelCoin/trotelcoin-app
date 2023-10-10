@@ -27,14 +27,13 @@ const ApproxUSD = () => {
         });
 
         // Fetch the token price by rendering the TrotelPrice component
-        const price: number = response.raw.usdPrice;
-        setTokenPrice(price);
+        setTokenPrice(response.raw.usdPrice);
 
         // Get the token balance value by rendering the TrotelBalanceNumber component
         const tokenBalanceValue: number = TrotelBalanceNumber();
 
         // Calculate the approximate USD value based on token balance and price
-        const approxUSD: number = tokenBalanceValue * price;
+        const approxUSD: number = tokenBalanceValue * tokenPrice;
         setApproxUSD(approxUSD);
       } catch (error) {
         console.error("Error fetching token information:", error);
