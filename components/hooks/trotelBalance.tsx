@@ -29,7 +29,7 @@ export default function TrotelBalance() {
     if (isError) return <>0</>;
 
     // Extract the balance value from the formatted data or default to "0"
-    let balance = data?.formatted ?? "0";
+    let balance = (data?.formatted as string) ?? "0";
 
     // Parse the balance value to a whole number, format it as a string, and wrap it within <></> (JSX fragment)
     return <>{parseFloat(balance).toFixed(0).toString()}</>;
