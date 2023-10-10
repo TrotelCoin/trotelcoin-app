@@ -5,6 +5,7 @@ import ArticleCard from "@/components/stateless/articleCard";
 import ArticleReader from "@/components/stateless/articleReader";
 import Article1 from "@/articles/article1";
 import Footer from "@/components/stateless/footer";
+import { Fade } from "react-reveal";
 import { metadata } from "./_document"; // Import metadata from the _document.js file
 import Head from "next/head";
 import { Article } from "@/components/types/types";
@@ -66,11 +67,13 @@ const Articles = () => {
         {/* Render a grid of ArticleCard components */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mx-4 lg:mx-10 my-8">
           {displayedArticles.map((article) => (
-            <ArticleCard
-              key={article.id}
-              article={article}
-              onOpen={openArticle}
-            />
+            <Fade key={article.id}>
+              <ArticleCard
+                key={article.id}
+                article={article}
+                onOpen={openArticle}
+              />
+            </Fade>
           ))}
         </div>
 

@@ -1,6 +1,7 @@
 // Import necessary React components and modules
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
+import Fade from "react-reveal";
 
 // Define the Module interface
 interface Module {
@@ -229,27 +230,31 @@ export default function Modules() {
   // Render the module list or a selected module's submodules
   if (selectedModule) {
     return (
-      <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5">
-        <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-          {selectedModule.module}
-        </h2>
-        {renderModuleList(selectedModule.submodules)}
-        <button
-          onClick={handleGoBack}
-          className="bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
-        >
-          Go Back
-        </button>
-      </div>
+      <Fade>
+        <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5">
+          <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
+            {selectedModule.module}
+          </h2>
+          {renderModuleList(selectedModule.submodules)}
+          <button
+            onClick={handleGoBack}
+            className="bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+          >
+            Go Back
+          </button>
+        </div>
+      </Fade>
     );
   } else {
     return (
-      <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5">
-        <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-          Courses
-        </h2>
-        {renderModuleList(modules)}
-      </div>
+      <Fade>
+        <div className="lg:mx-10 mx-4 my-8 shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5">
+          <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
+            Courses
+          </h2>
+          {renderModuleList(modules)}
+        </div>
+      </Fade>
     );
   }
 }
