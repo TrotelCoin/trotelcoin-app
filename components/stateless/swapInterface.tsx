@@ -18,7 +18,7 @@ const SwapInterface = () => {
           {/* Token 1 */}
           <div>
             <h2 className="block text-sm font-semibold leading-6 dark:text-gray-100 text-gray-900">
-              Buy / Sell TrotelCoin
+              Swap TrotelCoin
             </h2>
             <div className="relative mt-4 rounded-md shadow-sm">
               <input
