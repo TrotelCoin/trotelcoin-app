@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useSignMessage, useAccount } from "wagmi";
+import getAccount from "../hooks/getAccount";
 
 export default function Wallet() {
   const { open } = useWeb3Modal();
@@ -10,7 +11,7 @@ export default function Wallet() {
   });
 
   const [hasSigned, setHasSigned] = useState(false); // State to track whether the user has signed
-  const userWalletAddress = ""; // Replace with the user's wallet address
+  const userWalletAddress = getAccount(); // Replace with the user's wallet address
 
   // Check local storage to see if the user has signed
   useEffect(() => {
