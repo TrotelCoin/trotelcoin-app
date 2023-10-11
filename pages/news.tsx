@@ -8,7 +8,7 @@ import Footer from "@/components/stateless/footer";
 import { Fade } from "react-reveal";
 import { metadata } from "./_document"; // Import metadata from the _document.js file
 import Head from "next/head";
-import { Article } from "@/components/types/types";
+import { Article } from "@/pages/types/types";
 
 // Define an array of mock articles
 const mockArticles: Article[] = [

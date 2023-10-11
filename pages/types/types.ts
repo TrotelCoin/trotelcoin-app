@@ -8,3 +8,10 @@ export interface Article {
   author: string; // Name of the author of the article
   body: () => JSX.Element; // Function returning JSX representing the article's content
 }
+
+export type User = {
+  id: number; // A unique identifier for the user
+  walletAddress: string; // The user's wallet address
+  email: string; // The user's email address
+  hasSigned: boolean; // If the user has signed
+};

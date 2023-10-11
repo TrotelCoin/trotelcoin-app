@@ -10,6 +10,7 @@ export default function Wallet() {
   });
 
   const [hasSigned, setHasSigned] = useState(false); // State to track whether the user has signed
+  const userWalletAddress = ""; // Replace with the user's wallet address
 
   // Check local storage to see if the user has signed
   useEffect(() => {
@@ -19,18 +20,6 @@ export default function Wallet() {
     }
   }, []);
 
-  // Update the button text based on the user's wallet connection status
-  useEffect(() => {
-    const button = document.querySelector(".wallet-button");
-    if (button) {
-      if (isConnected) {
-        button.textContent = isSuccess ? "My wallet" : "Log in";
-      } else {
-        button.textContent = "Connect Wallet";
-      }
-    }
-  }, [isConnected, isSuccess]);
-
   // Handle the sign message action
   const handleSignMessage = async () => {
     if (isConnected && !isSuccess) {
@@ -39,6 +28,24 @@ export default function Wallet() {
         // Set the flag to indicate the user has signed
         localStorage.setItem("hasSigned", "true");
         setHasSigned(true);
+
+        const response = await fetch("/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            signedMessage: data, // The signed message
+            userWalletAddress: userWalletAddress, // User's wallet address
+          }),
+        });
+
+        if (response.status === 200) {
+          // Registration was successful
+          // Handle any additional logic, such as redirecting the user to their profile page.
+        } else {
+          // Registration failed, handle the error as needed.
+        }
       }
     } else {
       open();

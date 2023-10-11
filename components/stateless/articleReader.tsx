@@ -1,5 +1,5 @@
 import React from "react";
-import { Article } from "@/components/types/types";
+import { Article } from "@/pages/types/types";
 
 // Define the props for the ArticleReader component
 interface ArticleReaderProps {
