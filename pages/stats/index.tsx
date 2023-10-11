@@ -10,7 +10,7 @@ const Stats = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
         {/* Statistics */}
         <Fade>
-          <div className="bg-yellow-200 border-2 col-span-3 text-gray-900 border-gray-900 text-center shadow rounded-xl p-10">
+          <div className="bg-blue-200 border-2 col-span-3 text-gray-900 border-gray-900 text-center shadow rounded-xl p-10">
             <h1 className="text-4xl">Statistics</h1>
           </div>
         </Fade>

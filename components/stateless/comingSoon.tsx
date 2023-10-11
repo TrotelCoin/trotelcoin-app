@@ -10,7 +10,7 @@ const ComingSoon = () => {
         {/* Card with a "Coming Soon" message */}
         <div className="bg-gray-50 border-2 border-gray-900 dark:border-transparent text-center shadow rounded-xl p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           {/* Text displaying "Coming Soon" */}
-          <span className="text-gray-900 dark:text-yellow-100 animate-pulse text-4xl lg:text-8xl">
+          <span className="text-gray-900 dark:text-blue-100 animate-pulse text-4xl lg:text-8xl">
             Coming soon...
           </span>
         </div>

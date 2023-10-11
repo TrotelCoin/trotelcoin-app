@@ -30,7 +30,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
         {/* Progression card */}
         <Fade>
-          <div className="bg-yellow-200 border-2 dark:text-gray-700 text-gray-700 border-gray-900 dark:border-transparent lg:col-span-3 text-center rounded-xl p-10 dark:bg-yellow-100">
+          <div className="bg-blue-200 border-2 dark:text-gray-700 text-gray-700 border-gray-900 dark:border-transparent lg:col-span-3 text-center rounded-xl p-10 dark:bg-blue-100">
             <span className="text-gray-900 dark:text-gray-900 text-4xl sm:text-5xl lg:text-8xl">
               <CountUp end={completed} suffix="%"></CountUp>
             </span>
@@ -42,7 +42,7 @@ export default function Dashboard() {
         {/* Courses taken card */}
         <Slide left>
           <div className="bg-gray-50 border-2 dark:text-gray-300 text-gray-700 border-gray-900 dark:border-transparent text-center shadow rounded-xl p-10 dark:bg-gray-800">
-            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-yellow-100">
+            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-100">
               <CountUp end={0}></CountUp>
               <br></br>
             </span>
@@ -53,7 +53,7 @@ export default function Dashboard() {
         {/* Trotel balance card */}
         <Slide right>
           <div className="bg-gray-50 border-2 dark:text-gray-300 text-gray-700 border-gray-900 dark:border-transparent text-center shadow rounded-xl p-10 lg:col-span-2 dark:bg-gray-800">
-            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-yellow-100">
+            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-100">
               <TrotelBalanceNoSSR />
               <span className="text-xs text-gray-700 dark:text-gray-300">
                 TROTEL
@@ -67,7 +67,7 @@ export default function Dashboard() {
         {/* Earned Trotel coin worth card */}
         <Slide left>
           <div className="bg-gray-50 border-2 dark:text-gray-300 text-gray-700 border-gray-900 dark:border-transparent text-center shadow rounded-xl p-10 lg:col-span-2 dark:bg-gray-800">
-            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-yellow-100">
+            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-100">
               <span>
                 <CountUp end={0}></CountUp>
                 <span className="text-xs text-gray-700 dark:text-gray-300">
@@ -83,7 +83,7 @@ export default function Dashboard() {
         {/* Quizzes answered card */}
         <Slide right>
           <div className="bg-gray-50 border-2 dark:text-gray-300 text-gray-700 border-gray-900 dark:border-transparent text-center shadow rounded-xl p-10 dark:bg-gray-800">
-            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-yellow-100">
+            <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-100">
               <CountUp end={0}></CountUp>
               <br></br>
             </span>
