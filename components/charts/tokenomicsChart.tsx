@@ -34,7 +34,7 @@ function TokenomicsChart() {
 
   return (
     <div>
-      <ReactEcharts option={option} style={{ height: "400px" }} />
+      <ReactEcharts option={option} />
     </div>
   );
 }
