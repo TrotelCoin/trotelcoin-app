@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
-import { useBalance } from "wagmi";
+import { useBalance, useAccount } from "wagmi";
 import getAccount from "./getAccount";
 
 interface BalanceData {
@@ -14,6 +14,9 @@ interface BalanceData {
 const ApproxUSD = () => {
   // Define state variables to store the token price and approximate USD value
   const [approxUSD, setApproxUSD] = useState<number>(0);
+
+  // Are we connected ?
+  const { isConnected } = useAccount();
 
   // Get the Ethereum address using the getAccount function
   const address = getAccount();
@@ -76,7 +79,11 @@ const ApproxUSD = () => {
   }, []);
 
   // Render the approximate USD value with two decimal places
-  return <span>{approxUSD.toFixed(2).toString()}</span>;
+  if (isConnected) {
+    return <span>{approxUSD.toFixed(2).toString()}</span>;
+  } else {
+    return <span className="animate-pulse">0.00</span>;
+  }
 };
 
 export default ApproxUSD;
