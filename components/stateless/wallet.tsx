@@ -15,10 +15,6 @@ export default function Wallet() {
   const { push } = useRouter();
 
   const handleAuth = async () => {
-    if (isConnected) {
-      Router.push("/user");
-    }
-
     const { account, chain } = await connectAsync({
       connector: new InjectedConnector(),
     });
@@ -44,14 +40,27 @@ export default function Wallet() {
     push(url as string);
   };
 
-  return (
-    <div>
-      <button
-        className={`bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
-        onClick={handleAuth}
-      >
-        {isConnected ? "My wallet" : "Connect Wallet"}
-      </button>
-    </div>
-  );
+  if (isConnected) {
+    return (
+      <div>
+        <button
+          className={`bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
+          onClick={() => Router.push("/user")}
+        >
+          My wallet
+        </button>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <button
+          className={`bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
+          onClick={handleAuth}
+        >
+          Connect wallet
+        </button>
+      </div>
+    );
+  }
 }
