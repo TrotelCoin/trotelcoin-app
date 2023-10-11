@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import { MoralisNextAuthProvider } from "@moralisweb3/next";
+import ConnectDB from "@/lib/connectDB";
+import Users from "@/lib/userSchema";
 
 export default NextAuth({
   providers: [MoralisNextAuthProvider()],

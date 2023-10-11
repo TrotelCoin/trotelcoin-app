@@ -21,6 +21,19 @@ export default function Document() {
           property="og:image"
           content="/assets/banner/trotelcoin-banner.png"
         />
+        <meta
+          property="twitter:image"
+          content="/assets/banner/trotelcoin-banner.png"
+        ></meta>
+        <meta
+          property="twitter:card"
+          content="/assets/banner/trotelcoin-banner.png"
+        ></meta>
+        <meta property="twitter:title" content={metadata.title}></meta>
+        <meta
+          property="twitter:description"
+          content={metadata.description}
+        ></meta>
         <meta property="og:url" content="https://app.trotelcoin.com" />
         <meta charSet="UTF-8"></meta>
         <meta name="theme-color" content="#fff" />
