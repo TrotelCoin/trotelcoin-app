@@ -23,6 +23,7 @@ export default NextAuth({
 
           const user = { address, profileId, expirationTime, signature };
 
+          // Interaction with MongoDB
           await connectDB();
           const MongoUser = await Users.findOne({ profileId: profileId });
 
