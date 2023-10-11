@@ -4,7 +4,7 @@ import { useSignMessage, useAccount } from "wagmi";
 
 export default function Wallet() {
   const { open } = useWeb3Modal();
-  const { isConnected, account } = useAccount();
+  const { isConnected } = useAccount();
   const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
     message: "Log in to the TrotelCoin platform.",
   });
