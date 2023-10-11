@@ -19,13 +19,13 @@ const Buy = () => {
       </Head>
       <div>
         {/* Render the Header component with the current page */}
-        <Header currentPage="/buy"></Header>
+        <Header currentPage="/swap"></Header>
 
         {/* Render the SwapInterface component */}
         <SwapInterface></SwapInterface>
 
         {/* Render the Footer component with the current page */}
-        <Footer currentPage="/buy"></Footer>
+        <Footer currentPage="/swap"></Footer>
       </div>
     </>
   );
