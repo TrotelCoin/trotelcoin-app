@@ -2,10 +2,14 @@ import React from "react";
 import { Slide, Fade } from "react-reveal";
 import TokenomicsChart from "@/components/charts/tokenomicsChart";
 import NumberOfUsers from "@/components/charts/numberOfUsers";
+import Header from "@/components/stateless/header";
+import Footer from "@/components/stateless/footer";
 
 const Stats = () => {
   return (
     <>
+      <Header currentPage="/stats"></Header>
+
       {/* Grid layout with responsive columns */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
         {/* Statistics */}
@@ -29,6 +33,8 @@ const Stats = () => {
           </div>
         </Slide>
       </div>
+
+      <Footer currentPage="/stats"></Footer>
     </>
   );
 };

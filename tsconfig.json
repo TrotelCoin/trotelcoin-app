@@ -17,6 +17,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/i18n.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/i18n.js", "pages/user.jsx", "pages/user.jsx", "pages/api/moralis/[...moralis].js", "pages/api/auth/[...nextauth].js"],
   "exclude": ["node_modules"]
 }
