@@ -11,9 +11,19 @@ const WalletNoSSR = dynamic(() => import("@/components/stateless/wallet"), {
   ssr: false,
 });
 
-const TrotelPriceNoSSR = dynamic(() => import("@/components/hooks/trotelPrice"), {
-  ssr: false,
-});
+const LanguageSelectorNoSSR = dynamic(
+  () => import("@/components/actions/languageSelector"),
+  {
+    ssr: false,
+  }
+);
+
+const TrotelPriceNoSSR = dynamic(
+  () => import("@/components/hooks/trotelPrice"),
+  {
+    ssr: false,
+  }
+);
 
 const TrotelPriceChangeNoSSR = dynamic(
   () => import("@/components/hooks/trotelPriceChange"),
@@ -91,6 +101,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
+          <LanguageSelectorNoSSR></LanguageSelectorNoSSR>
           <WalletNoSSR></WalletNoSSR>
         </div>
 
