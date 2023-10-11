@@ -17,12 +17,9 @@ const SwapInterface = () => {
         <div className="bg-gray-50 border-2 border-gray-900 dark:border-transparent text-center shadow rounded-xl px-20 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           {/* Token 1 */}
           <div>
-            <label
-              htmlFor="price"
-              className="block text-sm font-medium leading-6 dark:text-gray-100 text-gray-900"
-            >
+            <h2 className="block text-sm font-semibold leading-6 dark:text-gray-100 text-gray-900">
               Buy / Sell TrotelCoin
-            </label>
+            </h2>
             <div className="relative mt-4 rounded-md shadow-sm">
               <input
                 type="text"
