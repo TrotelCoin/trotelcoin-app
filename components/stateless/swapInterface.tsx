@@ -28,7 +28,7 @@ const SwapInterface = () => {
                 type="text"
                 name="price"
                 id="price"
-                className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-gray-700 ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-400 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                 placeholder="0.00"
               />
               <div className="absolute inset-y-0 right-0 flex items-center">
@@ -38,7 +38,7 @@ const SwapInterface = () => {
                 <select
                   id="currency"
                   name="currency"
-                  className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-400 sm:text-sm"
+                  className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm"
                   value={token1}
                   onChange={(e) => setToken1(e.target.value)}
                 >
@@ -73,7 +73,7 @@ const SwapInterface = () => {
                 type="text"
                 name="price"
                 id="price"
-                className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 dark:ring-gray-700 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-400 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 dark:ring-transparent focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
                 placeholder="0.00"
               />
               <div className="absolute inset-y-0 right-0 flex items-center">
@@ -83,7 +83,7 @@ const SwapInterface = () => {
                 <select
                   id="currency"
                   name="currency"
-                  className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-400 sm:text-sm"
+                  className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm"
                   value={token2}
                   onChange={(e) => setToken2(e.target.value)}
                 >

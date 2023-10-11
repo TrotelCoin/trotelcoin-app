@@ -21,8 +21,7 @@ const Buy = () => {
         {/* Render the Header component with the current page */}
         <Header currentPage="/buy"></Header>
 
-        {/* Render the ComingSoon component */}
-        <ComingSoon />
+        {/* Render the SwapInterface component */}
         <SwapInterface></SwapInterface>
 
         {/* Render the Footer component with the current page */}
