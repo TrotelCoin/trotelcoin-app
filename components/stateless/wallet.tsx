@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { InjectedConnector } from "wagmi/connectors/injected";
 import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
 import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 import { useRouter } from "next/router";
@@ -19,7 +19,7 @@ export default function Wallet() {
     }
 
     const { account, chain } = await connectAsync({
-      connector: new MetaMaskConnector(),
+      connector: new InjectedConnector(),
     });
 
     const { message } = (await requestChallengeAsync({
