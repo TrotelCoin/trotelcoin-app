@@ -4,6 +4,7 @@ import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
 import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 import { useRouter } from "next/router";
 import { SignInResponse, signIn } from "next-auth/react";
+import Router from "next/router";
 
 export default function Wallet() {
   const { connectAsync } = useConnect();
@@ -15,7 +16,7 @@ export default function Wallet() {
 
   const handleAuth = async () => {
     if (isConnected) {
-      await disconnectAsync();
+      Router.push("/user");
     }
 
     const { account, chain } = await connectAsync({

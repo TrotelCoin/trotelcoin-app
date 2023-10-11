@@ -1,4 +1,5 @@
-import { GetSessionParams, getSession, signOut } from "next-auth/react";
+import { GetServerSideProps, NextApiRequest, NextApiResponse } from "next";
+import { getSession, signOut } from "next-auth/react";
 
 function User({ user }) {
   return (
@@ -10,8 +11,8 @@ function User({ user }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
+export const getServerSideProps = async (context) => {
+  const session = await getSession({ req: context.req });
 
   if (!session) {
     return {
@@ -25,6 +26,6 @@ export async function getServerSideProps(context) {
   return {
     props: { user: session.user },
   };
-}
+};
 
 export default User;
