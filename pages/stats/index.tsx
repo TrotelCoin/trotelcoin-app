@@ -24,7 +24,7 @@ const Stats = () => {
 
         {/* Number Of Users */}
         <Slide right>
-          <div className="bg-gray-50 col-span-2 border-2 text-gray-900 border-gray-900 text-center shadow rounded-xl p-10">
+          <div className="bg-gray-50 lg:col-span-2 border-2 text-gray-900 border-gray-900 text-center shadow rounded-xl p-10">
             <NumberOfUsers></NumberOfUsers>
           </div>
         </Slide>
