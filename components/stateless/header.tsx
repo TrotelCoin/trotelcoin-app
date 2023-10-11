@@ -101,7 +101,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
-          <LanguageSelectorNoSSR></LanguageSelectorNoSSR>
           <WalletNoSSR></WalletNoSSR>
         </div>
 
