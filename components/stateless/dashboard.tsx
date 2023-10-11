@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import CountUp from "react-countup";
 import { Fade, Slide } from "react-reveal";
+import { useTranslation } from "react-i18next"; // Import useTranslation from react-i18next
 
 // Dynamically import TrotelBalance component without server-side rendering (SSR)
 const TrotelBalanceNoSSR = dynamic(
@@ -21,6 +22,8 @@ const ApproxBalanceUSDNoSSR = dynamic(
 
 // Define the Dashboard component as a function
 export default function Dashboard() {
+  const { t } = useTranslation(); // Initialize the translation function
+
   const [completed] = useState(0);
   const [trotelCoinEarnedUSD] = useState(0); // Placeholder for Trotel coin earned in USD (to be updated later)
 
@@ -35,7 +38,7 @@ export default function Dashboard() {
               <CountUp end={completed} suffix="%"></CountUp>
             </span>
             <br></br>
-            Progression
+            {t("Progression")} {/* Translate this string */}
           </div>
         </Fade>
 
@@ -46,7 +49,7 @@ export default function Dashboard() {
               <CountUp end={0}></CountUp>
               <br></br>
             </span>
-            Courses taken
+            {t("Courses taken")} {/* Translate this string */}
           </div>
         </Slide>
 
@@ -60,7 +63,8 @@ export default function Dashboard() {
               </span>
               <br />
             </span>
-            Balance worth $<ApproxBalanceUSDNoSSR />
+            {t("Balance worth $", { value: <ApproxBalanceUSDNoSSR /> })}{" "}
+            {/* Translate this string */}
           </div>
         </Slide>
 
@@ -76,7 +80,10 @@ export default function Dashboard() {
               </span>
               <br></br>
             </span>
-            Earned worth ${trotelCoinEarnedUSD.toFixed(2)}
+            {t("Earned worth ${{value}}", {
+              value: trotelCoinEarnedUSD.toFixed(2),
+            })}{" "}
+            {/* Translate this string with variable interpolation */}
           </div>
         </Slide>
 
@@ -87,7 +94,7 @@ export default function Dashboard() {
               <CountUp end={0}></CountUp>
               <br></br>
             </span>
-            Quizzes answered
+            {t("Quizzes answered")} {/* Translate this string */}
           </div>
         </Slide>
       </div>
