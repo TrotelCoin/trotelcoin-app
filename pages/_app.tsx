@@ -9,6 +9,7 @@ import Hotjar from "@hotjar/browser";
 import "@/public/globals.css";
 import NextNProgress from "nextjs-progressbar";
 import { useRouter } from "next/router";
+import ReactGA from "react-ga";
 
 // Initialize Hotjar for website analytics
 const siteId = 3685770;
@@ -48,6 +49,12 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
 
   // Listen for route changes to display loading progress
   useEffect(() => {
+    // Initialize Google Analytics with your tracking code
+    ReactGA.initialize("G-Q775YLVSL8");
+
+    // Send a pageview event for the current page
+    ReactGA.pageview(window.location.pathname);
+
     Router.events.on("routeChangeStart", (url) => {
       setIsLoading(true);
     });
