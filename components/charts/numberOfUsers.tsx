@@ -3,7 +3,7 @@ import ReactEcharts from "echarts-for-react";
 function NumberOfUsers() {
   const option = {
     title: {
-      text: "Number of users per week",
+      text: "Number of users per month",
       left: "center",
     },
     xAxis: {
