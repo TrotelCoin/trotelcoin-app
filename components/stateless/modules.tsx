@@ -31,7 +31,7 @@ const statuses: Record<string, string> = {
   finished:
     "text-green-500 bg-green-400/20 dark:text-green-200 dark:bg-green-200/10",
   ongoing:
-    "text-blue-500 bg-blue-400/20 dark:text-blue-200 dark:bg-blue-200/10",
+    "text-yellow-500 bg-yellow-400/20 dark:text-yellow-200 dark:bg-yellow-200/10",
 };
 
 const environments: Record<string, string> = {
@@ -42,7 +42,7 @@ const environments: Record<string, string> = {
   Finished:
     "text-green-800 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
   Ongoing:
-    "text-blue-800 bg-blue-500/10 ring-blue-500/30 dark:text-blue-200 dark:bg-blue-200/10 dark:ring-blue-200/30",
+    "text-yellow-800 bg-yellow-500/10 ring-yellow-500/30 dark:text-yellow-200 dark:bg-yellow-200/10 dark:ring-yellow-200/30",
 };
 
 // Define an array of mock modules and submodules
@@ -361,7 +361,7 @@ export default function Modules() {
           {selectedModule && (
             <button
               onClick={handleGoBack}
-              className="bg-blue-200 border-2 border-gray-900 dark:border-transparent hover:bg-blue-100 dark:hover:bg-blue-50 text-sm px-6 py-2 dark:bg-blue-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+              className="bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
             >
               Go Back
             </button>
