@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import { useSignMessage, useAccount } from "wagmi";
 
@@ -8,6 +8,16 @@ export default function Wallet() {
   const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
     message: "Log in to the TrotelCoin platform.",
   });
+
+  const [hasSigned, setHasSigned] = useState(false); // State to track whether the user has signed
+
+  // Check local storage to see if the user has signed
+  useEffect(() => {
+    const hasSignedLocally = localStorage.getItem("hasSigned");
+    if (hasSignedLocally === "true") {
+      setHasSigned(true);
+    }
+  }, []);
 
   // Update the button text based on the user's wallet connection status
   useEffect(() => {
@@ -24,7 +34,12 @@ export default function Wallet() {
   // Handle the sign message action
   const handleSignMessage = async () => {
     if (isConnected && !isSuccess) {
-      signMessage();
+      if (!hasSigned) {
+        await signMessage();
+        // Set the flag to indicate the user has signed
+        localStorage.setItem("hasSigned", "true");
+        setHasSigned(true);
+      }
     } else {
       open();
     }
