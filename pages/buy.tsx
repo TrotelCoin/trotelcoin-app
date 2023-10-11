@@ -3,7 +3,6 @@ import React from "react";
 import Header from "@/components/stateless/header";
 import Footer from "@/components/stateless/footer";
 import ComingSoon from "@/components/stateless/comingSoon";
-import TrotelPriceChart from "@/components/hooks/trotelPriceChart";
 
 // Import metadata from the _document.js file
 import { metadata } from "./_document";
@@ -22,7 +21,7 @@ const Buy = () => {
         <Header currentPage="/buy"></Header>
 
         {/* Render the ComingSoon component */}
-        <ComingSoon></ComingSoon>
+        <ComingSoon />
 
         {/* Render the Footer component with the current page */}
         <Footer currentPage="/buy"></Footer>

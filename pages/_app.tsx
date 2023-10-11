@@ -1,7 +1,7 @@
 // Import necessary modules and components
 import { bsc } from "wagmi/chains";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { WagmiConfig } from "wagmi";
+import { WagmiConfig, configureChains } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { AppProps } from "next/app";
 import { NextPage } from "next";
@@ -29,7 +29,11 @@ const metadata = {
 };
 
 // Configure Web3Modal with default settings
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
+const wagmiConfig = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata,
+});
 
 // Create an instance of Web3Modal
 createWeb3Modal({
