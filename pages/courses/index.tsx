@@ -2,8 +2,6 @@
 import React from "react";
 import Header from "@/components/stateless/header";
 import Footer from "@/components/stateless/footer";
-import { metadata } from "./_document";
-import Head from "next/head";
 import Modules from "@/components/stateless/modules";
 
 // Define interfaces for the Module and Submodule data structures
@@ -51,10 +49,6 @@ const modules: Module[] = [
 const Courses = () => {
   return (
     <>
-      {/* Set the document title using metadata */}
-      <Head>
-        <title>{metadata.title}</title>
-      </Head>
       <div>
         {/* Render the Header component with the current page */}
         <Header currentPage="/courses"></Header>
