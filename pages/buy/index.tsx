@@ -5,8 +5,9 @@ import Footer from "@/components/stateless/footer";
 import ComingSoon from "@/components/stateless/comingSoon";
 
 // Import metadata from the _document.js file
-import { metadata } from "./_document";
+import { metadata } from "../_document";
 import Head from "next/head";
+import SwapInterface from "@/components/stateless/swapInterface";
 
 // Define the Buy component
 const Buy = () => {
@@ -22,6 +23,7 @@ const Buy = () => {
 
         {/* Render the ComingSoon component */}
         <ComingSoon />
+        <SwapInterface></SwapInterface>
 
         {/* Render the Footer component with the current page */}
         <Footer currentPage="/buy"></Footer>
