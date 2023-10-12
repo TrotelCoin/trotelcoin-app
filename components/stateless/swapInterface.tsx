@@ -9,16 +9,14 @@ import {
   useSendTransaction,
   usePrepareSendTransaction,
 } from "wagmi";
-import v2RouterSwap from "@/components/abi/v2RouterSwap";
-import { ethers } from "ethers";
-import { parseEther } from "viem";
-import wbnb from "@/components/abi/wbnb";
+import v3RouterSwap from "@/components/abi/v3RouterSwap";
+import ISwapRouter from "@uniswap/v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json";
 
 const web3 = require("web3");
 
 interface Token {
   symbol: string; // Token symbol (e.g., "TROTEL")
-  address: string; // Token address (e.g., "0xf04ab1a43cba1474160b7b8409387853d7be02d5")
+  address: `0x${string}`; // Token address (e.g., "0xf04ab1a43cba1474160b7b8409387853d7be02d5")
 }
 
 const SwapInterface = () => {
@@ -37,17 +35,38 @@ const SwapInterface = () => {
   const [isApproved, setIsApproved] = useState(false);
 
   const {
-    data,
-    isLoading,
-    isSuccess,
+    data: swapData,
+    isLoading: swapLoading,
+    isSuccess: swapSuccess,
     write: swap,
   } = useContractWrite({
-    address: "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4", // PancakeSwap V2 Router
-    abi: v2RouterSwap,
-    functionName: "swapExactTokensForTokens",
+    address: "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4", // PancakeSwap V3 Router
+    abi: v3RouterSwap,
+    functionName: "exactInput",
+  });
+
+  const {
+    data: approveData,
+    isLoading: approveLoading,
+    isSuccess: approveSuccess,
+    write: approve,
+  } = useContractWrite({
+    address: "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4", // PancakeSwap V3 Router
+    abi: v3RouterSwap,
+    functionName: "approveMax",
+    onSuccess(data) {
+      console.log("Success", data);
+      setIsApproved(true);
+      localStorage.setItem("isApproved", "true");
+    },
   });
 
   useEffect(() => {
+    const localApprovalStatus = localStorage.getItem("isApproved");
+    if (localApprovalStatus === "true") {
+      setIsApproved(true);
+    }
+
     // Function to fetch token information from Moralis
     const fetchTokenInfo = async () => {
       try {
@@ -97,33 +116,38 @@ const SwapInterface = () => {
         return;
       }
 
-      if (!isApproved) {
-        // Request token allowance if not approved
-        // await requestTokenAllowance();
-
-        // Check allowance again to make sure it's approved
-        // await checkTokenAllowance();
-
-        if (!isApproved) {
-          alert("Token allowance is required for the swap.");
-          return;
-        }
-      }
-
       // Make sure you have the correct contract parameters
       const fromToken = token1.address;
       const toToken = token2.address;
-      const amountIn = web3.utils.toWei(toAmountInput.toString(), "ether");
+      const amountIn = toAmountInput * 1e18;
       const minAmountOutPercentage = 0.95; // 95% of the expected output
-      const amountOutMin = toAmountOutput * minAmountOutPercentage;
+      const amountOutMin = toAmountOutput * minAmountOutPercentage * 1e18;
+      const now = Math.floor(Date.now() / 1000); // Current Unix timestamp
+      const tenMinutesInFuture = now + 600; // 600 seconds in 10 minutes
+      const deadline = tenMinutesInFuture * 1e18;
+
+      if (!isApproved) {
+        // Request token allowance if not approved
+        approve({
+          args: [token1.address],
+        });
+
+        /* if (!isApproved) {
+          alert("Token allowance is required for the swap.");
+          return;
+        } */
+      }
 
       // Call the swap function with the specified parameters
       swap({
         args: [
-          amountIn,
-          amountOutMin,
-          [token1.address, token2.address],
-          takerAddress,
+          [
+            [fromToken, toToken],
+            takerAddress as `0x${string}`,
+            deadline,
+            amountIn,
+            amountOutMin,
+          ],
         ],
       });
     } catch (error) {
@@ -152,7 +176,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 dark:focus:ring-transparent sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setToAmountInput(parseFloat(e.target.value))
@@ -191,7 +215,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 dark:ring-transparent focus:ring-inset focus:ring-yellow-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 dark:ring-transparent focus:ring-inset focus:ring-yellow-400 dark:focus:ring-transparent sm:text-sm sm:leading-6"
                       value={`≈ ${toAmountOutput.toFixed(2)}`}
                       disabled
                     />

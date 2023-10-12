@@ -1,14 +1,10 @@
-const v2RouterSwapABI = [
+const v3RouterSwap = [
   {
     inputs: [
       { internalType: "address", name: "_factoryV2", type: "address" },
       { internalType: "address", name: "_deployer", type: "address" },
       { internalType: "address", name: "_factoryV3", type: "address" },
-      {
-        internalType: "address",
-        name: "_positionManager",
-        type: "address",
-      },
+      { internalType: "address", name: "_positionManager", type: "address" },
       { internalType: "address", name: "_stableFactory", type: "address" },
       { internalType: "address", name: "_stableInfo", type: "address" },
       { internalType: "address", name: "_WETH9", type: "address" },
@@ -341,11 +337,7 @@ const v2RouterSwapABI = [
   },
   {
     inputs: [
-      {
-        internalType: "bytes32",
-        name: "previousBlockhash",
-        type: "bytes32",
-      },
+      { internalType: "bytes32", name: "previousBlockhash", type: "bytes32" },
       { internalType: "bytes[]", name: "data", type: "bytes[]" },
     ],
     name: "multicall",
@@ -619,4 +611,4 @@ const v2RouterSwapABI = [
   { stateMutability: "payable", type: "receive" },
 ];
 
-export default v2RouterSwapABI;
+export default v3RouterSwap;
