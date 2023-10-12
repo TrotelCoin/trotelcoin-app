@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Fade from "react-reveal";
-import { useAccount } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
 
 const qs = require("qs");
 const BigNumber = require("bignumber.js");
@@ -27,7 +28,22 @@ const SwapInterface = () => {
   const [toAmountInput, setToAmountInput] = useState<number>(0); // State for toAmountInput
   const [gasEstimate, setGasEstimate] = useState<number>(0); // State for gasEstimate
   const [sellAmountInput, setSellAmountInput] = useState<string>("");
-  const { isConnected } = useAccount();
+  const { address: takerAddress, isConnected } = useAccount();
+  const [walletConnected, setWalletConnected] = useState(isConnected);
+  const { connectAsync } = useConnect();
+
+  const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
+    message: "Log in on the TrotelCoin platform.",
+  });
+
+  useEffect(() => {
+    const storedWalletAccount = localStorage.getItem("walletAccount");
+
+    if (storedWalletAccount) {
+      // If wallet connection information is found in local storage, mark the wallet as connected.
+      setWalletConnected(true);
+    }
+  }, []);
 
   const handleExchangeToken = () => {
     // Swap the tokens
@@ -107,7 +123,18 @@ const SwapInterface = () => {
     return swapQuoteJSON;
   };
 
-  const trySwap = async () => {
+  const { address } = useAccount();
+
+  const trySwap = async (address: `0x${string}`) => {
+    // Check if the account is connected
+    const takerAddress = address;
+
+    if (!address) {
+      // If not connected, do not proceed with the swap
+      alert("Please connect your wallet first.");
+      return;
+    }
+
     const erc20abi = [
       {
         inputs: [
@@ -284,8 +311,6 @@ const SwapInterface = () => {
     ];
     console.log("trying swap");
 
-    let { address } = useAccount();
-    let takerAddress = address as `0x${string}`;
     console.log("takerAddress: ", takerAddress);
 
     const swapQuoteJSON = await getQuote(takerAddress);
@@ -324,6 +349,34 @@ const SwapInterface = () => {
     // Call getPrice every time sellAmountInput changes
     getPrice();
   }, [token1, token2, sellAmountInput]);
+
+  const handleAuth = async () => {
+    const storedWalletAccount = localStorage.getItem("walletAccount");
+
+    if (storedWalletAccount) {
+      // If wallet information is found in local storage, skip the authentication process.
+      setWalletConnected(true);
+    } else {
+      try {
+        const { account, chain } = await connectAsync({
+          connector: new InjectedConnector(),
+        });
+
+        // Store the wallet connection information
+        localStorage.setItem("walletAccount", JSON.stringify(account));
+        setWalletConnected(true);
+
+        const signedMessage = await signMessage();
+        localStorage.setItem("signedMessage", "true");
+
+        console.log("Authenticated account:", account);
+        console.log("Selected chain:", chain);
+        console.log("Signed message:", signedMessage);
+      } catch (error) {
+        console.error("Authentication error:", error);
+      }
+    }
+  };
 
   return (
     <Fade>
@@ -427,20 +480,19 @@ const SwapInterface = () => {
 
           {/* Swap button */}
           <div className="text-center">
-            {isConnected ? ( // Check if the account is connected
+            {walletConnected ? (
               <button
                 className="text-sm px-6 py-2 bg-yellow-200 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
-                onClick={() => null}
+                onClick={() => trySwap(takerAddress as `0x${string}`)}
               >
                 Swap
               </button>
             ) : (
               <button
-                className="text-sm px-6 py-2 bg-gray-300 text-gray-500 border-2 border-gray-500 dark:border-gray-700 cursor-not-allowed rounded-full leading-6"
-                disabled
-                onClick={() => trySwap()}
+                className="text-sm px-6 py-2 bg-gray-300 text-gray-500 border-2 border-gray-500 dark:border-transparent cursor-pointer rounded-full leading-6"
+                onClick={() => handleAuth()}
               >
-                Swap
+                Connect Wallet
               </button>
             )}
           </div>

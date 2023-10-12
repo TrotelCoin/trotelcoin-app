@@ -6,54 +6,59 @@ export default function Wallet() {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
+
+  // Initialize a state variable to track the wallet connection status.
+  const [walletConnected, setWalletConnected] = useState(isConnected);
+
   const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
     message: "Log in on the TrotelCoin platform.",
   });
 
   useEffect(() => {
-    // Check if there is a signed message stored in local storage
-    const storedSignedMessage = localStorage.getItem("signedMessage");
+    const storedWalletAccount = localStorage.getItem("walletAccount");
 
-    if (storedSignedMessage) {
-      // If a signed message is found, we can update the app state
-      // and use it as needed.
-      // For example, by setting a state variable to indicate that a message is signed.
+    if (storedWalletAccount) {
+      // If wallet connection information is found in local storage, mark the wallet as connected.
+      setWalletConnected(true);
     }
   }, []);
 
   const handleDisconnect = async () => {
     // Clear the stored wallet connection information
     localStorage.removeItem("walletAccount");
-
+    setWalletConnected(false); // Mark the wallet as disconnected
     disconnectAsync();
   };
 
   const handleAuth = async () => {
-    try {
-      const { account, chain } = await connectAsync({
-        connector: new InjectedConnector(),
-      });
+    const storedWalletAccount = localStorage.getItem("walletAccount");
 
-      // Store the wallet connection information
-      localStorage.setItem("walletAccount", JSON.stringify(account));
+    if (storedWalletAccount) {
+      // If wallet information is found in local storage, skip the authentication process.
+      setWalletConnected(true);
+    } else {
+      try {
+        const { account, chain } = await connectAsync({
+          connector: new InjectedConnector(),
+        });
 
-      const signedMessage = await signMessage();
+        // Store the wallet connection information
+        localStorage.setItem("walletAccount", JSON.stringify(account));
+        setWalletConnected(true);
 
-      // Store a flag indicating that a message is signed
-      localStorage.setItem("signedMessage", "true");
+        const signedMessage = await signMessage();
+        localStorage.setItem("signedMessage", "true");
 
-      console.log("Authenticated account:", account);
-      console.log("Selected chain:", chain);
-      console.log("Signed message:", signedMessage);
-
-      // Additional authentication logic, e.g., sending the signed message to the server
-    } catch (error) {
-      console.error("Authentication error:", error);
-      // We can display an error message to the user.
+        console.log("Authenticated account:", account);
+        console.log("Selected chain:", chain);
+        console.log("Signed message:", signedMessage);
+      } catch (error) {
+        console.error("Authentication error:", error);
+      }
     }
   };
 
-  if (isConnected) {
+  if (walletConnected) {
     return (
       <div>
         <button
