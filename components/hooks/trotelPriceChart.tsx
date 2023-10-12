@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
-import ReactECharts from 'echarts-for-react';
+import ReactECharts from "echarts-for-react";
 
 export default function TrotelPriceChart() {
   // State to hold the token price
@@ -15,8 +15,7 @@ export default function TrotelPriceChart() {
         if (!Moralis.Core.isStarted) {
           // Initialize Moralis with the API key
           await Moralis.start({
-            apiKey:
-              "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
+            apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
           });
         }
 
