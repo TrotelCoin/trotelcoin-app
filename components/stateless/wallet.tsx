@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
-import { useAuthRequestChallengeEvm } from "@moralisweb3/next";
 import { useRouter } from "next/router";
 import { SignInResponse, signIn } from "next-auth/react";
 
@@ -9,38 +8,35 @@ export default function Wallet() {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
-  const { signMessageAsync } = useSignMessage();
-  const { requestChallengeAsync } = useAuthRequestChallengeEvm();
-  const { push } = useRouter();
+  const { data, isError, isLoading, isSuccess, signMessage } = useSignMessage({
+    message: "Log in on the TrotelCoin platform.",
+  });
 
   const handleDisconnect = async () => {
     disconnectAsync();
   };
 
   const handleAuth = async () => {
-    const { account, chain } = await connectAsync({
-      connector: new InjectedConnector(),
-    });
+    try {
+      // Assuming `connectAsync` returns a Promise
+      const { account, chain } = await connectAsync({
+        connector: new InjectedConnector(),
+      });
 
-    const { message } = (await requestChallengeAsync({
-      address: account,
-      chainId: chain.id,
-    })) as { id: string; profileId: string; message: string };
+      // Assuming `signMessage` is a function that returns a Promise
+      const signedMessage = await signMessage();
 
-    const signature = await signMessageAsync({ message });
+      // Process the authentication response and signed message here
+      console.log("Authenticated account:", account);
+      console.log("Selected chain:", chain);
+      console.log("Signed message:", signedMessage);
 
-    // redirect user after success authentication to '/user' page
-    const { url } = (await signIn("moralis-auth", {
-      message,
-      signature,
-      redirect: false,
-      callbackUrl: "/user",
-    })) as SignInResponse;
-    /**
-     * instead of using signIn(..., redirect: "/user")
-     * we get the url from callback and push it to the router to avoid page refreshing
-     */
-    push(url as string);
+      // Additional authentication logic, e.g., sending the signed message to the server
+    } catch (error) {
+      // Handle any errors that occur during authentication
+      console.error("Authentication error:", error);
+      // You can also display an error message to the user.
+    }
   };
 
   if (isConnected) {
