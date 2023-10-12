@@ -72,6 +72,9 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
     });
   }, [Router]);
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <>
       {/* Provide WagmiConfig and add a loading progress bar */}
@@ -81,7 +84,7 @@ const App: NextPage<AppProps> = ({ Component, pageProps }) => {
           color="#3b82f6"
           options={{ showSpinner: false }}
         />
-        <Component {...pageProps} />
+        {mounted && <Component {...pageProps}></Component>}
       </WagmiConfig>
     </>
   );
