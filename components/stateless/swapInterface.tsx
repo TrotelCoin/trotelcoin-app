@@ -480,7 +480,7 @@ const SwapInterface = () => {
 
       setTimeout(function () {
         setShowWarning(false);
-      }, 2000);
+      }, 5000);
     }
   };
 
