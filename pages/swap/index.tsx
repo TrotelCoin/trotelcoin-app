@@ -5,7 +5,6 @@ import Footer from "@/components/stateless/footer";
 
 // Import metadata from the _document.js file
 import SwapInterface from "@/components/stateless/swapInterface";
-import ComingSoon from "@/components/stateless/comingSoon";
 
 // Define the Buy component
 const Buy = () => {
