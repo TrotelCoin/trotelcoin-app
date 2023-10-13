@@ -4,10 +4,15 @@ import TokenomicsChart from "@/components/charts/tokenomicsChart";
 import NumberOfUsers from "@/components/charts/numberOfUsers";
 import Header from "@/components/stateless/header";
 import Footer from "@/components/stateless/footer";
+import Head from "next/head";
+import { metadata } from "@/pages/_document";
 
 const Stats = () => {
   return (
     <>
+      <Head>
+        <title>{metadata.title}</title>
+      </Head>
       <Header currentPage="/stats"></Header>
 
       {/* Grid layout with responsive columns */}

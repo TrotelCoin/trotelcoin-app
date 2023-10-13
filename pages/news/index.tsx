@@ -7,6 +7,8 @@ import Article1 from "@/articles/article1";
 import Footer from "@/components/stateless/footer";
 import { Fade } from "react-reveal";
 import Article from "@/components/types/article";
+import Head from "next/head";
+import { metadata } from "@/pages/_document";
 
 // Define an array of mock articles
 const mockArticles: Article[] = [
@@ -54,6 +56,9 @@ const Articles = () => {
 
   return (
     <>
+      <Head>
+        <title>{metadata.title}</title>
+      </Head>
       <div>
         {/* Render the Header component with the current page */}
         <Header currentPage="/news"></Header>

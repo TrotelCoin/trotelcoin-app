@@ -2,6 +2,8 @@
 import React from "react";
 import Header from "@/components/stateless/header";
 import Footer from "@/components/stateless/footer";
+import Head from "next/head";
+import { metadata } from "@/pages/_document";
 
 // Import metadata from the _document.js file
 import SwapInterface from "@/components/stateless/swapInterface";
@@ -10,6 +12,9 @@ import SwapInterface from "@/components/stateless/swapInterface";
 const Buy = () => {
   return (
     <>
+      <Head>
+        <title>{metadata.title}</title>
+      </Head>
       <div>
         {/* Render the Header component with the current page */}
         <Header currentPage="/buy"></Header>
