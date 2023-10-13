@@ -35,7 +35,7 @@ const ApproxUSD = () => {
           // Initialize Moralis with the API key
           await Moralis.start({
             apiKey:
-              "IQ9YzKq3oTR3WPUAXZL6dKDDLb1kSokTmeysjrW39wEzILKxZyCJzX10cIodCPLJ",
+              process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
           });
         }
 
