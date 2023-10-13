@@ -1,6 +1,7 @@
 import { useBalance } from "wagmi";
 import getAccount from "./getAccount";
 import React from "react";
+import { bsc } from "wagmi/chains";
 
 // Define the shape of the data returned by useBalance hook
 interface BalanceData {
@@ -20,6 +21,7 @@ export default function TrotelBalance() {
     const { data, isError, isLoading }: BalanceData = useBalance({
       address: address as `0x${string}`, // Convert address to the correct format
       token: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5", // Token address for TrotelCoin (TROTEL)
+      chainId: bsc.id,
     });
 
     // If the data is still loading, return "0" within <></> (JSX fragment)

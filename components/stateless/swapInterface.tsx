@@ -4,6 +4,7 @@ import Moralis from "moralis";
 import { parseEther, parseGwei } from "viem";
 import Success from "@/components/modals/success";
 import Fail from "@/components/modals/fail";
+import { bsc } from "wagmi/chains";
 import {
   useAccount,
   useContractWrite,
@@ -68,6 +69,8 @@ const SwapInterface = () => {
     address: "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4", // PancakeSwap V3 Router
     abi: v3RouterSwap,
     functionName: "exactInput",
+    chainId: bsc.id,
+    account: takerAddress,
   });
 
   const {
@@ -79,6 +82,7 @@ const SwapInterface = () => {
     address: "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4", // PancakeSwap V3 Router
     abi: v3RouterSwap,
     functionName: "approveMax",
+    chainId: bsc.id,
     onSuccess(data) {
       console.log("Success", data);
       setIsApproved(true);
@@ -188,7 +192,7 @@ const SwapInterface = () => {
   } = useSendTransaction({
     to: sendAddress,
     value: parseEther(sendAmount.toString()),
-    gasPrice: parseGwei("20"),
+    chainId: bsc.id,
   });
 
   const handleSend = async () => {
@@ -289,7 +293,7 @@ const SwapInterface = () => {
       {recipient && (
         <Fail
           title="No recipient"
-          show={addressCopied}
+          show={recipient}
           message="You need to enter the recipient!"
           onClose={closeRecipient}
         />

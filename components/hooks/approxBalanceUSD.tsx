@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
 import { useBalance, useAccount } from "wagmi";
 import getAccount from "./getAccount";
+import { bsc } from "wagmi/chains";
 
 interface BalanceData {
   data?: {
@@ -25,6 +26,7 @@ const ApproxUSD = () => {
   const { data, isError, isLoading }: BalanceData = useBalance({
     address: address as `0x${string}`, // Convert address to the correct format
     token: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5", // Token address for TrotelCoin (TROTEL)
+    chainId: bsc.id,
   });
 
   useEffect(() => {
@@ -34,8 +36,7 @@ const ApproxUSD = () => {
         if (!Moralis.Core.isStarted) {
           // Initialize Moralis with the API key
           await Moralis.start({
-            apiKey:
-              process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
+            apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
           });
         }
 
