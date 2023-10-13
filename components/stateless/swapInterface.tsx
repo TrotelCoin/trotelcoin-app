@@ -43,6 +43,21 @@ const SwapInterface = () => {
   const [connect, setConnect] = useState<boolean>(false);
   const [amount, setAmount] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  const checkScreenSize = () => {
+    setIsSmallScreen(window.innerWidth <= 768); // in px
+  };
+
+  useEffect(() => {
+    checkScreenSize(); // Initial check
+
+    window.addEventListener("resize", checkScreenSize); // Add listener
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize); // Remove listener when unmounting
+    };
+  }, []);
 
   const {
     data: swapData,
@@ -235,6 +250,24 @@ const SwapInterface = () => {
     setError(false);
   };
 
+  const maxLength = 16;
+
+  const truncateMiddleOfString = (input: string, maxLength: number): string => {
+    if (input.length <= maxLength) {
+      return input;
+    } else if (maxLength <= 3) {
+      return "…".repeat(maxLength);
+    } else {
+      const startLength = Math.floor((maxLength - 3) / 2);
+      const endLength = Math.ceil((maxLength - 3) / 2);
+      return (
+        input.slice(0, startLength) +
+        "…" +
+        input.slice(input.length - endLength)
+      );
+    }
+  };
+
   return (
     <>
       {addressCopied && (
@@ -332,7 +365,7 @@ const SwapInterface = () => {
             {/* Swap button */}
             <div className="text-center">
               <button
-                className="text-sm px-6 py-2 bg-yellow-200 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
+                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleSwap()}
               >
                 Swap
@@ -393,7 +426,7 @@ const SwapInterface = () => {
             {/* Send button */}
             <div className="text-center">
               <button
-                className="text-sm px-6 py-2 bg-yellow-200 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
+                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleSend()}
               >
                 Send
@@ -412,16 +445,27 @@ const SwapInterface = () => {
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Your address
                 </span>
-                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
-                  {!isConnected ? "Connect your wallet" : takerAddress}
-                </span>
+                {isSmallScreen ? (
+                  <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
+                    {!isConnected
+                      ? "Connect your wallet"
+                      : truncateMiddleOfString(
+                          takerAddress as string,
+                          maxLength
+                        )}
+                  </span>
+                ) : (
+                  <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
+                    {!isConnected ? "Connect your wallet" : takerAddress}
+                  </span>
+                )}
               </div>
             </div>
 
             {/* Coppy button */}
             <div className="text-center">
               <button
-                className="text-sm px-6 py-2 bg-yellow-200 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
+                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleCopyAddress()}
               >
                 Copy address
