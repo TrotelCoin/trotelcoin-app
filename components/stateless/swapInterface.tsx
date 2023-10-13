@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Fade from "react-reveal";
 import Moralis from "moralis";
 import { parseEther, parseGwei } from "viem";
+import Success from "@/components/modals/success";
+import Fail from "@/components/modals/fail";
 import {
   useAccount,
   useContractWrite,
@@ -36,6 +38,11 @@ const SwapInterface = () => {
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [sendAmount, setSendAmount] = useState<number>(0);
   const [sendAddress, setSendAddress] = useState<`0x${string}`>();
+  const [addressCopied, setAddressCopied] = useState<boolean>(false);
+  const [recipient, setRecipient] = useState<boolean>(false);
+  const [connect, setConnect] = useState<boolean>(false);
+  const [amount, setAmount] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const {
     data: swapData,
@@ -115,7 +122,7 @@ const SwapInterface = () => {
   const handleSwap = async () => {
     try {
       if (!isConnected) {
-        alert("You need to connect your wallet to perform such action.");
+        setConnect(true);
         return;
       }
 
@@ -154,7 +161,7 @@ const SwapInterface = () => {
         ],
       });
     } catch (error) {
-      console.error("Swap failed:", error);
+      setError(true);
     }
   };
 
@@ -172,24 +179,24 @@ const SwapInterface = () => {
   const handleSend = async () => {
     try {
       if (!isConnected) {
-        alert("You need to connect your wallet to perform such action.");
+        setConnect(true);
         return;
       }
 
       if (!sendAddress) {
-        alert("You need to specify the recipient.");
+        setRecipient(true);
         return;
       }
 
       if (!sendAmount) {
-        alert("You need to specify the amount.");
+        setAmount(true);
         return;
       }
 
       // Call the swap function with the specified parameters
       send();
     } catch (error) {
-      console.error("Swap failed:", error);
+      setError(true);
     }
   };
 
@@ -201,13 +208,66 @@ const SwapInterface = () => {
       tempTextArea.select();
       document.execCommand("copy");
       document.body.removeChild(tempTextArea);
+
+      setAddressCopied(true);
     } else {
-      alert("You need to connect your wallet to copy the address.");
+      setConnect(true);
     }
+  };
+
+  const closeSuccess = () => {
+    setAddressCopied(false);
+  };
+
+  const closeConnect = () => {
+    setConnect(false);
+  };
+
+  const closeRecipient = () => {
+    setRecipient(false);
+  };
+
+  const closeAmount = () => {
+    setAmount(false);
+  };
+
+  const closeError = () => {
+    setError(false);
   };
 
   return (
     <>
+      {addressCopied && (
+        <Success
+          show={addressCopied}
+          message="Address copied successfully!"
+          onClose={closeSuccess}
+        />
+      )}
+      {amount && (
+        <Fail
+          show={amount}
+          message="You need to enter the amount!"
+          onClose={closeAmount}
+        />
+      )}
+      {recipient && (
+        <Fail
+          show={addressCopied}
+          message="You need to enter the recipient!"
+          onClose={closeRecipient}
+        />
+      )}
+      {connect && (
+        <Fail
+          show={connect}
+          message="You need to connect your wallet!"
+          onClose={closeConnect}
+        />
+      )}
+      {error && (
+        <Fail show={error} message="An error happened!" onClose={closeError} />
+      )}
       <Fade>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
           {/* Swap card */}
@@ -343,7 +403,7 @@ const SwapInterface = () => {
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Your address
                 </span>
-                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
                   {!isConnected ? "Connect your wallet" : takerAddress}
                 </span>
               </div>
