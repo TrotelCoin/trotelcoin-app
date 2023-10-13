@@ -10,6 +10,14 @@ export default function TrotelPriceChange() {
 
   const fetchTokenPriceChange = async () => {
     try {
+      // Check if Moralis is already started
+      if (!Moralis.Core.isStarted) {
+        // Initialize Moralis with the API key
+        await Moralis.start({
+          apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
+        });
+      }
+
       // Fetch token price change from Moralis EvmApi
       const response = await Moralis.EvmApi.token.getTokenPrice({
         chain: "0x38", // Binance Smart Chain
