@@ -239,6 +239,7 @@ const SwapInterface = () => {
     <>
       {addressCopied && (
         <Success
+          title="Address copied"
           show={addressCopied}
           message="Address copied successfully!"
           onClose={closeSuccess}
@@ -246,6 +247,7 @@ const SwapInterface = () => {
       )}
       {amount && (
         <Fail
+          title="No amount"
           show={amount}
           message="You need to enter the amount!"
           onClose={closeAmount}
@@ -253,6 +255,7 @@ const SwapInterface = () => {
       )}
       {recipient && (
         <Fail
+          title="No recipient"
           show={addressCopied}
           message="You need to enter the recipient!"
           onClose={closeRecipient}
@@ -260,13 +263,19 @@ const SwapInterface = () => {
       )}
       {connect && (
         <Fail
+          title="No wallet"
           show={connect}
           message="You need to connect your wallet!"
           onClose={closeConnect}
         />
       )}
       {error && (
-        <Fail show={error} message="An error happened!" onClose={closeError} />
+        <Fail
+          title="Error"
+          show={error}
+          message="An error happened!"
+          onClose={closeError}
+        />
       )}
       <Fade>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">

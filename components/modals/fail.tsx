@@ -4,12 +4,13 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 interface SuccessProps {
+  title: string; // Title of the message
   show: boolean; // Indicates whether the dialog should be displayed
   message: string; // The success message to display
   onClose: () => void; // A function to handle the dialog close action
 }
 
-const Success: React.FC<SuccessProps> = ({ show, message, onClose }) => {
+const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -49,7 +50,7 @@ const Success: React.FC<SuccessProps> = ({ show, message, onClose }) => {
                       as="h3"
                       className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-100"
                     >
-                      Address copied
+                      {title}
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500 dark:text-gray-300">
