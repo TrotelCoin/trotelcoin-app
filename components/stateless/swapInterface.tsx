@@ -237,7 +237,9 @@ const SwapInterface = () => {
         args: [sendAddress, parseEther(sendAmount.toString())],
       });
 
-      setSentTrotel(true);
+      if (transferTrotelSuccess) {
+        setSentTrotel(true);
+      }
     } catch (error) {
       setError(true);
     }
@@ -425,7 +427,7 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Amount of token
+                  Amount
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
