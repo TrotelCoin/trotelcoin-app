@@ -27,7 +27,7 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-900/10 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -41,9 +41,9 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg border-2 border-black dark:border-transparent bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all my-8 w-full max-w-sm p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border-2 border-black dark:border-transparent bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all my-8 w-full max-w-sm p-6">
                 <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 border-2 border-black dark:border-transparent">
                     <CheckIcon
                       className="h-6 w-6 text-green-600"
                       aria-hidden="true"
@@ -66,7 +66,7 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
                 <div className="mt-5 sm:mt-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-yellow-200 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 border-2 border-black dark:border-transparent px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-200"
+                    className="inline-flex w-full justify-center rounded-full bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 border-2 border-black dark:border-transparent px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
                     onClick={onClose}
                   >
                     Close

@@ -1,5 +1,5 @@
 import { useBalance } from "wagmi";
-import getAccount from "./getAccount";
+import { useAccount } from "wagmi";
 import React from "react";
 import { bsc } from "wagmi/chains";
 
@@ -14,7 +14,7 @@ interface BalanceData {
 
 export default function TrotelBalance() {
   // Get the Ethereum address using the getAccount function
-  const address = getAccount();
+  const { address } = useAccount();
 
   try {
     // Use the useBalance hook to fetch the balance data

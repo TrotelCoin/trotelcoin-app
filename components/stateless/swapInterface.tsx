@@ -5,16 +5,9 @@ import { parseEther, parseGwei } from "viem";
 import Success from "@/components/modals/success";
 import Fail from "@/components/modals/fail";
 import { bsc } from "wagmi/chains";
-import {
-  useAccount,
-  useContractWrite,
-  usePrepareContractWrite,
-  useTransaction,
-  useSendTransaction,
-  usePrepareSendTransaction,
-} from "wagmi";
+import { useAccount, useContractWrite } from "wagmi";
 import v3RouterSwap from "@/components/abi/v3RouterSwap";
-import ISwapRouter from "@uniswap/v3-periphery/artifacts/contracts/SwapRouter.sol/SwapRouter.json";
+import trotelcoin from "@/components/abi/trotelcoin";
 
 const web3 = require("web3");
 
@@ -44,7 +37,9 @@ const SwapInterface = () => {
   const [connect, setConnect] = useState<boolean>(false);
   const [amount, setAmount] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+  const [isApprovedTrotel, setIsApprovedTrotel] = useState<boolean>(false);
+  const [sentTrotel, setSentTrotel] = useState<boolean>(false);
 
   const checkScreenSize = () => {
     setIsSmallScreen(window.innerWidth <= 768); // in px
@@ -185,13 +180,26 @@ const SwapInterface = () => {
   };
 
   const {
-    data: sendData,
-    isLoading: sendLoading,
-    isSuccess: sendSuccess,
-    sendTransaction: send,
-  } = useSendTransaction({
-    to: sendAddress,
-    value: parseEther(sendAmount.toString()),
+    data: approveTrotelData,
+    isLoading: approveTrotelLoading,
+    isSuccess: approveTrotelSuccess,
+    write: approveTrotel,
+  } = useContractWrite({
+    address: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5",
+    abi: trotelcoin,
+    functionName: "approve",
+    chainId: bsc.id,
+  });
+
+  const {
+    data: transferTrotelData,
+    isLoading: transferTrotelLoading,
+    isSuccess: transferTrotelSuccess,
+    write: transferTrotel,
+  } = useContractWrite({
+    address: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5",
+    abi: trotelcoin,
+    functionName: "transfer",
     chainId: bsc.id,
   });
 
@@ -212,8 +220,24 @@ const SwapInterface = () => {
         return;
       }
 
+      if (
+        !isApprovedTrotel ||
+        localStorage.getItem("isApprovedTrotel") === "false"
+      ) {
+        approveTrotel({
+          args: [takerAddress, parseEther((sendAmount * 1.05).toString())],
+        });
+
+        setIsApprovedTrotel(true);
+        localStorage.setItem("isApprovedTrotel", "true");
+      }
+
       // Call the swap function with the specified parameters
-      send();
+      transferTrotel({
+        args: [sendAddress, parseEther(sendAmount.toString())],
+      });
+
+      setSentTrotel(true);
     } catch (error) {
       setError(true);
     }
@@ -254,6 +278,10 @@ const SwapInterface = () => {
     setError(false);
   };
 
+  const closeSentTrotel = () => {
+    setSentTrotel(false);
+  };
+
   const maxLength = 16;
 
   const truncateMiddleOfString = (input: string, maxLength: number): string => {
@@ -280,6 +308,17 @@ const SwapInterface = () => {
           show={addressCopied}
           message="Address copied successfully!"
           onClose={closeSuccess}
+        />
+      )}
+      {sentTrotel && (
+        <Success
+          title="TrotelCoin sent"
+          show={sentTrotel}
+          message={`You sent ${sendAmount} TrotelCoin to ${truncateMiddleOfString(
+            sendAddress as string,
+            maxLength
+          )}!`}
+          onClose={closeSentTrotel}
         />
       )}
       {amount && (
@@ -334,7 +373,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 dark:focus:ring-transparent sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setToAmountInput(parseFloat(e.target.value))
@@ -357,7 +396,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 dark:ring-transparent focus:ring-inset focus:ring-yellow-400 dark:focus:ring-transparent sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       value={`≈ ${toAmountOutput.toFixed(2)}`}
                       disabled
                     />
@@ -394,7 +433,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 dark:focus:ring-transparent sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setSendAmount(parseFloat(e.target.value))
@@ -416,7 +455,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 pr-20 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-yellow-400 dark:focus:ring-transparent sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0x..."
                       onChange={(e) =>
                         setSendAddress(e.target.value as `0x${string}`)

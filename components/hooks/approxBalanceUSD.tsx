@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
 import { useBalance, useAccount } from "wagmi";
-import getAccount from "./getAccount";
 import { bsc } from "wagmi/chains";
 
 interface BalanceData {
@@ -17,10 +16,7 @@ const ApproxUSD = () => {
   const [approxUSD, setApproxUSD] = useState<number>(0);
 
   // Are we connected ?
-  const { isConnected } = useAccount();
-
-  // Get the Ethereum address using the getAccount function
-  const address = getAccount();
+  const { isConnected, address } = useAccount();
 
   // Use the useBalance hook within the functional component
   const { data, isError, isLoading }: BalanceData = useBalance({
