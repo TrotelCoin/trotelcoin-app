@@ -42,7 +42,7 @@ const SwapInterface = () => {
   const [sentTrotel, setSentTrotel] = useState<boolean>(false);
 
   const checkScreenSize = () => {
-    setIsSmallScreen(window.innerWidth <= 768); // in px
+    setIsSmallScreen(window.innerWidth <= 1536); // in px
   };
 
   useEffect(() => {

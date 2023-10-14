@@ -24,7 +24,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onOpen }) => {
         <h2 className="text-xl text-gray-900 dark:text-gray-100">
           {article.title}
         </h2>
-        <div className="flex-wrap flex items-center mt-4 gap-x-4">
+        <div className="flex-wrap flex items-center mt-4 gap-4">
           {/* Display the article category */}
           <div className="text-gray-600 text-xs px-3 py-1 border-2 dark:border-transparent border-black bg-yellow-200 dark:bg-yellow-100 rounded-full text-center">
             {article.category}
