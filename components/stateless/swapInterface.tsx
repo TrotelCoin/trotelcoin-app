@@ -383,15 +383,15 @@ const SwapInterface = () => {
 
   return (
     <>
-      {
+      {addressCopied && (
         <Success
           title="Address copied"
           show={addressCopied}
           message="Address copied successfully!"
           onClose={closeSuccess}
         />
-      }
-      {
+      )}
+      {sentTrotel && (
         <Success
           title="TrotelCoin sent"
           show={sentTrotel}
@@ -401,39 +401,39 @@ const SwapInterface = () => {
           )}!`}
           onClose={closeSentTrotel}
         />
-      }
-      {
+      )}
+      {amount && (
         <Fail
           title="No amount"
           show={amount}
           message="You need to enter the amount!"
           onClose={closeAmount}
         />
-      }
-      {
+      )}
+      {recipient && (
         <Fail
           title="No recipient"
           show={recipient}
           message="You need to enter the recipient!"
           onClose={closeRecipient}
         />
-      }
-      {
+      )}
+      {connect && (
         <Fail
           title="No wallet"
           show={connect}
           message="You need to connect your wallet!"
           onClose={closeConnect}
         />
-      }
-      {
+      )}
+      {error && (
         <Fail
           title="Error"
           show={error}
           message="An error happened!"
           onClose={closeError}
         />
-      }
+      )}
       <Fade>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
           {/* Swap card */}
