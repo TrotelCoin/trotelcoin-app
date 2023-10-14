@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Fade from "react-reveal";
 import Moralis from "moralis";
-import { parseAbiParameter, parseEther, parseGwei } from "viem";
+import { parseEther } from "viem";
 import Success from "@/components/modals/success";
 import Fail from "@/components/modals/fail";
 import { bsc } from "wagmi/chains";
 import { useAccount, useContractWrite } from "wagmi";
 import v3RouterSwap from "@/components/abi/v3RouterSwap";
 import trotelcoin from "@/components/abi/trotelcoin";
-import { encodeAbiParameters, parseAbiParameters } from "viem";
+import TrotelBalance from "../hooks/trotelBalance";
+import dynamic from "next/dynamic";
 
 const web3 = require("web3");
 
@@ -16,6 +17,13 @@ interface Token {
   symbol: string; // Token symbol (e.g., "TROTEL")
   address: `0x${string}`; // Token address (e.g., "0xf04ab1a43cba1474160b7b8409387853d7be02d5")
 }
+
+const ApproxBalanceUSDNoSSR = dynamic(
+  () => import("@/components/hooks/approxBalanceUSD"),
+  {
+    ssr: false,
+  }
+);
 
 const SwapInterface = () => {
   const [token1, setToken1] = useState<Token>({
@@ -483,7 +491,7 @@ const SwapInterface = () => {
               Receive TrotelCoin
             </h2>
 
-            <div className="my-10 gap-y-6 flex flex-col">
+            <div className="mt-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Your address
@@ -502,6 +510,19 @@ const SwapInterface = () => {
                     {!isConnected ? "Connect your wallet" : takerAddress}
                   </span>
                 )}
+              </div>
+            </div>
+
+            <div className="my-10 gap-y-6 flex flex-col">
+              <div className="flex flex-col gap-y-2">
+                <span className="text-md dark:text-gray-100 text-gray-900">
+                  Balance
+                </span>
+
+                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
+                  <TrotelBalance /> TrotelCoin (approx. $
+                  <ApproxBalanceUSDNoSSR />)
+                </span>
               </div>
             </div>
 
