@@ -64,30 +64,22 @@ export default function Wallet() {
   if (isConnected) {
     return (
       <>
-        {connect && (
+        {
           <Success
             title="Wallet connected"
             show={connect}
             message="You connected your wallet to the TrotelCoin dApp!"
             onClose={closeSuccess}
           />
-        )}
-        {error && (
+        }
+        {
           <Fail
             title="Connection error"
             show={error}
             message="An unknow error has happened during the connection!"
             onClose={closeError}
           />
-        )}
-        {disconnect && (
-          <Success
-            title="Wallet disconnected"
-            show={disconnect}
-            message="You disconnected your wallet to the TrotelCoin dApp!"
-            onClose={closeDisconnect}
-          />
-        )}
+        }
         <div>
           <button
             className={`bg-yellow-200 border-2 border-gray-900 dark:hover:bg-yellow-50 dark:border-transparent hover:bg-yellow-100 dark:hover-bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
@@ -101,30 +93,14 @@ export default function Wallet() {
   } else {
     return (
       <>
-        {connect && (
-          <Success
-            title="Wallet connected"
-            show={connect}
-            message="You connected your wallet to the TrotelCoin dApp!"
-            onClose={closeSuccess}
-          />
-        )}
-        {error && (
-          <Fail
-            title="Connection error"
-            show={error}
-            message="An unknow error has happened during the connection!"
-            onClose={closeError}
-          />
-        )}
-        {disconnect && (
+        {
           <Success
             title="Wallet disconnected"
             show={disconnect}
             message="You disconnected your wallet to the TrotelCoin dApp!"
             onClose={closeDisconnect}
           />
-        )}
+        }
         <div>
           <button
             className={`bg-yellow-200 dark:hover:bg-yellow-50 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover-bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
