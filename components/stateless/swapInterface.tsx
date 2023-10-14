@@ -53,6 +53,7 @@ const SwapInterface = () => {
   const [bnbPrice, setBNBPrice] = useState<number | null>(null);
   const toAmountInputSanitized = isNaN(toAmountInput) ? 0.0 : toAmountInput;
   const toAmountOutputSanitized = isNaN(toAmountOutput) ? 0.0 : toAmountOutput;
+  const sendAmountSanitized = isNaN(sendAmount) ? 0.0 : sendAmount;
 
   useEffect(() => {
     // Function to fetch token information from Moralis
@@ -394,7 +395,7 @@ const SwapInterface = () => {
         <Success
           title="TrotelCoin sent"
           show={sentTrotel}
-          message={`You sent ${sendAmount} TrotelCoin to ${truncateMiddleOfString(
+          message={`You sent ${sendAmountSanitized} TrotelCoin to ${truncateMiddleOfString(
             sendAddress as string,
             maxLength
           )}!`}
@@ -510,7 +511,7 @@ const SwapInterface = () => {
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Amount worth $
-                  {((tokenPrice as number) * sendAmount).toFixed(2)}
+                  {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
