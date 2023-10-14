@@ -66,7 +66,6 @@ const SwapInterface = () => {
     abi: v3RouterSwap,
     functionName: "exactInputSingle",
     chainId: bsc.id,
-    account: takerAddress,
   });
 
   const {
@@ -143,14 +142,14 @@ const SwapInterface = () => {
 
       // Make sure you have the correct contract parameters
       const fromToken = token1.address;
-      const poolFee = 25; // 0.25% fee
+      const poolFee: number = 25; // 0.25% fee
       const toToken = token2.address;
       const amountIn = parseEther(toAmountInput.toString());
       const minAmountOutPercentage = 0.95; // 95% of the expected output
       const amountOutMin = parseEther(
         (toAmountOutput * minAmountOutPercentage).toString()
       );
-      const sqrtPriceLimitX96 = 0;
+      const sqrtPriceLimitX96: number = 0;
 
       if (!isApproved) {
         // Request token allowance if not approved
@@ -162,13 +161,15 @@ const SwapInterface = () => {
       // Call the swap function with the specified parameters
       swap({
         args: [
-          token1.address,
-          token2.address,
-          poolFee,
-          takerAddress,
-          amountIn,
-          amountOutMin,
-          sqrtPriceLimitX96,
+          [
+            token1.address,
+            token2.address,
+            poolFee,
+            takerAddress,
+            amountIn,
+            amountOutMin,
+            sqrtPriceLimitX96,
+          ],
         ],
       });
     } catch (error) {
