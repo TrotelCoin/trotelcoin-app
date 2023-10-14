@@ -143,9 +143,11 @@ const SwapInterface = () => {
       // Make sure you have the correct contract parameters
       const fromToken = token1.address;
       const toToken = token2.address;
-      const amountIn = toAmountInput * 1e18;
+      const amountIn = parseEther(toAmountInput.toString());
       const minAmountOutPercentage = 0.95; // 95% of the expected output
-      const amountOutMin = toAmountOutput * minAmountOutPercentage * 1e18;
+      const amountOutMin = parseEther(
+        (toAmountOutput * minAmountOutPercentage).toString()
+      );
       const now = Math.floor(Date.now() / 1000); // Current Unix timestamp
       const tenMinutesInFuture = now + 600; // 600 seconds in 10 minutes
       const deadline = tenMinutesInFuture * 1e18;
@@ -164,14 +166,7 @@ const SwapInterface = () => {
 
       // Call the swap function with the specified parameters
       swap({
-        args: [
-          [
-            [fromToken, toToken],
-            takerAddress as `0x${string}`,
-            amountIn,
-            amountOutMin,
-          ],
-        ],
+        args: [[[fromToken, toToken], takerAddress, amountIn, amountOutMin]],
       });
     } catch (error) {
       setError(true);
