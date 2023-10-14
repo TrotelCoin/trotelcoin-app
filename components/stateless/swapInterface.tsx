@@ -520,8 +520,8 @@ const SwapInterface = () => {
                 </span>
 
                 <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
-                  <TrotelBalance /> TrotelCoin (approx. $
-                  <ApproxBalanceUSDNoSSR />)
+                  <TrotelBalance /> TrotelCoin worth $
+                  <ApproxBalanceUSDNoSSR />
                 </span>
               </div>
             </div>
