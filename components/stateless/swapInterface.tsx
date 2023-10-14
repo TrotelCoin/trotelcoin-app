@@ -122,7 +122,7 @@ const SwapInterface = () => {
   }, []);
 
   const checkScreenSize = () => {
-    setIsSmallScreen(window.innerWidth <= 1536); // in px
+    setIsSmallScreen(window.innerWidth <= 1280); // in px
   };
 
   useEffect(() => {
