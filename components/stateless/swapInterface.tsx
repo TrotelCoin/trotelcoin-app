@@ -51,6 +51,8 @@ const SwapInterface = () => {
   const [sentTrotel, setSentTrotel] = useState<boolean>(false);
   const [tokenPrice, setTokenPrice] = useState<number | null>(null);
   const [bnbPrice, setBNBPrice] = useState<number | null>(null);
+  const toAmountInputSanitized = isNaN(toAmountInput) ? 0.0 : toAmountInput;
+  const toAmountOutputSanitized = isNaN(toAmountOutput) ? 0.0 : toAmountOutput;
 
   useEffect(() => {
     // Function to fetch token information from Moralis
@@ -206,7 +208,9 @@ const SwapInterface = () => {
   }, []);
 
   useEffect(() => {
-    setToAmountOutput(Math.floor(toAmountInput * (tokenPriceSwap as number)));
+    setToAmountOutput(
+      Math.floor(toAmountInputSanitized * (tokenPriceSwap as number))
+    );
   }, [toAmountInput, tokenPriceSwap]);
 
   const handleSwap = async () => {
@@ -220,10 +224,10 @@ const SwapInterface = () => {
       const fromToken = token1.address;
       const poolFee: number = 25; // 0.25% fee
       const toToken = token2.address;
-      const amountIn = parseEther(toAmountInput.toString());
+      const amountIn = parseEther(toAmountInputSanitized.toString());
       const minAmountOutPercentage = 0.95; // 95% of the expected output
       const amountOutMin = parseEther(
-        (toAmountOutput * minAmountOutPercentage).toString()
+        (toAmountOutputSanitized * minAmountOutPercentage).toString()
       );
       const sqrtPriceLimitX96: number = 0;
 
@@ -441,8 +445,8 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Sell {toAmountInput} {token1.symbol} worth $
-                  {((bnbPrice as number) * toAmountInput).toFixed(2)}
+                  Sell {toAmountInputSanitized} {token1.symbol} worth $
+                  {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
@@ -465,8 +469,10 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Buy {toAmountOutput} {token2.symbol} worth $
-                  {((tokenPrice as number) * toAmountOutput).toFixed(2)}
+                  Buy {toAmountOutputSanitized} {token2.symbol} worth $
+                  {((tokenPrice as number) * toAmountOutputSanitized).toFixed(
+                    2
+                  )}
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
@@ -475,7 +481,7 @@ const SwapInterface = () => {
                       name="price"
                       id="price"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                      value={`≈ ${toAmountOutput.toFixed(2)}`}
+                      value={`≈ ${toAmountOutputSanitized.toFixed(2)}`}
                       disabled
                     />
                   </div>
@@ -503,7 +509,8 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Amount worth ${(tokenPrice as number) * sendAmount}
+                  Amount worth $
+                  {((tokenPrice as number) * sendAmount).toFixed(2)}
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
