@@ -503,7 +503,7 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Amount
+                  Amount worth ${(tokenPrice as number) * sendAmount}
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
