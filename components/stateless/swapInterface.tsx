@@ -417,7 +417,7 @@ const SwapInterface = () => {
       {amountInput && (
         <Fail
           title="No amount"
-          show={amountInpunt}
+          show={amountInput}
           message="You need to enter the amount!"
           onClose={closeAmount}
         />
