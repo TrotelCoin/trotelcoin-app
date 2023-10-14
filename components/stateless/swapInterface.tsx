@@ -441,7 +441,7 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Sell {token1.symbol} $
+                  Sell {toAmountInput} {token1.symbol} worth $
                   {((bnbPrice as number) * toAmountInput).toFixed(2)}
                 </span>
                 <div className="relative rounded-md shadow-sm">
@@ -465,7 +465,7 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Buy {token2.symbol} $
+                  Buy {toAmountOutput} {token2.symbol} worth $
                   {((tokenPrice as number) * toAmountOutput).toFixed(2)}
                 </span>
                 <div className="relative rounded-md shadow-sm">
