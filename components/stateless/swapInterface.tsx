@@ -49,6 +49,74 @@ const SwapInterface = () => {
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
   const [isApprovedTrotel, setIsApprovedTrotel] = useState<boolean>(false);
   const [sentTrotel, setSentTrotel] = useState<boolean>(false);
+  const [tokenPrice, setTokenPrice] = useState<number | null>(null);
+  const [bnbPrice, setBNBPrice] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Function to fetch token information from Moralis
+    const fetchTokenInfo = async () => {
+      try {
+        // Check if Moralis is already started
+        if (!Moralis.Core.isStarted) {
+          // Initialize Moralis with the API key
+          await Moralis.start({
+            apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
+          });
+        }
+
+        // Check if the token price is already cached in localStorage
+        const cachedTokenPrice = localStorage.getItem("tokenPrice");
+        const cachedBNBPrice = localStorage.getItem("bnbPrice");
+
+        if (cachedTokenPrice) {
+          // Use the cached token price
+          setTokenPrice(parseFloat(cachedTokenPrice as string));
+        } else {
+          // Fetch token price from Moralis EvmApi
+          const response = await Moralis.EvmApi.token.getTokenPrice({
+            chain: "0x38", // Binance Smart Chain
+            include: "percent_change",
+            address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+          });
+
+          // Set the token price in state
+          setTokenPrice(response.raw.usdPrice);
+
+          // Cache the token price in localStorage for future use
+          localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
+        }
+
+        if (bnbPrice) {
+          // Use the cached token price
+          setBNBPrice(parseFloat(cachedBNBPrice as string));
+        } else {
+          // Fetch token price from Moralis EvmApi
+          const responseBNB = await Moralis.EvmApi.token.getTokenPrice({
+            chain: "0x38", // Binance Smart Chain
+            include: "percent_change",
+            address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // Wrapped BNB (WBNB) token address
+          });
+
+          // Set the token price in state
+          setBNBPrice(responseBNB.raw.usdPrice);
+
+          // Cache the token price in localStorage for future use
+          localStorage.setItem("bnbPrice", String(responseBNB.raw.usdPrice));
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    // Call the fetchTokenInfo function when the component mounts
+    fetchTokenInfo();
+
+    // Set up a timer to fetch and update the token price periodically
+    const refreshInterval = setInterval(fetchTokenInfo, 300000); // Every 5 minutes
+
+    // Clear the timer when the component unmounts
+    return () => clearInterval(refreshInterval);
+  }, []);
 
   const checkScreenSize = () => {
     setIsSmallScreen(window.innerWidth <= 1536); // in px
@@ -373,7 +441,8 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Sell {token1.symbol}
+                  Sell {token1.symbol} ($
+                  {((bnbPrice as number) * toAmountInput).toFixed(2)})
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
@@ -396,7 +465,8 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Buy {token2.symbol}
+                  Buy {token2.symbol} ($
+                  {((tokenPrice as number) * toAmountOutput).toFixed(2)})
                 </span>
                 <div className="relative rounded-md shadow-sm">
                   <div>
