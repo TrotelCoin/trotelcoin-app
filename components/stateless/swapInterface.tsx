@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Fade from "react-reveal";
 import Moralis from "moralis";
-import { parseEther, parseGwei } from "viem";
+import { parseAbiParameter, parseEther, parseGwei } from "viem";
 import Success from "@/components/modals/success";
 import Fail from "@/components/modals/fail";
 import { bsc } from "wagmi/chains";
 import { useAccount, useContractWrite } from "wagmi";
 import v3RouterSwap from "@/components/abi/v3RouterSwap";
 import trotelcoin from "@/components/abi/trotelcoin";
+import { encodeAbiParameters, parseAbiParameters } from "viem";
 
 const web3 = require("web3");
 
@@ -63,7 +64,7 @@ const SwapInterface = () => {
   } = useContractWrite({
     address: "0x13f4EA83D0bd40E75C8222255bc855a974568Dd4", // PancakeSwap V3 Router
     abi: v3RouterSwap,
-    functionName: "exactInput",
+    functionName: "exactInputSingle",
     chainId: bsc.id,
     account: takerAddress,
   });
@@ -142,31 +143,33 @@ const SwapInterface = () => {
 
       // Make sure you have the correct contract parameters
       const fromToken = token1.address;
+      const poolFee = 25; // 0.25% fee
       const toToken = token2.address;
       const amountIn = parseEther(toAmountInput.toString());
       const minAmountOutPercentage = 0.95; // 95% of the expected output
       const amountOutMin = parseEther(
         (toAmountOutput * minAmountOutPercentage).toString()
       );
-      const now = Math.floor(Date.now() / 1000); // Current Unix timestamp
-      const tenMinutesInFuture = now + 600; // 600 seconds in 10 minutes
-      const deadline = tenMinutesInFuture * 1e18;
+      const sqrtPriceLimitX96 = 0;
 
       if (!isApproved) {
         // Request token allowance if not approved
         approve({
           args: [token1.address],
         });
-
-        /* if (!isApproved) {
-          alert("Token allowance is required for the swap.");
-          return;
-        } */
       }
 
       // Call the swap function with the specified parameters
       swap({
-        args: [[[fromToken, toToken], takerAddress, amountIn, amountOutMin]],
+        args: [
+          token1.address,
+          token2.address,
+          poolFee,
+          takerAddress,
+          amountIn,
+          amountOutMin,
+          sqrtPriceLimitX96,
+        ],
       });
     } catch (error) {
       setError(true);
