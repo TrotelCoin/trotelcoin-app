@@ -165,10 +165,12 @@ const SwapInterface = () => {
       // Call the swap function with the specified parameters
       swap({
         args: [
-          [fromToken, toToken],
-          takerAddress as `0x${string}`,
-          amountIn,
-          amountOutMin,
+          [
+            [fromToken, toToken],
+            takerAddress as `0x${string}`,
+            amountIn,
+            amountOutMin,
+          ],
         ],
       });
     } catch (error) {
