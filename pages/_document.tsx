@@ -40,7 +40,7 @@ export default function Document() {
         <meta name="apple-mobile-web-app-capable" content="yes"></meta>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/assets/logo/trotelcoin.png"></link>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico"></link>
+        <link rel="icon" href="/favicon.ico"></link>
 
         {/* Define Apple splash screen images for different devices */}
         <link

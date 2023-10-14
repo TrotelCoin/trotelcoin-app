@@ -12,6 +12,7 @@ const Stats = () => {
     <>
       <Head>
         <title>{metadata.title}</title>
+        <link rel="icon" href="/favicon.ico"></link>
       </Head>
       <Header currentPage="/stats"></Header>
 

@@ -12,6 +12,7 @@ const Courses = () => {
     <>
       <Head>
         <title>{metadata.title}</title>
+        <link rel="icon" href="/favicon.ico"></link>
       </Head>
       <div>
         {/* Render the Header component with the current page */}
