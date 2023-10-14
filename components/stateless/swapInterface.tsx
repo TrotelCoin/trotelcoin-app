@@ -45,6 +45,7 @@ const SwapInterface = () => {
   const [recipient, setRecipient] = useState<boolean>(false);
   const [connect, setConnect] = useState<boolean>(false);
   const [amount, setAmount] = useState<boolean>(false);
+  const [amountInput, setAmountInput] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
   const [isApprovedTrotel, setIsApprovedTrotel] = useState<boolean>(false);
@@ -239,6 +240,8 @@ const SwapInterface = () => {
         });
       }
 
+      setInputAmount(true);
+
       // Call the swap function with the specified parameters
       swap({
         args: [
@@ -353,6 +356,7 @@ const SwapInterface = () => {
 
   const closeAmount = () => {
     setAmount(false);
+    setAmountInput(false);
   };
 
   const closeError = () => {
@@ -406,6 +410,14 @@ const SwapInterface = () => {
         <Fail
           title="No amount"
           show={amount}
+          message="You need to enter the amount!"
+          onClose={closeAmount}
+        />
+      )}
+      {amountInput && (
+        <Fail
+          title="No amount"
+          show={amountInpunt}
           message="You need to enter the amount!"
           onClose={closeAmount}
         />
