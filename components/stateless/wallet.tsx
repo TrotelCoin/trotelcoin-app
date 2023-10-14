@@ -19,9 +19,7 @@ export default function Wallet() {
   const handleDisconnect = async () => {
     disconnectAsync();
 
-    if (isDisconnectSuccess) {
-      setDisconnect(true);
-    }
+    setDisconnect(true);
   };
 
   const handleAuth = async () => {
@@ -38,9 +36,7 @@ export default function Wallet() {
         localStorage.setItem("signedMessage", "true");
       }
 
-      if (connectSuccess) {
-        setConnect(true);
-      }
+      setConnect(true);
 
       console.log("Account has been connected:", account);
     } catch (error) {
