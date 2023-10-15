@@ -46,9 +46,8 @@ interface HeaderProps {
 const navigation = [
   { name: "Home", href: "./" },
   { name: "News", href: "/news" },
-  { name: "Buy", href: "/buy" },
   { name: "Learn", href: "/learn" },
-  { name: "Governance", href: "/governance" },
+  { name: "Buy", href: "/buy" },
 ];
 
 // Define the Header component
