@@ -240,7 +240,9 @@ const SwapInterface = () => {
         });
       }
 
-      setAmountInput(true);
+      if (!toAmountInput) {
+        setAmountInput(true);
+      }
 
       // Call the swap function with the specified parameters
       swap({
