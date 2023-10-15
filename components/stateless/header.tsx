@@ -47,7 +47,7 @@ const navigation = [
   { name: "Home", href: "./" },
   { name: "News", href: "/news" },
   { name: "Buy", href: "/buy" },
-  { name: "Courses", href: "/courses" },
+  { name: "Learn", href: "/learn" },
   { name: "Governance", href: "/governance" },
 ];
 

@@ -6,8 +6,8 @@ import Modules from "@/components/stateless/modules";
 import Head from "next/head";
 import { metadata } from "@/pages/_document";
 
-// Define the Courses component
-const Courses = () => {
+// Define the Learn component
+const Learn = () => {
   return (
     <>
       <Head>
@@ -16,17 +16,17 @@ const Courses = () => {
       </Head>
       <div>
         {/* Render the Header component with the current page */}
-        <Header currentPage="/courses"></Header>
+        <Header currentPage="/learn"></Header>
 
         {/* Render the Modules component */}
         <Modules></Modules>
 
         {/* Render the Footer component with the current page */}
-        <Footer currentPage="/courses"></Footer>
+        <Footer currentPage="/learn"></Footer>
       </div>
     </>
   );
 };
 
-// Export the Courses component as the default export
-export default Courses;
+// Export the Learn component as the default export
+export default Learn;

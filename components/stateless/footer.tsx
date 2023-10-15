@@ -124,8 +124,8 @@ const navigation = {
       ),
     },
     {
-      name: "Courses",
-      href: "/courses",
+      name: "Learn",
+      href: "/learn",
       iconSolid: (
         props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
       ) => (
