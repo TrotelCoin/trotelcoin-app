@@ -1,7 +1,7 @@
 // Import necessary React components and modules
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
-import { Fade, Slide } from "react-reveal";
+import { Fade } from "react-reveal";
 
 // Define the Module interface
 interface Module {
@@ -209,66 +209,64 @@ export default function Modules() {
   // Render a list of modules
   const renderModuleList = () => {
     return (
-      <Slide right duration={400}>
-        <ul
-          role="list"
-          className={`divide-y my-6 divide-black/10 dark:divide-white/10 ${
-            selectedModule ? "hidden" : "block"
-          }`}
-        >
-          {modules.map((module) => (
-            <li
-              key={module.id}
-              className="relative flex items-center space-x-4 py-4 cursor-pointer"
-              onClick={() => handleModuleClick(module)}
-            >
-              {/* Module content */}
-              <div className="min-w-0 flex-auto">
-                <div className="flex items-center gap-x-3">
-                  <div
-                    className={classNames(
-                      statuses[module.status],
-                      "flex-none rounded-full p-1"
-                    )}
-                  >
-                    <div className="h-2 w-2 rounded-full bg-current" />
-                  </div>
-                  <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
-                    <a href={module.href} className="flex gap-x-2">
-                      <span className="whitespace-nowrap">{module.module}</span>
-                      <span className="absolute inset-0" />
-                    </a>
-                  </h2>
-                </div>
-                <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
-                  <p className="truncate">{module.description}</p>
-                  <svg
-                    viewBox="0 0 2 2"
-                    className="h-0.5 w-0.5 flex-none fill-gray-500 dark:fill-gray-300"
-                  >
-                    <circle cx={1} cy={1} r={1} />
-                  </svg>
-                  <p className="whitespace-nowrap">{module.statusText}</p>
-                </div>
-              </div>
-              <div className="items-center flex gap-x-4">
+      <ul
+        role="list"
+        className={`divide-y my-6 divide-black/10 dark:divide-white/10 ${
+          selectedModule ? "hidden" : "block"
+        }`}
+      >
+        {modules.map((module) => (
+          <li
+            key={module.id}
+            className="relative flex items-center space-x-4 py-4 cursor-pointer"
+            onClick={() => handleModuleClick(module)}
+          >
+            {/* Module content */}
+            <div className="min-w-0 flex-auto">
+              <div className="flex items-center gap-x-3">
                 <div
                   className={classNames(
-                    environments[module.environment],
-                    "hidden lg:flex rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset"
+                    statuses[module.status],
+                    "flex-none rounded-full p-1"
                   )}
                 >
-                  {module.environment}
+                  <div className="h-2 w-2 rounded-full bg-current" />
                 </div>
-                <ChevronRightIcon
-                  className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
-                  aria-hidden="true"
-                />
+                <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+                  <a href={module.href} className="flex gap-x-2">
+                    <span className="whitespace-nowrap">{module.module}</span>
+                    <span className="absolute inset-0" />
+                  </a>
+                </h2>
               </div>
-            </li>
-          ))}
-        </ul>
-      </Slide>
+              <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
+                <p className="truncate">{module.description}</p>
+                <svg
+                  viewBox="0 0 2 2"
+                  className="h-0.5 w-0.5 flex-none fill-gray-500 dark:fill-gray-300"
+                >
+                  <circle cx={1} cy={1} r={1} />
+                </svg>
+                <p className="whitespace-nowrap">{module.statusText}</p>
+              </div>
+            </div>
+            <div className="items-center flex gap-x-4">
+              <div
+                className={classNames(
+                  environments[module.environment],
+                  "hidden lg:flex rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset"
+                )}
+              >
+                {module.environment}
+              </div>
+              <ChevronRightIcon
+                className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
+                aria-hidden="true"
+              />
+            </div>
+          </li>
+        ))}
+      </ul>
     );
   };
 
@@ -276,73 +274,69 @@ export default function Modules() {
   const renderSubmodules = () => {
     if (selectedModule) {
       return (
-        <Slide left duration={300}>
-          <ul
-            role="list"
-            className={`divide-y my-6 divide-black/10 dark:divide-white/10 ${
-              selectedModule ? "block" : "hidden"
-            }`}
-          >
-            {(selectedModule as Module).submodules.map(
-              (submodule: Submodule) => (
-                <li
-                  key={submodule.id}
-                  className="relative flex items-center space-x-4 py-4 cursor-pointer"
-                  onClick={() => handleSubModuleClick(submodule)}
+        <ul
+          role="list"
+          className={`divide-y my-6 divide-black/10 dark:divide-white/10 ${
+            selectedModule ? "block" : "hidden"
+          }`}
+        >
+          {(selectedModule as Module).submodules.map((submodule: Submodule) => (
+            <li
+              key={submodule.id}
+              className="relative flex items-center space-x-4 py-4 cursor-pointer"
+              onClick={() => handleSubModuleClick(submodule)}
+            >
+              {/* Submodule content */}
+              <div className="min-w-0 flex-auto">
+                <div className="flex items-center gap-x-3">
+                  <div
+                    className={classNames(
+                      statuses[submodule.status],
+                      "flex-none rounded-full p-1"
+                    )}
+                  >
+                    <div className="h-2 w-2 rounded-full bg-current" />
+                  </div>
+                  <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+                    <a href={submodule.href} className="flex gap-x-2">
+                      <span className="whitespace-nowrap">
+                        {submodule.module}
+                      </span>
+                      <span className="absolute inset-0" />
+                    </a>
+                  </h2>
+                </div>
+                <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
+                  <p className="truncate">{submodule.description}</p>
+                </div>
+              </div>
+              <div className="items-cente flex gap-x-4">
+                <div
+                  className={classNames(
+                    environments[submodule.environment],
+                    "hidden lg:flex rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset"
+                  )}
                 >
-                  {/* Submodule content */}
-                  <div className="min-w-0 flex-auto">
-                    <div className="flex items-center gap-x-3">
-                      <div
-                        className={classNames(
-                          statuses[submodule.status],
-                          "flex-none rounded-full p-1"
-                        )}
-                      >
-                        <div className="h-2 w-2 rounded-full bg-current" />
-                      </div>
-                      <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
-                        <a href={submodule.href} className="flex gap-x-2">
-                          <span className="whitespace-nowrap">
-                            {submodule.module}
-                          </span>
-                          <span className="absolute inset-0" />
-                        </a>
-                      </h2>
-                    </div>
-                    <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
-                      <p className="truncate">{submodule.description}</p>
-                    </div>
-                  </div>
-                  <div className="items-cente flex gap-x-4">
-                    <div
-                      className={classNames(
-                        environments[submodule.environment],
-                        "hidden lg:flex rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset"
-                      )}
-                    >
-                      {submodule.environment}
-                    </div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                      />
-                    </svg>
-                  </div>
-                </li>
-              )
-            )}
-          </ul>
-        </Slide>
+                  {submodule.environment}
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                  />
+                </svg>
+              </div>
+            </li>
+          ))}
+        </ul>
       );
     }
     return null;

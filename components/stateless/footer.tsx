@@ -5,7 +5,7 @@ import Link from "next/link";
 const navigation = {
   main: [
     {
-      name: "Dashboard",
+      name: "Home",
       href: "./",
       iconSolid: (
         props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
