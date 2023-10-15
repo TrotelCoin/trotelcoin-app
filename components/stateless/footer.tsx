@@ -303,7 +303,7 @@ const Footer: React.FC<FooterProps> = ({ currentPage }) => {
             <Link
               href={item.href}
               key={item.name}
-              className="my-auto text-gray-900 flex flex-col items-center gap-y-2 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
+              className="my-auto text-gray-900 flex flex-col items-center gap-y-1 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
             >
               {currentPage === item.href && item.iconSolid && (
                 <item.iconSolid></item.iconSolid>
