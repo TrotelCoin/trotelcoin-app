@@ -100,6 +100,12 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
+          <Link
+            href="/account"
+            className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
+          >
+            My account
+          </Link>
           <WalletNoSSR></WalletNoSSR>
         </div>
 
@@ -146,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             </div>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
+            <div className="-my-6">
               <div className="space-y-2 py-6">
                 {/* Mobile navigation links */}
                 {navigation.map((item) => (
@@ -159,6 +165,13 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
                   </Link>
                 ))}
               </div>
+              <Link
+                key="Account"
+                href="/account"
+                className="-mx-3 mt-2 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800"
+              >
+                My account
+              </Link>
             </div>
           </div>
         </Dialog.Panel>
