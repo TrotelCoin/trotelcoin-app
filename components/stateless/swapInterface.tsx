@@ -463,7 +463,7 @@ const SwapInterface = () => {
                   Sell {toAmountInputSanitized} {token1.symbol} worth $
                   {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
                 </span>
-                <div className="relative rounded-md shadow-sm">
+                <div className="relative rounded-md">
                   <div>
                     <input
                       type="text"
@@ -489,7 +489,7 @@ const SwapInterface = () => {
                     2
                   )}
                 </span>
-                <div className="relative rounded-md shadow-sm">
+                <div className="relative rounded-md">
                   <div>
                     <input
                       type="text"
@@ -527,7 +527,7 @@ const SwapInterface = () => {
                   Amount worth $
                   {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
                 </span>
-                <div className="relative rounded-md shadow-sm">
+                <div className="relative rounded-md">
                   <div>
                     <input
                       type="text"
@@ -549,7 +549,7 @@ const SwapInterface = () => {
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Recipient
                 </span>
-                <div className="relative rounded-md shadow-sm">
+                <div className="relative rounded-md">
                   <div>
                     <input
                       type="text"

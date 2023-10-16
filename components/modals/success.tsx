@@ -43,7 +43,7 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-xl border-2 border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left shadow transition-all my-8 w-full max-w-sm p-6">
                 <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 border-2 border-gray-900/10 dark:border-gray-100/10">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                     <CheckIcon
                       className="h-6 w-6 text-green-600"
                       aria-hidden="true"
