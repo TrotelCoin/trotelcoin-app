@@ -48,7 +48,6 @@ const SwapInterface = () => {
   const [amountInput, setAmountInput] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
-  const [isApprovedTrotel, setIsApprovedTrotel] = useState<boolean>(false);
   const [sentTrotel, setSentTrotel] = useState<boolean>(false);
   const [tokenPrice, setTokenPrice] = useState<number | null>(null);
   const [bnbPrice, setBNBPrice] = useState<number | null>(null);
@@ -74,7 +73,7 @@ const SwapInterface = () => {
 
         if (cachedTokenPrice) {
           // Use the cached token price
-          setTokenPrice(parseFloat(cachedTokenPrice as string));
+          setTokenPrice(parseFloat(cachedTokenPrice));
         } else {
           // Fetch token price from Moralis EvmApi
           const response = await Moralis.EvmApi.token.getTokenPrice({
@@ -304,17 +303,9 @@ const SwapInterface = () => {
         return;
       }
 
-      if (
-        !isApprovedTrotel ||
-        localStorage.getItem("isApprovedTrotel") === "false"
-      ) {
-        approveTrotel({
-          args: [takerAddress, parseEther((sendAmount * 1.05).toString())],
-        });
-
-        setIsApprovedTrotel(true);
-        localStorage.setItem("isApprovedTrotel", "true");
-      }
+      approveTrotel({
+        args: [takerAddress, parseEther((sendAmount * 1.05).toString())],
+      });
 
       // Call the swap function with the specified parameters
       transferTrotel({
