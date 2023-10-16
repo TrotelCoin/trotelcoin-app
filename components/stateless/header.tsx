@@ -155,6 +155,13 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             <div className="-my-6">
               <div className="space-y-2 py-6">
                 {/* Mobile navigation links */}
+                <Link
+                  key="Account"
+                  href="/account"
+                  className="-mx-3 mt-2 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800"
+                >
+                  My account
+                </Link>
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
@@ -165,13 +172,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
                   </Link>
                 ))}
               </div>
-              <Link
-                key="Account"
-                href="/account"
-                className="-mx-3 mt-2 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800"
-              >
-                My account
-              </Link>
             </div>
           </div>
         </Dialog.Panel>
