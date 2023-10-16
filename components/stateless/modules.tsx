@@ -346,7 +346,7 @@ export default function Modules() {
   return (
     <div className="lg:mx-10 mx-4 my-8">
       <Fade>
-        <div className="shadow border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
+        <div className="shadow border-2 border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
           <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
             {selectedModule ? selectedModule.module : "Courses"}
           </h2>
