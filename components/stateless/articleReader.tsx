@@ -21,7 +21,7 @@ const ArticleReader: React.FC<ArticleReaderProps> = ({ article, onClose }) => {
         </button>
         {/* Article category and metadata */}
         <div className="flex items-center mb-4 gap-x-4">
-          <div className="text-gray-600 text-xs px-3 py-1 bg-yellow-200 border-2 border-gray-900/10 dark:border-gray-100/10 dark:bg-yellow-100 rounded-full text-center">
+          <div className="text-gray-600 text-xs px-3 py-1 bg-yellow-200 dark:bg-yellow-100 rounded-full text-center">
             <span>{article.category}</span>
           </div>
           <div className="flex-wrap flex items-center gap-x-2">
