@@ -30,7 +30,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
         {/* Progression card */}
         <Fade>
-          <div className="bg-yellow-200 border-2 border-gray-900/10 dark:border-gray-100/10 dark:text-gray-700 text-gray-700 lg:col-span-3 text-center rounded-xl p-10 dark:bg-yellow-100">
+          <div className="bg-yellow-200 dark:text-gray-700 text-gray-700 lg:col-span-3 text-center rounded-xl p-10 dark:bg-yellow-100">
             <span className="text-gray-900 dark:text-gray-900 text-4xl sm:text-5xl lg:text-8xl">
               <CountUp end={completed} suffix="%"></CountUp>
             </span>
