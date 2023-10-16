@@ -589,7 +589,7 @@ const SwapInterface = () => {
                   Your address
                 </span>
                 {isSmallScreen ? (
-                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
+                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50">
                     {!isConnected
                       ? "Connect your wallet"
                       : truncateMiddleOfString(
