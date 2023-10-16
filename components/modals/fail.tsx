@@ -37,9 +37,9 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border-2 border-black dark:border-transparent bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all my-8 w-full max-w-sm p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border-2 border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left shadow-xl transition-all my-8 w-full max-w-sm p-6">
                 <div>
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 border-2 border-black dark:border-transparent">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100 border-2 border-gray-900/10 dark:border-gray-100/10">
                     <ExclamationTriangleIcon
                       className="h-6 w-6 text-red-600"
                       aria-hidden="true"
@@ -62,7 +62,7 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
                 <div className="mt-5 sm:mt-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-full bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 border-2 border-black dark:border-transparent px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
+                    className="inline-flex w-full justify-center rounded-full bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 border-2 border-gray-900/10 dark:border-gray-100/10 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm"
                     onClick={onClose}
                   >
                     Close

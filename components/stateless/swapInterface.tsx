@@ -469,7 +469,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setToAmountInput(parseFloat(e.target.value))
@@ -495,7 +495,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       value={`≈ ${toAmountOutputSanitized.toFixed(2)}`}
                       disabled
                     />
@@ -533,7 +533,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setSendAmount(parseFloat(e.target.value))
@@ -555,7 +555,7 @@ const SwapInterface = () => {
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset dark:ring-transparent ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0x..."
                       onChange={(e) =>
                         setSendAddress(e.target.value as `0x${string}`)
@@ -598,7 +598,7 @@ const SwapInterface = () => {
                         )}
                   </span>
                 ) : (
-                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
+                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50">
                     {!isConnected ? "Connect your wallet" : takerAddress}
                   </span>
                 )}
@@ -611,7 +611,7 @@ const SwapInterface = () => {
                   Balance
                 </span>
 
-                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-900/50 dark:ring-gray-900/10">
+                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50 dark:ring-gray-900/10">
                   <TrotelBalance /> TrotelCoin worth $
                   <ApproxBalanceUSDNoSSR />
                 </span>
