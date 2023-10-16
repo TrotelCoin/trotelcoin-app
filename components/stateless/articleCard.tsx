@@ -16,7 +16,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onOpen }) => {
 
   return (
     <div
-      className="bg-gray-50 shadow rounded-2xl overflow-hidden hover:cursor-pointer border-2 border-gray-900/10 dark:border-gray-100/10 dark:bg-gray-800 hover:shadow-md hover:bg-white dark:hover:bg-gray-700"
+      className="bg-gray-50 shadow rounded-2xl overflow-hidden hover:cursor-pointer border-2 border-gray-900/10 dark:border-gray-100/10 dark:bg-gray-800 hover:border-gray-900/50 dark:hover:border-gray-100/50"
       onClick={handleCardClick} // Attach the click event handler
     >
       <div className="p-6">
