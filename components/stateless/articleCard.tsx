@@ -16,7 +16,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onOpen }) => {
 
   return (
     <div
-      className="bg-gray-50 shadow rounded-2xl overflow-hidden hover:cursor-pointer border-2 border-gray-900 dark:border-transparent dark:bg-gray-800 hover:shadow-md hover:bg-white dark:hover:bg-gray-700"
+      className="bg-gray-50 shadow rounded-2xl overflow-hidden hover:cursor-pointer border-2 border-gray-900/10 dark:border-gray-100/10 dark:bg-gray-800 hover:shadow-md hover:bg-white dark:hover:bg-gray-700"
       onClick={handleCardClick} // Attach the click event handler
     >
       <div className="p-6">
@@ -26,7 +26,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onOpen }) => {
         </h2>
         <div className="flex-wrap flex items-center mt-4 gap-4">
           {/* Display the article category */}
-          <div className="text-gray-600 text-xs px-3 py-1 border-2 dark:border-transparent border-black bg-yellow-200 dark:bg-yellow-100 rounded-full text-center">
+          <div className="text-gray-600 text-xs px-3 py-1 border-2 border-gray-900/10 dark:border-gray-100/10 bg-yellow-200 dark:bg-yellow-100 rounded-full text-center">
             {article.category}
           </div>
           <div className="flex-wrap flex items-center gap-x-2">

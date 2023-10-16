@@ -346,7 +346,7 @@ export default function Modules() {
   return (
     <div className="lg:mx-10 mx-4 my-8">
       <Fade>
-        <div className="shadow border-2 border-gray-900 dark:border-transparent rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
+        <div className="shadow border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
           <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
             {selectedModule ? selectedModule.module : "Courses"}
           </h2>
@@ -355,7 +355,7 @@ export default function Modules() {
           {selectedModule && (
             <button
               onClick={handleGoBack}
-              className="bg-yellow-200 border-2 border-gray-900 dark:border-transparent hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+              className="bg-yellow-200 border-2 border-gray-900/10 dark:border-gray-100/10 hover:bg-yellow-100 dark:hover:bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
             >
               Go Back
             </button>

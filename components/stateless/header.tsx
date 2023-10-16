@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
               href={item.href}
               className={`text-sm px-6 py-2 ${
                 currentPage === item.href
-                  ? "bg-yellow-200 border-2 border-gray-900 dark:border-transparent dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
+                  ? "bg-yellow-200 border-2 border-gray-900/10 dark:border-gray-100/10 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
                   : ""
               } font-semibold rounded-full leading-6 dark:text-gray-100 dark:hover:text-gray-300 text-gray-900 hover:text-gray-700`}
             >
