@@ -507,7 +507,7 @@ const SwapInterface = () => {
             {/* Swap button */}
             <div className="text-center">
               <button
-                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
+                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleSwap()}
               >
                 Swap
@@ -569,7 +569,7 @@ const SwapInterface = () => {
             {/* Send button */}
             <div className="text-center">
               <button
-                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
+                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleSend()}
               >
                 Send
@@ -621,7 +621,7 @@ const SwapInterface = () => {
             {/* Coppy button */}
             <div className="text-center">
               <button
-                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
+                className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleCopyAddress()}
               >
                 Copy address
