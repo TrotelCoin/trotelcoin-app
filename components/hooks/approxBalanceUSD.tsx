@@ -19,7 +19,7 @@ const ApproxUSD = () => {
   const { isConnected, address } = useAccount();
 
   // Use the useBalance hook within the functional component
-  const { data, isError, isLoading }: BalanceData = useBalance({
+  const { data }: BalanceData = useBalance({
     address: address as `0x${string}`, // Convert address to the correct format
     token: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5", // Token address for TrotelCoin (TROTEL)
     chainId: bsc.id,
@@ -36,30 +36,19 @@ const ApproxUSD = () => {
           });
         }
 
-        // Check if the token price is already cached in localStorage
-        const cachedTokenPrice = localStorage.getItem("tokenPrice");
+        // Fetch token price from Moralis EvmApi
+        const response = await Moralis.EvmApi.token.getTokenPrice({
+          chain: "0x38", // Binance Smart Chain
+          include: "percent_change",
+          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+        });
 
-        if (cachedTokenPrice) {
-          const tokenPrice = parseFloat(cachedTokenPrice);
-          setApproxUSD(tokenPrice * parseFloat(data?.formatted || "0"));
-        } else {
-          // Fetch token price from Moralis EvmApi
-          const response = await Moralis.EvmApi.token.getTokenPrice({
-            chain: "0x38", // Binance Smart Chain
-            include: "percent_change",
-            address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
-          });
+        // Parse the balance value from the formatted data or default to 0
+        const balance: number = parseFloat(data?.formatted as string) || 0;
 
-          // Parse the balance value from the formatted data or default to 0
-          const balance: number = parseFloat(data?.formatted as string) || 0;
-
-          // Calculate the approximate USD value based on token balance and price
-          const approxUSD: number = balance * response.raw.usdPrice;
-          setApproxUSD(approxUSD);
-
-          // Cache the token price in localStorage for future use
-          localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
-        }
+        // Calculate the approximate USD value based on token balance and price
+        const approxUSD: number = balance * response.raw.usdPrice;
+        setApproxUSD(approxUSD);
       } catch (error) {
         console.error("Error fetching token information:", error);
       }

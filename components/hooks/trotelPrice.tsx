@@ -13,31 +13,21 @@ export default function TrotelPrice() {
         if (!Moralis.Core.isStarted) {
           // Initialize Moralis with the API key
           await Moralis.start({
-            apiKey:
-              process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
+            apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
           });
         }
 
-        // Check if the token price is already cached in localStorage
-        const cachedTokenPrice = localStorage.getItem("tokenPrice");
+        const response = await Moralis.EvmApi.token.getTokenPrice({
+          chain: "0x38", // Binance Smart Chain
+          include: "percent_change",
+          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5",
+        }); // TrotelCoin (TROTEL) token address
 
-        if (cachedTokenPrice) {
-          // Use the cached token price
-          setTokenPrice(parseFloat(cachedTokenPrice));
-        } else {
-          // Fetch token price from Moralis EvmApi
-          const response = await Moralis.EvmApi.token.getTokenPrice({
-            chain: "0x38", // Binance Smart Chain
-            include: "percent_change",
-            address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
-          });
+        // Set the token price in state
+        setTokenPrice(response.raw.usdPrice);
 
-          // Set the token price in state
-          setTokenPrice(response.raw.usdPrice);
-
-          // Cache the token price in localStorage for future use
-          localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
-        }
+        // Cache the token price in localStorage for future use
+        localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
       } catch (e) {
         console.error(e);
       }
