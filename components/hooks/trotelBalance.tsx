@@ -1,4 +1,4 @@
-import { useBalance } from "wagmi";
+import { useBalance, useAccount } from "wagmi";
 import React from "react";
 import { bsc } from "wagmi/chains";
 
