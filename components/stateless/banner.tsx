@@ -46,13 +46,13 @@ export default function Banner() {
       </div>
       {/* Banner content */}
       <p className="text-sm leading-6 dark:text-gray-900 text-gray-100">
-        TrotelCoin is currently in alpha version.{" "}
+        TrotelCoin est en cours de développement.{" "}
         <a
           href="https://docs.trotelcoin.com/overview/whitepaper"
           target="_blank"
           className="whitespace-nowrap font-semibold"
         >
-          Read the whitepaper&nbsp;<span aria-hidden="true">&rarr;</span>
+          Lire le whitepaper&nbsp;<span aria-hidden="true">&rarr;</span>
         </a>
       </p>
       {/* Close button */}

@@ -14,8 +14,7 @@ import { metadata } from "@/pages/_document";
 const mockArticles: Article[] = [
   {
     id: 1,
-    title:
-      "Could the upcoming halving day trigger a bullish trend in the Bitcoin market?",
+    title: "Le prochain bullrun n'aura pas lieu ?!",
     category: "Bitcoin",
     image: "",
     date: "7 oct. 2023",

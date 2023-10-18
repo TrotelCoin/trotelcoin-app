@@ -3,12 +3,12 @@ import ReactEcharts from "echarts-for-react";
 function NumberOfUsers() {
   const option = {
     title: {
-      text: "Number of users per month",
+      text: "Nombre d'utilisateurs par mois",
       left: "center",
     },
     xAxis: {
       type: "category",
-      data: ["September", "October"],
+      data: ["Septembre", "Octobre"],
     },
     yAxis: {
       type: "value",

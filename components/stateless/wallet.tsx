@@ -62,17 +62,17 @@ export default function Wallet() {
       <>
         {connect && (
           <Success
-            title="Wallet connected"
+            title="Connexion réussie"
             show={connect}
-            message="You connected your wallet to the TrotelCoin dApp!"
+            message="Vous avez connecté votre portefeuille à la dApp TrotelCoin !"
             onClose={closeSuccess}
           />
         )}
         {error && (
           <Fail
-            title="Connection error"
+            title="Erreur de connexion"
             show={error}
-            message="An unknow error has happened during the connection!"
+            message="Une erreur inconnue est apparue pendant la connexion !"
             onClose={closeError}
           />
         )}
@@ -81,7 +81,7 @@ export default function Wallet() {
             className={`bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:hover-bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
             onClick={handleDisconnect}
           >
-            Disconnect
+            Déconnexion
           </button>
         </div>
       </>
@@ -91,9 +91,9 @@ export default function Wallet() {
       <>
         {disconnect && (
           <Success
-            title="Wallet disconnected"
+            title="Déconnexion"
             show={disconnect}
-            message="You disconnected your wallet to the TrotelCoin dApp!"
+            message="Vous avez déconnecté votre portefeuille à la dApp TrotelCoin !"
             onClose={closeDisconnect}
           />
         )}
@@ -102,7 +102,7 @@ export default function Wallet() {
             className={`bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:hover-bg-yellow-50 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
             onClick={handleAuth}
           >
-            Connect wallet
+            Connexion
           </button>
         </div>
       </>

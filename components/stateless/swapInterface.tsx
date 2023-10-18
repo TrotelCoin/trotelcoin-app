@@ -352,17 +352,17 @@ const SwapInterface = () => {
     <>
       {addressCopied && (
         <Success
-          title="Address copied"
+          title="Adresse copiée"
           show={addressCopied}
-          message="Address copied successfully!"
+          message="L'adresse a bien été copiée !"
           onClose={closeSuccess}
         />
       )}
       {sentTrotel && (
         <Success
-          title="TrotelCoin sent"
+          title="TrotelCoin envoyé"
           show={sentTrotel}
-          message={`You sent ${sendAmountSanitized} TrotelCoin to ${truncateMiddleOfString(
+          message={`Vous avez envoyé ${sendAmountSanitized} TrotelCoin à ${truncateMiddleOfString(
             sendAddress as string,
             maxLength
           )}!`}
@@ -371,41 +371,41 @@ const SwapInterface = () => {
       )}
       {amount && (
         <Fail
-          title="No amount"
+          title="Pas de montant"
           show={amount}
-          message="You need to enter the amount!"
+          message="Vous devez spécifier le montant !"
           onClose={closeAmount}
         />
       )}
       {amountInput && (
         <Fail
-          title="No amount"
+          title="Pas de montant"
           show={amountInput}
-          message="You need to enter the amount!"
+          message="Vous devez spécifier le montant!"
           onClose={closeAmount}
         />
       )}
       {recipient && (
         <Fail
-          title="No recipient"
+          title="Pas de destinataire"
           show={recipient}
-          message="You need to enter the recipient!"
+          message="Vous devez spécifier le destinataire !"
           onClose={closeRecipient}
         />
       )}
       {connect && (
         <Fail
-          title="No wallet"
+          title="Non connecté"
           show={connect}
-          message="You need to connect your wallet!"
+          message="Vous devez connecter votre portefeuille !"
           onClose={closeConnect}
         />
       )}
       {error && (
         <Fail
-          title="Error"
+          title="Erreur"
           show={error}
-          message="An error happened!"
+          message="Il y a eu une erreur !"
           onClose={closeError}
         />
       )}
@@ -414,14 +414,14 @@ const SwapInterface = () => {
           {/* Swap card */}
           <div className="bg-gray-50 border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
             <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
-              Buy TrotelCoin
+              Achetez des TrotelCoin
             </h2>
 
             {/* Token 1 */}
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Sell {toAmountInputSanitized} {token1.symbol} worth $
+                  Vendre {toAmountInputSanitized} {token1.symbol} worth $
                   {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
                 </span>
                 <div className="relative rounded-md">
@@ -445,7 +445,7 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Buy {toAmountOutputSanitized} {token2.symbol} worth $
+                  Acheter {toAmountOutputSanitized} {token2.symbol} valant $
                   {((tokenPrice as number) * toAmountOutputSanitized).toFixed(
                     2
                   )}
@@ -471,7 +471,7 @@ const SwapInterface = () => {
                 className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleSwap()}
               >
-                Swap
+                Acheter
               </button>
             </div>
           </div>
@@ -479,13 +479,13 @@ const SwapInterface = () => {
           {/* Send card */}
           <div className="bg-gray-50 border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
             <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
-              Send TrotelCoin
+              Envoyez des TrotelCoin
             </h2>
 
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Amount worth $
+                  Solde valant $
                   {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
                 </span>
                 <div className="relative rounded-md">
@@ -508,7 +508,7 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Recipient
+                  Destinataire
                 </span>
                 <div className="relative rounded-md">
                   <div>
@@ -533,7 +533,7 @@ const SwapInterface = () => {
                 className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleSend()}
               >
-                Send
+                Envoyer
               </button>
             </div>
           </div>
@@ -541,18 +541,18 @@ const SwapInterface = () => {
           {/* Receive card */}
           <div className="bg-gray-50 border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
             <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
-              Receive TrotelCoin
+              Recevez des TrotelCoin
             </h2>
 
             <div className="mt-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Your address
+                  Votre adresse
                 </span>
                 {isSmallScreen ? (
                   <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50">
                     {!isConnected
-                      ? "Connect your wallet"
+                      ? "Connectez votre portefeuille"
                       : truncateMiddleOfString(
                           takerAddress as string,
                           maxLength
@@ -560,7 +560,9 @@ const SwapInterface = () => {
                   </span>
                 ) : (
                   <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50">
-                    {!isConnected ? "Connect your wallet" : takerAddress}
+                    {!isConnected
+                      ? "Connectez votre portefeuille"
+                      : takerAddress}
                   </span>
                 )}
               </div>
@@ -569,11 +571,11 @@ const SwapInterface = () => {
             <div className="my-10 gap-y-6 flex flex-col">
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
-                  Balance
+                  Solde
                 </span>
 
                 <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50 dark:ring-gray-900/10">
-                  <TrotelBalance /> TrotelCoin worth $
+                  <TrotelBalance /> TrotelCoin valant $
                   <ApproxBalanceUSDNoSSR />
                 </span>
               </div>
@@ -585,7 +587,7 @@ const SwapInterface = () => {
                 className="text-sm px-6 py-2 bg-yellow-200 dark:hover:bg-yellow-100/80 hover:bg-yellow-200/80 dark:bg-yellow-100 dark:hover-bg-yellow-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
                 onClick={() => handleCopyAddress()}
               >
-                Copy address
+                Copier l'adresse
               </button>
             </div>
           </div>

@@ -11,7 +11,7 @@ const ComingSoon = () => {
         <div className="bg-gray-50 border-2 border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           {/* Text displaying "Coming Soon" */}
           <span className="text-gray-900 dark:text-yellow-100 animate-pulse text-4xl lg:text-8xl">
-            Coming soon...
+            Bientôt disponible...
           </span>
         </div>
       </div>

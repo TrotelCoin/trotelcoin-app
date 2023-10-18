@@ -4,7 +4,7 @@ import ReactEcharts from "echarts-for-react";
 function TokenomicsChart() {
   const option = {
     title: {
-      text: "Tokenomics",
+      text: "Tokénomie",
       left: "center",
     },
     tooltip: {
@@ -12,14 +12,14 @@ function TokenomicsChart() {
     },
     series: [
       {
-        name: "Token distribution",
+        name: "Distribution du token",
         type: "pie",
         radius: "50%",
         data: [
-          { value: 50000, name: "Public sale" },
+          { value: 50000, name: "Vente publique" },
           { value: 10000, name: "Marketing" },
-          { value: 15000, name: "Private sale" },
-          { value: 25000, name: "Rewards" },
+          { value: 15000, name: "Vente privée" },
+          { value: 25000, name: "Récompenses" },
         ],
         emphasis: {
           itemStyle: {

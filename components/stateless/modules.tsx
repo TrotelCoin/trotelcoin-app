@@ -8,10 +8,10 @@ interface Module {
   id: number;
   href: string;
   module: string;
-  status: "ready" | "finished" | "ongoing";
+  status: "Prêt" | "Terminé" | "En cours";
   statusText: string;
   description: string;
-  environment: "Coming Soon" | "Ready" | "Finished" | "Ongoing";
+  environment: "Bientôt disponible" | "Prêt" | "Terminé" | "En cours";
   submodules: Submodule[];
 }
 
@@ -20,28 +20,27 @@ interface Submodule {
   id: number;
   href: string;
   module: string;
-  status: "ready" | "finished" | "ongoing";
-  environment: "Coming Soon" | "Ready" | "Finished" | "Ongoing";
+  status: "Prêt" | "Terminé" | "En cours";
+  environment: "Bientôt disponible" | "Prêt" | "Terminé" | "En cours";
   description: string;
 }
 
 // Define CSS classes for different statuses and environments
 const statuses: Record<string, string> = {
-  ready: "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
-  finished:
+  Prêt: "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
+  Terminé:
     "text-green-500 bg-green-400/20 dark:text-green-200 dark:bg-green-200/10",
-  ongoing:
+  "En cours":
     "text-yellow-500 bg-yellow-400/20 dark:text-yellow-200 dark:bg-yellow-200/10",
 };
 
 const environments: Record<string, string> = {
-  "Coming Soon":
+  "Bientôt disponible":
     "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
-  Ready:
-    "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
-  Finished:
+  Prêt: "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
+  Terminé:
     "text-green-800 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
-  Ongoing:
+  "En cours":
     "text-yellow-800 bg-yellow-500/10 ring-yellow-500/30 dark:text-yellow-200 dark:bg-yellow-200/10 dark:ring-yellow-200/30",
 };
 
@@ -51,30 +50,30 @@ const modules: Module[] = [
   {
     id: 1,
     href: "#",
-    module: "Create your wallet",
-    status: "ready",
+    module: "Créer son portefeuille",
+    status: "Prêt",
     statusText: "0%",
     description:
-      "Learn how to set up and manage your digital wallet for secure and convenient financial transactions",
-    environment: "Coming Soon",
+      "Apprenez à configurer et à gérer votre portefeuille numérique pour des transactions financières sûres et pratiques",
+    environment: "Bientôt disponible",
     submodules: [
       {
         id: 11,
         href: "",
-        module: "Introduction to Wallets",
-        status: "ready",
+        module: "Introduction aux portefeuilles",
+        status: "Prêt",
         description:
-          "Get an overview of digital wallets and their importance in the world of cryptocurrency",
-        environment: "Coming Soon",
+          "Aperçu des portefeuilles numériques et de leur importance dans le monde des crypto-monnaies",
+        environment: "Bientôt disponible",
       },
       {
         id: 12,
         href: "",
-        module: "Securing Your Wallet",
-        status: "ready",
+        module: "Sécuriser son portefeuille",
+        status: "Prêt",
         description:
-          "Learn best practices for securing your digital wallet and keeping your cryptocurrencies safe",
-        environment: "Coming Soon",
+          "Apprenez les meilleures pratiques pour sécuriser votre portefeuille numérique et garder vos crypto-monnaies en sécurité",
+        environment: "Bientôt disponible",
       },
     ],
   },
@@ -82,30 +81,30 @@ const modules: Module[] = [
   {
     id: 2,
     href: "#",
-    module: "Discover Bitcoin",
-    status: "ready",
+    module: "Découvrir Bitcoin",
+    status: "Prêt",
     statusText: "0%",
     description:
-      "Explore the world of Bitcoin and gain a comprehensive understanding of its technology, uses, and implications",
-    environment: "Coming Soon",
+      "Explorer le monde du bitcoin et acquérir une compréhension globale de sa technologie, de son utilisation et de ses implications",
+    environment: "Bientôt disponible",
     submodules: [
       {
         id: 21,
         href: "",
-        module: "What is Bitcoin?",
-        status: "ready",
+        module: "C'est quoi Bitcoin ?",
+        status: "Prêt",
         description:
-          "Learn the basics of Bitcoin, its history, and its underlying technology, blockchain",
-        environment: "Coming Soon",
+          "Apprenez les bases de Bitcoin, son histoire et sa technologie sous-jacente, la blockchain",
+        environment: "Bientôt disponible",
       },
       {
         id: 22,
         href: "",
-        module: "Bitcoin Mining",
-        status: "ready",
+        module: "Le minage de Bitcoin",
+        status: "Prêt",
         description:
-          "Dive into the process of Bitcoin mining and how it supports the network",
-        environment: "Coming Soon",
+          "Plongez dans le processus de minage de Bitcoin et la façon dont il soutient le réseau",
+        environment: "Bientôt disponible",
       },
     ],
   },
@@ -113,30 +112,30 @@ const modules: Module[] = [
   {
     id: 3,
     href: "#",
-    module: "Discover Ethereum",
-    status: "ready",
+    module: "Découvrir Ethereum",
+    status: "Prêt",
     statusText: "0%",
     description:
-      "Delve into the realm of Ethereum to uncover its technology, applications, and potential impact on the future of decentralized computing and finances",
-    environment: "Coming Soon",
+      "Plongez dans le monde d'Ethereum pour découvrir sa technologie, ses applications et son impact potentiel sur l'avenir de l'informatique et des finances décentralisées",
+    environment: "Bientôt disponible",
     submodules: [
       {
         id: 31,
         href: "",
-        module: "Introduction to Ethereum",
-        status: "ready",
+        module: "C'est quoi Ethereum ?",
+        status: "Prêt",
         description:
-          "Get introduced to Ethereum, its founder, and its goals in the world of blockchain technology",
-        environment: "Coming Soon",
+          "Présentation d'Ethereum, de son fondateur et de ses objectifs dans le monde de la technologie blockchain",
+        environment: "Bientôt disponible",
       },
       {
         id: 32,
         href: "",
-        module: "Smart Contracts",
-        status: "ready",
+        module: "Les Smart Contracts",
+        status: "Prêt",
         description:
-          "Explore the concept of smart contracts and their role in decentralized applications (DApps)",
-        environment: "Coming Soon",
+          "Explorer le concept des contrats intelligents et leur rôle dans les applications décentralisées (DApps)",
+        environment: "Bientôt disponible",
       },
     ],
   },
@@ -156,30 +155,29 @@ export default function Modules() {
 
   // Create a mapping from environment to status
   const environmentToStatusMapping: Record<string, string> = {
-    "Coming Soon": "ready",
-    Ready: "ready",
-    Finished: "finished",
-    Ongoing: "ongoing",
+    "Bientôt disponible": "Prêt",
+    Prêt: "Prêt",
+    Terminé: "Terminé",
+    "En cours": "En cours",
   };
 
   // Calculate statusText for a module based on its submodules
   const calculateStatusText = (module: Module) => {
-    const finishedSubmodules = module.submodules.filter(
-      (submodule) => submodule.environment === "Finished"
+    const TerminéSubmodules = module.submodules.filter(
+      (submodule) => submodule.environment === "Terminé"
     );
     const statusText =
-      ((finishedSubmodules.length / module.submodules.length) * 100).toFixed(
-        0
-      ) + "%";
+      ((TerminéSubmodules.length / module.submodules.length) * 100).toFixed(0) +
+      "%";
     return statusText;
   };
 
   // Iterate through modules and calculate statusText for each
   modules.forEach((module) => {
     module.status = environmentToStatusMapping[module.environment] as
-      | "ready"
-      | "finished"
-      | "ongoing";
+      | "Prêt"
+      | "Terminé"
+      | "En cours";
     module.statusText = calculateStatusText(module);
   });
 
@@ -347,8 +345,8 @@ export default function Modules() {
     <div className="lg:mx-10 mx-4 my-8">
       <Fade>
         <div className="border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
-          <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-            {selectedModule ? selectedModule.module : "Courses"}
+          <h2 className="text-xl text-gray-900 mt-6 dark:text-gray-100 font-semibold">
+            {selectedModule ? selectedModule.module : "Apprendre"}
           </h2>
           {renderModuleList()}
           {renderSubmodules()}
@@ -357,7 +355,7 @@ export default function Modules() {
               onClick={handleGoBack}
               className="bg-yellow-200 hover:bg-yellow-200/80 dark:hover:bg-yellow-100/80 text-sm px-6 py-2 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
             >
-              Go Back
+              Retour
             </button>
           )}
         </div>
