@@ -67,45 +67,25 @@ const SwapInterface = () => {
           });
         }
 
-        // Check if the token price is already cached in localStorage
-        const cachedTokenPrice = localStorage.getItem("tokenPrice");
-        const cachedBNBPrice = localStorage.getItem("bnbPrice");
+        // Fetch token price from Moralis EvmApi
+        const response = await Moralis.EvmApi.token.getTokenPrice({
+          chain: "0x38", // Binance Smart Chain
+          include: "percent_change",
+          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+        });
 
-        if (cachedTokenPrice) {
-          // Use the cached token price
-          setTokenPrice(parseFloat(cachedTokenPrice));
-        } else {
-          // Fetch token price from Moralis EvmApi
-          const response = await Moralis.EvmApi.token.getTokenPrice({
-            chain: "0x38", // Binance Smart Chain
-            include: "percent_change",
-            address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
-          });
+        // Set the token price in state
+        setTokenPrice(response.raw.usdPrice);
 
-          // Set the token price in state
-          setTokenPrice(response.raw.usdPrice);
+        // Fetch token price from Moralis EvmApi
+        const responseBNB = await Moralis.EvmApi.token.getTokenPrice({
+          chain: "0x38", // Binance Smart Chain
+          include: "percent_change",
+          address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // Wrapped BNB (WBNB) token address
+        });
 
-          // Cache the token price in localStorage for future use
-          localStorage.setItem("tokenPrice", String(response.raw.usdPrice));
-        }
-
-        if (bnbPrice) {
-          // Use the cached token price
-          setBNBPrice(parseFloat(cachedBNBPrice as string));
-        } else {
-          // Fetch token price from Moralis EvmApi
-          const responseBNB = await Moralis.EvmApi.token.getTokenPrice({
-            chain: "0x38", // Binance Smart Chain
-            include: "percent_change",
-            address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // Wrapped BNB (WBNB) token address
-          });
-
-          // Set the token price in state
-          setBNBPrice(responseBNB.raw.usdPrice);
-
-          // Cache the token price in localStorage for future use
-          localStorage.setItem("bnbPrice", String(responseBNB.raw.usdPrice));
-        }
+        // Set the token price in state
+        setBNBPrice(responseBNB.raw.usdPrice);
       } catch (e) {
         console.error(e);
       }
@@ -191,14 +171,6 @@ const SwapInterface = () => {
         setTokenPriceSwap(
           (1 / parseFloat(response.raw.nativePrice?.value as string)) * 1e18
         );
-
-        // Cache the token price in localStorage for future use
-        localStorage.setItem(
-          "tokenPriceSwap",
-          String(
-            (1 / parseFloat(response.raw.nativePrice?.value as string)) * 1e18
-          )
-        );
       } catch (e) {
         console.error(e);
       }
@@ -222,9 +194,7 @@ const SwapInterface = () => {
       }
 
       // Make sure you have the correct contract parameters
-      const fromToken = token1.address;
       const poolFee: number = 25; // 0.25% fee
-      const toToken = token2.address;
       const amountIn = parseEther(toAmountInputSanitized.toString());
       const minAmountOutPercentage = 0.95; // 95% of the expected output
       const amountOutMin = parseEther(
