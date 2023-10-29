@@ -7,6 +7,7 @@ export default function TrotelPriceChange() {
     "inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-400/20"
   );
   const [sign, setSign] = useState<string>("");
+  const [isError, setIsError] = useState<boolean>(false);
 
   const fetchTokenPriceChange = async () => {
     try {
@@ -50,16 +51,17 @@ export default function TrotelPriceChange() {
         setSign("+");
       }
 
+      setIsError(false);
+
       // Cache the token price change
       localStorage.setItem("tokenPriceChange", String(priceChange));
     } catch (error) {
+      setIsError(true);
       console.error("Error fetching token price change:", error);
     }
   };
 
   useEffect(() => {
-    let isMounted = true; // Flag to track component unmounting
-
     // Check if the token price change is already cached in localStorage
     const cachedTokenPriceChange = localStorage.getItem("tokenPriceChange");
 
@@ -75,15 +77,16 @@ export default function TrotelPriceChange() {
     const refreshInterval = setInterval(fetchTokenPriceChange, 300000); // Every 5 minutes
 
     return () => {
-      // Cleanup function to set isMounted to false when unmounting
-      isMounted = false;
-
       // Clear the timer when the component unmounts
       clearInterval(refreshInterval);
     };
   }, []);
 
-  return (
+  return isError ? (
+    <span className={`{containerClass} animate-pulse`}>
+      {`${sign}${tokenPriceChange.toFixed(2)}%`}
+    </span>
+  ) : (
     <span className={containerClass}>
       {`${sign}${tokenPriceChange.toFixed(2)}%`}
     </span>
