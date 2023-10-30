@@ -54,6 +54,8 @@ const SwapInterface = () => {
   const toAmountInputSanitized = isNaN(toAmountInput) ? 0.0 : toAmountInput;
   const toAmountOutputSanitized = isNaN(toAmountOutput) ? 0.0 : toAmountOutput;
   const sendAmountSanitized = isNaN(sendAmount) ? 0.0 : sendAmount;
+  const [isBNBPriceError, setIsBNBPriceError] = useState<boolean>(false);
+  const [isPriceError, setIsPriceError] = useState<boolean>(false);
 
   useEffect(() => {
     // Function to fetch token information from Moralis
@@ -86,7 +88,9 @@ const SwapInterface = () => {
 
         // Set the token price in state
         setBNBPrice(responseBNB.raw.usdPrice);
+        setIsBNBPriceError(false);
       } catch (e) {
+        setIsBNBPriceError(true);
         console.error(e);
       }
     };
@@ -171,7 +175,9 @@ const SwapInterface = () => {
         setTokenPriceSwap(
           (1 / parseFloat(response.raw.nativePrice?.value as string)) * 1e18
         );
+        setIsPriceError(false);
       } catch (e) {
+        setIsPriceError(true);
         console.error(e);
       }
     };
@@ -422,7 +428,9 @@ const SwapInterface = () => {
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Vendre {toAmountInputSanitized} {token1.symbol} worth $
-                  {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
+                  <span className={isBNBPriceError ? "animate-pulse" : ""}>
+                    {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
+                  </span>
                 </span>
                 <div className="relative rounded-md">
                   <div>
@@ -446,9 +454,11 @@ const SwapInterface = () => {
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Acheter {toAmountOutputSanitized} {token2.symbol} valant $
-                  {((tokenPrice as number) * toAmountOutputSanitized).toFixed(
-                    2
-                  )}
+                  <span className={isPriceError ? "animate-pulse" : ""}>
+                    {((tokenPrice as number) * toAmountOutputSanitized).toFixed(
+                      2
+                    )}
+                  </span>
                 </span>
                 <div className="relative rounded-md">
                   <div>
@@ -486,7 +496,9 @@ const SwapInterface = () => {
               <div className="flex flex-col gap-y-2">
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Solde valant $
-                  {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
+                  <span className={isPriceError ? "animate-pulse" : ""}>
+                    {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
+                  </span>
                 </span>
                 <div className="relative rounded-md">
                   <div>

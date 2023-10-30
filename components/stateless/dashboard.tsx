@@ -76,7 +76,7 @@ export default function Dashboard() {
               </span>
               <br></br>
             </span>
-            Récompenses valant ${trotelCoinEarnedUSD.toFixed(2)}
+            Récompenses valant $<span className="animate-pulse">{trotelCoinEarnedUSD.toFixed(2)}</span>
           </div>
         </Slide>
 
