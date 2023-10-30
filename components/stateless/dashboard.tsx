@@ -46,7 +46,7 @@ export default function Dashboard() {
               <CountUp end={0}></CountUp>
               <br></br>
             </span>
-            Cours suivis
+            Courses taken
           </div>
         </Slide>
 
@@ -60,7 +60,7 @@ export default function Dashboard() {
               </span>
               <br />
             </span>
-            Solde valant $<ApproxBalanceUSDNoSSR />
+            Balance $<ApproxBalanceUSDNoSSR />
           </div>
         </Slide>
 
@@ -76,7 +76,7 @@ export default function Dashboard() {
               </span>
               <br></br>
             </span>
-            Récompenses valant $<span className="animate-pulse">{trotelCoinEarnedUSD.toFixed(2)}</span>
+            Rewards $<span className="animate-pulse">{trotelCoinEarnedUSD.toFixed(2)}</span>
           </div>
         </Slide>
 
@@ -87,7 +87,7 @@ export default function Dashboard() {
               <CountUp end={0}></CountUp>
               <br></br>
             </span>
-            Quizz répondus
+            Quizzes answered
           </div>
         </Slide>
       </div>

@@ -44,10 +44,10 @@ interface HeaderProps {
 
 // Define an array of navigation items
 const navigation = [
-  { name: "Accueil", href: "./" },
-  { name: "Actualités", href: "/news" },
-  { name: "Apprendre", href: "/learn" },
-  { name: "Acheter", href: "/buy" },
+  { name: "Home", href: "./" },
+  { name: "News", href: "/news" },
+  { name: "Learn", href: "/learn" },
+  { name: "Buy", href: "/buy" },
 ];
 
 // Define the Header component
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             href="/account"
             className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
           >
-            Mon compte
+            Account
           </Link>
           <WalletNoSSR></WalletNoSSR>
         </div>
@@ -141,6 +141,12 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
               ></Image>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
+              <Link
+                href="/account"
+                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-gray-900/80"
+              >
+                Account
+              </Link>
               <WalletNoSSR></WalletNoSSR>
               <button
                 type="button"
@@ -155,13 +161,6 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             <div className="-my-6">
               <div className="space-y-2 py-6">
                 {/* Mobile navigation links */}
-                <Link
-                  key="Account"
-                  href="/account"
-                  className="-mx-3 mt-2 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-gray-900/80"
-                >
-                  Mon compte
-                </Link>
                 {navigation.map((item) => (
                   <Link
                     key={item.name}

@@ -13,7 +13,7 @@ export default function Wallet() {
   const [error, setError] = useState<boolean>(false);
 
   const { isSuccess, signMessage } = useSignMessage({
-    message: "Log in on the TrotelCoin platform.",
+    message: "Log into the TrotelCoin platform.",
   });
 
   const handleDisconnect = async () => {
@@ -62,17 +62,17 @@ export default function Wallet() {
       <>
         {connect && (
           <Success
-            title="Connexion réussie"
+            title="Connected"
             show={connect}
-            message="Vous avez connecté votre portefeuille à la dApp TrotelCoin !"
+            message="You logged into TrotelCoin !"
             onClose={closeSuccess}
           />
         )}
         {error && (
           <Fail
-            title="Erreur de connexion"
+            title="Connection error"
             show={error}
-            message="Une erreur inconnue est apparue pendant la connexion !"
+            message="Unknown error !"
             onClose={closeError}
           />
         )}
@@ -81,7 +81,7 @@ export default function Wallet() {
             className={`bg-blue-200 dark:hover:bg-blue-100/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
             onClick={handleDisconnect}
           >
-            Déconnexion
+            Sign out
           </button>
         </div>
       </>
@@ -91,9 +91,9 @@ export default function Wallet() {
       <>
         {disconnect && (
           <Success
-            title="Déconnexion"
+            title="Disconnected"
             show={disconnect}
-            message="Vous avez déconnecté votre portefeuille à la dApp TrotelCoin !"
+            message="You logged out of TrotelCoin !"
             onClose={closeDisconnect}
           />
         )}
@@ -102,7 +102,7 @@ export default function Wallet() {
             className={`bg-blue-200 dark:hover:bg-blue-100/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
             onClick={handleAuth}
           >
-            Connexion
+            Log in
           </button>
         </div>
       </>

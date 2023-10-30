@@ -14,7 +14,7 @@ import { metadata } from "@/pages/_document";
 const mockArticles: Article[] = [
   {
     id: 1,
-    title: "Le prochain bullrun n'aura pas lieu ?!",
+    title: "Lorem ipsum.",
     category: "Bitcoin",
     image: "",
     date: "7 oct. 2023",

@@ -5,7 +5,7 @@ import Link from "next/link";
 const navigation = {
   main: [
     {
-      name: "Accueil",
+      name: "Home",
       href: "./",
       iconSolid: (
         props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
@@ -42,7 +42,7 @@ const navigation = {
       ),
     },
     {
-      name: "Actualités",
+      name: "News",
       href: "/news",
       iconSolid: (
         props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
@@ -83,7 +83,7 @@ const navigation = {
       ),
     },
     {
-      name: "Apprendre",
+      name: "Learn",
       href: "/learn",
       iconSolid: (
         props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
@@ -121,7 +121,7 @@ const navigation = {
       ),
     },
     {
-      name: "Acheter",
+      name: "Buy",
       href: "/buy",
       iconSolid: (
         props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
@@ -247,7 +247,7 @@ const Footer: React.FC<FooterProps> = ({ currentPage }) => {
           </div>
           <div>
             <p className="mt-10 text-center text-xs leading-5 text-gray-700 dark:text-gray-300">
-              &copy; 2023 TrotelCoin. Tous droits réservés.
+              &copy; 2023 TrotelCoin. All rights reserved.
             </p>
           </div>
         </div>

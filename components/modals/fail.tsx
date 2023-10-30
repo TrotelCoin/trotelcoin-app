@@ -65,7 +65,7 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
                     className="inline-flex w-full justify-center rounded-full bg-blue-200 dark:hover:bg-blue-100/80 hover:bg-blue-200/80 dark:bg-blue-100 dark:hover-bg-blue-50 px-3 py-2 text-sm font-semibold text-gray-900"
                     onClick={onClose}
                   >
-                    Fermer
+                    Close
                   </button>
                 </div>
               </Dialog.Panel>
