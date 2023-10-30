@@ -41,7 +41,7 @@ const Success: React.FC<SuccessProps> = ({ title, show, message, onClose }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl bg-white border-2 border-gray-900 dark:border-gray-100 dark:bg-gray-900 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
                 <div>
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
                     <CheckIcon
