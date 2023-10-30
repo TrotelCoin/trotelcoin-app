@@ -36,12 +36,12 @@ const statuses: Record<string, string> = {
 
 const environments: Record<string, string> = {
   "Bientôt disponible":
-    "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
-  Prêt: "text-gray-800 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
+    "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
+  Prêt: "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
   Terminé:
-    "text-green-800 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
+    "text-green-900 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
   "En cours":
-    "text-yellow-800 bg-yellow-500/10 ring-yellow-500/30 dark:text-yellow-200 dark:bg-yellow-200/10 dark:ring-yellow-200/30",
+    "text-yellow-900 bg-yellow-500/10 ring-yellow-500/30 dark:text-yellow-200 dark:bg-yellow-200/10 dark:ring-yellow-200/30",
 };
 
 // Define an array of mock modules and submodules
@@ -344,7 +344,7 @@ export default function Modules() {
   return (
     <div className="lg:mx-10 mx-4 my-8">
       <Fade>
-        <div className="border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-800 px-10 py-5 overflow-hidden">
+        <div className="border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-white dark:bg-gray-900 px-10 py-5 overflow-hidden">
           <h2 className="text-xl text-gray-900 mt-6 dark:text-gray-100 font-semibold">
             {selectedModule ? selectedModule.module : "Apprendre"}
           </h2>

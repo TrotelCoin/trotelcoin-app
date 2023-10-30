@@ -27,14 +27,14 @@ const Stats = () => {
 
         {/* Tokenomics */}
         <Slide left>
-          <div className="bg-gray-50 border-2 text-gray-900 border-gray-900 text-center shadow rounded-xl p-10">
+          <div className="bg-white border-2 text-gray-900 border-gray-900/10 dark:border-gray-100/10 text-center shadow rounded-xl p-10">
             <TokenomicsChart></TokenomicsChart>
           </div>
         </Slide>
 
         {/* Number Of Users */}
         <Slide right>
-          <div className="bg-gray-50 lg:col-span-2 border-2 text-gray-900 border-gray-900 text-center shadow rounded-xl p-10">
+          <div className="bg-white lg:col-span-2 border-2 text-gray-900 border-gray-900/10 dark:border-gray-100/10 text-center shadow rounded-xl p-10">
             <NumberOfUsers></NumberOfUsers>
           </div>
         </Slide>
