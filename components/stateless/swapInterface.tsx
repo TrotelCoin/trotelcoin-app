@@ -432,13 +432,13 @@ const SwapInterface = () => {
                     {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
                   </span>
                 </span>
-                <div className="relative rounded-md">
+                <div className="relative rounded-xl">
                   <div>
                     <input
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setToAmountInput(parseFloat(e.target.value))
@@ -460,13 +460,13 @@ const SwapInterface = () => {
                     )}
                   </span>
                 </span>
-                <div className="relative rounded-md">
+                <div className="relative rounded-xl">
                   <div>
                     <input
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       value={`≈ ${toAmountOutputSanitized.toFixed(2)}`}
                       disabled
                     />
@@ -500,13 +500,13 @@ const SwapInterface = () => {
                     {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
                   </span>
                 </span>
-                <div className="relative rounded-md">
+                <div className="relative rounded-xl">
                   <div>
                     <input
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0.00"
                       onChange={(e) =>
                         setSendAmount(parseFloat(e.target.value))
@@ -522,13 +522,13 @@ const SwapInterface = () => {
                 <span className="text-md dark:text-gray-100 text-gray-900">
                   Destinataire
                 </span>
-                <div className="relative rounded-md">
+                <div className="relative rounded-xl">
                   <div>
                     <input
                       type="text"
                       name="price"
                       id="price"
-                      className="block w-full rounded-md py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       placeholder="0x..."
                       onChange={(e) =>
                         setSendAddress(e.target.value as `0x${string}`)
@@ -562,7 +562,7 @@ const SwapInterface = () => {
                   Votre adresse
                 </span>
                 {isSmallScreen ? (
-                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
+                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
                     {!isConnected
                       ? "Connectez votre portefeuille"
                       : truncateMiddleOfString(
@@ -571,7 +571,7 @@ const SwapInterface = () => {
                         )}
                   </span>
                 ) : (
-                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
+                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
                     {!isConnected
                       ? "Connectez votre portefeuille"
                       : takerAddress}
@@ -586,7 +586,7 @@ const SwapInterface = () => {
                   Solde
                 </span>
 
-                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
+                <span className="text-center items-center rounded-xl bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
                   <TrotelBalance /> TrotelCoin valant $
                   <ApproxBalanceUSDNoSSR />
                 </span>
