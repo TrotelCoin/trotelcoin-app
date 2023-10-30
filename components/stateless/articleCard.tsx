@@ -1,5 +1,5 @@
 import React from "react";
-import Article from "@/components/types/article";
+import Article from "@/types/article";
 
 // Define the props for the ArticleCard component
 interface ArticleCardProps {

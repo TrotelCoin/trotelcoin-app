@@ -6,7 +6,7 @@ import ArticleReader from "@/components/stateless/articleReader";
 import Article1 from "@/articles/article1";
 import Footer from "@/components/stateless/footer";
 import { Fade } from "react-reveal";
-import Article from "@/components/types/article";
+import Article from "@/types/article";
 import Head from "next/head";
 import { metadata } from "@/pages/_document";
 
