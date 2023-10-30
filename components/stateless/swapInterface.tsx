@@ -562,7 +562,7 @@ const SwapInterface = () => {
                   Votre adresse
                 </span>
                 {isSmallScreen ? (
-                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50">
+                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
                     {!isConnected
                       ? "Connectez votre portefeuille"
                       : truncateMiddleOfString(
@@ -571,7 +571,7 @@ const SwapInterface = () => {
                         )}
                   </span>
                 ) : (
-                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50">
+                  <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
                     {!isConnected
                       ? "Connectez votre portefeuille"
                       : takerAddress}
@@ -586,7 +586,7 @@ const SwapInterface = () => {
                   Solde
                 </span>
 
-                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/50 dark:border-gray-100/50 dark:ring-gray-900/10">
+                <span className="text-center items-center rounded-md bg-gray-100 px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
                   <TrotelBalance /> TrotelCoin valant $
                   <ApproxBalanceUSDNoSSR />
                 </span>

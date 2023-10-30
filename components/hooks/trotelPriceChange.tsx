@@ -83,8 +83,10 @@ export default function TrotelPriceChange() {
   }, []);
 
   return isError ? (
-    <span className={`{containerClass} animate-pulse`}>
-      {`${sign}${tokenPriceChange.toFixed(2)}%`}
+    <span className={containerClass}>
+      <span className="animate-pulse">{`${sign}${tokenPriceChange.toFixed(
+        2
+      )}%`}</span>
     </span>
   ) : (
     <span className={containerClass}>
