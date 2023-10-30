@@ -220,7 +220,7 @@ const Footer: React.FC<FooterProps> = ({ currentPage }) => {
 
   return (
     <footer>
-      <div className="hidden sm:flex bg-white dark:bg-gray-900 relative">
+      <div className="hidden sm:flex bg-white dark:bg-black relative">
         <div className="mx-auto max-w-8xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
           <nav
             className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
@@ -253,7 +253,7 @@ const Footer: React.FC<FooterProps> = ({ currentPage }) => {
         </div>
       </div>
       <div
-        className={`fixed sm:hidden bottom-0 left-0 w-full dark:bg-gray-900 bg-white shadow-xl border-t-2 border-gray-900/5 dark:border-white/5 transition-all duration-500 ${
+        className={`fixed sm:hidden bottom-0 left-0 w-full dark:bg-black bg-white shadow-xl border-t-2 border-gray-900/5 dark:border-white/5 transition-all duration-500 ${
           isFooterVisible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >

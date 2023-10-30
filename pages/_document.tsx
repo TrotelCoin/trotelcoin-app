@@ -68,7 +68,7 @@ export default function Document() {
       {/* Use Suspense for loading fallback */}
       <Suspense fallback={<Loading></Loading>}>
         {/* Set the body class for dark mode */}
-        <body className="dark:bg-gray-900">
+        <body className="dark:bg-black">
           <Main />
           <NextScript />
         </body>

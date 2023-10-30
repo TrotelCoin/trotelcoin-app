@@ -55,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white dark:bg-gray-900">
+    <header className="bg-white dark:bg-black">
       {/* Navigation */}
       <nav
         className="mx-auto flex max-w-8xl items-center justify-between gap-x-16 p-6 lg:px-8"
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             href="/account"
             className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
           >
-            Account
+            My account
           </Link>
           <WalletNoSSR></WalletNoSSR>
         </div>
@@ -129,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
               <Image
@@ -143,9 +143,9 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             <div className="flex flex-1 items-center justify-end gap-x-6">
               <Link
                 href="/account"
-                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-gray-900/80"
+                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-black/80"
               >
-                Account
+                My account
               </Link>
               <WalletNoSSR></WalletNoSSR>
               <button
@@ -165,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-gray-900/80"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-black/80"
                   >
                     {item.name}
                   </Link>

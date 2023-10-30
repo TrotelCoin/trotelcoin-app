@@ -10,11 +10,11 @@ interface ArticleReaderProps {
 // Define the ArticleReader component as a functional component
 const ArticleReader: React.FC<ArticleReaderProps> = ({ article, onClose }) => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-white dark:bg-gray-900 overflow-y-auto">
+    <div className="fixed top-0 left-0 w-full h-full bg-white dark:bg-black overflow-y-auto">
       <div className="my-20 mx-auto p-4 lg:mx-20">
         {/* Close button */}
         <button
-          className="absolute top-4 right-4 bg-gray-900 hover:bg-gray-900/80 dark:bg-gray-100 dark:hover:bg-gray-100/80 rounded-full w-8 h-8 text-gray-100 dark:text-gray-900 focus:outline-none"
+          className="absolute top-4 right-4 bg-black hover:bg-black/80 dark:bg-gray-100 dark:hover:bg-gray-100/80 rounded-full w-8 h-8 text-gray-100 dark:text-gray-900 focus:outline-none"
           onClick={onClose}
         >
           &times;

@@ -88,7 +88,7 @@ const Articles = () => {
                     onClick={() => handlePageChange(index + 1)}
                     className={`${
                       currentPage === index + 1
-                        ? "bg-gray-900 dark:bg-gray-100"
+                        ? "bg-black dark:bg-gray-100"
                         : "bg-gray-200 text-gray-900 dark:bg-gray-400"
                     } px-3 py-0.5 rounded-full text-center text-gray-100 dark:text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10`}
                   >
