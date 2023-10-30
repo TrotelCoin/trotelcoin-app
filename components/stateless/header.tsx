@@ -76,7 +76,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
             ${<TrotelPriceNoSSR></TrotelPriceNoSSR>}
           </p>
           {<TrotelPriceChangeNoSSR></TrotelPriceChangeNoSSR>}
-          <span className="hidden lg:inline-flex items-center rounded-md bg-yellow-50 dark:bg-yellow-400/10 px-2 py-1 text-xs font-medium text-yellow-700 dark:text-yellow-400 ring-1 ring-inset ring-yellow-700/10 dark:ring-yellow-400/30">
+          <span className="hidden lg:inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             <span className="animate-pulse">alpha version</span>
           </span>
         </div>
@@ -89,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage }) => {
               href={item.href}
               className={`text-sm px-6 py-2 ${
                 currentPage === item.href
-                  ? "bg-yellow-200 dark:bg-yellow-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
+                  ? "bg-blue-200 dark:bg-blue-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
                   : ""
               } font-semibold rounded-full leading-6 dark:text-gray-100 dark:hover:text-gray-300 text-gray-900 hover:text-gray-700`}
             >
