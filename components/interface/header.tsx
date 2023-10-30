@@ -7,12 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Import dynamic components with SSR disabled
-const WalletNoSSR = dynamic(() => import("@/components/stateless/wallet"), {
+const WalletNoSSR = dynamic(() => import("@/components/interface/wallet"), {
   ssr: false,
 });
 
 const LanguageSelectorNoSSR = dynamic(
-  () => import("@/components/actions/languageSelector"),
+  () => import("@/components/interface/languageSelector"),
   {
     ssr: false,
   }

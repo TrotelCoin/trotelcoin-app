@@ -2,8 +2,8 @@ import React from "react";
 import { Slide, Fade } from "react-reveal";
 import TokenomicsChart from "@/components/charts/tokenomicsChart";
 import NumberOfUsers from "@/components/charts/numberOfUsers";
-import Header from "@/components/stateless/header";
-import Footer from "@/components/stateless/footer";
+import Header from "@/components/interface/header";
+import Footer from "@/components/interface/footer";
 import Head from "next/head";
 import { metadata } from "@/pages/_document";
 

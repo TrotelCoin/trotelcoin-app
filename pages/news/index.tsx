@@ -1,10 +1,10 @@
 // Import necessary React components and modules
 import React, { useState } from "react";
-import Header from "@/components/stateless/header";
-import ArticleCard from "@/components/stateless/articleCard";
-import ArticleReader from "@/components/stateless/articleReader";
+import Header from "@/components/interface/header";
+import ArticleCard from "@/components/interface/articleCard";
+import ArticleReader from "@/components/interface/articleReader";
 import Article1 from "@/articles/article1";
-import Footer from "@/components/stateless/footer";
+import Footer from "@/components/interface/footer";
 import { Fade } from "react-reveal";
 import Article from "@/types/article";
 import Head from "next/head";

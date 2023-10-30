@@ -1,9 +1,9 @@
 // Import necessary React components and modules
 import React from "react";
-import Header from "../components/stateless/header";
-import Dashboard from "@/components/stateless/dashboard";
-import Footer from "@/components/stateless/footer";
-import Banner from "@/components/stateless/banner";
+import Header from "../components/interface/header";
+import Dashboard from "@/components/interface/dashboard";
+import Footer from "@/components/interface/footer";
+import Banner from "@/components/interface/banner";
 import { metadata } from "./_document"; // Import metadata from the _document.js file
 import Head from "next/head";
 

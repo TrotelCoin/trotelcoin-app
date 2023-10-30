@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import Loading from "../components/stateless/loading";
+import Loading from "../components/interface/loading";
 import { Html, Head, Main, NextScript } from "next/document";
 
 // Define metadata for the document

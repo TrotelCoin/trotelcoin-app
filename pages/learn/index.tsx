@@ -1,8 +1,8 @@
 // Import necessary React components and modules
 import React from "react";
-import Header from "@/components/stateless/header";
-import Footer from "@/components/stateless/footer";
-import Modules from "@/components/stateless/modules";
+import Header from "@/components/interface/header";
+import Footer from "@/components/interface/footer";
+import Modules from "@/components/interface/modules";
 import Head from "next/head";
 import { metadata } from "@/pages/_document";
 
