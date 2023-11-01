@@ -1,30 +1,24 @@
 // Import necessary React components and modules
 import React from "react";
-import Header from "@/components/interface/header";
-import Footer from "@/components/interface/footer";
-import Head from "next/head";
-import { metadata } from "@/pages/_document";
+import Header from "@/app/ui/interface/header";
+import Footer from "@/app/ui/interface/footer";
 
 // Import metadata from the _document.js file
-import SwapInterface from "@/components/interface/swapInterface";
+import SwapInterface from "@/app/ui/interface/swapInterface";
 
 // Define the Buy component
 const Buy = () => {
   return (
     <>
-      <Head>
-        <title>{metadata.title}</title>
-        <link rel="icon" href="/favicon.ico"></link>
-      </Head>
       <div>
         {/* Render the Header component with the current page */}
-        <Header currentPage="/buy"></Header>
+        <Header></Header>
 
         {/* Render the SwapInterface component */}
         <SwapInterface></SwapInterface>
 
         {/* Render the Footer component with the current page */}
-        <Footer currentPage="/buy"></Footer>
+        <Footer></Footer>
       </div>
     </>
   );

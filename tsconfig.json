@@ -33,6 +33,6 @@
     "pages/api/moralis/[...moralis].js",
     "pages/api/auth/[...nextauth].js",
     ".next/types/**/*.ts"
-  ],
+, "pages/404.js"  ],
   "exclude": ["node_modules"]
 }

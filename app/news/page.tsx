@@ -1,14 +1,13 @@
+"use client";
+
 // Import necessary React components and modules
 import React, { useState } from "react";
-import Header from "@/components/interface/header";
-import ArticleCard from "@/components/interface/articleCard";
-import ArticleReader from "@/components/interface/articleReader";
+import Header from "@/app/ui/interface/header";
+import ArticleCard from "@/app/ui/interface/articleCard";
+import ArticleReader from "@/app/ui/interface/articleReader";
 import Article1 from "@/articles/article1";
-import Footer from "@/components/interface/footer";
-import { Fade } from "react-reveal";
-import Article from "@/types/article";
-import Head from "next/head";
-import { metadata } from "@/pages/_document";
+import Footer from "@/app/ui/interface/footer";
+import { Article } from "@/types/types";
 
 // Define an array of mock articles
 const mockArticles: Article[] = [
@@ -55,24 +54,20 @@ const Articles = () => {
 
   return (
     <>
-      <Head>
-        <title>{metadata.title}</title>
-        <link rel="icon" href="/favicon.ico"></link>
-      </Head>
       <div>
         {/* Render the Header component with the current page */}
-        <Header currentPage="/news"></Header>
+        <Header></Header>
 
         {/* Render a grid of ArticleCard components */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mx-4 lg:mx-10 my-8">
           {displayedArticles.map((article) => (
-            <Fade key={article.id}>
+            <div key={article.id} className="animate__animated animate__fadeIn">
               <ArticleCard
                 key={article.id}
                 article={article}
                 onOpen={openArticle}
               />
-            </Fade>
+            </div>
           ))}
         </div>
 
@@ -101,7 +96,7 @@ const Articles = () => {
         )}
 
         {/* Render the Footer component with the current page */}
-        <Footer currentPage="/news"></Footer>
+        <Footer></Footer>
 
         {/* Render the ArticleReader component when an article is selected */}
         {selectedArticle && (

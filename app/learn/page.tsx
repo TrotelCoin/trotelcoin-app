@@ -1,28 +1,22 @@
 // Import necessary React components and modules
 import React from "react";
-import Header from "@/components/interface/header";
-import Footer from "@/components/interface/footer";
-import Modules from "@/components/interface/modules";
-import Head from "next/head";
-import { metadata } from "@/pages/_document";
+import Header from "@/app/ui/interface/header";
+import Footer from "@/app/ui/interface/footer";
+import Modules from "@/app/ui/interface/modules";
 
 // Define the Learn component
 const Learn = () => {
   return (
     <>
-      <Head>
-        <title>{metadata.title}</title>
-        <link rel="icon" href="/favicon.ico"></link>
-      </Head>
       <div>
         {/* Render the Header component with the current page */}
-        <Header currentPage="/learn"></Header>
+        <Header></Header>
 
         {/* Render the Modules component */}
         <Modules></Modules>
 
         {/* Render the Footer component with the current page */}
-        <Footer currentPage="/learn"></Footer>
+        <Footer></Footer>
       </div>
     </>
   );
