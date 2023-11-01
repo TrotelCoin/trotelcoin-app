@@ -2,7 +2,7 @@
 import React from "react";
 import Header from "@/app/ui/interface/header";
 import Footer from "@/app/ui/interface/footer";
-import Modules from "@/app/ui/interface/modules";
+import Modules from "@/app/ui/interface/learn/modules";
 
 // Define the Learn component
 const Learn = () => {

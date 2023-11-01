@@ -3,8 +3,8 @@
 // Import necessary React components and modules
 import React, { useState } from "react";
 import Header from "@/app/ui/interface/header";
-import ArticleCard from "@/app/ui/interface/articleCard";
-import ArticleReader from "@/app/ui/interface/articleReader";
+import ArticleCard from "@/app/ui/interface/news/articleCard";
+import ArticleReader from "@/app/ui/interface/news/articleReader";
 import Article1 from "@/articles/article1";
 import Footer from "@/app/ui/interface/footer";
 import { Article } from "@/types/types";

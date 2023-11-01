@@ -90,7 +90,7 @@ const Header = () => {
               href={item.href}
               className={`text-sm px-6 py-2 ${
                 pathname === item.href
-                  ? "bg-blue-200 dark:bg-blue-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
+                  ? "bg-blue-200 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
                   : ""
               } font-semibold rounded-full leading-6 dark:text-gray-100 dark:hover:text-gray-300 text-gray-900 hover:text-gray-700`}
             >

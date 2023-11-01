@@ -336,7 +336,7 @@ export default function Modules() {
         {selectedModule && (
           <button
             onClick={handleGoBack}
-            className="bg-blue-200 hover:bg-blue-200/80 dark:hover:bg-blue-100/80 text-sm px-6 py-2 dark:bg-blue-100 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+            className="bg-blue-200 hover:bg-blue-200/80 dark:hover:bg-blue-200/80 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
           >
             Go back
           </button>
