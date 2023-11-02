@@ -28,13 +28,7 @@ export default function Wallet() {
         connector: new InjectedConnector(),
       });
 
-      if (localStorage.getItem("signedMessage") !== "true") {
-        signMessage();
-      }
-
-      if (isSuccess) {
-        localStorage.setItem("signedMessage", "true");
-      }
+      signMessage();
 
       setConnect(true);
 
