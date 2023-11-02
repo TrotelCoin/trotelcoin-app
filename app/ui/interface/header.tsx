@@ -101,13 +101,7 @@ const Header = () => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
-          <Link href="/login">
-            <button
-              className={`bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
-            >
-              Log in
-            </button>
-          </Link>
+          <WalletNoSSR />
         </div>
 
         {/* Mobile menu button */}
@@ -142,13 +136,7 @@ const Header = () => {
               ></Image>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
-              <Link href="/login">
-                <button
-                  className={`bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
-                >
-                  Log in
-                </button>
-              </Link>
+              <WalletNoSSR />
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-900 dark:text-gray-100"
