@@ -18,7 +18,7 @@ export default function TrotelPriceChange() {
       if (!Moralis.Core.isStarted) {
         // Initialize Moralis with the API key
         await Moralis.start({
-          apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
+          apiKey: process.env.MORALIS_API_KEY,
         });
       }
 
