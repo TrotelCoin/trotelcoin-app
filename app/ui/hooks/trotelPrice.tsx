@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
-import { unstable_noStore as noStore } from "next/cache";
 
 export default function TrotelPrice() {
   // State to hold the token price
@@ -9,8 +8,6 @@ export default function TrotelPrice() {
   useEffect(() => {
     // Function to fetch token information from Moralis
     const fetchTokenInfo = async () => {
-      noStore();
-
       try {
         // Check if Moralis is already started
         if (!Moralis.Core.isStarted) {

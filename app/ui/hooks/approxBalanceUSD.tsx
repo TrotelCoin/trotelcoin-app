@@ -3,7 +3,6 @@ import Moralis from "moralis";
 import { useBalance, useAccount } from "wagmi";
 import { bsc } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
-import { unstable_noStore as noStore } from "next/cache";
 
 const ApproxUSD = () => {
   // Define state variables to store the token price and approximate USD value
@@ -21,8 +20,6 @@ const ApproxUSD = () => {
 
   useEffect(() => {
     const fetchTokenInfo = async () => {
-      noStore();
-
       try {
         // Check if Moralis is already started
         if (!Moralis.Core.isStarted) {
