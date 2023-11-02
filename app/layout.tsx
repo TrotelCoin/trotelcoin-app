@@ -23,6 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head>
+        <title>{metadata.title}</title>
         {/* Set metadata for SEO */}
         <meta name="description" content={metadata.description} />
         <meta property="og:title" content={metadata.title} />
