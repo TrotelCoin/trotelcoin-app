@@ -11,18 +11,12 @@ import { useAccount, useContractWrite } from "wagmi";
 import v3RouterSwap from "@/app/ui/abi/v3RouterSwap";
 import trotelcoin from "@/app/ui/abi/trotelcoin";
 import TrotelBalance from "@/app/ui/hooks/trotelBalance";
-import dynamic from "next/dynamic";
+import ApproxBalanceUSD from "@/app/ui/hooks/approxBalanceUSD";
 import { Token } from "@/types/types";
 import { useDebouncedCallback } from "use-debounce";
+import { unstable_noStore as noStore } from "next/cache";
 
 const web3 = require("web3");
-
-const ApproxBalanceUSDNoSSR = dynamic(
-  () => import("@/app/ui/hooks/approxBalanceUSD"),
-  {
-    ssr: false,
-  }
-);
 
 const SwapInterface = () => {
   const [token1, setToken1] = useState<Token>({
@@ -57,6 +51,8 @@ const SwapInterface = () => {
   const [isPriceError, setIsPriceError] = useState<boolean>(false);
 
   const debouncedFetchTokenInfo = useDebouncedCallback(async () => {
+    noStore();
+
     try {
       // Check if Moralis is already started
       if (!Moralis.Core.isStarted) {
@@ -572,7 +568,7 @@ const SwapInterface = () => {
 
               <span className="text-center items-center rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
                 <TrotelBalance /> TrotelCoin $
-                <ApproxBalanceUSDNoSSR />
+                <ApproxBalanceUSD />
               </span>
             </div>
           </div>

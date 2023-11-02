@@ -1,25 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import dynamic from "next/dynamic";
 import CountUp from "react-countup";
 import "animate.css";
-
-// Dynamically import TrotelBalance component without server-side rendering (SSR)
-const TrotelBalanceNoSSR = dynamic(
-  () => import("@/app/ui/hooks/trotelBalance"),
-  {
-    ssr: false,
-  }
-);
-
-// Dynamically import ApproxBalanceUSD component without server-side rendering (SSR)
-const ApproxBalanceUSDNoSSR = dynamic(
-  () => import("@/app/ui/hooks/approxBalanceUSD"),
-  {
-    ssr: false,
-  }
-);
+import TrotelBalance from "@/app/ui/hooks/trotelBalance";
+import ApproxBalanceUSD from "@/app/ui/hooks/approxBalanceUSD";
 
 // Define the Dashboard component as a function
 export default function Dashboard() {
@@ -51,13 +36,13 @@ export default function Dashboard() {
         {/* Trotel balance card */}
         <div className="bg-white border-2 border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-gray-900 animate__animated animate__slideInRight">
           <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-200">
-            <TrotelBalanceNoSSR />
+            <TrotelBalance />
             <span className="text-xs text-gray-700 dark:text-gray-300">
               TROTEL
             </span>
             <br />
           </span>
-          Balance $<ApproxBalanceUSDNoSSR />
+          Balance $<ApproxBalanceUSD />
         </div>
 
         {/* Earned Trotel coin worth card */}

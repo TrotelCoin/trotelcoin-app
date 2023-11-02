@@ -3,8 +3,11 @@ import Moralis from "moralis";
 import { useBalance, useAccount } from "wagmi";
 import { bsc } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
+import { unstable_noStore as noStore } from "next/cache";
 
 const ApproxUSD = () => {
+  noStore();
+
   // Define state variables to store the token price and approximate USD value
   const [approxUSD, setApproxUSD] = useState<number>(0);
 
