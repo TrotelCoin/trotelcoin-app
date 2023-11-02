@@ -1,11 +1,5 @@
-// Import necessary modules and components
 import React, { Suspense } from "react";
-import Hotjar from "@hotjar/browser";
-import "@/public/globals.css";
 import Loading from "@/app/ui/interface/loading";
-import NextTopLoader from "nextjs-toploader";
-import { poppins } from "@/app/ui/fonts";
-import Wagmi from "@/app/wagmi";
 
 // Define metadata for the document
 export const metadata = {
@@ -13,13 +7,8 @@ export const metadata = {
   description: "Learn & earn crypto.",
 };
 
-// Initialize Hotjar for website analytics
-const siteId = 3685770;
-const hotjarVersion = 6;
-Hotjar.init(siteId, hotjarVersion);
-
 // Define the main Document component
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Document() {
   return (
     <html>
       <head>
@@ -27,10 +16,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="description" content={metadata.description} />
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
-        <meta
-          name="keywords"
-          content="trotelcoin, learn, earn, crypto, bitcoin, ethereum"
-        />
         <meta
           property="og:image"
           content="/assets/banner/trotelcoin-banner.png"
@@ -62,30 +47,30 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
         />
+        {/* Repeat similar 'link' elements for other devices */}
+
+        {/* Preconnect to external resources */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        ></link>
+
+        {/* Include Google Fonts styles */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Krona+One&family=Mooli&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Grotesk&display=swap"
+          rel="stylesheet"
+        ></link>
       </head>
 
       {/* Use Suspense for loading fallback */}
-      <Wagmi>
-        <Suspense fallback={<Loading></Loading>}>
-          {/* Set the body class for dark mode */}
-          <body
-            className={`bg-white dark:bg-black ${poppins.className} antialiased`}
-          >
-            <NextTopLoader
-              color="#3b82f6"
-              initialPosition={0.08}
-              crawlSpeed={200}
-              height={3}
-              crawl={true}
-              showSpinner={false}
-              easing="ease"
-              speed={200}
-              shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-            />
-            {children}
-          </body>
-        </Suspense>
-      </Wagmi>
+      <Suspense fallback={<Loading></Loading>}>
+        {/* Set the body class for dark mode */}
+        <body className="bg-white dark:bg-black">
+          {children}
+        </body>
+      </Suspense>
     </html>
   );
 }
