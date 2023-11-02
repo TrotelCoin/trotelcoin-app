@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";

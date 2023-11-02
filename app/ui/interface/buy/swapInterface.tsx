@@ -13,6 +13,7 @@ import trotelcoin from "@/app/ui/abi/trotelcoin";
 import TrotelBalance from "@/app/ui/hooks/trotelBalance";
 import dynamic from "next/dynamic";
 import { Token } from "@/types/types";
+import { useDebouncedCallback } from "use-debounce";
 
 const web3 = require("web3");
 
@@ -55,52 +56,45 @@ const SwapInterface = () => {
   const [isBNBPriceError, setIsBNBPriceError] = useState<boolean>(false);
   const [isPriceError, setIsPriceError] = useState<boolean>(false);
 
-  useEffect(() => {
-    // Function to fetch token information from Moralis
-    const fetchTokenInfo = async () => {
-      try {
-        // Check if Moralis is already started
-        if (!Moralis.Core.isStarted) {
-          // Initialize Moralis with the API key
-          await Moralis.start({
-            apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
-          });
-        }
-
-        // Fetch token price from Moralis EvmApi
-        const response = await Moralis.EvmApi.token.getTokenPrice({
-          chain: "0x38", // Binance Smart Chain
-          include: "percent_change",
-          address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+  const debouncedFetchTokenInfo = useDebouncedCallback(async () => {
+    try {
+      // Check if Moralis is already started
+      if (!Moralis.Core.isStarted) {
+        // Initialize Moralis with the API key
+        await Moralis.start({
+          apiKey: process.env.NEXT_PUBLIC_VERCEL_ENV_MORALIS_API_KEY,
         });
-
-        // Set the token price in state
-        setTokenPrice(response.raw.usdPrice);
-
-        // Fetch token price from Moralis EvmApi
-        const responseBNB = await Moralis.EvmApi.token.getTokenPrice({
-          chain: "0x38", // Binance Smart Chain
-          include: "percent_change",
-          address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // Wrapped BNB (WBNB) token address
-        });
-
-        // Set the token price in state
-        setBNBPrice(responseBNB.raw.usdPrice);
-        setIsBNBPriceError(false);
-      } catch (e) {
-        setIsBNBPriceError(true);
-        console.error(e);
       }
-    };
 
+      // Fetch token price from Moralis EvmApi
+      const response = await Moralis.EvmApi.token.getTokenPrice({
+        chain: "0x38", // Binance Smart Chain
+        include: "percent_change",
+        address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5", // TrotelCoin (TROTEL) token address
+      });
+
+      // Set the token price in state
+      setTokenPrice(response.raw.usdPrice);
+
+      // Fetch token price from Moralis EvmApi
+      const responseBNB = await Moralis.EvmApi.token.getTokenPrice({
+        chain: "0x38", // Binance Smart Chain
+        include: "percent_change",
+        address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", // Wrapped BNB (WBNB) token address
+      });
+
+      // Set the token price in state
+      setBNBPrice(responseBNB.raw.usdPrice);
+      setIsBNBPriceError(false);
+    } catch (e) {
+      setIsBNBPriceError(true);
+      console.error(e);
+    }
+  }, 300);
+
+  useEffect(() => {
     // Call the fetchTokenInfo function when the component mounts
-    fetchTokenInfo();
-
-    // Set up a timer to fetch and update the token price periodically
-    const refreshInterval = setInterval(fetchTokenInfo, 300000); // Every 5 minutes
-
-    // Clear the timer when the component unmounts
-    return () => clearInterval(refreshInterval);
+    debouncedFetchTokenInfo();
   }, []);
 
   const checkScreenSize = () => {
