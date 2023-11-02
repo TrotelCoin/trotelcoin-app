@@ -5,12 +5,11 @@ import { BalanceData } from "@/types/types";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default function TrotelBalance() {
-  noStore();
-
   // Get the Ethereum address using the getAccount function
   const { address } = useAccount();
 
   try {
+    noStore();
     // Use the useBalance hook to fetch the balance data
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data, isError, isLoading }: BalanceData = useBalance({

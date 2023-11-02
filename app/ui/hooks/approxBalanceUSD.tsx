@@ -6,8 +6,6 @@ import { BalanceData } from "@/types/types";
 import { unstable_noStore as noStore } from "next/cache";
 
 const ApproxUSD = () => {
-  noStore();
-
   // Define state variables to store the token price and approximate USD value
   const [approxUSD, setApproxUSD] = useState<number>(0);
 
@@ -23,6 +21,8 @@ const ApproxUSD = () => {
 
   useEffect(() => {
     const fetchTokenInfo = async () => {
+      noStore();
+
       try {
         // Check if Moralis is already started
         if (!Moralis.Core.isStarted) {
