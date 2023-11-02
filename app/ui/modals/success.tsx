@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Modals } from "@/types/types";
 
 const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {

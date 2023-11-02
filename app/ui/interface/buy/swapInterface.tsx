@@ -331,7 +331,7 @@ const SwapInterface = () => {
   const maxLength = 16;
 
   const truncateMiddleOfString = (input: string, maxLength: number): string => {
-    if (input.length <= maxLength) {
+    if (input?.length <= maxLength) {
       return input;
     } else if (maxLength <= 3) {
       return "…".repeat(maxLength);
@@ -339,74 +339,67 @@ const SwapInterface = () => {
       const startLength = Math.floor((maxLength - 3) / 2);
       const endLength = Math.ceil((maxLength - 3) / 2);
       return (
-        input.slice(0, startLength) +
+        input?.slice(0, startLength) +
         "…" +
-        input.slice(input.length - endLength)
+        input?.slice(input?.length - endLength)
       );
     }
   };
 
   return (
     <>
-      {addressCopied && (
-        <Success
-          title="Address copied"
-          show={addressCopied}
-          message="Address copied in your clipboard !"
-          onClose={closeSuccess}
-        />
-      )}
-      {sentTrotel && (
-        <Success
-          title="TrotelCoin sent"
-          show={sentTrotel}
-          message={`You sent ${sendAmountSanitized} TrotelCoin to ${truncateMiddleOfString(
-            sendAddress as string,
-            maxLength
-          )}!`}
-          onClose={closeSentTrotel}
-        />
-      )}
-      {amount && (
-        <Fail
-          title="No amount"
-          show={amount}
-          message="Enter an amount !"
-          onClose={closeAmount}
-        />
-      )}
-      {amountInput && (
-        <Fail
-          title="No amount"
-          show={amountInput}
-          message="Enter an amount !"
-          onClose={closeAmount}
-        />
-      )}
-      {recipient && (
-        <Fail
-          title="No recipient"
-          show={recipient}
-          message="Enter a recipient !"
-          onClose={closeRecipient}
-        />
-      )}
-      {connect && (
-        <Fail
-          title="Not connected"
-          show={connect}
-          message="Connect your wallet !"
-          onClose={closeConnect}
-        />
-      )}
-      {error && (
-        <Fail
-          title="Error"
-          show={error}
-          message="Unknown error !"
-          onClose={closeError}
-        />
-      )}
+      <Success
+        title="Address copied"
+        show={addressCopied}
+        message="Address copied in your clipboard !"
+        onClose={closeSuccess}
+      />
+
+      <Success
+        title="TrotelCoin sent"
+        show={sentTrotel}
+        message={`You sent ${sendAmountSanitized} TrotelCoin to ${truncateMiddleOfString(
+          sendAddress as string,
+          maxLength
+        )}!`}
+        onClose={closeSentTrotel}
+      />
+
+      <Fail
+        title="No amount"
+        show={amount}
+        message="Enter an amount !"
+        onClose={closeAmount}
+      />
+
+      <Fail
+        title="No amount"
+        show={amountInput}
+        message="Enter an amount !"
+        onClose={closeAmount}
+      />
+
+      <Fail
+        title="No recipient"
+        show={recipient}
+        message="Enter a recipient !"
+        onClose={closeRecipient}
+      />
+
+      <Fail
+        title="Not connected"
+        show={connect}
+        message="Connect your wallet !"
+        onClose={closeConnect}
+      />
+
+      <Fail
+        title="Error"
+        show={error}
+        message="Unknown error !"
+        onClose={closeError}
+      />
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden animate__animated animate__fadeIn">
         {/* Swap card */}
         <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">

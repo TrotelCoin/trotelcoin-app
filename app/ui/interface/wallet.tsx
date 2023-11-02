@@ -54,22 +54,20 @@ export default function Wallet() {
   if (isConnected) {
     return (
       <>
-        {connect && (
-          <Success
-            title="Connected"
-            show={connect}
-            message="You logged into TrotelCoin !"
-            onClose={closeSuccess}
-          />
-        )}
-        {error && (
-          <Fail
-            title="Connection error"
-            show={error}
-            message="Unknown error !"
-            onClose={closeError}
-          />
-        )}
+        <Success
+          title="Connected"
+          show={connect}
+          message="You logged into TrotelCoin !"
+          onClose={closeSuccess}
+        />
+
+        <Fail
+          title="Connection error"
+          show={error}
+          message="Unknown error !"
+          onClose={closeError}
+        />
+
         <div>
           <button
             className={`bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
@@ -83,14 +81,13 @@ export default function Wallet() {
   } else {
     return (
       <>
-        {disconnect && (
-          <Success
-            title="Disconnected"
-            show={disconnect}
-            message="You logged out of TrotelCoin !"
-            onClose={closeDisconnect}
-          />
-        )}
+        <Success
+          title="Disconnected"
+          show={disconnect}
+          message="You logged out of TrotelCoin !"
+          onClose={closeDisconnect}
+        />
+
         <div>
           <button
             className={`bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
