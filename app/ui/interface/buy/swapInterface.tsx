@@ -402,7 +402,7 @@ const SwapInterface = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden animate__animated animate__fadeIn">
         {/* Swap card */}
-        <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Buy TrotelCoin
           </h2>
@@ -463,7 +463,7 @@ const SwapInterface = () => {
         </div>
 
         {/* Send card */}
-        <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Send TrotelCoin
           </h2>
@@ -522,7 +522,7 @@ const SwapInterface = () => {
         </div>
 
         {/* Receive card */}
-        <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Receive TrotelCoin
           </h2>
