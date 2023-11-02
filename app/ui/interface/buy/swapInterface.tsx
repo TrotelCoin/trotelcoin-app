@@ -409,7 +409,7 @@ const SwapInterface = () => {
       )}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden animate__animated animate__fadeIn">
         {/* Swap card */}
-        <div className="bg-white border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Buy TrotelCoin
           </h2>
@@ -429,7 +429,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0.00"
                     onChange={(e) =>
                       setToAmountInput(parseFloat(e.target.value))
@@ -457,7 +457,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     value={`≈ ${toAmountOutputSanitized.toFixed(2)}`}
                     disabled
                   />
@@ -478,7 +478,7 @@ const SwapInterface = () => {
         </div>
 
         {/* Send card */}
-        <div className="bg-white border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Send TrotelCoin
           </h2>
@@ -497,7 +497,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0.00"
                     onChange={(e) => setSendAmount(parseFloat(e.target.value))}
                   />
@@ -517,7 +517,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border-2 border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0x..."
                     onChange={(e) =>
                       setSendAddress(e.target.value as `0x${string}`)
@@ -540,7 +540,7 @@ const SwapInterface = () => {
         </div>
 
         {/* Receive card */}
-        <div className="bg-white border-2 border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Receive TrotelCoin
           </h2>
@@ -551,13 +551,13 @@ const SwapInterface = () => {
                 Your address
               </span>
               {isSmallScreen ? (
-                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
+                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10">
                   {!isConnected
                     ? "Connect your wallet"
                     : truncateMiddleOfString(takerAddress as string, maxLength)}
                 </span>
               ) : (
-                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10">
+                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10">
                   {!isConnected ? "Connect your wallet" : takerAddress}
                 </span>
               )}
@@ -570,7 +570,7 @@ const SwapInterface = () => {
                 Solde
               </span>
 
-              <span className="text-center items-center rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border-2 border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
+              <span className="text-center items-center rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
                 <TrotelBalanceNoSSR /> TrotelCoin $
                 <ApproxBalanceUSDNoSSR />
               </span>
