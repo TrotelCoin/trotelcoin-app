@@ -411,10 +411,7 @@ const SwapInterface = () => {
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
               <span className="text-md dark:text-gray-100 text-gray-900">
-                Sell {token1.symbol} $
-                <span className={isBNBPriceError ? "animate-pulse" : ""}>
-                  {((bnbPrice as number) * toAmountInputSanitized).toFixed(2)}
-                </span>
+                Sell {token1.symbol}
               </span>
               <div className="relative rounded-xl">
                 <div>
@@ -437,12 +434,7 @@ const SwapInterface = () => {
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
               <span className="text-md dark:text-gray-100 text-gray-900">
-                Buy {token2.symbol} $
-                <span className={isPriceError ? "animate-pulse" : ""}>
-                  {((tokenPrice as number) * toAmountOutputSanitized).toFixed(
-                    2
-                  )}
-                </span>
+                Buy {token2.symbol}
               </span>
               <div className="relative rounded-xl">
                 <div>
@@ -479,10 +471,7 @@ const SwapInterface = () => {
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
               <span className="text-md dark:text-gray-100 text-gray-900">
-                Balance $
-                <span className={isPriceError ? "animate-pulse" : ""}>
-                  {((tokenPrice as number) * sendAmountSanitized).toFixed(2)}
-                </span>
+                Balance
               </span>
               <div className="relative rounded-xl">
                 <div>
@@ -560,12 +549,11 @@ const SwapInterface = () => {
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
               <span className="text-md dark:text-gray-100 text-gray-900">
-                Solde
+                Balance
               </span>
 
               <span className="text-center items-center rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
-                <TrotelBalanceNoSSR /> TrotelCoin $
-                <ApproxBalanceUSDNoSSR />
+                <TrotelBalanceNoSSR /> TrotelCoin
               </span>
             </div>
           </div>

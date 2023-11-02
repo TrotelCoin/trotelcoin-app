@@ -9,10 +9,6 @@ const TrotelBalanceNoSSR = dynamic(
   () => import("@/app/ui/hooks/trotelBalance")
 );
 
-const ApproxBalanceUSDNoSSR = dynamic(
-  () => import("@/app/ui/hooks/approxBalanceUSD")
-);
-
 // Define the Dashboard component as a function
 export default function Dashboard() {
   const [completed] = useState(0);
@@ -49,7 +45,7 @@ export default function Dashboard() {
             </span>
             <br />
           </span>
-          Balance $<ApproxBalanceUSDNoSSR />
+          Balance
         </div>
 
         {/* Earned Trotel coin worth card */}
@@ -63,10 +59,7 @@ export default function Dashboard() {
             </span>
             <br></br>
           </span>
-          Rewards $
-          <span className="animate-pulse">
-            {trotelCoinEarnedUSD.toFixed(2)}
-          </span>
+          Rewards
         </div>
 
         {/* Quizzes answered card */}
