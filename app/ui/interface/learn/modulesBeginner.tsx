@@ -131,7 +131,7 @@ function classNames(...classes: string[]) {
 }
 
 // Define the Modules component
-export default function Modules() {
+export default function ModulesBeginner() {
   const [expandedModules, setExpandedModules] = useState<number[]>([]);
   const [selectedModule, setSelectedModule] = useState<
     Module | Submodule | null
@@ -329,7 +329,7 @@ export default function Modules() {
     <div className="lg:mx-10 mx-4 my-8">
       <div className="border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-white dark:bg-gray-900 px-10 py-5 overflow-hidden animate__animated animate__fadeIn">
         <h2 className="text-xl text-gray-900 mt-6 dark:text-gray-100 font-semibold">
-          {selectedModule ? selectedModule.module : "Learn"}
+          {selectedModule ? selectedModule.module : "Beginner"}
         </h2>
         {renderModuleList()}
         {renderSubmodules()}
