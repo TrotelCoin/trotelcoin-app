@@ -30,7 +30,7 @@ export default function Dashboard() {
         {/* Courses taken card */}
         <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 dark:bg-gray-900 animate__animated animate__slideInLeft">
           <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-200">
-            <CountUp end={0}></CountUp>
+            <span>0</span>
             <br></br>
           </span>
           Courses taken
@@ -40,9 +40,6 @@ export default function Dashboard() {
         <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-gray-900 animate__animated animate__slideInRight">
           <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-200">
             <TrotelBalanceNoSSR />
-            <span className="text-xs text-gray-700 dark:text-gray-300">
-              TROTEL
-            </span>
             <br />
           </span>
           Balance
@@ -51,13 +48,8 @@ export default function Dashboard() {
         {/* Earned Trotel coin worth card */}
         <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-gray-900 animate__animated animate__slideInLeft">
           <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-200">
-            <span>
-              <CountUp end={0}></CountUp>
-              <span className="text-xs text-gray-700 dark:text-gray-300">
-                TROTEL
-              </span>
-            </span>
-            <br></br>
+            <span>0</span>
+            <br />
           </span>
           Rewards
         </div>
@@ -65,8 +57,8 @@ export default function Dashboard() {
         {/* Quizzes answered card */}
         <div className="bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 dark:bg-gray-900 animate__animated animate__slideInRight">
           <span className="text-4xl lg:text-8xl text-gray-900 dark:text-blue-200">
-            <CountUp end={0}></CountUp>
-            <br></br>
+            <span>0</span>
+            <br />
           </span>
           Quizzes answered
         </div>
