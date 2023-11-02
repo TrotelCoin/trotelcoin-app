@@ -101,13 +101,13 @@ const Header = () => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
-          <Link
-            href="/account"
-            className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-          >
-            My account
+          <Link href="/login">
+            <button
+              className={`bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
+            >
+              Log in
+            </button>
           </Link>
-          <WalletNoSSR></WalletNoSSR>
         </div>
 
         {/* Mobile menu button */}
@@ -142,13 +142,13 @@ const Header = () => {
               ></Image>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
-              <Link
-                href="/account"
-                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-black/80"
-              >
-                My account
+              <Link href="/login">
+                <button
+                  className={`bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900 rounded-full font-semibold wallet-button`}
+                >
+                  Log in
+                </button>
               </Link>
-              <WalletNoSSR></WalletNoSSR>
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-900 dark:text-gray-100"
