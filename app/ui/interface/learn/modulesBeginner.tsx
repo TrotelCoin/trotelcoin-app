@@ -48,15 +48,24 @@ const modules: Module[] = [
         status: "Ready",
         description:
           "Overview of digital wallets and their importance in the cryptocurrency world",
-        environment: "Coming soon",
+        environment: "Ready",
       },
       {
         id: 12,
         href: "",
-        module: "Secure your wallet",
+        module: "Hardware wallets",
         status: "Ready",
         description:
-          "Learn best practices for securing your digital wallet and keeping your cryptocurrencies safe",
+          "Understand the benefits of hardware wallets and how to use them",
+        environment: "Coming soon",
+      },
+      {
+        id: 13,
+        href: "",
+        module: "Interact with your wallet",
+        status: "Ready",
+        description:
+          "Learn how to interact with your wallet and manage your funds",
         environment: "Coming soon",
       },
     ],
