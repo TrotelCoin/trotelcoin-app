@@ -34,8 +34,8 @@ const CoursePage = () => {
             role="list"
             className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
           >
-            <div className="grid grid-cols-3 divide-y">
-              <div>
+            <div className="grid grid-cols-1 divide-y">
+              <div className="my-4">
                 <li className="flex gap-x-3">
                   <span>
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
@@ -45,7 +45,7 @@ const CoursePage = () => {
                   </span>
                 </li>
               </div>
-              <div>
+              <div className="my-4">
                 <li className="flex gap-x-3">
                   <span>
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
@@ -57,7 +57,7 @@ const CoursePage = () => {
                   </span>
                 </li>
               </div>
-              <div>
+              <div className="my-4">
                 <li className="flex gap-x-3">
                   <span>
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
