@@ -419,7 +419,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0.00"
                     onChange={(e) =>
                       setToAmountInput(parseFloat(e.target.value))
@@ -442,7 +442,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     value={`≈ ${toAmountOutputSanitized.toFixed(2)}`}
                     disabled
                   />
@@ -479,7 +479,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0.00"
                     onChange={(e) => setSendAmount(parseFloat(e.target.value))}
                   />
@@ -499,7 +499,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0x..."
                     onChange={(e) =>
                       setSendAddress(e.target.value as `0x${string}`)
