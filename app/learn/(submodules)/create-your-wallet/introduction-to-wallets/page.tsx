@@ -25,55 +25,61 @@ const CoursePage = () => {
       <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
         {currentCourse.module}
       </p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-        {currentCourse.title}
-      </h1>
+      <div className="divide-y">
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+          {currentCourse.title}
+        </h1>
+      </div>
       <div className="mt-10 max-w-2xl">
-        <p>What are you going to learn?</p>
-        <ul
-          role="list"
-          className="mt-8 max-w-xl space-y-8 text-gray-600 dark:text-gray-400"
-        >
-          <li className="flex gap-x-3">
-            <CheckCircleIcon
-              className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-              aria-hidden="true"
-            />
-            <span>
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Choose your wallet.
-              </strong>{" "}
-              Choose a crypto wallet that suits your needs.
-            </span>
-          </li>
-          <li className="flex gap-x-3">
-            <CheckCircleIcon
-              className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-              aria-hidden="true"
-            />
-            <span>
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Purposes of wallets.
-              </strong>{" "}
-              Wallets are the most important part of the crypto ecosystem
-              allowing you to send, swap and receive crypto but even
-              authenticate on your favorite websites.
-            </span>
-          </li>
-          <li className="flex gap-x-3">
-            <CheckCircleIcon
-              className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-              aria-hidden="true"
-            />
-            <span>
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Good practices.
-              </strong>{" "}
-              Understand how to secure your wallet to navigate in the defi world
-              securely.
-            </span>
-          </li>
-        </ul>
+        <div className="divide-y">
+          <div>
+            <p>What are you going to learn?</p>
+            <ul
+              role="list"
+              className="mt-8 max-w-xl space-y-8 text-gray-600 dark:text-gray-400"
+            >
+              <li className="flex gap-x-3">
+                <CheckCircleIcon
+                  className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
+                  aria-hidden="true"
+                />
+                <span>
+                  <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                    Choose your wallet.
+                  </strong>{" "}
+                  Choose a crypto wallet that suits your needs.
+                </span>
+              </li>
+              <li className="flex gap-x-3">
+                <CheckCircleIcon
+                  className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
+                  aria-hidden="true"
+                />
+                <span>
+                  <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                    Purposes of wallets.
+                  </strong>{" "}
+                  Wallets are the most important part of the crypto ecosystem
+                  allowing you to send, swap and receive crypto but even
+                  authenticate on your favorite websites.
+                </span>
+              </li>
+              <li className="flex gap-x-3">
+                <CheckCircleIcon
+                  className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
+                  aria-hidden="true"
+                />
+                <span>
+                  <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                    Good practices.
+                  </strong>{" "}
+                  Understand how to secure your wallet to navigate in the defi
+                  world securely.
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
         <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Choose your wallet
         </h2>
