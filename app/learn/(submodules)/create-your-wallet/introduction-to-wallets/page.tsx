@@ -1,10 +1,8 @@
 "use client";
 
-import {
-  CheckCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/20/solid";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
+import "animate.css";
 
 interface Course {
   id: number;
@@ -22,61 +20,63 @@ const currentCourse: Course = {
 const CoursePage = () => {
   return (
     <>
-      <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
-        {currentCourse.module}
-      </p>
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-        {currentCourse.title}
-      </h1>
       <div className="max-w-2xl">
-        <div className="border my-5 w-full rounded-full"></div>
-        <p>What are you going to learn?</p>
-        <ul
-          role="list"
-          className="mt-8 max-w-xl space-y-8 text-gray-600 dark:text-gray-400"
-        >
-          <li className="flex gap-x-3">
-            <CheckCircleIcon
-              className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-              aria-hidden="true"
-            />
-            <span>
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Choose your wallet.
-              </strong>{" "}
-              Choose a crypto wallet that suits your needs.
-            </span>
-          </li>
-          <li className="flex gap-x-3">
-            <CheckCircleIcon
-              className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-              aria-hidden="true"
-            />
-            <span>
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Purposes of wallets.
-              </strong>{" "}
-              Wallets are the most important part of the crypto ecosystem
-              allowing you to send, swap and receive crypto but even
-              authenticate on your favorite websites.
-            </span>
-          </li>
-          <li className="flex gap-x-3">
-            <CheckCircleIcon
-              className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-              aria-hidden="true"
-            />
-            <span>
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Good practices.
-              </strong>{" "}
-              Understand how to secure your wallet to navigate in the defi world
-              securely.
-            </span>
-          </li>
-        </ul>
-        <div className="border my-5 w-full rounded-full"></div>
-        <h2 className="mt-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
+          {currentCourse.module}
+        </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+          {currentCourse.title}
+        </h1>
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl p-10 dark:bg-gray-900 animate__animated animate__fadeIn">
+          <p className="text-gray-900 dark:text-gray-100">
+            What are you going to learn?
+          </p>
+          <ul
+            role="list"
+            className="mt-8 max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
+          >
+            <li className="flex gap-x-3">
+              <CheckCircleIcon
+                className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
+                aria-hidden="true"
+              />
+              <span>
+                <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                  Choose your wallet.
+                </strong>{" "}
+                Choose a crypto wallet that suits your needs.
+              </span>
+            </li>
+            <li className="flex gap-x-3">
+              <CheckCircleIcon
+                className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
+                aria-hidden="true"
+              />
+              <span>
+                <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                  Purposes of wallets.
+                </strong>{" "}
+                Wallets are the most important part of the crypto ecosystem
+                allowing you to send, swap and receive crypto but even
+                authenticate on your favorite websites.
+              </span>
+            </li>
+            <li className="flex gap-x-3">
+              <CheckCircleIcon
+                className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
+                aria-hidden="true"
+              />
+              <span>
+                <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                  Good practices.
+                </strong>{" "}
+                Understand how to secure your wallet to navigate in the defi
+                world securely.
+              </span>
+            </li>
+          </ul>
+        </div>
+        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Choose your wallet
         </h2>
         <p className="mt-6">
