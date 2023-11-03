@@ -27,10 +27,10 @@ const CoursePage = () => {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
           {currentCourse.title}
         </h1>
-        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl p-10 dark:bg-gray-900 animate__animated animate__fadeIn">
-          <p className="text-gray-900 dark:text-gray-100">
-            What are you going to learn?
-          </p>
+        <p className="text-gray-900 dark:text-gray-100">
+          What are you going to learn?
+        </p>
+        <div className="bg-gray-50 my-5 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-10 py-5 dark:bg-gray-900 animate__animated animate__fadeIn">
           <ul
             role="list"
             className="mt-8 max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
