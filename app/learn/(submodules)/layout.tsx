@@ -10,8 +10,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body
         className={`bg-white dark:bg-black ${poppins.className} antialiased`}
       >
-        <GoHomeButton />
         {children}
+        <GoHomeButton />
       </body>
     </html>
   );
