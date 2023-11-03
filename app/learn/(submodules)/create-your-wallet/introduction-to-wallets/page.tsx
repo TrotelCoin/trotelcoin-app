@@ -44,8 +44,7 @@ const CoursePage = () => {
                 <strong className="font-semibold text-gray-900 dark:text-gray-100">
                   Choose your wallet.
                 </strong>{" "}
-                Choose a crypto wallet that suits your needs depending on the
-                chain you use.
+                Choose a crypto wallet that suits your needs.
               </span>
             </li>
             <li className="flex gap-x-3">
