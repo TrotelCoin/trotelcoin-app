@@ -55,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta name="apple-mobile-web-app-capable" content="yes"></meta>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/assets/logo/trotelcoin.png"></link>
-        <link rel="icon" href="/favicon.ico"></link>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
 
         {/* Define Apple splash screen images for different devices */}
         <link
