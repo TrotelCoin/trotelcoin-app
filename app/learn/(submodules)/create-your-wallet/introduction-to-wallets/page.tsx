@@ -1,6 +1,5 @@
 "use client";
 
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 import "animate.css";
 
@@ -30,16 +29,12 @@ const CoursePage = () => {
         <p className="mt-2 text-gray-900 dark:text-gray-100">
           What are you going to learn?
         </p>
-        <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-10 py-5 dark:bg-gray-900 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+        <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-10 py-8 dark:bg-gray-900 hover:border-gray-900/50 dark:hover:border-gray-100/50">
           <ul
             role="list"
-            className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
+            className="max-w-xl space-y-8 text-gray-700 divide-y dark:text-gray-300"
           >
             <li className="flex gap-x-3">
-              <CheckCircleIcon
-                className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-                aria-hidden="true"
-              />
               <span>
                 <strong className="font-semibold text-gray-900 dark:text-gray-100">
                   Choose your wallet.
@@ -48,10 +43,6 @@ const CoursePage = () => {
               </span>
             </li>
             <li className="flex gap-x-3">
-              <CheckCircleIcon
-                className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-                aria-hidden="true"
-              />
               <span>
                 <strong className="font-semibold text-gray-900 dark:text-gray-100">
                   Purposes of wallets.
@@ -62,10 +53,6 @@ const CoursePage = () => {
               </span>
             </li>
             <li className="flex gap-x-3">
-              <CheckCircleIcon
-                className="mt-1 h-5 w-5 flex-none text-blue-600 dark:text-blue-200"
-                aria-hidden="true"
-              />
               <span>
                 <strong className="font-semibold text-gray-900 dark:text-gray-100">
                   Good practices.
