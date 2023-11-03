@@ -43,7 +43,7 @@ const modules: Module[] = [
     submodules: [
       {
         id: 11,
-        href: "",
+        href: "/learn/submodules/create-your-wallet/introduction-to-wallets",
         module: "Introduction to wallets",
         status: "Ready",
         description:
