@@ -3,7 +3,6 @@
 // Import necessary React components and modules
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import React, { useState } from "react";
-import "animate.css";
 import { Module, Submodule } from "@/types/types";
 
 // Define the Module interface
@@ -334,7 +333,7 @@ export default function ModulesBeginner() {
   // Render the module list or a selected module's submodules
   return (
     <div className="lg:mx-10 mx-4 my-8">
-      <div className="border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-900 px-10 py-5 overflow-hidden animate__animated animate__fadeIn">
+      <div className="border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-900 px-10 py-5 overflow-hidden">
         <h2 className="text-xl text-gray-900 mt-6 dark:text-gray-100 font-semibold">
           {selectedModule ? selectedModule.module : "Beginner"}
         </h2>

@@ -61,7 +61,7 @@ const Articles = () => {
         {/* Render a grid of ArticleCard components */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mx-4 lg:mx-10 my-8">
           {displayedArticles.map((article) => (
-            <div key={article.id} className="animate__animated animate__fadeIn">
+            <div key={article.id}>
               <ArticleCard
                 key={article.id}
                 article={article}
