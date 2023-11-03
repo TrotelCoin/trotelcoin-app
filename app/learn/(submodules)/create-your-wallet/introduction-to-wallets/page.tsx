@@ -25,13 +25,11 @@ const CoursePage = () => {
       <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
         {currentCourse.module}
       </p>
-      <div className="w-full border">
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-          {currentCourse.title}
-        </h1>
-      </div>
-      <div className="mt-10 max-w-2xl">
-        <div className="border w-full"></div>
+      <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+        {currentCourse.title}
+      </h1>
+      <div className="max-w-2xl">
+        <div className="border my-5 w-full rounded-full"></div>
         <p>What are you going to learn?</p>
         <ul
           role="list"
@@ -77,8 +75,8 @@ const CoursePage = () => {
             </span>
           </li>
         </ul>
-        <div className="border w-full"></div>
-        <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        <div className="border my-5 w-full rounded-full"></div>
+        <h2 className="mt-10 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Choose your wallet
         </h2>
         <p className="mt-6">
