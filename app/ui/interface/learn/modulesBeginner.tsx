@@ -10,7 +10,8 @@ import { Module, Submodule } from "@/types/types";
 
 // Define CSS classes for different statuses and environments
 const statuses: Record<string, string> = {
-  Ready: "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
+  "Not started":
+    "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
   Finished:
     "text-green-500 bg-green-400/20 dark:text-green-200 dark:bg-green-200/10",
   Ongoing:
@@ -18,9 +19,7 @@ const statuses: Record<string, string> = {
 };
 
 const environments: Record<string, string> = {
-  "Coming soon":
-    "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
-  Ready:
+  "Not started":
     "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
   Finished:
     "text-green-900 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
@@ -35,38 +34,38 @@ const modules: Module[] = [
     id: 1,
     href: "#",
     module: "Create your wallet",
-    status: "Ready",
+    status: "Not started",
     statusText: "0%",
     description:
       "Learn how to set up and manage your digital wallet for secure and convenient financial transactions",
-    environment: "Coming soon",
+    environment: "Not started",
     submodules: [
       {
         id: 11,
-        href: "/learn/submodules/create-your-wallet/introduction-to-wallets",
+        href: "/learn/create-your-wallet/introduction-to-wallets",
         module: "Introduction to wallets",
-        status: "Ready",
+        status: "Not started",
         description:
           "Overview of digital wallets and their importance in the cryptocurrency world",
-        environment: "Ready",
+        environment: "Not started",
       },
       {
         id: 12,
         href: "",
         module: "Hardware wallets",
-        status: "Ready",
+        status: "Not started",
         description:
           "Understand the benefits of hardware wallets and how to use them",
-        environment: "Coming soon",
+        environment: "Not started",
       },
       {
         id: 13,
         href: "",
         module: "Interact with your wallet",
-        status: "Ready",
+        status: "Not started",
         description:
           "Learn how to interact with your wallet and manage your funds",
-        environment: "Coming soon",
+        environment: "Not started",
       },
     ],
   },
@@ -75,29 +74,29 @@ const modules: Module[] = [
     id: 2,
     href: "#",
     module: "Discover Bitcoin",
-    status: "Ready",
+    status: "Not started",
     statusText: "0%",
     description:
       "Explore the world of bitcoin and gain a comprehensive understanding of its technology, use and implications",
-    environment: "Coming soon",
+    environment: "Not started",
     submodules: [
       {
         id: 21,
         href: "",
         module: "History of Bitcoin",
-        status: "Ready",
+        status: "Not started",
         description:
           "Learn the basics of Bitcoin, its history and its underlying technology, the blockchain",
-        environment: "Coming soon",
+        environment: "Not started",
       },
       {
         id: 22,
         href: "",
         module: "Bitcoin mining",
-        status: "Ready",
+        status: "Not started",
         description:
           "Dive into the Bitcoin mining process and how it supports the network",
-        environment: "Coming soon",
+        environment: "Not started",
       },
     ],
   },
@@ -106,29 +105,29 @@ const modules: Module[] = [
     id: 3,
     href: "#",
     module: "Discover Ethereum",
-    status: "Ready",
+    status: "Not started",
     statusText: "0%",
     description:
       "Dive into the world of Ethereum to discover its technology, applications and potential impact on the future of decentralized computing and finance",
-    environment: "Coming soon",
+    environment: "Not started",
     submodules: [
       {
         id: 31,
         href: "",
         module: "What's Ethereum ?",
-        status: "Ready",
+        status: "Not started",
         description:
           "Introduction to Ethereum, its founder and its objectives in the world of blockchain technology",
-        environment: "Coming soon",
+        environment: "Not started",
       },
       {
         id: 32,
         href: "",
         module: "Smart Contracts",
-        status: "Ready",
+        status: "Not started",
         description:
           "Exploring the concept of smart contracts and their role in decentralized applications (DApps)",
-        environment: "Coming soon",
+        environment: "Not started",
       },
     ],
   },
@@ -148,8 +147,7 @@ export default function ModulesBeginner() {
 
   // Create a mapping from environment to status
   const environmentToStatusMapping: Record<string, string> = {
-    "Coming soon": "Ready",
-    Ready: "Ready",
+    "Not started": "Not started",
     Finished: "Finished",
     Ongoing: "Ongoing",
   };
@@ -168,7 +166,7 @@ export default function ModulesBeginner() {
   // Iterate through modules and calculate statusText for each
   modules.forEach((module) => {
     module.status = environmentToStatusMapping[module.environment] as
-      | "Ready"
+      | "Not started"
       | "Finished"
       | "Ongoing";
     module.statusText = calculateStatusText(module);

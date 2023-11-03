@@ -25,10 +25,10 @@ export interface Module {
   id: number;
   href: string;
   module: string;
-  status: "Ready" | "Finished" | "Ongoing";
+  status: "Not started" | "Finished" | "Ongoing";
   statusText: string;
   description: string;
-  environment: "Coming soon" | "Ready" | "Finished" | "Ongoing";
+  environment: "Not started" | "Finished" | "Ongoing";
   submodules: Submodule[];
 }
 
@@ -37,8 +37,8 @@ export interface Submodule {
   id: number;
   href: string;
   module: string;
-  status: "Ready" | "Finished" | "Ongoing";
-  environment: "Coming soon" | "Ready" | "Finished" | "Ongoing";
+  status: "Not started" | "Finished" | "Ongoing";
+  environment: "Not started" | "Finished" | "Ongoing";
   description: string;
 }
 

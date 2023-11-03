@@ -10,7 +10,8 @@ import { Module, Submodule } from "@/types/types";
 
 // Define CSS classes for different statuses and environments
 const statuses: Record<string, string> = {
-  Ready: "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
+  "Not started":
+    "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
   Finished:
     "text-green-500 bg-green-400/20 dark:text-green-200 dark:bg-green-200/10",
   Ongoing:
@@ -18,9 +19,7 @@ const statuses: Record<string, string> = {
 };
 
 const environments: Record<string, string> = {
-  "Coming soon":
-    "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
-  Ready:
+  "Not started":
     "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
   Finished:
     "text-green-900 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
@@ -35,18 +34,18 @@ const modules: Module[] = [
     id: 1,
     href: "#",
     module: "",
-    status: "Ready",
+    status: "Not started",
     statusText: "0%",
     description: "",
-    environment: "Coming soon",
+    environment: "Not started",
     submodules: [
       {
         id: 11,
         href: "",
         module: "",
-        status: "Ready",
+        status: "Not started",
         description: "",
-        environment: "Coming soon",
+        environment: "Not started",
       },
     ],
   },
@@ -66,8 +65,7 @@ export default function ModulesIntermediate() {
 
   // Create a mapping from environment to status
   const environmentToStatusMapping: Record<string, string> = {
-    "Coming soon": "Ready",
-    Ready: "Ready",
+    "Not started": "Not started",
     Finished: "Finished",
     Ongoing: "Ongoing",
   };
@@ -86,7 +84,7 @@ export default function ModulesIntermediate() {
   // Iterate through modules and calculate statusText for each
   modules.forEach((module) => {
     module.status = environmentToStatusMapping[module.environment] as
-      | "Ready"
+      | "Not started"
       | "Finished"
       | "Ongoing";
     module.statusText = calculateStatusText(module);
