@@ -34,7 +34,7 @@ const CoursePage = () => {
             role="list"
             className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
           >
-            <div className="grid grid-cols-1 divide-y">
+            <div className="grid grid-cols-1 divide-y divide-gray-900/10 dark:divide-gray-100/10">
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span>
