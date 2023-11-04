@@ -87,7 +87,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             />
             <Banner />
             <Header />
-            {children}
+            <main>{children}</main>
           </body>
         </Suspense>
       </Wagmi>
