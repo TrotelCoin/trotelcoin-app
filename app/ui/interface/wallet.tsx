@@ -1,32 +1,15 @@
-import React, { useEffect } from "react";
-import { InjectedConnector } from "wagmi/connectors/injected";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { unstable_noStore as noStore } from "next/cache";
+import React from "react";
+import { useWallet } from "@/lib/walletContext";
 
 export default function Wallet() {
-  noStore();
-  const { connectAsync } = useConnect();
-  const { disconnectAsync } = useDisconnect();
-  const { isConnected } = useAccount();
+  const { isConnected, connectWallet, disconnectWallet } = useWallet();
 
-  const handleDisconnect = async () => {
-    try {
-      await disconnectAsync();
-    } catch (error) {
-      console.error("Disconnect error:", error);
-    }
+  const handleDisconnect = () => {
+    disconnectWallet();
   };
 
-  const handleAuth = async () => {
-    try {
-      const { account } = await connectAsync({
-        connector: new InjectedConnector(),
-      });
-
-      console.log("Account has been connected:", account);
-    } catch (error) {
-      console.error("Authentication error:", error);
-    }
+  const handleAuth = () => {
+    connectWallet();
   };
 
   // Return the component based on state

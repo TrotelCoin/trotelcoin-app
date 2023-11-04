@@ -55,7 +55,7 @@ const ApproxUSD = () => {
 
     // Clear the timer when the component unmounts
     return () => clearInterval(refreshInterval);
-  }, []);
+  }, [data?.formatted]);
 
   // Render the approximate USD value with two decimal places
   if (isConnected) {

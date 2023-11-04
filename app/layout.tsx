@@ -1,6 +1,5 @@
 // Import necessary modules and components
 import React, { Suspense } from "react";
-import Hotjar from "@hotjar/browser";
 import "@/public/globals.css";
 import Loading from "@/app/ui/interface/loading";
 import NextTopLoader from "nextjs-toploader";
@@ -8,17 +7,13 @@ import { poppins } from "@/app/ui/fonts";
 import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
 import Banner from "@/app/ui/interface/banner";
+import { WalletProvider } from "@/lib/walletContext";
 
 // Define metadata for the document
 export const metadata = {
   title: "TrotelCoin App",
   description: "Learn & earn crypto.",
 };
-
-// Initialize Hotjar for website analytics
-const siteId = 3685770;
-const hotjarVersion = 6;
-Hotjar.init(siteId, hotjarVersion);
 
 // Define the main Document component
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -69,27 +64,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Use Suspense for loading fallback */}
       <Wagmi>
-        <Suspense fallback={<Loading></Loading>}>
-          {/* Set the body class for dark mode */}
-          <body
-            className={`bg-white dark:bg-black ${poppins.className} antialiased`}
-          >
-            <NextTopLoader
-              color="#3b82f6"
-              initialPosition={0.08}
-              crawlSpeed={200}
-              height={3}
-              crawl={true}
-              showSpinner={false}
-              easing="ease"
-              speed={200}
-              shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-            />
-            <Banner />
-            <Header />
-            <main>{children}</main>
-          </body>
-        </Suspense>
+        <WalletProvider>
+          <Suspense fallback={<Loading></Loading>}>
+            {/* Set the body class for dark mode */}
+            <body
+              className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+            >
+              <NextTopLoader
+                color="#3b82f6"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={3}
+                crawl={true}
+                showSpinner={false}
+                easing="ease"
+                speed={200}
+                shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+              />
+              <Banner />
+              <Header />
+              <main>{children}</main>
+            </body>
+          </Suspense>
+        </WalletProvider>
       </Wagmi>
     </html>
   );
