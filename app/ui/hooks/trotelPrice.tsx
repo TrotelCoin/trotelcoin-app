@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Moralis from "moralis";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default function TrotelPrice() {
+  noStore();
   // State to hold the token price
   const [tokenPrice, setTokenPrice] = useState<number | null>(null);
 

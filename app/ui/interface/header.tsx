@@ -9,24 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Wallet from "@/app/ui/interface/wallet";
 import { usePathname } from "next/navigation";
-
-const LanguageSelectorNoSSR = dynamic(
-  () => import("@/app/ui/interface/languageSelector"),
-  {
-    ssr: false,
-  }
-);
-
-const TrotelPriceNoSSR = dynamic(() => import("@/app/ui/hooks/trotelPrice"), {
-  ssr: false,
-});
-
-const TrotelPriceChangeNoSSR = dynamic(
-  () => import("@/app/ui/hooks/trotelPriceChange"),
-  {
-    ssr: false,
-  }
-);
+import TrotelPrice from "@/app/ui/hooks/trotelPrice";
+import TrotelPriceChange from "@/app/ui/hooks/trotelPriceChange";
 
 // Define types for navigation items and header props
 interface NavigationItem {
@@ -69,10 +53,8 @@ const Header = () => {
               ></Image>
             </Link>
           </div>
-          <p className="dark:text-gray-100">
-            ${<TrotelPriceNoSSR></TrotelPriceNoSSR>}
-          </p>
-          {<TrotelPriceChangeNoSSR></TrotelPriceChangeNoSSR>}
+          <p className="dark:text-gray-100">${<TrotelPrice />}</p>
+          {<TrotelPriceChange />}
           <span className="hidden lg:inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             <span className="animate-pulse">alpha version</span>
           </span>

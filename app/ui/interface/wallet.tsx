@@ -1,8 +1,10 @@
 import React from "react";
 import { InjectedConnector } from "wagmi/connectors/injected";
-import { useAccount, useConnect, useSignMessage, useDisconnect } from "wagmi";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default function Wallet() {
+  noStore();
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();

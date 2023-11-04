@@ -3,6 +3,7 @@ import Moralis from "moralis";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default function TrotelPriceChange() {
+  noStore();
   const [tokenPriceChange, setTokenPriceChange] = useState<number>(0);
   const [containerClass, setContainerClass] = useState<string>(
     "inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-400/20"
@@ -11,8 +12,6 @@ export default function TrotelPriceChange() {
   const [isError, setIsError] = useState<boolean>(false);
 
   const fetchTokenPriceChange = async () => {
-    noStore();
-
     try {
       // Check if Moralis is already started
       if (!Moralis.Core.isStarted) {
