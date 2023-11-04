@@ -256,6 +256,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      {/* Mobile footer 
       <div
         className={`fixed sm:hidden bottom-0 left-0 w-full dark:bg-black bg-white shadow-xl border-t-2 border-gray-900/5 dark:border-white/5 transition-all duration-500 ${
           isFooterVisible ? "opacity-100" : "opacity-0 pointer-events-none"
@@ -278,7 +279,7 @@ const Footer = () => {
             </Link>
           ))}
         </div>
-      </div>
+      </div>*/}
     </footer>
   );
 };
