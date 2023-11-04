@@ -29,12 +29,6 @@ export default function Wallet() {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      handleDisconnect();
-    };
-  }, [handleDisconnect]);
-
   // Return the component based on state
   if (isConnected) {
     return (
