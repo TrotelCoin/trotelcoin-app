@@ -9,14 +9,8 @@ export default function Home() {
   return (
     <>
       <div>
-        {/* Render the Banner component */}
-        <Banner></Banner>
-
-        {/* Render the Header component with the current page */}
-        <Header></Header>
-
-        {/* Render the Dashboard component */}
-        <Dashboard></Dashboard>
+        <Banner />
+        <Dashboard />
       </div>
     </>
   );

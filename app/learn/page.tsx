@@ -10,10 +10,6 @@ const Learn = () => {
   return (
     <>
       <div>
-        {/* Render the Header component with the current page */}
-        <Header />
-
-        {/* Render the Modules component */}
         <ModulesBeginner />
         {/*<ModulesIntermediate />
         <ModulesExpert />*/}
