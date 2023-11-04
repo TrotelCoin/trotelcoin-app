@@ -7,12 +7,8 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import Wallet from "@/app/ui/interface/wallet";
 import { usePathname } from "next/navigation";
-
-// Import dynamic components with SSR disabled
-const WalletNoSSR = dynamic(() => import("@/app/ui/interface/wallet"), {
-  ssr: false,
-});
 
 const LanguageSelectorNoSSR = dynamic(
   () => import("@/app/ui/interface/languageSelector"),
@@ -101,7 +97,7 @@ const Header = () => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
-          <WalletNoSSR />
+          <Wallet />
         </div>
 
         {/* Mobile menu button */}
