@@ -63,13 +63,15 @@ const Header = () => {
         {/* Left section with logo, Trotel price, and version */}
         <div className="flex lg:flex-1 items-center gap-x-4">
           <div className="-m-1.5 p-1.5">
-            <Image
-              className="h-12 w-auto"
-              width={128}
-              height={128}
-              src="/assets/logo/trotelcoin-white.png"
-              alt={""}
-            ></Image>
+            <Link href="/">
+              <Image
+                className="h-12 w-auto"
+                width={128}
+                height={128}
+                src="/assets/logo/trotelcoin-white.png"
+                alt={""}
+              ></Image>
+            </Link>
           </div>
           <p className="dark:text-gray-100">
             ${<TrotelPriceNoSSR></TrotelPriceNoSSR>}
@@ -125,13 +127,15 @@ const Header = () => {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
-              <Image
-                className="h-12 w-auto"
-                width={128}
-                height={128}
-                src="/assets/logo/trotelcoin-white.png"
-                alt={""}
-              ></Image>
+              <Link href="/">
+                <Image
+                  className="h-12 w-auto"
+                  width={128}
+                  height={128}
+                  src="/assets/logo/trotelcoin-white.png"
+                  alt={""}
+                ></Image>
+              </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
               <WalletNoSSR />
