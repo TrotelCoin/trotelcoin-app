@@ -51,9 +51,7 @@ const CoursePage = () => {
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
                       Purposes of wallets.
                     </strong>{" "}
-                    Wallets are the most important part of the crypto ecosystem
-                    allowing you to send, swap and receive crypto but even
-                    authenticate on your favorite websites.
+                    Be aware that crypto wallets serve specific purposes.
                   </span>
                 </li>
               </div>
@@ -72,7 +70,7 @@ const CoursePage = () => {
           </ul>
         </div>
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          Choose your wallet
+          Install your first wallet
         </h2>
         <p className="mt-6">
           Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat
@@ -109,7 +107,7 @@ const CoursePage = () => {
       </div>
       <div className="mt-16 max-w-2xl">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          Purposes of wallets
+          Configure your wallet
         </h2>
         <p className="mt-6">
           Purus morbi dignissim senectus mattis adipiscing. Amet, massa quam
