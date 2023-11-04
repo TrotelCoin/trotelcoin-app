@@ -134,7 +134,7 @@ const Header = () => {
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
-              <WalletNoSSR />
+              <Wallet />
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-900 dark:text-gray-100"

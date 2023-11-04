@@ -6,9 +6,6 @@ export default function Wallet() {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
-  const { signMessage } = useSignMessage({
-    message: "Log into the TrotelCoin platform.",
-  });
 
   const handleDisconnect = async () => {
     try {
@@ -24,7 +21,6 @@ export default function Wallet() {
         connector: new InjectedConnector(),
       });
 
-      signMessage();
       console.log("Account has been connected:", account);
     } catch (error) {
       console.error("Authentication error:", error);
