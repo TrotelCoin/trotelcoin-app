@@ -8,7 +8,7 @@ export default function Wallet() {
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
   const { isConnected } = useAccount();
-  const { isSuccess, signMessage } = useSignMessage({
+  const { signMessage } = useSignMessage({
     message: "Log into the TrotelCoin platform.",
   });
 
@@ -61,7 +61,7 @@ export default function Wallet() {
     } else {
       setDisconnect(true);
     }
-  }, []);
+  }, [isConnected]);
 
   // Return the component based on state
   if (isConnected) {
