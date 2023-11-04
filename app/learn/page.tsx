@@ -1,7 +1,6 @@
 // Import necessary React components and modules
 import React from "react";
 import Header from "@/app/ui/interface/header";
-import Footer from "@/app/ui/interface/footer";
 import ModulesBeginner from "@/app/ui/interface/learn/modulesBeginner";
 import ModulesIntermediate from "@/app/ui/interface/learn/modulesIntermediate";
 import ModulesExpert from "@/app/ui/interface/learn/modulesExpert";
@@ -18,9 +17,6 @@ const Learn = () => {
         <ModulesBeginner />
         {/*<ModulesIntermediate />
         <ModulesExpert />*/}
-
-        {/* Render the Footer component with the current page */}
-        <Footer />
       </div>
     </>
   );

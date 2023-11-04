@@ -2,7 +2,6 @@
 import React from "react";
 import Header from "./ui/interface/header";
 import Dashboard from "@/app/ui/interface/dashboard";
-import Footer from "@/app/ui/interface/footer";
 import Banner from "@/app/ui/interface/banner";
 
 // Define the Home component
@@ -18,9 +17,6 @@ export default function Home() {
 
         {/* Render the Dashboard component */}
         <Dashboard></Dashboard>
-
-        {/* Render the Footer component with the current page */}
-        <Footer></Footer>
       </div>
     </>
   );
