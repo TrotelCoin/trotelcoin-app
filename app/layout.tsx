@@ -7,6 +7,7 @@ import NextTopLoader from "nextjs-toploader";
 import { poppins } from "@/app/ui/fonts";
 import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
+import Banner from "@/app/ui/interface/banner";
 
 // Define metadata for the document
 export const metadata = {
@@ -84,6 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               speed={200}
               shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
             />
+            <Banner />
             <Header />
             {children}
           </body>

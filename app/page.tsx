@@ -9,7 +9,6 @@ export default function Home() {
   return (
     <>
       <div>
-        <Banner />
         <Dashboard />
       </div>
     </>
