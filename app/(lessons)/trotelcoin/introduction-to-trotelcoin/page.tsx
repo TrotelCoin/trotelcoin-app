@@ -245,7 +245,7 @@ const CoursePage = () => {
                 <button onClick={handleSubmit}>Submit</button>
               ) : (
                 <ReCAPTCHA
-                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_KEY as string}
+                  sitekey="6LelivkoAAAAAAiGYeQyp-3MJaiPN9wk_14OzV8s"
                   onChange={handleCaptchaVerify}
                 />
               )
