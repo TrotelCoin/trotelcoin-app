@@ -8,6 +8,7 @@ import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
 import Banner from "@/app/ui/interface/banner";
 import { WalletProvider } from "@/lib/walletContext";
+import { Analytics } from "@vercel/analytics/react";
 
 // Define metadata for the document
 export const metadata = {
@@ -84,6 +85,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Banner />
               <Header />
               <main>{children}</main>
+              <Analytics />
             </body>
           </Suspense>
         </WalletProvider>
