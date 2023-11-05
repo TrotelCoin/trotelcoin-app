@@ -111,29 +111,22 @@ const CoursePage = () => {
             <div className="grid grid-cols-1 divide-y divide-gray-900/10 dark:divide-gray-100/10">
               <div className="py-4">
                 <li className="flex gap-x-3">
-                  <span>
-                    <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                      Choose a crypto wallet that suits your needs.
-                    </strong>{" "}
+                  <span className="text-gray-900 dark:text-gray-100">
+                    Choose a crypto wallet that suits your needs.
                   </span>
                 </li>
               </div>
               <div className="py-4">
                 <li className="flex gap-x-3">
-                  <span>
-                    <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                      Understand that crypto wallets serve specific purposes.
-                    </strong>{" "}
+                  <span className="text-gray-900 dark:text-gray-100">
+                    Understand that crypto wallets serve specific purposes.
                   </span>
                 </li>
               </div>
               <div className="py-4">
                 <li className="flex gap-x-3">
-                  <span>
-                    <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                      Know good practices to navigate in the defi world
-                      securely.
-                    </strong>{" "}
+                  <span className="text-gray-900 dark:text-gray-100">
+                    Know good practices to navigate in the defi world securely.
                   </span>
                 </li>
               </div>
