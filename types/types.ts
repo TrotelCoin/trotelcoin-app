@@ -64,7 +64,6 @@ export interface BalanceData {
 export interface Lesson {
   title: string;
   href: string;
-  image: string;
   status: "Not started" | "Finished" | "Ongoing";
   tier: "Beginner" | "Intermediate" | "Expert";
   sponsored: boolean;
@@ -72,7 +71,6 @@ export interface Lesson {
 
 export interface Lessons {
   category: string;
-  percentage: number;
   courses: Lesson[];
 }
 

@@ -3,17 +3,14 @@
 import React, { useState } from "react";
 import { Lessons } from "@/types/types";
 import Link from "next/link";
-import Image from "next/image";
 
 const lessons: Lessons[] = [
   {
     category: "TrotelCoin",
-    percentage: 0,
     courses: [
       {
         title: "Introduction to TrotelCoin",
         href: "/trotelcoin/introduction-to-trotelcoin",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: true,
@@ -21,7 +18,6 @@ const lessons: Lessons[] = [
       {
         title: "Earn Intermediate and Expert NFTs",
         href: "/trotelcoin/earn-intermediate-and-expert-nfts",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: true,
@@ -30,12 +26,10 @@ const lessons: Lessons[] = [
   },
   {
     category: "Wallet",
-    percentage: 0,
     courses: [
       {
         title: "Create your first wallet",
         href: "/wallet/create-your-first-wallet",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -43,7 +37,6 @@ const lessons: Lessons[] = [
       {
         title: "Secure your wallet",
         href: "/wallet/secure-your-wallet",
-        image: "",
         status: "Not started",
         tier: "Intermediate",
         sponsored: false,
@@ -51,7 +44,6 @@ const lessons: Lessons[] = [
       {
         title: "Authenticate with your wallet",
         href: "/wallet/authenticate-with-your-wallet",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -59,7 +51,6 @@ const lessons: Lessons[] = [
       {
         title: "Make your first transaction",
         href: "/wallet/make-your-first-transaction",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -68,12 +59,10 @@ const lessons: Lessons[] = [
   },
   {
     category: "Blockchain",
-    percentage: 0,
     courses: [
       {
         title: "What is a blockchain?",
         href: "/blockchain/what-is-a-blockchain",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -81,7 +70,6 @@ const lessons: Lessons[] = [
       {
         title: "Consensus mechanisms",
         href: "/blockchain/consensus-mechanisms",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -90,12 +78,10 @@ const lessons: Lessons[] = [
   },
   {
     category: "Bitcoin",
-    percentage: 0,
     courses: [
       {
         title: "What is Bitcoin?",
         href: "/bitcoin/what-is-bitcoin",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -103,7 +89,6 @@ const lessons: Lessons[] = [
       {
         title: "The history of Bitcoin",
         href: "/bitcoin/the-history-of-bitcoin",
-        image: "",
         status: "Not started",
         tier: "Intermediate",
         sponsored: false,
@@ -112,12 +97,10 @@ const lessons: Lessons[] = [
   },
   {
     category: "Ethereum",
-    percentage: 0,
     courses: [
       {
         title: "What is Ethereum?",
         href: "/ethereum/what-is-ethereum",
-        image: "",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -125,7 +108,6 @@ const lessons: Lessons[] = [
       {
         title: "Understand the layers 2",
         href: "/ethereum/understand-the-layers-2",
-        image: "",
         status: "Not started",
         tier: "Intermediate",
         sponsored: false,
@@ -134,12 +116,10 @@ const lessons: Lessons[] = [
   },
   {
     category: "Governance",
-    percentage: 0,
     courses: [
       {
         title: "What are DAOs?",
         href: "/governance/what-are-daos",
-        image: "",
         status: "Not started",
         tier: "Expert",
         sponsored: false,
@@ -198,20 +178,9 @@ const Courses = () => {
         <div className="flex flex-col">
           {filteredLessons.map((lesson) => (
             <div className="py-10" key={lesson.category}>
-              <div className="flex gap-x-2 items-center">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                  {lesson.category}
-                </h2>
-                <span
-                  className={`${
-                    lesson.percentage === 100
-                      ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/20 dark:ring-green-500/20"
-                      : "bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400 ring-gray-500/10 dark:ring-gray-400/20"
-                  } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset`}
-                >
-                  {lesson.percentage}%
-                </span>
-              </div>
+              <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                {lesson.category}
+              </h2>
               <div className="mt-4 flex flex-row flex-wrap gap-4">
                 {lesson.courses.map((course) => (
                   <Link
@@ -220,13 +189,6 @@ const Courses = () => {
                     className="w-full md:w-full lg:w-1/6 h-full"
                   >
                     <div className="rounded-lg hover:shadow active:shadow-none active:border-blue-600 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 backdrop-blur-xl">
-                      {/*<Image
-                        className="bg-cover rounded-t-md"
-                        alt={course.title}
-                        width={128}
-                        height={180}
-                        src={course.image}
-                      />*/}
                       <div className="px-4 pb-4">
                         <h3 className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
                           {course.title}
