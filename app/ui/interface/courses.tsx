@@ -113,7 +113,7 @@ const Courses = () => {
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
             Search a course
           </label>
-          <div className="relative mx-auto w-3/4">
+          <div className="relative mx-auto w-full">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@ const Courses = () => {
           {filteredLessons.map((lesson) => (
             <div className="py-10" key={lesson.category}>
               <div className="flex gap-x-2 items-center">
-                <h2 className="font-semibold bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 dark:hover:bg-blue-50 px-6 py-2 rounded-full text-sm text-gray-100 dark:text-gray-900">
+                <h2 className="font-semibold bg-blue-600 dark:bg-blue-200 px-6 py-2 rounded-full text-sm text-gray-100 dark:text-gray-900">
                   {lesson.category}
                 </h2>
                 <span className="text-gray-900 dark:text-gray-100">
