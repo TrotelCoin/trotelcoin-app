@@ -214,7 +214,7 @@ const Courses = () => {
                   <Link
                     href={course.href}
                     key={course.title}
-                    className="w-full md:w-1/6 h-full"
+                    className="w-full md:w-1/2 lg:w-1/6 h-full"
                   >
                     <div className="rounded-lg hover:shadow active:shadow-none active:border-blue-600 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 backdrop-blur-xl">
                       {/*<Image
