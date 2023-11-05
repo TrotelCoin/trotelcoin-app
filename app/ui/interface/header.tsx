@@ -3,8 +3,7 @@
 // Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
-import React, { useState } from "react";
-import dynamic from "next/dynamic";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Wallet from "@/app/ui/interface/wallet";
@@ -32,6 +31,19 @@ const navigation = [
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  localStorage.setItem("mobileMenuOpen", "true");
+
+  localStorage.setItem("mobileMenuOpen", "false");
+
+  useEffect(() => {
+    const isMobileMenuOpen = localStorage.getItem("mobileMenuOpen");
+    if (isMobileMenuOpen === "true") {
+      setMobileMenuOpen(true);
+    } else {
+      setMobileMenuOpen(false);
+    }
+  }, []);
 
   return (
     <header className="bg-white dark:bg-black">
@@ -68,7 +80,7 @@ const Header = () => {
               href={item.href}
               className={`text-sm px-6 py-2 ${
                 pathname === item.href
-                  ? "bg-blue-600 dark:bg-blue-200 text-stone-100 dark:text-stone-900 hover:text-stone-100/80 dark:hover:text-stone-900/80"
+                  ? "bg-blue-600 dark:bg-blue-200 text-stone-100 dark:text-stone-900"
                   : "text-stone-900 dark:text-stone-100  hover:text-stone-900/80 dark:hover:text-stone-100/80"
               } font-semibold rounded-full leading-6`}
             >
