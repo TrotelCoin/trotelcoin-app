@@ -10,7 +10,7 @@ import { Module, Submodule } from "@/types/types";
 // Define CSS classes for different statuses and environments
 const statuses: Record<string, string> = {
   "Not started":
-    "text-gray-500 bg-gray-400/20 dark:text-gray-200 dark:bg-gray-200/10",
+    "text-stone-500 bg-stone-400/20 dark:text-stone-200 dark:bg-stone-200/10",
   Finished:
     "text-green-500 bg-green-400/20 dark:text-green-200 dark:bg-green-200/10",
   Ongoing:
@@ -19,7 +19,7 @@ const statuses: Record<string, string> = {
 
 const environments: Record<string, string> = {
   "Not started":
-    "text-gray-900 bg-gray-500/10 ring-gray-500/30 dark:text-gray-200 dark:bg-gray-200/10 dark:ring-gray-200/30",
+    "text-stone-900 bg-stone-500/10 ring-stone-500/30 dark:text-stone-200 dark:bg-stone-200/10 dark:ring-stone-200/30",
   Finished:
     "text-green-900 bg-green-500/10 ring-green-500/30 dark:text-green-200 dark:bg-green-200/10 dark:ring-green-200/30",
   Ongoing:
@@ -138,18 +138,18 @@ export default function ModulesExpert() {
                 >
                   <div className="h-2 w-2 rounded-full bg-current" />
                 </div>
-                <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+                <h2 className="min-w-0 text-sm font-semibold leading-6 text-stone-900 dark:text-stone-100">
                   <a href={module.href} className="flex gap-x-2">
                     <span className="whitespace-nowrap">{module.module}</span>
                     <span className="absolute inset-0" />
                   </a>
                 </h2>
               </div>
-              <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
+              <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-stone-600 dark:text-stone-400">
                 <p className="truncate">{module.description}</p>
                 <svg
                   viewBox="0 0 2 2"
-                  className="h-0.5 w-0.5 flex-none fill-gray-500 dark:fill-gray-300"
+                  className="h-0.5 w-0.5 flex-none fill-stone-500 dark:fill-stone-300"
                 >
                   <circle cx={1} cy={1} r={1} />
                 </svg>
@@ -166,7 +166,7 @@ export default function ModulesExpert() {
                 {module.environment}
               </div>
               <ChevronRightIcon
-                className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
+                className="h-5 w-5 flex-none text-stone-600 dark:text-stone-400"
                 aria-hidden="true"
               />
             </div>
@@ -203,7 +203,7 @@ export default function ModulesExpert() {
                   >
                     <div className="h-2 w-2 rounded-full bg-current" />
                   </div>
-                  <h2 className="min-w-0 text-sm font-semibold leading-6 text-gray-900 dark:text-gray-100">
+                  <h2 className="min-w-0 text-sm font-semibold leading-6 text-stone-900 dark:text-stone-100">
                     <a href={submodule.href} className="flex gap-x-2">
                       <span className="whitespace-nowrap">
                         {submodule.module}
@@ -212,7 +212,7 @@ export default function ModulesExpert() {
                     </a>
                   </h2>
                 </div>
-                <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-600 dark:text-gray-400">
+                <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-stone-600 dark:text-stone-400">
                   <p className="truncate">{submodule.description}</p>
                 </div>
               </div>
@@ -231,7 +231,7 @@ export default function ModulesExpert() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="h-5 w-5 flex-none text-gray-600 dark:text-gray-400"
+                  className="h-5 w-5 flex-none text-stone-600 dark:text-stone-400"
                 >
                   <path
                     strokeLinecap="round"
@@ -251,8 +251,8 @@ export default function ModulesExpert() {
   // Render the module list or a selected module's submodules
   return (
     <div className="lg:mx-10 mx-4 my-8">
-      <div className="border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-50 dark:bg-gray-900 px-10 py-5 overflow-hidden">
-        <h2 className="text-xl text-gray-900 mt-6 dark:text-gray-100 font-semibold">
+      <div className="border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 rounded-xl bg-stone-50 dark:bg-stone-900 px-10 py-5 overflow-hidden">
+        <h2 className="text-xl text-stone-900 mt-6 dark:text-stone-100 font-semibold">
           {selectedModule ? selectedModule.module : "Expert"}
         </h2>
         {renderModuleList()}
@@ -260,7 +260,7 @@ export default function ModulesExpert() {
         {selectedModule && (
           <button
             onClick={handleGoBack}
-            className="bg-blue-200 hover:bg-blue-200/80 dark:hover:bg-blue-200/80 text-sm px-6 py-2 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover.text-gray-900 rounded-full font-semibold cursor-pointer"
+            className="bg-blue-200 hover:bg-blue-200/80 dark:hover:bg-blue-200/80 text-sm px-6 py-2 dark:bg-blue-200 text-stone-900 dark:text-stone-900 dark:hover:text-stone-900 hover.text-stone-900 rounded-full font-semibold cursor-pointer"
           >
             Go back
           </button>

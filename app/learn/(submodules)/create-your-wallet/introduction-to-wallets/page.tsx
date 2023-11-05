@@ -23,22 +23,22 @@ const CoursePage = () => {
         <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
           {currentCourse.module}
         </p>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-4xl">
           {currentCourse.title}
         </h1>
-        <p className="mt-2 text-gray-900 dark:text-gray-100">
+        <p className="mt-2 text-stone-900 dark:text-stone-100">
           What are you going to learn?
         </p>
-        <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-10 py-2 dark:bg-gray-900 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+        <div className="bg-stone-50 my-10 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 rounded-xl px-10 py-2 dark:bg-stone-900 hover:border-stone-900/50 dark:hover:border-stone-100/50">
           <ul
             role="list"
-            className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
+            className="max-w-xl space-y-8 text-stone-700 dark:text-stone-300"
           >
-            <div className="grid grid-cols-1 divide-y divide-gray-900/10 dark:divide-gray-100/10">
+            <div className="grid grid-cols-1 divide-y divide-stone-900/10 dark:divide-stone-100/10">
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span>
-                    <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                    <strong className="font-semibold text-stone-900 dark:text-stone-100">
                       Choose your wallet.
                     </strong>{" "}
                     Choose a crypto wallet that suits your needs.
@@ -48,7 +48,7 @@ const CoursePage = () => {
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span>
-                    <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                    <strong className="font-semibold text-stone-900 dark:text-stone-100">
                       Purposes of wallets.
                     </strong>{" "}
                     Be aware that crypto wallets serve specific purposes.
@@ -58,7 +58,7 @@ const CoursePage = () => {
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span>
-                    <strong className="font-semibold text-gray-900 dark:text-gray-100">
+                    <strong className="font-semibold text-stone-900 dark:text-stone-100">
                       Good practices.
                     </strong>{" "}
                     Understand how to secure your wallet to navigate in the defi
@@ -69,7 +69,7 @@ const CoursePage = () => {
             </div>
           </ul>
         </div>
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        <h2 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
           Install your first wallet
         </h2>
         <p className="mt-6">
@@ -81,7 +81,7 @@ const CoursePage = () => {
           diam.
         </p>
         <figure className="mt-10 border-l border-blue-600 dark:border-blue-200 pl-9">
-          <blockquote className="font-semibold text-gray-900 dark:text-gray-100">
+          <blockquote className="font-semibold text-stone-900 dark:text-stone-100">
             <p>
               “Vel ultricies morbi odio facilisi ultrices accumsan donec lacus
               purus. Lectus nibh ullamcorper ac dictum justo in euismod. Risus
@@ -91,7 +91,7 @@ const CoursePage = () => {
           </blockquote>
           <figcaption className="mt-6 flex gap-x-4">
             <div className="text-sm leading-6">
-              <strong className="font-semibold text-gray-900 dark:text-gray-100">
+              <strong className="font-semibold text-stone-900 dark:text-stone-100">
                 Alexandre Trotel
               </strong>{" "}
               – CEO & Founder
@@ -106,7 +106,7 @@ const CoursePage = () => {
         </p>
       </div>
       <div className="mt-16 max-w-2xl">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+        <h2 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100">
           Configure your wallet
         </h2>
         <p className="mt-6">

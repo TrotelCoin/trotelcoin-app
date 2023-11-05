@@ -53,7 +53,7 @@ const Header = () => {
               ></Image>
             </Link>
           </div>
-          <p className="dark:text-gray-100">${<TrotelPrice />}</p>
+          <p className="dark:text-stone-100">${<TrotelPrice />}</p>
           {<TrotelPriceChange />}
           <span className="hidden lg:inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             <span className="animate-pulse">alpha version</span>
@@ -68,9 +68,9 @@ const Header = () => {
               href={item.href}
               className={`text-sm px-6 py-2 ${
                 pathname === item.href
-                  ? "bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
-                  : "text-gray-900 dark:text-gray-100"
-              } font-semibold rounded-full leading-6 dark:hover:text-gray-100/80  hover:text-gray-900/80`}
+                  ? "bg-blue-600 dark:bg-blue-200 text-stone-100 dark:text-stone-900 hover:text-stone-100/80 dark:hover:text-stone-900/80"
+                  : "text-stone-900 dark:text-stone-100  hover:text-stone-900/80 dark:hover:text-stone-100/80"
+              } font-semibold rounded-full leading-6`}
             >
               {item.name}
             </Link>
@@ -86,7 +86,7 @@ const Header = () => {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-900 dark:text-gray-100"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-stone-900 dark:text-stone-100"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -102,7 +102,7 @@ const Header = () => {
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-stone-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
               <Link href="/">
@@ -119,7 +119,7 @@ const Header = () => {
               <Wallet />
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-900 dark:text-gray-100"
+                className="-m-2.5 rounded-md p-2.5 text-stone-900 dark:text-stone-100"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -134,7 +134,7 @@ const Header = () => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-black/80"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-stone-900 dark:text-stone-100 hover:bg-stone-100/80 dark:hover:bg-black/80"
                   >
                     {item.name}
                   </Link>

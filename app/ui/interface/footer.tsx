@@ -155,7 +155,7 @@ const Footer = () => {
                 <Link
                   href={item.href}
                   key={item.name}
-                  className="text-sm leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300"
+                  className="text-sm leading-6 text-stone-900 hover:text-stone-700 dark:text-stone-100 dark:hover:text-stone-300"
                 >
                   {item.name}
                 </Link>
@@ -165,12 +165,12 @@ const Footer = () => {
           <div className="mt-10 flex justify-center space-x-10">
             {navigation.social.map((item) => (
               <a key={item.name} href={item.href} target="_blank">
-                <item.icon className="h-6 w-6 text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300"></item.icon>
+                <item.icon className="h-6 w-6 text-stone-900 hover:text-stone-700 dark:text-stone-100 dark:hover:text-stone-300"></item.icon>
               </a>
             ))}
           </div>
           <div>
-            <p className="mt-10 text-center text-xs leading-5 text-gray-700 dark:text-gray-300">
+            <p className="mt-10 text-center text-xs leading-5 text-stone-700 dark:text-stone-300">
               &copy; 2023 TrotelCoin. All rights reserved.
             </p>
           </div>
@@ -178,7 +178,7 @@ const Footer = () => {
       </div>
       {/* Mobile footer 
       <div
-        className={`fixed sm:hidden bottom-0 left-0 w-full dark:bg-black bg-white shadow-xl border-t-2 border-gray-900/5 dark:border-white/5 transition-all duration-500 ${
+        className={`fixed sm:hidden bottom-0 left-0 w-full dark:bg-black bg-white shadow-xl border-t-2 border-stone-900/5 dark:border-white/5 transition-all duration-500 ${
           isFooterVisible ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
@@ -187,7 +187,7 @@ const Footer = () => {
             <Link
               href={item.href}
               key={item.name}
-              className="my-auto text-gray-900 flex flex-col items-center gap-y-1 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
+              className="my-auto text-stone-900 flex flex-col items-center gap-y-1 dark:text-stone-100 hover:text-stone-700 dark:hover:text-stone-300"
             >
               {pathname === item.href && item.iconSolid && (
                 <item.iconSolid></item.iconSolid>

@@ -19,8 +19,8 @@ export default function Dashboard() {
       {/* Grid layout with responsive columns */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden animate__animated animate__fadeIn">
         {/* Progression card */}
-        <div className="bg-blue-600 dark:bg-blue-200 border backdrop-blur-xl border-transparent dark:text-gray-700 text-gray-300 lg:col-span-3 text-center rounded-xl p-10">
-          <span className="text-gray-100 dark:text-gray-900 text-4xl sm:text-5xl lg:text-8xl">
+        <div className="bg-blue-600 dark:bg-blue-200 border backdrop-blur-xl border-transparent dark:text-stone-700 text-stone-300 lg:col-span-3 text-center rounded-xl p-10">
+          <span className="text-stone-100 dark:text-stone-900 text-4xl sm:text-5xl lg:text-8xl">
             <CountUp end={completed} suffix="%"></CountUp>
           </span>
           <br></br>
@@ -28,7 +28,7 @@ export default function Dashboard() {
         </div>
 
         {/* Courses taken card */}
-        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 dark:bg-gray-900 animate__animated animate__slideInLeft">
+        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 dark:text-stone-300 text-stone-700 text-center rounded-xl p-10 dark:bg-stone-900 animate__animated animate__slideInLeft">
           <span className="text-4xl lg:text-8xl text-blue-600 dark:text-blue-200">
             <span>0</span>
             <br></br>
@@ -37,7 +37,7 @@ export default function Dashboard() {
         </div>
 
         {/* Trotel balance card */}
-        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-gray-900 animate__animated animate__slideInRight">
+        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 dark:text-stone-300 text-stone-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-stone-900 animate__animated animate__slideInRight">
           <span className="text-4xl lg:text-8xl text-blue-600 dark:text-blue-200">
             <TrotelBalanceNoSSR />
             <br />
@@ -46,7 +46,7 @@ export default function Dashboard() {
         </div>
 
         {/* Earned Trotel coin worth card */}
-        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-gray-900 animate__animated animate__slideInLeft">
+        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 dark:text-stone-300 text-stone-700 text-center rounded-xl p-10 lg:col-span-2 dark:bg-stone-900 animate__animated animate__slideInLeft">
           <span className="text-4xl lg:text-8xl text-blue-600 dark:text-blue-200">
             <span>0</span>
             <br />
@@ -55,7 +55,7 @@ export default function Dashboard() {
         </div>
 
         {/* Quizzes answered card */}
-        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 dark:text-gray-300 text-gray-700 text-center rounded-xl p-10 dark:bg-gray-900 animate__animated animate__slideInRight">
+        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 dark:text-stone-300 text-stone-700 text-center rounded-xl p-10 dark:bg-stone-900 animate__animated animate__slideInRight">
           <span className="text-4xl lg:text-8xl text-blue-600 dark:text-blue-200">
             <span>0</span>
             <br />
