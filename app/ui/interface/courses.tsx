@@ -198,14 +198,14 @@ const Courses = () => {
         <div className="flex flex-col">
           {filteredLessons.map((lesson) => (
             <div className="py-10" key={lesson.category}>
-              <div className="flex gap-x-2 items-center bg-blue-600 dark:bg-blue-200 px-6 py-2 rounded-lg">
-                <h2 className="font-semibold text-sm text-gray-100 dark:text-gray-900">
+              <div className="flex gap-x-2 items-center">
+                <h2 className="font-semibold bg-blue-600 dark:bg-blue-200 px-6 py-2 rounded-full text-sm text-gray-100 dark:text-gray-900">
                   {lesson.category}
                 </h2>
-                <span className="font-semibold text-sm text-gray-100 dark:text-gray-900">
+                <span className="text-gray-900 dark:text-gray-100">
                   &#8226;
                 </span>
-                <span className="font-semibold text-sm text-gray-100 dark:text-gray-900">
+                <span className="text-gray-900 dark:text-gray-100">
                   {lesson.percentage}%
                 </span>
               </div>
