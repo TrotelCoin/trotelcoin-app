@@ -97,7 +97,7 @@ const CoursePage = () => {
           neque erat velit.
         </p>
       </div>
-      <div className="mt-16 max-w-2xl">
+      <div className="mt-16 max-w-2xl mx-auto">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Configure your wallet
         </h2>

@@ -169,7 +169,7 @@ const CoursePage = () => {
           neque erat velit.
         </p>
       </div>
-      <div className="mt-16 max-w-2xl">
+      <div className="mt-16 max-w-2xl mx-auto">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           Configure your wallet
         </h2>
@@ -190,7 +190,7 @@ const CoursePage = () => {
       </div>
 
       {/* Quizz */}
-      <div className="mt-10 border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           Quiz
         </h2>

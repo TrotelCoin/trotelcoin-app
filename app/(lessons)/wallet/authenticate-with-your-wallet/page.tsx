@@ -11,7 +11,7 @@ const currentCourse: Course = {
 const CoursePage = () => {
   return (
     <>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto mx-auto">
         <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
           Course
         </p>

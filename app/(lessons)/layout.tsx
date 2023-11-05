@@ -6,7 +6,7 @@ import GoHomeButton from "@/app/ui/interface/lessons/goHomeButton";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="px-6 py-32 lg:px-8">
-      <div className="mx-auto max-w-3xl text-base leading-7 text-stone-700 dark:text-stone-300">
+      <div className="mx-auto max-w-2xl text-base leading-7 text-stone-700 dark:text-stone-300">
         {children}
         <GoHomeButton />
       </div>
