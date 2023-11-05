@@ -109,7 +109,7 @@ const lessons: Lessons[] = [
         title: "Understand the layers 2",
         href: "/ethereum/understand-the-layers-2",
         status: "Not started",
-        tier: "Intermediate",
+        tier: "Beginner",
         sponsored: false,
       },
     ],
