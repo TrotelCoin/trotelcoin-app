@@ -199,7 +199,7 @@ const Courses = () => {
           {filteredLessons.map((lesson) => (
             <div className="py-10" key={lesson.category}>
               <div className="flex gap-x-2 items-center">
-                <h2 className="font-semibold text-gray-100 dark:text-gray-900">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                   {lesson.category}
                 </h2>
                 <span className="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-400/20">
