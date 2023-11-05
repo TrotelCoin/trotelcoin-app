@@ -19,8 +19,8 @@ export default function Dashboard() {
       {/* Grid layout with responsive columns */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden animate__animated animate__fadeIn">
         {/* Progression card */}
-        <div className="bg-blue-200 border backdrop-blur-xl border-transparent dark:text-gray-700 text-gray-700 lg:col-span-3 text-center rounded-xl p-10 dark:bg-blue-200">
-          <span className="text-gray-900 dark:text-gray-900 text-4xl sm:text-5xl lg:text-8xl">
+        <div className="bg-blue-600 dark:bg-blue-200 border backdrop-blur-xl border-transparent dark:text-gray-700 text-gray-300 lg:col-span-3 text-center rounded-xl p-10">
+          <span className="text-gray-100 dark:text-gray-900 text-4xl sm:text-5xl lg:text-8xl">
             <CountUp end={completed} suffix="%"></CountUp>
           </span>
           <br></br>

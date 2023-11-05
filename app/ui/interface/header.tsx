@@ -55,7 +55,7 @@ const Header = () => {
           </div>
           <p className="dark:text-gray-100">${<TrotelPrice />}</p>
           {<TrotelPriceChange />}
-          <span className="hidden lg:inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
+          <span className="hidden lg:inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             <span className="animate-pulse">alpha version</span>
           </span>
         </div>
@@ -68,7 +68,7 @@ const Header = () => {
               href={item.href}
               className={`text-sm px-6 py-2 ${
                 pathname === item.href
-                  ? "bg-blue-200 dark:bg-blue-200 text-gray-900 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
+                  ? "bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-900"
                   : ""
               } font-semibold rounded-full leading-6 dark:text-gray-100 dark:hover:text-gray-300 text-gray-900 hover:text-gray-700`}
             >
