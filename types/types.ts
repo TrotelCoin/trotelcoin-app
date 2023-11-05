@@ -64,6 +64,7 @@ export interface BalanceData {
 export interface Lesson {
   title: string;
   href: string;
+  image: string;
   status: "Not started" | "Finished" | "Ongoing";
 }
 

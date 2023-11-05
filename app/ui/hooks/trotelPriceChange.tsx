@@ -6,7 +6,7 @@ export default function TrotelPriceChange() {
   noStore();
   const [tokenPriceChange, setTokenPriceChange] = useState<number>(0);
   const [containerClass, setContainerClass] = useState<string>(
-    "inline-flex items-center rounded-md bg-stone-50 dark:bg-stone-400/10 px-2 py-1 text-xs font-medium text-stone-600 dark:text-stone-400 ring-1 ring-inset ring-stone-500/10 dark:ring-stone-400/20"
+    "inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-400/20"
   );
   const [sign, setSign] = useState<string>("");
   const [isError, setIsError] = useState<boolean>(false);
@@ -38,7 +38,7 @@ export default function TrotelPriceChange() {
       // Update the container class and sign based on price change
       if (priceChange === 0) {
         setContainerClass(
-          "inline-flex items-center rounded-md bg-stone-50 dark:bg-stone-400/10 px-2 py-1 text-xs font-medium text-stone-600 dark:text-stone-400 ring-1 ring-inset ring-stone-500/10 dark:ring-stone-400/20"
+          "inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-400/20"
         );
         setSign("");
       } else if (priceChange < 0) {

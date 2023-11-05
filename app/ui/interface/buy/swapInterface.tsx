@@ -401,15 +401,15 @@ const SwapInterface = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mx-4 lg:mx-10 my-8 overflow-hidden">
         {/* Swap card */}
-        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 rounded-xl px-14 py-10 dark:bg-stone-900 text-stone-900 dark:text-stone-100">
-          <h2 className="block text-xl text-center font-semibold leading-6 dark:text-stone-100 text-stone-900">
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+          <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Buy TrotelCoin
           </h2>
 
           {/* Token 1 */}
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md dark:text-stone-100 text-stone-900">
+              <span className="text-md dark:text-gray-100 text-gray-900">
                 Sell {token1.symbol}
               </span>
               <div className="relative rounded-xl">
@@ -418,7 +418,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl px-4 py-1.5 text-stone-900 border border-stone-900/10 dark:border-stone-100/10 placeholder:text-stone-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0.00"
                     onChange={(e) =>
                       setToAmountInput(parseFloat(e.target.value))
@@ -432,7 +432,7 @@ const SwapInterface = () => {
           {/* Token 2 */}
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md dark:text-stone-100 text-stone-900">
+              <span className="text-md dark:text-gray-100 text-gray-900">
                 Buy {token2.symbol}
               </span>
               <div className="relative rounded-xl">
@@ -441,7 +441,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl px-4 py-1.5 text-stone-900 border border-stone-900/10 dark:border-stone-100/10 placeholder:text-stone-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     value={`≈ ${toAmountOutputSanitized.toFixed(2)}`}
                     disabled
                   />
@@ -453,7 +453,7 @@ const SwapInterface = () => {
           {/* Swap button */}
           <div className="text-center">
             <button
-              className="text-sm px-6 py-2 bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:bg-blue-200 dark:hover-bg-blue-50 text-stone-900 dark:text-stone-900 font-semibold rounded-full leading-6"
+              className="text-sm px-6 py-2 bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:bg-blue-200 dark:hover-bg-blue-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
               onClick={() => handleSwap()}
             >
               Buy
@@ -462,14 +462,14 @@ const SwapInterface = () => {
         </div>
 
         {/* Send card */}
-        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 rounded-xl px-14 py-10 dark:bg-stone-900 text-stone-900 dark:text-stone-100">
-          <h2 className="block text-xl text-center font-semibold leading-6 dark:text-stone-100 text-stone-900">
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+          <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Send TrotelCoin
           </h2>
 
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md dark:text-stone-100 text-stone-900">
+              <span className="text-md dark:text-gray-100 text-gray-900">
                 Balance
               </span>
               <div className="relative rounded-xl">
@@ -478,7 +478,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl px-4 py-1.5 text-stone-900 border border-stone-900/10 dark:border-stone-100/10 placeholder:text-stone-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0.00"
                     onChange={(e) => setSendAmount(parseFloat(e.target.value))}
                   />
@@ -489,7 +489,7 @@ const SwapInterface = () => {
 
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md dark:text-stone-100 text-stone-900">
+              <span className="text-md dark:text-gray-100 text-gray-900">
                 Recipient
               </span>
               <div className="relative rounded-xl">
@@ -498,7 +498,7 @@ const SwapInterface = () => {
                     type="text"
                     name="price"
                     id="price"
-                    className="block w-full rounded-xl px-4 py-1.5 text-stone-900 border border-stone-900/10 dark:border-stone-100/10 placeholder:text-stone-400 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-xl px-4 py-1.5 text-gray-900 border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     placeholder="0x..."
                     onChange={(e) =>
                       setSendAddress(e.target.value as `0x${string}`)
@@ -512,7 +512,7 @@ const SwapInterface = () => {
           {/* Send button */}
           <div className="text-center">
             <button
-              className="text-sm px-6 py-2 bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:bg-blue-200 dark:hover-bg-blue-50 text-stone-900 dark:text-stone-900 font-semibold rounded-full leading-6"
+              className="text-sm px-6 py-2 bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:bg-blue-200 dark:hover-bg-blue-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
               onClick={() => handleSend()}
             >
               Send
@@ -521,24 +521,24 @@ const SwapInterface = () => {
         </div>
 
         {/* Receive card */}
-        <div className="bg-stone-50 border backdrop-blur-xl border-stone-900/10 dark:border-stone-100/10 rounded-xl px-14 py-10 dark:bg-stone-900 text-stone-900 dark:text-stone-100">
-          <h2 className="block text-xl text-center font-semibold leading-6 dark:text-stone-100 text-stone-900">
+        <div className="bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-14 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+          <h2 className="block text-xl text-center font-semibold leading-6 dark:text-gray-100 text-gray-900">
             Receive TrotelCoin
           </h2>
 
           <div className="mt-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md dark:text-stone-100 text-stone-900">
+              <span className="text-md dark:text-gray-100 text-gray-900">
                 Your address
               </span>
               {isSmallScreen ? (
-                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-stone-600 border border-stone-900/10 dark:border-stone-100/10">
+                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10">
                   {!isConnected
                     ? "Connect your wallet"
                     : truncateMiddleOfString(takerAddress as string, maxLength)}
                 </span>
               ) : (
-                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-stone-600 border border-stone-900/10 dark:border-stone-100/10">
+                <span className="text-center items-center overflow-hidden whitespace-no-wrap rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10">
                   {!isConnected ? "Connect your wallet" : takerAddress}
                 </span>
               )}
@@ -547,11 +547,11 @@ const SwapInterface = () => {
 
           <div className="my-10 gap-y-6 flex flex-col">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md dark:text-stone-100 text-stone-900">
+              <span className="text-md dark:text-gray-100 text-gray-900">
                 Balance
               </span>
 
-              <span className="text-center items-center rounded-xl bg-white px-4 py-2 text-xs font-medium text-stone-600 border border-stone-900/10 dark:border-stone-100/10 dark:ring-stone-900/10">
+              <span className="text-center items-center rounded-xl bg-white px-4 py-2 text-xs font-medium text-gray-600 border border-gray-900/10 dark:border-gray-100/10 dark:ring-gray-900/10">
                 <TrotelBalanceNoSSR /> TrotelCoin
               </span>
             </div>
@@ -560,7 +560,7 @@ const SwapInterface = () => {
           {/* Coppy button */}
           <div className="text-center">
             <button
-              className="text-sm px-6 py-2 bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:bg-blue-200 dark:hover-bg-blue-50 text-stone-900 dark:text-stone-900 font-semibold rounded-full leading-6"
+              className="text-sm px-6 py-2 bg-blue-200 dark:hover:bg-blue-200/80 hover:bg-blue-200/80 dark:bg-blue-200 dark:hover-bg-blue-50 text-gray-900 dark:text-gray-900 font-semibold rounded-full leading-6"
               onClick={() => handleCopyAddress()}
             >
               Copy address
