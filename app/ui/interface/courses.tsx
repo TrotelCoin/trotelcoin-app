@@ -176,11 +176,11 @@ const Courses = () => {
                         <span
                           className={`inline-flex mt-4 items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
                             course.status === "Not started"
-                              ? "bg-gray-50 dark:bg-gray-400/10 text-gray-700 dark:text-gray-400 ring-gray-500/10 dark:ring-gray-400/20"
+                              ? "bg-gray-50 dark:bg-gray-400/10 text-gray-700 dark:text-gray-400 ring-gray-500/20 dark:ring-gray-400/40"
                               : course.status === "Finished"
-                              ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/10 dark:ring-green-500/20"
+                              ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/20 dark:ring-green-500/40"
                               : course.status === "Ongoing"
-                              ? "bg-yellow-50 dark:bg-yellow-400/10 text-yellow-800 dark:text-yellow-400 ring-yellow-600/10 dark:ring-yellow-400/20"
+                              ? "bg-yellow-50 dark:bg-yellow-400/10 text-yellow-800 dark:text-yellow-400 ring-yellow-600/20 dark:ring-yellow-400/40"
                               : ""
                           }`}
                         >
