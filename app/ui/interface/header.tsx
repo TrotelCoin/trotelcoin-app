@@ -10,6 +10,7 @@ import Wallet from "@/app/ui/interface/wallet";
 import { usePathname } from "next/navigation";
 import TrotelPrice from "@/app/ui/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/ui/hooks/trotelPriceChange";
+import TrotelBalance from "@/app/ui/hooks/trotelBalance";
 
 // Define types for navigation items and header props
 interface NavigationItem {
@@ -83,6 +84,9 @@ const Header = () => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
+          <span className="text-gray-900 dark:text-gray-100">
+            <TrotelBalance />
+          </span>
           <Wallet />
         </div>
 
