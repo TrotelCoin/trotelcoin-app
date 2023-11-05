@@ -85,7 +85,7 @@ const Header = () => {
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
           <span className="text-gray-900 dark:text-gray-100">
-            <TrotelBalance />
+            <TrotelBalance /> TROTEL
           </span>
           <Wallet />
         </div>
