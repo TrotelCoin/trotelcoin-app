@@ -17,7 +17,7 @@ export default function Wallet() {
     return (
       <div>
         <button
-          className={`bg-blue-600 dark:hover:bg-blue-600/80 hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-stone-100 dark:text-stone-900 dark:hover:text-stone-900 hover:text-stone-100 rounded-full font-semibold wallet-button`}
+          className={`bg-blue-600 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 dark:hover-bg-blue-50 text-sm px-6 py-2 dark:bg-blue-200 text-stone-100 dark:text-stone-900 dark:hover:text-stone-900 hover:text-stone-100 rounded-full font-semibold wallet-button`}
           onClick={handleDisconnect}
         >
           Sign out
