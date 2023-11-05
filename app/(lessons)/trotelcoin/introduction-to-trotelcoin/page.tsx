@@ -207,7 +207,7 @@ const CoursePage = () => {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {questions[currentQuestion].question}
           </h3>
-          <ul className="mt-3 py-4 space-y-4">
+          <ul className="mt-3 py-6 space-y-4">
             {questions[currentQuestion].options.map((option, index) => (
               <li key={index} className="items-center">
                 <div
@@ -223,6 +223,10 @@ const CoursePage = () => {
               </li>
             ))}
           </ul>
+          <ReCAPTCHA
+            sitekey="6LdCjvkoAAAAAIfNzI0aQveCdrVTy9Zz0YyCIWf0"
+            onChange={handleCaptchaVerify}
+          />
           <div className="mt-6 flex justify-between">
             {currentQuestion !== 0 && (
               <button
@@ -242,12 +246,14 @@ const CoursePage = () => {
             )}
             {currentQuestion === questions.length - 1 ? (
               isCaptchaVerified ? (
-                <button onClick={handleSubmit}>Submit</button>
+                <button
+                  onClick={handleSubmit}
+                  className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                >
+                  Submit
+                </button>
               ) : (
-                <ReCAPTCHA
-                  sitekey="6LdCjvkoAAAAAIfNzI0aQveCdrVTy9Zz0YyCIWf0"
-                  onChange={handleCaptchaVerify}
-                />
+                <span className="text-sm">Please, verify the captcha.</span>
               )
             ) : (
               <></>
