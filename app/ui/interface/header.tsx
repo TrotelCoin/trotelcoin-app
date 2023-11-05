@@ -58,7 +58,9 @@ const Header = () => {
               ></Image>
             </Link>
           </div>
-          <p className="dark:text-gray-100">${<TrotelPrice />}</p>
+          <p className="font-semibold text-gray-900 dark:text-gray-100">
+            ${<TrotelPrice />}
+          </p>
           {<TrotelPriceChange />}
           <span className="hidden lg:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             <span className="animate-pulse">alpha version</span>
@@ -84,7 +86,7 @@ const Header = () => {
 
         {/* Right section with Wallet component */}
         <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
-          <span className="text-gray-900 dark:text-gray-100">
+          <span className="font-semibold text-gray-900 dark:text-gray-100">
             <TrotelBalance /> TROTEL
           </span>
           <Wallet />
