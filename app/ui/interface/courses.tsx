@@ -166,7 +166,7 @@ const Courses = () => {
       <div className="mx-10 lg:mx-32 mt-10 mb-20 overflow-hidden">
         <form className="my-10">
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
-            Search a course
+            What do you wanna learn?
           </label>
           <div className="relative mx-auto w-full">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
