@@ -202,7 +202,13 @@ const Courses = () => {
                 <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                   {lesson.category}
                 </h2>
-                <span className="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-400/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-400/20">
+                <span
+                  className={`${
+                    lesson.percentage === 100
+                      ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/20 dark:ring-green-500/20"
+                      : "bg-gray-50 dark:bg-gray-400/10 text-gray-600 dark:text-gray-400 ring-gray-500/10 dark:ring-gray-400/20"
+                  } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset`}
+                >
                   {lesson.percentage}%
                 </span>
               </div>
