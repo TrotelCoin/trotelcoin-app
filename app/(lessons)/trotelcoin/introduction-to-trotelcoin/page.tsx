@@ -231,8 +231,10 @@ const CoursePage = () => {
           <div className="mt-6 flex justify-between">
             <button
               className={`${
-                currentQuestion !== 0 ? "" : "disabled"
-              } cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
+                currentQuestion !== 0
+                  ? "cursor-pointer"
+                  : "disabled cursor-not-allowed"
+              } bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
               onClick={goToPrevious}
             >
               Previous
