@@ -198,18 +198,18 @@ const Courses = () => {
         <div className="flex flex-col">
           {filteredLessons.map((lesson) => (
             <div className="py-10" key={lesson.category}>
-              <div className="flex gap-x-2 justify-center items-center bg-blue-600 dark:bg-blue-200 px-6 py-2 rounded-full">
+              <div className="flex gap-x-2 items-center bg-blue-600 dark:bg-blue-200 px-6 py-2 rounded-lg">
                 <h2 className="font-semibold text-sm text-gray-100 dark:text-gray-900">
                   {lesson.category}
                 </h2>
-                <span className="font-semibold text-sm text-gray-900 dark:text-gray-100">
+                <span className="font-semibold text-sm text-gray-100 dark:text-gray-900">
                   &#8226;
                 </span>
-                <span className="font-semibold text-sm text-gray-900 dark:text-gray-100">
+                <span className="font-semibold text-sm text-gray-100 dark:text-gray-900">
                   {lesson.percentage}%
                 </span>
               </div>
-              <div className="mt-4 flex flex-row justify-center flex-wrap gap-4">
+              <div className="mt-4 flex flex-row flex-wrap gap-4">
                 {lesson.courses.map((course) => (
                   <Link
                     href={course.href}
