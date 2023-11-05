@@ -60,3 +60,15 @@ export interface BalanceData {
   isError: boolean;
   isLoading: boolean;
 }
+
+export interface Lesson {
+  title: string;
+  href: string;
+  status: "Not started" | "Finished" | "Ongoing";
+}
+
+export interface Lessons {
+  category: string;
+  percentage: number;
+  courses: Lesson[];
+}

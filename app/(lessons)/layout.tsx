@@ -1,6 +1,6 @@
 // Import necessary modules and components
 import React from "react";
-import GoHomeButton from "@/app/ui/interface/learn/goHomeButton";
+import GoHomeButton from "@/app/ui/interface/lessons/goHomeButton";
 
 // Define the main Document component
 export default function Layout({ children }: { children: React.ReactNode }) {
