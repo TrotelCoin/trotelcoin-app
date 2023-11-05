@@ -113,9 +113,8 @@ const CoursePage = () => {
                 <li className="flex gap-x-3">
                   <span>
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                      Choose your wallet.
+                      Choose a crypto wallet that suits your needs.
                     </strong>{" "}
-                    Choose a crypto wallet that suits your needs.
                   </span>
                 </li>
               </div>
@@ -123,9 +122,8 @@ const CoursePage = () => {
                 <li className="flex gap-x-3">
                   <span>
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                      Purposes of wallets.
+                      Understand that crypto wallets serve specific purposes.
                     </strong>{" "}
-                    Be aware that crypto wallets serve specific purposes.
                   </span>
                 </li>
               </div>
@@ -133,10 +131,9 @@ const CoursePage = () => {
                 <li className="flex gap-x-3">
                   <span>
                     <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                      Good practices.
+                      Know good practices to navigate in the defi world
+                      securely.
                     </strong>{" "}
-                    Understand how to secure your wallet to navigate in the defi
-                    world securely.
                   </span>
                 </li>
               </div>
