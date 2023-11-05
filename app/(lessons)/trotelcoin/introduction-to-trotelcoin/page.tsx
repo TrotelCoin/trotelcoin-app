@@ -239,6 +239,9 @@ const CoursePage = () => {
             >
               Previous
             </button>
+            <span className="text-center text-gray-900 dark:text-gray-100">
+              Question {currentQuestion + 1} / {questions.length}
+            </span>
             {currentQuestion < questions.length - 1 && (
               <button
                 className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
