@@ -73,3 +73,7 @@ export interface Lessons {
   percentage: number;
   courses: Lesson[];
 }
+
+export interface Course {
+  title: string;
+}

@@ -2,18 +2,10 @@
 
 import Image from "next/image";
 import "animate.css";
-
-interface Course {
-  id: number;
-  title: string;
-  module: string;
-  // Add other properties for the course
-}
+import { Course } from "@/types/types";
 
 const currentCourse: Course = {
-  id: 11,
-  title: "Introduction to Wallets",
-  module: "Create your wallet",
+  title: "Introduction to wallets",
 };
 
 const CoursePage = () => {
@@ -21,7 +13,7 @@ const CoursePage = () => {
     <>
       <div className="max-w-2xl">
         <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
-          {currentCourse.module}
+          Course
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
           {currentCourse.title}
