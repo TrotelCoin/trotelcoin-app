@@ -59,7 +59,7 @@ const Header = () => {
           </div>
           <p className="dark:text-gray-100">${<TrotelPrice />}</p>
           {<TrotelPriceChange />}
-          <span className="hidden lg:inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
+          <span className="hidden lg:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             <span className="animate-pulse">alpha version</span>
           </span>
         </div>
@@ -90,7 +90,7 @@ const Header = () => {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-900 dark:text-gray-100"
+            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -123,7 +123,7 @@ const Header = () => {
               <Wallet />
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-900 dark:text-gray-100"
+                className="-m-2.5 rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />

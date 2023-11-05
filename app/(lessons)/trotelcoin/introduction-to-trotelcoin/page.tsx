@@ -4,7 +4,8 @@ import Image from "next/image";
 import "animate.css";
 import { Course } from "@/types/types";
 import { useState } from "react";
-import { Answers } from "@/types/types";
+import Confetti from "react-dom-confetti";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const currentCourse: Course = {
   title: "Introduction to TrotelCoin",
@@ -31,19 +32,62 @@ const questions = [
   },
 ];
 
+const correctAnswers = [
+  {
+    id: 1,
+    answer: "An interface between my seed phrase and the blockchain",
+  },
+  {
+    id: 2,
+    answer: "All of the above",
+  },
+];
+
 const CoursePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [answers, setAnswers] = useState<Answers>({});
+  const [answers, setAnswers] = useState<string[]>(
+    new Array(questions.length).fill("")
+  );
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
 
   const handleAnswer = (answer: string) => {
-    setAnswers({ ...answers, [currentQuestion]: answer });
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = answer;
+    setAnswers(newAnswers);
+  };
+
+  const goToPrevious = () => {
+    setCurrentQuestion((prev) => (prev > 0 ? prev - 1 : prev));
+  };
+
+  const goToNext = () => {
     setCurrentQuestion((prev) =>
       prev < questions.length - 1 ? prev + 1 : prev
     );
   };
 
-  const goToPrevious = () => {
-    setCurrentQuestion((prev) => (prev > 0 ? prev - 1 : prev));
+  const handleCaptchaVerify = () => {
+    setIsCaptchaVerified(true);
+  };
+
+  const handleSubmit = () => {
+    let correctCount = 0;
+    answers.forEach((answer, index) => {
+      if (answer === correctAnswers[index].answer) {
+        correctCount++;
+      }
+    });
+
+    if (correctCount === correctAnswers.length) {
+      setIsCorrect(true);
+      setShowConfetti(true);
+    } else {
+      setIsCorrect(false);
+    }
+    setShowMessage(true);
   };
 
   return (
@@ -58,7 +102,7 @@ const CoursePage = () => {
         <p className="mt-2 text-gray-900 dark:text-gray-100">
           What are you going to learn?
         </p>
-        <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-gray-900 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+        <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-gray-900">
           <ul
             role="list"
             className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
@@ -155,42 +199,74 @@ const CoursePage = () => {
       </div>
 
       {/* Quizz */}
-      <div className="mt-16 border-t pt-10">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+      <div className="mt-10 border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           Quiz
         </h2>
-        <div className="mt-6 p-4 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-          <h3 className="text-lg font-semibold">
+        <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {questions[currentQuestion].question}
           </h3>
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-3 py-4 space-y-4">
             {questions[currentQuestion].options.map((option, index) => (
-              <li key={index}>
-                <label>
-                  <input
-                    type="radio"
-                    value={option}
-                    name={`question${currentQuestion}`}
-                    onChange={() => handleAnswer(option)}
-                    checked={answers[currentQuestion] === option}
-                  />
+              <li key={index} className="items-center">
+                <div
+                  className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
+                    answers[currentQuestion] === option
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
+                  }`}
+                  onClick={() => handleAnswer(option)}
+                >
                   {option}
-                </label>
+                </div>
               </li>
             ))}
           </ul>
-        </div>
-        <div className="mt-4 flex justify-between">
-          <button onClick={goToPrevious} disabled={currentQuestion === 0}>
-            Précédent
-          </button>
-          {currentQuestion < questions.length - 1 ? (
-            <button onClick={() => setCurrentQuestion((prev) => prev + 1)}>
-              Suivant
-            </button>
-          ) : (
-            <button>Terminer</button>
+          <div className="mt-6 flex justify-between">
+            {currentQuestion !== 0 && (
+              <button
+                className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                onClick={goToPrevious}
+              >
+                Previous
+              </button>
+            )}
+            {currentQuestion < questions.length - 2 && (
+              <button
+                className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                onClick={goToNext}
+              >
+                Next
+              </button>
+            )}
+            {currentQuestion < questions.length - 1 ? (
+              isCaptchaVerified ? (
+                <button onClick={handleSubmit}>Submit</button>
+              ) : (
+                <ReCAPTCHA
+                  sitekey={process.env.RECAPTCHA_KEY as string}
+                  onChange={handleCaptchaVerify}
+                />
+              )
+            ) : (
+              <></>
+            )}
+          </div>
+          {showMessage && (
+            <div
+              className={`mt-6 ${
+                isCorrect
+                  ? "text-green-600 dark:text-green-200"
+                  : "text-red-600 dark:text-red-200"
+              }`}
+            >
+              {isCorrect
+                ? "Congratulations! All the answers are correct!"
+                : "Something's wrong. Check your answers."}
+            </div>
           )}
+          <Confetti active={showConfetti} />
         </div>
       </div>
     </>
