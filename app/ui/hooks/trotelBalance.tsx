@@ -2,8 +2,10 @@ import { useBalance, useAccount } from "wagmi";
 import React from "react";
 import { bsc } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default function TrotelBalance() {
+  noStore();
   // Get the Ethereum address using the getAccount function
   const { address } = useAccount();
 
