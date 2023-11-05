@@ -126,7 +126,7 @@ const CoursePage = () => {
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span className="text-gray-900 dark:text-gray-100">
-                    Know good practices to navigate in the defi world securely.
+                    Know good practices to navigate on the web3.
                   </span>
                 </li>
               </div>
