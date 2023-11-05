@@ -12,7 +12,7 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: "Setting up your first wallet",
-        href: "/(lessons)/wallet/setting-up-your-first-wallet",
+        href: "/wallet/setting-up-your-first-wallet",
         image: "",
         status: "Not started",
       },
