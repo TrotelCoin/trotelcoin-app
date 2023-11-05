@@ -228,7 +228,7 @@ const CoursePage = () => {
             sitekey="6LdCjvkoAAAAAIfNzI0aQveCdrVTy9Zz0YyCIWf0"
             onChange={handleCaptchaVerify}
           />
-          <div className="mt-6 flex justify-around items-center">
+          <div className="mt-6 flex justify-between items-center">
             <button
               className={`${
                 currentQuestion !== 0
