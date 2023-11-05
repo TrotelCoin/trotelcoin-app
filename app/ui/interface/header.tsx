@@ -3,7 +3,7 @@
 // Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Wallet from "@/app/ui/interface/wallet";
@@ -32,18 +32,9 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  localStorage.setItem("mobileMenuOpen", "true");
-
-  localStorage.setItem("mobileMenuOpen", "false");
-
-  useEffect(() => {
-    const isMobileMenuOpen = localStorage.getItem("mobileMenuOpen");
-    if (isMobileMenuOpen === "true") {
-      setMobileMenuOpen(true);
-    } else {
-      setMobileMenuOpen(false);
-    }
-  }, []);
+  const closeMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-white dark:bg-black">
@@ -146,6 +137,9 @@ const Header = () => {
                   <Link
                     key={item.name}
                     href={item.href}
+                    onClick={() => {
+                      closeMenu();
+                    }}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-stone-900 dark:text-stone-100 hover:bg-stone-100/80 dark:hover:bg-black/80"
                   >
                     {item.name}

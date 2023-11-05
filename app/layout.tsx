@@ -1,6 +1,6 @@
 // Import necessary modules and components
 import React, { Suspense } from "react";
-import "@/public/globals.css";
+import "@/app/globals.css";
 import Loading from "@/app/ui/interface/loading";
 import NextTopLoader from "nextjs-toploader";
 import { poppins } from "@/app/ui/fonts";
