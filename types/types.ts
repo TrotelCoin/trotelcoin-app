@@ -66,6 +66,8 @@ export interface Lesson {
   href: string;
   image: string;
   status: "Not started" | "Finished" | "Ongoing";
+  tier: "Beginner" | "Intermediate" | "Expert";
+  sponsored: boolean;
 }
 
 export interface Lessons {
@@ -76,4 +78,8 @@ export interface Lessons {
 
 export interface Course {
   title: string;
+}
+
+export interface Answers {
+  [key: number]: string;
 }

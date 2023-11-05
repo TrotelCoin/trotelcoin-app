@@ -7,32 +7,62 @@ import Image from "next/image";
 
 const lessons: Lessons[] = [
   {
+    category: "TrotelCoin",
+    percentage: 0,
+    courses: [
+      {
+        title: "Introduction to TrotelCoin",
+        href: "/trotelcoin/introduction-to-trotelcoin",
+        image: "",
+        status: "Not started",
+        tier: "Beginner",
+        sponsored: true,
+      },
+      {
+        title: "Earn Intermediate and Expert NFTs",
+        href: "/trotelcoin/earn-intermediate-and-expert-nfts",
+        image: "",
+        status: "Not started",
+        tier: "Beginner",
+        sponsored: true,
+      },
+    ],
+  },
+  {
     category: "Wallet",
     percentage: 0,
     courses: [
       {
-        title: "Setting up your first wallet",
-        href: "/wallet/setting-up-your-first-wallet",
+        title: "Create your first wallet",
+        href: "/wallet/create-your-first-wallet",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
       },
       {
         title: "Secure your wallet",
-        href: "/",
+        href: "/wallet/secure-your-wallet",
         image: "",
         status: "Not started",
+        tier: "Intermediate",
+        sponsored: false,
       },
       {
         title: "Authenticate with your wallet",
-        href: "/",
+        href: "/wallet/authenticate-with-your-wallet",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
       },
       {
         title: "Make your first transaction",
-        href: "/",
+        href: "/wallet/make-your-first-transaction",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
       },
     ],
   },
@@ -41,16 +71,20 @@ const lessons: Lessons[] = [
     percentage: 0,
     courses: [
       {
-        title: "What is a blockchain ?",
-        href: "",
+        title: "What is a blockchain?",
+        href: "/blockchain/what-is-a-blockchain",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
       },
       {
         title: "Consensus mechanisms",
-        href: "",
+        href: "/blockchain/consensus-mechanisms",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
       },
     ],
   },
@@ -59,16 +93,20 @@ const lessons: Lessons[] = [
     percentage: 0,
     courses: [
       {
-        title: "What is Bitcoin ?",
-        href: "",
+        title: "What is Bitcoin?",
+        href: "/bitcoin/what-is-bitcoin",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
       },
       {
         title: "The history of Bitcoin",
-        href: "",
+        href: "/bitcoin/the-history-of-bitcoin",
         image: "",
         status: "Not started",
+        tier: "Intermediate",
+        sponsored: false,
       },
     ],
   },
@@ -77,10 +115,20 @@ const lessons: Lessons[] = [
     percentage: 0,
     courses: [
       {
-        title: "The world's computer",
-        href: "",
+        title: "What is Ethereum?",
+        href: "/ethereum/what-is-ethereum",
         image: "",
         status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
+      },
+      {
+        title: "Understand the layers 2",
+        href: "/ethereum/understand-the-layers-2",
+        image: "",
+        status: "Not started",
+        tier: "Intermediate",
+        sponsored: false,
       },
     ],
   },
@@ -88,7 +136,14 @@ const lessons: Lessons[] = [
     category: "Governance",
     percentage: 0,
     courses: [
-      { title: "What are DAOs ?", href: "", image: "", status: "Not started" },
+      {
+        title: "What are DAOs?",
+        href: "/governance/what-are-daos",
+        image: "",
+        status: "Not started",
+        tier: "Expert",
+        sponsored: false,
+      },
     ],
   },
 ];
@@ -161,7 +216,7 @@ const Courses = () => {
                     key={course.title}
                     className="w-full md:w-64 h-full"
                   >
-                    <div className="rounded-lg hover:shadow active:shadow-none active:border-blue-600 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 min-h-90 backdrop-blur-xl">
+                    <div className="rounded-lg hover:shadow active:shadow-none active:border-blue-600 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 backdrop-blur-xl">
                       {/*<Image
                         className="bg-cover rounded-t-md"
                         alt={course.title}
@@ -173,19 +228,36 @@ const Courses = () => {
                         <h3 className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
                           {course.title}
                         </h3>
-                        <span
-                          className={`inline-flex mt-4 items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
-                            course.status === "Not started"
-                              ? "bg-gray-50 dark:bg-gray-400/10 text-gray-700 dark:text-gray-400 ring-gray-500/20 dark:ring-gray-400/40"
-                              : course.status === "Finished"
-                              ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/20 dark:ring-green-500/40"
-                              : course.status === "Ongoing"
-                              ? "bg-yellow-50 dark:bg-yellow-400/10 text-yellow-800 dark:text-yellow-400 ring-yellow-600/20 dark:ring-yellow-400/40"
-                              : ""
-                          }`}
-                        >
-                          {course.status}
-                        </span>
+                        <div className="flex flex-wrap mt-4 gap-2 items-center">
+                          <span
+                            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                              course.status === "Not started"
+                                ? "bg-gray-50 dark:bg-gray-400/10 text-gray-700 dark:text-gray-400 ring-gray-500/20 dark:ring-gray-400/40"
+                                : course.status === "Finished"
+                                ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/20 dark:ring-green-500/40"
+                                : course.status === "Ongoing"
+                                ? "bg-blue-50 dark:bg-blue-400/10 text-blue-700 dark:text-blue-400 ring-blue-600/20 dark:ring-blue-400/40"
+                                : ""
+                            }`}
+                          >
+                            {course.status}
+                          </span>
+                          {course.tier == "Intermediate" && (
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-pink-50 dark:bg-pink-400/10 text-pink-800 dark:text-pink-400 ring-pink-600/20 dark:ring-pink-400/40">
+                              {course.tier}
+                            </span>
+                          )}
+                          {course.tier == "Expert" && (
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-red-50 dark:bg-red-400/10 text-red-800 dark:text-red-400 ring-red-600/20 dark:ring-red-400/40">
+                              {course.tier}
+                            </span>
+                          )}
+                          {course.sponsored && (
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-50 dark:bg-yellow-400/10 text-yellow-800 dark:text-yellow-400 ring-yellow-600/20 dark:ring-yellow-400/40">
+                              Sponsored
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </Link>
