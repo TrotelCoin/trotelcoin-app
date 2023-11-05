@@ -6,6 +6,7 @@ import { Course } from "@/types/types";
 import { useState } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
+import "animate.css";
 
 const currentCourse: Course = {
   title: "Introduction to TrotelCoin",
@@ -251,6 +252,7 @@ const CoursePage = () => {
                   className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 >
                   Submit
+                  <Confetti active={showConfetti} />
                 </button>
               ) : (
                 <span className="text-sm">Please, verify the captcha.</span>
@@ -261,7 +263,7 @@ const CoursePage = () => {
           </div>
           {showMessage && (
             <div
-              className={`mt-6 ${
+              className={`mt-6 animate__animated animate__fadeIn ${
                 isCorrect
                   ? "text-green-600 dark:text-green-200"
                   : "text-red-600 dark:text-red-200"
@@ -272,7 +274,6 @@ const CoursePage = () => {
                 : "Something's wrong. Check your answers."}
             </div>
           )}
-          <Confetti active={showConfetti} />
         </div>
       </div>
     </>
