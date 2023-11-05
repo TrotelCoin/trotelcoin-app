@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Lessons } from "@/types/types";
 import Link from "next/link";
 import Image from "next/image";
-import Typed from "typed.js";
 
 const lessons: Lessons[] = [
   {
@@ -151,18 +150,6 @@ const lessons: Lessons[] = [
 
 const Courses = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const stylo = React.useRef(null);
-
-  React.useEffect(() => {
-    const typed = new Typed(stylo.current, {
-      strings: ["TrotelCoin", "Bitcoin", "Ethereum", "Wallet", "Blockchain"],
-      typeSpeed: 50,
-    });
-
-    return () => {
-      typed.destroy();
-    };
-  }, []);
 
   const handleSearch = (e: { target: { value: string } }) => {
     setSearchTerm(e.target.value.toLowerCase());
@@ -202,7 +189,7 @@ const Courses = () => {
               type="search"
               id="default-search"
               className="block w-full p-4 pl-10 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
-              placeholder={`What do you wanna learn? (e.g. ${stylo})`}
+              placeholder="What do you wanna learn?"
               onChange={handleSearch}
               style={{ appearance: "none" }}
             />
