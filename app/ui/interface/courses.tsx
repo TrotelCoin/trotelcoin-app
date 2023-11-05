@@ -96,7 +96,7 @@ const lessons: Lessons[] = [
 const Courses = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: { target: { value: string } }) => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
@@ -121,7 +121,7 @@ const Courses = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-5 h-5"
+                className="w-5 h-5 text-gray-900 dark:text-gray-100"
               >
                 <path
                   strokeLinecap="round"
@@ -133,9 +133,10 @@ const Courses = () => {
             <input
               type="search"
               id="default-search"
-              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+              className="block w-full p-4 pl-10 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
               placeholder="Search a course"
               onChange={handleSearch}
+              style={{ appearance: "none" }}
             />
           </div>
         </form>
@@ -160,7 +161,7 @@ const Courses = () => {
                     key={course.title}
                     className="w-full md:w-64 h-full"
                   >
-                    <div className="rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 backdrop-blur-xl">
+                    <div className="rounded-lg hover:shadow active:shadow-none active:border-blue-600 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 backdrop-blur-xl">
                       {/*<Image
                         className="bg-cover rounded-t-md"
                         alt={course.title}
