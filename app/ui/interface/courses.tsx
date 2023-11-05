@@ -143,7 +143,7 @@ const Courses = () => {
 
   return (
     <>
-      <div className="mx-10 lg:mx-32 mt-10 mb-20 overflow-hidden">
+      <div className="mx-10 lg:mx-32 mt-10 mb-20">
         <form className="my-10">
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
             What do you wanna learn?
