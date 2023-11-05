@@ -93,7 +93,7 @@ const CoursePage = () => {
 
   return (
     <>
-      <div className="max-w-2xl">
+      <div className="max-w-2xl mx-auto">
         <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
           Course
         </p>
