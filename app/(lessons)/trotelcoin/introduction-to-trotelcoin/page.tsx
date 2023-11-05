@@ -239,8 +239,8 @@ const CoursePage = () => {
             >
               Previous
             </button>
-            <span className="text-center text-gray-900 dark:text-gray-100">
-              {currentQuestion + 1} / {questions.length}
+            <span className="text-center text-sm text-gray-900 dark:text-gray-100">
+              {currentQuestion + 1}/{questions.length}
             </span>
             {currentQuestion < questions.length - 1 && (
               <button
@@ -260,7 +260,9 @@ const CoursePage = () => {
                   <Confetti active={showConfetti} />
                 </button>
               ) : (
-                <span className="text-sm">Please, verify the captcha.</span>
+                <span className="text-sm text-gray-900 dark:text-gray-100">
+                  Missing captcha.
+                </span>
               )
             ) : (
               <></>
