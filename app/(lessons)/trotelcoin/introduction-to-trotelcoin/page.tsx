@@ -228,7 +228,7 @@ const CoursePage = () => {
             sitekey="6LdCjvkoAAAAAIfNzI0aQveCdrVTy9Zz0YyCIWf0"
             onChange={handleCaptchaVerify}
           />
-          <div className="mt-6 flex justify-between">
+          <div className="mt-6 flex justify-around items-center">
             <button
               className={`${
                 currentQuestion !== 0
@@ -240,7 +240,7 @@ const CoursePage = () => {
               Previous
             </button>
             <span className="text-center text-gray-900 dark:text-gray-100">
-              Question {currentQuestion + 1} / {questions.length}
+              {currentQuestion + 1} / {questions.length}
             </span>
             {currentQuestion < questions.length - 1 && (
               <button
