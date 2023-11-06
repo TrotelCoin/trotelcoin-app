@@ -188,10 +188,12 @@ const CoursePage = () => {
           Quiz
         </h2>
         <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {questions[currentQuestion].question} ({currentQuestion + 1}/
-            {questions.length})
-          </h3>
+          {questions && questions[currentQuestion] && (
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              {questions[currentQuestion].question} ({currentQuestion + 1}/
+              {questions.length})
+            </h3>
+          )}
           <ul className="mt-3 py-6 space-y-4">
             {questions[currentQuestion].options.map(
               (option: string, index: number) => (
