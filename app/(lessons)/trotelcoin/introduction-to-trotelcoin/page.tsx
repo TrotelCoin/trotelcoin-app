@@ -196,7 +196,13 @@ const CoursePage = () => {
               {questions.length})
             </h3>
           )}
-          <Suspense fallback={<span className="mt-3">Loading...</span>}>
+          <Suspense
+            fallback={
+              <span className="mt-3 text-gray-900 dark:text-gray-100">
+                Loading...
+              </span>
+            }
+          >
             {questions && questions[currentQuestion] && (
               <ul className="mt-3 py-6 space-y-4">
                 {questions[currentQuestion].options.map(
