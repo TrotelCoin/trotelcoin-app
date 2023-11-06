@@ -3,57 +3,53 @@
 import Image from "next/image";
 import "animate.css";
 import { Course } from "@/types/types";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
-import TrotelBalance from "@/app/ui/hooks/trotelBalance";
 
 const currentCourse: Course = {
   title: "Introduction to TrotelCoin",
 };
 
-const questions = [
-  {
-    id: 1,
-    question: "What's a wallet?",
-    options: [
-      "An interface between my seed phrase and the blockchain",
-      "A crypto address",
-    ],
-  },
-  {
-    id: 2,
-    question: "What can you do with your wallet?",
-    options: [
-      "Send crypto to my friends",
-      "Authenticate on a website",
-      "Stake crypto",
-      "All of the above",
-    ],
-  },
-];
-
-const correctAnswers = [
-  {
-    id: 1,
-    answer: "An interface between my seed phrase and the blockchain",
-  },
-  {
-    id: 2,
-    answer: "All of the above",
-  },
-];
+const quizId = "1";
 
 const CoursePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [answers, setAnswers] = useState<string[]>(
-    new Array(questions.length).fill("")
-  );
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [showConfettiReward, setShowConfettiReward] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
+  const [questions, setQuestions] = useState<any>(null);
+  const [correctAnswers, setCorrectAnswers] = useState<string[]>(
+    new Array(questions.length).fill("")
+  );
+  const [answers, setAnswers] = useState<string[]>(
+    new Array(questions.length).fill("")
+  );
+
+  useEffect(() => {
+    const loadQuizData = async () => {
+      try {
+        const quizResponse = await fetch(`/api/quizzes/${quizId}`);
+        const answersResponse = await fetch(`/api/answers/${quizId}`);
+
+        if (quizResponse.ok && answersResponse.ok) {
+          const quizData = await quizResponse.json();
+          const answersData = await answersResponse.json();
+
+          setQuestions(quizData);
+          setCorrectAnswers(answersData.answers);
+        } else {
+          console.error("Failed to fetch quiz data or answers data");
+        }
+      } catch (error) {
+        console.error("An error occurred while fetching data:", error);
+      }
+    };
+
+    loadQuizData();
+  }, []);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -78,7 +74,7 @@ const CoursePage = () => {
   const handleSubmit = () => {
     let correctCount = 0;
     answers.forEach((answer, index) => {
-      if (answer === correctAnswers[index].answer) {
+      if (answer === correctAnswers[index]) {
         correctCount++;
       }
     });
@@ -201,20 +197,22 @@ const CoursePage = () => {
             {questions.length})
           </h3>
           <ul className="mt-3 py-6 space-y-4">
-            {questions[currentQuestion].options.map((option, index) => (
-              <li key={index} className="items-center">
-                <div
-                  className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
-                    answers[currentQuestion] === option
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
-                  }`}
-                  onClick={() => handleAnswer(option)}
-                >
-                  {option}
-                </div>
-              </li>
-            ))}
+            {questions[currentQuestion].options.map(
+              (option: string, index: number) => (
+                <li key={index} className="items-center">
+                  <div
+                    className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
+                      answers[currentQuestion] === option
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
+                    }`}
+                    onClick={() => handleAnswer(option)}
+                  >
+                    {option}
+                  </div>
+                </li>
+              )
+            )}
           </ul>
           <ReCAPTCHA
             sitekey="6LdCjvkoAAAAAIfNzI0aQveCdrVTy9Zz0YyCIWf0"
