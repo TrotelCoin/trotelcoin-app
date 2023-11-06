@@ -216,7 +216,7 @@ const CoursePage = () => {
               )}
             </ul>
           ) : (
-            <span className="mt-3 text-gray-900 dark:text-gray-100">
+            <span className="font-semibold my-3 text-gray-900 dark:text-gray-100">
               Loading...
             </span>
           )}
