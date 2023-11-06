@@ -221,7 +221,7 @@ const Courses = () => {
                             {course.status}
                           </span>
                           {course.tier == "Intermediate" && (
-                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-pink-50 dark:bg-pink-400/10 text-pink-800 dark:text-pink-400 ring-pink-600/20 dark:ring-pink-400/40">
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-pink-600 dark:bg-pink-200 text-gray-100 dark:text-gray-900">
                               {course.tier}
                             </span>
                           )}
@@ -231,7 +231,7 @@ const Courses = () => {
                             </span>
                           )}
                           {course.tier == "Expert" && (
-                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-red-50 dark:bg-red-400/10 text-red-800 dark:text-red-400 ring-red-600/20 dark:ring-red-400/40">
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
                               {course.tier}
                             </span>
                           )}
