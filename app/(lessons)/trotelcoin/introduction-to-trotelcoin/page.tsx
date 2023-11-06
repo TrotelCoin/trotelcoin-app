@@ -35,7 +35,7 @@ const CoursePage = () => {
           const answersData = await answersResponse.json();
 
           setQuestions(quizData);
-          setCorrectAnswers(answersData.answers);
+          setCorrectAnswers(answersData);
         } else {
           console.error("Failed to fetch quiz data or answers data");
         }
@@ -70,8 +70,6 @@ const CoursePage = () => {
   const handleSubmit = () => {
     let correctCount = 0;
     answers.forEach((answer, index) => {
-      console.log(answer);
-      console.log(correctAnswers[index]);
       if (answer === correctAnswers[index]) {
         correctCount++;
       }
