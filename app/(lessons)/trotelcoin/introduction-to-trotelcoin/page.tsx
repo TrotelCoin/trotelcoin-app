@@ -36,6 +36,8 @@ const CoursePage = () => {
 
           setQuestions(quizData);
           setCorrectAnswers(answersData.answers);
+          console.log(quizData);
+          console.log(answersData);
         } else {
           console.error("Failed to fetch quiz data or answers data");
         }
