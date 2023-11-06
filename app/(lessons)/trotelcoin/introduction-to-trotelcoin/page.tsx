@@ -50,6 +50,7 @@ const CoursePage = () => {
     new Array(questions.length).fill("")
   );
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
+  const [showConfettiReward, setShowConfettiReward] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
@@ -286,8 +287,9 @@ const CoursePage = () => {
               <button className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold">
                 {" "}
                 {/* onclick={} */}
-                Claim your TROTEL
+                Receive my crypto
               </button>
+              <Confetti active={showConfettiReward} />
             </div>
             {/* Add this mechanism and confetti */}
             {/* {trotelClaimed && (
