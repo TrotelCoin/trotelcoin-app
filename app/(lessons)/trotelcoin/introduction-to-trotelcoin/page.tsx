@@ -70,6 +70,8 @@ const CoursePage = () => {
   const handleSubmit = () => {
     let correctCount = 0;
     answers.forEach((answer, index) => {
+      console.log(answer);
+      console.log(correctAnswers[index]);
       if (answer === correctAnswers[index]) {
         correctCount++;
       }
