@@ -208,13 +208,13 @@ const Courses = () => {
                         </h3>
                         <div className="flex flex-wrap mt-4 gap-2 items-center">
                           <span
-                            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${
+                            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
                               course.status === "Not started"
-                                ? "bg-gray-50 dark:bg-gray-400/10 text-gray-700 dark:text-gray-400 ring-gray-500/20 dark:ring-gray-400/40"
+                                ? "bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
                                 : course.status === "Finished"
-                                ? "bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-400 ring-green-600/20 dark:ring-green-500/40"
+                                ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
                                 : course.status === "Ongoing"
-                                ? "bg-blue-50 dark:bg-blue-400/10 text-blue-700 dark:text-blue-400 ring-blue-600/20 dark:ring-blue-400/40"
+                                ? "bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
                                 : ""
                             }`}
                           >
@@ -226,7 +226,7 @@ const Courses = () => {
                             </span>
                           )}
                           {course.tutorial && (
-                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-orange-600 dark:bg-orange-200 text-gray-100 dark:text-gray-900">
                               Tutorial
                             </span>
                           )}
@@ -236,7 +236,7 @@ const Courses = () => {
                             </span>
                           )}
                           {course.sponsored && (
-                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-50 dark:bg-yellow-400/10 text-yellow-800 dark:text-yellow-400 ring-yellow-600/20 dark:ring-yellow-400/40">
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
                               Sponsored
                             </span>
                           )}
