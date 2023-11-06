@@ -196,34 +196,30 @@ const CoursePage = () => {
               {questions.length})
             </h3>
           )}
-          <Suspense
-            fallback={
-              <span className="mt-3 text-gray-900 dark:text-gray-100">
-                Loading...
-              </span>
-            }
-          >
-            {questions && questions[currentQuestion] && (
-              <ul className="mt-3 py-6 space-y-4">
-                {questions[currentQuestion].options.map(
-                  (option: string, index: number) => (
-                    <li key={index} className="items-center">
-                      <div
-                        className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
-                          answers[currentQuestion] === option
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
-                        }`}
-                        onClick={() => handleAnswer(option)}
-                      >
-                        {option}
-                      </div>
-                    </li>
-                  )
-                )}
-              </ul>
-            )}
-          </Suspense>
+          {questions && questions[currentQuestion] ? (
+            <ul className="mt-3 py-6 space-y-4">
+              {questions[currentQuestion].options.map(
+                (option: string, index: number) => (
+                  <li key={index} className="items-center">
+                    <div
+                      className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
+                        answers[currentQuestion] === option
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
+                      }`}
+                      onClick={() => handleAnswer(option)}
+                    >
+                      {option}
+                    </div>
+                  </li>
+                )
+              )}
+            </ul>
+          ) : (
+            <span className="mt-3 text-gray-900 dark:text-gray-100">
+              Loading...
+            </span>
+          )}
           <ReCAPTCHA
             sitekey={
               process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
