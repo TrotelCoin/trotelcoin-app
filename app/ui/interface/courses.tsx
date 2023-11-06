@@ -13,14 +13,16 @@ const lessons: Lessons[] = [
         href: "/trotelcoin/introduction-to-trotelcoin",
         status: "Not started",
         tier: "Beginner",
-        sponsored: true,
+        sponsored: false,
+        tutorial: true,
       },
       {
         title: "Earn Intermediate and Expert NFTs",
         href: "/trotelcoin/earn-intermediate-and-expert-nfts",
         status: "Not started",
         tier: "Beginner",
-        sponsored: true,
+        sponsored: false,
+        tutorial: true,
       },
     ],
   },
@@ -33,6 +35,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
       {
         title: "Secure your wallet",
@@ -40,6 +43,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Intermediate",
         sponsored: false,
+        tutorial: false,
       },
       {
         title: "Authenticate with your wallet",
@@ -47,6 +51,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
       {
         title: "Make your first transaction",
@@ -54,6 +59,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
     ],
   },
@@ -66,6 +72,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
       {
         title: "Consensus mechanisms",
@@ -73,6 +80,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
     ],
   },
@@ -85,6 +93,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
       {
         title: "The history of Bitcoin",
@@ -92,6 +101,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Intermediate",
         sponsored: false,
+        tutorial: false,
       },
     ],
   },
@@ -104,6 +114,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
       {
         title: "Understand the layers 2",
@@ -111,6 +122,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
+        tutorial: false,
       },
     ],
   },
@@ -123,6 +135,7 @@ const lessons: Lessons[] = [
         status: "Not started",
         tier: "Expert",
         sponsored: false,
+        tutorial: false,
       },
     ],
   },
@@ -210,6 +223,11 @@ const Courses = () => {
                           {course.tier == "Intermediate" && (
                             <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset bg-pink-50 dark:bg-pink-400/10 text-pink-800 dark:text-pink-400 ring-pink-600/20 dark:ring-pink-400/40">
                               {course.tier}
+                            </span>
+                          )}
+                          {course.tutorial && (
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+                              Tutorial
                             </span>
                           )}
                           {course.tier == "Expert" && (

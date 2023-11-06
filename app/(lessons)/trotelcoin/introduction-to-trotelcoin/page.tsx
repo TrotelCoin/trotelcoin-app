@@ -6,7 +6,6 @@ import { Course } from "@/types/types";
 import { useState } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
-import "animate.css";
 
 const currentCourse: Course = {
   title: "Introduction to TrotelCoin",

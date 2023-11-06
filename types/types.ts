@@ -67,6 +67,7 @@ export interface Lesson {
   status: "Not started" | "Finished" | "Ongoing";
   tier: "Beginner" | "Intermediate" | "Expert";
   sponsored: boolean;
+  tutorial: boolean;
 }
 
 export interface Lessons {
