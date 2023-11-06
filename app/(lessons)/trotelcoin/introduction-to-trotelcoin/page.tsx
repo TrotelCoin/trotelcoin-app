@@ -220,7 +220,7 @@ const CoursePage = () => {
               Loading...
             </span>
           )}
-          {!isCorrect && (
+          {!isCorrect && questions && (
             <ReCAPTCHA
               sitekey={
                 process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
@@ -228,7 +228,6 @@ const CoursePage = () => {
               onChange={handleCaptchaVerify}
             />
           )}
-
           <div className="mt-6 flex justify-between items-center">
             <button
               className={`${
