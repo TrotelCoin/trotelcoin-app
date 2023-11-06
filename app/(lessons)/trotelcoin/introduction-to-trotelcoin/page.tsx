@@ -82,6 +82,7 @@ const CoursePage = () => {
       setShowConfetti(true);
     } else {
       setIsCorrect(false);
+      setShowConfetti(false);
     }
     setShowMessage(true);
   };
