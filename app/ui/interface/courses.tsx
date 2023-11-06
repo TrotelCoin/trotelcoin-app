@@ -226,7 +226,7 @@ const Courses = () => {
                             </span>
                           )}
                           {course.tutorial && (
-                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-orange-600 dark:bg-orange-200 text-gray-100 dark:text-gray-900">
+                            <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-purple-600 dark:bg-purple-200 text-gray-100 dark:text-gray-900">
                               Tutorial
                             </span>
                           )}
