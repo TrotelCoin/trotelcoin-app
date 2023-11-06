@@ -282,12 +282,14 @@ const CoursePage = () => {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               You will get 0.1 TROTEL {/* change this value */}
             </h3>
-            <div className="m-auto items-center">
+            <div className="mt-6 items-center">
               <button className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold">
+                {" "}
+                {/* onclick={} */}
                 Claim your TROTEL
               </button>
             </div>
-            {/* Add this mechanism */}
+            {/* Add this mechanism and confetti */}
             {/* {trotelClaimed && (
               <div
                 className={`mt-6 animate__animated animate__fadeIn ${
