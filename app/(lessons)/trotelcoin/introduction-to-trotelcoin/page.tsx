@@ -21,12 +21,8 @@ const CoursePage = () => {
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
   const [questions, setQuestions] = useState<any>(null);
-  const [correctAnswers, setCorrectAnswers] = useState<string[]>(
-    new Array(questions.length).fill("")
-  );
-  const [answers, setAnswers] = useState<string[]>(
-    new Array(questions.length).fill("")
-  );
+  const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<string[]>([]);
 
   useEffect(() => {
     const loadQuizData = async () => {
