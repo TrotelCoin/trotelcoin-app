@@ -4,12 +4,9 @@ const answers = [
   {
     id: "1",
     quizId: "1",
-    answers: [
-      {
-        id: 1,
-        correctAnswer: "An interface between my seed phrase and the blockchain",
-      },
-      { id: 2, correctAnswer: "All of the above" },
+    correctAnswers: [
+      "An interface between my seed phrase and the blockchain",
+      "All of the above",
     ],
   },
 ];
@@ -19,11 +16,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     query: { quizId },
   } = req;
 
-  const answer = answers.find((answer) => answer.id === quizId);
+  const requestAnswers = answers.find((answer) => answer.quizId === quizId);
 
-  if (!answer) {
+  if (!requestAnswers) {
     return res.status(404).json({ message: "Answers not found" });
   }
 
-  return res.status(200).json(answer);
+  return res.status(200).json(requestAnswers.correctAnswers);
 }
