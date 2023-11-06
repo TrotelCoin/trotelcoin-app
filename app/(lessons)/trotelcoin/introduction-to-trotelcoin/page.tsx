@@ -190,28 +190,32 @@ const CoursePage = () => {
           Quiz
         </h2>
         <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {questions[currentQuestion].question} ({currentQuestion + 1}/
-            {questions.length})
-          </h3>
-          <ul className="mt-3 py-6 space-y-4">
-            {questions[currentQuestion].options.map(
-              (option: string, index: number) => (
-                <li key={index} className="items-center">
-                  <div
-                    className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
-                      answers[currentQuestion] === option
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
-                    }`}
-                    onClick={() => handleAnswer(option)}
-                  >
-                    {option}
-                  </div>
-                </li>
-              )
-            )}
-          </ul>
+          {questions && questions[currentQuestion] && (
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              {questions[currentQuestion].question} ({currentQuestion + 1}/
+              {questions.length})
+            </h3>
+          )}
+          {questions && questions[currentQuestion] && (
+            <ul className="mt-3 py-6 space-y-4">
+              {questions[currentQuestion].options.map(
+                (option: string, index: number) => (
+                  <li key={index} className="items-center">
+                    <div
+                      className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
+                        answers[currentQuestion] === option
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
+                      }`}
+                      onClick={() => handleAnswer(option)}
+                    >
+                      {option}
+                    </div>
+                  </li>
+                )
+              )}
+            </ul>
+          )}
           <ReCAPTCHA
             sitekey={process.env.GOOGLE_RECAPTCHA_SITE_KEY as string}
             onChange={handleCaptchaVerify}
@@ -227,7 +231,7 @@ const CoursePage = () => {
             >
               Previous
             </button>
-            {currentQuestion < questions.length - 1 && (
+            {questions && currentQuestion < questions.length - 1 && (
               <button
                 className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 onClick={goToNext}
@@ -235,7 +239,7 @@ const CoursePage = () => {
                 Next
               </button>
             )}
-            {currentQuestion === questions.length - 1 ? (
+            {questions && currentQuestion === questions.length - 1 ? (
               isCaptchaVerified ? (
                 <button
                   onClick={handleSubmit}
