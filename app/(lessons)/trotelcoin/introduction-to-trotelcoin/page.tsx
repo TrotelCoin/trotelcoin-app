@@ -3,9 +3,10 @@
 import Image from "next/image";
 import "animate.css";
 import { Course } from "@/types/types";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
+import { unstable_noStore as noStore } from "next/cache";
 
 const currentCourse: Course = {
   title: "Introduction to TrotelCoin",
@@ -26,6 +27,7 @@ const CoursePage = () => {
 
   useEffect(() => {
     const loadQuizData = async () => {
+      noStore();
       try {
         const quizResponse = await fetch(`/api/quizzes/${quizId}`);
         const answersResponse = await fetch(`/api/answers/${quizId}`);
@@ -194,26 +196,28 @@ const CoursePage = () => {
               {questions.length})
             </h3>
           )}
-          {questions && questions[currentQuestion] && (
-            <ul className="mt-3 py-6 space-y-4">
-              {questions[currentQuestion].options.map(
-                (option: string, index: number) => (
-                  <li key={index} className="items-center">
-                    <div
-                      className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
-                        answers[currentQuestion] === option
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
-                      }`}
-                      onClick={() => handleAnswer(option)}
-                    >
-                      {option}
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
-          )}
+          <Suspense fallback={<span className="mt-3">Loading...</span>}>
+            {questions && questions[currentQuestion] && (
+              <ul className="mt-3 py-6 space-y-4">
+                {questions[currentQuestion].options.map(
+                  (option: string, index: number) => (
+                    <li key={index} className="items-center">
+                      <div
+                        className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
+                          answers[currentQuestion] === option
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:"
+                        }`}
+                        onClick={() => handleAnswer(option)}
+                      >
+                        {option}
+                      </div>
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
+          </Suspense>
           <ReCAPTCHA
             sitekey={
               process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
