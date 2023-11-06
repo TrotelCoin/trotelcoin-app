@@ -12,5 +12,5 @@ export default function quizHandler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(404).json({ message: "Quiz not found" });
   }
 
-  return res.status(200).json(quiz);
+  return res.status(200).json(quiz.questions);
 }
