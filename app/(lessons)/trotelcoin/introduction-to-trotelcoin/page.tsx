@@ -6,6 +6,7 @@ import { Course } from "@/types/types";
 import { useState } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
+import TrotelBalance from "@/app/ui/hooks/trotelBalance";
 
 const currentCourse: Course = {
   title: "Introduction to TrotelCoin",
@@ -270,6 +271,39 @@ const CoursePage = () => {
           )}
         </div>
       </div>
+
+      {/* Reward */}
+      {isCorrect && (
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            Claim your reward
+          </h2>
+          <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              You will get 0.1 TROTEL {/* change this value */}
+            </h3>
+            <div className="m-auto items-center">
+              <button className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold">
+                Claim your TROTEL
+              </button>
+            </div>
+            {/* Add this mechanism */}
+            {/* {trotelClaimed && (
+              <div
+                className={`mt-6 animate__animated animate__fadeIn ${
+                  isCorrect
+                    ? "text-green-600 dark:text-green-200"
+                    : "text-red-600 dark:text-red-200"
+                }`}
+              >
+                {isCorrect
+                  ? "Congratulations! All the answers are correct!"
+                  : "Something's wrong. Check your answers."}
+              </div>
+              )} */}
+          </div>
+        </div>
+      )}
     </>
   );
 };
