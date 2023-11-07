@@ -79,7 +79,7 @@ export default function Governance() {
   ]);
 
   const handleStake = () => {
-    if (typeof inputValue !== "number" || inputValue <= 0) {
+    if (parseFloat(inputValue) <= 0) {
       setWarningMessage("Amount needs to be > 0.");
       return;
     }
@@ -110,7 +110,7 @@ export default function Governance() {
       <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
         Stake
       </h2>
-      <div className="flex flex-col mt-4 items-center gap-6">
+      <div className="flex flex-col mt-4 gap-6">
         <div className="flex gap-4">
           <input
             className="px-4 py-2 rounded-lg"
