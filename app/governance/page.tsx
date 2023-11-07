@@ -32,6 +32,7 @@ export default function Governance() {
     address: GovTrotelCoinAddress,
     abi: govTrotelCoinABI,
     functionName: "getTotalSupply",
+    watch: true,
   });
 
   const {
@@ -42,22 +43,16 @@ export default function Governance() {
     address: GovTrotelCoinAddress,
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
+    watch: true,
     args: [address],
   });
-
-  console.log(totalSupply);
-  console.log(govBalance);
 
   useEffect(() => {
     const fetchTotalSupplyData = async () => {
       if (isTotalSupplyError || isTotalSupplyLoading) {
         setTotalSupplyData(0);
       } else {
-        setTotalSupplyData(
-          typeof totalSupply === "number"
-            ? totalSupply
-            : BigNumber(totalSupply).toNumber()
-        );
+        setTotalSupplyData((govBalance as any).toNumber());
       }
     };
 
@@ -65,16 +60,14 @@ export default function Governance() {
       if (isTotalSupplyError || isTotalSupplyLoading) {
         setGovBalanceData(0);
       } else {
-        setGovBalanceData(
-          typeof govBalance === "number"
-            ? govBalance
-            : BigNumber(govBalance).toNumber()
-        );
+        setGovBalanceData((govBalance as any).toNumber());
       }
     };
 
-    fetchTotalSupplyData();
-    fetchGovBalanceData();
+    if (isConnected) {
+      fetchTotalSupplyData();
+      fetchGovBalanceData();
+    }
   }, [
     totalSupply,
     isTotalSupplyError,
@@ -82,6 +75,7 @@ export default function Governance() {
     govBalance,
     govBalanceError,
     govBalanceLoading,
+    isConnected,
   ]);
 
   const handleStake = () => {
