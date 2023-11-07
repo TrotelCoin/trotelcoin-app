@@ -98,6 +98,14 @@ export default function Governance() {
             Time until withdrawal
           </p>
         </div>
+        <div className="flex w-full md:w-1/4 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
+          <h2 className="font-semibold text-6xl text-blue-600 dark:text-blue-200">
+            {stakingSupplyData}
+          </h2>
+          <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
+            GovTrotelCoin supply
+          </p>
+        </div>
       </div>
     </>
   );
