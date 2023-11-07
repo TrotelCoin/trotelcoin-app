@@ -87,10 +87,12 @@ export default function Governance() {
   const handleStake = () => {
     if (typeof inputValue !== "number" || inputValue <= 0) {
       setWarningMessage("Amount needs to be > 0.");
+      return;
     }
 
     if (!isConnected) {
       setWarningMessage("Connect your wallet first!");
+      return;
     }
 
     setConfirmStaking(true);
@@ -99,6 +101,7 @@ export default function Governance() {
   const handleConfirm = () => {
     if (!isConnected) {
       setWarningMessage("Connect your wallet first!");
+      return;
     }
   };
 
@@ -140,7 +143,7 @@ export default function Governance() {
         </div>
         {warningMessage !== "" && (
           <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-            Connect your wallet first!
+            {warningMessage}
           </span>
         )}
         {confirmStaking && (
