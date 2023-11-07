@@ -96,8 +96,8 @@ const lessons: Lessons[] = [
     category: "Bitcoin",
     courses: [
       {
-        title: "What is Bitcoin?",
-        href: "/bitcoin/what-is-bitcoin",
+        title: "Introduction to Bitcoin",
+        href: "/bitcoin/introduction-to-bitcoin",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -119,8 +119,8 @@ const lessons: Lessons[] = [
     category: "Ethereum",
     courses: [
       {
-        title: "What is Ethereum?",
-        href: "/ethereum/what-is-ethereum",
+        title: "Introduction to Ethereum",
+        href: "/ethereum/introduction-to-ethereum",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
@@ -135,6 +135,15 @@ const lessons: Lessons[] = [
         sponsored: false,
         tutorial: false,
         new: false,
+      },
+      {
+        title: "Smart contracts",
+        href: "/ethereum/smart-contracts",
+        status: "Not started",
+        tier: "Beginner",
+        sponsored: false,
+        tutorial: false,
+        new: true,
       },
     ],
   },
@@ -255,7 +264,7 @@ export default function Home() {
                               </span>
                             )}
                             {course.new && (
-                              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900 rounded-md px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
+                              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900 dark:ring-transparent rounded-md px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
                                 New course
                               </span>
                             )}
