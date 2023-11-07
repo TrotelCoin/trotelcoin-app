@@ -319,7 +319,11 @@ export default function Governance() {
           {withdrawMessage && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You withdrew your TrotelCoin and got{" "}
-              {(govBalance as any).toNumber() + (govRewards as any).toNumber()}!
+              {(
+                parseFloat(govBalance?.toString() as string) +
+                parseFloat(govRewards?.toString() as string)
+              ).toString()}
+              !
             </span>
           )}
         </div>
@@ -329,9 +333,7 @@ export default function Governance() {
         <div className="flex flex-wrap justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {stakingBalance === undefined
-                ? 0
-                : (stakingBalance as any).toNumber()}
+              {stakingBalance === undefined ? 0 : stakingBalance?.toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TrotelCoin
@@ -339,7 +341,7 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {govBalance === undefined ? 0 : (govBalance as any).toNumber()}
+              {govBalance === undefined ? 0 : govBalance?.toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin
@@ -347,7 +349,7 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {timeLeft === undefined ? 0 : (timeLeft as any).toNumber()}
+              {timeLeft === undefined ? 0 : timeLeft?.toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               Seconds left until withdrawal
@@ -355,7 +357,7 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {totalSupply === undefined ? 0 : (totalSupply as any).toNumber()}
+              {totalSupply === undefined ? 0 : totalSupply?.toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin supply
