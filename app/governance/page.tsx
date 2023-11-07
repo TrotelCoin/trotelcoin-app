@@ -35,79 +35,93 @@ export default function Governance() {
     isError: isTotalSupplyError,
     isLoading: isTotalSupplyLoading,
   } = useContractRead({
-    address: GovTrotelCoinAddress,
+    address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "getTotalSupply",
     watch: true,
   });
+
+  console.log(isTotalSupplyError, isTotalSupplyLoading, totalSupply);
 
   const {
     data: govBalance,
     isError: govBalanceError,
     isLoading: govBalanceLoading,
   } = useContractRead({
-    address: GovTrotelCoinAddress,
+    address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
     watch: true,
     args: [address as `0x${string}`],
   });
 
+  console.log(govBalance, govBalanceError, govBalanceLoading);
+
   const {
     data: govRewards,
     isError: govRewardsError,
     isLoading: govRewardsLoading,
   } = useContractRead({
-    address: GovTrotelStakingAddress,
+    address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "calculateRewards",
     watch: true,
     args: [address as `0x${string}`],
   });
 
+  console.log(govRewards, govRewardsError, govRewardsLoading);
+
   const {
     data: stakingBalance,
     isError: stakingBalanceError,
     isLoading: stakingBalanceLoading,
   } = useContractRead({
-    address: GovTrotelStakingAddress,
+    address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "stakingBalance",
     watch: true,
     args: [address as `0x${string}`],
   });
 
+  console.log(stakingBalance, stakingBalanceError, stakingBalanceLoading);
+
   const {
     data: timeLeft,
     isError: timeLeftError,
     isLoading: timeLeftLoading,
   } = useContractRead({
-    address: GovTrotelStakingAddress,
+    address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
     watch: true,
     args: [address as `0x${string}`],
   });
 
-  const { write: approveStaking } = useContractWrite({
-    address: TrotelCoinAddress,
+  console.log(timeLeft, timeLeftError, timeLeftLoading);
+
+  const { data: approveStakingData, write: approveStaking } = useContractWrite({
+    address: TrotelCoinAddress as `0x${string}`,
     abi: trotelcoin,
     functionName: "approve",
   });
 
-  const { data, write: stake } = useContractWrite({
-    address: GovTrotelStakingAddress,
+  console.log(approveStakingData);
+
+  const { data: stakeData, write: stake } = useContractWrite({
+    address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "stake",
   });
 
-  const { write: withdraw } = useContractWrite({
-    address: GovTrotelStakingAddress,
+  console.log(stakeData);
+
+  const { data: withdrawData, write: withdraw } = useContractWrite({
+    address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "withdraw",
   });
 
-  console.log(data);
+  console.log(withdrawData);
 
   const handleStake = () => {
     const fixedValue = inputValue == "" ? "0" : inputValue;
