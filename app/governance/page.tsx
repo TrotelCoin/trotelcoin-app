@@ -1,9 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import ComingSoon from "@/app/ui/interface/comingSoon";
+import React, { useState } from "react";
 import { useAccount } from "wagmi";
-import { unstable_noStore as noStore } from "next/cache";
 import { useContractRead } from "wagmi";
 import govTrotelCoinABI from "@/app/ui/abi/govTrotelCoin";
 import trotelcoin from "@/app/ui/abi/trotelcoin";
@@ -52,7 +50,7 @@ export default function Governance() {
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
     watch: true,
-    args: [address],
+    args: [address as `0x${string}`],
   });
 
   const {
@@ -64,7 +62,7 @@ export default function Governance() {
     abi: govTrotelStakingABI,
     functionName: "calculateRewards",
     watch: true,
-    args: [address],
+    args: [address as `0x${string}`],
   });
 
   const {
@@ -76,7 +74,7 @@ export default function Governance() {
     abi: govTrotelStakingABI,
     functionName: "stakingBalance",
     watch: true,
-    args: [address],
+    args: [address as `0x${string}`],
   });
 
   const {
@@ -88,7 +86,7 @@ export default function Governance() {
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
     watch: true,
-    args: [address],
+    args: [address as `0x${string}`],
   });
 
   const { write: approveStaking } = useContractWrite({
@@ -110,37 +108,6 @@ export default function Governance() {
   });
 
   console.log(data);
-
-  useEffect(() => {
-    const fetchTotalSupplyData = async () => {
-      if (isTotalSupplyError || isTotalSupplyLoading) {
-        setTotalSupplyData(0);
-      } else {
-        setTotalSupplyData((govBalance as any).toNumber());
-      }
-    };
-
-    const fetchGovBalanceData = async () => {
-      if (isTotalSupplyError || isTotalSupplyLoading) {
-        setGovBalanceData(0);
-      } else {
-        setGovBalanceData((govBalance as any).toNumber());
-      }
-    };
-
-    if (isConnected) {
-      fetchTotalSupplyData();
-      fetchGovBalanceData();
-    }
-  }, [
-    totalSupply,
-    isTotalSupplyError,
-    isTotalSupplyLoading,
-    govBalance,
-    govBalanceError,
-    govBalanceLoading,
-    isConnected,
-  ]);
 
   const handleStake = () => {
     const fixedValue = inputValue == "" ? "0" : inputValue;
@@ -327,7 +294,9 @@ export default function Governance() {
         <div className="flex flex-wrap justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {(stakingBalance as any).toNumber()}
+              {stakingBalance === undefined
+                ? 0
+                : (stakingBalance as any).toNumber()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TrotelCoin
@@ -335,7 +304,7 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {govBalanceData}
+              {govBalance === undefined ? 0 : (govBalance as any).toNumber()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin
@@ -343,7 +312,7 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {(timeLeft as any).toNumber()}
+              {timeLeft === undefined ? 0 : (timeLeft as any).toNumber()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               Seconds left until withdrawal
@@ -351,7 +320,7 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {totalSupplyData}
+              {totalSupply === undefined ? 0 : (totalSupply as any).toNumber()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin supply
