@@ -177,7 +177,7 @@ export default function Governance() {
           Staking dashboard
         </h2>
         <div className="flex flex-wrap justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               0
             </h2>
@@ -185,7 +185,7 @@ export default function Governance() {
               TrotelCoin
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalanceData}
             </h2>
@@ -193,7 +193,7 @@ export default function Governance() {
               GovTrotelCoin
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               0
             </h2>
@@ -201,7 +201,7 @@ export default function Governance() {
               Time until withdrawal
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalSupplyData}
             </h2>
