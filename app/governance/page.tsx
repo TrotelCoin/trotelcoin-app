@@ -145,7 +145,7 @@ export default function Governance() {
             {warningMessage}
           </span>
         )}
-        {confirmStaking && (
+        {confirmStaking && warningMessage == "" && (
           <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
             Your TrotelCoin will be locked for 30 days!
           </span>
