@@ -93,6 +93,11 @@ export default function Governance() {
   };
 
   const handleConfirm = () => {
+    if (parseFloat(inputValue) <= 0) {
+      setWarningMessage("Amount needs to be > 0.");
+      return;
+    }
+
     if (!isConnected) {
       setWarningMessage("Connect your wallet first!");
       return;
