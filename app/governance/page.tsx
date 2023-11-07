@@ -25,6 +25,7 @@ export default function Governance() {
   const [inputValue, setInputValue] = useState<string>("");
   const [stakingValidation, setStakingValidation] = useState<boolean>(false);
   const [stakedValue, setStakedValue] = useState<number>(0);
+  const [isApproved, setIsApproved] = useState<boolean>(false);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -115,7 +116,7 @@ export default function Governance() {
     setConfirmStaking(true);
   };
 
-  const handleConfirm = () => {
+  const handleApprove = () => {
     const fixedValue = inputValue == "" ? "0" : inputValue;
 
     if (parseFloat(fixedValue) <= 0) {
@@ -143,6 +144,25 @@ export default function Governance() {
       console.log("error", e);
     }
 
+    setConfirmStaking(false);
+    setIsApproved(true);
+  };
+
+  const handleStakeTransaction = () => {
+    const fixedValue = inputValue == "" ? "0" : inputValue;
+
+    if (parseFloat(fixedValue) <= 0) {
+      setWarningMessage("Amount needs to be > 0.");
+      return;
+    }
+
+    if (!isConnected) {
+      setWarningMessage("Connect your wallet first!");
+      return;
+    }
+
+    setWarningMessage("");
+
     // stake
 
     const stakeValue = parseEther(fixedValue);
@@ -154,7 +174,6 @@ export default function Governance() {
       console.log(e);
     }
 
-    setConfirmStaking(false);
     setStakedValue(parseFloat(fixedValue));
     setStakingValidation(true);
   };
@@ -189,9 +208,17 @@ export default function Governance() {
             {confirmStaking && (
               <button
                 className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
-                onClick={handleConfirm}
+                onClick={handleApprove}
               >
-                Confirm
+                Approve
+              </button>
+            )}
+            {isApproved && confirmStaking && (
+              <button
+                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+                onClick={handleStakeTransaction}
+              >
+                Stake
               </button>
             )}
           </div>
@@ -201,6 +228,11 @@ export default function Governance() {
             </span>
           )}
           {confirmStaking && warningMessage == "" && (
+            <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
+              You need to approve the transaction!
+            </span>
+          )}
+          {isApproved && warningMessage == "" && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               Your TrotelCoin will be locked for 30 days!
             </span>
