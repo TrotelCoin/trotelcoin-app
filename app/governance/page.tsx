@@ -134,7 +134,7 @@ export default function Governance() {
           Stake
         </h2>
         <div className="flex flex-col mt-4 gap-6">
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <input
               className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
               placeholder="Amount"
