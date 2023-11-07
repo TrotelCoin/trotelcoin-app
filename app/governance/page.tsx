@@ -89,6 +89,7 @@ export default function Governance() {
       return;
     }
 
+    setWarningMessage("");
     setConfirmStaking(true);
   };
 
@@ -102,6 +103,8 @@ export default function Governance() {
       setWarningMessage("Connect your wallet first!");
       return;
     }
+
+    setWarningMessage("");
   };
 
   return (
