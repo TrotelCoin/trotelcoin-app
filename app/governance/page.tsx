@@ -202,6 +202,15 @@ export default function Governance() {
   };
 
   const handleWithdraw = () => {
+    if (!isConnected) {
+      setWarningMessage("Connect your wallet first!");
+      return;
+    }
+
+    setWarningMessage("");
+
+    // withdraw
+
     const { config: withdrawConfig } = usePrepareContractWrite({
       address: GovTrotelStakingAddress as `0x${string}`,
       abi: govTrotelStakingABI,
