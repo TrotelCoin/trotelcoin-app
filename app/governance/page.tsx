@@ -19,8 +19,7 @@ export default function Governance() {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputValue = (e: { target: { value: string } }) => {
-    setInputValue(inputValue);
-    console.log(parseFloat(inputValue));
+    setInputValue(e.target.value);
   };
 
   const { address, isConnected } = useAccount();
