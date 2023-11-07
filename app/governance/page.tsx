@@ -15,8 +15,6 @@ const GovTrotelStakingAddress = "0x15fF980Ac8534242d1A23F172FeCc63501AEF5D3";
 
 export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
-  const [totalSupplyData, setTotalSupplyData] = useState<number>(0);
-  const [govBalanceData, setGovBalanceData] = useState<number>(0);
   const [confirmStaking, setConfirmStaking] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [stakingValidation, setStakingValidation] = useState<boolean>(false);
@@ -193,7 +191,6 @@ export default function Governance() {
 
     try {
       stake({ args: [stakeValue] });
-      console.log(data);
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
