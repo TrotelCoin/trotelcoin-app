@@ -185,6 +185,16 @@ export default function Governance() {
             <span className="font-bold">GovTrotelCoin.</span>
           </span>
         </h1>
+        <p className="mt-10 text-gray-900 dark:text-gray-100">
+          Follow this link to{" "}
+          <a
+            href="https://vote.trotelcoin.com"
+            className="text-underline text-blue-600 dark:text-blue-200"
+          >
+            vote
+          </a>
+          .
+        </p>
         <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
           Stake
         </h2>
