@@ -183,8 +183,8 @@ export default function Governance() {
       <div className="mx-auto">
         <h1 className="flex text-2xl text-gray-900 dark:text-gray-100">
           <span>
-            Stake <span className="font-semibold">TrotelCoin.</span> Get{" "}
-            <span className="font-semibold">GovTrotelCoin.</span>
+            Stake <span className="font-bold">TrotelCoin.</span> Get{" "}
+            <span className="font-bold">GovTrotelCoin.</span>
           </span>
         </h1>
         <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
@@ -205,7 +205,7 @@ export default function Governance() {
                 Stake
               </button>
             )}
-            {confirmStaking && (
+            {confirmStaking && !isApproved && (
               <button
                 className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleApprove}
@@ -227,12 +227,12 @@ export default function Governance() {
               {warningMessage}
             </span>
           )}
-          {confirmStaking && warningMessage == "" && (
+          {confirmStaking && !isApproved && warningMessage == "" && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               You need to approve the transaction!
             </span>
           )}
-          {isApproved && warningMessage == "" && (
+          {isApproved && !stakingValidation && warningMessage == "" && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               Your TrotelCoin will be locked for 30 days!
             </span>
