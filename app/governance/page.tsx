@@ -60,11 +60,13 @@ export default function Governance() {
     functionName: "approve",
   });
 
-  const { write: stake } = useContractWrite({
+  const { data, write: stake } = useContractWrite({
     address: GovTrotelStakingAddress,
     abi: govTrotelStakingABI,
     functionName: "stake",
   });
+
+  console.log(data);
 
   useEffect(() => {
     const fetchTotalSupplyData = async () => {
@@ -167,6 +169,7 @@ export default function Governance() {
 
     try {
       stake({ args: [stakeValue] });
+      console.log(data);
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
@@ -188,8 +191,9 @@ export default function Governance() {
         <p className="mt-10 text-gray-900 dark:text-gray-100">
           Follow this link to{" "}
           <a
+            target="_blank"
             href="https://vote.trotelcoin.com"
-            className="text-underline text-blue-600 dark:text-blue-200"
+            className="underline text-blue-600 dark:text-blue-200 hover:text-blue-600/80 dark:hover:text-blue-200/80"
           >
             vote
           </a>
