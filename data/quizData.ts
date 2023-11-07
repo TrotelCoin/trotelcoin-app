@@ -1,7 +1,7 @@
 const quizzes = [
   {
-    id: "1",
-    quizId: "1",
+    id: 1,
+    quizId: 1,
     title: "Introduction to TrotelCoin",
     questions: [
       {

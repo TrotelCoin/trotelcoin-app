@@ -6,7 +6,7 @@ export default function quizHandler(req: NextApiRequest, res: NextApiResponse) {
     query: { quizId },
   } = req;
 
-  const quiz = quizzes.find((quiz) => quiz.id === quizId);
+  const quiz = quizzes.find((quiz) => quiz.id === parseFloat(quizId as string));
 
   if (!quiz) {
     return res.status(404).json({ message: "Quiz not found" });

@@ -7,12 +7,23 @@ import React, { useState, useEffect, Suspense } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
+import lessons from "@/data/lessonsData";
 
-const currentCourse: Course = {
-  title: "Introduction to TrotelCoin",
-};
+const quizId = 1;
 
-const quizId = "1";
+const currentCourse: Course = lessons.reduce<Course>(
+  (foundCourse, currentCategory) => {
+    if (foundCourse) {
+      return foundCourse;
+    }
+
+    const course = currentCategory.courses.find(
+      (course) => course.quizId === quizId
+    );
+    return course ? course : foundCourse;
+  },
+  {} as Course
+);
 
 const CoursePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
@@ -29,8 +40,10 @@ const CoursePage = () => {
     const loadQuizData = async () => {
       noStore();
       try {
-        const quizResponse = await fetch(`/api/quizzes/${quizId}`);
-        const answersResponse = await fetch(`/api/answers/${quizId}`);
+        const quizResponse = await fetch(`/api/quizzes/${quizId.toString()}`);
+        const answersResponse = await fetch(
+          `/api/answers/${quizId.toString()}`
+        );
 
         if (quizResponse.ok && answersResponse.ok) {
           const quizData = await quizResponse.json();

@@ -6,7 +6,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     query: { quizId },
   } = req;
 
-  const requestAnswers = answers.find((answer) => answer.quizId === quizId);
+  const requestAnswers = answers.find(
+    (answer) => answer.quizId === parseFloat(quizId as string)
+  );
 
   if (!requestAnswers) {
     return res.status(404).json({ message: "Answers not found" });

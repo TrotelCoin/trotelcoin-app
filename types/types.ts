@@ -69,6 +69,7 @@ export interface Lesson {
   sponsored: boolean;
   tutorial: boolean;
   new: boolean;
+  quizId: number;
 }
 
 export interface Lessons {
