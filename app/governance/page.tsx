@@ -16,10 +16,10 @@ export default function Governance() {
   const [totalSupplyData, setTotalSupplyData] = useState<number>(0);
   const [govBalanceData, setGovBalanceData] = useState<number>(0);
   const [confirmStaking, setConfirmStaking] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
 
-  const handleInputChange = (e: any) => {
-    setInputValue(e.target.value);
+  const handleInputValue = (e: { target: { value: string } }) => {
+    setInputValue(inputValue);
   };
 
   const { address, isConnected } = useAccount();
@@ -123,8 +123,7 @@ export default function Governance() {
           <input
             className="block p-4 pl-10 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
             placeholder="Amount"
-            value={inputValue}
-            onChange={handleInputChange}
+            onChange={handleInputValue}
           ></input>
           {!confirmStaking && (
             <button
