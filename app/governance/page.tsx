@@ -24,6 +24,7 @@ export default function Governance() {
   const [stakingValidation, setStakingValidation] = useState<boolean>(false);
   const [stakedValue, setStakedValue] = useState<number>(0);
   const [isApproved, setIsApproved] = useState<boolean>(false);
+  const [withdrawMessage, setWithdrawMessage] = useState<boolean>(false);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -54,6 +55,42 @@ export default function Governance() {
     args: [address],
   });
 
+  const {
+    data: govRewards,
+    isError: govRewardsError,
+    isLoading: govRewardsLoading,
+  } = useContractRead({
+    address: GovTrotelStakingAddress,
+    abi: govTrotelStakingABI,
+    functionName: "calculateRewards",
+    watch: true,
+    args: [address],
+  });
+
+  const {
+    data: stakingBalance,
+    isError: stakingBalanceError,
+    isLoading: stakingBalanceLoading,
+  } = useContractRead({
+    address: GovTrotelStakingAddress,
+    abi: govTrotelStakingABI,
+    functionName: "stakingBalance",
+    watch: true,
+    args: [address],
+  });
+
+  const {
+    data: timeLeft,
+    isError: timeLeftError,
+    isLoading: timeLeftLoading,
+  } = useContractRead({
+    address: GovTrotelStakingAddress,
+    abi: govTrotelStakingABI,
+    functionName: "getTimeUntilWithdrawal",
+    watch: true,
+    args: [address],
+  });
+
   const { write: approveStaking } = useContractWrite({
     address: TrotelCoinAddress,
     abi: trotelcoin,
@@ -64,6 +101,12 @@ export default function Governance() {
     address: GovTrotelStakingAddress,
     abi: govTrotelStakingABI,
     functionName: "stake",
+  });
+
+  const { write: withdraw } = useContractWrite({
+    address: GovTrotelStakingAddress,
+    abi: govTrotelStakingABI,
+    functionName: "withdraw",
   });
 
   console.log(data);
@@ -179,6 +222,17 @@ export default function Governance() {
     setStakingValidation(true);
   };
 
+  const handleWithdraw = () => {
+    try {
+      withdraw();
+    } catch (e) {
+      setWarningMessage("Transaction rejected.");
+      console.log(e);
+    }
+
+    setWithdrawMessage(true);
+  };
+
   return (
     <>
       <div className="mx-auto">
@@ -193,7 +247,7 @@ export default function Governance() {
           <a
             target="_blank"
             href="https://vote.trotelcoin.com"
-            className="underline text-blue-600 dark:text-blue-200 hover:text-blue-600/80 dark:hover:text-blue-200/80"
+            className="underline text-blue-600 dark:text-blue-200 hover:underline hover:text-blue-600/80 dark:hover:text-blue-200/80"
           >
             vote
           </a>
@@ -233,6 +287,12 @@ export default function Governance() {
                 Stake
               </button>
             )}
+            <button
+              className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+              onClick={handleWithdraw}
+            >
+              Withdraw
+            </button>
           </div>
           {warningMessage !== "" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
@@ -254,6 +314,12 @@ export default function Governance() {
               You staked {stakedValue} TrotelCoin!
             </span>
           )}
+          {withdrawMessage && (
+            <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
+              You withdrew your TrotelCoin and got{" "}
+              {(govBalance as any).toNumber() + (govRewards as any).toNumber()}!
+            </span>
+          )}
         </div>
         <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
           Staking dashboard
@@ -261,7 +327,7 @@ export default function Governance() {
         <div className="flex flex-wrap justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              0
+              {(stakingBalance as any).toNumber()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TrotelCoin
@@ -277,10 +343,10 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              0
+              {(timeLeft as any).toNumber()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              Time until withdrawal
+              Seconds left until withdrawal
             </p>
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
