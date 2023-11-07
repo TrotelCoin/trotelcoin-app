@@ -338,7 +338,11 @@ export default function Governance() {
         <div className="flex flex-wrap justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {stakingBalance === undefined ? 0 : stakingBalance?.toString()}
+              {stakingBalance === undefined
+                ? 0
+                : parseFloat(stakingBalance?.toString() as string)
+                    .toFixed(2)
+                    .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TrotelCoin
@@ -346,7 +350,11 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {govBalance === undefined ? 0 : govBalance?.toString()}
+              {govBalance === undefined
+                ? 0
+                : parseFloat(govBalance?.toString() as string)
+                    .toFixed(2)
+                    .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin
@@ -366,7 +374,11 @@ export default function Governance() {
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {totalSupply === undefined ? 0 : totalSupply?.toString()}
+              {totalSupply === undefined
+                ? 0
+                : parseFloat(totalSupply?.toString() as string)
+                    .toFixed(0)
+                    .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin supply
