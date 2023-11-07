@@ -68,6 +68,7 @@ export interface Lesson {
   tier: "Beginner" | "Intermediate" | "Expert";
   sponsored: boolean;
   tutorial: boolean;
+  new: boolean;
 }
 
 export interface Lessons {
