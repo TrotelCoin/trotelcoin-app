@@ -11,6 +11,7 @@ const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 
 export default function Governance() {
   const [isConnectedMessage, setIsConnectedMessage] = useState<string>("");
+  const [stakingSupplyData, setStakingSupplyData] = useState(0);
 
   const { address, isConnected } = useAccount();
 
@@ -24,23 +25,23 @@ export default function Governance() {
     functionName: "getTotalSupply",
   });
 
+  console.log(totalSupply);
+
   useEffect(() => {
     const fetchStakingData = async () => {
-      noStore();
-
       if (isTotalSupplyError || isTotalSupplyLoading) {
-        return 0;
+        setStakingSupplyData(0);
       } else {
-        return totalSupply;
+        setStakingSupplyData(totalSupply as number);
       }
     };
+
+    fetchStakingData(); // Appel de la fonction fetchStakingData
   }, [totalSupply, isTotalSupplyError, isTotalSupplyLoading]);
 
   const handleStake = () => {
     if (!isConnected) {
       setIsConnectedMessage("Connect your wallet first!");
-    } else {
-      null;
     }
   };
 
