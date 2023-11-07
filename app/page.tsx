@@ -255,7 +255,7 @@ export default function Home() {
                               </span>
                             )}
                             {course.new && (
-                              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-500 dark:from-yellow-200 to-lime-500 dark:to-lime-200 text-gray-100 dark:text-gray-900">
+                              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-lime-200 dark:to-lime-200 text-gray-900 dark:text-gray-900">
                                 New
                               </span>
                             )}
