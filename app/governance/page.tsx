@@ -11,7 +11,8 @@ const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 
 export default function Governance() {
   const [isConnectedMessage, setIsConnectedMessage] = useState<string>("");
-  const [stakingSupplyData, setStakingSupplyData] = useState(0);
+  const [totalSupplyData, setTotalSupplyData] = useState<number>(0);
+  const [govBalanceData, setGovBalanceData] = useState<number>(0);
 
   const { address, isConnected } = useAccount();
 
@@ -25,19 +26,47 @@ export default function Governance() {
     functionName: "getTotalSupply",
   });
 
+  const {
+    data: govBalance,
+    isError: govBalanceError,
+    isLoading: govBalanceLoading,
+  } = useContractRead({
+    address: GovTrotelCoinAddress,
+    abi: govTrotelCoinABI,
+    functionName: "balanceOf",
+    args: [address],
+  });
+
   console.log(totalSupply);
+  console.log(govBalance);
 
   useEffect(() => {
-    const fetchStakingData = async () => {
+    const fetchTotalSupplyData = async () => {
       if (isTotalSupplyError || isTotalSupplyLoading) {
-        setStakingSupplyData(0);
+        setTotalSupplyData(0);
       } else {
-        setStakingSupplyData(totalSupply as number);
+        setTotalSupplyData(totalSupply as number);
       }
     };
 
-    fetchStakingData(); // Appel de la fonction fetchStakingData
-  }, [totalSupply, isTotalSupplyError, isTotalSupplyLoading]);
+    const fetchGovBalanceData = async () => {
+      if (isTotalSupplyError || isTotalSupplyLoading) {
+        setGovBalanceData(0);
+      } else {
+        setGovBalanceData(govBalance as number);
+      }
+    };
+
+    fetchTotalSupplyData();
+    fetchGovBalanceData();
+  }, [
+    totalSupply,
+    isTotalSupplyError,
+    isTotalSupplyLoading,
+    govBalance,
+    govBalanceError,
+    govBalanceLoading,
+  ]);
 
   const handleStake = () => {
     if (!isConnected) {
@@ -84,7 +113,7 @@ export default function Governance() {
         </div>
         <div className="flex w-full md:w-1/4 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
           <h2 className="font-semibold text-6xl text-blue-600 dark:text-blue-200">
-            0
+            {govBalanceData}
           </h2>
           <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
             GovTrotelCoin
@@ -100,7 +129,7 @@ export default function Governance() {
         </div>
         <div className="flex w-full md:w-1/4 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10 hover:shadow">
           <h2 className="font-semibold text-6xl text-blue-600 dark:text-blue-200">
-            {stakingSupplyData}
+            {totalSupplyData}
           </h2>
           <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
             GovTrotelCoin supply
