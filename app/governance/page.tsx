@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import React, { useState } from "react";
@@ -5,7 +6,7 @@ import { useAccount } from "wagmi";
 import { useContractRead } from "wagmi";
 import govTrotelCoinABI from "@/app/ui/abi/govTrotelCoin";
 import trotelcoin from "@/app/ui/abi/trotelcoin";
-import { useContractWrite } from "wagmi";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { parseEther } from "viem";
 import govTrotelStakingABI from "@/app/ui/abi/govTrotelStaking";
 
@@ -36,10 +37,9 @@ export default function Governance() {
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "getTotalSupply",
+    chainId: 56,
     watch: true,
   });
-
-  console.log(isTotalSupplyError, isTotalSupplyLoading, totalSupply);
 
   const {
     data: govBalance,
@@ -49,11 +49,10 @@ export default function Governance() {
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
+    chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
   });
-
-  console.log(govBalance, govBalanceError, govBalanceLoading);
 
   const {
     data: govRewards,
@@ -63,11 +62,10 @@ export default function Governance() {
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "calculateRewards",
+    chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
   });
-
-  console.log(govRewards, govRewardsError, govRewardsLoading);
 
   const {
     data: stakingBalance,
@@ -77,11 +75,10 @@ export default function Governance() {
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "stakingBalance",
+    chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
   });
-
-  console.log(stakingBalance, stakingBalanceError, stakingBalanceLoading);
 
   const {
     data: timeLeft,
@@ -90,36 +87,11 @@ export default function Governance() {
   } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
-    functionName: "getTimeUntilWithdrawal",
+    functionName: "getTimeUntilWithdrawal(address)",
+    chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
   });
-
-  console.log(timeLeft, timeLeftError, timeLeftLoading);
-
-  const { data: approveStakingData, write: approveStaking } = useContractWrite({
-    address: TrotelCoinAddress as `0x${string}`,
-    abi: trotelcoin,
-    functionName: "approve",
-  });
-
-  console.log(approveStakingData);
-
-  const { data: stakeData, write: stake } = useContractWrite({
-    address: GovTrotelStakingAddress as `0x${string}`,
-    abi: govTrotelStakingABI,
-    functionName: "stake",
-  });
-
-  console.log(stakeData);
-
-  const { data: withdrawData, write: withdraw } = useContractWrite({
-    address: GovTrotelStakingAddress as `0x${string}`,
-    abi: govTrotelStakingABI,
-    functionName: "withdraw",
-  });
-
-  console.log(withdrawData);
 
   const handleStake = () => {
     const fixedValue = inputValue == "" ? "0" : inputValue;
@@ -157,10 +129,23 @@ export default function Governance() {
 
     const approveValue = parseEther((parseFloat(fixedValue) * 1.05).toString());
 
+    const { config: approveStakingConfig } = usePrepareContractWrite({
+      address: TrotelCoinAddress,
+      abi: trotelcoin,
+      functionName: "approve(address,uint256)",
+      args: [GovTrotelStakingAddress, approveValue],
+      chainId: 56,
+    });
+
+    const { data: approveStakingData, write: approveStaking } =
+      useContractWrite(approveStakingConfig);
+
     try {
-      approveStaking({
-        args: [GovTrotelStakingAddress, approveValue],
-      });
+      if (approveStaking) {
+        approveStaking();
+      } else {
+        console.error("approveStaking function is undefined");
+      }
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log("error", e);
@@ -189,8 +174,22 @@ export default function Governance() {
 
     const stakeValue = parseEther(fixedValue);
 
+    const { config: stakeConfig } = usePrepareContractWrite({
+      address: GovTrotelStakingAddress,
+      abi: govTrotelStakingABI,
+      functionName: "stake",
+      args: [stakeValue],
+      chainId: 56,
+    });
+
+    const { data: stakeData, write: stake } = useContractWrite(stakeConfig);
+
     try {
-      stake({ args: [stakeValue] });
+      if (stake) {
+        stake();
+      } else {
+        console.error("stake function is undefined");
+      }
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
@@ -201,8 +200,22 @@ export default function Governance() {
   };
 
   const handleWithdraw = () => {
+    const { config: withdrawConfig } = usePrepareContractWrite({
+      address: GovTrotelStakingAddress as `0x${string}`,
+      abi: govTrotelStakingABI,
+      functionName: "withdraw",
+      chainId: 56,
+    });
+
+    const { data: withdrawData, write: withdraw } =
+      useContractWrite(withdrawConfig);
+
     try {
-      withdraw();
+      if (withdraw) {
+        withdraw();
+      } else {
+        console.error("withdraw function is undefined");
+      }
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
