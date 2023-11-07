@@ -36,7 +36,7 @@ export default function Governance() {
   } = useContractRead({
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
-    functionName: "getTotalSupply()",
+    functionName: "getTotalSupply",
     chainId: 56,
     watch: true,
   });
@@ -48,7 +48,7 @@ export default function Governance() {
   } = useContractRead({
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
-    functionName: "balanceOf(address)",
+    functionName: "balanceOf",
     chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
@@ -61,7 +61,7 @@ export default function Governance() {
   } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
-    functionName: "calculateRewards(address)",
+    functionName: "calculateRewards",
     chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
@@ -74,7 +74,7 @@ export default function Governance() {
   } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
-    functionName: "stakingBalance(address)",
+    functionName: "stakingBalance",
     chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
@@ -87,7 +87,7 @@ export default function Governance() {
   } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
-    functionName: "getTimeUntilWithdrawal(address)",
+    functionName: "getTimeUntilWithdrawal",
     chainId: 56,
     watch: true,
     args: [address as `0x${string}`],
@@ -132,7 +132,7 @@ export default function Governance() {
     const { config: approveStakingConfig } = usePrepareContractWrite({
       address: TrotelCoinAddress,
       abi: trotelcoin,
-      functionName: "approve(address,uint256)",
+      functionName: "approve",
       args: [GovTrotelStakingAddress, approveValue],
       chainId: 56,
       enabled: Boolean(approveValue),
@@ -178,7 +178,7 @@ export default function Governance() {
     const { config: stakeConfig } = usePrepareContractWrite({
       address: GovTrotelStakingAddress,
       abi: govTrotelStakingABI,
-      functionName: "stake(uint256)",
+      functionName: "stake",
       args: [stakeValue],
       chainId: 56,
       enabled: Boolean(stakeValue),
@@ -205,7 +205,7 @@ export default function Governance() {
     const { config: withdrawConfig } = usePrepareContractWrite({
       address: GovTrotelStakingAddress as `0x${string}`,
       abi: govTrotelStakingABI,
-      functionName: "withdraw()",
+      functionName: "withdraw",
       chainId: 56,
     });
 
