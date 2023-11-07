@@ -11,8 +11,6 @@ import { useContractWrite } from "wagmi";
 import { parseEther } from "viem";
 import govTrotelStakingABI from "@/app/ui/abi/govTrotelStaking";
 
-const BigNumber = require("bignumber.js");
-
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
 const GovTrotelStakingAddress = "0x15fF980Ac8534242d1A23F172FeCc63501AEF5D3";
@@ -137,7 +135,7 @@ export default function Governance() {
 
     try {
       approveStaking({
-        args: [address, approveValue],
+        args: [GovTrotelStakingAddress, approveValue],
       });
     } catch (e) {
       setWarningMessage("Transaction rejected.");
