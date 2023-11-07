@@ -84,7 +84,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
               <Banner />
               <Header />
-              <main>{children}</main>
+              <main className="mx-10 lg:mx-32 mt-10 mb-20">{children}</main>
               <Analytics />
             </body>
           </Suspense>
