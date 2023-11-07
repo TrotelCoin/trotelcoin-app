@@ -3,15 +3,38 @@
 import React, { useEffect, useState } from "react";
 import ComingSoon from "@/app/ui/interface/comingSoon";
 import { useAccount } from "wagmi";
+import { unstable_noStore as noStore } from "next/cache";
+import { useContractRead } from "wagmi";
+import govTrotelCoinABI from "@/app/ui/abi/govTrotelCoin";
+
+const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 
 export default function Governance() {
   const [isConnectedMessage, setIsConnectedMessage] = useState<string>("");
 
   const { address, isConnected } = useAccount();
 
-  useEffect(
-    const fetchStakingData = async () => {}
-  , []);
+  const {
+    data: totalSupply,
+    isError: isTotalSupplyError,
+    isLoading: isTotalSupplyLoading,
+  } = useContractRead({
+    address: GovTrotelCoinAddress,
+    abi: govTrotelCoinABI,
+    functionName: "getTotalSupply",
+  });
+
+  useEffect(() => {
+    const fetchStakingData = async () => {
+      noStore();
+
+      if (isTotalSupplyError || isTotalSupplyLoading) {
+        return 0;
+      } else {
+        return totalSupply;
+      }
+    };
+  }, [totalSupply, isTotalSupplyError, isTotalSupplyLoading]);
 
   const handleStake = () => {
     if (!isConnected) {
