@@ -19,7 +19,11 @@ export default function Governance() {
   const [inputValue, setInputValue] = useState<string>("");
 
   const handleInputValue = (e: { target: { value: string } }) => {
-    setInputValue(e.target.value);
+    if (e.target.value == "") {
+      setInputValue("0");
+    } else {
+      setInputValue(e.target.value);
+    }
   };
 
   const { address, isConnected } = useAccount();
@@ -105,6 +109,10 @@ export default function Governance() {
     }
 
     setWarningMessage("");
+
+    // approve
+
+    // stake
   };
 
   return (
