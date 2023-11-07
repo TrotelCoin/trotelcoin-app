@@ -17,6 +17,8 @@ export default function Governance() {
   const [govBalanceData, setGovBalanceData] = useState<number>(0);
   const [confirmStaking, setConfirmStaking] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
+  const [stakingValidation, setStakingValidation] = useState<boolean>(false);
+  const [stakedValue, setStakedValue] = useState<number>(0);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -79,7 +81,9 @@ export default function Governance() {
   ]);
 
   const handleStake = () => {
-    if (parseFloat(inputValue) <= 0 || inputValue == "") {
+    const fixedValue = inputValue == "" ? "0" : inputValue;
+
+    if (parseFloat(fixedValue) <= 0) {
       setWarningMessage("Amount needs to be > 0.");
       return;
     }
@@ -94,7 +98,9 @@ export default function Governance() {
   };
 
   const handleConfirm = () => {
-    if (parseFloat(inputValue) <= 0 || inputValue == "") {
+    const fixedValue = inputValue == "" ? "0" : inputValue;
+
+    if (parseFloat(fixedValue) <= 0) {
       setWarningMessage("Amount needs to be > 0.");
       return;
     }
@@ -109,6 +115,10 @@ export default function Governance() {
     // approve
 
     // stake
+
+    setConfirmStaking(false);
+    setStakedValue(parseFloat(fixedValue));
+    setStakingValidation(true);
   };
 
   return (
@@ -155,6 +165,11 @@ export default function Governance() {
           {confirmStaking && warningMessage == "" && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               Your TrotelCoin will be locked for 30 days!
+            </span>
+          )}
+          {stakingValidation && (
+            <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
+              You staked {stakedValue} TrotelCoin!
             </span>
           )}
         </div>
