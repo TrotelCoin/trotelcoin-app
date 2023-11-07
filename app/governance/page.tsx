@@ -6,15 +6,21 @@ import { useAccount } from "wagmi";
 import { unstable_noStore as noStore } from "next/cache";
 import { useContractRead } from "wagmi";
 import govTrotelCoinABI from "@/app/ui/abi/govTrotelCoin";
-import { ethers } from "ethers";
+
+const BigNumber = require("bignumber.js");
 
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 
 export default function Governance() {
-  const [isConnectedMessage, setIsConnectedMessage] = useState<string>("");
+  const [warningMessage, setWarningMessage] = useState<string>("");
   const [totalSupplyData, setTotalSupplyData] = useState<number>(0);
   const [govBalanceData, setGovBalanceData] = useState<number>(0);
   const [confirmStaking, setConfirmStaking] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (e: any) => {
+    setInputValue(e.target.value);
+  };
 
   const { address, isConnected } = useAccount();
 
@@ -47,7 +53,11 @@ export default function Governance() {
       if (isTotalSupplyError || isTotalSupplyLoading) {
         setTotalSupplyData(0);
       } else {
-        setTotalSupplyData((totalSupply as BigNumber).toNumber());
+        setTotalSupplyData(
+          typeof totalSupply === "number"
+            ? totalSupply
+            : BigNumber(totalSupply).toNumber()
+        );
       }
     };
 
@@ -55,7 +65,11 @@ export default function Governance() {
       if (isTotalSupplyError || isTotalSupplyLoading) {
         setGovBalanceData(0);
       } else {
-        setGovBalanceData((govBalance as BigNumber).toNumber());
+        setGovBalanceData(
+          typeof govBalance === "number"
+            ? govBalance
+            : BigNumber(govBalance).toNumber()
+        );
       }
     };
 
@@ -71,8 +85,12 @@ export default function Governance() {
   ]);
 
   const handleStake = () => {
+    if (typeof inputValue !== "number" || inputValue <= 0) {
+      setWarningMessage("Amount needs to be > 0.");
+    }
+
     if (!isConnected) {
-      setIsConnectedMessage("Connect your wallet first!");
+      setWarningMessage("Connect your wallet first!");
     }
 
     setConfirmStaking(true);
@@ -80,7 +98,7 @@ export default function Governance() {
 
   const handleConfirm = () => {
     if (!isConnected) {
-      setIsConnectedMessage("Connect your wallet first!");
+      setWarningMessage("Connect your wallet first!");
     }
   };
 
@@ -101,6 +119,8 @@ export default function Governance() {
             <input
               className="px-4 py-2 rounded-lg"
               placeholder="Amount"
+              value={inputValue}
+              onChange={handleInputChange}
             ></input>
             {!confirmStaking && (
               <button
@@ -119,7 +139,7 @@ export default function Governance() {
               </button>
             )}
           </div>
-          {isConnectedMessage && (
+          {warningMessage && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               Connect your wallet first!
             </span>
