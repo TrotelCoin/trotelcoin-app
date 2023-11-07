@@ -85,27 +85,27 @@ export default function Home() {
                               {course.status}
                             </span>
                             {course.tier == "Intermediate" && (
-                              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-pink-600 dark:bg-pink-200 text-gray-100 dark:text-gray-900">
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-pink-600 dark:bg-pink-200 text-gray-100 dark:text-gray-900">
                                 {course.tier}
                               </span>
                             )}
                             {course.tutorial && (
-                              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-purple-600 dark:bg-purple-200 text-gray-100 dark:text-gray-900">
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-purple-600 dark:bg-purple-200 text-gray-100 dark:text-gray-900">
                                 Tutorial
                               </span>
                             )}
                             {course.tier == "Expert" && (
-                              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
                                 {course.tier}
                               </span>
                             )}
                             {course.sponsored && (
-                              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
                                 Sponsored
                               </span>
                             )}
                             {course.new && (
-                              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-md px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
+                              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
                                 New course
                               </span>
                             )}

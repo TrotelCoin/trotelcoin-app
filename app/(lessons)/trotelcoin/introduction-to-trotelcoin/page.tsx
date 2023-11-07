@@ -11,19 +11,9 @@ import lessons from "@/data/lessonsData";
 
 const quizId = 1;
 
-const currentCourse: Course = lessons.reduce<Course>(
-  (foundCourse, currentCategory) => {
-    if (foundCourse) {
-      return foundCourse;
-    }
-
-    const course = currentCategory.courses.find(
-      (course) => course.quizId === quizId
-    );
-    return course ? course : foundCourse;
-  },
-  {} as Course
-);
+const currentCourse: Course = lessons
+  .flatMap((lesson) => lesson.courses)
+  .find((course) => course.quizId === quizId) as Course;
 
 const CoursePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
