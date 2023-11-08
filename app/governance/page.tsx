@@ -284,7 +284,11 @@ export default function Governance() {
       console.log(e);
     }
 
-    setWithdrawMessage(true);
+    if (parseFloat(timeLeft?.toString() as string) <= 0) {
+      setWithdrawMessage(true);
+    } else {
+      setWarningMessage("Staking duration is not finished.");
+    }
   };
 
   const convertTimeToDays = (timeInSeconds: string) => {
@@ -376,9 +380,13 @@ export default function Governance() {
           {withdrawMessage && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You withdrew your TrotelCoin and got{" "}
-              {(
-                parseFloat(govBalance?.toString() as string) +
-                parseFloat(govRewards?.toString() as string)
+              {parseEther(
+                (
+                  parseFloat(govBalance?.toString() as string) +
+                  parseFloat(govRewards?.toString() as string)
+                )
+                  .toFixed(2)
+                  .toString()
               ).toString()}
               !
             </span>
@@ -392,9 +400,11 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {stakingBalance === undefined
                 ? 0
-                : parseFloat(stakingBalance?.toString() as string)
-                    .toFixed(0)
-                    .toString()}
+                : parseEther(
+                    parseFloat(stakingBalance?.toString() as string)
+                      .toFixed(0)
+                      .toString()
+                  ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TrotelCoin
@@ -404,9 +414,11 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
                 ? 0
-                : parseFloat(govBalance?.toString() as string)
-                    .toFixed(0)
-                    .toString()}
+                : parseEther(
+                    parseFloat(govBalance?.toString() as string)
+                      .toFixed(2)
+                      .toString()
+                  ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               GovTrotelCoin
@@ -428,9 +440,11 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalSupply === undefined
                 ? 0
-                : parseFloat(totalSupply?.toString() as string)
-                    .toFixed(0)
-                    .toString()}
+                : parseEther(
+                    parseFloat(totalSupply?.toString() as string)
+                      .toFixed(0)
+                      .toString()
+                  ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               Governance supply
