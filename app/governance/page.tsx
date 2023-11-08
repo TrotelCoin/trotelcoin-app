@@ -12,7 +12,7 @@ import govTrotelCoinABI from "@/abi/govTrotelCoin";
 import trotelCoinABI from "@/abi/trotelCoin";
 import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
-import { parseEther } from "viem";
+import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
 
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
@@ -32,7 +32,7 @@ export default function Governance() {
 
   const { address, isConnected } = useAccount();
   useEffect(() => {
-    setUserAddress(address as `0x${string}`);
+    setUserAddress(address as Hash);
   }, [address]);
 
   const { data: totalLocked } = useBalance({
@@ -43,12 +43,8 @@ export default function Governance() {
     enabled: true,
   });
 
-  const {
-    data: totalSupply,
-    isError: isTotalSupplyError,
-    isLoading: isTotalSupplyLoading,
-  } = useContractRead({
-    address: GovTrotelCoinAddress as `0x${string}`,
+  const { data: totalSupply } = useContractRead({
+    address: GovTrotelCoinAddress as Hash,
     abi: govTrotelCoinABI,
     functionName: "getTotalSupply",
     chainId: bsc.id,
@@ -56,39 +52,39 @@ export default function Governance() {
   });
 
   const { data: govBalance } = useContractRead({
-    address: GovTrotelCoinAddress as `0x${string}`,
+    address: GovTrotelCoinAddress as Hash,
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
     chainId: bsc.id,
     watch: true,
-    args: [userAddress as `0x${string}`],
+    args: [userAddress as Hash],
   });
 
   const { data: govRewards } = useContractRead({
-    address: GovTrotelStakingAddress as `0x${string}`,
+    address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "calculateRewards",
     chainId: bsc.id,
     watch: true,
-    args: [address as `0x${string}`],
+    args: [address as Hash],
   });
 
   const { data: stakingBalance } = useContractRead({
-    address: GovTrotelStakingAddress as `0x${string}`,
+    address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "stakingBalance",
     chainId: bsc.id,
     watch: true,
-    args: [userAddress as `0x${string}`],
+    args: [userAddress as Hash],
   });
 
   const { data: timeLeft } = useContractRead({
-    address: GovTrotelStakingAddress as `0x${string}`,
+    address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
     chainId: bsc.id,
     watch: true,
-    args: [userAddress as `0x${string}`],
+    args: [userAddress as Hash],
   });
 
   const approveFixedValue = debouncedValue === "" ? "0" : debouncedValue;
@@ -100,12 +96,12 @@ export default function Governance() {
   const approveValueInEther = parseEther(parsedApproveValue);
 
   const { config: approveStakingConfig } = usePrepareContractWrite({
-    address: TrotelCoinAddress as `0x${string}`,
+    address: TrotelCoinAddress as Hash,
     abi: trotelCoinABI,
     functionName: "approve",
-    args: [GovTrotelStakingAddress as `0x${string}`, approveValueInEther],
+    args: [GovTrotelStakingAddress as Hash, approveValueInEther],
     chainId: bsc.id,
-    account: userAddress as `0x${string}`,
+    account: userAddress as Hash,
     enabled: true,
     onSuccess(data) {
       console.log("Success", data);
@@ -128,12 +124,12 @@ export default function Governance() {
   } = useContractWrite(approveStakingConfig);
 
   const { config: stakeConfig } = usePrepareContractWrite({
-    address: GovTrotelStakingAddress as `0x${string}`,
+    address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "stake",
     args: [stakingValueInEther],
     chainId: bsc.id,
-    account: userAddress as `0x${string}`,
+    account: userAddress as Hash,
     enabled: true,
     onSuccess(data) {
       console.log("Success", data);
@@ -148,10 +144,10 @@ export default function Governance() {
   } = useContractWrite(stakeConfig);
 
   const { config: withdrawConfig } = usePrepareContractWrite({
-    address: GovTrotelStakingAddress as `0x${string}`,
+    address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "withdraw",
-    account: userAddress as `0x${string}`,
+    account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
     onSuccess(data) {
