@@ -165,6 +165,23 @@ export default function Governance() {
     isError: withdrawError,
   } = useContractWrite(withdrawConfig);
 
+  useEffect(() => {
+    if (approveLoading || stakeLoading || withdrawLoading) {
+      setWarningMessage("Transaction in progress...");
+    }
+
+    if (approveError || stakeError || withdrawError) {
+      setWarningMessage("Transaction error!");
+    }
+  }, [
+    approveError,
+    approveLoading,
+    stakeError,
+    stakeLoading,
+    withdrawError,
+    withdrawLoading,
+  ]);
+
   const handleApprove = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
@@ -313,19 +330,25 @@ export default function Governance() {
               Withdraw
             </button>
           </div>
-          {warningMessage !== "" && (
-            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-              {warningMessage}
-            </span>
-          )}
+          {warningMessage !== "" &&
+            !approveError &&
+            !approveLoading &&
+            !withdrawError &&
+            !withdrawLoading &&
+            !stakeError &&
+            !stakeLoading && (
+              <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+                {warningMessage}
+              </span>
+            )}
           {approveLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              Approving transaction...
+              {warningMessage}
             </span>
           )}
           {approveError && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-              Approving error...
+              {warningMessage}
             </span>
           )}
           {successApprove && !successStake && (
@@ -335,12 +358,12 @@ export default function Governance() {
           )}
           {stakeLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              Staking transaction...
+              {warningMessage}
             </span>
           )}
           {stakeError && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-              Staking error...
+              {warningMessage}
             </span>
           )}
           {successStake && (
@@ -350,12 +373,12 @@ export default function Governance() {
           )}
           {withdrawLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              Withdraw transaction...
+              {warningMessage}
             </span>
           )}
           {withdrawError && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-              Withdrawing error...
+              {warningMessage}
             </span>
           )}
           {successWithdraw && (
