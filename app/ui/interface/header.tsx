@@ -62,7 +62,7 @@ const Header = () => {
             ${<TrotelPrice />}
           </p>
           {<TrotelPriceChange />}
-          <span className="hidden lg:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
+          <span className="hidden lg:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
             <span className="animate-pulse">alpha version</span>
           </span>
         </div>
