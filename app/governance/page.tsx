@@ -438,13 +438,12 @@ export default function Governance() {
           )}
           {withdrawMessage && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
-              You withdrew your TrotelCoin and got{" "}
+              You withdrew your TrotelCoin and got (wei)
               {(
-                (parseFloat(govBalance?.toString() as string) +
-                  parseFloat(govRewards?.toString() as string)) *
-                1e-18
+                parseFloat(govBalance?.toString() as string) +
+                parseFloat(govRewards?.toString() as string)
               )
-                .toFixed(2)
+                .toFixed(0)
                 .toString()}
               !
             </span>
@@ -470,12 +469,12 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
                 ? 0
-                : (parseFloat(govBalance?.toString() as string) * 1e-18)
-                    .toFixed(2)
+                : parseFloat(govBalance?.toString() as string)
+                    .toFixed(0)
                     .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              GovTrotelCoin
+              GovTrotelCoin (wei)
             </p>
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
