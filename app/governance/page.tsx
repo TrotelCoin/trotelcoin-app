@@ -198,6 +198,54 @@ export default function Governance() {
     isError: withdrawError,
   } = useContractWrite(withdrawConfig);
 
+  useEffect(() => {
+    while (approveLoading) {
+      setWarningMessage("Approving in progress...");
+    }
+
+    if (successApprove) {
+      setConfirmStaking(false);
+      setIsApproved(true);
+    } else if (approveError) {
+      setWarningMessage("Transaction rejected.");
+    }
+
+    while (stakeLoading) {
+      setWarningMessage("Staking in progress...");
+    }
+
+    if (successStake) {
+      setStakingValidation(true);
+    } else if (stakeError) {
+      setWarningMessage("Transaction rejected.");
+    }
+
+    while (withdrawLoading) {
+      setWarningMessage("Withdraw in progress...");
+    }
+
+    if (parseFloat(timeLeft?.toString() as string) <= 0) {
+      if (successWithdraw) {
+        setWithdrawMessage(true);
+      } else if (withdrawError) {
+        setWarningMessage("Transaction rejected.");
+      }
+    } else {
+      setWarningMessage("Staking duration is not finished.");
+    }
+  }, [
+    approveError,
+    approveLoading,
+    stakeError,
+    stakeLoading,
+    successApprove,
+    successStake,
+    successWithdraw,
+    timeLeft,
+    withdrawError,
+    withdrawLoading,
+  ]);
+
   const handleStake = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
@@ -242,13 +290,6 @@ export default function Governance() {
       setWarningMessage("Transaction rejected.");
       console.log("error", e);
     }
-
-    if (successApprove) {
-      setConfirmStaking(false);
-      setIsApproved(true);
-    } else if (approveError) {
-      setWarningMessage("Transaction rejected.");
-    }
   };
 
   const handleStakeTransaction = () => {
@@ -278,12 +319,6 @@ export default function Governance() {
       setWarningMessage("Transaction rejected.");
       console.log(e);
     }
-
-    if (successStake) {
-      setStakingValidation(true);
-    } else if (stakeError) {
-      setWarningMessage("Transaction rejected.");
-    }
   };
 
   const handleWithdraw = () => {
@@ -305,16 +340,6 @@ export default function Governance() {
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
-    }
-
-    if (parseFloat(timeLeft?.toString() as string) <= 0) {
-      if (successWithdraw) {
-        setWithdrawMessage(true);
-      } else if (withdrawError) {
-        setWarningMessage("Transaction rejected.");
-      }
-    } else {
-      setWarningMessage("Staking duration is not finished.");
     }
   };
 
