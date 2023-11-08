@@ -301,6 +301,17 @@ export default function Governance() {
     return Math.floor(parseFloat(timeInSeconds) / secondsInDay);
   };
 
+  function formatSeconds(seconds: string): string {
+    const secondsFixed = parseFloat(seconds).toFixed(0).toString();
+
+    const formattedSeconds: string = secondsFixed.replace(
+      /\B(?=(\d{3})+(?!\d))/g,
+      " "
+    );
+
+    return formattedSeconds;
+  }
+
   return (
     <>
       <div className="mx-auto">
@@ -459,9 +470,7 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {timeLeft === undefined
                 ? "0"
-                : parseFloat(timeLeft?.toString() as string)
-                    .toFixed(0)
-                    .toString()}
+                : formatSeconds(timeLeft?.toString() as string)}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               Seconds left
