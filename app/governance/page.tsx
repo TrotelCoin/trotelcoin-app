@@ -199,50 +199,6 @@ export default function Governance() {
     isError: withdrawError,
   } = useContractWrite(withdrawConfig);
 
-  useEffect(() => {
-    while (approveLoading) {
-      setTransactionMessage("Approving in progress...");
-    }
-
-    if (successApprove) {
-      setConfirmStaking(false);
-      setIsApproved(true);
-    } else if (approveError) {
-      setTransactionMessage("Transaction rejected.");
-    }
-
-    while (stakeLoading) {
-      setTransactionMessage("Staking in progress...");
-    }
-
-    if (successStake) {
-      setStakingValidation(true);
-    } else if (stakeError) {
-      setTransactionMessage("Transaction rejected.");
-    }
-
-    while (withdrawLoading) {
-      setTransactionMessage("Withdraw in progress...");
-    }
-
-    if (successWithdraw) {
-      setWithdrawMessage(true);
-    } else if (withdrawError) {
-      setTransactionMessage("Transaction rejected.");
-    }
-  }, [
-    approveError,
-    approveLoading,
-    stakeError,
-    stakeLoading,
-    successApprove,
-    successStake,
-    successWithdraw,
-    timeLeft,
-    withdrawError,
-    withdrawLoading,
-  ]);
-
   const handleStake = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
@@ -280,6 +236,11 @@ export default function Governance() {
     try {
       if (approveStaking) {
         approveStaking();
+
+        if (approveError) {
+          setWarningMessage("Transaction rejected.");
+          return;
+        }
       } else {
         console.error("approveStaking function is undefined");
       }
@@ -287,6 +248,9 @@ export default function Governance() {
       setWarningMessage("Transaction rejected.");
       console.log("error", e);
     }
+
+    setConfirmStaking(false);
+    setIsApproved(true);
   };
 
   const handleStakeTransaction = () => {
@@ -309,6 +273,11 @@ export default function Governance() {
     try {
       if (stake) {
         stake();
+
+        if (stakeError) {
+          setWarningMessage("Transaction rejected.");
+          return;
+        }
       } else {
         console.error("stake function is undefined");
       }
@@ -316,6 +285,8 @@ export default function Governance() {
       setWarningMessage("Transaction rejected.");
       console.log(e);
     }
+
+    setStakingValidation(true);
   };
 
   const handleWithdraw = () => {
@@ -332,6 +303,13 @@ export default function Governance() {
       if (withdraw) {
         if (parseFloat(timeLeft?.toString() as string) <= 0) {
           withdraw();
+
+          if (withdrawError) {
+            setWarningMessage("Transaction rejected.");
+            return;
+          }
+        } else {
+          setWarningMessage("Staking duration is not finished.");
         }
       } else {
         console.error("withdraw function is undefined");
@@ -340,9 +318,8 @@ export default function Governance() {
       setWarningMessage("Transaction rejected.");
       console.log(e);
     }
-    if (parseFloat(timeLeft?.toString() as string) > 0) {
-      setWarningMessage("Staking duration is not finished.");
-    }
+
+    setWithdrawMessage(true);
   };
 
   const convertTimeToDays = (timeInSeconds: string) => {
