@@ -6,6 +6,7 @@ import {
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
+  useBalance,
 } from "wagmi";
 import govTrotelCoinABI from "@/abi/govTrotelCoin";
 import trotelCoinABI from "@/abi/trotelCoin";
@@ -33,6 +34,14 @@ export default function Governance() {
   useEffect(() => {
     setUserAddress(address as `0x${string}`);
   }, [address]);
+
+  const { data: totalLocked } = useBalance({
+    address: GovTrotelStakingAddress,
+    chainId: bsc.id,
+    token: TrotelCoinAddress,
+    watch: true,
+    enabled: true,
+  });
 
   const {
     data: totalSupply,
@@ -447,6 +456,18 @@ export default function Governance() {
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               Governance supply
+            </p>
+          </div>
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
+            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {totalLocked === undefined
+                ? 0
+                : (parseFloat(totalLocked?.formatted) * 1e-18)
+                    .toFixed(0)
+                    .toString()}
+            </h2>
+            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
+              TrotelCoin locked
             </p>
           </div>
         </div>
