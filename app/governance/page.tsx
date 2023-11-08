@@ -8,6 +8,7 @@ import {
   usePrepareContractWrite,
   useBalance,
 } from "wagmi";
+import "animate.css";
 import govTrotelCoinABI from "@/abi/govTrotelCoin";
 import trotelCoinABI from "@/abi/trotelCoin";
 import govTrotelStakingABI from "@/abi/govTrotelStaking";
@@ -497,10 +498,12 @@ export default function Governance() {
             </p>
           </div>
         </div>
-        <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
-          Staking logs
-        </h2>
-        <div className="mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 rounded-lg"></div>
+        <div className="animate__animated animate__fadeIn">
+          <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
+            Staking logs
+          </h2>
+          <div className="mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 rounded-lg"></div>
+        </div>
       </div>
     </>
   );
