@@ -27,10 +27,7 @@ export default function Governance() {
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [withdrawMessage, setWithdrawMessage] = useState<boolean>(false);
   const [userAddress, setUserAddress] = useState<string>("");
-  const debouncedValue = useDebounce(
-    Boolean(inputValue) || parseFloat(inputValue) <= 0 ? "0" : inputValue,
-    500
-  );
+  const debouncedValue: string = useDebounce(inputValue, 500);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -105,14 +102,19 @@ export default function Governance() {
     args: [userAddress as `0x${string}`],
   });
 
+  const approveFixedValue = debouncedValue === "" ? "0" : debouncedValue;
+
+  const parsedApproveValue = isNaN(parseFloat(approveFixedValue))
+    ? "0"
+    : (parseFloat(approveFixedValue) * 1.05).toString();
+
+  const approveValueInEther = parseEther(parsedApproveValue);
+
   const { config: approveStakingConfig } = usePrepareContractWrite({
     address: TrotelCoinAddress as `0x${string}`,
     abi: trotelCoinABI,
     functionName: "approve",
-    args: [
-      GovTrotelStakingAddress as `0x${string}`,
-      parseEther((parseFloat(debouncedValue) * 1.05).toString()),
-    ],
+    args: [GovTrotelStakingAddress as `0x${string}`, approveValueInEther],
     chainId: bsc.id,
     account: userAddress as `0x${string}`,
     enabled: true,
@@ -127,6 +129,14 @@ export default function Governance() {
     },
   });
 
+  const stakingFixedValue = debouncedValue === "" ? "0" : debouncedValue;
+
+  const parsedStakingValue = isNaN(parseFloat(stakingFixedValue))
+    ? "0"
+    : stakingFixedValue;
+
+  const stakingValueInEther = parseEther(parsedStakingValue);
+
   const { data: approveStakingData, write: approveStaking } =
     useContractWrite(approveStakingConfig);
 
@@ -134,7 +144,7 @@ export default function Governance() {
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "stake",
-    args: [parseEther(debouncedValue.toString())],
+    args: [stakingValueInEther],
     chainId: bsc.id,
     account: userAddress as `0x${string}`,
     enabled: true,
