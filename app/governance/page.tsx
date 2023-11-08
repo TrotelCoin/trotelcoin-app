@@ -243,10 +243,6 @@ export default function Governance() {
       console.log("error", e);
     }
 
-    while (approveLoading && !successApprove && !approveError) {
-      setWarningMessage("Transaction pending...");
-    }
-
     if (successApprove) {
       setConfirmStaking(false);
       setIsApproved(true);
@@ -283,10 +279,6 @@ export default function Governance() {
       console.log(e);
     }
 
-    while (stakeLoading && !successStake && !stakeError) {
-      setWarningMessage("Transaction pending...");
-    }
-
     if (successStake) {
       setStakingValidation(true);
     } else if (stakeError) {
@@ -316,10 +308,6 @@ export default function Governance() {
     }
 
     if (parseFloat(timeLeft?.toString() as string) <= 0) {
-      while (withdrawLoading) {
-        setWarningMessage("Transaction pending...");
-      }
-
       if (successWithdraw) {
         setWithdrawMessage(true);
       } else if (withdrawError) {
@@ -444,7 +432,7 @@ export default function Governance() {
                     parseFloat(stakingBalance?.toString() as string)
                       .toFixed(0)
                       .toString(),
-                    -18
+                    -36
                   ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
