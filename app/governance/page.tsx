@@ -406,7 +406,7 @@ export default function Governance() {
           Staking dashboard
         </h2>
         <div className="flex flex-wrap justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {stakingBalance === undefined
                 ? "0"
@@ -418,7 +418,7 @@ export default function Governance() {
               TrotelCoin
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
                 ? "0"
@@ -434,7 +434,7 @@ export default function Governance() {
               GovTrotelCoin (Gwei)
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {timeLeft === undefined
                 ? "0"
@@ -446,7 +446,7 @@ export default function Governance() {
               Days left
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalSupply === undefined
                 ? "0"
@@ -458,7 +458,7 @@ export default function Governance() {
               GovTrotelCoin supply
             </p>
           </div>
-          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
+          <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalLocked === undefined
                 ? "0"
