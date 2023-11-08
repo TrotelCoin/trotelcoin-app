@@ -28,6 +28,7 @@ export default function Governance() {
   const [withdrawMessage, setWithdrawMessage] = useState<boolean>(false);
   const [userAddress, setUserAddress] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
+  const [transactionMessage, setTransactionMessage] = useState<string>("");
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -200,38 +201,34 @@ export default function Governance() {
 
   useEffect(() => {
     while (approveLoading) {
-      setWarningMessage("Approving in progress...");
+      setTransactionMessage("Approving in progress...");
     }
 
     if (successApprove) {
       setConfirmStaking(false);
       setIsApproved(true);
     } else if (approveError) {
-      setWarningMessage("Transaction rejected.");
+      setTransactionMessage("Transaction rejected.");
     }
 
     while (stakeLoading) {
-      setWarningMessage("Staking in progress...");
+      setTransactionMessage("Staking in progress...");
     }
 
     if (successStake) {
       setStakingValidation(true);
     } else if (stakeError) {
-      setWarningMessage("Transaction rejected.");
+      setTransactionMessage("Transaction rejected.");
     }
 
     while (withdrawLoading) {
-      setWarningMessage("Withdraw in progress...");
+      setTransactionMessage("Withdraw in progress...");
     }
 
-    if (parseFloat(timeLeft?.toString() as string) <= 0) {
-      if (successWithdraw) {
-        setWithdrawMessage(true);
-      } else if (withdrawError) {
-        setWarningMessage("Transaction rejected.");
-      }
-    } else {
-      setWarningMessage("Staking duration is not finished.");
+    if (successWithdraw) {
+      setWithdrawMessage(true);
+    } else if (withdrawError) {
+      setTransactionMessage("Transaction rejected.");
     }
   }, [
     approveError,
@@ -333,13 +330,18 @@ export default function Governance() {
 
     try {
       if (withdraw) {
-        withdraw();
+        if (parseFloat(timeLeft?.toString() as string) <= 0) {
+          withdraw();
+        }
       } else {
         console.error("withdraw function is undefined");
       }
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
+    }
+    if (parseFloat(timeLeft?.toString() as string) > 0) {
+      setWarningMessage("Staking duration is not finished.");
     }
   };
 
@@ -412,6 +414,11 @@ export default function Governance() {
           {warningMessage !== "" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               {warningMessage}
+            </span>
+          )}
+          {transactionMessage !== "" && (
+            <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
+              {transactionMessage}
             </span>
           )}
           {confirmStaking && !isApproved && warningMessage == "" && (
