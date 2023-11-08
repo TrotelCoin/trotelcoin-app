@@ -27,7 +27,10 @@ export default function Governance() {
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [withdrawMessage, setWithdrawMessage] = useState<boolean>(false);
   const [userAddress, setUserAddress] = useState<string>("");
-  const debouncedValue = useDebounce(inputValue, 500);
+  const debouncedValue = useDebounce(
+    Boolean(inputValue) || parseFloat(inputValue) <= 0 ? "0" : inputValue,
+    500
+  );
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
