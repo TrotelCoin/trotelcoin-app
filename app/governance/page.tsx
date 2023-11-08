@@ -141,12 +141,19 @@ export default function Governance() {
       chainId: bsc.id,
       account: address as `0x${string}`,
       enabled: true,
+      onSuccess(data) {
+        console.log("Success", data);
+      },
+      onError(error) {
+        console.log("Error", error);
+      },
+      onSettled(data, error) {
+        console.log("Settled", { data, error });
+      },
     });
 
     const { data: approveStakingData, write: approveStaking } =
       useContractWrite(approveStakingConfig);
-
-    console.log(approveStakingData);
 
     try {
       if (approveStaking) {
@@ -190,6 +197,15 @@ export default function Governance() {
       chainId: bsc.id,
       account: address as `0x${string}`,
       enabled: true,
+      onSuccess(data) {
+        console.log("Success", data);
+      },
+      onError(error) {
+        console.log("Error", error);
+      },
+      onSettled(data, error) {
+        console.log("Settled", { data, error });
+      },
     });
 
     const { data: stakeData, write: stake } = useContractWrite(stakeConfig);
@@ -226,6 +242,15 @@ export default function Governance() {
       account: address as `0x${string}`,
       chainId: bsc.id,
       enabled: true,
+      onSuccess(data) {
+        console.log("Success", data);
+      },
+      onError(error) {
+        console.log("Error", error);
+      },
+      onSettled(data, error) {
+        console.log("Settled", { data, error });
+      },
     });
 
     const { data: withdrawData, write: withdraw } =
