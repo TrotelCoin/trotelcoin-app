@@ -43,6 +43,9 @@ export default function Governance() {
     enabled: true,
   });
 
+  console.log(totalLocked);
+  console.log(totalLocked?.formatted);
+
   const {
     data: totalSupply,
     isError: isTotalSupplyError,
@@ -455,7 +458,7 @@ export default function Governance() {
                     .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              Governance supply
+              GovTrotelCoin supply
             </p>
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
