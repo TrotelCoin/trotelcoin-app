@@ -197,7 +197,7 @@ export default function Governance() {
     }
 
     if (parseFloat(timeLeft?.toString() as string) > 0) {
-      setWarningMessage("Staking duration isn't finished.");
+      setWarningMessage("Staking duration is not finished.");
       return;
     }
 
