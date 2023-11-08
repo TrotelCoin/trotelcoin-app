@@ -11,7 +11,7 @@ import govTrotelCoinABI from "@/abi/govTrotelCoin";
 import trotelCoinABI from "@/abi/trotelCoin";
 import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
-import { parseEther } from "viem";
+import { parseEther, parseGwei } from "viem";
 import useDebounce from "@/utils/useDebounce";
 
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
@@ -24,6 +24,14 @@ export default function Governance() {
   const [stakedValue, setStakedValue] = useState<number>(0);
   const [userAddress, setUserAddress] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setWarningMessage("");
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [warningMessage]);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -168,6 +176,10 @@ export default function Governance() {
     if (!isConnected) {
       setWarningMessage("Connect your wallet first!");
       return;
+    }
+
+    if (parseFloat(timeLeft?.toString() as string) > 0) {
+      setWarningMessage("Staking duration isn't finished.");
     }
 
     setWarningMessage("");
@@ -316,7 +328,7 @@ export default function Governance() {
               Approving error...
             </span>
           )}
-          {successApprove && (
+          {successApprove && !successStake && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               Your TrotelCoin will be locked for 30 days!
             </span>
@@ -349,10 +361,12 @@ export default function Governance() {
           {successWithdraw && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You withdrew your TrotelCoin and got
-              {parseFloat(govBalance?.toString() as string)
-                .toFixed(0)
-                .toString()}{" "}
-              (wei) !
+              {parseGwei(
+                parseFloat(govBalance?.toString() as string)
+                  .toFixed(0)
+                  .toString()
+              ).toString()}{" "}
+              (Gwei) !
             </span>
           )}
         </div>
@@ -376,15 +390,17 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
                 ? 0
-                : (
-                    parseFloat(govBalance?.toString() as string) +
-                    parseFloat(govRewards?.toString() as string)
-                  )
-                    .toFixed(0)
-                    .toString()}
+                : parseGwei(
+                    (
+                      parseFloat(govBalance?.toString() as string) +
+                      parseFloat(govRewards?.toString() as string)
+                    )
+                      .toFixed(0)
+                      .toString()
+                  ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              GovTrotelCoin (wei)
+              GovTrotelCoin (Gwei)
             </p>
           </div>
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
