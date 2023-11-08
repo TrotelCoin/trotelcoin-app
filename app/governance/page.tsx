@@ -22,12 +22,18 @@ const GovTrotelStakingAddress = "0x15fF980Ac8534242d1A23F172FeCc63501AEF5D3";
 export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
+  const [withdrawValue, setWithdrawValue] = useState<string>("");
   const [stakedValue, setStakedValue] = useState<number>(0);
   const [userAddress, setUserAddress] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
+  const debouncedWithdrawValue: string = useDebounce(withdrawValue, 500);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
+  };
+
+  const handleWithdrawValue = (e: { target: { value: string } }) => {
+    setWithdrawValue(e.target.value);
   };
 
   const { address, isConnected } = useAccount();
@@ -251,6 +257,14 @@ export default function Governance() {
   };
 
   const handleWithdraw = () => {
+    const fixedValue =
+      debouncedWithdrawValue == "" ? "0" : debouncedWithdrawValue;
+
+    if (parseFloat(fixedValue) <= 0) {
+      setWarningMessage("Amount needs to be > 0.");
+      return;
+    }
+
     if (!isConnected) {
       setWarningMessage("Connect your wallet first!");
       return;
@@ -330,6 +344,14 @@ export default function Governance() {
                 Stake
               </button>
             )}
+            <button className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold">
+              Claim rewards
+            </button>
+            <input
+              className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+              placeholder="Amount"
+              onChange={handleWithdrawValue}
+            ></input>
             <button
               className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
               onClick={handleWithdraw}
