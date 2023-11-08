@@ -46,11 +46,7 @@ export default function Governance() {
     watch: true,
   });
 
-  const {
-    data: govBalance,
-    isError: govBalanceError,
-    isLoading: govBalanceLoading,
-  } = useContractRead({
+  const { data: govBalance } = useContractRead({
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
@@ -59,11 +55,7 @@ export default function Governance() {
     args: [userAddress as `0x${string}`],
   });
 
-  const {
-    data: govRewards,
-    isError: govRewardsError,
-    isLoading: govRewardsLoading,
-  } = useContractRead({
+  const { data: govRewards } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "calculateRewards",
@@ -72,11 +64,7 @@ export default function Governance() {
     args: [address as `0x${string}`],
   });
 
-  const {
-    data: stakingBalance,
-    isError: stakingBalanceError,
-    isLoading: stakingBalanceLoading,
-  } = useContractRead({
+  const { data: stakingBalance } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "stakingBalance",
@@ -85,11 +73,7 @@ export default function Governance() {
     args: [userAddress as `0x${string}`],
   });
 
-  const {
-    data: timeLeft,
-    isError: timeLeftError,
-    isLoading: timeLeftLoading,
-  } = useContractRead({
+  const { data: timeLeft } = useContractRead({
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
@@ -128,7 +112,6 @@ export default function Governance() {
   const stakingValueInEther = parseEther(parsedStakingValue);
 
   const {
-    data: approveStakingData,
     write: approveStaking,
     isSuccess: successApprove,
     isLoading: approveLoading,
@@ -149,7 +132,6 @@ export default function Governance() {
   });
 
   const {
-    data: stakeData,
     write: stake,
     isSuccess: successStake,
     isError: stakeError,
@@ -169,7 +151,6 @@ export default function Governance() {
   });
 
   const {
-    data: withdrawData,
     write: withdraw,
     isSuccess: successWithdraw,
     isLoading: withdrawLoading,
@@ -395,7 +376,10 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
                 ? 0
-                : parseFloat(govBalance?.toString() as string)
+                : (
+                    parseFloat(govBalance?.toString() as string) +
+                    parseFloat(govRewards?.toString() as string)
+                  )
                     .toFixed(0)
                     .toString()}
             </h2>
