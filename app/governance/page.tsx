@@ -117,12 +117,6 @@ export default function Governance() {
     onSuccess(data) {
       console.log("Success", data);
     },
-    onError(error) {
-      console.log("Error", error);
-    },
-    onSettled(data, error) {
-      console.log("Settled", { data, error });
-    },
   });
 
   const stakingFixedValue = debouncedValue === "" ? "0" : debouncedValue;
@@ -152,12 +146,6 @@ export default function Governance() {
     onSuccess(data) {
       console.log("Success", data);
     },
-    onError(error) {
-      console.log("Error", error);
-    },
-    onSettled(data, error) {
-      console.log("Settled", { data, error });
-    },
   });
 
   const {
@@ -177,12 +165,6 @@ export default function Governance() {
     enabled: true,
     onSuccess(data) {
       console.log("Success", data);
-    },
-    onError(error) {
-      console.log("Error", error);
-    },
-    onSettled(data, error) {
-      console.log("Settled", { data, error });
     },
   });
 
