@@ -16,6 +16,8 @@ export default function TrotelBalance() {
       address: address as `0x${string}`, // Convert address to the correct format
       token: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5", // Token address for TrotelCoin (TROTEL)
       chainId: bsc.id,
+      watch: true,
+      enabled: true,
     });
 
     // If the data is still loading, return "0" within <></> (JSX fragment)
