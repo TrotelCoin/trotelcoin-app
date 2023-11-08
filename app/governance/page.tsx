@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useContractRead,
@@ -13,6 +12,7 @@ import trotelCoinABI from "@/abi/trotelCoin";
 import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
 import { parseEther } from "viem";
+import useDebounce from "@/utils/useDebounce";
 
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
@@ -26,12 +26,17 @@ export default function Governance() {
   const [stakedValue, setStakedValue] = useState<number>(0);
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [withdrawMessage, setWithdrawMessage] = useState<boolean>(false);
+  const [userAddress, setUserAddress] = useState<string>("");
+  const debouncedValue = useDebounce(inputValue, 500);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
   };
 
   const { address, isConnected } = useAccount();
+  useEffect(() => {
+    setUserAddress(address as `0x${string}`);
+  }, [address]);
 
   const {
     data: totalSupply,
@@ -55,7 +60,7 @@ export default function Governance() {
     functionName: "balanceOf",
     chainId: bsc.id,
     watch: true,
-    args: [address as `0x${string}`],
+    args: [userAddress as `0x${string}`],
   });
 
   const {
@@ -81,7 +86,7 @@ export default function Governance() {
     functionName: "stakingBalance",
     chainId: bsc.id,
     watch: true,
-    args: [address as `0x${string}`],
+    args: [userAddress as `0x${string}`],
   });
 
   const {
@@ -94,11 +99,78 @@ export default function Governance() {
     functionName: "getTimeUntilWithdrawal",
     chainId: bsc.id,
     watch: true,
-    args: [address as `0x${string}`],
+    args: [userAddress as `0x${string}`],
   });
 
+  const { config: approveStakingConfig } = usePrepareContractWrite({
+    address: TrotelCoinAddress as `0x${string}`,
+    abi: trotelCoinABI,
+    functionName: "approve",
+    args: [
+      GovTrotelStakingAddress as `0x${string}`,
+      parseEther((parseFloat(debouncedValue) * 1.05).toString()),
+    ],
+    chainId: bsc.id,
+    account: userAddress as `0x${string}`,
+    enabled: true,
+    onSuccess(data) {
+      console.log("Success", data);
+    },
+    onError(error) {
+      console.log("Error", error);
+    },
+    onSettled(data, error) {
+      console.log("Settled", { data, error });
+    },
+  });
+
+  const { data: approveStakingData, write: approveStaking } =
+    useContractWrite(approveStakingConfig);
+
+  const { config: stakeConfig } = usePrepareContractWrite({
+    address: GovTrotelStakingAddress as `0x${string}`,
+    abi: govTrotelStakingABI,
+    functionName: "stake",
+    args: [parseEther(debouncedValue.toString())],
+    chainId: bsc.id,
+    account: userAddress as `0x${string}`,
+    enabled: true,
+    onSuccess(data) {
+      console.log("Success", data);
+    },
+    onError(error) {
+      console.log("Error", error);
+    },
+    onSettled(data, error) {
+      console.log("Settled", { data, error });
+    },
+  });
+
+  const { data: stakeData, write: stake } = useContractWrite(stakeConfig);
+
+  const { config: withdrawConfig } = usePrepareContractWrite({
+    address: GovTrotelStakingAddress as `0x${string}`,
+    abi: govTrotelStakingABI,
+    functionName: "withdraw",
+    account: userAddress as `0x${string}`,
+    chainId: bsc.id,
+    enabled: true,
+    onSuccess(data) {
+      console.log("Success", data);
+    },
+    onError(error) {
+      console.log("Error", error);
+    },
+    onSettled(data, error) {
+      console.log("Settled", { data, error });
+    },
+  });
+
+  const { data: withdrawData, write: withdraw } =
+    useContractWrite(withdrawConfig);
+
   const handleStake = () => {
-    const fixedValue = inputValue == "" ? "0" : inputValue;
+    const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
     if (parseFloat(fixedValue) <= 0) {
       setWarningMessage("Amount needs to be > 0.");
@@ -115,7 +187,7 @@ export default function Governance() {
   };
 
   const handleApprove = () => {
-    const fixedValue = inputValue == "" ? "0" : inputValue;
+    const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
     if (parseFloat(fixedValue) <= 0) {
       setWarningMessage("Amount needs to be > 0.");
@@ -130,30 +202,6 @@ export default function Governance() {
     setWarningMessage("");
 
     // approve
-
-    const approveValue = parseEther((parseFloat(fixedValue) * 1.05).toString());
-
-    const { config: approveStakingConfig } = usePrepareContractWrite({
-      address: TrotelCoinAddress as `0x${string}`,
-      abi: trotelCoinABI,
-      functionName: "approve",
-      args: [GovTrotelStakingAddress as `0x${string}`, approveValue],
-      chainId: bsc.id,
-      account: address as `0x${string}`,
-      enabled: true,
-      onSuccess(data) {
-        console.log("Success", data);
-      },
-      onError(error) {
-        console.log("Error", error);
-      },
-      onSettled(data, error) {
-        console.log("Settled", { data, error });
-      },
-    });
-
-    const { data: approveStakingData, write: approveStaking } =
-      useContractWrite(approveStakingConfig);
 
     try {
       if (approveStaking) {
@@ -171,7 +219,7 @@ export default function Governance() {
   };
 
   const handleStakeTransaction = () => {
-    const fixedValue = inputValue == "" ? "0" : inputValue;
+    const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
     if (parseFloat(fixedValue) <= 0) {
       setWarningMessage("Amount needs to be > 0.");
@@ -186,29 +234,6 @@ export default function Governance() {
     setWarningMessage("");
 
     // stake
-
-    const stakeValue = parseEther(fixedValue);
-
-    const { config: stakeConfig } = usePrepareContractWrite({
-      address: GovTrotelStakingAddress as `0x${string}`,
-      abi: govTrotelStakingABI,
-      functionName: "stake",
-      args: [stakeValue],
-      chainId: bsc.id,
-      account: address as `0x${string}`,
-      enabled: true,
-      onSuccess(data) {
-        console.log("Success", data);
-      },
-      onError(error) {
-        console.log("Error", error);
-      },
-      onSettled(data, error) {
-        console.log("Settled", { data, error });
-      },
-    });
-
-    const { data: stakeData, write: stake } = useContractWrite(stakeConfig);
 
     try {
       if (stake) {
@@ -234,27 +259,6 @@ export default function Governance() {
     setWarningMessage("");
 
     // withdraw
-
-    const { config: withdrawConfig } = usePrepareContractWrite({
-      address: GovTrotelStakingAddress as `0x${string}`,
-      abi: govTrotelStakingABI,
-      functionName: "withdraw",
-      account: address as `0x${string}`,
-      chainId: bsc.id,
-      enabled: true,
-      onSuccess(data) {
-        console.log("Success", data);
-      },
-      onError(error) {
-        console.log("Error", error);
-      },
-      onSettled(data, error) {
-        console.log("Settled", { data, error });
-      },
-    });
-
-    const { data: withdrawData, write: withdraw } =
-      useContractWrite(withdrawConfig);
 
     try {
       if (withdraw) {
