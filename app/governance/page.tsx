@@ -134,16 +134,18 @@ export default function Governance() {
     const approveValue = parseEther((parseFloat(fixedValue) * 1.05).toString());
 
     const { config: approveStakingConfig } = usePrepareContractWrite({
-      address: TrotelCoinAddress,
+      address: TrotelCoinAddress as `0x${string}`,
       abi: trotelCoinABI,
       functionName: "approve",
-      args: [GovTrotelStakingAddress, approveValue],
+      args: [GovTrotelStakingAddress as `0x${string}`, approveValue],
       chainId: bsc.id,
       enabled: Boolean(approveValue),
     });
 
     const { data: approveStakingData, write: approveStaking } =
       useContractWrite(approveStakingConfig);
+
+    console.log(approveStakingData);
 
     try {
       if (approveStaking) {
@@ -180,7 +182,7 @@ export default function Governance() {
     const stakeValue = parseEther(fixedValue);
 
     const { config: stakeConfig } = usePrepareContractWrite({
-      address: GovTrotelStakingAddress,
+      address: GovTrotelStakingAddress as `0x${string}`,
       abi: govTrotelStakingABI,
       functionName: "stake",
       args: [stakeValue],
