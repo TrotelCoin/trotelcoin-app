@@ -2,13 +2,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAccount } from "wagmi";
-import { useContractRead } from "wagmi";
-import govTrotelCoinABI from "@/abi/govTrotelCoin.json";
-import trotelcoin from "@/abi/trotelcoin.json";
-import { useContractWrite, usePrepareContractWrite } from "wagmi";
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+} from "wagmi";
+import govTrotelCoinABI from "@/abi/govTrotelCoin";
+import trotelCoinABI from "@/abi/trotelCoin";
+import govTrotelStakingABI from "@/abi/govTrotelStaking";
+import { bsc } from "wagmi/chains";
 import { parseEther } from "viem";
-import govTrotelStakingABI from "@/abi/govTrotelStaking.json";
 
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
@@ -37,7 +41,7 @@ export default function Governance() {
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "getTotalSupply",
-    chainId: 56,
+    chainId: bsc.id,
     watch: true,
   });
 
@@ -49,7 +53,7 @@ export default function Governance() {
     address: GovTrotelCoinAddress as `0x${string}`,
     abi: govTrotelCoinABI,
     functionName: "balanceOf",
-    chainId: 56,
+    chainId: bsc.id,
     watch: true,
     args: [address as `0x${string}`],
   });
@@ -62,7 +66,7 @@ export default function Governance() {
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "calculateRewards",
-    chainId: 56,
+    chainId: bsc.id,
     watch: true,
     args: [address as `0x${string}`],
   });
@@ -75,7 +79,7 @@ export default function Governance() {
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "stakingBalance",
-    chainId: 56,
+    chainId: bsc.id,
     watch: true,
     args: [address as `0x${string}`],
   });
@@ -88,7 +92,7 @@ export default function Governance() {
     address: GovTrotelStakingAddress as `0x${string}`,
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
-    chainId: 56,
+    chainId: bsc.id,
     watch: true,
     args: [address as `0x${string}`],
   });
@@ -131,10 +135,10 @@ export default function Governance() {
 
     const { config: approveStakingConfig } = usePrepareContractWrite({
       address: TrotelCoinAddress,
-      abi: trotelcoin,
+      abi: trotelCoinABI,
       functionName: "approve",
       args: [GovTrotelStakingAddress, approveValue],
-      chainId: 56,
+      chainId: bsc.id,
       enabled: Boolean(approveValue),
     });
 
@@ -180,7 +184,7 @@ export default function Governance() {
       abi: govTrotelStakingABI,
       functionName: "stake",
       args: [stakeValue],
-      chainId: 56,
+      chainId: bsc.id,
       enabled: Boolean(stakeValue),
     });
 
@@ -215,7 +219,7 @@ export default function Governance() {
       address: GovTrotelStakingAddress as `0x${string}`,
       abi: govTrotelStakingABI,
       functionName: "withdraw",
-      chainId: 56,
+      chainId: bsc.id,
     });
 
     const { data: withdrawData, write: withdraw } =
