@@ -455,7 +455,7 @@ export default function Governance() {
                     .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              govTROTEL supply
+              govTROTEL minted
             </p>
           </div>
           <div className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
