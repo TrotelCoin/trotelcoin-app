@@ -33,6 +33,6 @@
     "pages/api/moralis/[...moralis].js",
     "pages/api/auth/[...nextauth].js",
     ".next/types/**/*.ts"
-, "app/404.js"  ],
+, "app/404.js", "lib/walletContext.js"  ],
   "exclude": ["node_modules"]
 }
