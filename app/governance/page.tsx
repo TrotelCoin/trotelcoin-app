@@ -213,6 +213,7 @@ export default function Governance() {
     }
 
     setWarningMessage("");
+    setStakedValue(parseFloat(fixedValue));
     setConfirmStaking(true);
   };
 
