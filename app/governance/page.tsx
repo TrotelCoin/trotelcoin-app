@@ -43,9 +43,6 @@ export default function Governance() {
     enabled: true,
   });
 
-  console.log(totalLocked);
-  console.log(totalLocked?.formatted);
-
   const {
     data: totalSupply,
     isError: isTotalSupplyError,
@@ -465,9 +462,7 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalLocked === undefined
                 ? 0
-                : (parseFloat(totalLocked?.formatted) * 1e-18)
-                    .toFixed(0)
-                    .toString()}
+                : parseFloat(totalLocked?.formatted).toFixed(0).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TrotelCoin locked
