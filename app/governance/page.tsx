@@ -139,6 +139,7 @@ export default function Governance() {
       functionName: "approve",
       args: [GovTrotelStakingAddress as `0x${string}`, approveValue],
       chainId: bsc.id,
+      account: address as `0x${string}`,
       enabled: Boolean(approveValue),
     });
 
@@ -187,6 +188,7 @@ export default function Governance() {
       functionName: "stake",
       args: [stakeValue],
       chainId: bsc.id,
+      account: address as `0x${string}`,
       enabled: Boolean(stakeValue),
     });
 
@@ -221,6 +223,7 @@ export default function Governance() {
       address: GovTrotelStakingAddress as `0x${string}`,
       abi: govTrotelStakingABI,
       functionName: "withdraw",
+      account: address as `0x${string}`,
       chainId: bsc.id,
     });
 
