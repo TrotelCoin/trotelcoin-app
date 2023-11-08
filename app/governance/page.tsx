@@ -459,12 +459,12 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {timeLeft === undefined
                 ? "0"
-                : convertTimeToDays(timeLeft?.toString() as string)
+                : parseFloat(timeLeft?.toString() as string)
                     .toFixed(0)
                     .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              Days left
+              Seconds left
             </p>
           </div>
           <div className="flex flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
