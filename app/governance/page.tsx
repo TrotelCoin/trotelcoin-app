@@ -341,7 +341,7 @@ export default function Governance() {
               {stakingBalance === undefined
                 ? 0
                 : parseFloat(stakingBalance?.toString() as string)
-                    .toFixed(2)
+                    .toFixed(0)
                     .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
@@ -353,7 +353,7 @@ export default function Governance() {
               {govBalance === undefined
                 ? 0
                 : parseFloat(govBalance?.toString() as string)
-                    .toFixed(2)
+                    .toFixed(0)
                     .toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
