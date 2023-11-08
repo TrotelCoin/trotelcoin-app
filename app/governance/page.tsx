@@ -322,47 +322,45 @@ export default function Governance() {
           Stake & Earn
         </h2>
         <div className="flex flex-col mt-4 gap-6">
-          <div className="flex flex-wrap gap-4">
-            <div className="flex flex-col gap-4">
-              <div>
-                <input
-                  className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
-                  placeholder="Amount"
-                  onChange={handleInputValue}
-                ></input>
-                {!successApprove && (
-                  <button
-                    className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
-                    onClick={handleApprove}
-                  >
-                    Approve
-                  </button>
-                )}
-                {successApprove && (
-                  <button
-                    className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
-                    onClick={handleStakeTransaction}
-                  >
-                    Stake
-                  </button>
-                )}
-                <button className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold">
-                  Claim rewards
-                </button>
-              </div>
-              <div>
-                <input
-                  className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
-                  placeholder="Amount"
-                  onChange={handleWithdrawValue}
-                ></input>
+          <div className="flex flex-col flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4">
+              <input
+                className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+                placeholder="Amount"
+                onChange={handleInputValue}
+              ></input>
+              {!successApprove && (
                 <button
                   className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
-                  onClick={handleWithdraw}
+                  onClick={handleApprove}
                 >
-                  Withdraw
+                  Approve
                 </button>
-              </div>
+              )}
+              {successApprove && (
+                <button
+                  className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+                  onClick={handleStakeTransaction}
+                >
+                  Stake
+                </button>
+              )}
+              <button className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold">
+                Claim rewards
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <input
+                className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+                placeholder="Amount"
+                onChange={handleWithdrawValue}
+              ></input>
+              <button
+                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+                onClick={handleWithdraw}
+              >
+                Withdraw
+              </button>
             </div>
           </div>
           {warningMessage !== "" &&
