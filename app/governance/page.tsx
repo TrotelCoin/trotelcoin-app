@@ -11,7 +11,7 @@ import govTrotelCoinABI from "@/abi/govTrotelCoin";
 import trotelCoinABI from "@/abi/trotelCoin";
 import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
-import { parseEther } from "viem";
+import { parseEther, parseUnits } from "viem";
 import useDebounce from "@/utils/useDebounce";
 
 const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
@@ -380,13 +380,14 @@ export default function Governance() {
           {withdrawMessage && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You withdrew your TrotelCoin and got{" "}
-              {parseEther(
+              {parseUnits(
                 (
                   parseFloat(govBalance?.toString() as string) +
                   parseFloat(govRewards?.toString() as string)
                 )
                   .toFixed(2)
-                  .toString()
+                  .toString(),
+                -18
               ).toString()}
               !
             </span>
@@ -400,10 +401,11 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {stakingBalance === undefined
                 ? 0
-                : parseEther(
+                : parseUnits(
                     parseFloat(stakingBalance?.toString() as string)
                       .toFixed(0)
-                      .toString()
+                      .toString(),
+                    -18
                   ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
@@ -414,10 +416,11 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
                 ? 0
-                : parseEther(
+                : parseUnits(
                     parseFloat(govBalance?.toString() as string)
                       .toFixed(2)
-                      .toString()
+                      .toString(),
+                    -18
                   ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
@@ -440,10 +443,11 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalSupply === undefined
                 ? 0
-                : parseEther(
+                : parseUnits(
                     parseFloat(totalSupply?.toString() as string)
                       .toFixed(0)
-                      .toString()
+                      .toString(),
+                    -18
                   ).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
