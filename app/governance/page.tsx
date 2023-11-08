@@ -243,11 +243,13 @@ export default function Governance() {
       console.log("error", e);
     }
 
+    while (approveLoading && !successApprove && !approveError) {
+      setWarningMessage("Transaction pending...");
+    }
+
     if (successApprove) {
       setConfirmStaking(false);
       setIsApproved(true);
-    } else if (approveLoading) {
-      setWarningMessage("Transaction pending...");
     } else if (approveError) {
       setWarningMessage("Transaction rejected.");
     }
@@ -281,11 +283,12 @@ export default function Governance() {
       console.log(e);
     }
 
-    if (successStake) {
-      setStakedValue(parseFloat(fixedValue));
-      setStakingValidation(true);
-    } else if (stakeLoading) {
+    while (stakeLoading && !successStake && !stakeError) {
       setWarningMessage("Transaction pending...");
+    }
+
+    if (successStake) {
+      setStakingValidation(true);
     } else if (stakeError) {
       setWarningMessage("Transaction rejected.");
     }
@@ -313,10 +316,12 @@ export default function Governance() {
     }
 
     if (parseFloat(timeLeft?.toString() as string) <= 0) {
+      while (withdrawLoading) {
+        setWarningMessage("Transaction pending...");
+      }
+
       if (successWithdraw) {
         setWithdrawMessage(true);
-      } else if (withdrawLoading) {
-        setWarningMessage("Transaction pending...");
       } else if (withdrawError) {
         setWarningMessage("Transaction rejected.");
       }
