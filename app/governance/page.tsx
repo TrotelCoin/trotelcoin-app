@@ -137,8 +137,13 @@ export default function Governance() {
 
   const stakingValueInEther = parseEther(parsedStakingValue);
 
-  const { data: approveStakingData, write: approveStaking } =
-    useContractWrite(approveStakingConfig);
+  const {
+    data: approveStakingData,
+    write: approveStaking,
+    isSuccess: successApprove,
+    isLoading: approveLoading,
+    isError: approveError,
+  } = useContractWrite(approveStakingConfig);
 
   const { config: stakeConfig } = usePrepareContractWrite({
     address: GovTrotelStakingAddress as `0x${string}`,
@@ -159,7 +164,13 @@ export default function Governance() {
     },
   });
 
-  const { data: stakeData, write: stake } = useContractWrite(stakeConfig);
+  const {
+    data: stakeData,
+    write: stake,
+    isSuccess: successStake,
+    isError: stakeError,
+    isLoading: stakeLoading,
+  } = useContractWrite(stakeConfig);
 
   const { config: withdrawConfig } = usePrepareContractWrite({
     address: GovTrotelStakingAddress as `0x${string}`,
@@ -179,8 +190,13 @@ export default function Governance() {
     },
   });
 
-  const { data: withdrawData, write: withdraw } =
-    useContractWrite(withdrawConfig);
+  const {
+    data: withdrawData,
+    write: withdraw,
+    isSuccess: successWithdraw,
+    isLoading: withdrawLoading,
+    isError: withdrawError,
+  } = useContractWrite(withdrawConfig);
 
   const handleStake = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
@@ -227,8 +243,14 @@ export default function Governance() {
       console.log("error", e);
     }
 
-    setConfirmStaking(false);
-    setIsApproved(true);
+    if (successApprove) {
+      setConfirmStaking(false);
+      setIsApproved(true);
+    } else if (approveLoading) {
+      setWarningMessage("Transaction pending...");
+    } else if (approveError) {
+      setWarningMessage("Transaction rejected.");
+    }
   };
 
   const handleStakeTransaction = () => {
@@ -259,8 +281,14 @@ export default function Governance() {
       console.log(e);
     }
 
-    setStakedValue(parseFloat(fixedValue));
-    setStakingValidation(true);
+    if (successStake) {
+      setStakedValue(parseFloat(fixedValue));
+      setStakingValidation(true);
+    } else if (stakeLoading) {
+      setWarningMessage("Transaction pending...");
+    } else if (stakeError) {
+      setWarningMessage("Transaction rejected.");
+    }
   };
 
   const handleWithdraw = () => {
@@ -285,7 +313,13 @@ export default function Governance() {
     }
 
     if (parseFloat(timeLeft?.toString() as string) <= 0) {
-      setWithdrawMessage(true);
+      if (successWithdraw) {
+        setWithdrawMessage(true);
+      } else if (withdrawLoading) {
+        setWarningMessage("Transaction pending...");
+      } else if (withdrawError) {
+        setWarningMessage("Transaction rejected.");
+      }
     } else {
       setWarningMessage("Staking duration is not finished.");
     }
