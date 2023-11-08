@@ -320,7 +320,9 @@ export default function Governance() {
       console.log(e);
     }
 
-    setWithdrawMessage(true);
+    if (parseFloat(timeLeft?.toString() as string) <= 0) {
+      setWithdrawMessage(true);
+    }
   };
 
   const convertTimeToDays = (timeInSeconds: string) => {
@@ -416,14 +418,11 @@ export default function Governance() {
           )}
           {withdrawMessage && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
-              You withdrew your TrotelCoin and got (wei)
-              {(
-                parseFloat(govBalance?.toString() as string) +
-                parseFloat(govRewards?.toString() as string)
-              )
+              You withdrew your TrotelCoin and got
+              {parseFloat(govBalance?.toString() as string)
                 .toFixed(0)
-                .toString()}
-              !
+                .toString()}{" "}
+              (wei) !
             </span>
           )}
         </div>
