@@ -409,7 +409,7 @@ export default function Governance() {
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {stakingBalance === undefined
-                ? 0
+                ? "0"
                 : (parseFloat(stakingBalance?.toString() as string) * 1e-18)
                     .toFixed(0)
                     .toString()}
@@ -421,7 +421,7 @@ export default function Governance() {
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {govBalance === undefined
-                ? 0
+                ? "0"
                 : (
                     (parseFloat(govBalance?.toString() as string) +
                       parseFloat(govRewards?.toString() as string)) *
@@ -437,7 +437,7 @@ export default function Governance() {
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {timeLeft === undefined
-                ? 0
+                ? "0"
                 : convertTimeToDays(timeLeft?.toString() as string)
                     .toFixed(0)
                     .toString()}
@@ -449,7 +449,7 @@ export default function Governance() {
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalSupply === undefined
-                ? 0
+                ? "0"
                 : (parseFloat(totalSupply?.toString() as string) * 1e-18)
                     .toFixed(0)
                     .toString()}
@@ -461,7 +461,7 @@ export default function Governance() {
           <div className="flex w-5/12 md:w-1/5 flex-col items-center justify-center gap-1 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/10">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalLocked === undefined
-                ? 0
+                ? "0"
                 : parseFloat(totalLocked?.formatted).toFixed(0).toString()}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
