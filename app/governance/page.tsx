@@ -140,7 +140,7 @@ export default function Governance() {
       args: [GovTrotelStakingAddress as `0x${string}`, approveValue],
       chainId: bsc.id,
       account: address as `0x${string}`,
-      enabled: Boolean(approveValue),
+      enabled: true,
     });
 
     const { data: approveStakingData, write: approveStaking } =
@@ -189,7 +189,7 @@ export default function Governance() {
       args: [stakeValue],
       chainId: bsc.id,
       account: address as `0x${string}`,
-      enabled: Boolean(stakeValue),
+      enabled: true,
     });
 
     const { data: stakeData, write: stake } = useContractWrite(stakeConfig);
@@ -225,6 +225,7 @@ export default function Governance() {
       functionName: "withdraw",
       account: address as `0x${string}`,
       chainId: bsc.id,
+      enabled: true,
     });
 
     const { data: withdrawData, write: withdraw } =
