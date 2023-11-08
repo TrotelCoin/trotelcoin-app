@@ -25,14 +25,6 @@ export default function Governance() {
   const [userAddress, setUserAddress] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setWarningMessage("");
-    }, 5000);
-
-    return () => clearTimeout(timeout);
-  }, [warningMessage]);
-
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
   };
@@ -164,6 +156,15 @@ export default function Governance() {
     isLoading: withdrawLoading,
     isError: withdrawError,
   } = useContractWrite(withdrawConfig);
+
+  useEffect(() => {
+    if (!approveLoading && !stakeLoading && !withdrawLoading) {
+      const timeout = setTimeout(() => {
+        setWarningMessage("");
+      }, 5000);
+      return () => clearTimeout(timeout);
+    }
+  }, [approveLoading, stakeLoading, warningMessage, withdrawLoading]);
 
   useEffect(() => {
     if (approveLoading || stakeLoading || withdrawLoading) {
