@@ -20,15 +20,10 @@ const GovTrotelStakingAddress = "0x15fF980Ac8534242d1A23F172FeCc63501AEF5D3";
 
 export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
-  const [confirmStaking, setConfirmStaking] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
-  const [stakingValidation, setStakingValidation] = useState<boolean>(false);
   const [stakedValue, setStakedValue] = useState<number>(0);
-  const [isApproved, setIsApproved] = useState<boolean>(false);
-  const [withdrawMessage, setWithdrawMessage] = useState<boolean>(false);
   const [userAddress, setUserAddress] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
-  const [transactionMessage, setTransactionMessage] = useState<string>("");
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -199,24 +194,6 @@ export default function Governance() {
     isError: withdrawError,
   } = useContractWrite(withdrawConfig);
 
-  const handleStake = () => {
-    const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
-
-    if (parseFloat(fixedValue) <= 0) {
-      setWarningMessage("Amount needs to be > 0.");
-      return;
-    }
-
-    if (!isConnected) {
-      setWarningMessage("Connect your wallet first!");
-      return;
-    }
-
-    setWarningMessage("");
-    setStakedValue(parseFloat(fixedValue));
-    setConfirmStaking(true);
-  };
-
   const handleApprove = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
@@ -237,21 +214,12 @@ export default function Governance() {
     try {
       if (approveStaking) {
         approveStaking();
-
-        if (approveError) {
-          setWarningMessage("Transaction rejected.");
-          return;
-        }
       } else {
         console.error("approveStaking function is undefined");
       }
     } catch (e) {
-      setWarningMessage("Transaction rejected.");
       console.log("error", e);
     }
-
-    setConfirmStaking(false);
-    setIsApproved(true);
   };
 
   const handleStakeTransaction = () => {
@@ -268,31 +236,29 @@ export default function Governance() {
     }
 
     setWarningMessage("");
+    setStakedValue(parseFloat(fixedValue));
 
     // stake
 
     try {
       if (stake) {
         stake();
-
-        if (stakeError) {
-          setWarningMessage("Transaction rejected.");
-          return;
-        }
       } else {
         console.error("stake function is undefined");
       }
     } catch (e) {
-      setWarningMessage("Transaction rejected.");
       console.log(e);
     }
-
-    setStakingValidation(true);
   };
 
   const handleWithdraw = () => {
     if (!isConnected) {
       setWarningMessage("Connect your wallet first!");
+      return;
+    }
+
+    if (parseFloat(timeLeft?.toString() as string) > 0) {
+      setWarningMessage("Staking duration is not finished.");
       return;
     }
 
@@ -304,13 +270,6 @@ export default function Governance() {
       if (withdraw) {
         if (parseFloat(timeLeft?.toString() as string) <= 0) {
           withdraw();
-
-          if (withdrawError) {
-            setWarningMessage("Transaction rejected.");
-            return;
-          }
-        } else {
-          setWarningMessage("Staking duration is not finished.");
         }
       } else {
         console.error("withdraw function is undefined");
@@ -318,10 +277,6 @@ export default function Governance() {
     } catch (e) {
       setWarningMessage("Transaction rejected.");
       console.log(e);
-    }
-
-    if (parseFloat(timeLeft?.toString() as string) <= 0) {
-      setWithdrawMessage(true);
     }
   };
 
@@ -360,15 +315,7 @@ export default function Governance() {
               placeholder="Amount"
               onChange={handleInputValue}
             ></input>
-            {!confirmStaking && (
-              <button
-                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
-                onClick={handleStake}
-              >
-                Stake
-              </button>
-            )}
-            {confirmStaking && !isApproved && (
+            {!successApprove && (
               <button
                 className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleApprove}
@@ -376,7 +323,7 @@ export default function Governance() {
                 Approve
               </button>
             )}
-            {isApproved && confirmStaking && (
+            {successApprove && (
               <button
                 className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleStakeTransaction}
@@ -396,27 +343,47 @@ export default function Governance() {
               {warningMessage}
             </span>
           )}
-          {transactionMessage !== "" && (
+          {approveLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              {transactionMessage}
+              Approving transaction...
             </span>
           )}
-          {confirmStaking && !isApproved && warningMessage == "" && (
-            <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
-              You need to approve the transaction!
+          {approveError && (
+            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+              Approving error...
             </span>
           )}
-          {isApproved && !stakingValidation && warningMessage == "" && (
+          {successApprove && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               Your TrotelCoin will be locked for 30 days!
             </span>
           )}
-          {stakingValidation && (
+          {stakeLoading && (
+            <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
+              Staking transaction...
+            </span>
+          )}
+          {stakeError && (
+            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+              Staking error...
+            </span>
+          )}
+          {successStake && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You staked {stakedValue} TrotelCoin!
             </span>
           )}
-          {withdrawMessage && (
+          {withdrawLoading && (
+            <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
+              Withdraw transaction...
+            </span>
+          )}
+          {withdrawError && (
+            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+              Withdrawing error...
+            </span>
+          )}
+          {successWithdraw && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You withdrew your TrotelCoin and got
               {parseFloat(govBalance?.toString() as string)
