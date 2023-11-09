@@ -497,7 +497,9 @@ export default function Governance() {
           {successClaimRewards && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You claimed
-              {parseFloat(govBalance?.toString() as string).toFixed(0)}{" "}
+              {(parseFloat(govBalance?.toString() as string) * 1e-18).toFixed(
+                0
+              )}{" "}
               govTrotelCoin !
             </span>
           )}
@@ -536,8 +538,9 @@ export default function Governance() {
               {govBalance === undefined
                 ? "0"
                 : (
-                    parseFloat(govBalance?.toString() as string) +
-                    parseFloat(govRewards?.toString() as string)
+                    (parseFloat(govBalance?.toString() as string) +
+                      parseFloat(govRewards?.toString() as string)) *
+                    1e-18
                   ).toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
@@ -570,7 +573,9 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalLocked === undefined
                 ? "0"
-                : parseFloat(totalLocked?.toString() as string).toFixed(0)}
+                : (
+                    parseFloat(totalLocked?.toString() as string) * 1e-18
+                  ).toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TROTEL locked
