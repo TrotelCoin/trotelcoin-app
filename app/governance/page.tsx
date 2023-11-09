@@ -417,19 +417,6 @@ export default function Governance() {
               Claim govTROTEL
             </button>
           </div>
-          {warningMessage !== "" &&
-            !approveError &&
-            !approveLoading &&
-            !withdrawError &&
-            !claimRewardsLoading &&
-            !claimRewardsError &&
-            !withdrawLoading &&
-            !stakeError &&
-            !stakeLoading && (
-              <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-                {warningMessage}
-              </span>
-            )}
           {informationMessage !== "" && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               {informationMessage}
@@ -497,6 +484,19 @@ export default function Governance() {
               govTrotelCoin !
             </span>
           )}
+          {warningMessage !== "" &&
+            !approveError &&
+            !approveLoading &&
+            !withdrawError &&
+            !claimRewardsLoading &&
+            !claimRewardsError &&
+            !withdrawLoading &&
+            !stakeError &&
+            !stakeLoading && (
+              <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+                {warningMessage}
+              </span>
+            )}
         </div>
         <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
           Staking dashboard
