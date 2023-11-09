@@ -6,7 +6,7 @@ const TrotelPrice = () => {
   useEffect(() => {
     const fetchTokenPrice = async () => {
       try {
-        const response = await fetch("/api/trotelPrice");
+        const response = await fetch("/api/moralis/trotelPrice");
         const data = await response.json();
         setTokenPrice(data.tokenPrice);
         localStorage.setItem("tokenPrice", String(data.tokenPrice));

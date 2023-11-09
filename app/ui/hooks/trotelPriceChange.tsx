@@ -11,7 +11,7 @@ const TrotelPriceChange = () => {
   useEffect(() => {
     const fetchTokenPriceChange = async () => {
       try {
-        const response = await fetch("/api/trotelPriceChange");
+        const response = await fetch("/api/moralis/trotelPriceChange");
         const data = await response.json();
 
         const priceChange = parseFloat(data.priceChange);
