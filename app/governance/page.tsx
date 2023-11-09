@@ -103,9 +103,6 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
-    onSuccess(data) {
-      console.log("Success", data);
-    },
   });
 
   const stakingFixedValue = debouncedValue === "" ? "0" : debouncedValue;
@@ -131,9 +128,6 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
-    onSuccess(data) {
-      console.log("Success", data);
-    },
   });
 
   const {
@@ -151,9 +145,6 @@ export default function Governance() {
     account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
-    onSuccess(data) {
-      console.log("Success", data);
-    },
   });
 
   const {
@@ -170,9 +161,6 @@ export default function Governance() {
     account: GovTrotelStakingAddress as Hash,
     chainId: bsc.id,
     enabled: true,
-    onSuccess(data) {
-      console.log("Success", data);
-    },
   });
 
   const {
