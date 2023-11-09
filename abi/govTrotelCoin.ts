@@ -66,18 +66,8 @@ const govTrotelCoinABI = [
   {
     anonymous: false,
     inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
+      { indexed: true, internalType: "address", name: "from", type: "address" },
+      { indexed: true, internalType: "address", name: "to", type: "address" },
       {
         indexed: false,
         internalType: "uint256",
@@ -87,6 +77,13 @@ const govTrotelCoinABI = [
     ],
     name: "Transfer",
     type: "event",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_newAdmin", type: "address" }],
+    name: "addAdmin",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
     inputs: [{ internalType: "address", name: "", type: "address" }],
@@ -119,6 +116,13 @@ const govTrotelCoinABI = [
     inputs: [{ internalType: "address", name: "account", type: "address" }],
     name: "balanceOf",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "contractOwner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -162,11 +166,7 @@ const govTrotelCoinABI = [
   },
   {
     inputs: [
-      {
-        internalType: "address",
-        name: "_stakingContract",
-        type: "address",
-      },
+      { internalType: "address", name: "_stakingContract", type: "address" },
     ],
     name: "setStakingContract",
     outputs: [],

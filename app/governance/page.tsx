@@ -6,7 +6,6 @@ import {
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
-  useBalance,
 } from "wagmi";
 import "animate.css";
 import govTrotelCoinABI from "@/abi/govTrotelCoin";
@@ -16,9 +15,9 @@ import { bsc } from "wagmi/chains";
 import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
 
-const GovTrotelCoinAddress = "0xB16fe47Bfe97BcA2242bb5b3B39B61B52E599F6d";
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
-const GovTrotelStakingAddress = "0x15fF980Ac8534242d1A23F172FeCc63501AEF5D3";
+const GovTrotelCoinAddress = "0x136f0DaF88F78F48B961f805dfAcaDD1DEfaFB92";
+const GovTrotelStakingAddress = "0xAB13d0B44A60426ee261eD578271D33DaA0475b4";
 
 export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
@@ -37,12 +36,11 @@ export default function Governance() {
     setUserAddress(address as Hash);
   }, [address]);
 
-  const { data: totalLocked } = useBalance({
-    address: GovTrotelStakingAddress,
+  const { data: totalLocked } = useContractRead({
+    address: GovTrotelStakingAddress as Hash,
     chainId: bsc.id,
-    token: TrotelCoinAddress,
+    functionName: "getTotalStaked",
     watch: true,
-    enabled: true,
   });
 
   const { data: totalSupply } = useContractRead({
@@ -427,10 +425,7 @@ export default function Governance() {
           {successWithdraw && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
               You withdrew your TrotelCoin and got
-              {(parseFloat(govBalance?.toString() as string) * 1e-9).toFixed(
-                0
-              )}{" "}
-              (Gwei) !
+              {parseFloat(govBalance?.toString() as string).toFixed(0)} !
             </span>
           )}
         </div>
@@ -455,13 +450,12 @@ export default function Governance() {
               {govBalance === undefined
                 ? "0"
                 : (
-                    (parseFloat(govBalance?.toString() as string) +
-                      parseFloat(govRewards?.toString() as string)) *
-                    1e-9
+                    parseFloat(govBalance?.toString() as string) +
+                    parseFloat(govRewards?.toString() as string)
                   ).toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              govTROTEL <span className="text-xs">(Gwei)</span>
+              govTROTEL
             </p>
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
@@ -490,7 +484,7 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalLocked === undefined
                 ? "0"
-                : parseFloat(totalLocked?.formatted).toFixed(0)}
+                : parseFloat(totalLocked?.toString() as string).toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               TROTEL locked
@@ -498,7 +492,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              5%
+              100%
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
               APR
