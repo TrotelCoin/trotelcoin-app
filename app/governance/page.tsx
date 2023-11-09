@@ -41,6 +41,12 @@ export default function Governance() {
     chainId: bsc.id,
     functionName: "getTotalStaked",
     watch: true,
+    onError(error) {
+      console.log("Error", error);
+    },
+    onSuccess(data) {
+      console.log("Success", data);
+    },
   });
 
   const { data: totalSupply } = useContractRead({
