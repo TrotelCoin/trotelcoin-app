@@ -134,6 +134,9 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
+    onError(data) {
+      console.log("Error", data);
+    },
     onSuccess(data) {
       console.log("Success", data);
     },
@@ -154,6 +157,9 @@ export default function Governance() {
     account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
+    onError(data) {
+      console.log("Error", data);
+    },
     onSuccess(data) {
       console.log("Success", data);
     },
@@ -173,6 +179,9 @@ export default function Governance() {
     account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
+    onError(data) {
+      console.log("Error", data);
+    },
     onSuccess(data) {
       console.log("Success", data);
     },
@@ -300,6 +309,11 @@ export default function Governance() {
 
     if (parseFloat(timeLeft?.toString() as string) > 0) {
       setWarningMessage("Staking duration is not finished.");
+      return;
+    }
+
+    if (parseFloat(stakingBalance?.toString() as string) <= 0) {
+      setWarningMessage("Nothing to withdraw.");
       return;
     }
 
