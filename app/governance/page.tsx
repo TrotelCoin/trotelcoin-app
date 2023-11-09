@@ -198,7 +198,12 @@ export default function Governance() {
   }, [approveLoading, stakeLoading, warningMessage, withdrawLoading]);
 
   useEffect(() => {
-    if (approveLoading || stakeLoading || withdrawLoading) {
+    if (
+      approveLoading ||
+      stakeLoading ||
+      withdrawLoading ||
+      claimRewardsLoading
+    ) {
       setWarningMessage("Transaction in progress...");
     }
 
@@ -208,6 +213,7 @@ export default function Governance() {
   }, [
     approveError,
     approveLoading,
+    claimRewardsLoading,
     stakeError,
     stakeLoading,
     withdrawError,
@@ -415,6 +421,8 @@ export default function Governance() {
             !approveError &&
             !approveLoading &&
             !withdrawError &&
+            !claimRewardsLoading &&
+            !claimRewardsError &&
             !withdrawLoading &&
             !stakeError &&
             !stakeLoading && (
