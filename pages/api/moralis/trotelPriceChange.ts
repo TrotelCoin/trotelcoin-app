@@ -18,8 +18,6 @@ export default async function handler(
       address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5",
     });
 
-    console.log(response);
-
     const priceChange = parseFloat(response.raw["24hrPercentChange"] ?? "0");
 
     res.status(200).json({ priceChange });
