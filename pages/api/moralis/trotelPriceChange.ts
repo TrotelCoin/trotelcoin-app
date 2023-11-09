@@ -8,7 +8,7 @@ export default async function handler(
   try {
     if (!Moralis.Core.isStarted) {
       await Moralis.start({
-        apiKey: process.env.NEXT_PUBLIC_MORALIS_API_KEY,
+        apiKey: process.env.MORALIS_API_KEY,
       });
     }
 
@@ -17,6 +17,8 @@ export default async function handler(
       include: "percent_change",
       address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5",
     });
+
+    console.log(response);
 
     const priceChange = parseFloat(response.raw["24hrPercentChange"] ?? "0");
 
