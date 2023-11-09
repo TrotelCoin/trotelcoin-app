@@ -38,15 +38,10 @@ export default function Governance() {
 
   const { data: totalLocked } = useContractRead({
     address: GovTrotelStakingAddress as Hash,
+    abi: govTrotelStakingABI,
     chainId: bsc.id,
     functionName: "getTotalStaked",
     watch: true,
-    onError(error) {
-      console.log("Error", error);
-    },
-    onSuccess(data) {
-      console.log("Success", data);
-    },
   });
 
   const { data: totalSupply } = useContractRead({
