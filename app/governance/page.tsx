@@ -338,7 +338,7 @@ export default function Governance() {
       return;
     }
 
-    if (parseFloat(timeLeft?.toString() as string) <= 0) {
+    if (parseFloat(govRewards?.toString() as string) <= 0) {
       setWarningMessage("Nothing to claim.");
       return;
     }
