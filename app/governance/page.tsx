@@ -46,7 +46,7 @@ export default function Governance() {
   const { data: totalSupply } = useContractRead({
     address: GovTrotelCoinAddress as Hash,
     abi: govTrotelCoinABI,
-    functionName: "getTotalStaked",
+    functionName: "getTotalSupply",
     chainId: bsc.id,
     watch: true,
   });
@@ -323,15 +323,20 @@ export default function Governance() {
   };*/
   }
 
-  function formatSeconds(seconds: string): string {
-    const secondsFixed = parseFloat(seconds).toFixed(0).toString();
+  const convertTimeToMinutes = (timeInSeconds: string) => {
+    const secondsInMinute = 60;
+    return Math.floor(parseFloat(timeInSeconds) / secondsInMinute);
+  };
 
-    const formattedSeconds: string = secondsFixed.replace(
+  function formatNumber(number: string): string {
+    const numberFixed = parseFloat(number).toFixed(0).toString();
+
+    const formattedNumber: string = numberFixed.replace(
       /\B(?=(\d{3})+(?!\d))/g,
       " "
     );
 
-    return formattedSeconds;
+    return formattedNumber;
   }
 
   return (
@@ -510,10 +515,14 @@ export default function Governance() {
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {timeLeft === undefined
                 ? "0"
-                : formatSeconds(timeLeft?.toString() as string)}
+                : formatNumber(
+                    convertTimeToMinutes(
+                      timeLeft?.toString() as string
+                    ).toString()
+                  )}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              Seconds left
+              Minutes left
             </p>
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
