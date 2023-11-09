@@ -17,7 +17,7 @@ import useDebounce from "@/utils/useDebounce";
 
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
 const GovTrotelCoinAddress = "0x136f0DaF88F78F48B961f805dfAcaDD1DEfaFB92";
-const GovTrotelStakingAddress = "0xAB13d0B44A60426ee261eD578271D33DaA0475b4";
+const GovTrotelStakingAddress = "0x4000F56002d462d526b0F6Fb39012D35995e7276";
 
 export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
@@ -147,6 +147,7 @@ export default function Governance() {
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "withdraw",
+    args: [stakingValueInEther],
     account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
@@ -161,6 +162,25 @@ export default function Governance() {
     isLoading: withdrawLoading,
     isError: withdrawError,
   } = useContractWrite(withdrawConfig);
+
+  const { config: claimRewardsConfig } = usePrepareContractWrite({
+    address: GovTrotelStakingAddress as Hash,
+    abi: govTrotelStakingABI,
+    functionName: "claimRewards",
+    account: userAddress as Hash,
+    chainId: bsc.id,
+    enabled: true,
+    onSuccess(data) {
+      console.log("Success", data);
+    },
+  });
+
+  const {
+    write: claimRewards,
+    isSuccess: successClaimRewards,
+    isLoading: claimRewardsLoading,
+    isError: claimRewardsError,
+  } = useContractWrite(claimRewardsConfig);
 
   useEffect(() => {
     if (!approveLoading && !stakeLoading && !withdrawLoading) {
@@ -294,10 +314,32 @@ export default function Governance() {
     }
   };
 
-  const convertTimeToDays = (timeInSeconds: string) => {
+  const handleClaimRewards = () => {
+    if (!isConnected) {
+      setWarningMessage("Connect your wallet first!");
+      return;
+    }
+
+    // claimRewards
+
+    try {
+      if (claimRewards) {
+        claimRewards();
+      } else {
+        console.error("claim rewards function is undefined");
+      }
+    } catch (e) {
+      setWarningMessage("Transaction rejected.");
+      console.log(e);
+    }
+  };
+
+  {
+    /*const convertTimeToDays = (timeInSeconds: string) => {
     const secondsInDay = 86400;
     return Math.floor(parseFloat(timeInSeconds) / secondsInDay);
-  };
+  };*/
+  }
 
   function formatSeconds(seconds: string): string {
     const secondsFixed = parseFloat(seconds).toFixed(0).toString();
@@ -362,7 +404,10 @@ export default function Governance() {
             >
               Withdraw
             </button>
-            <button className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold">
+            <button
+              className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+              onClick={handleClaimRewards}
+            >
               Claim govTROTEL
             </button>
           </div>
@@ -424,8 +469,24 @@ export default function Governance() {
           )}
           {successWithdraw && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
-              You withdrew your TrotelCoin and got
-              {parseFloat(govBalance?.toString() as string).toFixed(0)} !
+              You withdrew your TrotelCoin !
+            </span>
+          )}
+          {claimRewardsLoading && (
+            <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
+              {warningMessage}
+            </span>
+          )}
+          {claimRewardsError && (
+            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+              {warningMessage}
+            </span>
+          )}
+          {successClaimRewards && (
+            <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
+              You claimed
+              {parseFloat(govBalance?.toString() as string).toFixed(0)}{" "}
+              govTrotelCoin !
             </span>
           )}
         </div>

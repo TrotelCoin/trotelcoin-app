@@ -18,6 +18,20 @@ const govTrotelStakingABI = [
         type: "uint256",
       },
     ],
+    name: "RewardsClaimed",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "user", type: "address" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
     name: "Staked",
     type: "event",
   },
@@ -47,6 +61,13 @@ const govTrotelStakingABI = [
     name: "calculateRewards",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "claimRewards",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
