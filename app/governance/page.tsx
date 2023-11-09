@@ -198,27 +198,10 @@ export default function Governance() {
   }, [approveLoading, stakeLoading, warningMessage, withdrawLoading]);
 
   useEffect(() => {
-    if (
-      approveLoading ||
-      stakeLoading ||
-      withdrawLoading ||
-      claimRewardsLoading
-    ) {
-      setWarningMessage("Transaction in progress...");
-    }
-
     if (approveError || stakeError || withdrawError) {
       setWarningMessage("Transaction error!");
     }
-  }, [
-    approveError,
-    approveLoading,
-    claimRewardsLoading,
-    stakeError,
-    stakeLoading,
-    withdrawError,
-    withdrawLoading,
-  ]);
+  }, [approveError, stakeError, withdrawError]);
 
   const handleApprove = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
@@ -429,7 +412,7 @@ export default function Governance() {
           )}
           {approveLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              {warningMessage}
+              Transaction is pending...
             </span>
           )}
           {approveError && (
@@ -444,7 +427,7 @@ export default function Governance() {
           )}
           {stakeLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              {warningMessage}
+              Transaction is pending...
             </span>
           )}
           {stakeError && (
@@ -459,7 +442,7 @@ export default function Governance() {
           )}
           {withdrawLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              {warningMessage}
+              Transaction is pending...
             </span>
           )}
           {withdrawError && (
@@ -474,7 +457,7 @@ export default function Governance() {
           )}
           {claimRewardsLoading && (
             <span className="animate__animated animate__fadeIn text-blue-600 dark:text-blue-200">
-              {warningMessage}
+              Transaction is pending...
             </span>
           )}
           {claimRewardsError && (
