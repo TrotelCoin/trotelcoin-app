@@ -46,7 +46,7 @@ export default function Governance() {
   const { data: totalSupply } = useContractRead({
     address: GovTrotelCoinAddress as Hash,
     abi: govTrotelCoinABI,
-    functionName: "getTotalSupply",
+    functionName: "getTotalStaked",
     chainId: bsc.id,
     watch: true,
   });
