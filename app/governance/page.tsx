@@ -103,6 +103,9 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
+    onError(data) {
+      console.log("Error", data);
+    },
     onSuccess(data) {
       console.log("Success", data);
     },
