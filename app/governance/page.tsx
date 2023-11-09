@@ -195,6 +195,10 @@ export default function Governance() {
   }, [approveError, stakeError, withdrawError]);
 
   useEffect(() => {
+    if (Cookies.get("approvedValue") === undefined) {
+      return;
+    }
+
     if (
       inputValue &&
       parseFloat(inputValue) <= parseFloat(Cookies.get("approvedValue") || "0")
@@ -233,6 +237,11 @@ export default function Governance() {
     try {
       if (approveStaking) {
         approveStaking();
+
+        if (Cookies.get("approvedValue") === undefined) {
+          Cookies.set("approvedValue", fixedValue);
+        }
+
         if (
           parseFloat(fixedValue) >
           parseFloat(Cookies.get("approvedValue") as string)
