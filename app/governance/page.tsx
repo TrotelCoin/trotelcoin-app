@@ -14,6 +14,7 @@ import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
 import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
+import Cookies from "js-cookie";
 
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
 const GovTrotelCoinAddress = "0x136f0DaF88F78F48B961f805dfAcaDD1DEfaFB92";
@@ -24,6 +25,7 @@ export default function Governance() {
   const [inputValue, setInputValue] = useState<string>("");
   const [stakedValue, setStakedValue] = useState<number>(0);
   const [userAddress, setUserAddress] = useState<string>("");
+  const [noNeedToApprove, setNoNeedToApprove] = useState<boolean>(false);
   const [informationMessage, setInformationMessage] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
 
@@ -192,6 +194,25 @@ export default function Governance() {
     }
   }, [approveError, stakeError, withdrawError]);
 
+  useEffect(() => {
+    if (
+      inputValue &&
+      parseFloat(inputValue) <= parseFloat(Cookies.get("approvedValue") || "0")
+    ) {
+      setNoNeedToApprove(true);
+    } else {
+      setNoNeedToApprove(false);
+      if (
+        parseFloat(inputValue) >
+        parseFloat(Cookies.get("approvedValue") as string)
+      ) {
+        setNoNeedToApprove(true);
+      } else {
+        setNoNeedToApprove(false);
+      }
+    }
+  }, [inputValue, noNeedToApprove]);
+
   const handleApprove = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
 
@@ -212,6 +233,12 @@ export default function Governance() {
     try {
       if (approveStaking) {
         approveStaking();
+        if (
+          parseFloat(fixedValue) >
+          parseFloat(Cookies.get("approvedValue") as string)
+        ) {
+          Cookies.set("approvedValue", fixedValue);
+        }
       } else {
         console.error("approveStaking function is undefined");
       }
@@ -370,7 +397,7 @@ export default function Governance() {
               placeholder="Amount"
               onChange={handleInputValue}
             ></input>
-            {!successApprove && (
+            {!successApprove && !noNeedToApprove && (
               <button
                 className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleApprove}
@@ -378,7 +405,7 @@ export default function Governance() {
                 Approve
               </button>
             )}
-            {successApprove && (
+            {(successApprove || noNeedToApprove) && (
               <button
                 className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleStakeTransaction}
