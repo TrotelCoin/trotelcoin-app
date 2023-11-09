@@ -103,9 +103,6 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
-    onError(data) {
-      console.log("Error", data);
-    },
     onSuccess(data) {
       console.log("Success", data);
     },
@@ -134,9 +131,6 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
-    onError(data) {
-      console.log("Error", data);
-    },
     onSuccess(data) {
       console.log("Success", data);
     },
@@ -157,9 +151,6 @@ export default function Governance() {
     account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
-    onError(data) {
-      console.log("Error", data);
-    },
     onSuccess(data) {
       console.log("Success", data);
     },
@@ -179,9 +170,6 @@ export default function Governance() {
     account: GovTrotelStakingAddress as Hash,
     chainId: bsc.id,
     enabled: true,
-    onError(data) {
-      console.log("Error", data);
-    },
     onSuccess(data) {
       console.log("Success", data);
     },
