@@ -39,10 +39,6 @@ export default function Wallet() {
                   disabled={!connector.ready}
                 >
                   {connector.name}
-                  {isLoading &&
-                    pendingConnector &&
-                    connector.id === pendingConnector.id &&
-                    " (connecting)"}
                 </button>
               ))}
             </div>
