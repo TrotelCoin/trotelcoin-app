@@ -148,9 +148,6 @@ export default function Governance() {
     account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
-    onError(e: any) {
-      console.log(e);
-    },
   });
 
   const {
@@ -167,6 +164,9 @@ export default function Governance() {
     account: GovTrotelStakingAddress as Hash,
     chainId: bsc.id,
     enabled: true,
+    onError(e: any) {
+      console.log(e);
+    },
   });
 
   const {
