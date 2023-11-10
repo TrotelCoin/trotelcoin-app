@@ -7,6 +7,7 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useContractEvent,
+  useBalance,
 } from "wagmi";
 import "animate.css";
 import govTrotelCoinABI from "@/abi/govTrotelCoin";
