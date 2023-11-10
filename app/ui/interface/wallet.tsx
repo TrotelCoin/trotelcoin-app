@@ -1,8 +1,8 @@
-import React, { use, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
 
 export default function Wallet() {
-  const { connect, connectors, isLoading, pendingConnector } = useConnect();
+  const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
 
   const [showConnectors, setShowConnectors] = useState(false);
@@ -51,10 +51,6 @@ export default function Wallet() {
                   disabled={!connector.ready}
                 >
                   {connector.name}
-                  {isLoading &&
-                    pendingConnector &&
-                    connector.id === pendingConnector.id &&
-                    " (connecting)"}
                 </button>
               ))}
             </div>
