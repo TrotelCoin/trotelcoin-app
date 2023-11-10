@@ -5,7 +5,7 @@ import { bsc } from "wagmi/chains";
 export default function Wallet() {
   const [showConnectors, setShowConnectors] = useState(false);
 
-  const { connect, connectors } = useConnect({chainId: bsc.id});
+  const { connect, connectors } = useConnect({ chainId: bsc.id });
   const { disconnect } = useDisconnect();
 
   const handleConnect = (connector: any) => {
@@ -45,7 +45,9 @@ export default function Wallet() {
               {connectors.map((connector) => (
                 <button
                   key={connector.id}
-                  className="block w-full px-4 py-2 text-left text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  className={`block w-full px-4 py-2 text-left text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                    !connector.ready ? "cursor-not-allowed" : ""
+                  }`}
                   onClick={() => handleConnect(connector)}
                   disabled={!connector.ready}
                 >

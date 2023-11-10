@@ -9,9 +9,9 @@ import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import { SafeConnector } from "wagmi/connectors/safe";
+import { LedgerConnector } from "wagmi/connectors/ledger";
 
-// Define supported blockchain chains and project ID
-const projectId = "b0d3d1eb9c28fb7899eba1cff830b2b1";
 export const metadata = {
   title: "TrotelCoin App",
   description: "Learn & earn crypto.",
@@ -25,6 +25,17 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 const config = createConfig({
   autoConnect: false,
   connectors: [
+    new SafeConnector({
+      chains: [bsc],
+      options: {
+        allowedDomains: [
+          /gnosis-safe.io$/,
+          /app.safe.global$/,
+          /app.trotelcoin.com$/,
+        ],
+        debug: false,
+      },
+    }),
     new MetaMaskConnector({
       chains: [bsc],
       options: {
@@ -32,19 +43,19 @@ const config = createConfig({
       },
     }),
     new CoinbaseWalletConnector({
-      chains,
+      chains: [bsc],
       options: {
         appName: "wagmi",
       },
     }),
     new WalletConnectConnector({
-      chains,
+      chains: [bsc],
       options: {
         projectId: "b0d3d1eb9c28fb7899eba1cff830b2b1",
       },
     }),
     new InjectedConnector({
-      chains,
+      chains: [bsc],
       options: {
         name: "Browser Wallet",
         shimDisconnect: true,
@@ -56,5 +67,10 @@ const config = createConfig({
 });
 
 export default function Wagmi({ children }: { children: React.ReactNode }) {
-  return <WagmiConfig config={config}>{children}</WagmiConfig>;
+  try {
+    return <WagmiConfig config={config}>{children}</WagmiConfig>;
+  } catch (error) {
+    console.error("Error in Wagmi component:", error);
+    return <body>Error occurred. Please try again.</body>;
+  }
 }
