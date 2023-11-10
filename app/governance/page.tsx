@@ -30,8 +30,6 @@ export default function Governance() {
   const debouncedValue: string = useDebounce(inputValue, 500);
   const [eventsList, setEventsList] = useState<any[]>([]);
 
-  const { contract } = useContract(GovTrotelStakingAddress as Hash);
-
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
   };
@@ -182,11 +180,11 @@ export default function Governance() {
     isError: claimRewardsError,
   } = useContractWrite(claimRewardsConfig);
 
-  // test
+  const { contract } = useContract(GovTrotelStakingAddress as Hash);
 
   const { data: events } = useContractEvents(contract, "undefined", {
     queryFilter: {
-      order: "asc",
+      order: "desc",
     },
     subscribe: true,
   });
