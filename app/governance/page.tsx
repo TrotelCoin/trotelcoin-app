@@ -184,7 +184,12 @@ export default function Governance() {
 
   // test
 
-  const { data: events, isLoading, error } = useContractEvents(contract);
+  const { data: events } = useContractEvents(contract, "undefined", {
+    queryFilter: {
+      order: "asc",
+    },
+    subscribe: true,
+  });
 
   console.log(events);
 
