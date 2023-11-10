@@ -26,7 +26,7 @@ export default function Wallet() {
     }
   };
 
-  const { isConnected, isDisconnected } = useAccount();
+  const { isConnected, isDisconnected, isConnecting } = useAccount();
 
   return (
     <>
