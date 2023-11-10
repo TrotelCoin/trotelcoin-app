@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
+import { bsc } from "wagmi/chains";
 
 export default function Wallet() {
   const [showConnectors, setShowConnectors] = useState(false);
 
-  const { connect, connectors } = useConnect();
+  const { connect, connectors } = useConnect({chainId: bsc.id});
   const { disconnect } = useDisconnect();
 
   const handleConnect = (connector: any) => {
@@ -58,9 +59,7 @@ export default function Wallet() {
 
       {isConnecting && (
         <div className="relative inline-block">
-          <button
-            className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
-          >
+          <button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
             Connecting...
           </button>
         </div>

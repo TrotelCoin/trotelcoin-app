@@ -22,18 +22,24 @@ const GovTrotelCoinAddress = "0x25912243E6BbEC694d7098B4297974b37FC2cD50";
 const GovTrotelStakingAddress = "0x9668D972CB2247F4686977Ccc0e08D9691Ff0041";
 
 export default function Governance() {
-  const [warningMessage, setWarningMessage] = useState<string>("");
-  const [inputValue, setInputValue] = useState<string>("");
-  const [stakedValue, setStakedValue] = useState<number>(0);
-  const [informationMessage, setInformationMessage] = useState<string>("");
+  const [warningMessage, setWarningMessage] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState<string | null>(null);
+  const [stakedValue, setStakedValue] = useState<number | null>(null);
+  const [informationMessage, setInformationMessage] = useState<string | null>(
+    null
+  );
+  const [userAddress, setUserAddress] = useState<Hash>(() => "" as Hash);
   const debouncedValue: string = useDebounce(inputValue, 500);
-  const [eventsList, setEventsList] = useState<any[]>([]);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
   };
 
-  const { address: userAddress, isConnected, isDisconnected } = useAccount();
+  const { address, isConnected, isDisconnected } = useAccount();
+
+  useEffect(() => {
+    setUserAddress(address as Hash);
+  }, [address]);
 
   const { data: govTrotelCoinBalance } = useBalance({
     address: userAddress as Hash,
@@ -176,41 +182,10 @@ export default function Governance() {
     isError: claimRewardsError,
   } = useContractWrite(claimRewardsConfig);
 
-  useContractEvent({
-    address: GovTrotelStakingAddress as Hash,
-    abi: govTrotelStakingABI,
-    eventName: "Staked",
-    chainId: bsc.id,
-    listener(staked: any) {
-      console.log(staked);
-      setEventsList((prevEvents: any) => [...prevEvents, staked]);
-    },
-  });
-
-  useContractEvent({
-    address: GovTrotelStakingAddress as Hash,
-    abi: govTrotelStakingABI,
-    eventName: "Withdrawn",
-    chainId: bsc.id,
-    listener(withdraw: any) {
-      setEventsList((prevEvents: any) => [...prevEvents, withdraw]);
-    },
-  });
-
-  useContractEvent({
-    address: GovTrotelStakingAddress as Hash,
-    abi: govTrotelStakingABI,
-    eventName: "RewardsClaimed",
-    chainId: bsc.id,
-    listener(rewardsClaimed: any) {
-      setEventsList((prevEvents: any) => [...prevEvents, rewardsClaimed]);
-    },
-  });
-
   useEffect(() => {
     if (!approveLoading && !stakeLoading && !withdrawLoading) {
       const timeout = setTimeout(() => {
-        setWarningMessage("");
+        setWarningMessage(null);
       }, 5000);
       return () => clearTimeout(timeout);
     }
@@ -241,7 +216,7 @@ export default function Governance() {
       return;
     }
 
-    setWarningMessage("");
+    setWarningMessage(null);
 
     // approve
 
@@ -269,7 +244,7 @@ export default function Governance() {
       return;
     }
 
-    setWarningMessage("");
+    setWarningMessage(null);
     setStakedValue(parseFloat(fixedValue));
 
     // stake
@@ -360,9 +335,9 @@ export default function Governance() {
   };*/
   }
 
-  const convertTimeToMinutes = (timeInSeconds: string) => {
-    const secondsInMinute = 60;
-    return Math.floor(parseFloat(timeInSeconds) / secondsInMinute);
+  const convertTimeToHours = (timeInSeconds: string) => {
+    const secondsInHours = 3600;
+    return Math.floor(parseFloat(timeInSeconds) / secondsInHours);
   };
 
   function formatNumber(number: string): string {
@@ -379,13 +354,50 @@ export default function Governance() {
   return (
     <>
       <div className="mx-auto">
-        <h1 className="flex text-2xl text-gray-900 dark:text-gray-100">
+        <h1 className="flex text-4xl text-gray-900 dark:text-gray-100">
           <span>
             Stake <span className="font-bold">TrotelCoin.</span> Get{" "}
             <span className="font-bold">GovTrotelCoin.</span>
           </span>
         </h1>
-        <p className="mt-10 text-gray-900 dark:text-gray-100">
+        <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
+          Statistics
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {totalSupply === null
+                ? "0"
+                : (
+                    parseFloat(totalSupply?.toString() as string) * 1e-18
+                  ).toFixed(2)}
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              govTROTEL minted
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {totalLocked === null
+                ? "0"
+                : (
+                    parseFloat(totalLocked?.toString() as string) * 1e-18
+                  ).toFixed(0)}
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              TROTEL locked
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              100%
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              APR
+            </p>
+          </div>
+        </div>
+        <p className="mt-4 text-gray-900 dark:text-gray-100">
           Follow this link to{" "}
           <a
             target="_blank"
@@ -396,11 +408,68 @@ export default function Governance() {
           </a>
           .
         </p>
+
+        <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
+          My dashboard
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {stakingBalance === null || isDisconnected
+                ? "0"
+                : (
+                    parseFloat(stakingBalance?.toString() as string) * 1e-18
+                  ).toFixed(0)}
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              TROTEL
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {govRewards === null || isDisconnected
+                ? "0"
+                : (
+                    parseFloat(govRewards?.toString() as string) * 1e-18 -
+                    parseFloat(govTrotelCoinBalance?.formatted as string)
+                  ).toFixed(2)}
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              govTROTEL Rewards
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {govBalance === null || isDisconnected
+                ? "0"
+                : parseFloat(govTrotelCoinBalance?.formatted as string).toFixed(
+                    2
+                  )}
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              govTROTEL Balance
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+            <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
+              {timeLeft === null || isDisconnected
+                ? "0"
+                : formatNumber(
+                    convertTimeToHours(
+                      timeLeft?.toString() as string
+                    ).toString()
+                  )}
+            </h2>
+            <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
+              Hours left
+            </p>
+          </div>
+        </div>
         <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
           Stake & Earn
         </h2>
-        <div className="flex flex-col mt-4 gap-6">
-          <div className="flex flex-wrap gap-4">
+        <div className="flex flex-col mt-4 gap-6 max-w-xl">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             <input
               className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
               placeholder="Amount"
@@ -432,10 +501,10 @@ export default function Governance() {
               className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
               onClick={handleClaimRewards}
             >
-              Claim govTROTEL
+              Claim
             </button>
           </div>
-          {informationMessage && informationMessage !== "" && (
+          {informationMessage && (
             <span className="animate__animated animate__fadeIn text-yellow-600 dark:text-yellow-200">
               {informationMessage}
             </span>
@@ -497,121 +566,19 @@ export default function Governance() {
           )}
           {successClaimRewards && govBalance !== null && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
-              You claimed
+              You claimed{" "}
               {(parseFloat(govBalance?.toString() as string) * 1e-18).toFixed(
-                0
+                2
               )}{" "}
               govTrotelCoin !
             </span>
           )}
-          {warningMessage !== "" && warningMessage !== "Transaction error!" && (
+          {warningMessage && warningMessage !== "Transaction error!" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               {warningMessage}
             </span>
           )}
         </div>
-        <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
-          Staking dashboard
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!stakingBalance || isDisconnected || stakingBalance === null
-                ? "0"
-                : (
-                    parseFloat(stakingBalance?.toString() as string) * 1e-18
-                  ).toFixed(0)}
-            </h2>
-            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              TROTEL
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!govRewards ||
-              isDisconnected ||
-              govTrotelCoinBalance === undefined ||
-              govTrotelCoinBalance === null
-                ? "0"
-                : (
-                    parseFloat(govRewards?.toString() as string) * 1e-18 -
-                    parseFloat(govTrotelCoinBalance?.formatted as string)
-                  ).toFixed(0)}
-            </h2>
-            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              govTROTEL
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!timeLeft || timeLeft === null || isDisconnected
-                ? "0"
-                : formatNumber(
-                    convertTimeToMinutes(
-                      timeLeft?.toString() as string
-                    ).toString()
-                  )}
-            </h2>
-            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              Minutes left
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!totalSupply || totalSupply === null
-                ? "0"
-                : (
-                    parseFloat(totalSupply?.toString() as string) * 1e-18
-                  ).toFixed(0)}
-            </h2>
-            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              govTROTEL minted
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!totalLocked || totalLocked === null
-                ? "0"
-                : (
-                    parseFloat(totalLocked?.toString() as string) * 1e-18
-                  ).toFixed(0)}
-            </h2>
-            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              TROTEL locked
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
-            <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              100%
-            </h2>
-            <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
-              APR
-            </p>
-          </div>
-        </div>
-        {/*  <div className="animate__animated animate__fadeIn">
-          {eventsList && eventsList !== null && eventsList.length > 0 ? (
-            <>
-              <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
-                Staking logs
-              </h2>
-              <div className="mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 rounded-lg">
-                <ul>
-                  {eventsList.map((event, index) => (
-                    <li key={index} className="mb-4">
-                      <p className="font-semibold">
-                        Event Name: {event.args.user} just staked{" "}
-                        {event.args.amount} !
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
-        </div>*/}
       </div>
     </>
   );

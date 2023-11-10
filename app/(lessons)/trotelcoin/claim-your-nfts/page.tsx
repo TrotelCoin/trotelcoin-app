@@ -5,7 +5,7 @@ import "animate.css";
 import { Course } from "@/types/types";
 
 const currentCourse: Course = {
-  title: "Earn Intermediate and Expert NFTs",
+  title: "Claim your NFTs",
 };
 
 const CoursePage = () => {

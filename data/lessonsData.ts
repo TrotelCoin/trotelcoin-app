@@ -15,8 +15,8 @@ const lessons: Lessons[] = [
         quizId: 1,
       },
       {
-        title: "Earn Intermediate and Expert NFTs",
-        href: "/trotelcoin/earn-intermediate-and-expert-nfts",
+        title: "Claim your NFTs",
+        href: "/trotelcoin/claim-your-nfts",
         status: "Not started",
         tier: "Beginner",
         sponsored: false,
