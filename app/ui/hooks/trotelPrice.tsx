@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const TrotelPrice = () => {
-  const [tokenPrice, setTokenPrice] = useState<number | null>(null);
+  const [tokenPrice, setTokenPrice] = useState<number>(0);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -14,6 +14,7 @@ const TrotelPrice = () => {
         setTokenPrice(data.tokenPrice);
       } catch (error) {
         setError("Error fetching token price.");
+        setTokenPrice(0);
         console.error("Error fetching token price:", error);
       }
     };

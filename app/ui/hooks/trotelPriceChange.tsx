@@ -37,6 +37,7 @@ const TrotelPriceChange = () => {
         }
       } catch (error) {
         setError("Error fetching token price change.");
+        setTokenPriceChange(0);
         console.error("Error fetching token price change:", error);
       }
     };
