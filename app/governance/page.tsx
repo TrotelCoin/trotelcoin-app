@@ -599,7 +599,7 @@ export default function Governance() {
           </div>
         </div>
         <div className="animate__animated animate__fadeIn">
-          {eventsList.length > 0 ? (
+          {eventsList && eventsList !== null && eventsList.length > 0 ? (
             <>
               <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
                 Staking logs
