@@ -38,6 +38,14 @@ export default function Governance() {
     setUserAddress(address as Hash);
   }, [address]);
 
+  const { data: govTrotelCoinBalance } = useBalance({
+    address: userAddress as Hash,
+    chainId: bsc.id,
+    token: GovTrotelCoinAddress as Hash,
+    watch: true,
+    enabled: true,
+  });
+
   const { data: totalLocked } = useContractRead({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
@@ -533,12 +541,11 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {govBalance === undefined
+              {govBalance === undefined || govTrotelCoinBalance === undefined
                 ? "0"
                 : (
-                    (parseFloat(govBalance?.toString() as string) +
-                      parseFloat(govRewards?.toString() as string)) *
-                    1e-18
+                    parseFloat(govRewards?.toString() as string) * 1e-18 -
+                    parseFloat(govTrotelCoinBalance?.formatted as string)
                   ).toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-sm text-gray-900 dark:text-gray-100">
