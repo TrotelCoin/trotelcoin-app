@@ -34,7 +34,7 @@ export default function Governance() {
     setInputValue(e.target.value);
   };
 
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, isDisconnected } = useAccount();
   useEffect(() => {
     setUserAddress(address as Hash);
   }, [address]);
@@ -520,7 +520,7 @@ export default function Governance() {
         <div className="grid grid-cols-2 md:grid-cols-3 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!stakingBalance || stakingBalance === null
+              {!stakingBalance || isDisconnected || stakingBalance === null
                 ? "0"
                 : (
                     parseFloat(stakingBalance?.toString() as string) * 1e-18
@@ -533,6 +533,7 @@ export default function Governance() {
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
               {!govRewards ||
+              isDisconnected ||
               govTrotelCoinBalance === undefined ||
               govTrotelCoinBalance === null
                 ? "0"
@@ -547,7 +548,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!timeLeft || timeLeft === null
+              {!timeLeft || timeLeft === null || isDisconnected
                 ? "0"
                 : formatNumber(
                     convertTimeToMinutes(
