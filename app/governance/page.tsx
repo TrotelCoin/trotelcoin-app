@@ -18,8 +18,8 @@ import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
 
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
-const GovTrotelCoinAddress = "0x136f0DaF88F78F48B961f805dfAcaDD1DEfaFB92";
-const GovTrotelStakingAddress = "0x4000F56002d462d526b0F6Fb39012D35995e7276";
+const GovTrotelCoinAddress = "0x25912243E6BbEC694d7098B4297974b37FC2cD50";
+const GovTrotelStakingAddress = "0x9668D972CB2247F4686977Ccc0e08D9691Ff0041";
 
 export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
