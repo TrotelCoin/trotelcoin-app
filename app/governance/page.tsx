@@ -6,7 +6,6 @@ import {
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
-  useContractEvent,
   useBalance,
 } from "wagmi";
 import "animate.css";
@@ -16,6 +15,7 @@ import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
 import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
+import { useContract, useContractEvents } from "@thirdweb-dev/react";
 
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
 const GovTrotelCoinAddress = "0x25912243E6BbEC694d7098B4297974b37FC2cD50";
@@ -29,6 +29,8 @@ export default function Governance() {
   const [informationMessage, setInformationMessage] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
   const [eventsList, setEventsList] = useState<any[]>([]);
+
+  const { contract } = useContract(GovTrotelStakingAddress as Hash);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -182,21 +184,21 @@ export default function Governance() {
 
   // test
 
-  const [stakingEvent, setStakingEvent] = useState<any>();
+  const { data: events, isLoading, error } = useContractEvents(contract);
 
-  useContractEvent({
+  console.log(events);
+
+  {
+    /*useContractEvent({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     eventName: "Staked",
     chainId: bsc.id,
     listener(staked: any) {
       console.log(staked);
-      setStakingEvent(staked);
       setEventsList((prevEvents: any) => [...prevEvents, staked]);
     },
   });
-
-  console.log(stakingEvent);
 
   // test end
 
@@ -218,7 +220,8 @@ export default function Governance() {
     listener(rewardsClaimed: any) {
       setEventsList((prevEvents: any) => [...prevEvents, rewardsClaimed]);
     },
-  });
+  });*/
+  }
 
   useEffect(() => {
     if (!approveLoading && !stakeLoading && !withdrawLoading) {
@@ -620,7 +623,8 @@ export default function Governance() {
                   {eventsList.map((event, index) => (
                     <li key={index} className="mb-4">
                       <p className="font-semibold">
-                        Event Name: {event.user} just staked {event.amount} !
+                        Event Name: {event.args.user} just staked{" "}
+                        {event.args.amount} !
                       </p>
                     </li>
                   ))}
