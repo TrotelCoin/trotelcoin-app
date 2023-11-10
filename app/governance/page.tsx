@@ -117,13 +117,11 @@ export default function Governance() {
     enabled: true,
   });
 
-  const stakingFixedValue = debouncedValue === "" ? "0" : debouncedValue;
-
-  const parsedStakingValue = isNaN(parseFloat(stakingFixedValue))
+  const parsedStakeValue = isNaN(parseFloat(approveFixedValue))
     ? "0"
-    : stakingFixedValue;
+    : parseFloat(approveFixedValue).toString();
 
-  const stakingValueInEther = parseEther(parsedStakingValue);
+  const stakingValueInEther = parseEther(parsedStakeValue);
 
   const {
     write: approveStaking,
@@ -140,9 +138,6 @@ export default function Governance() {
     chainId: bsc.id,
     account: userAddress as Hash,
     enabled: true,
-    onError(e: any) {
-      console.log(e);
-    },
   });
 
   const {
