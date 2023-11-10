@@ -390,7 +390,7 @@ export default function Governance() {
   return (
     <>
       <div className="mx-auto">
-        <h1 className="flex text-4xl text-gray-900 dark:text-gray-100">
+        <h1 className="flex text-2xl md:text-4xl text-gray-900 dark:text-gray-100">
           <span>
             Stake <span className="font-bold">TrotelCoin.</span> Get{" "}
             <span className="font-bold">GovTrotelCoin.</span>

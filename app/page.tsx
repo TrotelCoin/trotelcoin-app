@@ -57,7 +57,7 @@ export default function Home() {
               <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                 {lesson.category}
               </h2>
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-4">
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
                 {lesson.courses.map((course) => (
                   <Link href={course.href} key={course.title}>
                     <div className="rounded-lg hover:shadow mr-4 my-2 active:shadow-none active:border-blue-600 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 backdrop-blur-xl">
