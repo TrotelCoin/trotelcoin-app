@@ -508,8 +508,7 @@ export default function Governance() {
               govTrotelCoin !
             </span>
           )}
-          {warningMessage &&
-            warningMessage !== "" &&
+          {warningMessage !== "" &&
             !approveError &&
             !approveLoading &&
             !withdrawError &&
