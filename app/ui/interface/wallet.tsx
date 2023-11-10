@@ -9,13 +9,23 @@ export default function Wallet() {
   const { disconnect } = useDisconnect();
 
   const handleConnect = (connector: any) => {
-    connect({ connector });
+    try {
+      connect({ connector });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
     setShowConnectors(false);
     setIsDisconnected(false);
   };
 
   const handleDisconnect = () => {
-    disconnect();
+    try {
+      disconnect();
+    } catch (error) {
+      console.log(error);
+      return;
+    }
     setIsDisconnected(true);
   };
 
