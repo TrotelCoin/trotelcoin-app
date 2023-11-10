@@ -161,12 +161,9 @@ export default function Governance() {
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "claimRewards",
-    account: GovTrotelStakingAddress as Hash,
+    account: userAddress as Hash,
     chainId: bsc.id,
     enabled: true,
-    onError(e: any) {
-      console.log(e);
-    },
   });
 
   const {
