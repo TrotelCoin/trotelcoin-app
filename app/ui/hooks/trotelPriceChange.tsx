@@ -11,7 +11,9 @@ const TrotelPriceChange = () => {
   useEffect(() => {
     const fetchTokenPriceChange = async () => {
       try {
-        const response = await fetch("/api/moralis/trotelPriceChange");
+        const response = await fetch("/api/moralis/trotelPriceChange", {
+          cache: "no-store",
+        });
         const data = await response.json();
 
         const priceChange = parseFloat(data.priceChange);
@@ -45,10 +47,8 @@ const TrotelPriceChange = () => {
   }, []);
 
   return isError ? (
-    <span className={containerClass}>
-      <span className="animate-pulse">{`${sign}${tokenPriceChange.toFixed(
-        2
-      )}%`}</span>
+    <span className="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-200/20">
+      <span className="animate-pulse">0.00%</span>
     </span>
   ) : (
     <span className={containerClass}>{`${sign}${tokenPriceChange.toFixed(

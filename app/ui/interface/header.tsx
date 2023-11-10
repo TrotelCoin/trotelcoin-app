@@ -59,7 +59,7 @@ const Header = () => {
             </Link>
           </div>
           <p className="font-semibold text-gray-900 dark:text-gray-100">
-            ${<TrotelPrice />}
+            {<TrotelPrice />}
           </p>
           {<TrotelPriceChange />}
           <span className="hidden lg:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
