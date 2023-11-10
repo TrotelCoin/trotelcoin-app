@@ -499,17 +499,15 @@ export default function Governance() {
               {warningMessage}
             </span>
           )}
-          {successClaimRewards &&
-            govBalance !== null &&
-            govBalance !== undefined && (
-              <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
-                You claimed
-                {(parseFloat(govBalance?.toString() as string) * 1e-18).toFixed(
-                  0
-                )}{" "}
-                govTrotelCoin !
-              </span>
-            )}
+          {successClaimRewards && govBalance !== null && (
+            <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
+              You claimed
+              {(parseFloat(govBalance?.toString() as string) * 1e-18).toFixed(
+                0
+              )}{" "}
+              govTrotelCoin !
+            </span>
+          )}
           {warningMessage &&
             warningMessage !== "" &&
             !approveError &&
@@ -531,7 +529,7 @@ export default function Governance() {
         <div className="grid grid-cols-2 md:grid-cols-3 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {stakingBalance || stakingBalance === null
+              {!stakingBalance || stakingBalance === null
                 ? "0"
                 : (
                     parseFloat(stakingBalance?.toString() as string) * 1e-18
@@ -543,7 +541,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {govRewards ||
+              {!govRewards ||
               govTrotelCoinBalance === undefined ||
               govTrotelCoinBalance === null
                 ? "0"
@@ -558,7 +556,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {timeLeft || timeLeft === null
+              {!timeLeft || timeLeft === null
                 ? "0"
                 : formatNumber(
                     convertTimeToMinutes(
@@ -572,7 +570,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {totalSupply || totalSupply === null
+              {!totalSupply || totalSupply === null
                 ? "0"
                 : (
                     parseFloat(totalSupply?.toString() as string) * 1e-18
@@ -584,7 +582,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {totalLocked || totalLocked === null
+              {!totalLocked || totalLocked === null
                 ? "0"
                 : (
                     parseFloat(totalLocked?.toString() as string) * 1e-18
