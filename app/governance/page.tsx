@@ -7,6 +7,7 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useBalance,
+  useContractEvent,
 } from "wagmi";
 import "animate.css";
 import govTrotelCoinABI from "@/abi/govTrotelCoin";
@@ -15,7 +16,6 @@ import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
 import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
-import { useContract, useContractEvents } from "@thirdweb-dev/react";
 
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
 const GovTrotelCoinAddress = "0x25912243E6BbEC694d7098B4297974b37FC2cD50";
@@ -180,19 +180,7 @@ export default function Governance() {
     isError: claimRewardsError,
   } = useContractWrite(claimRewardsConfig);
 
-  const { contract } = useContract(GovTrotelStakingAddress as Hash);
-
-  const { data: events } = useContractEvents(contract, "undefined", {
-    queryFilter: {
-      order: "desc",
-    },
-    subscribe: true,
-  });
-
-  console.log(events);
-
-  {
-    /*useContractEvent({
+  useContractEvent({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     eventName: "Staked",
@@ -202,8 +190,6 @@ export default function Governance() {
       setEventsList((prevEvents: any) => [...prevEvents, staked]);
     },
   });
-
-  // test end
 
   useContractEvent({
     address: GovTrotelStakingAddress as Hash,
@@ -223,8 +209,7 @@ export default function Governance() {
     listener(rewardsClaimed: any) {
       setEventsList((prevEvents: any) => [...prevEvents, rewardsClaimed]);
     },
-  });*/
-  }
+  });
 
   useEffect(() => {
     if (!approveLoading && !stakeLoading && !withdrawLoading) {
