@@ -40,7 +40,7 @@ export default function Governance() {
 
   const { address: userAddress, isConnected, isDisconnected } = useAccount();
 
-  const { data: totalLockedData, isSuccess: totalLockedFetched } =
+  const { data: totalLockedData, isFetched: totalLockedFetched } =
     useContractRead({
       address: GovTrotelStakingAddress as Hash,
       abi: govTrotelStakingABI,
@@ -49,7 +49,7 @@ export default function Governance() {
       watch: true,
     });
 
-  const { data: totalSupplyData, isSuccess: totalSupplyFetched } =
+  const { data: totalSupplyData, isFetched: totalSupplyFetched } =
     useContractRead({
       address: GovTrotelCoinAddress as Hash,
       abi: govTrotelCoinABI,
@@ -58,7 +58,7 @@ export default function Governance() {
       watch: true,
     });
 
-  const { data: govBalanceData, isSuccess: govBalanceFetched } =
+  const { data: govBalanceData, isFetched: govBalanceFetched } =
     useContractRead({
       address: GovTrotelCoinAddress as Hash,
       abi: govTrotelCoinABI,
@@ -69,7 +69,7 @@ export default function Governance() {
       enabled: Boolean(userAddress),
     });
 
-  const { data: govRewardsData, isSuccess: govRewardsFetched } =
+  const { data: govRewardsData, isFetched: govRewardsFetched } =
     useContractRead({
       address: GovTrotelStakingAddress as Hash,
       abi: govTrotelStakingABI,
@@ -80,7 +80,7 @@ export default function Governance() {
       enabled: Boolean(userAddress),
     });
 
-  const { data: stakingBalanceData, isSuccess: stakingBalanceFetched } =
+  const { data: stakingBalanceData, isFetched: stakingBalanceFetched } =
     useContractRead({
       address: GovTrotelStakingAddress as Hash,
       abi: govTrotelStakingABI,
@@ -91,7 +91,7 @@ export default function Governance() {
       enabled: Boolean(userAddress),
     });
 
-  const { data: timeLeftData, isSuccess: timeLeftFetched } = useContractRead({
+  const { data: timeLeftData, isFetched: timeLeftFetched } = useContractRead({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
