@@ -22,7 +22,7 @@ const TrotelPrice = () => {
     fetchTokenPrice();
   }, []);
 
-  return isError ? <span>$0.000</span> : <span>{tokenPrice?.toFixed(3)}</span>;
+  return isError ? <span>$0.000</span> : <span>${tokenPrice?.toFixed(3)}</span>;
 };
 
 export default TrotelPrice;
