@@ -2,35 +2,28 @@
 
 import React from "react";
 import { bsc } from "wagmi/chains";
-import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { WagmiConfig } from "wagmi";
+import { WagmiConfig, createConfig } from "wagmi";
+import { configureChains } from "wagmi";
+import { publicProvider } from "wagmi/providers/public";
 
 // Define supported blockchain chains and project ID
-const chains = [bsc];
 const projectId = "b0d3d1eb9c28fb7899eba1cff830b2b1";
 export const metadata = {
   title: "TrotelCoin App",
   description: "Learn & earn crypto.",
 };
 
-// Configure Web3Modal with default settings
-const wagmiConfig = defaultWagmiConfig({
-  chains,
-  projectId,
-  metadata,
-});
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [bsc],
+  [publicProvider()]
+);
 
-// Create an instance of Web3Modal
-createWeb3Modal({
-  wagmiConfig,
-  projectId,
-  chains,
-  themeMode: "light",
-  themeVariables: {
-    "--w3m-font-family": "Poppins",
-  },
+const config = createConfig({
+  autoConnect: true,
+  publicClient,
+  webSocketPublicClient,
 });
 
 export default function Wagmi({ children }: { children: React.ReactNode }) {
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
+  return <WagmiConfig config={config}>{children}</WagmiConfig>;
 }
