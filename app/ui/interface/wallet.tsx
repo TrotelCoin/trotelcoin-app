@@ -56,6 +56,16 @@ export default function Wallet() {
         </div>
       )}
 
+      {isConnecting && (
+        <div className="relative inline-block">
+          <button
+            className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
+          >
+            Connecting...
+          </button>
+        </div>
+      )}
+
       {isConnected && (
         <div>
           <button
