@@ -25,7 +25,6 @@ export default function Governance() {
   const [warningMessage, setWarningMessage] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
   const [stakedValue, setStakedValue] = useState<number>(0);
-  const [userAddress, setUserAddress] = useState<string>("");
   const [informationMessage, setInformationMessage] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
   const [eventsList, setEventsList] = useState<any[]>([]);
@@ -34,10 +33,7 @@ export default function Governance() {
     setInputValue(e.target.value);
   };
 
-  const { address, isConnected, isDisconnected } = useAccount();
-  useEffect(() => {
-    setUserAddress(address as Hash);
-  }, [address]);
+  const { address: userAddress, isConnected, isDisconnected } = useAccount();
 
   const { data: govTrotelCoinBalance } = useBalance({
     address: userAddress as Hash,
@@ -78,7 +74,7 @@ export default function Governance() {
     functionName: "calculateRewards",
     chainId: bsc.id,
     watch: true,
-    args: [address as Hash],
+    args: [userAddress as Hash],
   });
 
   const { data: stakingBalance } = useContractRead({
