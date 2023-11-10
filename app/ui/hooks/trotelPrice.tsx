@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const TrotelPrice = () => {
   const [tokenPrice, setTokenPrice] = useState<number | null>(null);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTokenPrice = async () => {
