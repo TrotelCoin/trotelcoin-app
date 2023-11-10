@@ -3,7 +3,6 @@ import { useConnect, useAccount, useDisconnect } from "wagmi";
 
 export default function Wallet() {
   const [showConnectors, setShowConnectors] = useState(false);
-  const [isDisconnected, setIsDisconnected] = useState(true);
 
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
@@ -16,7 +15,6 @@ export default function Wallet() {
       return;
     }
     setShowConnectors(false);
-    setIsDisconnected(false);
   };
 
   const handleDisconnect = () => {
@@ -26,10 +24,9 @@ export default function Wallet() {
       console.log(error);
       return;
     }
-    setIsDisconnected(true);
   };
 
-  const { isConnected } = useAccount();
+  const { isConnected, isDisconnected } = useAccount();
 
   return (
     <>
