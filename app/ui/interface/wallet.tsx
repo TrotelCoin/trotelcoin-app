@@ -19,18 +19,6 @@ export default function Wallet() {
     setIsDisconnected(true);
   };
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      disconnect();
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [disconnect]);
-
   const { isConnected } = useAccount();
 
   return (
