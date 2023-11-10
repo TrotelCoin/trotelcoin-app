@@ -5,6 +5,10 @@ import { bsc } from "wagmi/chains";
 import { WagmiConfig, createConfig } from "wagmi";
 import { configureChains } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 // Define supported blockchain chains and project ID
 const projectId = "b0d3d1eb9c28fb7899eba1cff830b2b1";
@@ -20,6 +24,28 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 
 const config = createConfig({
   autoConnect: true,
+  connectors: [
+    new MetaMaskConnector({ chains }),
+    new CoinbaseWalletConnector({
+      chains,
+      options: {
+        appName: "wagmi",
+      },
+    }),
+    new WalletConnectConnector({
+      chains,
+      options: {
+        projectId: "b0d3d1eb9c28fb7899eba1cff830b2b1",
+      },
+    }),
+    new InjectedConnector({
+      chains,
+      options: {
+        name: "Injected",
+        shimDisconnect: true,
+      },
+    }),
+  ],
   publicClient,
   webSocketPublicClient,
 });

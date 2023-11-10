@@ -1,39 +1,41 @@
 import React from "react";
-import { useWallet } from "@/lib/walletContext";
+import { useConnect, useAccount } from "wagmi";
 
 export default function Wallet() {
-  const { isConnected, connectWallet, disconnectWallet } = useWallet();
+  const { connect, connectors, error, isLoading, pendingConnector } =
+    useConnect();
 
   const handleDisconnect = () => {
-    disconnectWallet();
+    // Disconnect logic if needed
   };
 
-  const handleAuth = () => {
-    connectWallet();
+  const handleConnect = (connector: any) => {
+    connect({ connector });
   };
 
-  // Return the component based on state
-  if (isConnected) {
-    return (
-      <div>
+  const { isConnected } = useAccount();
+
+  return (
+    <div>
+      {connectors.map((connector) => (
         <button
-          className={`bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold wallet-button`}
-          onClick={handleDisconnect}
+          key={connector.id}
+          onClick={() => handleConnect(connector)}
+          disabled={!connector.ready}
         >
-          Disconnect
+          {connector.name}
+          {!connector.ready && " (unsupported)"}
+          {isLoading &&
+            connector.id === pendingConnector?.id &&
+            " (connecting)"}
         </button>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <button
-          className={`bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold wallet-button`}
-          onClick={handleAuth}
-        >
-          Connect wallet
-        </button>
-      </div>
-    );
-  }
+      ))}
+
+      {isConnected && (
+        <div>
+          <button onClick={handleDisconnect}>Disconnect</button>
+        </div>
+      )}
+    </div>
+  );
 }
