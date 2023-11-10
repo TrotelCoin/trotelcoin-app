@@ -7,7 +7,6 @@ import { poppins } from "@/app/ui/fonts";
 import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
 import Banner from "@/app/ui/interface/banner";
-import { WalletProvider } from "@/lib/walletContext";
 import { Analytics } from "@vercel/analytics/react";
 
 // Define metadata for the document
@@ -65,30 +64,28 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Use Suspense for loading fallback */}
       <Wagmi>
-        <WalletProvider>
-          <Suspense fallback={<Loading></Loading>}>
-            {/* Set the body class for dark mode */}
-            <body
-              className={`bg-white dark:bg-black ${poppins.className} antialiased`}
-            >
-              <NextTopLoader
-                color="#3b82f6"
-                initialPosition={0.08}
-                crawlSpeed={200}
-                height={3}
-                crawl={true}
-                showSpinner={false}
-                easing="ease"
-                speed={200}
-                shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-              />
-              <Banner />
-              <Header />
-              <main className="mx-10 lg:mx-32 my-10">{children}</main>
-              <Analytics />
-            </body>
-          </Suspense>
-        </WalletProvider>
+        <Suspense fallback={<Loading></Loading>}>
+          {/* Set the body class for dark mode */}
+          <body
+            className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+          >
+            <NextTopLoader
+              color="#3b82f6"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={3}
+              crawl={true}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+              shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+            />
+            <Banner />
+            <Header />
+            <main className="mx-10 lg:mx-32 my-10">{children}</main>
+            <Analytics />
+          </body>
+        </Suspense>
       </Wagmi>
     </html>
   );
