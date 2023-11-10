@@ -6,6 +6,7 @@ import {
   useContractRead,
   useContractWrite,
   usePrepareContractWrite,
+  useContractEvent,
 } from "wagmi";
 import "animate.css";
 import govTrotelCoinABI from "@/abi/govTrotelCoin";
@@ -14,7 +15,6 @@ import govTrotelStakingABI from "@/abi/govTrotelStaking";
 import { bsc } from "wagmi/chains";
 import { parseEther, Hash } from "viem";
 import useDebounce from "@/utils/useDebounce";
-import Cookies from "js-cookie";
 
 const TrotelCoinAddress = "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5";
 const GovTrotelCoinAddress = "0x136f0DaF88F78F48B961f805dfAcaDD1DEfaFB92";
@@ -27,6 +27,7 @@ export default function Governance() {
   const [userAddress, setUserAddress] = useState<string>("");
   const [informationMessage, setInformationMessage] = useState<string>("");
   const debouncedValue: string = useDebounce(inputValue, 500);
+  const [eventsList, setEventsList] = useState<any[]>([]);
 
   const handleInputValue = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
@@ -171,6 +172,36 @@ export default function Governance() {
     isLoading: claimRewardsLoading,
     isError: claimRewardsError,
   } = useContractWrite(claimRewardsConfig);
+
+  useContractEvent({
+    address: GovTrotelStakingAddress as Hash,
+    abi: govTrotelStakingABI,
+    eventName: "Staked",
+    chainId: bsc.id,
+    listener(log: any) {
+      setEventsList((prevEvents: any) => [...prevEvents, log]);
+    },
+  });
+
+  useContractEvent({
+    address: GovTrotelStakingAddress as Hash,
+    abi: govTrotelStakingABI,
+    eventName: "Withdrawn",
+    chainId: bsc.id,
+    listener(log: any) {
+      setEventsList((prevEvents: any) => [...prevEvents, log]);
+    },
+  });
+
+  useContractEvent({
+    address: GovTrotelStakingAddress as Hash,
+    abi: govTrotelStakingABI,
+    eventName: "RewardsClaimed",
+    chainId: bsc.id,
+    listener(log: any) {
+      setEventsList((prevEvents: any) => [...prevEvents, log]);
+    },
+  });
 
   useEffect(() => {
     if (!approveLoading && !stakeLoading && !withdrawLoading) {
@@ -561,10 +592,24 @@ export default function Governance() {
           </div>
         </div>
         <div className="animate__animated animate__fadeIn">
-          <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
-            Staking logs
-          </h2>
-          <div className="mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 rounded-lg"></div>
+          {eventsList.length > 0 ? (
+            <>
+              <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
+                Staking logs
+              </h2>
+              <div className="mt-4 bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 rounded-lg">
+                <ul>
+                  {eventsList.map((event, index) => (
+                    <li key={index} className="mb-4">
+                      <p className="font-semibold">Event Name: {event.event}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
