@@ -26,6 +26,12 @@ export default function Governance() {
   const [informationMessage, setInformationMessage] = useState<string | null>(
     null
   );
+  const [totalLocked, setTotalLocked] = useState<number>(0);
+  const [totalSupply, setTotalSupply] = useState<number>(0);
+  const [govBalance, setGovBalance] = useState<number>(0);
+  const [govRewards, setGovRewards] = useState<number>(0);
+  const [stakingBalance, setStakingBalance] = useState<number>(0);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
   const debouncedValue: string = useDebounce(inputValue, 500);
 
   const handleInputValue = (e: { target: { value: string } }) => {
@@ -34,43 +40,47 @@ export default function Governance() {
 
   const { address: userAddress, isConnected, isDisconnected } = useAccount();
 
-  const { data: totalLocked, isSuccess: totalLockedFetched } = useContractRead({
-    address: GovTrotelStakingAddress as Hash,
-    abi: govTrotelStakingABI,
-    chainId: bsc.id,
-    functionName: "getTotalStaked",
-    watch: true,
-  });
+  const { data: totalLockedData, isSuccess: totalLockedFetched } =
+    useContractRead({
+      address: GovTrotelStakingAddress as Hash,
+      abi: govTrotelStakingABI,
+      chainId: bsc.id,
+      functionName: "getTotalStaked",
+      watch: true,
+    });
 
-  const { data: totalSupply, isSuccess: totalSupplyFetched } = useContractRead({
-    address: GovTrotelCoinAddress as Hash,
-    abi: govTrotelCoinABI,
-    functionName: "getTotalSupply",
-    chainId: bsc.id,
-    watch: true,
-  });
+  const { data: totalSupplyData, isSuccess: totalSupplyFetched } =
+    useContractRead({
+      address: GovTrotelCoinAddress as Hash,
+      abi: govTrotelCoinABI,
+      functionName: "getTotalSupply",
+      chainId: bsc.id,
+      watch: true,
+    });
 
-  const { data: govBalance, isSuccess: govBalanceFetched } = useContractRead({
-    address: GovTrotelCoinAddress as Hash,
-    abi: govTrotelCoinABI,
-    functionName: "balanceOf",
-    chainId: bsc.id,
-    watch: true,
-    args: [userAddress as Hash],
-    enabled: Boolean(userAddress),
-  });
+  const { data: govBalanceData, isSuccess: govBalanceFetched } =
+    useContractRead({
+      address: GovTrotelCoinAddress as Hash,
+      abi: govTrotelCoinABI,
+      functionName: "balanceOf",
+      chainId: bsc.id,
+      watch: true,
+      args: [userAddress as Hash],
+      enabled: Boolean(userAddress),
+    });
 
-  const { data: govRewards, isSuccess: govRewardsFetched } = useContractRead({
-    address: GovTrotelStakingAddress as Hash,
-    abi: govTrotelStakingABI,
-    functionName: "calculateRewards",
-    chainId: bsc.id,
-    watch: true,
-    args: [userAddress as Hash],
-    enabled: Boolean(userAddress),
-  });
+  const { data: govRewardsData, isSuccess: govRewardsFetched } =
+    useContractRead({
+      address: GovTrotelStakingAddress as Hash,
+      abi: govTrotelStakingABI,
+      functionName: "calculateRewards",
+      chainId: bsc.id,
+      watch: true,
+      args: [userAddress as Hash],
+      enabled: Boolean(userAddress),
+    });
 
-  const { data: stakingBalance, isSuccess: stakingBalanceFetched } =
+  const { data: stakingBalanceData, isSuccess: stakingBalanceFetched } =
     useContractRead({
       address: GovTrotelStakingAddress as Hash,
       abi: govTrotelStakingABI,
@@ -81,7 +91,7 @@ export default function Governance() {
       enabled: Boolean(userAddress),
     });
 
-  const { data: timeLeft, isSuccess: timeLeftFetched } = useContractRead({
+  const { data: timeLeftData, isSuccess: timeLeftFetched } = useContractRead({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     functionName: "getTimeUntilWithdrawal",
@@ -171,6 +181,42 @@ export default function Governance() {
     isLoading: claimRewardsLoading,
     isError: claimRewardsError,
   } = useContractWrite(claimRewardsConfig);
+
+  useEffect(() => {
+    if (totalLockedFetched)
+      setTotalLocked(parseFloat(totalLockedData?.toString() as string) * 1e-18);
+    if (totalSupplyFetched)
+      setTotalSupply(parseFloat(totalSupplyData?.toString() as string) * 1e-18);
+    if (govBalanceFetched)
+      setGovBalance(parseFloat(govBalanceData?.toString() as string) * 1e-18);
+    if (govRewardsFetched)
+      setGovRewards(parseFloat(govRewardsData?.toString() as string) * 1e-18);
+    if (stakingBalanceFetched)
+      setStakingBalance(
+        parseFloat(stakingBalanceData?.toString() as string) * 1e-18
+      );
+    if (timeLeftFetched)
+      setTimeLeft(parseFloat(timeLeftData?.toString() as string));
+  }, [
+    totalLockedFetched,
+    totalSupplyFetched,
+    govBalanceFetched,
+    govRewardsFetched,
+    stakingBalanceFetched,
+    timeLeftFetched,
+    totalLocked,
+    totalSupply,
+    govBalance,
+    govRewards,
+    stakingBalance,
+    timeLeft,
+    totalLockedData,
+    totalSupplyData,
+    govBalanceData,
+    govRewardsData,
+    stakingBalanceData,
+    timeLeftData,
+  ]);
 
   useEffect(() => {
     if (!approveLoading && !stakeLoading && !withdrawLoading) {
@@ -356,11 +402,7 @@ export default function Governance() {
         <div className="grid grid-cols-2 md:grid-cols-4 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!totalSupplyFetched
-                ? "0"
-                : (
-                    parseFloat(totalSupply?.toString() as string) * 1e-18
-                  ).toFixed(2)}
+              {totalSupply.toFixed(2)}
             </h2>
             <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
               govTROTEL minted
@@ -368,11 +410,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!totalLockedFetched
-                ? "0"
-                : (
-                    parseFloat(totalLocked?.toString() as string) * 1e-18
-                  ).toFixed(0)}
+              {totalLocked.toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
               TROTEL locked
@@ -405,11 +443,7 @@ export default function Governance() {
         <div className="grid grid-cols-2 md:grid-cols-4 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!stakingBalanceFetched || isDisconnected
-                ? "0"
-                : (
-                    parseFloat(stakingBalance?.toString() as string) * 1e-18
-                  ).toFixed(0)}
+              {isDisconnected ? "0" : stakingBalance.toFixed(0)}
             </h2>
             <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
               TROTEL
@@ -417,12 +451,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!govRewardsFetched || !govBalanceFetched || isDisconnected
-                ? "0"
-                : (
-                    parseFloat(govRewards?.toString() as string) * 1e-18 -
-                    parseFloat(govBalance?.toString() as string) * 1e-18
-                  ).toFixed(2)}
+              {isDisconnected ? "0" : (govRewards - govBalance).toFixed(2)}
             </h2>
             <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
               govTROTEL Rewards
@@ -430,11 +459,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!govBalanceFetched || isDisconnected
-                ? "0"
-                : (
-                    parseFloat(govBalance?.toString() as string) * 1e-18
-                  ).toFixed(2)}
+              {isDisconnected ? "0" : govBalance.toFixed(2)}
             </h2>
             <p className="text-center text-xs md:text-base text-gray-900 dark:text-gray-100">
               govTROTEL Balance
@@ -442,7 +467,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {!timeLeftFetched || isDisconnected
+              {isDisconnected
                 ? "0"
                 : formatNumber(
                     convertTimeToHours(
@@ -554,13 +579,9 @@ export default function Governance() {
               {warningMessage}
             </span>
           )}
-          {successClaimRewards && govBalance !== null && (
+          {successClaimRewards && (
             <span className="animate__animated animate__fadeIn text-green-600 dark:text-green-200">
-              You claimed{" "}
-              {(parseFloat(govBalance?.toString() as string) * 1e-18).toFixed(
-                2
-              )}{" "}
-              govTrotelCoin !
+              You claimed {govBalance.toFixed(2)} govTrotelCoin !
             </span>
           )}
           {warningMessage && warningMessage !== "Transaction error!" && (
