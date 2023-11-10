@@ -227,10 +227,10 @@ export default function Governance() {
   }, [approveLoading, stakeLoading, warningMessage, withdrawLoading]);
 
   useEffect(() => {
-    if (approveError || stakeError || withdrawError) {
+    if (approveError || stakeError || withdrawError || claimRewardsError) {
       setWarningMessage("Transaction error!");
     }
-  }, [approveError, stakeError, withdrawError]);
+  }, [approveError, claimRewardsError, stakeError, withdrawError]);
 
   const handleApprove = () => {
     const fixedValue = debouncedValue == "" ? "0" : debouncedValue;
@@ -508,19 +508,11 @@ export default function Governance() {
               govTrotelCoin !
             </span>
           )}
-          {warningMessage !== "" &&
-            !approveError &&
-            !approveLoading &&
-            !withdrawError &&
-            !claimRewardsLoading &&
-            !claimRewardsError &&
-            !withdrawLoading &&
-            !stakeError &&
-            !stakeLoading && (
-              <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-                {warningMessage}
-              </span>
-            )}
+          {warningMessage !== "" && warningMessage !== "Transaction error!" && (
+            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+              {warningMessage}
+            </span>
+          )}
         </div>
         <h2 className="font-semibold mt-10 text-gray-900 dark:text-gray-100">
           Staking dashboard
