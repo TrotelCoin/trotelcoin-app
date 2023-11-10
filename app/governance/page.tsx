@@ -185,19 +185,21 @@ export default function Governance() {
     abi: govTrotelStakingABI,
     eventName: "Staked",
     chainId: bsc.id,
-    listener(log: any) {
-      console.log(log);
-      setEventsList((prevEvents: any) => [...prevEvents, log]);
+    listener(staked: any) {
+      console.log(staked);
+      setEventsList((prevEvents: any) => [...prevEvents, staked]);
     },
   });
+
+  console.log(eventsList);
 
   useContractEvent({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
     eventName: "Withdrawn",
     chainId: bsc.id,
-    listener(log: any) {
-      setEventsList((prevEvents: any) => [...prevEvents, log]);
+    listener(withdraw: any) {
+      setEventsList((prevEvents: any) => [...prevEvents, withdraw]);
     },
   });
 
@@ -206,8 +208,8 @@ export default function Governance() {
     abi: govTrotelStakingABI,
     eventName: "RewardsClaimed",
     chainId: bsc.id,
-    listener(log: any) {
-      setEventsList((prevEvents: any) => [...prevEvents, log]);
+    listener(rewardsClaimed: any) {
+      setEventsList((prevEvents: any) => [...prevEvents, rewardsClaimed]);
     },
   });
 
@@ -610,7 +612,9 @@ export default function Governance() {
                 <ul>
                   {eventsList.map((event, index) => (
                     <li key={index} className="mb-4">
-                      <p className="font-semibold">Event Name: {event.event}</p>
+                      <p className="font-semibold">
+                        Event Name: {event.user} just staked {event.amount} !
+                      </p>
                     </li>
                   ))}
                 </ul>
