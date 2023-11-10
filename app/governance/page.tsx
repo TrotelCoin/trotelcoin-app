@@ -179,6 +179,7 @@ export default function Governance() {
     eventName: "Staked",
     chainId: bsc.id,
     listener(log: any) {
+      console.log(log);
       setEventsList((prevEvents: any) => [...prevEvents, log]);
     },
   });
