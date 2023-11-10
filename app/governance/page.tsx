@@ -180,6 +180,10 @@ export default function Governance() {
     isError: claimRewardsError,
   } = useContractWrite(claimRewardsConfig);
 
+  // test
+
+  const [stakingEvent, setStakingEvent] = useState<any>();
+
   useContractEvent({
     address: GovTrotelStakingAddress as Hash,
     abi: govTrotelStakingABI,
@@ -187,11 +191,14 @@ export default function Governance() {
     chainId: bsc.id,
     listener(staked: any) {
       console.log(staked);
+      setStakingEvent(staked);
       setEventsList((prevEvents: any) => [...prevEvents, staked]);
     },
   });
 
-  console.log(eventsList);
+  console.log(stakingEvent);
+
+  // test end
 
   useContractEvent({
     address: GovTrotelStakingAddress as Hash,
