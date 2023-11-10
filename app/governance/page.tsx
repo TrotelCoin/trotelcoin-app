@@ -540,7 +540,7 @@ export default function Governance() {
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-xl md:text-6xl text-blue-600 dark:text-blue-200">
-              {govBalance === undefined || govTrotelCoinBalance === undefined
+              {govRewards === undefined || govTrotelCoinBalance === undefined
                 ? "0"
                 : (
                     parseFloat(govRewards?.toString() as string) * 1e-18 -
