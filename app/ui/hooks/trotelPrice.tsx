@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const TrotelPrice = () => {
   const [tokenPrice, setTokenPrice] = useState<number | null>(null);
-  const [isError, setIsError] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const fetchTokenPrice = async () => {
@@ -12,9 +12,8 @@ const TrotelPrice = () => {
         });
         const data = await response.json();
         setTokenPrice(data.tokenPrice);
-        setIsError(false);
       } catch (error) {
-        setIsError(true);
+        setError("Error fetching token price.");
         console.error("Error fetching token price:", error);
       }
     };
@@ -22,7 +21,13 @@ const TrotelPrice = () => {
     fetchTokenPrice();
   }, []);
 
-  return isError ? <span>$0.000</span> : <span>${tokenPrice?.toFixed(3)}</span>;
+  return error ? (
+    <span className="animate-pulse">$0.000</span>
+  ) : tokenPrice ? (
+    <span>${tokenPrice?.toFixed(3)}</span>
+  ) : (
+    <span className="animate-pulse">$0.000</span>
+  );
 };
 
 export default TrotelPrice;
