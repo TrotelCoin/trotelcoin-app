@@ -16,9 +16,15 @@ export const metadata = {
 };
 
 // Define the main Document component
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+  lang,
+}: {
+  children: React.ReactNode;
+  lang: string;
+}) {
   return (
-    <html>
+    <html lang={lang}>
       <head>
         <title>{metadata.title}</title>
         {/* Set metadata for SEO */}
