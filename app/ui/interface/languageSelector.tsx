@@ -17,7 +17,7 @@ const LanguageSelector = () => {
   return (
     <Menu as="div" className="relative inline-block text-center">
       <div>
-        <Menu.Button className="inline-flex font-semibold justify-center items-center text-sm text-gray-900 dark:text-gray-100">
+        <Menu.Button className="inline-flex font-semibold justify-center items-center text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300">
           Language
         </Menu.Button>
       </div>
