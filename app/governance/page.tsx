@@ -400,7 +400,7 @@ export default function Governance() {
           Statistics
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalSupply.toFixed(2)}
             </h2>
@@ -408,7 +408,7 @@ export default function Governance() {
               govTROTEL minted
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               {totalLocked.toFixed(0)}
             </h2>
@@ -416,7 +416,7 @@ export default function Governance() {
               TROTEL locked
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               100%
             </h2>
@@ -441,7 +441,7 @@ export default function Governance() {
           My dashboard
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 justify-evenly sm:justify-start mt-4 items-center gap-4 w-full">
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               {isDisconnected ? "0" : stakingBalance.toFixed(0)}
             </h2>
@@ -449,7 +449,7 @@ export default function Governance() {
               TROTEL
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               {isDisconnected ? "0" : (govRewards - govBalance).toFixed(2)}
             </h2>
@@ -457,7 +457,7 @@ export default function Governance() {
               govTROTEL Rewards
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               {isDisconnected ? "0" : govBalance.toFixed(2)}
             </h2>
@@ -465,7 +465,7 @@ export default function Governance() {
               govTROTEL Balance
             </p>
           </div>
-          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
+          <div className="flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50">
             <h2 className="font-semibold text-4xl md:text-6xl text-blue-600 dark:text-blue-200">
               {isDisconnected
                 ? "0"
@@ -486,13 +486,13 @@ export default function Governance() {
         <div className="flex flex-col mt-4 gap-6 max-w-xl">
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             <input
-              className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+              className="block px-4 py-2 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-lg bg-gray-50 dark:bg-slate-800 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
               placeholder="Amount"
               onChange={handleInputValue}
             ></input>
             {!successApprove && (
               <button
-                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-slate-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleApprove}
               >
                 Approve
@@ -500,20 +500,20 @@ export default function Governance() {
             )}
             {successApprove && (
               <button
-                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+                className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-slate-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
                 onClick={handleStakeTransaction}
               >
                 Stake
               </button>
             )}
             <button
-              className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+              className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-slate-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
               onClick={handleWithdraw}
             >
               Withdraw
             </button>
             <button
-              className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-900 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
+              className="border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-slate-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-lg font-semibold"
               onClick={handleClaimRewards}
             >
               Claim
@@ -529,7 +529,7 @@ export default function Governance() {
               Transaction is pending...
             </span>
           )}
-          {approveError && warningMessage && (
+          {approveError && warningMessage === "Transaction error!" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               {warningMessage}
             </span>
@@ -544,7 +544,7 @@ export default function Governance() {
               Transaction is pending...
             </span>
           )}
-          {stakeError && warningMessage && (
+          {stakeError && warningMessage === "Transaction error!" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               {warningMessage}
             </span>
@@ -559,7 +559,7 @@ export default function Governance() {
               Transaction is pending...
             </span>
           )}
-          {withdrawError && warningMessage && (
+          {withdrawError && warningMessage === "Transaction error!" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               {warningMessage}
             </span>
@@ -574,7 +574,7 @@ export default function Governance() {
               Transaction is pending...
             </span>
           )}
-          {claimRewardsError && warningMessage && (
+          {claimRewardsError && warningMessage === "Transaction error!" && (
             <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
               {warningMessage}
             </span>

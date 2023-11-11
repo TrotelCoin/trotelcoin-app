@@ -11,6 +11,7 @@ import { usePathname } from "next/navigation";
 import TrotelPrice from "@/app/ui/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/ui/hooks/trotelPriceChange";
 import TrotelBalance from "@/app/ui/hooks/trotelBalance";
+import ThemeSwitcher from "@/app/ui/interface/themeSelector";
 
 // Define types for navigation items and header props
 interface NavigationItem {
@@ -90,10 +91,12 @@ const Header = () => {
             <TrotelBalance /> TROTEL
           </span>
           <Wallet />
+          <ThemeSwitcher />
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex lg:hidden">
+        <div className="flex gap-4 items-center lg:hidden">
+          <ThemeSwitcher />
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"

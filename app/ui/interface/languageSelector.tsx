@@ -35,7 +35,7 @@ const LanguageSelector = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white dark:bg-gray-900 border border-black dark:border-transparent focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white dark:bg-slate-800 border border-black dark:border-transparent focus:outline-none">
           <div className="divide-y-2 divide-gray-900 dark:divide-gray-700">
             <Menu.Item>
               {({ active }) => (
