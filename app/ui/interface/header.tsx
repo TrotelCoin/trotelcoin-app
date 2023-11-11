@@ -12,6 +12,7 @@ import TrotelPrice from "@/app/ui/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/ui/hooks/trotelPriceChange";
 import TrotelBalance from "@/app/ui/hooks/trotelBalance";
 import ThemeSwitcher from "@/app/ui/interface/themeSelector";
+import LanguageSelector from "./languageSelector";
 
 // Define types for navigation items and header props
 interface NavigationItem {
@@ -63,7 +64,7 @@ const Header = () => {
             {<TrotelPrice />}
           </p>
           {<TrotelPriceChange />}
-          <span className="hidden lg:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
+          <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
             <span className="animate-pulse">alpha version</span>
           </span>
         </div>
@@ -86,17 +87,25 @@ const Header = () => {
         </div>
 
         {/* Right section with Wallet component */}
-        <div className="hidden sm:flex flex-1 items-center justify-end gap-x-6">
-          <span className="font-semibold text-gray-900 dark:text-gray-100">
-            <TrotelBalance /> TROTEL
-          </span>
-          <Wallet />
-          <ThemeSwitcher />
+        <div className="hidden md:flex justify-end flex-1 items-center divide-x divide-double divide-gray-900/10 dark:divide-gray-100/30">
+          <div className="items-center flex pr-6 gap-x-4">
+            <span className="font-semibold text-gray-900 dark:text-gray-100">
+              <TrotelBalance /> TROTEL
+            </span>
+            <Wallet />
+          </div>
+          <div className="items-center flex pl-4 gap-x-4">
+            <LanguageSelector />
+            <ThemeSwitcher />
+          </div>
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex gap-4 items-center lg:hidden">
+        <div className="flex gap-4 items-center md:hidden">
           <ThemeSwitcher />
+          <div className="hidden sm:flex">
+            <LanguageSelector />
+          </div>
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"

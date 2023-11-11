@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <>
-        <form className="my-10">
+        <form className="my-20">
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
             What do you wanna learn?
           </label>
