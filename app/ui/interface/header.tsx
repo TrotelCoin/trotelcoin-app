@@ -44,7 +44,7 @@ const Header = () => {
     <header className="bg-white dark:bg-black">
       {/* Navigation */}
       <nav
-        className="mx-auto flex max-w-8xl items-center justify-between gap-x-16 p-6 lg:px-8"
+        className="mx-auto flex max-w-8xl items-center justify-between gap-x-8 md:gap-x-16 p-6 lg:px-8"
         aria-label="Global"
       >
         {/* Left section with logo, Trotel price, and version */}
@@ -60,10 +60,11 @@ const Header = () => {
               ></Image>
             </Link>
           </div>
+
           <p className="font-semibold text-gray-900 dark:text-gray-100">
             {<TrotelPrice />}
           </p>
-          {<TrotelPriceChange />}
+          <div className="hidden sm:block">{<TrotelPriceChange />}</div>
           <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
             <span className="animate-pulse">alpha version</span>
           </span>
@@ -103,9 +104,7 @@ const Header = () => {
         {/* Mobile menu button */}
         <div className="flex gap-4 items-center md:hidden">
           <ThemeSwitcher />
-          <div className="hidden sm:flex">
-            <LanguageSelector />
-          </div>
+          <LanguageSelector />
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
