@@ -33,16 +33,18 @@ const LanguageSelector = () => {
       >
         <Menu.Items className="origin-top-right rounded-lg absolute z-50 right-0 mt-4 w-40 shadow bg-white dark:bg-slate-800 ring-1 ring-gray-900/10 dark:ring-gray-100/10 focus:outline-none">
           <div className="divide-y divide-gray-900/10 dark:divide-gray-100/10">
-            {languages.map((language) => (
+            {languages.map((language, index) => (
               <Menu.Item key={language.code}>
                 {({ active }) => (
                   <button
                     onClick={() => onChangeLanguage(language)}
                     className={`${
                       active
-                        ? "bg-gray-100 text-gray-900 dark:text-gray-100"
+                        ? "bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-gray-100"
                         : "text-gray-700 dark:text-gray-300"
-                    } block px-4 py-2 text-sm w-full text-left`}
+                    } block px-4 py-2 text-sm w-full text-left ${
+                      index === 0 ? "rounded-t-lg" : ""
+                    } ${index === languages.length - 1 ? "rounded-b-lg" : ""}`}
                   >
                     {language.label}
                   </button>

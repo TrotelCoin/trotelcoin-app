@@ -48,14 +48,18 @@ export default function Wallet() {
                 >
                   <Menu.Items
                     static
-                    className="absolute divide-y divide-gray-900/10 dark:divide-gray-100/10 mt-4 left-0 bg-white dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 rounded-lg"
+                    className="absolute divide-y divide-gray-900/10 dark:divide-gray-100/10 mt-4 right-0 bg-white dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10 rounded-lg"
                   >
-                    {connectors.map((connector) => (
+                    {connectors.map((connector, index) => (
                       <Menu.Item key={connector.id}>
                         {({ active }) => (
                           <button
                             className={`block w-full px-4 py-2 text-left text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-slate-700 ${
                               !connector.ready ? "cursor-not-allowed" : ""
+                            } ${index === 0 ? "rounded-t-lg" : ""} ${
+                              index === connectors.length - 1
+                                ? "rounded-b-lg"
+                                : ""
                             }`}
                             onClick={() => {
                               handleConnect(connector);
