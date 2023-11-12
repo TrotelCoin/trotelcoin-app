@@ -1,26 +1,19 @@
 import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useState("system");
 
   useEffect(() => {
-    const storedTheme = Cookies.get("theme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    } else {
-      const prefersDarkMode = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setTheme(prefersDarkMode ? "dark" : "light");
-    }
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    setTheme(prefersDarkMode ? "dark" : "light");
   }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    Cookies.set("theme", newTheme, { expires: 365 });
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    document.documentElement.setAttribute("data-theme", newTheme);
   };
 
   return (
