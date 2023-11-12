@@ -18,7 +18,7 @@ const ThemeSwitcher = () => {
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
   };
 
   return (
