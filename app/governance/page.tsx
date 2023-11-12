@@ -227,7 +227,7 @@ export default function Governance() {
     }
 
     const timeout = setTimeout(() => {
-      setInformationMessage("");
+      setInformationMessage(null);
     }, 5000);
 
     return () => clearTimeout(timeout);
@@ -584,11 +584,16 @@ export default function Governance() {
               You claimed {govBalance.toFixed(2)} govTrotelCoin !
             </span>
           )}
-          {warningMessage && warningMessage !== "Transaction error!" && (
-            <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
-              {warningMessage}
-            </span>
-          )}
+          {warningMessage &&
+            warningMessage !== "Transaction error!" &&
+            !approveError &&
+            !claimRewardsError &&
+            !stakeError &&
+            !withdrawError && (
+              <span className="animate__animated animate__fadeIn text-red-600 dark:text-red-200">
+                {warningMessage}
+              </span>
+            )}
         </div>
       </div>
     </>
