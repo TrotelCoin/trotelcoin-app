@@ -2,18 +2,12 @@ import { useEffect, useState } from "react";
 
 const ThemeSwitcher = () => {
   const [theme, setTheme] = useState("system");
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  useEffect(() => {
-    const prefersDarkMode = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setTheme(prefersDarkMode ? "dark" : "light");
-    if (!isLoaded) {
-      document.documentElement.classList.toggle("dark", theme === "dark");
-    }
-    setIsLoaded(true);
-  }, [isLoaded, theme]);
+  const prefersDarkMode = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches;
+  setTheme(prefersDarkMode ? "dark" : "light");
+  document.documentElement.classList.toggle("dark", theme === "dark");
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
