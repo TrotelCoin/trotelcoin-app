@@ -429,7 +429,7 @@ export default function Governance() {
           Follow this link to{" "}
           <a
             target="_blank"
-            href="https://vote.trotelcoin.com"
+            href="https://vote.trotelcoin.com/#/alexandretrotel.eth"
             className="underline text-blue-600 dark:text-blue-200 hover:underline hover:text-blue-600/80 dark:hover:text-blue-200/80"
           >
             vote
