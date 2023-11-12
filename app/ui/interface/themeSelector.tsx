@@ -8,12 +8,13 @@ const ThemeSwitcher = () => {
       "(prefers-color-scheme: dark)"
     ).matches;
     setTheme(prefersDarkMode ? "dark" : "light");
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    document.documentElement.classList.toggle("dark", theme === "dark");
   };
 
   return (
