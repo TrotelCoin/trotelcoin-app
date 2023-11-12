@@ -1,4 +1,5 @@
 // Import necessary modules and components
+
 import React, { Suspense } from "react";
 import "@/app/globals.css";
 import Loading from "@/app/ui/interface/loading";
@@ -8,6 +9,7 @@ import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
 import Banner from "@/app/ui/interface/banner";
 import { Analytics } from "@vercel/analytics/react";
+import IntractParam from "@/app/intract";
 
 // Define metadata for the document
 export const metadata = {
@@ -70,28 +72,31 @@ export default function Layout({
 
       {/* Use Suspense for loading fallback */}
       <Wagmi>
-        <Suspense fallback={<Loading></Loading>}>
-          {/* Set the body class for dark mode */}
-          <body
-            className={`bg-white dark:bg-black ${poppins.className} antialiased`}
-          >
-            <NextTopLoader
-              color="#3b82f6"
-              initialPosition={0.08}
-              crawlSpeed={200}
-              height={3}
-              crawl={true}
-              showSpinner={false}
-              easing="ease"
-              speed={200}
-              shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-            />
-            <Banner />
-            <Header />
-            <main className="mx-10 lg:mx-32 my-10">{children}</main>
-            <Analytics />
-          </body>
-        </Suspense>
+        <IntractParam>
+          {" "}
+          <Suspense fallback={<Loading></Loading>}>
+            {/* Set the body class for dark mode */}
+            <body
+              className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+            >
+              <NextTopLoader
+                color="#3b82f6"
+                initialPosition={0.08}
+                crawlSpeed={200}
+                height={3}
+                crawl={true}
+                showSpinner={false}
+                easing="ease"
+                speed={200}
+                shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+              />
+              <Banner />
+              <Header />
+              <main className="mx-10 lg:mx-32 my-10">{children}</main>
+              <Analytics />
+            </body>
+          </Suspense>
+        </IntractParam>
       </Wagmi>
     </html>
   );
