@@ -90,7 +90,7 @@ const Header = () => {
         {/* Right section with Wallet component */}
         <div className="hidden md:flex justify-end flex-1 items-center divide-x divide-double divide-gray-900/10 dark:divide-gray-100/30">
           <div className="items-center pr-6 gap-x-4">
-            <span className="font-semibold text-gray-900 dark:text-gray-100 hidden xl:block">
+            <span className="font-semibold text-gray-900 dark:text-gray-100 hidden 2xl:flex">
               <TrotelBalance /> TROTEL
             </span>
             <Wallet />
