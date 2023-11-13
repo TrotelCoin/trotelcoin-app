@@ -7,17 +7,6 @@ export default function TrotelBalance() {
   // Get the Ethereum address using the getAccount function
   const { address } = useAccount();
 
-  function format(number: string): string {
-    const numberFixed = parseFloat(number).toFixed(0).toString();
-
-    const formattedNumber: string = numberFixed.replace(
-      /\B(?=(\d{3})+(?!\d))/g,
-      " "
-    );
-
-    return formattedNumber;
-  }
-
   try {
     // Use the useBalance hook to fetch the balance data
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -39,7 +28,7 @@ export default function TrotelBalance() {
     let balance = (data?.formatted as string) ?? "0";
 
     // Parse the balance value to a whole number, format it as a string, and wrap it within <></> (JSX fragment)
-    return <>{format(parseFloat(balance).toFixed(0))}</>;
+    return <>{parseFloat(balance).toFixed(0)}</>;
   } catch (error) {
     console.log("An error occurred", error); // Log any errors that occur
     return <span className="animate-pulse">0</span>; // Return "0" with a CSS animation (pulse)
