@@ -15,7 +15,7 @@ export default async function handler(
     const response = await Moralis.EvmApi.token.getTokenPrice({
       chain: "0x38",
       include: "percent_change",
-      address: "0xf04ab1a43cba1474160b7b8409387853d7be02d5",
+      address: "0x2275059f310e31c2f43b24a9932882196659e1c4",
     });
 
     const tokenPrice = response.raw.usdPrice;

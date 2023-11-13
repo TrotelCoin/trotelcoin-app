@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { bsc } from "wagmi/chains";
+import { polygon } from "wagmi/chains";
 import { WagmiConfig, createConfig } from "wagmi";
 import { configureChains } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
@@ -10,7 +10,6 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { SafeConnector } from "wagmi/connectors/safe";
-import { LedgerConnector } from "wagmi/connectors/ledger";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -18,7 +17,7 @@ export const metadata = {
 };
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [bsc],
+  [polygon],
   [publicProvider()]
 );
 
@@ -26,7 +25,7 @@ const config = createConfig({
   autoConnect: false,
   connectors: [
     new SafeConnector({
-      chains: [bsc],
+      chains: [polygon],
       options: {
         allowedDomains: [
           /gnosis-safe.io$/,
@@ -37,25 +36,25 @@ const config = createConfig({
       },
     }),
     new MetaMaskConnector({
-      chains: [bsc],
+      chains: [polygon],
       options: {
         shimDisconnect: true,
       },
     }),
     new CoinbaseWalletConnector({
-      chains: [bsc],
+      chains: [polygon],
       options: {
         appName: "wagmi",
       },
     }),
     new WalletConnectConnector({
-      chains: [bsc],
+      chains: [polygon],
       options: {
         projectId: "b0d3d1eb9c28fb7899eba1cff830b2b1",
       },
     }),
     new InjectedConnector({
-      chains: [bsc],
+      chains: [polygon],
       options: {
         name: "Browser Wallet",
         shimDisconnect: true,

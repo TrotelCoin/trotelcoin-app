@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
-import { bsc } from "wagmi/chains";
+import { polygon } from "wagmi/chains";
 import { Menu, Transition } from "@headlessui/react";
 
 export default function Wallet() {
-  const { connect, connectors } = useConnect({ chainId: bsc.id });
+  const { connect, connectors } = useConnect({ chainId: polygon.id });
   const { disconnect } = useDisconnect();
   const { isConnected, isDisconnected, isConnecting } = useAccount();
 

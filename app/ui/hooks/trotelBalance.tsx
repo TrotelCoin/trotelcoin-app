@@ -1,6 +1,6 @@
 import { useBalance, useAccount } from "wagmi";
 import React from "react";
-import { bsc } from "wagmi/chains";
+import { polygon } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
 
 export default function TrotelBalance() {
@@ -24,7 +24,7 @@ export default function TrotelBalance() {
     const { data, isError, isLoading }: BalanceData = useBalance({
       address: address as `0x${string}`, // Convert address to the correct format
       token: "0xf04ab1a43cBA1474160B7B8409387853D7Be02d5", // Token address for TrotelCoin (TROTEL)
-      chainId: bsc.id,
+      chainId: polygon.id,
       watch: true,
       enabled: true,
     });
