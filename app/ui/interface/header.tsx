@@ -27,7 +27,7 @@ interface HeaderProps {
 // Define an array of navigation items
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Subscription", href: "/subscription" },
+  { name: "Premium", href: "/premium" },
   { name: "Account", href: "/account" },
 ];
 
