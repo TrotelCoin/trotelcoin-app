@@ -47,7 +47,7 @@ const TrotelPriceChange = () => {
 
   return error ? (
     <span className="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-200/20">
-      <span className="animate-pulse">0.00%</span>
+      <span className="animate-pulse">0%</span>
     </span>
   ) : tokenPriceChange ? (
     <span className={containerClass}>{`${sign}${tokenPriceChange.toFixed(
@@ -55,7 +55,7 @@ const TrotelPriceChange = () => {
     )}%`}</span>
   ) : (
     <span className="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-200/20">
-      <span className="animate-pulse">0.00%</span>
+      <span className="animate-pulse">0%</span>
     </span>
   );
 };

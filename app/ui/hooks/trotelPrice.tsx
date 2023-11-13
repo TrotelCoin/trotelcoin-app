@@ -23,11 +23,11 @@ const TrotelPrice = () => {
   }, []);
 
   return error ? (
-    <span className="animate-pulse">$0.000</span>
+    <span className="animate-pulse">$0</span>
   ) : tokenPrice ? (
     <span>${tokenPrice?.toFixed(5)}</span>
   ) : (
-    <span className="animate-pulse">$0.000</span>
+    <span className="animate-pulse">$0</span>
   );
 };
 
