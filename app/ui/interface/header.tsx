@@ -26,7 +26,7 @@ interface HeaderProps {
 
 // Define an array of navigation items
 const navigation = [
-  { name: "Home", href: "/" },
+  { name: "Home", href: "/home" },
   { name: "Premium", href: "/premium" },
   { name: "Account", href: "/account" },
 ];
@@ -50,7 +50,7 @@ const Header = () => {
         {/* Left section with logo, Trotel price, and version */}
         <div className="flex lg:flex-1 items-center gap-x-4">
           <div className="-m-1.5 p-1.5">
-            <Link href="/">
+            <Link href="/home">
               <Image
                 className="h-12 w-auto"
                 width={128}
@@ -126,7 +126,7 @@ const Header = () => {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
-              <Link href="/">
+              <Link href="/home">
                 <Image
                   className="h-12 w-auto"
                   width={128}
