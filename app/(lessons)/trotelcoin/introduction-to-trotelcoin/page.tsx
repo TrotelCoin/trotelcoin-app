@@ -3,7 +3,7 @@
 import Image from "next/image";
 import "animate.css";
 import { Course } from "@/types/types";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
@@ -25,6 +25,7 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const loadQuizData = async () => {
@@ -83,6 +84,7 @@ const CoursePage = () => {
     if (correctCount === correctAnswers.length) {
       setIsCorrect(true);
       setShowConfetti(true);
+      audioRef.current?.play();
     } else {
       setIsCorrect(false);
       setShowConfetti(false);
@@ -92,6 +94,11 @@ const CoursePage = () => {
 
   return (
     <>
+      <audio
+        ref={audioRef}
+        src="/audio/correct-answer.mp3"
+        className="hidden"
+      ></audio>
       <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
         Course
       </p>
