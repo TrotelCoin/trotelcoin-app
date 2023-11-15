@@ -25,6 +25,7 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
@@ -52,6 +53,12 @@ const CoursePage = () => {
 
     loadQuizData();
   }, []);
+
+  useEffect(() => {
+    if (audio) {
+      audioRef.current?.play();
+    }
+  }, [audio]);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -84,10 +91,11 @@ const CoursePage = () => {
     if (correctCount === correctAnswers.length) {
       setIsCorrect(true);
       setShowConfetti(true);
-      audioRef.current?.play();
+      setAudio(true);
     } else {
       setIsCorrect(false);
       setShowConfetti(false);
+      setAudio(false);
     }
     setShowMessage(true);
   };
