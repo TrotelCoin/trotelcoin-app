@@ -223,7 +223,7 @@ const CoursePage = () => {
                       className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
                         answers[currentQuestion] === option
                           ? "bg-blue-600 text-white"
-                          : "bg-white dark:bg-black text-gray-900 dark:text-gray-100 hover:"
+                          : "bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100"
                       }`}
                       onClick={() => handleAnswer(option)}
                     >
