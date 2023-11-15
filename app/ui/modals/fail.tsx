@@ -17,7 +17,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-slate-800/10 transition-opacity" />
+          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-slate-900/10 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
