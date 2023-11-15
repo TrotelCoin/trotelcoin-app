@@ -6,13 +6,13 @@ import { Dialog } from "@headlessui/react";
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Wallet from "@/app/ui/interface/wallet";
+import Wallet from "@/app/components/wallet";
 import { usePathname } from "next/navigation";
-import TrotelPrice from "@/app/ui/hooks/trotelPrice";
-import TrotelPriceChange from "@/app/ui/hooks/trotelPriceChange";
-import TrotelBalance from "@/app/ui/hooks/trotelBalance";
-import ThemeSwitcher from "@/app/ui/interface/themeSelector";
-import LanguageSelector from "./languageSelector";
+import TrotelPrice from "@/app/hooks/trotelPrice";
+import TrotelPriceChange from "@/app/hooks/trotelPriceChange";
+import TrotelBalance from "@/app/hooks/trotelBalance";
+import ThemeSwitcher from "@/app/components/themeSelector";
+import LanguageSelector from "@/app/components/languageSelector";
 
 // Define types for navigation items and header props
 interface NavigationItem {

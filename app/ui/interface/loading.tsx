@@ -1,11 +1,11 @@
-// Import the necessary React library
 import React from "react";
 
-// Define a Loading component
-export default function Loading() {
+const Loading = () => {
   return (
-    <body>
-      <span className="loading loading-dots loading-lg flex justify-center items-center h-screen m-auto"></span>
-    </body>
+    <div className="flex justify-center items-center h-screen">
+      <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 animate-spin"></div>
+    </div>
   );
-}
+};
+
+export default Loading;

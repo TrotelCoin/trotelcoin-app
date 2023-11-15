@@ -5,6 +5,15 @@ const nextConfig = {
     defaultLocale: "en",
     localeDetection: false,
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/home",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

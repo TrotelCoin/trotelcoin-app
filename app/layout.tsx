@@ -2,8 +2,8 @@
 
 import React, { Suspense } from "react";
 import "@/app/globals.css";
-import Loading from "@/app/ui/interface/loading";
 import NextTopLoader from "nextjs-toploader";
+import Loading from "@/app/ui/interface/loading";
 import { poppins } from "@/app/ui/fonts";
 import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
@@ -74,7 +74,7 @@ export default function Layout({
       <Wagmi>
         <IntractParam>
           {" "}
-          <Suspense fallback={<Loading></Loading>}>
+          <Suspense fallback={<Loading />}>
             {/* Set the body class for dark mode */}
             <body
               className={`bg-white dark:bg-black ${poppins.className} antialiased`}
