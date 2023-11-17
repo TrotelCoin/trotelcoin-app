@@ -11,16 +11,22 @@ export default function Banner() {
     setIsHidden(isBannerHidden === "true");
   }, []);
 
+  useEffect(() => {
+    if (isHidden === null) {
+      return;
+    }
+
+    localStorage.setItem("bannerHidden", String(isHidden));
+  }, [isHidden]);
+
   const handleCloseBanner = () => {
     setIsHidden(true);
-    localStorage.setItem("bannerHidden", "true");
   };
 
-  if (isHidden) {
+  if (isHidden === null || isHidden) {
     return null;
   }
 
-  // Render the banner component
   return (
     <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-950 dark:bg-white px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
       {/* First background shape */}
