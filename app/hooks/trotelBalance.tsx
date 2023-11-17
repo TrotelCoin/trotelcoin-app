@@ -19,10 +19,10 @@ export default function TrotelBalance() {
     });
 
     // If the data is still loading, return "0" within <></> (JSX fragment)
-    if (isLoading) return <span className="animate-pulse">0</span>;
+    if (isLoading) return <span className="animate-pulse">0 </span>;
 
     // If there is an error, return "0" within <></> (JSX fragment)
-    if (isError) return <span className="animate-pulse">0</span>;
+    if (isError) return <span className="animate-pulse">0 </span>;
 
     // Extract the balance value from the formatted data or default to "0"
     let balance = (data?.formatted as string) ?? "0";
@@ -31,6 +31,6 @@ export default function TrotelBalance() {
     return <>{parseFloat(balance).toFixed(0)}</>;
   } catch (error) {
     console.log("An error occurred", error); // Log any errors that occur
-    return <span className="animate-pulse">0</span>; // Return "0" with a CSS animation (pulse)
+    return <span className="animate-pulse">0 </span>; // Return "0" with a CSS animation (pulse)
   }
 }
