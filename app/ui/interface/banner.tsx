@@ -22,7 +22,9 @@ export default function Banner() {
   }
 
   if (typeof window !== "undefined") {
+    console.log(localStorage.getItem("bannerHidden"));
     if (localStorage.getItem("bannerHidden") === "true") {
+      console.log(localStorage.getItem("bannerHidden"));
       return null;
     }
   }
