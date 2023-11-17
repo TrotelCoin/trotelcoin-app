@@ -1,26 +1,22 @@
 "use client";
 
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Banner() {
-  // Define a state variable to control the visibility of the banner
   const [isHidden, setIsHidden] = useState(false);
 
-  // Function to close the banner when the button is clicked
+  useEffect(() => {
+    const isBannerHidden = localStorage.getItem("bannerHidden");
+    setIsHidden(isBannerHidden === "true");
+  }, []);
+
   const handleCloseBanner = () => {
     setIsHidden(true);
-
-    if (typeof window !== "undefined") {
-      localStorage.setItem("bannerHidden", "true");
-    }
+    localStorage.setItem("bannerHidden", "true");
   };
 
-  if (typeof window !== "undefined") {
-    if (localStorage.getItem("bannerHidden") === "true" || isHidden) {
-      return null;
-    }
-  } else if (isHidden) {
+  if (isHidden) {
     return null;
   }
 
