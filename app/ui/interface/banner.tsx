@@ -10,10 +10,11 @@ export default function Banner() {
   // Function to close the banner when the button is clicked
   const handleCloseBanner = () => {
     setIsHidden(true);
+    localStorage.setItem("bannerHidden", "true");
   };
 
   // If the banner is hidden (isHidden is true), return null to hide it
-  if (isHidden) {
+  if (isHidden || localStorage.getItem("bannerHidden") === "true") {
     return null;
   }
 
