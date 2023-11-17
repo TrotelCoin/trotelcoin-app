@@ -16,17 +16,12 @@ export default function Banner() {
     }
   };
 
-  // If the banner is hidden (isHidden is true), return null to hide it
-  if (isHidden) {
-    return null;
-  }
-
   if (typeof window !== "undefined") {
-    console.log(localStorage.getItem("bannerHidden"));
-    if (localStorage.getItem("bannerHidden") === "true") {
-      console.log(localStorage.getItem("bannerHidden"));
+    if (localStorage.getItem("bannerHidden") === "true" || isHidden) {
       return null;
     }
+  } else if (isHidden) {
+    return null;
   }
 
   // Render the banner component

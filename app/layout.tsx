@@ -58,15 +58,20 @@ export default function Layout({
         <meta charSet="UTF-8"></meta>
         <meta name="theme-color" content="#fff" />
         <meta name="apple-mobile-web-app-capable" content="yes"></meta>
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/assets/logo/trotelcoin.png"></link>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="manifest" href="/manifest.json" as="manifest" />
+        <link
+          rel="apple-touch-icon"
+          href="/assets/logo/trotelcoin.png"
+          as="image"
+        />
+        <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
 
         {/* Define Apple splash screen images for different devices */}
         <link
           href="/pwa-splash/iphone5_splash.png"
           media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
           rel="apple-touch-startup-image"
+          as="image"
         />
       </head>
 
