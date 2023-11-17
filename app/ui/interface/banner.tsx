@@ -10,7 +10,10 @@ export default function Banner() {
   // Function to close the banner when the button is clicked
   const handleCloseBanner = () => {
     setIsHidden(true);
-    localStorage.setItem("bannerHidden", "true");
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("bannerHidden", "true");
+    }
   };
 
   // If the banner is hidden (isHidden is true), return null to hide it
@@ -18,11 +21,12 @@ export default function Banner() {
     return null;
   }
 
-  if (typeof window === "undefined") {
+  if (typeof window !== "undefined") {
     if (localStorage.getItem("bannerHidden") === "true") {
       return null;
     }
   }
+
   // Render the banner component
   return (
     <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-950 dark:bg-white px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
