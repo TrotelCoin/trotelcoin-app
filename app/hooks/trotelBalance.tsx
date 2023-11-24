@@ -1,5 +1,5 @@
 import { useBalance, useAccount } from "wagmi";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { polygon } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
 
@@ -29,7 +29,9 @@ export default function TrotelBalance() {
   }
 
   // Extract the balance value from the formatted data or default to "0"
-  if (data?.formatted) setBalance(data?.formatted);
+  useEffect(() => {
+    if (data?.formatted) setBalance(data?.formatted);
+  }, [data]);
 
   // Parse the balance value to a whole number, format it as a string, and wrap it within <></> (JSX fragment)
   return <>{parseFloat(balance).toFixed(0)}</>;
