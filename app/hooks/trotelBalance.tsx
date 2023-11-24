@@ -7,7 +7,7 @@ export default function TrotelBalance() {
   const [balance, setBalance] = useState("0");
 
   // Get the Ethereum address using the getAccount function
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
 
   // Use the useBalance hook to fetch the balance data
   const { data, isError, isLoading }: BalanceData = useBalance({
@@ -32,6 +32,10 @@ export default function TrotelBalance() {
   useEffect(() => {
     if (data?.formatted) setBalance(data?.formatted);
   }, [data]);
+
+  if (!isConnected) {
+    setBalance("0");
+  }
 
   // Parse the balance value to a whole number, format it as a string, and wrap it within <></> (JSX fragment)
   return <>{parseFloat(balance).toFixed(0)}</>;
