@@ -23,7 +23,7 @@ const TrotelPrice = () => {
   }, []);
 
   useEffect(() => {
-    error ? setTokenPrice(0) : tokenPrice;
+    error ? setTokenPrice(0) : null;
   }, [error]);
 
   return <span>${tokenPrice?.toFixed(5)}</span>;
