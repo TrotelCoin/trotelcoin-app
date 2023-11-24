@@ -22,13 +22,11 @@ const TrotelPrice = () => {
     fetchTokenPrice();
   }, []);
 
-  return error ? (
-    <span className="animate-pulse">$0</span>
-  ) : tokenPrice ? (
-    <span>${tokenPrice?.toFixed(5)}</span>
-  ) : (
-    <span className="animate-pulse">$0</span>
-  );
+  useEffect(() => {
+    error ? setTokenPrice(0) : tokenPrice;
+  }, [error]);
+
+  return <span>${tokenPrice?.toFixed(5)}</span>;
 };
 
 export default TrotelPrice;
