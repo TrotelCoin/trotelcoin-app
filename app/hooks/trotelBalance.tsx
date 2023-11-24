@@ -18,24 +18,28 @@ export default function TrotelBalance() {
     enabled: true,
   });
 
-  // If the data is still loading, return "0" within <></> (JSX fragment)
-  if (isLoading) {
-    setBalance("0");
-  }
+  useEffect(() => {
+    // If the data is still loading, return "0" within <></> (JSX fragment)
+    if (isLoading) {
+      setBalance("0");
+    }
 
-  // If there is an error, return "0" within <></> (JSX fragment)
-  if (isError) {
-    setBalance("0");
-  }
+    // If there is an error, return "0" within <></> (JSX fragment)
+    if (isError) {
+      setBalance("0");
+    }
+
+    if (!isConnected) {
+      setBalance("0");
+    }
+  }, [isLoading, isError, isConnected]);
 
   // Extract the balance value from the formatted data or default to "0"
   useEffect(() => {
-    if (data?.formatted) setBalance(data?.formatted);
+    if (data?.formatted) {
+      setBalance(data?.formatted);
+    }
   }, [data]);
-
-  if (!isConnected) {
-    setBalance("0");
-  }
 
   // Parse the balance value to a whole number, format it as a string, and wrap it within <></> (JSX fragment)
   return <>{parseFloat(balance).toFixed(0)}</>;
