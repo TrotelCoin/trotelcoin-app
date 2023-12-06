@@ -9,7 +9,6 @@ import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
-import { SafeConnector } from "wagmi/connectors/safe";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -24,17 +23,6 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 const config = createConfig({
   autoConnect: false,
   connectors: [
-    new SafeConnector({
-      chains: [polygon],
-      options: {
-        allowedDomains: [
-          /gnosis-safe.io$/,
-          /app.safe.global$/,
-          /app.trotelcoin.com$/,
-        ],
-        debug: false,
-      },
-    }),
     new MetaMaskConnector({
       chains: [polygon],
       options: {
