@@ -82,7 +82,7 @@ export default function Layout({
           <Suspense fallback={<Loading />}>
             {/* Set the body class for dark mode */}
             <body
-              className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+              className={`bg-white dark:bg-slate-950 ${poppins.className} antialiased`}
             >
               <NextTopLoader
                 color="#3b82f6"

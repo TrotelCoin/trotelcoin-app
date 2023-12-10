@@ -41,7 +41,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-black">
+    <header className="bg-white dark:bg-slate-950">
       {/* Navigation */}
       <nav
         className="mx-auto flex max-w-8xl items-center justify-between gap-x-8 md:gap-x-16 p-6 lg:px-8"
