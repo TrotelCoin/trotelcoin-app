@@ -34,7 +34,7 @@ const ThemeSwitcher = () => {
     <>
       {theme === "dark" && (
         <button
-          className="p-2 rounded-full bg-white dark:bg-slate-900 focus:bg-white dark:focus:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-900 dark:text-gray-100"
+          className="p-2 rounded-full bg-white dark:bg-slate-950 focus:bg-white dark:focus:bg-slate-950 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-900 dark:text-gray-100"
           onClick={toggleTheme}
         >
           <svg
