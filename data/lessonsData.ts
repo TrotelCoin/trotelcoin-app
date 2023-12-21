@@ -43,7 +43,7 @@ const lessons: Lessons[] = [
         title: "Secure your wallet",
         href: "/wallet/secure-your-wallet",
         status: "Not started",
-        tier: "Intermediate",
+        tier: "Expert",
         sponsored: false,
         tutorial: false,
         new: false,
