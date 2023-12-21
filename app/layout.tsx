@@ -10,6 +10,7 @@ import Header from "@/app/ui/interface/header";
 import Banner from "@/app/ui/interface/banner";
 import { Analytics } from "@vercel/analytics/react";
 import IntractParam from "@/app/intract";
+import AnimatedCursor from "react-animated-cursor";
 
 // Define metadata for the document
 export const metadata = {
@@ -84,6 +85,13 @@ export default function Layout({
             <body
               className={`bg-white dark:bg-slate-950 ${poppins.className} antialiased`}
             >
+              <AnimatedCursor
+                color="59, 130, 246"
+                innerSize={12}
+                innerScale={1.6}
+                outerSize={6}
+                outerScale={0.8}
+              />
               <NextTopLoader
                 color="#3b82f6"
                 initialPosition={0.08}
