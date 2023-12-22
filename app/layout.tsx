@@ -89,7 +89,7 @@ export default function Layout({
                 <AnimatedCursor
                   color="59, 130, 246"
                   innerSize={24}
-                  innerScale={1.6}
+                  innerScale={0.5}
                   outerSize={24}
                   outerScale={2}
                   showSystemCursor={true}
