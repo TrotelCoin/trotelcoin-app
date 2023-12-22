@@ -3,7 +3,7 @@ import lessons from "@/data/lessonsData";
 
 const allowCors =
   (handler: Function) => async (req: NextApiRequest, res: NextApiResponse) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://trotelcoin.com");
+    res.setHeader("Access-Control-Allow-Origin", "https://www.trotelcoin.com");
 
     if (req.method === "OPTIONS") {
       res.status(200).end();
