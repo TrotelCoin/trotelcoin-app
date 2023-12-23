@@ -64,6 +64,10 @@ const Expert = () => {
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
       setIsClaimed(true);
+    } else if (!isConnected) {
+      setIsClaimed(false);
+    } else {
+      setIsClaimed(false);
     }
   }, [isConnected, address]);
 
