@@ -4,7 +4,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import { Modals } from "@/types/types";
 
-const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
+const Fail: React.FC<Modals> = ({ title, show, message, onClose }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -17,7 +17,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-slate-800/10 transition-opacity" />
+          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-800/10 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -31,7 +31,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl backdrop-blur-xl border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-black px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl backdrop-blur-xl border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
                 <div>
                   <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-100">
                     <ExclamationTriangleIcon
@@ -71,4 +71,4 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
   );
 };
 
-export default Success;
+export default Fail;

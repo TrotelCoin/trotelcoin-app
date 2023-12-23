@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import "animate.css";
 import { Course } from "@/types/types";
 import React, { useState, useEffect, useRef } from "react";
@@ -116,7 +115,7 @@ const CoursePage = () => {
       <p className="mt-2 text-gray-900 dark:text-gray-100">
         What are you going to learn?
       </p>
-      <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-slate-800">
+      <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-gray-900">
         <ul
           role="list"
           className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
@@ -207,7 +206,7 @@ const CoursePage = () => {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           Quiz
         </h2>
-        <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10">
+        <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
           {questions && questions[currentQuestion] && (
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               {questions[currentQuestion].question} ({currentQuestion + 1}/
@@ -223,7 +222,7 @@ const CoursePage = () => {
                       className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
                         answers[currentQuestion] === option
                           ? "bg-blue-600 text-white"
-                          : "bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-gray-100"
+                          : "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                       }`}
                       onClick={() => handleAnswer(option)}
                     >
@@ -305,7 +304,7 @@ const CoursePage = () => {
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             Claim your reward
           </h2>
-          <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-slate-800 border border-gray-900/10 dark:border-gray-100/10">
+          <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               You will get 0.1 TROTEL {/* change this value */}
             </h3>

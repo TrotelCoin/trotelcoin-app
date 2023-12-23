@@ -63,11 +63,11 @@ export interface BalanceData {
 
 export interface Lesson {
   title: string;
+  description: string;
   href: string;
   status: "Not started" | "Finished" | "Ongoing";
   tier: "Beginner" | "Intermediate" | "Expert";
   sponsored: boolean;
-  tutorial: boolean;
   new: boolean;
   quizId: number;
 }

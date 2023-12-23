@@ -34,7 +34,7 @@ const ThemeSwitcher = () => {
     <>
       {theme === "dark" && (
         <button
-          className="p-2 rounded-full bg-white dark:bg-slate-950 focus:bg-white dark:focus:bg-slate-950 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-900 dark:text-gray-100"
+          className="p-2 rounded-full bg-white dark:bg-black focus:bg-white dark:focus:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-900 dark:text-gray-100"
           onClick={toggleTheme}
         >
           <svg
@@ -55,7 +55,7 @@ const ThemeSwitcher = () => {
       )}
       {theme === "light" && (
         <button
-          className="p-2 rounded-full bg-white dark:bg-black focus:bg-white dark:focus:bg-slate-800 hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-900 dark:text-gray-100"
+          className="p-2 rounded-full bg-white dark:bg-black focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-900 dark:text-gray-100"
           onClick={toggleTheme}
         >
           <svg

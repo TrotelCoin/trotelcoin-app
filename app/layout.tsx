@@ -83,7 +83,7 @@ export default function Layout({
           <Suspense fallback={<Loading />}>
             {/* Set the body class for dark mode */}
             <body
-              className={`bg-white dark:bg-slate-950 ${poppins.className} antialiased`}
+              className={`bg-white dark:bg-black ${poppins.className} antialiased`}
             >
               <div className="hidden lg:block">
                 <AnimatedCursor
