@@ -16,24 +16,33 @@ const TrotelPriceChange = () => {
         });
         const data = await response.json();
 
-        const priceChange = parseFloat(data.priceChange);
-        setTokenPriceChange(priceChange);
+        if (data.priceChange || data.priceChange !== null) {
+          const priceChange = parseFloat(data.priceChange);
 
-        if (priceChange === 0) {
-          setContainerClass(
-            "inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-200/20"
-          );
-          setSign("");
-        } else if (priceChange < 0) {
-          setContainerClass(
-            "inline-flex items-center rounded-md bg-red-50 dark:bg-red-200/10 px-2 py-1 text-xs font-medium text-red-600 dark:text-red-200 ring-1 ring-inset ring-red-500/10 dark:ring-red-200/20"
-          );
-          setSign("");
-        } else {
-          setContainerClass(
-            "inline-flex items-center rounded-md bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-600 dark:text-green-200 ring-1 ring-inset ring-green-500/10 dark:ring-green-300/20"
-          );
-          setSign("+");
+          setTokenPriceChange(priceChange);
+
+          if (priceChange === 0) {
+            setContainerClass(
+              "inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-200/20"
+            );
+            setSign("");
+          } else if (priceChange < 0) {
+            setContainerClass(
+              "inline-flex items-center rounded-md bg-red-50 dark:bg-red-200/10 px-2 py-1 text-xs font-medium text-red-600 dark:text-red-200 ring-1 ring-inset ring-red-500/10 dark:ring-red-200/20"
+            );
+            setSign("");
+          } else if (priceChange > 0) {
+            setContainerClass(
+              "inline-flex items-center rounded-md bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-600 dark:text-green-200 ring-1 ring-inset ring-green-500/10 dark:ring-green-300/20"
+            );
+            setSign("+");
+          } else {
+            setTokenPriceChange(0);
+            setContainerClass(
+              "inline-flex animate-pulse items-center rounded-md bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/10 dark:ring-gray-200/20"
+            );
+            setSign("");
+          }
         }
       } catch (error) {
         setError("Error fetching token price change.");

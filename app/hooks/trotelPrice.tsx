@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const TrotelPrice = () => {
   const [tokenPrice, setTokenPrice] = useState<number>(0);
   const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchTokenPrice = async () => {
@@ -11,7 +12,12 @@ const TrotelPrice = () => {
           cache: "no-store",
         });
         const data = await response.json();
-        setTokenPrice(data.tokenPrice);
+        if (!data.tokenPrice || data.tokenPrice === null) {
+          setTokenPrice(0);
+        } else {
+          setTokenPrice(data.tokenPrice);
+          setIsLoading(false);
+        }
       } catch (error) {
         setError("Error fetching token price.");
         setTokenPrice(0);
@@ -26,7 +32,11 @@ const TrotelPrice = () => {
     error ? setTokenPrice(0) : null;
   }, [error]);
 
-  return <span>${tokenPrice?.toFixed(5)}</span>;
+  return (
+    <span className={`${isLoading && "animate-pulse"}`}>
+      ${tokenPrice?.toFixed(5)}
+    </span>
+  );
 };
 
 export default TrotelPrice;
