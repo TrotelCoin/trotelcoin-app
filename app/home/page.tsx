@@ -62,7 +62,7 @@ export default function Home() {
                   <Link href={course.href} key={course.title}>
                     <div
                       className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${
-                        course.tier == "Expert"
+                        course.tier == "Expert" || course.tier == "Intermediate"
                           ? "rainbow-border"
                           : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50"
                       } backdrop-blur-xl`}
