@@ -60,7 +60,7 @@ export default function Home() {
               <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                 {lesson.category}
               </h2>
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {lesson.courses
                   .slice()
                   .sort((a, b) => {
