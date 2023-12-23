@@ -12,8 +12,11 @@ export default function Home() {
   };
 
   const filteredLessons = lessons.filter((lesson) => {
-    return lesson.courses.some((course) =>
-      course.title.toLowerCase().includes(searchTerm)
+    return (
+      lesson.category.toLowerCase().includes(searchTerm) ||
+      lesson.courses.some((course) =>
+        course.title.toLowerCase().includes(searchTerm)
+      )
     );
   });
 
@@ -58,66 +61,77 @@ export default function Home() {
                 {lesson.category}
               </h2>
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {lesson.courses.map((course) => (
-                  <Link href={course.href} key={course.title}>
-                    <div
-                      className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${
-                        course.tier == "Expert" || course.tier == "Intermediate"
-                          ? "rainbow-border"
-                          : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50"
-                      } backdrop-blur-xl`}
-                    >
-                      <div className="px-4 pb-4">
-                        <h3 className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
-                          {course.title}
-                        </h3>
-                        <p className="text-gray-700 dark:text-gray-300 text-xs">
-                          {course.description}
-                        </p>
-                        <div className="flex flex-wrap mt-4 gap-2 items-center">
-                          {course.tier == "Beginner" && (
-                            <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
-                              {course.tier}
+                {lesson.courses
+                  .slice()
+                  .sort((a, b) => {
+                    const tierOrder = {
+                      Beginner: 0,
+                      Intermediate: 1,
+                      Expert: 2,
+                    };
+                    return tierOrder[a.tier] - tierOrder[b.tier];
+                  })
+                  .map((course) => (
+                    <Link href={course.href} key={course.title}>
+                      <div
+                        className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${
+                          course.tier == "Expert" ||
+                          course.tier == "Intermediate"
+                            ? "rainbow-border"
+                            : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50"
+                        } backdrop-blur-xl`}
+                      >
+                        <div className="px-4 pb-4">
+                          <h3 className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
+                            {course.title}
+                          </h3>
+                          <p className="text-gray-700 dark:text-gray-300 text-xs">
+                            {course.description}
+                          </p>
+                          <div className="flex flex-wrap mt-4 gap-2 items-center">
+                            {course.tier == "Beginner" && (
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+                                {course.tier}
+                              </span>
+                            )}
+                            {course.tier == "Intermediate" && (
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+                                {course.tier}
+                              </span>
+                            )}
+                            {course.tier == "Expert" && (
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
+                                {course.tier}
+                              </span>
+                            )}
+                            <span
+                              className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
+                                course.status === "Not started"
+                                  ? "hidden bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
+                                  : course.status === "Finished"
+                                  ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
+                                  : course.status === "Ongoing"
+                                  ? "hidden bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
+                                  : ""
+                              }`}
+                            >
+                              {course.status}
                             </span>
-                          )}
-                          {course.tier == "Intermediate" && (
-                            <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
-                              {course.tier}
-                            </span>
-                          )}
-                          {course.tier == "Expert" && (
-                            <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
-                              {course.tier}
-                            </span>
-                          )}
-                          <span
-                            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${
-                              course.status === "Not started"
-                                ? "hidden bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
-                                : course.status === "Finished"
-                                ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
-                                : course.status === "Ongoing"
-                                ? "hidden bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
-                                : ""
-                            }`}
-                          >
-                            {course.status}
-                          </span>
-                          {course.sponsored && (
-                            <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
-                              Sponsored
-                            </span>
-                          )}
-                          {course.new && (
-                            <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
-                              New course
-                            </span>
-                          )}
+                            {course.sponsored && (
+                              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+                                Sponsored
+                              </span>
+                            )}
+                            {course.new && (
+                              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
+                                New course
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
               </div>
             </div>
           ))}
