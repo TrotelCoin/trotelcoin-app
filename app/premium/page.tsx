@@ -9,7 +9,7 @@ const Subscription = () => {
         <h1 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
           Claim your NFTs
         </h1>
-        <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
           <Intermediate />
           <Expert />
         </div>
