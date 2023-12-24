@@ -9,7 +9,6 @@ const lessons: Lessons[] = [
         description:
           "Get acquainted with using TrotelCoin, exploring its functionalities",
         href: "/trotelcoin/introduction-to-trotelcoin",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -21,7 +20,6 @@ const lessons: Lessons[] = [
         description:
           "Understand the process of claiming TrotelCoin's NFTs and their utilization",
         href: "/trotelcoin/claim-your-nfts",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -38,7 +36,6 @@ const lessons: Lessons[] = [
         description:
           "Learn the steps involved in creating your initial digital wallet securely",
         href: "/wallet/create-your-first-wallet",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -50,7 +47,6 @@ const lessons: Lessons[] = [
         description:
           "Implement advanced security measures to protect your digital assets within the wallet",
         href: "/wallet/secure-your-wallet",
-        status: "Not started",
         tier: "Expert",
         sponsored: false,
         new: false,
@@ -62,7 +58,6 @@ const lessons: Lessons[] = [
         description:
           "Discover methods to authenticate and access your wallet securely",
         href: "/wallet/authenticate-with-your-wallet",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -74,7 +69,6 @@ const lessons: Lessons[] = [
         description:
           "Gain hands-on experience in initiating and completing your first digital transaction",
         href: "/wallet/make-your-first-transaction",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -91,7 +85,6 @@ const lessons: Lessons[] = [
         description:
           "Grasp the fundamental concepts underlying the functionality of a blockchain",
         href: "/blockchain/what-is-a-blockchain",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -103,7 +96,6 @@ const lessons: Lessons[] = [
         description:
           "Explore various consensus mechanisms utilized within blockchain networks",
         href: "/blockchain/consensus-mechanisms",
-        status: "Not started",
         tier: "Intermediate",
         sponsored: false,
         new: false,
@@ -120,7 +112,6 @@ const lessons: Lessons[] = [
         description:
           "Explore the basics and core principles of the Bitcoin cryptocurrency",
         href: "/bitcoin/introduction-to-bitcoin",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -132,7 +123,6 @@ const lessons: Lessons[] = [
         description:
           "Dive into the historical evolution and significant milestones of Bitcoin",
         href: "/bitcoin/the-history-of-bitcoin",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -149,7 +139,6 @@ const lessons: Lessons[] = [
         description:
           "Understand the foundational aspects and principles behind the Ethereum network",
         href: "/ethereum/introduction-to-ethereum",
-        status: "Not started",
         tier: "Beginner",
         sponsored: false,
         new: false,
@@ -161,7 +150,6 @@ const lessons: Lessons[] = [
         description:
           "Explore the secondary layers of Ethereum's architecture and their functionalities",
         href: "/ethereum/understand-the-layers-2",
-        status: "Not started",
         tier: "Intermediate",
         sponsored: false,
         new: false,
@@ -173,8 +161,7 @@ const lessons: Lessons[] = [
         description:
           "Learn about Ethereum's smart contracts and their innovative applications",
         href: "/ethereum/smart-contracts",
-        status: "Not started",
-        tier: "Intermediate",
+        tier: "Beginner",
         sponsored: false,
         new: false,
         quizId: 13,
@@ -185,7 +172,6 @@ const lessons: Lessons[] = [
         description:
           "Gain insights into Ethereum's virtual machine and its functionalities",
         href: "/ethereum/evm",
-        status: "Not started",
         tier: "Expert",
         sponsored: false,
         new: false,
@@ -202,8 +188,7 @@ const lessons: Lessons[] = [
         description:
           "Gain insights into the decentralized autonomous organizations (DAOs)",
         href: "/governance/what-are-daos",
-        status: "Not started",
-        tier: "Intermediate",
+        tier: "Beginner",
         sponsored: false,
         new: false,
         quizId: 14,

@@ -65,7 +65,6 @@ export interface Lesson {
   title: string;
   description: string;
   href: string;
-  status: "Not started" | "Finished" | "Ongoing";
   tier: "Beginner" | "Intermediate" | "Expert";
   sponsored: boolean;
   new: boolean;
