@@ -70,6 +70,7 @@ export interface Lesson {
   sponsored: boolean;
   new: boolean;
   quizId: number;
+  available: boolean;
 }
 
 export interface Lessons {

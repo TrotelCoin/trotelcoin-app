@@ -13,6 +13,7 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/ui/modals/fail";
 import Success from "@/app/ui/modals/success";
+import { trotelCoinAddress, trotelCoinExpertAddress } from "@/data/addresses";
 
 const advantages = {
   1: "Early access to experimental features and projects",
@@ -20,10 +21,6 @@ const advantages = {
 };
 
 const holdingRequirements: number = 50000;
-const TrotelCoinAddress: `0x${string}` =
-  "0x85057d5a8d063f9075ba963101d76352051675e5";
-const TrotelCoinExpertAddress: `0x${string}` =
-  "0xc40B8aF9E501ef716b9caa284Ea26a919Ab43863";
 
 const Expert = () => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -40,12 +37,12 @@ const Expert = () => {
   const { data } = useBalance({
     address: address,
     chainId: polygon.id,
-    token: TrotelCoinAddress,
+    token: trotelCoinAddress,
     watch: true,
   });
   const { config } = usePrepareContractWrite({
     chainId: polygon.id,
-    address: TrotelCoinExpertAddress,
+    address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "mint",
     args: [address],
@@ -53,7 +50,7 @@ const Expert = () => {
   });
   const { write, isSuccess } = useContractWrite(config);
   const { data: claimed } = useContractRead({
-    address: TrotelCoinExpertAddress,
+    address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "balanceOf",
     chainId: polygon.id,

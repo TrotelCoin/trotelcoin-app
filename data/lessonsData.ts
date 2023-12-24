@@ -14,6 +14,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 1,
+        available: true,
       },
       {
         title: "Claim your NFTs",
@@ -25,6 +26,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 2,
+        available: false,
       },
     ],
   },
@@ -41,6 +43,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 3,
+        available: false,
       },
       {
         title: "Secure your wallet",
@@ -52,6 +55,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 4,
+        available: false,
       },
       {
         title: "Authenticate with your wallet",
@@ -63,6 +67,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 5,
+        available: false,
       },
       {
         title: "Make your first transaction",
@@ -74,6 +79,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 6,
+        available: false,
       },
     ],
   },
@@ -90,6 +96,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 7,
+        available: false,
       },
       {
         title: "Consensus mechanisms",
@@ -101,6 +108,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 8,
+        available: false,
       },
     ],
   },
@@ -117,6 +125,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 9,
+        available: false,
       },
       {
         title: "The history of Bitcoin",
@@ -128,6 +137,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 10,
+        available: false,
       },
     ],
   },
@@ -144,6 +154,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 11,
+        available: false,
       },
       {
         title: "Understand the layers 2",
@@ -155,6 +166,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 12,
+        available: false,
       },
       {
         title: "Smart contracts",
@@ -166,6 +178,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 13,
+        available: false,
       },
       {
         title: "EVM",
@@ -177,6 +190,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 15,
+        available: false,
       },
     ],
   },
@@ -193,6 +207,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 14,
+        available: false,
       },
     ],
   },

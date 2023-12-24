@@ -8,12 +8,15 @@ import {
   usePrepareContractWrite,
   useContractWrite,
   useContractRead,
-  Address,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/ui/modals/fail";
 import Success from "../modals/success";
+import {
+  trotelCoinAddress,
+  trotelCoinIntermediateAddress,
+} from "@/data/addresses";
 
 const advantages = {
   1: "Access to more courses providing in-depth content and additional tutorials",
@@ -21,9 +24,6 @@ const advantages = {
 };
 
 const holdingRequirements: number = 10000;
-const TrotelCoinAddress: Address = "0x85057d5a8d063f9075ba963101d76352051675e5";
-const TrotelCoinIntermediateAddress: Address =
-  "0xC637150711632dEB7313A3E87bE66D772BC9BA8C";
 
 const Intermediate = () => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -40,12 +40,12 @@ const Intermediate = () => {
   const { data } = useBalance({
     address: address,
     chainId: polygon.id,
-    token: TrotelCoinAddress,
+    token: trotelCoinAddress,
     watch: true,
   });
   const { config } = usePrepareContractWrite({
     chainId: polygon.id,
-    address: TrotelCoinIntermediateAddress,
+    address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
     functionName: "mint",
     args: [address],
@@ -53,7 +53,7 @@ const Intermediate = () => {
   });
   const { write, isSuccess } = useContractWrite(config);
   const { data: claimed } = useContractRead({
-    address: TrotelCoinIntermediateAddress,
+    address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
     functionName: "balanceOf",
     chainId: polygon.id,
