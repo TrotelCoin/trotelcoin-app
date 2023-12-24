@@ -16,6 +16,7 @@ import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
 } from "@/data/addresses";
+import GoHomeButton from "@/app/components/goHomeButton";
 
 const getTierByQuizId = (quizId: number): string => {
   let foundTier = "";
@@ -421,6 +422,7 @@ const CoursePage = () => {
             </div>
           </div>
         )}
+        <GoHomeButton />
       </>
     );
   };
@@ -429,7 +431,10 @@ const CoursePage = () => {
     <>
       {isDisconnected && tier !== "Beginner"
         ? renderUnauthorizedContent()
-        : !available
+        : !available &&
+          tier !== "Beginner" &&
+          ((tier === "Intermediate" && intermediateBalance < 1) ||
+            (tier === "Expert" && expertBalance < 1))
         ? renderUnauthorizedContent()
         : renderCourseContent()}
     </>
