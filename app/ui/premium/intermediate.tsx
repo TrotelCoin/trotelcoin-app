@@ -23,7 +23,7 @@ const holdingRequirements: number = 10000;
 const TrotelCoinAddress: `0x${string}` =
   "0x85057d5a8d063f9075ba963101d76352051675e5";
 const TrotelCoinIntermediateAddress: `0x${string}` =
-  "0xA762FbF2765F3Eeb7E52ca0EBa1E9138e6dc9073";
+  "0xC637150711632dEB7313A3E87bE66D772BC9BA8C";
 
 const Intermediate = () => {
   const [isEligible, setIsEligible] = useState<boolean>(false);

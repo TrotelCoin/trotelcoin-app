@@ -16,6 +16,9 @@ export default function Home() {
       lesson.category.toLowerCase().includes(searchTerm) ||
       lesson.courses.some((course) =>
         course.title.toLowerCase().includes(searchTerm)
+      ) ||
+      lesson.courses.some((course) =>
+        course.description.toLowerCase().includes(searchTerm)
       )
     );
   });
