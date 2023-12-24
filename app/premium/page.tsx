@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Intermediate from "@/app/ui/premium/intermediate";
 import Expert from "@/app/ui/premium/expert";
@@ -28,8 +30,6 @@ const Subscription = () => {
     watch: true,
   });
 
-  console.log("Intermediate : ", intermediate, " + ", "Expert : ", expert);
-
   return (
     <>
       <div className="flex flex-col my-20 max-w-4xl mx-auto">
@@ -40,30 +40,29 @@ const Subscription = () => {
           <Intermediate />
           <Expert />
         </div>
-        <div className="hidden md:grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
-          <div className="overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
-            <div className="px-4 py-5 sm:p-6 text-gray-900 dark:text-gray-100 font-semibold items-center text-center">
-              <span className="text-6xl rainbow-text">
-                <CountUp
-                  start={0}
-                  end={parseFloat(intermediate as string)}
-                  duration={5}
-                />
-              </span>{" "}
-              Intermediate
-            </div>
+        <h1 className="text-xl mt-4 text-gray-900 dark:text-gray-100 font-semibold">
+          Statistics
+        </h1>
+        <div className="overflow-hidden mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
+          <div className="items-center py-6">
+            <span className="text-6xl">
+              <CountUp
+                start={0}
+                end={parseFloat(intermediate as string)}
+                duration={5}
+              />
+            </span>{" "}
+            <span className="rainbow-text">Intermediate</span>
           </div>
-          <div className="overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
-            <div className="px-4 py-5 sm:p-6 text-gray-900 dark:text-gray-100 font-semibold items-center text-center">
-              <span className="text-6xl rainbow-text">
-                <CountUp
-                  start={0}
-                  end={parseFloat(expert as string)}
-                  duration={5}
-                />
-              </span>{" "}
-              Expert
-            </div>
+          <div className="items-center py-6">
+            <span className="text-6xl">
+              <CountUp
+                start={0}
+                end={parseFloat(expert as string)}
+                duration={5}
+              />
+            </span>{" "}
+            <span className="rainbow-text">Expert</span>
           </div>
         </div>
       </div>
