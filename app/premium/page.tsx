@@ -43,7 +43,7 @@ const Subscription = () => {
         <h1 className="text-xl mt-4 text-gray-900 dark:text-gray-100 font-semibold">
           Statistics
         </h1>
-        <div className="overflow-hidden mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
+        <div className="overflow-hidden mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
           <div className="items-center py-6">
             <span className="text-6xl">
               <CountUp
@@ -52,7 +52,7 @@ const Subscription = () => {
                 duration={5}
               />
             </span>{" "}
-            <span className="rainbow-text">Intermediate</span>
+            <span className="rainbow-text text-2xl">Intermediate</span>
           </div>
           <div className="items-center py-6">
             <span className="text-6xl">
@@ -62,7 +62,7 @@ const Subscription = () => {
                 duration={5}
               />
             </span>{" "}
-            <span className="rainbow-text">Expert</span>
+            <span className="rainbow-text text-2xl">Expert</span>
           </div>
         </div>
       </div>
