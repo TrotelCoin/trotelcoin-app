@@ -132,7 +132,11 @@ const Intermediate = () => {
               />
             </svg>
 
-            <h2 className="font-semibold text-gray-900 dark:text-gray-100">
+            <h2
+              className={`font-semibold text-gray-900 dark:text-gray-100 ${
+                isClaimed && "rainbow-text"
+              }`}
+            >
               Intermediate
             </h2>
             <span className="text-gray-900 dark:text-gray-100 font-semibold">
