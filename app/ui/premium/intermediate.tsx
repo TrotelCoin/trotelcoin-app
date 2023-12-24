@@ -1,13 +1,14 @@
 "use client";
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useBalance,
   usePrepareContractWrite,
   useContractWrite,
   useContractRead,
+  Address,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -20,9 +21,8 @@ const advantages = {
 };
 
 const holdingRequirements: number = 10000;
-const TrotelCoinAddress: `0x${string}` =
-  "0x85057d5a8d063f9075ba963101d76352051675e5";
-const TrotelCoinIntermediateAddress: `0x${string}` =
+const TrotelCoinAddress: Address = "0x85057d5a8d063f9075ba963101d76352051675e5";
+const TrotelCoinIntermediateAddress: Address =
   "0xC637150711632dEB7313A3E87bE66D772BC9BA8C";
 
 const Intermediate = () => {

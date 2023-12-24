@@ -57,12 +57,11 @@ a:hover {
 /* Style for the div */
 .rainbow-border {
   border: 3px solid transparent;
-  position: relative;
-  animation: rotateBorder 5s linear infinite;
+  animation: rainbowBorder 5s linear infinite;
 }
 
 /* Keyframes for the animation */
-@keyframes rotateBorder {
+@keyframes rainbowBorder {
   0%,
   100% {
     border: 1px solid #f87171;
@@ -81,5 +80,32 @@ a:hover {
   }
   83.33% {
     border: 1px solid #818cf8;
+  }
+}
+
+.rainbow-text {
+  animation: rotateText 5s linear infinite;
+}
+
+/* Keyframes for the animation */
+@keyframes rainbowText {
+  0%,
+  100% {
+    color: 1px solid #f87171;
+  }
+  16.66% {
+    color: 1px solid #fb923c;
+  }
+  33.33% {
+    color: 1px solid #facc15;
+  }
+  50% {
+    color: 1px solid #4ade80;
+  }
+  66.66% {
+    color: 1px solid #60a5fa;
+  }
+  83.33% {
+    color: 1px solid #818cf8;
   }
 }
