@@ -431,10 +431,10 @@ const CoursePage = () => {
     <>
       {isDisconnected && tier !== "Beginner"
         ? renderUnauthorizedContent()
-        : !available &&
-          tier !== "Beginner" &&
-          ((tier === "Intermediate" && intermediateBalance < 1) ||
-            (tier === "Expert" && expertBalance < 1))
+        : !available ||
+          (tier !== "Beginner" &&
+            ((tier === "Intermediate" && intermediateBalance < 1) ||
+              (tier === "Expert" && expertBalance < 1)))
         ? renderUnauthorizedContent()
         : renderCourseContent()}
     </>
