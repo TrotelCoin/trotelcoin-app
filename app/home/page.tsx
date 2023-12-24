@@ -45,14 +45,16 @@ function renderCourses(
       ? "rainbow-border"
       : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
-  const statusClass =
+  {
+    /*const statusClass =
     course.status === "Not started"
       ? "hidden bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
       : course.status === "Finished"
       ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
       : course.status === "Ongoing"
       ? "hidden bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
-      : "";
+: "";*/
+  }
 
   return (
     <Link href={courseLink} key={course.title}>
@@ -82,11 +84,11 @@ function renderCourses(
                 {course.tier}
               </span>
             )}
-            <span
+            {/*<span
               className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${statusClass}`}
             >
               {course.status}
-            </span>
+            </span>*/}
             {course.sponsored && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
                 Sponsored
