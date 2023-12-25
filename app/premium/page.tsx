@@ -7,12 +7,13 @@ import { useContractRead, Address } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 import CountUp from "react-countup";
-
-const trotelCoinIntermediateAddress: Address =
-  "0xC637150711632dEB7313A3E87bE66D772BC9BA8C";
-const trotelCoinExpertAddress: Address =
-  "0xc40B8aF9E501ef716b9caa284Ea26a919Ab43863";
+import {
+  trotelCoinEarlyAddress,
+  trotelCoinIntermediateAddress,
+  trotelCoinExpertAddress,
+} from "@/data/addresses";
 
 const Subscription = () => {
   const { data: intermediate } = useContractRead({
@@ -26,6 +27,13 @@ const Subscription = () => {
     chainId: polygon.id,
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
+    functionName: "totalSupply",
+    watch: true,
+  });
+  const { data: early } = useContractRead({
+    chainId: polygon.id,
+    address: trotelCoinEarlyAddress,
+    abi: trotelCoinEarlyABI,
     functionName: "totalSupply",
     watch: true,
   });
@@ -43,7 +51,17 @@ const Subscription = () => {
         <h1 className="text-xl mt-4 text-gray-900 dark:text-gray-100 font-semibold">
           Statistics
         </h1>
-        <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y md:divide-y-0 md:divide-x divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
+        <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y md:divide-x divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
+          <div className="items-center py-6 md:col-span-2">
+            <span className="text-6xl">
+              <CountUp
+                start={0}
+                end={parseFloat(early as string)}
+                duration={5}
+              />
+            </span>{" "}
+            <span className="text-2xl">Early</span>
+          </div>
           <div className="items-center py-6">
             <span className="text-6xl">
               <CountUp
