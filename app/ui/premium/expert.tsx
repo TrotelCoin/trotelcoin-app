@@ -136,20 +136,9 @@ const Expert = () => {
             >
               Expert
             </h2>
-            <span className="text-gray-900 dark:text-gray-100 font-semibold">
-              •
-            </span>
-            <span className="text-gray-900 dark:text-gray-100 font-semibold">
-              {String(holdingRequirements)} TROTEL
-            </span>
           </div>
           <div className="flex flex-col gap-5">
-            <div className="flex items-center mt-4">
-              <p className="text-gray-900 dark:text-gray-100">
-                You will get the following benefits :
-              </p>
-            </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-4">
               <div className="flex flex-col gap-2">
                 {Object.values(advantages).map((advantage, index) => (
                   <div key={index} className="flex gap-1">

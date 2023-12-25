@@ -48,7 +48,7 @@ const Subscription = () => {
           <Intermediate />
           <Expert />
         </div>
-        <h1 className="text-xl mt-4 text-gray-900 dark:text-gray-100 font-semibold">
+        <h1 className="text-xl mt-10 text-gray-900 dark:text-gray-100 font-semibold">
           Statistics
         </h1>
         <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y md:divide-x divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">

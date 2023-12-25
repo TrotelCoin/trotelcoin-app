@@ -57,15 +57,23 @@ function renderCourses(
   }
 
   return (
-    <Link href={courseLink} key={course.title}>
+    <Link href={course.available ? courseLink : ""} key={course.title}>
       <div
         className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
         <div className="px-4 pb-4">
-          <h3 className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
+          <h3
+            className={`mt-4 font-semibold text-gray-900 dark:text-gray-100 ${
+              !course.available ? "blur-sm hover:blur-none duration-500" : ""
+            }`}
+          >
             {course.title}
           </h3>
-          <p className="text-gray-700 dark:text-gray-300 text-xs">
+          <p
+            className={`text-gray-700 dark:text-gray-300 text-xs ${
+              !course.available ? "blur-sm" : ""
+            }`}
+          >
             {course.description}
           </p>
           <div className="flex flex-wrap mt-4 gap-2 items-center">
@@ -82,6 +90,11 @@ function renderCourses(
             {course.tier === "Expert" && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
                 {course.tier}
+              </span>
+            )}
+            {!course.available && (
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+                Not available
               </span>
             )}
             {/*<span
