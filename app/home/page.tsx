@@ -62,18 +62,10 @@ function renderCourses(
         className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
         <div className="px-4 pb-4">
-          <h3
-            className={`mt-4 font-semibold text-gray-900 dark:text-gray-100 ${
-              !course.available ? "blur-sm hover:blur-none duration-500" : ""
-            }`}
-          >
+          <h3 className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}>
             {course.title}
           </h3>
-          <p
-            className={`text-gray-700 dark:text-gray-300 text-xs ${
-              !course.available ? "blur-sm" : ""
-            }`}
-          >
+          <p className={`text-gray-700 dark:text-gray-300 text-xs`}>
             {course.description}
           </p>
           <div className="flex flex-wrap mt-4 gap-2 items-center">
