@@ -25,6 +25,7 @@ import {
 import GoHomeButton from "@/app/components/goHomeButton";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import Success from "@/app/ui/modals/success";
+import Fail from "@/app/ui/modals/fail";
 
 const getTierByQuizId = (quizId: number): string => {
   let foundTier = "";
@@ -91,6 +92,8 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [isLearnerDisconnected, setIsLearnerDisconnected] =
+    useState<boolean>(false);
   const [secret, setSecret] = useState<string>("");
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
@@ -168,6 +171,10 @@ const CoursePage = () => {
   );
 
   const handleClaimRewards = async () => {
+    if (isDisconnected) {
+      setIsLearnerDisconnected(true);
+      return;
+    }
     if (claimRewards) {
       claimRewards();
     }
@@ -481,6 +488,12 @@ const CoursePage = () => {
           message={`You claimed approximately ${estimatedRewardsBalance} TrotelCoin.`}
           show={claimedRewards}
           onClose={() => setClaimedRewards(false)}
+        />
+        <Fail
+          title="Connect your wallet!"
+          message={`You need to connect your wallet to claim your rewards.`}
+          show={isLearnerDisconnected}
+          onClose={() => setIsLearnerDisconnected(false)}
         />
         <GoHomeButton />
       </>
