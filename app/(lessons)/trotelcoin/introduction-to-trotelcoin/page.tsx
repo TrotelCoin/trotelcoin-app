@@ -7,7 +7,7 @@ import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
 import lessons from "@/data/lessonsData";
-import crypto from "crypto";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import {
   useAccount,
@@ -103,11 +103,28 @@ const CoursePage = () => {
   useEffect(() => {
     async function fetchSecret() {
       try {
-        const response = await fetch("/api/secret/trotelSecret");
-        const secret = await response.json();
-        setSecret(secret);
+        const token = Cookies.get("token");
+
+        if (!token) {
+          throw new Error("No token found");
+        }
+
+        const response = await fetch("/api/endpoint", {
+          method: "GET",
+          headers: {
+            Authorization: token,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const responseData = await response.json();
+        setSecret(responseData);
       } catch (error) {
-        console.error("Error fetching or decrypting secret:", error);
+        console.error("Error fetching data:", error);
       }
     }
     fetchSecret();
