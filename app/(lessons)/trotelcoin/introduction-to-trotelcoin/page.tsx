@@ -8,15 +8,23 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
 import lessons from "@/data/lessonsData";
 import Link from "next/link";
-import { useAccount, useContractRead } from "wagmi";
+import {
+  useAccount,
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite,
+} from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
+  trotelCoinLearningAddress,
 } from "@/data/addresses";
 import GoHomeButton from "@/app/components/goHomeButton";
+import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
+import Success from "@/app/ui/modals/success";
 
 const getTierByQuizId = (quizId: number): string => {
   let foundTier = "";
@@ -84,6 +92,7 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -107,9 +116,33 @@ const CoursePage = () => {
     functionName: "balanceOf",
     watch: true,
   });
+  const { data: estimatedRewards } = useContractRead({
+    chainId: polygon.id,
+    address: trotelCoinLearningAddress,
+    abi: trotelCoinLearningABI,
+    account: address,
+    functionName: "calculateRewards",
+    watch: true,
+  });
+  const { config: claimRewardsConfig } = usePrepareContractWrite({
+    chainId: polygon.id,
+    address: trotelCoinLearningAddress,
+    abi: trotelCoinLearningABI,
+    account: address,
+    functionName: "claimRewards",
+  });
+  const { write: claimRewards } = useContractWrite(claimRewardsConfig);
 
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
+  const estimatedRewardsBalance = parseFloat(estimatedRewards as string);
+
+  const handleClaimRewards = async () => {
+    if (claimRewards) {
+      claimRewards();
+    }
+    setClaimedRewards(true);
+  };
 
   useEffect(() => {
     loadQuizData(quizId, setQuestions, setCorrectAnswers);
@@ -395,33 +428,26 @@ const CoursePage = () => {
             </h2>
             <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                You will get 0.1 TROTEL {/* change this value */}
+                You will get {estimatedRewards as number} TROTEL
               </h3>
               <div className="mt-6 items-center">
-                <button className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold">
-                  {" "}
-                  {/* onclick={} */}
+                <button
+                  onClick={handleClaimRewards}
+                  className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                >
                   Receive my crypto
                 </button>
                 <Confetti active={showConfettiReward} />
               </div>
-              {/* Add this mechanism and confetti */}
-              {/* {trotelClaimed && (
-        <div
-          className={`mt-6 animate__animated animate__fadeIn ${
-            isCorrect
-              ? "text-green-600 dark:text-green-200"
-              : "text-red-600 dark:text-red-200"
-          }`}
-        >
-          {isCorrect
-            ? "Congratulations! All the answers are correct!"
-            : "Something's wrong. Check your answers."}
-        </div>
-        )} */}
             </div>
           </div>
         )}
+        <Success
+          title="Congratulations!"
+          message={`You claimed approximately ${estimatedRewards} TrotelCoin.`}
+          show={claimedRewards}
+          onClose={() => setClaimedRewards(false)}
+        />
         <GoHomeButton />
       </>
     );
@@ -432,9 +458,9 @@ const CoursePage = () => {
       {isDisconnected && tier !== "Beginner"
         ? renderUnauthorizedContent()
         : !available ||
-          tier !== "Beginner" &&
-          ((tier === "Intermediate" && intermediateBalance < 1) ||
-            (tier === "Expert" && expertBalance < 1))
+          (tier !== "Beginner" &&
+            ((tier === "Intermediate" && intermediateBalance < 1) ||
+              (tier === "Expert" && expertBalance < 1)))
         ? renderUnauthorizedContent()
         : renderCourseContent()}
     </>
