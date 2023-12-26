@@ -7,6 +7,7 @@ import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
 import lessons from "@/data/lessonsData";
+import { parseEther } from "viem";
 import Link from "next/link";
 import {
   useAccount,
@@ -136,7 +137,9 @@ const CoursePage = () => {
 
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
-  const estimatedRewardsBalance = parseFloat(estimatedRewards as string);
+  const estimatedRewardsBalance = parseFloat(
+    (parseFloat(estimatedRewards as string) * 1e-18).toFixed(2)
+  );
 
   const handleClaimRewards = async () => {
     if (claimRewards) {
