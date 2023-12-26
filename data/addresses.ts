@@ -8,3 +8,5 @@ export const trotelCoinIntermediateAddress: Address =
   "0xA762FbF2765F3Eeb7E52ca0EBa1E9138e6dc9073";
 export const trotelCoinExpertAddress: Address =
   "0x41D5DD5Bf408bd3aE164594C6b4a4718f1f5C9bF";
+export const trotelCoinLearningAddress: Address =
+  "0x25AB0cE7059499d32d49f2ad93a8898295DFa718";

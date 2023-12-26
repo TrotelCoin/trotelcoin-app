@@ -51,36 +51,38 @@ const Subscription = () => {
         <h1 className="text-xl mt-10 text-gray-900 dark:text-gray-100 font-semibold">
           Statistics
         </h1>
-        <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 mt-4 text-gray-900 dark:text-gray-100 font-semibold items-center text-center divide-y md:divide-x divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
-          <div className="items-center py-6 md:col-span-2">
-            <span className="text-6xl">
+        <div className="overflow-hidden grid grid-cols-1 mt-4 text-gray-900 dark:text-gray-100 items-center text-center divide-y divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
+          <div className="items-center flex flex-col py-6 md:col-span-2">
+            <span className="text-6xl font-semibold">
               <CountUp
                 start={0}
                 end={parseFloat(early as string)}
                 duration={5}
               />
             </span>{" "}
-            <span className="text-2xl">Early</span>
+            <span>Early</span>
           </div>
-          <div className="items-center py-6">
-            <span className="text-6xl">
-              <CountUp
-                start={0}
-                end={parseFloat(intermediate as string)}
-                duration={5}
-              />
-            </span>{" "}
-            <span className="text-2xl">Intermediate</span>
-          </div>
-          <div className="items-center py-6">
-            <span className="text-6xl">
-              <CountUp
-                start={0}
-                end={parseFloat(expert as string)}
-                duration={5}
-              />
-            </span>{" "}
-            <span className="text-2xl">Expert</span>
+          <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black/10 dark:divide-white/10">
+            <div className="items-center flex flex-col py-6">
+              <span className="text-6xl font-semibold">
+                <CountUp
+                  start={0}
+                  end={parseFloat(intermediate as string)}
+                  duration={5}
+                />
+              </span>{" "}
+              <span>Intermediate</span>
+            </div>
+            <div className="items-center flex flex-col py-6">
+              <span className="text-6xl font-semibold">
+                <CountUp
+                  start={0}
+                  end={parseFloat(expert as string)}
+                  duration={5}
+                />
+              </span>{" "}
+              <span>Expert</span>
+            </div>
           </div>
         </div>
       </div>
