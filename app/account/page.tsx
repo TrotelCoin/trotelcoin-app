@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAccount, useContractRead, useEnsName } from "wagmi";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
@@ -64,7 +64,7 @@ export default function Account() {
       <div className="my-20 max-w-4xl mx-auto">
         {isConnected ? (
           <>
-            <h2 className="text-gray-900 dark:text-gray-100 text-2xl">
+            <h2 className="text-gray-900 dark:text-gray-100 text-xl">
               Hello,{" "}
               <span className={`font-semibold`}>
                 {ensName && ensName !== null ? (
@@ -152,10 +152,43 @@ export default function Account() {
                 <span>Rank</span>
               </div>
             </div>
+            <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+              Level
+            </h2>
+            <div
+              className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            >
+              Coming soon...
+            </div>
+            <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+              Badges
+            </h2>
+            <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
+              <div
+                className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+              >
+                Coming soon...
+              </div>
+              <div
+                className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+              >
+                Coming soon...
+              </div>
+              <div
+                className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+              >
+                Coming soon...
+              </div>
+              <div
+                className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+              >
+                Coming soon...
+              </div>
+            </div>
           </>
         ) : (
           <>
-            <h2 className="text-center text-gray-900 dark:text-gray-100 text-2xl">
+            <h2 className="text-center text-gray-900 dark:text-gray-100 text-xl">
               You need to sign in.
             </h2>
           </>
