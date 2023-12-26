@@ -96,36 +96,31 @@ const CoursePage = () => {
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const secretToken = process.env.NEXT_PUBLIC_SERVER_SECRET_TOKEN;
+
   useEffect(() => {
     async function fetchSecret() {
       try {
-        const token = document.cookie
-          .split("; ")
-          .find((row) => row.startsWith("token="))
-          ?.split("=")[1];
+        if (secretToken) {
+          const response = await fetch("/api/secret/trotelSecret", {
+            method: "GET",
+            headers: {
+              "x-server-secret-token": secretToken,
+            },
+          });
 
-        if (!token) {
-          throw new Error("No token found");
+          if (!response.ok) {
+            throw new Error("Failed to fetch secret");
+          }
+
+          const responseData = await response.json();
+          setSecret(responseData.secret);
         }
-
-        const response = await fetch("/api/secret/trotelSecret", {
-          method: "GET",
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const responseData = await response.json();
-        setSecret(responseData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching secret:", error);
       }
     }
+
     fetchSecret();
   }, []);
 
@@ -481,7 +476,6 @@ const CoursePage = () => {
                 >
                   Receive my crypto
                 </button>
-                <Confetti active={showConfettiReward} />
               </div>
             </div>
           </div>
