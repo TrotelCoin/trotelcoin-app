@@ -86,14 +86,14 @@ export default function Layout({
               className={`bg-white dark:bg-black ${poppins.className} antialiased`}
             >
               <div className="hidden lg:block">
-                <AnimatedCursor
+                {/*<AnimatedCursor
                   color="59, 130, 246"
                   innerSize={24}
                   innerScale={0.5}
                   outerSize={24}
                   outerScale={2}
                   showSystemCursor={false}
-                />
+                />*/}
               </div>
               <NextTopLoader
                 color="#3b82f6"
