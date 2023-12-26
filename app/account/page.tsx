@@ -88,10 +88,12 @@ export default function Account() {
                 >
                   {intermediateBalance > 0 || expertBalance > 0 ? (
                     <>
-                      <CountUp
-                        start={0}
-                        end={parseFloat(learnerTuple[2]) * 1e-18}
-                      />{" "}
+                      <span className="font-semibold">
+                        <CountUp
+                          start={0}
+                          end={parseFloat(learnerTuple[2]) * 1e-18}
+                        />
+                      </span>
                       <span className="text-gray-900 dark:text-gray-100 text-sm">
                         TROTEL
                       </span>
@@ -114,10 +116,12 @@ export default function Account() {
                 >
                   {intermediateBalance > 0 || expertBalance > 0 ? (
                     <>
-                      <CountUp
-                        start={0}
-                        end={parseFloat(learnerTuple[1] as string)}
-                      />
+                      <span className="font-semibold">
+                        <CountUp
+                          start={0}
+                          end={parseFloat(learnerTuple[1] as string)}
+                        />
+                      </span>
                     </>
                   ) : (
                     <>Not premium</>
