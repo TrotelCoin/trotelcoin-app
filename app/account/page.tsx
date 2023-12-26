@@ -127,7 +127,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
             </>
           )}
         </div>
-        <p className={`${isNotPremium && "blur hover:blur-none duration-500"}`}>
+        <p className={`hidden md:block ${isNotPremium && "blur hover:blur-none duration-500"}`}>
           {!isNotPremium
             ? `${tokensNeededForNextLevel.toFixed(0)} TrotelCoins left`
             : "Not premium"}{" "}
