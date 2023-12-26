@@ -80,7 +80,6 @@ const available = getAvailabilityByQuizId(quizId);
 const tier = getTierByQuizId(quizId);
 
 const decryptionAlgorithm = "aes-256-gcm";
-const secretKey = crypto.randomBytes(32);
 
 const currentCourse: Course = lessons
   .flatMap((lesson) => lesson.courses)
@@ -96,12 +95,27 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [secretKey, setSecretKey] = useState<Buffer>(Buffer.alloc(32));
   const [decryptedSecret, setDecryptedSecret] = useState<string>("");
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
+    async function fetchSecretKey() {
+      try {
+        const response = await fetch("/api/secret/secretKey");
+        if (response.ok) {
+          const { secretKey } = await response.json();
+          setSecretKey(secretKey);
+        } else {
+          console.error("Failed to fetch secret key:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching secret key:", error);
+      }
+    }
+
     async function fetchSecret() {
       try {
         const response = await fetch("/api/secret/trotelSecret");
