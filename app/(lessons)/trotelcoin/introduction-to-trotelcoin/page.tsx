@@ -172,9 +172,6 @@ const CoursePage = () => {
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
     useContractWrite(claimRewardsConfig);
 
-  console.log(claimRewards);
-  console.log(claimRewardsConfig);
-
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
   const estimatedRewardsBalance = parseFloat(
