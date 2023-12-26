@@ -7,7 +7,7 @@ import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
 import lessons from "@/data/lessonsData";
-import { parseEther } from "viem";
+import crypto from "crypto";
 import Link from "next/link";
 import {
   useAccount,
@@ -79,6 +79,9 @@ const quizId = 1;
 const available = getAvailabilityByQuizId(quizId);
 const tier = getTierByQuizId(quizId);
 
+const decryptionAlgorithm = "aes-256-gcm";
+const secretKey = crypto.randomBytes(32);
+
 const currentCourse: Course = lessons
   .flatMap((lesson) => lesson.courses)
   .find((course) => course.quizId === quizId) as Course;
@@ -93,11 +96,44 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [decryptedSecret, setDecryptedSecret] = useState<string>("");
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const { address, isConnected, isDisconnected } = useAccount();
+  useEffect(() => {
+    async function fetchSecret() {
+      try {
+        const response = await fetch("/api/trotelSecret");
+        const {
+          encryptedSecret,
+          iv: receivedIV,
+          authTag: receivedAuthTag,
+        } = await response.json();
+
+        const iv = Buffer.from(receivedIV, "hex");
+        const authTag = Buffer.from(receivedAuthTag, "hex");
+
+        const decipher = crypto.createDecipheriv(
+          decryptionAlgorithm,
+          secretKey,
+          iv
+        );
+        decipher.setAuthTag(authTag);
+
+        let decrypted = decipher.update(encryptedSecret, "hex", "utf8");
+        decrypted += decipher.final("utf8");
+
+        setDecryptedSecret(decrypted);
+      } catch (error) {
+        console.error("Error fetching or decrypting secret:", error);
+      }
+    }
+
+    fetchSecret();
+  }, []);
+
+  const { address, isDisconnected } = useAccount();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
@@ -133,7 +169,8 @@ const CoursePage = () => {
     args: [address, process.env.TROTEL_SECRET as string, quizId],
     functionName: "claimRewards",
   });
-  const { write: claimRewards } = useContractWrite(claimRewardsConfig);
+  const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
+    useContractWrite(claimRewardsConfig);
 
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
@@ -145,8 +182,13 @@ const CoursePage = () => {
     if (claimRewards) {
       claimRewards();
     }
-    setClaimedRewards(true);
   };
+
+  useEffect(() => {
+    if (claimedRewardsSuccess) {
+      setClaimedRewards(true);
+    }
+  }, [claimedRewardsSuccess]);
 
   useEffect(() => {
     loadQuizData(quizId, setQuestions, setCorrectAnswers);

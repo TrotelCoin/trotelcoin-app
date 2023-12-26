@@ -3,7 +3,7 @@
 import React from "react";
 import Intermediate from "@/app/ui/premium/intermediate";
 import Expert from "@/app/ui/premium/expert";
-import { useContractRead, Address } from "wagmi";
+import { useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
