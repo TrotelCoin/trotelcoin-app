@@ -7,7 +7,6 @@ import Confetti from "react-dom-confetti";
 import ReCAPTCHA from "react-google-recaptcha";
 import { unstable_noStore as noStore } from "next/cache";
 import lessons from "@/data/lessonsData";
-import Cookies from "js-cookie";
 import Link from "next/link";
 import {
   useAccount,
@@ -79,8 +78,6 @@ const quizId = 1;
 const available = getAvailabilityByQuizId(quizId);
 const tier = getTierByQuizId(quizId);
 
-const decryptionAlgorithm = "aes-256-gcm";
-
 const currentCourse: Course = lessons
   .flatMap((lesson) => lesson.courses)
   .find((course) => course.quizId === quizId) as Course;
@@ -103,7 +100,10 @@ const CoursePage = () => {
   useEffect(() => {
     async function fetchSecret() {
       try {
-        const token = Cookies.get("token");
+        const token = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("token="))
+          ?.split("=")[1];
 
         if (!token) {
           throw new Error("No token found");
