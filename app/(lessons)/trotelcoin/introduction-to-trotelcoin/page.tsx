@@ -109,9 +109,9 @@ const CoursePage = () => {
             },
           });
 
-          const { responseData } = await response.json();
-          console.log("Secret fetched:", responseData);
-          setSecret(responseData);
+          const responseData = await response.json();
+          console.log("Secret fetched:", responseData.secret);
+          setSecret(responseData.secret);
         }
       } catch (error) {
         console.error("Error fetching secret:", error);
