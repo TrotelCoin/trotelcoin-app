@@ -129,7 +129,7 @@ const CoursePage = () => {
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     account: address,
-    args: [address, process.env.TROTEL_SECRET, quizId],
+    args: [address, process.env.TROTEL_SECRET as string, quizId],
     functionName: "claimRewards",
   });
   const { write: claimRewards } = useContractWrite(claimRewardsConfig);
