@@ -6,7 +6,7 @@ const secretKey = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const trotelSecret = process.env.TROTEL_SECRET as string;
+  const trotelSecret = process.env.TROTELCOIN_SECRET as string;
 
   if (!trotelSecret) {
     return res.status(404).json({ message: "Secret not found" });
