@@ -109,7 +109,7 @@ const CoursePage = () => {
           throw new Error("No token found");
         }
 
-        const response = await fetch("/api/endpoint", {
+        const response = await fetch("/api/secret/trotelSecret", {
           method: "GET",
           headers: {
             Authorization: token,
