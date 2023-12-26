@@ -110,6 +110,7 @@ const CoursePage = () => {
           });
 
           const responseData = await response.json();
+          console.log(responseData);
           setSecret(responseData.secret);
         }
       } catch (error) {
@@ -158,8 +159,6 @@ const CoursePage = () => {
   });
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
     useContractWrite(claimRewardsConfig);
-
-  console.log(claimRewardsConfig);
 
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
