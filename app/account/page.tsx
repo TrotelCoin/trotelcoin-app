@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAccount, useContractRead, useEnsName } from "wagmi";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
@@ -15,6 +15,8 @@ import { Address } from "viem";
 import CountUp from "react-countup";
 
 export default function Account() {
+  const [totalRewards, setTotalRewards] = useState<number>(0);
+
   const { address, isConnected } = useAccount();
 
   const { data: intermediate } = useContractRead({
@@ -51,13 +53,72 @@ export default function Account() {
 
   const intermediateBalance: number = parseFloat(intermediate as string);
   const expertBalance: number = parseFloat(expert as string);
-  let learnerTuple = learner as [any, any, any];
+  const learnerTuple = learner as [any, any, any];
+
+  useEffect(() => {
+    if (
+      learnerTuple &&
+      learnerTuple.length >= 3 &&
+      learnerTuple[2] !== undefined
+    ) {
+      const rewards = parseFloat(learnerTuple[2] as string) * 1e-18;
+      setTotalRewards(rewards || 0);
+    }
+  }, [learnerTuple]);
+
+  const tokensEarned = totalRewards;
+
+  let userLevel = 1;
+  let tokensRequiredForCurrentLevel = 50;
+  const levelIntervalIncrease = 10;
+  let nextLevelIncrease = levelIntervalIncrease;
+
+  while (tokensEarned >= tokensRequiredForCurrentLevel) {
+    if (userLevel % levelIntervalIncrease === 0) {
+      tokensRequiredForCurrentLevel *= 2;
+      nextLevelIncrease += levelIntervalIncrease;
+    }
+
+    tokensRequiredForCurrentLevel += nextLevelIncrease;
+    userLevel++;
+  }
+
+  let tokensNeededForNextLevel = tokensRequiredForCurrentLevel - tokensEarned;
+
+  if (tokensNeededForNextLevel <= 0) {
+    tokensNeededForNextLevel =
+      tokensRequiredForCurrentLevel + nextLevelIncrease - tokensEarned;
+  }
+
+  userLevel = Math.max(userLevel, 1);
 
   const reduceAddressSize = (address: Address): Address => {
     const prefix = address.slice(0, 6) as Address;
     const suffix = address.slice(-6);
     return `${prefix}...${suffix}`;
   };
+
+  const progressPercentage =
+    ((tokensRequiredForCurrentLevel - tokensNeededForNextLevel + tokensEarned) /
+      (tokensRequiredForCurrentLevel - nextLevelIncrease)) *
+    100;
+
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWidth((oldWidth) => {
+        if (oldWidth < progressPercentage) {
+          return oldWidth + 1;
+        } else {
+          clearInterval(interval);
+          return oldWidth;
+        }
+      });
+    }, 1);
+
+    return () => clearInterval(interval);
+  }, [progressPercentage]);
 
   return (
     <>
@@ -158,7 +219,22 @@ export default function Account() {
             <div
               className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
             >
-              Coming soon...
+              <div className="flex justify-between">
+                <div className="flex gap-1">
+                  <p>You are level</p>{" "}
+                  <CountUp start={0} end={userLevel} duration={5} />
+                </div>
+                <p>{tokensNeededForNextLevel.toFixed(0)} TrotelCoins left</p>
+              </div>
+              <div className="overflow-hidden h-2 text-xs bg-gray-400 mt-2 dark:bg-gray-200 flex rounded-full">
+                <div
+                  style={{
+                    width: `${width}%`,
+                    transition: "width 1s ease-in",
+                  }}
+                  className="rounded-full h-2 bg-blue-600 dark:bg-blue-400"
+                ></div>
+              </div>
             </div>
             <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
               Badges
