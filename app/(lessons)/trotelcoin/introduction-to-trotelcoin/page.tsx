@@ -85,7 +85,6 @@ const currentCourse: Course = lessons
 const CoursePage = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
-  const [showConfettiReward, setShowConfettiReward] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
