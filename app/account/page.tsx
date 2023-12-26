@@ -51,7 +51,7 @@ export default function Account() {
 
   const intermediateBalance: number = parseFloat(intermediate as string);
   const expertBalance: number = parseFloat(expert as string);
-  let learnerTuple = learner as [Address, bigint, bigint];
+  let learnerTuple = learner as [any, any, any];
 
   const reduceAddressSize = (address: Address): Address => {
     const prefix = address.slice(0, 6) as Address;
@@ -90,7 +90,7 @@ export default function Account() {
                     <>
                       <CountUp
                         start={0}
-                        end={Number(learnerTuple[2]) * 1e-18}
+                        end={parseFloat(learnerTuple[2]) * 1e-18}
                       />{" "}
                       <span className="text-gray-900 dark:text-gray-100 text-sm">
                         TROTEL
@@ -114,7 +114,10 @@ export default function Account() {
                 >
                   {intermediateBalance > 0 || expertBalance > 0 ? (
                     <>
-                      <CountUp start={0} end={Number(learnerTuple[1])} />
+                      <CountUp
+                        start={0}
+                        end={parseFloat(learnerTuple[1] as string)}
+                      />
                     </>
                   ) : (
                     <>Not premium</>
