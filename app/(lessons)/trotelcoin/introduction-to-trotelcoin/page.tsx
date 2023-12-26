@@ -109,8 +109,7 @@ const CoursePage = () => {
             },
           });
 
-          const responseData = await response.json();
-          console.log(responseData);
+          const { responseData } = await response.json();
           setSecret(responseData.secret);
         }
       } catch (error) {
