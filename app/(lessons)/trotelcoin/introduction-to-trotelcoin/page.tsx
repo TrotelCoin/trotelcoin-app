@@ -104,7 +104,7 @@ const CoursePage = () => {
   useEffect(() => {
     async function fetchSecret() {
       try {
-        const response = await fetch("/api/trotelSecret");
+        const response = await fetch("/api/secret/trotelSecret");
         const {
           encryptedSecret,
           iv: receivedIV,
