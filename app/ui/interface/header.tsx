@@ -10,19 +10,8 @@ import Wallet from "@/app/components/wallet";
 import { usePathname } from "next/navigation";
 import TrotelPrice from "@/app/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/hooks/trotelPriceChange";
-import TrotelBalance from "@/app/hooks/trotelBalance";
 import ThemeSwitcher from "@/app/components/themeSelector";
 import LanguageSelector from "@/app/components/languageSelector";
-
-// Define types for navigation items and header props
-interface NavigationItem {
-  name: string;
-  href: string;
-}
-
-interface HeaderProps {
-  currentPage: string;
-}
 
 // Define an array of navigation items
 const navigation = [
@@ -67,7 +56,7 @@ const Header = () => {
           </p>
           <div className="hidden sm:block">{<TrotelPriceChange />}</div>
           <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
-            <span className="animate-pulse">alpha version</span>
+            <span className="animate-pulse">beta version</span>
           </span>
         </div>
 
