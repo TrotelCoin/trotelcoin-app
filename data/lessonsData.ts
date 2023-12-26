@@ -24,7 +24,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 2,
-        available: true,
+        available: false,
       },
     ],
   },

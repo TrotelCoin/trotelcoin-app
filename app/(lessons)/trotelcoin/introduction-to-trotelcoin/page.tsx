@@ -129,6 +129,7 @@ const CoursePage = () => {
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     account: address,
+    args: [address, process.env.TROTEL_SECRET, quizId],
     functionName: "claimRewards",
   });
   const { write: claimRewards } = useContractWrite(claimRewardsConfig);
@@ -428,7 +429,7 @@ const CoursePage = () => {
             </h2>
             <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                You will get {estimatedRewards as number} TROTEL
+                You will get {estimatedRewardsBalance as number} TROTEL
               </h3>
               <div className="mt-6 items-center">
                 <button
@@ -444,7 +445,7 @@ const CoursePage = () => {
         )}
         <Success
           title="Congratulations!"
-          message={`You claimed approximately ${estimatedRewards} TrotelCoin.`}
+          message={`You claimed approximately ${estimatedRewardsBalance} TrotelCoin.`}
           show={claimedRewards}
           onClose={() => setClaimedRewards(false)}
         />
