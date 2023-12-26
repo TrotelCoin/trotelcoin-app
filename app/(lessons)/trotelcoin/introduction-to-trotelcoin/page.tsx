@@ -470,7 +470,7 @@ const CoursePage = () => {
             </h2>
             <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                You will get {estimatedRewardsBalance} TROTEL
+                You will get approximately {estimatedRewardsBalance} TROTEL.
               </h3>
               <div className="mt-6 items-center">
                 <button
@@ -485,7 +485,7 @@ const CoursePage = () => {
         )}
         <Success
           title="Congratulations!"
-          message={`You claimed approximately ${estimatedRewardsBalance} TrotelCoin.`}
+          message={`You claimed your TrotelCoin.`}
           show={claimedRewards}
           onClose={() => setClaimedRewards(false)}
         />

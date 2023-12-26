@@ -58,7 +58,7 @@ export default function Account() {
     if (learner && learner !== null) {
       const learnerTuple = learner as [Address, number, number];
       setQuizzesAnswered(learnerTuple[1]);
-      setTotalRewards(learnerTuple[2]);
+      setTotalRewards(learnerTuple[2] * 1e-18);
     }
   }, [learner]);
 
