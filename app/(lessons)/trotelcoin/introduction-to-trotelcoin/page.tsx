@@ -109,10 +109,6 @@ const CoursePage = () => {
             },
           });
 
-          if (!response.ok) {
-            throw new Error("Failed to fetch secret");
-          }
-
           const responseData = await response.json();
           setSecret(responseData.secret);
         }
