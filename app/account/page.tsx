@@ -53,14 +53,7 @@ export default function Account() {
 
   const intermediateBalance: number = parseFloat(intermediate as string);
   const expertBalance: number = parseFloat(expert as string);
-
-  useEffect(() => {
-    if (learner && learner !== null) {
-      const learnerTuple = learner as [Address, number, number];
-      setQuizzesAnswered(learnerTuple[1]);
-      setTotalRewards(learnerTuple[2] * 1e-18);
-    }
-  }, [learner]);
+  let learnerTuple = learner as [Address, number, number];
 
   const reduceAddressSize = (address: Address): Address => {
     const prefix = address.slice(0, 6) as Address;
@@ -97,7 +90,7 @@ export default function Account() {
                 >
                   {intermediateBalance > 0 || expertBalance > 0 ? (
                     <>
-                      <CountUp start={0} end={totalRewards} />{" "}
+                      <CountUp start={0} end={learnerTuple[2] * 1e-18} />{" "}
                       <span className="text-gray-900 dark:text-gray-100 text-sm">
                         TROTEL
                       </span>
@@ -120,7 +113,7 @@ export default function Account() {
                 >
                   {intermediateBalance > 0 || expertBalance > 0 ? (
                     <>
-                      <CountUp start={0} end={quizzesAnswered} />
+                      <CountUp start={0} end={learnerTuple[1]} />
                     </>
                   ) : (
                     <>Not premium</>
