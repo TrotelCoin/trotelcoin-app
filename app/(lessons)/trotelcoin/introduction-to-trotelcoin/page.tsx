@@ -95,56 +95,21 @@ const CoursePage = () => {
   const [questions, setQuestions] = useState<any>(null);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
-  const [secretKey, setSecretKey] = useState<Buffer>(Buffer.alloc(32));
-  const [decryptedSecret, setDecryptedSecret] = useState<string>("");
+  const [secret, setSecret] = useState<string>("");
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    async function fetchSecretKey() {
-      try {
-        const response = await fetch("/api/secret/secretKey");
-        if (response.ok) {
-          const { secretKey } = await response.json();
-          setSecretKey(secretKey);
-        } else {
-          console.error("Failed to fetch secret key:", response.status);
-        }
-      } catch (error) {
-        console.error("Error fetching secret key:", error);
-      }
-    }
-
     async function fetchSecret() {
       try {
         const response = await fetch("/api/secret/trotelSecret");
-        const {
-          encryptedSecret,
-          iv: receivedIV,
-          authTag: receivedAuthTag,
-        } = await response.json();
-
-        const iv = Buffer.from(receivedIV, "hex");
-        const authTag = Buffer.from(receivedAuthTag, "hex");
-
-        const decipher = crypto.createDecipheriv(
-          decryptionAlgorithm,
-          secretKey,
-          iv
-        );
-        decipher.setAuthTag(authTag);
-
-        let decrypted = decipher.update(encryptedSecret, "hex", "utf8");
-        decrypted += decipher.final("utf8");
-
-        setDecryptedSecret(decrypted);
+        const secret = await response.json();
+        setSecret(secret);
       } catch (error) {
         console.error("Error fetching or decrypting secret:", error);
       }
     }
-
-    fetchSecretKey();
     fetchSecret();
   }, []);
 
@@ -181,11 +146,13 @@ const CoursePage = () => {
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     account: address,
-    args: [address, decryptedSecret, quizId],
+    args: [address, secret, quizId],
     functionName: "claimRewards",
   });
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
     useContractWrite(claimRewardsConfig);
+
+  console.log(claimRewardsConfig);
 
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);

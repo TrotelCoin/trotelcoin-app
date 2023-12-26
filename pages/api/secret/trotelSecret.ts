@@ -1,25 +1,41 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
-const encryptionAlgorithm = "aes-256-gcm";
-const secretKey = crypto.randomBytes(32);
-const iv = crypto.randomBytes(16);
+declare module "next" {
+  interface NextApiRequest {
+    user?: any;
+  }
+}
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+type Handler = (req: NextApiRequest, res: NextApiResponse) => Promise<void>;
+
+const verifyToken =
+  (handler: Handler) => async (req: NextApiRequest, res: NextApiResponse) => {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: No token provided" });
+    }
+
+    try {
+      const decoded = jwt.verify(token, process.env.TROTELCOIN_JWT_SECRET);
+      req.user = decoded;
+      return await handler(req, res);
+    } catch (error) {
+      return res.status(401).json({ message: "Unauthorized: Invalid token" });
+    }
+  };
+
+const handler: Handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const trotelSecret = process.env.TROTELCOIN_SECRET as string;
 
   if (!trotelSecret) {
     return res.status(404).json({ message: "Secret not found" });
   }
 
-  const cipher = crypto.createCipheriv(encryptionAlgorithm, secretKey, iv);
-  let encryptedSecret = cipher.update(trotelSecret, "utf8", "hex");
-  encryptedSecret += cipher.final("hex");
-  const authTag = cipher.getAuthTag();
+  return res.status(200).json(trotelSecret);
+};
 
-  return res.status(200).json({
-    encryptedSecret,
-    iv: iv.toString("hex"),
-    authTag: authTag.toString("hex"),
-  });
-}
+export default verifyToken(handler);
