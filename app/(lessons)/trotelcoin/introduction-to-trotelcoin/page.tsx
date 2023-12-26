@@ -166,11 +166,14 @@ const CoursePage = () => {
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     account: address,
-    args: [address, process.env.TROTEL_SECRET as string, quizId],
+    args: [address, decryptedSecret, quizId],
     functionName: "claimRewards",
   });
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
     useContractWrite(claimRewardsConfig);
+
+  console.log(claimRewards);
+  console.log(claimRewardsConfig);
 
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
