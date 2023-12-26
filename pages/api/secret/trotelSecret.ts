@@ -6,7 +6,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const requestSecretToken = req.headers["x-server-secret-token"];
 
   if (requestSecretToken === SERVER_SECRET_TOKEN) {
-    const secret = process.env.TROTELCOIN_SECRET;
+    // const secret = process.env.TROTELCOIN_SECRET;
+    const secret = "test";
     if (!secret) {
       res.status(500).json({
         message: "Le secret n'a pas été défini.",

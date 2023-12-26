@@ -110,6 +110,7 @@ const CoursePage = () => {
           });
 
           const { responseData } = await response.json();
+          console.log("Secret fetched:", responseData);
           setSecret(responseData);
         }
       } catch (error) {
