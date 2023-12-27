@@ -7,6 +7,7 @@ import Loading from "@/app/ui/interface/loading";
 import { poppins } from "@/app/ui/fonts";
 import Wagmi from "@/app/wagmi";
 import Header from "@/app/ui/interface/header";
+import Footer from "@/app/ui/interface/footer";
 import Banner from "@/app/ui/interface/banner";
 import { Analytics } from "@vercel/analytics/react";
 import IntractParam from "@/app/intract";
@@ -109,6 +110,7 @@ export default function Layout({
               <Banner />
               <Header />
               <main className="mx-10 lg:mx-32 my-10">{children}</main>
+              <Footer />
               <Analytics />
             </body>
           </Suspense>
