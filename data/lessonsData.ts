@@ -45,7 +45,7 @@ const lessons: Lessons[] = [
       {
         title: "Secure your wallet",
         description:
-          "Implement advanced security measures to protect your digital assets within the wallet",
+          "Implement advanced security measures to protect your digital assets",
         href: "/wallet/secure-your-wallet",
         tier: "Expert",
         sponsored: false,
@@ -67,7 +67,7 @@ const lessons: Lessons[] = [
       {
         title: "Make your first transaction",
         description:
-          "Gain hands-on experience in initiating and completing your first digital transaction",
+          "Gain hands-on experience in making your first digital transaction",
         href: "/wallet/make-your-first-transaction",
         tier: "Beginner",
         sponsored: false,
@@ -83,7 +83,7 @@ const lessons: Lessons[] = [
       {
         title: "What is a blockchain?",
         description:
-          "Grasp the fundamental concepts underlying the functionality of a blockchain",
+          "Grasp the concepts underlying the functionality of a blockchain",
         href: "/blockchain/what-is-a-blockchain",
         tier: "Beginner",
         sponsored: false,
@@ -137,7 +137,7 @@ const lessons: Lessons[] = [
       {
         title: "Introduction to Ethereum",
         description:
-          "Understand the foundational aspects and principles behind the Ethereum network",
+          "Understand the aspects and principles behind the Ethereum network",
         href: "/ethereum/introduction-to-ethereum",
         tier: "Beginner",
         sponsored: false,
@@ -148,7 +148,7 @@ const lessons: Lessons[] = [
       {
         title: "Understand the layers 2",
         description:
-          "Explore the secondary layers of Ethereum's architecture and their functionalities",
+          "Explore the secondary layers of Ethereum's architecture",
         href: "/ethereum/understand-the-layers-2",
         tier: "Intermediate",
         sponsored: false,

@@ -1,5 +1,6 @@
 import { JSX, SVGProps } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const navigation = {
   main: [
@@ -46,9 +47,9 @@ const displayedItems = navigation.main.filter((item) => item.display);
 export default function Footer() {
   return (
     <footer className="bg-white dark:bg-black mx-10">
-      <div className="mx-auto flex justify-between max-w-7xl overflow-hidden px-6 py-10 sm:py-12 lg:px-8 border-t border-black/20 dark:border-white/20">
+      <div className="mx-auto flex justify-between max-w-4xl overflow-hidden px-6 py-10 sm:py-12 border-t border-black/20 dark:border-white/20">
         <nav
-          className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
+          className="-mb-6 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
           {displayedItems.map((item) => (
@@ -64,18 +65,27 @@ export default function Footer() {
             </div>
           ))}
         </nav>
-        <div className="flex justify-center space-x-10">
-          {navigation.social.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              target="_blank"
-              className="hidden sm:block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
-            >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
-            </Link>
-          ))}
+        <div>
+          <Image
+            width={128}
+            height={128}
+            alt="TrotelCoin Logo"
+            className="block sm:hidden w-12 h-12"
+            src="/assets/logo/trotelcoin-white.png"
+          ></Image>
+          <div className="flex justify-center space-x-10">
+            {navigation.social.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                target="_blank"
+                className="hidden sm:block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              >
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="h-6 w-6" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
