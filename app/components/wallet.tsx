@@ -78,7 +78,7 @@ export default function Wallet() {
 
       {isConnecting && (
         <div className="relative inline-block">
-          <button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+          <button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900">
             Connecting...
           </button>
         </div>
@@ -87,7 +87,7 @@ export default function Wallet() {
       {isConnected && (
         <div>
           <button
-            className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
+            className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
             onClick={handleDisconnect}
           >
             Disconnect
