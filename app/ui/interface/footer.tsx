@@ -66,13 +66,15 @@ export default function Footer() {
           ))}
         </nav>
         <div>
-          <Image
-            width={128}
-            height={128}
-            alt="TrotelCoin Logo"
-            className="block sm:hidden w-12 h-12"
-            src="/assets/logo/trotelcoin-white.png"
-          ></Image>
+          <Link href="/home">
+            <Image
+              width={128}
+              height={128}
+              alt="TrotelCoin Logo"
+              className="block sm:hidden w-12 h-12"
+              src="/assets/logo/trotelcoin-white.png"
+            ></Image>
+          </Link>
           <div className="flex justify-center space-x-10">
             {navigation.social.map((item) => (
               <Link
