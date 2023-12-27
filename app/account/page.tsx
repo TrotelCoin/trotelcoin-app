@@ -160,33 +160,49 @@ const LevelSection: React.FC<LevelSectionProps> = ({
   </>
 );
 
-const BadgesSection = () => (
-  <>
-    <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">Badges</h2>
-    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
-      <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        Coming soon...
-      </div>
-      <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        Coming soon...
-      </div>
-      <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        Coming soon...
-      </div>
-      <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        Coming soon...
-      </div>
+const BadgesSection = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const divs = Array(6).fill(
+    <div
+      className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+    >
+      Coming soon...
     </div>
-  </>
-);
+  );
+
+  // make animation
+
+  const handleLeftClick = () => {
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
+
+  const handleRightClick = () => {
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, divs.length - 4));
+  };
+
+  return (
+    <>
+      <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">Badges</h2>
+      <div className="flex justify-between items-center gap-4">
+        <button
+          className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50"
+          onClick={handleLeftClick}
+        >
+          &larr;
+        </button>
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto overflow-hidden">
+          {divs.slice(currentIndex, currentIndex + 4)}
+        </div>
+        <button
+          className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50"
+          onClick={handleRightClick}
+        >
+          &rarr;
+        </button>
+      </div>
+    </>
+  );
+};
 
 const Header: React.FC<HeaderProps> = ({
   ensName,
