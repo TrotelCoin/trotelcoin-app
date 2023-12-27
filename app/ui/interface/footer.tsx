@@ -5,16 +5,16 @@ import Image from "next/image";
 const navigation = {
   main: [
     { name: "About", href: "https://trotelcoin.com", display: true },
-    { name: "Business", href: "mailto:hello@trotelcoin.com", display: true },
     {
       name: "Documentation",
       href: "https://docs.trotelcoin.com",
       display: true,
     },
     { name: "Pricing", href: "https://trotelcoin.com/pricing", display: true },
+    { name: "Business", href: "mailto:hello@trotelcoin.com", display: true },
+    { name: "Partners", href: "#", display: false },
     { name: "Jobs", href: "#", display: false },
     { name: "Blog", href: "#", display: false },
-    { name: "Partners", href: "#", display: false },
   ],
   social: [
     {
