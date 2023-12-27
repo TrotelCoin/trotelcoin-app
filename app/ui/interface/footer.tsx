@@ -71,7 +71,7 @@ export default function Footer() {
               width={128}
               height={128}
               alt="TrotelCoin Logo"
-              className="block sm:hidden w-12 h-12"
+              className="block sm:hidden h-12 w-auto"
               src="/assets/logo/trotelcoin-white.png"
             ></Image>
           </Link>
