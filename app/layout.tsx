@@ -109,7 +109,7 @@ export default function Layout({
               />
               <Banner />
               <Header />
-              <main className="mx-10 lg:mx-auto my-10 max-w-4xl">
+              <main className="mx-10 lg:mx-auto my-10 max-w-7xl">
                 {children}
               </main>
               <Footer />

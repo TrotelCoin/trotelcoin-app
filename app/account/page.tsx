@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useAccount, useContractRead, useEnsName } from "wagmi";
+import { useAccount, useContractRead, useEnsName, useBalance } from "wagmi";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
@@ -9,6 +9,7 @@ import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
   trotelCoinLearningAddress,
+  trotelCoinAddress,
 } from "@/data/addresses";
 import { polygon } from "viem/chains";
 import { Address } from "viem";
@@ -28,6 +29,7 @@ interface HeaderProps {
   learnerTuple: [any, any, any];
   intermediateBalance: number;
   expertBalance: number;
+  balance: any;
 }
 
 const reduceAddressSize = (address: Address): Address => {
@@ -193,6 +195,7 @@ const Header: React.FC<HeaderProps> = ({
   learnerTuple,
   intermediateBalance,
   expertBalance,
+  balance,
 }) => (
   <>
     <h2 className="text-gray-900 dark:text-gray-100 text-xl">
@@ -206,11 +209,11 @@ const Header: React.FC<HeaderProps> = ({
       </span>{" "}
       👋
     </h2>
-    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
       <div
         className={`${
           !isNotPremium && "rainbow-border"
-        } col-span-1 md:col-span-2 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        } col-span-1 md:col-span-3 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <span
           className={`text-6xl mb-4 font-semibold ${
@@ -229,7 +232,36 @@ const Header: React.FC<HeaderProps> = ({
         <span
           className={`${
             !isNotPremium
-              ? "text-6xl"
+              ? "text-4xl"
+              : "blur mb-4 hover:blur-none duration-500 text-xl"
+          } `}
+        >
+          {!isNotPremium ? (
+            <>
+              <span className="font-semibold">
+                {learnerTuple && learnerTuple.length >= 3 ? (
+                  <CountUp
+                    start={0}
+                    end={parseFloat(balance?.formatted as string)}
+                  />
+                ) : (
+                  <>0</>
+                )}
+              </span>
+            </>
+          ) : (
+            <>Not premium</>
+          )}
+        </span>
+        <span>Balance</span>
+      </div>
+      <div
+        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      >
+        <span
+          className={`${
+            !isNotPremium
+              ? "text-4xl"
               : "blur mb-4 hover:blur-none duration-500 text-xl"
           } `}
         >
@@ -245,9 +277,6 @@ const Header: React.FC<HeaderProps> = ({
                   <>0</>
                 )}
               </span>
-              <span className="text-gray-900 dark:text-gray-100 text-sm">
-                TROTEL
-              </span>
             </>
           ) : (
             <>Not premium</>
@@ -261,7 +290,7 @@ const Header: React.FC<HeaderProps> = ({
         <span
           className={`${
             !isNotPremium
-              ? "text-6xl"
+              ? "text-4xl"
               : "blur mb-4 hover:blur-none duration-500 text-xl"
           }`}
         >
@@ -325,6 +354,11 @@ export default function Account() {
     chainId: polygon.id,
     address: address,
   });
+  const { data: balance } = useBalance({
+    chainId: polygon.id,
+    token: trotelCoinAddress,
+    address: address,
+  });
 
   const intermediateBalance: number = parseFloat(intermediate as string);
   const expertBalance: number = parseFloat(expert as string);
@@ -371,6 +405,7 @@ export default function Account() {
               learnerTuple={learnerTuple}
               intermediateBalance={intermediateBalance}
               expertBalance={expertBalance}
+              balance={balance}
             />
             <LevelSection
               isNotPremium={isNotPremium}
