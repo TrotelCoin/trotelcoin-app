@@ -123,14 +123,22 @@ const LevelSection: React.FC<LevelSectionProps> = ({
           {!isNotPremium && (
             <>
               <p>You are level</p>
-              <CountUp start={0} end={userLevel} duration={5} />
+              {userLevel ? (
+                <CountUp start={0} end={userLevel} duration={5} />
+              ) : (
+                <>0</>
+              )}
             </>
           )}
         </div>
-        <p className={`hidden md:block ${isNotPremium && "blur hover:blur-none duration-500"}`}>
-          {!isNotPremium
+        <p
+          className={`hidden md:block ${
+            isNotPremium && "blur hover:blur-none duration-500"
+          }`}
+        >
+          {tokensNeededForNextLevel > 0 && !isNotPremium
             ? `${tokensNeededForNextLevel.toFixed(0)} TrotelCoins left`
-            : "Not premium"}{" "}
+            : "Not premium"}
         </p>
       </div>
       <div
@@ -200,6 +208,22 @@ const Header: React.FC<HeaderProps> = ({
     </h2>
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
       <div
+        className={`${
+          !isNotPremium && "rainbow-border"
+        } col-span-1 md:col-span-2 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      >
+        <span
+          className={`text-6xl mb-4 font-semibold ${
+            !isNotPremium && "rainbow-text"
+          }`}
+        >
+          {intermediateBalance > 0 && expertBalance <= 0 && <>Intermediate</>}
+          {expertBalance > 0 && <>Expert</>}
+          {isNotPremium && <>Beginner</>}
+        </span>{" "}
+        <span>Rank</span>
+      </div>
+      <div
         className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <span
@@ -212,7 +236,14 @@ const Header: React.FC<HeaderProps> = ({
           {!isNotPremium ? (
             <>
               <span className="font-semibold">
-                <CountUp start={0} end={parseFloat(learnerTuple[2]) * 1e-18} />
+                {learnerTuple && learnerTuple.length >= 3 ? (
+                  <CountUp
+                    start={0}
+                    end={parseFloat(learnerTuple[2]) * 1e-18}
+                  />
+                ) : (
+                  <>0</>
+                )}
               </span>
               <span className="text-gray-900 dark:text-gray-100 text-sm">
                 TROTEL
@@ -237,10 +268,14 @@ const Header: React.FC<HeaderProps> = ({
           {!isNotPremium ? (
             <>
               <span className="font-semibold">
-                <CountUp
-                  start={0}
-                  end={parseFloat(learnerTuple[1] as string)}
-                />
+                {learnerTuple && learnerTuple.length >= 2 ? (
+                  <CountUp
+                    start={0}
+                    end={parseFloat(learnerTuple[1] as string)}
+                  />
+                ) : (
+                  <>0</>
+                )}
               </span>
             </>
           ) : (
@@ -248,22 +283,6 @@ const Header: React.FC<HeaderProps> = ({
           )}
         </span>{" "}
         <span>Quizzes answered</span>
-      </div>
-      <div
-        className={`${
-          !isNotPremium && "rainbow-border"
-        } col-span-1 md:col-span-2 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <span
-          className={`text-6xl mb-4 font-semibold ${
-            !isNotPremium && "rainbow-text"
-          }`}
-        >
-          {intermediateBalance > 0 && expertBalance <= 0 && <>Intermediate</>}
-          {expertBalance > 0 && <>Expert</>}
-          {isNotPremium && <>Beginner</>}
-        </span>{" "}
-        <span>Rank</span>
       </div>
     </div>
   </>
