@@ -71,7 +71,7 @@ const displayedItems = navigation.main.filter((item) => item.display);
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-black">
+    <footer className="bg-white dark:bg-black mx-10">
       <div className="mx-auto max-w-4xl overflow-hidden px-6 py-10 sm:py-12 lg:px-8 border-t border-black/20 dark:border-white/20">
         <nav
           className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
@@ -96,7 +96,7 @@ export default function Footer() {
               key={item.name}
               href={item.href}
               target="_blank"
-              className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              className="hidden sm:block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
             >
               <span className="sr-only">{item.name}</span>
               <item.icon className="h-6 w-6" aria-hidden="true" />
