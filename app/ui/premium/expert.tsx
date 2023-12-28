@@ -184,7 +184,7 @@ const Expert = () => {
       <Fail
         show={isNotConnectedMessage}
         title="Connect your wallet"
-        message={`You need to connect your wallet to claim the NFT.`}
+        message={`You need to connect your wallet and sign in to claim the NFT.`}
         onClose={() => setIsNotConnectedMessage(false)}
       />
       <Success

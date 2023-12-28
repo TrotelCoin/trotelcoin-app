@@ -17,6 +17,7 @@ import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
 } from "@/data/addresses";
+import { useSession } from "next-auth/react";
 
 const advantages = {
   1: "Access to more courses providing in-depth content and additional tutorials",
@@ -37,6 +38,7 @@ const Intermediate = () => {
     useState<boolean>(false);
 
   const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
   const { data } = useBalance({
     address: address,
     chainId: polygon.id,
@@ -75,7 +77,7 @@ const Intermediate = () => {
   }, [isConnected, address]);
 
   const checkEligibility = async () => {
-    if (isConnected) {
+    if (isConnected && session) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
@@ -188,7 +190,7 @@ const Intermediate = () => {
       <Fail
         show={isNotConnectedMessage}
         title="Connect your wallet"
-        message={`You need to connect your wallet to claim the NFT.`}
+        message={`You need to connect your wallet and sign in to claim the NFT.`}
         onClose={() => setIsNotConnectedMessage(false)}
       />
       <Success
