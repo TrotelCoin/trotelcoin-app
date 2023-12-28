@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { polygon } from "wagmi/chains";
+import { polygon, mainnet } from "wagmi/chains";
 import { WagmiConfig, createConfig, configureChains } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
@@ -9,8 +9,8 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
-const { publicClient, webSocketPublicClient } = configureChains(
-  [polygon],
+const { chains, publicClient, webSocketPublicClient } = configureChains(
+  [mainnet, polygon],
   [publicProvider()]
 );
 
@@ -18,25 +18,25 @@ const config = createConfig({
   autoConnect: false,
   connectors: [
     new MetaMaskConnector({
-      chains: [polygon],
+      chains: chains,
       options: {
         shimDisconnect: true,
       },
     }),
     new CoinbaseWalletConnector({
-      chains: [polygon],
+      chains: chains,
       options: {
         appName: "wagmi",
       },
     }),
     new WalletConnectConnector({
-      chains: [polygon],
+      chains: chains,
       options: {
         projectId: "b0d3d1eb9c28fb7899eba1cff830b2b1",
       },
     }),
     new InjectedConnector({
-      chains: [polygon],
+      chains: chains,
       options: {
         name: "Browser Wallet",
         shimDisconnect: true,
