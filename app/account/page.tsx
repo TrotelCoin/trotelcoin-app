@@ -45,7 +45,7 @@ const reduceAddressSize = (address: Address): Address => {
 
 const calculateUserLevelAndTokens = (tokensEarned: number) => {
   let userLevel = 1;
-  let tokensRequiredForCurrentLevel = 50;
+  let tokensRequiredForCurrentLevel = 10;
   const levelIntervalIncrease = 10;
   let nextLevelIncrease = levelIntervalIncrease;
 
