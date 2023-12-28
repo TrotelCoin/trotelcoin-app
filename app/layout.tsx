@@ -11,7 +11,7 @@ import Footer from "@/app/ui/interface/footer";
 import Banner from "@/app/ui/interface/banner";
 import { Analytics } from "@vercel/analytics/react";
 import IntractParam from "@/app/intract";
-import GoogleAnalytics from "@/app/GoogleAnalytics";
+import GoogleAnalytics from "@/app/googleAnalytics";
 
 // Define metadata for the document
 export const metadata = {
