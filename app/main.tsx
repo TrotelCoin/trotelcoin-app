@@ -1,7 +1,9 @@
+"use client";
+
 import { Analytics } from "@vercel/analytics/react";
 import NextTopLoader from "nextjs-toploader";
-import React, { Component, Suspense, useEffect } from "react";
-import GoogleAnalytics from "./googleAnalytics";
+import React, { Suspense, useEffect } from "react";
+import GoogleAnalytics from "@/app/googleAnalytics";
 import { poppins } from "@/app/ui/fonts";
 import Banner from "@/app/ui/interface/banner";
 import Footer from "@/app/ui/interface/footer";
