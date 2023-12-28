@@ -16,6 +16,7 @@ import {
 import Confetti from "react-dom-confetti";
 import Fail from "../ui/modals/fail";
 import Success from "../ui/modals/success";
+import { useSession } from "next-auth/react";
 
 interface QuizProps {
   quizId: number;
@@ -113,6 +114,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
   }, []);
 
   const { address, isDisconnected } = useAccount();
+  const { data: session } = useSession();
 
   const { data: estimatedRewards } = useContractRead({
     chainId: polygon.id,
@@ -138,7 +140,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
   );
 
   const handleClaimRewards = async () => {
-    if (isDisconnected) {
+    if (isDisconnected && !session) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -335,7 +337,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
       />
       <Fail
         title="Connect your wallet!"
-        message={`You need to connect your wallet to claim your rewards.`}
+        message={`You need to connect your wallet and sign in to claim your rewards.`}
         show={isLearnerDisconnected}
         onClose={() => setIsLearnerDisconnected(false)}
       />
