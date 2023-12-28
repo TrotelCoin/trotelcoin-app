@@ -17,7 +17,16 @@ const AudioComponent = () => {
 
   return (
     <div>
-      <audio ref={audioRef} src="/audio/lofi-song.mp3" preload="auto" />
+      <audio
+        ref={audioRef}
+        src="/audio/lofi-song.mp3"
+        preload="auto"
+        onEnded={() => {
+          if (audioRef.current) {
+            audioRef.current.play();
+          }
+        }}
+      />
       <button
         className="p-2 rounded-full bg-white dark:bg-black focus:bg-white dark:focus:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-900 dark:text-gray-100"
         onClick={toggleAudio}
