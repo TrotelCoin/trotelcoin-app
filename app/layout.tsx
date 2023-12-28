@@ -1,6 +1,6 @@
 import React from "react";
 import Script from "next/script";
-import "@/app/[lang]/globals.css";
+import "@/app/globals.css";
 import { poppins } from "@/app/[lang]/ui/fonts";
 
 export const metadata = {
