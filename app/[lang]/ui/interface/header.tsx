@@ -136,7 +136,7 @@ const Header = async ({
                   width={128}
                   height={128}
                   src="/assets/logo/trotelcoin-white.png"
-                  alt={""}
+                  alt="TrotelCoin logo"
                 ></Image>
               </Link>
             </div>
