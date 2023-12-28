@@ -57,6 +57,7 @@ const CoursePage = () => {
     abi: trotelCoinIntermediateABI,
     args: [address],
     account: address,
+    enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
   });
@@ -66,6 +67,7 @@ const CoursePage = () => {
     abi: trotelCoinExpertABI,
     args: [address],
     account: address,
+    enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
   });

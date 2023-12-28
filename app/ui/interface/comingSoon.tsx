@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 // Define a functional component called ComingSoon

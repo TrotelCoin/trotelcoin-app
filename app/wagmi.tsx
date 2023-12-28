@@ -9,12 +9,7 @@ import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { InjectedConnector } from "wagmi/connectors/injected";
 
-export const metadata = {
-  title: "TrotelCoin App",
-  description: "Learn & earn crypto.",
-};
-
-const { chains, publicClient, webSocketPublicClient } = configureChains(
+const { publicClient, webSocketPublicClient } = configureChains(
   [polygon],
   [publicProvider()]
 );

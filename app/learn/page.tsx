@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import ComingSoon from "@/app/ui/interface/comingSoon";
 

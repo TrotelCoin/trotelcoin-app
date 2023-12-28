@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import lessons from "@/data/lessonsData";

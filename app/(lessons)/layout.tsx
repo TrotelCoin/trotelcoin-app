@@ -1,4 +1,5 @@
-// Import necessary modules and components
+"use client";
+
 import React from "react";
 
 // Define the main Document component

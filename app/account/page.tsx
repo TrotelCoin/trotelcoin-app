@@ -11,11 +11,11 @@ import {
   trotelCoinLearningAddress,
   trotelCoinAddress,
 } from "@/data/addresses";
-import { polygon } from "viem/chains";
+import { mainnet, polygon } from "viem/chains";
 import Image from "next/image";
 import { Address } from "viem";
 import CountUp from "react-countup";
-import next from "next";
+import { useSession } from "next-auth/react";
 
 interface LevelSectionProps {
   isNotPremium: boolean;
@@ -457,6 +457,7 @@ export default function Account() {
   const [width, setWidth] = useState<number>(0);
 
   const { address, isConnected } = useAccount();
+  const { data: session, status } = useSession();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
@@ -465,6 +466,7 @@ export default function Account() {
     functionName: "balanceOf",
     args: [address],
     account: address,
+    enabled: Boolean(address),
     watch: true,
   });
   const { data: expert } = useContractRead({
@@ -474,6 +476,7 @@ export default function Account() {
     functionName: "balanceOf",
     args: [address],
     account: address,
+    enabled: Boolean(address),
     watch: true,
   });
   const { data: learner } = useContractRead({
@@ -483,15 +486,18 @@ export default function Account() {
     functionName: "learners",
     args: [address],
     account: address,
+    enabled: Boolean(address),
     watch: true,
   });
   const { data: ensName } = useEnsName({
-    chainId: polygon.id,
     address: address,
+    enabled: Boolean(address),
+    chainId: mainnet.id,
   });
   const { data: balance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
+    enabled: Boolean(address),
     address: address,
   });
 
@@ -531,7 +537,7 @@ export default function Account() {
   return (
     <>
       <div className="my-20 max-w-4xl mx-auto">
-        {isConnected ? (
+        {isConnected && session ? (
           <>
             <Header
               ensName={ensName?.toString() as string}

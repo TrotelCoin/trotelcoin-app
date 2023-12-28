@@ -41,12 +41,14 @@ const Intermediate = () => {
     address: address,
     chainId: polygon.id,
     token: trotelCoinAddress,
+    enabled: Boolean(address),
     watch: true,
   });
   const { config } = usePrepareContractWrite({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
+    enabled: Boolean(address),
     functionName: "mint",
     args: [address],
     account: address,
@@ -55,6 +57,7 @@ const Intermediate = () => {
   const { data: claimed } = useContractRead({
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
+    enabled: Boolean(address),
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],

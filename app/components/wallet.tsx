@@ -1,12 +1,18 @@
-import React, { Fragment } from "react";
-import { useConnect, useAccount, useDisconnect } from "wagmi";
+"use client";
+
+import React, { useEffect } from "react";
+import { useConnect, useAccount, useDisconnect, useSignMessage } from "wagmi";
+import { getCsrfToken, signIn, useSession } from "next-auth/react";
+import { SiweMessage } from "siwe";
 import { polygon } from "wagmi/chains";
 import { Menu, Transition } from "@headlessui/react";
 
 export default function Wallet() {
   const { connect, connectors } = useConnect({ chainId: polygon.id });
+  const { signMessageAsync } = useSignMessage();
   const { disconnect } = useDisconnect();
-  const { isConnected, isDisconnected, isConnecting } = useAccount();
+  const { address, isConnected, isDisconnected, isConnecting } = useAccount();
+  const { data: session, status } = useSession();
 
   const handleConnect = (connector: any) => {
     try {
@@ -23,6 +29,32 @@ export default function Wallet() {
     } catch (error) {
       console.log(error);
       return;
+    }
+  };
+
+  const handleLogin = async () => {
+    try {
+      const callbackUrl = "/protected";
+      const message = new SiweMessage({
+        domain: window.location.host,
+        address: address,
+        statement: "Sign in with your wallet to the TrotelCoin's app.",
+        uri: window.location.origin,
+        version: "1",
+        chainId: polygon.id,
+        nonce: await getCsrfToken(),
+      });
+      const signature = await signMessageAsync({
+        message: message.prepareMessage(),
+      });
+      signIn("credentials", {
+        message: JSON.stringify(message),
+        redirect: false,
+        signature,
+        callbackUrl,
+      });
+    } catch (error) {
+      window.alert(error);
     }
   };
 
@@ -84,6 +116,17 @@ export default function Wallet() {
         </div>
       )}
 
+      {isConnected && !session && (
+        <div className="relative inline-block">
+          <button
+            className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
+            onClick={handleLogin}
+          >
+            Sign in
+          </button>
+        </div>
+      )}
+
       {isConnected && (
         <div>
           <button
@@ -96,4 +139,12 @@ export default function Wallet() {
       )}
     </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
 }

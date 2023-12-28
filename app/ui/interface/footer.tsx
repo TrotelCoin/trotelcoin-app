@@ -1,3 +1,5 @@
+"use client";
+
 import { JSX, SVGProps } from "react";
 import Link from "next/link";
 import Image from "next/image";

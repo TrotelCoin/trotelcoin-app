@@ -1,7 +1,8 @@
-import { Fragment, useState } from "react";
+"use client";
+
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import React from "react";
 import { Modals } from "@/types/types";
 
 const Fail: React.FC<Modals> = ({ title, show, message, onClose }) => {

@@ -1,3 +1,4 @@
+import { trotelCoinAddress } from "@/data/addresses";
 import Moralis from "moralis";
 import { NextApiRequest, NextApiResponse } from "next";
 import { polygon } from "wagmi/chains";
@@ -16,7 +17,7 @@ export default async function handler(
     const response = await Moralis.EvmApi.token.getTokenPrice({
       chain: polygon.id,
       include: "percent_change",
-      address: "0x85057d5a8d063f9075Ba963101D76352051675E5",
+      address: trotelCoinAddress,
     });
 
     const tokenPrice = response.raw.usdPrice;

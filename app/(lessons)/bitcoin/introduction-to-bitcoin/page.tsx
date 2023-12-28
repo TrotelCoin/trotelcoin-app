@@ -96,6 +96,7 @@ const CoursePage = () => {
     args: [address],
     account: address,
     functionName: "balanceOf",
+    enabled: Boolean(address),
     watch: true,
   });
   const { data: expert } = useContractRead({
@@ -105,6 +106,7 @@ const CoursePage = () => {
     args: [address],
     account: address,
     functionName: "balanceOf",
+    enabled: Boolean(address),
     watch: true,
   });
 

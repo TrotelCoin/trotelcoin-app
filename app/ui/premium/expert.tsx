@@ -47,6 +47,7 @@ const Expert = () => {
     functionName: "mint",
     args: [address],
     account: address,
+    enabled: Boolean(address),
   });
   const { write, isSuccess } = useContractWrite(config);
   const { data: claimed } = useContractRead({
@@ -56,6 +57,7 @@ const Expert = () => {
     chainId: polygon.id,
     args: [address],
     account: address,
+    enabled: Boolean(address),
   });
 
   useEffect(() => {
