@@ -1,7 +1,7 @@
 "use client";
 
 import "animate.css";
-import { Course } from "@/types/types";
+import { Course, Lang } from "@/types/types";
 import React from "react";
 import lessons from "@/data/lessonsData";
 import Link from "next/link";
@@ -48,7 +48,7 @@ const currentCourse: Course = lessons
   .flatMap((lesson) => lesson.courses)
   .find((course) => course.quizId === quizId) as Course;
 
-const CoursePage = () => {
+const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const { address, isDisconnected } = useAccount();
 
   const { data: intermediate } = useContractRead({
@@ -89,7 +89,7 @@ const CoursePage = () => {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                href="/home"
+                href={`/${lang}/home`}
                 className="rounded-md bg-blue-600 dark:bg-blue-200 px-3.5 py-2.5 text-sm font-semibold text-gray-100 dark:text-gray-900 shadow-sm hover:bg-blue-800 dark:hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 Go back home
