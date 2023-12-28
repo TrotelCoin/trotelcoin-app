@@ -1,7 +1,9 @@
 {
-  "Progression": "Progression",
-  "Courses taken": "Cours suivis",
-  "Balance worth $": "Solde d'une valeur de ${{value}}",
-  "Earned worth ${{value}}": "Gagné d'une valeur de ${{value}}",
-  "Quizzes answered": "Quiz répondus"
+  "header": {
+    "home": "Accueil",
+    "learn": "Apprendre",
+    "community": "Communauté",
+    "account": "Compte",
+    "premium": "Abonnement"
+  }
 }

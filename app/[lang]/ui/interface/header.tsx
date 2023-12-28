@@ -14,17 +14,26 @@ import ThemeSwitcher from "@/app/[lang]/components/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import AudioComponent from "@/app/[lang]/components/audio";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 
 // Define the Header component
-const Header = ({ router }: { router: AppRouterInstance }) => {
+const Header = async ({
+  router,
+  lang,
+}: {
+  router: AppRouterInstance;
+  lang: Lang;
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const dict = await getDictionary(lang);
 
   const navigation = [
-    { name: "Home", href: "/home" },
-    { name: "Learn", href: "/learn" },
-    { name: "Premium", href: "/premium" },
-    { name: "Account", href: "/account" },
+    { name: dict.header.home, href: "/home" },
+    { name: dict.header.learn, href: "/learn" },
+    { name: dict.header.premium, href: "/premium" },
+    { name: dict.header.account, href: "/account" },
   ];
 
   const closeMenu = () => {
@@ -41,7 +50,7 @@ const Header = ({ router }: { router: AppRouterInstance }) => {
         {/* Left section with logo, Trotel price, and version */}
         <div className="flex lg:flex-1 items-center gap-x-4">
           <div className="-m-1.5 p-1.5">
-            <Link href="/home">
+            <Link href={`/${lang}/home`}>
               <Image
                 className="h-12 w-auto"
                 width={128}
@@ -66,9 +75,9 @@ const Header = ({ router }: { router: AppRouterInstance }) => {
           {navigation.map((item) => (
             <Link
               key={item.name}
-              href={item.href}
+              href={`/${lang}${item.href}`}
               className={`text-sm px-6 py-2 ${
-                pathname === item.href
+                pathname === `/${lang}${item.href}`
                   ? "bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
                   : "text-gray-700 dark:text-gray-300  hover:text-gray-900 dark:hover:text-gray-100"
               } font-semibold rounded-full leading-6`}
@@ -121,7 +130,7 @@ const Header = ({ router }: { router: AppRouterInstance }) => {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
-              <Link href="/home">
+              <Link href={`/${lang}/home`}>
                 <Image
                   className="h-12 w-auto"
                   width={128}
@@ -149,7 +158,7 @@ const Header = ({ router }: { router: AppRouterInstance }) => {
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
-                    href={item.href}
+                    href={`/${lang}${item.href}`}
                     onClick={() => {
                       closeMenu();
                     }}

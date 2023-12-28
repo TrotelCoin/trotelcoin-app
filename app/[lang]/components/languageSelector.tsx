@@ -18,10 +18,11 @@ const LanguageSelector = ({ router }: { router: AppRouterInstance }) => {
   const pathname = usePathname();
 
   const onChangeLanguage = (language: Language) => {
+    const newPathname = pathname?.replace(/^\/(en|fr)/, "");
     if (language.code === "fr") {
-      router.push(`/fr${pathname}`);
+      router.replace(`/fr${newPathname}`);
     } else {
-      router.push(`${pathname}`);
+      router.replace(`/en${newPathname}`);
     }
   };
 

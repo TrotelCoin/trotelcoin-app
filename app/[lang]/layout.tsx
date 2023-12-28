@@ -9,16 +9,18 @@ import RouterComponent from "@/app/[lang]/routerComponent";
 export default function Layout({
   session,
   children,
+  params: { lang },
 }: {
   session: Session;
   children: React.ReactNode;
+  params: { lang: string };
 }) {
   return (
     <>
       {/* Use Suspense for loading fallback */}
       <Wagmi>
         <SessionProviderComponent session={session}>
-          <RouterComponent children={children} />
+          <RouterComponent children={children} lang={lang} />
         </SessionProviderComponent>
       </Wagmi>
     </>

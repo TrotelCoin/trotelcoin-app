@@ -84,3 +84,5 @@ export interface Course {
 export interface Answers {
   [key: number]: string;
 }
+
+export type Lang = "en" | "fr";

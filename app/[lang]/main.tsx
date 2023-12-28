@@ -13,9 +13,11 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 const MainComponent = ({
   children,
   router,
+  lang,
 }: {
   children: React.ReactNode;
   router: AppRouterInstance;
+  lang: string;
 }) => {
   return (
     <>
@@ -47,7 +49,7 @@ const MainComponent = ({
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
           />
           <Banner />
-          <Header router={router} />
+          <Header router={router} lang={lang} />
           <main className="mx-10 lg:mx-auto my-10 max-w-6xl">{children}</main>
           <Footer />
           <Analytics />

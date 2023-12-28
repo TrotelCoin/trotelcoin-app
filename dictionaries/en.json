@@ -1,3 +1,9 @@
 {
-  "menu": { "home": "Home", "governance": "Governance", "account": "Account" }
+  "header": {
+    "home": "Home",
+    "learn": "Learn",
+    "community": "Community",
+    "account": "Account",
+    "premium": "Premium"
+  }
 }
