@@ -127,7 +127,7 @@ export default function Wallet() {
         </div>
       )}
 
-      {isConnected && (
+      {isConnected && session && (
         <div>
           <button
             className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
