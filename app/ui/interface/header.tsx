@@ -12,6 +12,7 @@ import TrotelPrice from "@/app/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/hooks/trotelPriceChange";
 import ThemeSwitcher from "@/app/components/themeSelector";
 import LanguageSelector from "@/app/components/languageSelector";
+import AudioComponent from "@/app/components/audio";
 
 // Define an array of navigation items
 const navigation = [
@@ -51,7 +52,7 @@ const Header = () => {
             </Link>
           </div>
 
-          <p className="font-semibold text-gray-900 dark:text-gray-100">
+          <p className="hidden md:block font-semibold text-gray-900 dark:text-gray-100">
             {<TrotelPrice />}
           </p>
           <div className="hidden sm:block">{<TrotelPriceChange />}</div>
@@ -85,16 +86,20 @@ const Header = () => {
             </span>*/}
             <Wallet />
           </div>
-          <div className="items-center flex pl-4 gap-x-4">
+          <div className="items-center flex pl-4 gap-2">
             <LanguageSelector />
             <ThemeSwitcher />
+            <AudioComponent />
           </div>
         </div>
 
         {/* Mobile menu button */}
         <div className="flex gap-4 items-center md:hidden">
-          <ThemeSwitcher />
-          <LanguageSelector />
+          <div className="flex gap-2 items-center">
+            <ThemeSwitcher />
+            <AudioComponent />
+            <LanguageSelector />
+          </div>
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
