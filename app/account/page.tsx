@@ -559,7 +559,7 @@ export default function Account() {
         ) : (
           <>
             <h2 className="text-center text-gray-900 dark:text-gray-100 text-xl">
-              You need to sign in.
+              You need to connect your wallet and sign in.
             </h2>
           </>
         )}
