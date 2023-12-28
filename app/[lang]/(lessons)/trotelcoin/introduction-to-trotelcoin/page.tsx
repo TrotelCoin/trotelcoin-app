@@ -201,7 +201,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {/* Quizz */}
         <Quiz quizId={quizId} />
-        <GoHomeButton />
+        <GoHomeButton lang={lang} />
       </>
     );
   };
