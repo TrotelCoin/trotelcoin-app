@@ -15,6 +15,7 @@ import { polygon } from "viem/chains";
 import Image from "next/image";
 import { Address } from "viem";
 import CountUp from "react-countup";
+import next from "next";
 
 interface LevelSectionProps {
   isNotPremium: boolean;
@@ -78,15 +79,16 @@ const calculateUserLevelAndTokens = (tokensEarned: number) => {
 
 const calculateProgressPercentage = (
   tokensRequiredForCurrentLevel: number,
-  tokensNeededForNextLevel: number,
   tokensEarned: number,
+  tokensNeededForNextLevel: number,
   nextLevelIncrease: number
 ) => {
-  return (
-    ((tokensRequiredForCurrentLevel - tokensNeededForNextLevel + tokensEarned) /
-      (tokensRequiredForCurrentLevel - nextLevelIncrease)) *
-    100
-  );
+  const progressTowardsNextLevel =
+    tokensEarned - tokensRequiredForCurrentLevel + nextLevelIncrease;
+  const totalTokensForNextLevel =
+    tokensNeededForNextLevel + progressTowardsNextLevel;
+
+  return (progressTowardsNextLevel / totalTokensForNextLevel) * 100;
 };
 
 const incrementWidth = (
@@ -518,8 +520,8 @@ export default function Account() {
   } = calculateUserLevelAndTokens(tokensEarned);
   const progressPercentage = calculateProgressPercentage(
     tokensRequiredForCurrentLevel,
-    tokensNeededForNextLevel,
     tokensEarned,
+    tokensNeededForNextLevel,
     nextLevelIncrease
   );
   incrementWidth(progressPercentage, setWidth);
