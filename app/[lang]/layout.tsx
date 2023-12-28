@@ -5,6 +5,7 @@ import SessionProviderComponent from "@/app/[lang]/sessionProvider";
 import Wagmi from "@/app/[lang]/wagmi";
 import { Session } from "next-auth";
 import RouterComponent from "@/app/[lang]/routerComponent";
+import { Lang } from "@/types/types";
 
 export default function Layout({
   session,
@@ -13,7 +14,7 @@ export default function Layout({
 }: {
   session: Session;
   children: React.ReactNode;
-  params: { lang: string };
+  params: { lang: Lang };
 }) {
   return (
     <>

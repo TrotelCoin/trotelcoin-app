@@ -9,6 +9,7 @@ import Footer from "@/app/[lang]/ui/interface/footer";
 import Header from "@/app/[lang]/ui/interface/header";
 import Loading from "@/app/[lang]/ui/interface/loading";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { Lang } from "@/types/types";
 
 const MainComponent = ({
   children,
@@ -17,7 +18,7 @@ const MainComponent = ({
 }: {
   children: React.ReactNode;
   router: AppRouterInstance;
-  lang: string;
+  lang: Lang;
 }) => {
   return (
     <>
