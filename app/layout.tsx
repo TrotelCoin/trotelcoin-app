@@ -18,6 +18,8 @@ export const metadata = {
   description: "Learn & earn crypto.",
 };
 
+declare let dataLayer: any[];
+
 // Define the main Document component
 export default function Layout({
   children,
@@ -29,6 +31,14 @@ export default function Layout({
   return (
     <html lang={lang}>
       <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q775YLVSL8"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-Q775YLVSL8');
+        </script>
         <title>{metadata.title}</title>
         {/* Set metadata for SEO */}
         <meta name="description" content={metadata.description} />
