@@ -12,6 +12,7 @@ import Banner from "@/app/ui/interface/banner";
 import { Analytics } from "@vercel/analytics/react";
 import IntractParam from "@/app/intract";
 import GoogleAnalytics from "@/app/googleAnalytics";
+import Script from "next/script";
 
 // Define metadata for the document
 export const metadata = {
@@ -75,6 +76,18 @@ export default function Layout({
           rel="apple-touch-startup-image"
           as="image"
         />
+        <Script strategy="lazyOnload">
+          {`
+            (function(h,o,t,j,a,r){
+              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+              h._hjSettings={hjid:3685770,hjsv:6};
+              a=o.getElementsByTagName('head')[0];
+              r=o.createElement('script');r.async=1;
+              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+              a.appendChild(r);
+            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+          `}
+        </Script>
       </head>
 
       {/* Use Suspense for loading fallback */}
