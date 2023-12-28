@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import MainComponent from "@/app/[lang]/main";
-import { usePathname } from "next/navigation";
 import { Lang } from "@/types/types";
 
 const RouterComponent = ({
@@ -14,11 +13,12 @@ const RouterComponent = ({
   lang: Lang;
 }) => {
   const router = useRouter();
-  const pathname = usePathname();
 
   return (
     <>
-      <MainComponent children={children} router={router} lang={lang} />
+      <MainComponent router={router} lang={lang}>
+        {children}
+      </MainComponent>
     </>
   );
 };

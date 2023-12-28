@@ -3,6 +3,7 @@
 import React from "react";
 import SessionProviderComponent from "@/app/[lang]/sessionProvider";
 import Wagmi from "@/app/[lang]/wagmi";
+import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
 import RouterComponent from "@/app/[lang]/routerComponent";
 import { Lang } from "@/types/types";
@@ -21,7 +22,7 @@ export default function Layout({
       {/* Use Suspense for loading fallback */}
       <Wagmi>
         <SessionProviderComponent session={session}>
-          <RouterComponent children={children} lang={lang} />
+          <RouterComponent lang={lang}>{children}</RouterComponent>
         </SessionProviderComponent>
       </Wagmi>
     </>

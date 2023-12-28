@@ -11,7 +11,7 @@ import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
 } from "@/data/addresses";
-import { Lessons, Lesson } from "@/types/types";
+import { Lessons, Lesson, Lang } from "@/types/types";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -28,7 +28,8 @@ function renderCourses(
   course: Lesson,
   intermediateBalance: number,
   expertBalance: number,
-  isConnected: boolean
+  isConnected: boolean,
+  lang: Lang
 ) {
   const isIntermediate =
     course.tier === "Intermediate" && intermediateBalance > 0;
@@ -57,7 +58,7 @@ function renderCourses(
   }
 
   return (
-    <Link href={courseLink} key={course.title}>
+    <Link href={`/${lang}${courseLink}`} key={course.title}>
       <div
         className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
@@ -111,7 +112,7 @@ function renderCourses(
   );
 }
 
-export default function Home() {
+export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (e: { target: { value: string } }) => {
@@ -208,7 +209,8 @@ export default function Home() {
                       course,
                       intermediateBalance,
                       expertBalance,
-                      isConnected
+                      isConnected,
+                      lang
                     )
                   )}
               </div>
