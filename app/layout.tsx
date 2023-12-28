@@ -11,14 +11,13 @@ import Footer from "@/app/ui/interface/footer";
 import Banner from "@/app/ui/interface/banner";
 import { Analytics } from "@vercel/analytics/react";
 import IntractParam from "@/app/intract";
+import GoogleAnalytics from "@/app/GoogleAnalytics";
 
 // Define metadata for the document
 export const metadata = {
   title: "TrotelCoin App",
   description: "Learn & earn crypto.",
 };
-
-declare let dataLayer: any[];
 
 // Define the main Document component
 export default function Layout({
@@ -31,14 +30,6 @@ export default function Layout({
   return (
     <html lang={lang}>
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q775YLVSL8"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-Q775YLVSL8');
-        </script>
         <title>{metadata.title}</title>
         {/* Set metadata for SEO */}
         <meta name="description" content={metadata.description} />
@@ -95,6 +86,11 @@ export default function Layout({
             <body
               className={`bg-white dark:bg-black ${poppins.className} antialiased`}
             >
+              {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+                <GoogleAnalytics
+                  ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+                />
+              ) : null}
               <div className="hidden lg:block">
                 {/*<AnimatedCursor
                   color="59, 130, 246"
