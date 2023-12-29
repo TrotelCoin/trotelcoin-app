@@ -117,7 +117,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     abi: trotelCoinLearningABI,
     account: address,
     enabled: Boolean(address),
-    args: [address, secret, quizId],
+    args: [address, secret, parseFloat(quizId.toString())],
     functionName: "claimRewards",
   });
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
