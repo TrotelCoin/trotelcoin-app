@@ -120,6 +120,16 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     args: [address, secret, parseFloat(quizId.toString())],
     functionName: "claimRewards",
   });
+  const { data: alreadyAnswered } = useContractRead({
+    chainId: polygon.id,
+    address: trotelCoinLearningAddress,
+    abi: trotelCoinLearningABI,
+    account: address,
+    args: [address, parseFloat(quizId.toString())],
+    enabled: Boolean(address),
+    functionName: "quizzesIdAnsweredPerLearner",
+    watch: true,
+  });
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
     useContractWrite(claimRewardsConfig);
 
@@ -297,7 +307,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         </div>
       </div>
       {/* Reward */}
-      {isCorrect && (
+      {isCorrect && !alreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimRewards}</>}
@@ -318,6 +328,13 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {alreadyAnswered && (
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
+          </h2>
         </div>
       )}
       <Success

@@ -125,6 +125,7 @@
     "youWillGet": "You will get approximately",
     "receiveCrypto": "Receive crypto",
     "correct": "Correct. You answered correctly.",
-    "incorrect": "Incorrect. You answered incorrectly."
+    "incorrect": "Incorrect. You answered incorrectly.",
+    "alreadyClaimed": "You already claimed this quiz."
   }
 }

@@ -125,6 +125,7 @@
     "youWillGet": "Vous allez obtenir environ",
     "receiveCrypto": "Recevoir mes crypto",
     "correct": "Correct. Vous avez répondu correctement.",
-    "incorrect": "Incorrect. Vous avez répondu incorrectement."
+    "incorrect": "Incorrect. Vous avez répondu incorrectement.",
+    "alreadyClaimed": "Vous avez déjà obtenu vos récompenses."
   }
 }
