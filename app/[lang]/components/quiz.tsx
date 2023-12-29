@@ -332,14 +332,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       )}
       {isDisconnected && !alreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
           </h2>
         </div>
       )}
       {alreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
           </h2>
         </div>
