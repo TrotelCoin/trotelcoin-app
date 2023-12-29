@@ -12,7 +12,6 @@ import {
   trotelCoinAddress,
 } from "@/data/addresses";
 import { mainnet, polygon } from "viem/chains";
-import Image from "next/image";
 import { Address } from "viem";
 import CountUp from "react-countup";
 import { useSession } from "next-auth/react";
@@ -124,7 +123,9 @@ const LevelSection: React.FC<LevelSectionProps> = ({
   dict,
 }) => (
   <>
-    <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">Level</h2>
+    <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+      {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
+    </h2>
     <div
       className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
     >
@@ -340,12 +341,11 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
                   >
                     {!isNotPremium ? (
                       <>{badge.name}</>
+                    ) : typeof dict?.account !== "string" &&
+                      typeof dict?.account.notPremium === "string" ? (
+                      <>{dict?.account.notPremium}</>
                     ) : (
-                      `${
-                        typeof dict?.account !== "string" && (
-                          <>{dict?.account.notPremium}</>
-                        )
-                      }`
+                      <>Loading...</>
                     )}
                   </span>
                 </div>

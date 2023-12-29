@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
-import lessons from "@/data/lessonsData";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import ReCAPTCHA from "react-google-recaptcha";
 import { trotelCoinLearningAddress } from "@/data/addresses";
