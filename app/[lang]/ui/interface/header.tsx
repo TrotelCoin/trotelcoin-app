@@ -3,7 +3,7 @@
 // Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Wallet from "@/app/[lang]/components/wallet";
@@ -14,11 +14,11 @@ import ThemeSwitcher from "@/app/[lang]/components/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import AudioComponent from "@/app/[lang]/components/audio";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { getDictionary } from "@/app/[lang]/dictionaries";
-import { Lang } from "@/types/types";
+import { getDictionary, dictionaries } from "@/app/[lang]/dictionaries";
+import { Lang, DictType } from "@/types/types";
 
 // Define the Header component
-const Header = async ({
+const Header = ({
   router,
   lang,
 }: {
@@ -26,14 +26,24 @@ const Header = async ({
   lang: Lang;
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dict, setDict] = useState<DictType | null>(null);
+
   const pathname = usePathname();
-  const dict = await getDictionary(lang);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
 
   const navigation = [
-    { name: dict.header.home, href: "/home" },
-    { name: dict.header.learn, href: "/learn" },
-    { name: dict.header.premium, href: "/premium" },
-    { name: dict.header.account, href: "/account" },
+    { name: dict?.header.home, href: "/home" },
+    { name: dict?.header.learn, href: "/learn" },
+    { name: dict?.header.premium, href: "/premium" },
+    { name: dict?.header.account, href: "/account" },
   ];
 
   const closeMenu = () => {
