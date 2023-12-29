@@ -1,5 +1,4 @@
 // Import necessary modules and components
-
 import React from "react";
 import SessionProviderComponent from "@/app/[lang]/sessionProvider";
 import Wagmi from "@/app/[lang]/wagmi";

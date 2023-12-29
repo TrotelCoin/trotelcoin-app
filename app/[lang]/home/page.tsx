@@ -58,7 +58,7 @@ function renderCourses(
   }
 
   return (
-    <Link href={`/${lang}${courseLink}`} key={course.title}>
+    <Link href={`/${lang}/${course.quizId}${courseLink}`} key={course.title}>
       <div
         className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >

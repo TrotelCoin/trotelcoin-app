@@ -1,5 +1,3 @@
-"use client";
-
 import { Analytics } from "@vercel/analytics/react";
 import NextTopLoader from "nextjs-toploader";
 import React, { Suspense } from "react";

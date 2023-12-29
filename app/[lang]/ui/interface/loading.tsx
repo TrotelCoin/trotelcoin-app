@@ -11,6 +11,7 @@ const Loading = () => {
           width={128}
           height={128}
           alt="TrotelCoin Logo"
+          className="w-12 h-auto animate-bounce"
           src="/assets/logo/trotelcoin-white.png"
         ></Image>
       </div>
