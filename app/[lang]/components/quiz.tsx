@@ -307,7 +307,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         </div>
       </div>
       {/* Reward */}
-      {isCorrect && !alreadyAnswered && !isDisconnected && (
+      {isCorrect && !alreadyAnswered && !isDisconnected && session && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimRewards}</>}
@@ -330,7 +330,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           </div>
         </div>
       )}
-      {isDisconnected && !alreadyAnswered && (
+      {(isDisconnected || !session) && !alreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
