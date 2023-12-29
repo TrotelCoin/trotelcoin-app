@@ -19,7 +19,7 @@ const AudioComponent = () => {
     <div>
       <audio
         ref={audioRef}
-        src="/audio/lofi-song.mp3"
+        src="/audio/lofi.mp3"
         preload="auto"
         onEnded={() => {
           if (audioRef.current) {
