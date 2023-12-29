@@ -10,6 +10,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import { Lang } from "@/types/types";
 import { poppins } from "@/app/[lang]/ui/fonts";
 import Script from "next/script";
+import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -29,7 +30,6 @@ const MainComponent = ({
     <>
       <html lang={lang}>
         <head>
-          {" "}
           <title>{metadata.title}</title>
           {/* Set metadata for SEO */}
           <meta name="description" content={metadata.description} />
@@ -87,17 +87,15 @@ const MainComponent = ({
           `}
           </Script>
         </head>
-        <Suspense fallback={<Loading />}>
-          <body
-            className={`bg-white dark:bg-black ${poppins.className} antialiased`}
-          >
-            {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-              <GoogleAnalytics
-                ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
-              />
-            ) : null}
-            <div className="hidden lg:block">
-              {/*<AnimatedCursor
+
+        <body
+          className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+        >
+          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+            <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+          ) : null}
+          <div className="hidden lg:block">
+            {/*<AnimatedCursor
               color="59, 130, 246"
               innerSize={24}
               innerScale={0.5}
@@ -105,25 +103,30 @@ const MainComponent = ({
               outerScale={2}
               showSystemCursor={false}
             />*/}
-            </div>
-            <NextTopLoader
-              color="#3b82f6"
-              initialPosition={0.08}
-              crawlSpeed={200}
-              height={3}
-              crawl={true}
-              showSpinner={false}
-              easing="ease"
-              speed={200}
-              shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-            />
-            <Banner />
-            <Header router={router} lang={lang} />
-            <main className="mx-10 lg:mx-auto my-10 max-w-6xl">{children}</main>
-            <Footer />
-            <Analytics />
-          </body>
-        </Suspense>
+          </div>
+          <NextTopLoader
+            color="#3b82f6"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={3}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+          />
+          <Suspense fallback={<Loading />}>
+            <DictionaryProvider lang={lang}>
+              <Banner />
+              <Header router={router} lang={lang} />
+              <main className="mx-10 lg:mx-auto my-10 max-w-6xl">
+                {children}
+              </main>
+              <Footer />
+            </DictionaryProvider>
+          </Suspense>
+          <Analytics />
+        </body>
       </html>
     </>
   );

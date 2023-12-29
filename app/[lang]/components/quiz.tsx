@@ -121,6 +121,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     account: address,
+    enabled: Boolean(address),
     functionName: "calculateRewards",
     watch: true,
   });
@@ -129,6 +130,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     account: address,
+    enabled: Boolean(address),
     args: [address, secret, quizId],
     functionName: "claimRewards",
   });

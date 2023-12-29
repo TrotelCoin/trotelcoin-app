@@ -175,6 +175,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
     abi: trotelCoinLearningABI,
     address: trotelCoinLearningAddress,
     functionName: "getNumberOfQuizzesAnswer",
+    enabled: Boolean(address),
     args: [address],
     watch: true,
   });
@@ -185,6 +186,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
     address: trotelCoinLearningAddress,
     functionName: "learners",
     args: [address],
+    enabled: Boolean(address),
     account: address,
     watch: true,
   });

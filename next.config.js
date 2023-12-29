@@ -7,6 +7,16 @@ const nextConfig = {
         destination: "/en/home",
         permanent: false,
       },
+      {
+        source: "/en",
+        destination: "/en/home",
+        permanent: false,
+      },
+      {
+        source: "/fr",
+        destination: "/fr/home",
+        permanent: false,
+      },
     ];
   },
 };

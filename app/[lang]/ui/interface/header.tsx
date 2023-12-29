@@ -40,10 +40,10 @@ const Header = ({
   }, [lang]);
 
   const navigation = [
-    { name: dict?.header.home, href: "/home" },
-    { name: dict?.header.learn, href: "/learn" },
-    { name: dict?.header.premium, href: "/premium" },
-    { name: dict?.header.account, href: "/account" },
+    { name: dict?.header.home, href: "/home", id: 1 },
+    { name: dict?.header.learn, href: "/learn", id: 2 },
+    { name: dict?.header.premium, href: "/premium", id: 3 },
+    { name: dict?.header.account, href: "/account", id: 4 },
   ];
 
   const closeMenu = () => {
@@ -84,7 +84,7 @@ const Header = ({
         <div className="hidden lg:flex lg:gap-x-4">
           {navigation.map((item) => (
             <Link
-              key={item.name}
+              key={item.id}
               href={`/${lang}${item.href}`}
               className={`text-sm px-6 py-2 ${
                 pathname === `/${lang}${item.href}`
@@ -167,7 +167,7 @@ const Header = ({
                 {/* Mobile navigation links */}
                 {navigation.map((item) => (
                   <Link
-                    key={item.name}
+                    key={item.id}
                     href={`/${lang}${item.href}`}
                     onClick={() => {
                       closeMenu();

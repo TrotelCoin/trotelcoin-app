@@ -137,6 +137,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     abi: trotelCoinIntermediateABI,
     args: [address],
     account: address,
+    enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
   });
@@ -146,6 +147,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     abi: trotelCoinExpertABI,
     args: [address],
     account: address,
+    enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
   });
