@@ -21,28 +21,40 @@ export default function Footer({ lang }: { lang: Lang }) {
   const navigation = {
     main: [
       {
-        name: dict?.footer.about,
+        name: typeof dict?.footer !== "string" && dict?.footer.about,
         href: "https://trotelcoin.com",
         display: true,
       },
       {
-        name: dict?.footer.documentation,
+        name: typeof dict?.footer !== "string" && dict?.footer.documentation,
         href: "https://docs.trotelcoin.com",
         display: true,
       },
       {
-        name: dict?.footer.pricing,
+        name: typeof dict?.footer !== "string" && dict?.footer.pricing,
         href: "https://trotelcoin.com/pricing",
         display: true,
       },
       {
-        name: dict?.footer.business,
+        name: typeof dict?.footer !== "string" && dict?.footer.business,
         href: "mailto:hello@trotelcoin.com",
         display: true,
       },
-      { name: dict?.footer.partners, href: "#", display: false },
-      { name: dict?.footer.jobs, href: "#", display: false },
-      { name: dict?.footer.blog, href: "#", display: false },
+      {
+        name: typeof dict?.footer !== "string" && dict?.footer.partners,
+        href: "#",
+        display: false,
+      },
+      {
+        name: typeof dict?.footer !== "string" && dict?.footer.jobs,
+        href: "#",
+        display: false,
+      },
+      {
+        name: typeof dict?.footer !== "string" && dict?.footer.blog,
+        href: "#",
+        display: false,
+      },
     ],
     social: [
       {
