@@ -1,9 +1,130 @@
 {
+  "tier": {
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "expert": "Expert"
+  },
+  "banner": {
+    "message": "TrotelCoin est en version beta.",
+    "button": "Lire le livre blanc"
+  },
   "header": {
     "home": "Accueil",
     "learn": "Apprendre",
     "community": "Communauté",
     "account": "Compte",
-    "premium": "Abonnement"
+    "premium": "Premium",
+    "version": "version beta"
+  },
+  "home": {
+    "search": "Que voulez-vous apprendre ?"
+  },
+  "wallet": {
+    "connect": "Se connecter",
+    "connecting": "Connexion...",
+    "signin": "S'authentifier",
+    "disconnect": "Se déconnecter"
+  },
+  "language": {
+    "language": "Langue"
+  },
+  "comingSoon": {
+    "comingSoon": "Bientôt disponible..."
+  },
+  "footer": {
+    "about": "À propos",
+    "documentation": "Documentation",
+    "pricing": "Tarifs",
+    "business": "Entreprise"
+  },
+  "premium": {
+    "claimNFTs": "Obtenez vos NFTs",
+    "statistics": "Statistiques",
+    "eligibility": "Vérifier l'éligibilité",
+    "claim": "Obtenir",
+    "claimed": "Déjà obtenu",
+    "early": "Accès anticipé",
+    "intermediate": "Intermédiaire",
+    "expert": "Expert"
+  },
+  "intermediate": {
+    "advantage1": "Accès à plus de cours offrant un contenu approfondi et des tutoriels supplémentaires",
+    "advantage2": "Fonctionnalités de gamification pour améliorer votre expérience d'apprentissage"
+  },
+  "expert": {
+    "advantage1": "Accès anticipé aux fonctionnalités et projets expérimentaux",
+    "advantage2": "Rejoignez une communauté crypto exclusive pour réseauter et plus encore"
+  },
+  "modals": {
+    "connectWallet": {
+      "title": "Connectez votre portefeuille",
+      "message": "Vous devez vous connecter à votre portefeuille et/ou vous authentifier."
+    },
+    "eligible": {
+      "title": "Vous êtes éligible",
+      "message": "Vous êtes éligible pour obtenir vos NFTs."
+    },
+    "claimedIntermediateNFT": {
+      "title": "Vous avez obtenu votre NFT",
+      "message": "Vous êtes maintenant un utilisateur Intermédiaire."
+    },
+    "claimedExpertNFT": {
+      "title": "Vous avez obtenu votre NFT",
+      "message": "Vous êtes maintenant un utilisateur Expert."
+    },
+    "claimedTrotelCoin": {
+      "title": "Vous avez obtenu vos TrotelCoins",
+      "message": "Vous pouvez désormais utilisez vos TrotelCoins."
+    }
+  },
+  "account": {
+    "hello": "Bonjour",
+    "rank": "Rang",
+    "balance": "Solde",
+    "totalRewards": "Total des récompenses",
+    "quizzesAnswered": "Quiz répondu",
+    "level": "Niveau",
+    "youAreLevel": "Vous êtes au niveau",
+    "trotelCoinsLeft": "TrotelCoins restants",
+    "badges": {
+      "beginner": "Débutant"
+    },
+    "notPremium": "Non premium"
+  },
+  "badges": {
+    "beginner": "Débutant",
+    "tenQuizzes": "10 quiz répondu",
+    "hundredTrotelCoins": "100 TrotelCoins gagnés",
+    "early": "Accès anticipé"
+  },
+  "lesson": {
+    "notAvailable": "Pas encore disponible",
+    "notAvailableMessage": "Cette leçon n'est pas encore disponible. Veuillez revenir plus tard.",
+    "goBackHome": "Retourner à l'accueil",
+    "course": "Cours",
+    "goingToLearn": "Qu'allez-vous apprendre?",
+    "lessons": {
+      "introductionToTrotelCoin": {
+        "one": "Comprenez comment fonctionne TrotelCoin et comment cela vous aidera à en savoir plus sur la crypto.",
+        "two": "Apprenez-en plus sur le token TrotelCoin et ses cas d'utilisation.",
+        "three": "Soyez capable de réclamer vos tokens TrotelCoin."
+      }
+    }
+  },
+  "notPremium": {
+    "title": "Vous n'êtes pas premium",
+    "message": "Connectez votre portefeuille ou devenez un utilisateur premium pour accéder à ce cours."
+  },
+  "quiz": {
+    "loading": "Quiz en cours de chargement...",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "submit": "Soumettre",
+    "captcha": "Captcha manquant",
+    "claimRewards": "Obtenir vos récompenses",
+    "youWillGet": "Vous allez obtenir environ",
+    "receiveCrypto": "Recevoir mes crypto",
+    "correct": "Correct. Vous avez répondu correctement.",
+    "incorrect": "Incorrect. Vous avez répondu incorrectement."
   }
 }

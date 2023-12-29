@@ -117,12 +117,12 @@ const MainComponent = ({
           />
           <Suspense fallback={<Loading />}>
             <DictionaryProvider lang={lang}>
-              <Banner />
+              <Banner lang={lang} />
               <Header router={router} lang={lang} />
               <main className="mx-10 lg:mx-auto my-10 max-w-6xl">
                 {children}
               </main>
-              <Footer />
+              <Footer lang={lang} />
             </DictionaryProvider>
           </Suspense>
           <Analytics />

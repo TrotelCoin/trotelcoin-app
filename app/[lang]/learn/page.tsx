@@ -2,11 +2,12 @@
 
 import React from "react";
 import ComingSoon from "@/app/[lang]/ui/interface/comingSoon";
+import { Lang } from "@/types/types";
 
-const Learn = () => {
+const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <ComingSoon />
+      <ComingSoon lang={lang} />
     </>
   );
 };

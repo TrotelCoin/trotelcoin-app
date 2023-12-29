@@ -14,15 +14,12 @@ import "animate.css";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
 import { trotelCoinAddress, trotelCoinExpertAddress } from "@/data/addresses";
-
-const advantages = {
-  1: "Early access to experimental features and projects",
-  2: "Join an exclusive crypto community to network and more",
-};
+import { DictType, Lang } from "@/types/types";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 const holdingRequirements: number = 50000;
 
-const Expert = () => {
+const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
   const [isEligibleMessage, setIsEligibleMessage] = useState<boolean>(false);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
@@ -32,6 +29,21 @@ const Expert = () => {
   const [isClaimedMessage, setIsClaimedMessage] = useState<boolean>(false);
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
+
+  const advantages = {
+    1: typeof dict?.expert !== "string" && dict?.expert.advantage1,
+    2: typeof dict?.expert !== "string" && dict?.expert.advantage2,
+  };
 
   const { address, isConnected } = useAccount();
   const { data } = useBalance({
@@ -145,7 +157,7 @@ const Expert = () => {
                 {Object.values(advantages).map((advantage, index) => (
                   <div key={index} className="flex gap-1">
                     <span className="text-gray-700 dark:text-gray-300">
-                      • {advantage}
+                      • <>{advantage}</>
                     </span>
                   </div>
                 ))}
@@ -156,7 +168,9 @@ const Expert = () => {
                 onClick={checkEligibility}
                 className="bg-blue-600 hover:bg-blue-800 dark:bg-blue-200 dark:hover:bg-blue-300 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
               >
-                Check eligibility
+                {typeof dict?.premium !== "string" && (
+                  <>{dict?.premium.eligibility}</>
+                )}
               </button>
             )}
             {isEligible && !isClaimed && (
@@ -164,39 +178,88 @@ const Expert = () => {
                 onClick={claim}
                 className="bg-blue-600 hover:bg-blue-800 dark:bg-blue-200 dark:hover:bg-blue-300 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
               >
-                Claim
+                {typeof dict?.premium !== "string" && (
+                  <>{dict?.premium.claim}</>
+                )}
               </button>
             )}
             {isClaimed && (
               <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                Already claimed
+                {typeof dict?.premium !== "string" && (
+                  <>{dict?.premium.claimed}</>
+                )}
               </button>
             )}
           </div>
         </div>
       </div>
-      <Fail
-        show={isEligibleMessage}
-        title="You're not eligible"
-        message={`You need ${holdingRequirements} TrotelCoin to claim the NFT.`}
-        onClose={() => setIsEligibleMessage(false)}
-      />
+      {lang === "fr" ? (
+        <Fail
+          show={isEligibleMessage}
+          title="Vous n'êtes pas éligible"
+          message={`Vous avez besoin de ${holdingRequirements} TrotelCoins pour réclamer ce NFT.`}
+          onClose={() => setIsEligibleMessage(false)}
+        />
+      ) : (
+        <Fail
+          show={isEligibleMessage}
+          title="You're not eligible"
+          message={`You need ${holdingRequirements} TrotelCoin to claim the NFT.`}
+          onClose={() => setIsEligibleMessage(false)}
+        />
+      )}
       <Fail
         show={isNotConnectedMessage}
-        title="Connect your wallet"
-        message={`You need to connect your wallet and sign in to claim the NFT.`}
+        title={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.connectWallet !== "string" &&
+          dict?.modals.connectWallet.title === "string"
+            ? dict?.modals.connectWallet.title
+            : ""
+        }
+        message={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.connectWallet !== "string" &&
+          typeof dict?.modals.connectWallet.message === "string"
+            ? dict?.modals.connectWallet.message
+            : ""
+        }
         onClose={() => setIsNotConnectedMessage(false)}
       />
       <Success
         show={isEligibleMessageSuccess}
-        title="You're eligible"
-        message="You can claim the NFT now!"
+        title={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.eligible !== "string" &&
+          dict?.modals.eligible.title === "string"
+            ? dict?.modals.eligible.title
+            : ""
+        }
+        message={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.eligible !== "string" &&
+          typeof dict?.modals.eligible.message === "string"
+            ? dict?.modals.eligible.message
+            : ""
+        }
         onClose={() => setIsEligibleMessageSuccess(false)}
       />
       <Success
         show={isClaimedMessage}
-        title="You claimed the NFT"
-        message="You're now an expert user!"
+        title={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.claimedExpertNFT !== "string" &&
+          dict?.modals.claimedExpertNFT.title === "string"
+            ? dict?.modals.claimedExpertNFT.title
+            : ""
+        }
+        message={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.claimedExpertNFT !== "string" &&
+          typeof dict?.modals.claimedExpertNFT.message === "string"
+            ? dict?.modals.claimedExpertNFT.message
+            : ""
+        }
         onClose={() => setIsClaimedMessage(false)}
       />
     </>

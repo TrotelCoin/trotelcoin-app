@@ -147,8 +147,7 @@ const lessons: Lessons[] = [
       },
       {
         title: "Understand the layers 2",
-        description:
-          "Explore the secondary layers of Ethereum's architecture",
+        description: "Explore the secondary layers of Ethereum's architecture",
         href: "/ethereum/understand-the-layers-2",
         tier: "Intermediate",
         sponsored: false,

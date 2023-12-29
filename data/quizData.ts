@@ -1,6 +1,6 @@
 const quizzes = [
   {
-    quizId: 0,
+    quizId: 1,
     title: "Introduction to TrotelCoin",
     questions: [
       {

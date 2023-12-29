@@ -16,12 +16,15 @@ import Image from "next/image";
 import { Address } from "viem";
 import CountUp from "react-countup";
 import { useSession } from "next-auth/react";
+import { Lang, DictType } from "@/types/types";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 interface LevelSectionProps {
   isNotPremium: boolean;
   userLevel: number;
   tokensNeededForNextLevel: number;
   width: number;
+  dict: DictType | null;
 }
 
 interface HeaderProps {
@@ -32,10 +35,12 @@ interface HeaderProps {
   intermediateBalance: number;
   expertBalance: number;
   balance: any;
+  dict: DictType | null;
 }
 
 interface BadgesSectionProps {
   isNotPremium: boolean;
+  dict: DictType | null;
 }
 
 const reduceAddressSize = (address: Address): Address => {
@@ -116,6 +121,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
   userLevel,
   tokensNeededForNextLevel,
   width,
+  dict,
 }) => (
   <>
     <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">Level</h2>
@@ -128,10 +134,20 @@ const LevelSection: React.FC<LevelSectionProps> = ({
             isNotPremium && "blur hover:blur-none duration-500"
           }`}
         >
-          {isNotPremium && <p>Not premium</p>}
+          {isNotPremium && (
+            <p>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.notPremium}</>
+              )}
+            </p>
+          )}
           {!isNotPremium && (
             <>
-              <p>You are level</p>
+              <p>
+                {typeof dict?.account !== "string" && (
+                  <>{dict?.account.youAreLevel}</>
+                )}
+              </p>
               {userLevel ? (
                 <CountUp start={0} end={userLevel} duration={5} />
               ) : (
@@ -146,8 +162,13 @@ const LevelSection: React.FC<LevelSectionProps> = ({
           }`}
         >
           {tokensNeededForNextLevel > 0 && !isNotPremium
-            ? `${tokensNeededForNextLevel.toFixed(0)} TrotelCoins left`
-            : "Not premium"}
+            ? `${tokensNeededForNextLevel.toFixed(0)} ${
+                typeof dict?.account !== "string" &&
+                dict?.account.trotelCoinsLeft
+              }`
+            : `${
+                typeof dict?.account !== "string" && dict?.account.notPremium
+              }`}
         </p>
       </div>
       <div
@@ -167,7 +188,10 @@ const LevelSection: React.FC<LevelSectionProps> = ({
   </>
 );
 
-const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
+const BadgesSection: React.FC<BadgesSectionProps> = ({
+  isNotPremium,
+  dict,
+}) => {
   const { address } = useAccount();
 
   const { data: quizzesAnswered } = useContractRead({
@@ -197,7 +221,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
   const badges = [
     {
       id: 1,
-      name: "Beginner",
+      name: typeof dict?.badges !== "string" && dict?.badges.beginner,
       image: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +242,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
     },
     {
       id: 2,
-      name: "10 quizzes answered",
+      name: typeof dict?.badges !== "string" && dict?.badges.tenQuizzes,
       image: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -240,7 +264,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
     },
     {
       id: 3,
-      name: "100 TrotelCoins earned",
+      name: typeof dict?.badges !== "string" && dict?.badges.hundredTrotelCoins,
       image: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -264,7 +288,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
     },
     {
       id: 4,
-      name: "Early",
+      name: typeof dict?.badges !== "string" && dict?.badges.early,
       image: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -314,7 +338,15 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ isNotPremium }) => {
                       isNotPremium && "blur hover:blur-none duration-500"
                     }`}
                   >
-                    {!isNotPremium ? badge.name : "Not premium"}
+                    {!isNotPremium ? (
+                      <>{badge.name}</>
+                    ) : (
+                      `${
+                        typeof dict?.account !== "string" && (
+                          <>{dict?.account.notPremium}</>
+                        )
+                      }`
+                    )}
                   </span>
                 </div>
               </div>
@@ -333,10 +365,11 @@ const Header: React.FC<HeaderProps> = ({
   intermediateBalance,
   expertBalance,
   balance,
+  dict,
 }) => (
   <>
     <h2 className="text-gray-900 dark:text-gray-100 text-xl">
-      Hello,{" "}
+      {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
       <span className={`font-semibold`}>
         {ensName && ensName !== null ? (
           <>{ensName}</>
@@ -357,11 +390,21 @@ const Header: React.FC<HeaderProps> = ({
             !isNotPremium && "rainbow-text"
           }`}
         >
-          {intermediateBalance > 0 && expertBalance <= 0 && <>Intermediate</>}
-          {expertBalance > 0 && <>Expert</>}
-          {isNotPremium && <>Beginner</>}
+          {intermediateBalance > 0 && expertBalance <= 0 && (
+            <>
+              {typeof dict?.tier !== "string" && <>{dict?.tier.intermediate}</>}
+            </>
+          )}
+          {expertBalance > 0 && (
+            <>{typeof dict?.tier !== "string" && <>{dict?.tier.expert}</>}</>
+          )}
+          {isNotPremium && (
+            <>{typeof dict?.tier !== "string" && <>{dict?.tier.beginner}</>}</>
+          )}
         </span>{" "}
-        <span>Rank</span>
+        <span>
+          {typeof dict?.account !== "string" && <>{dict?.account.rank}</>}
+        </span>
       </div>
       <div
         className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
@@ -387,10 +430,16 @@ const Header: React.FC<HeaderProps> = ({
               </span>
             </>
           ) : (
-            <>Not premium</>
+            <>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.notPremium}</>
+              )}
+            </>
           )}
         </span>
-        <span>Balance</span>
+        <span>
+          {typeof dict?.account !== "string" && <>{dict?.account.balance}</>}
+        </span>
       </div>
       <div
         className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
@@ -416,10 +465,18 @@ const Header: React.FC<HeaderProps> = ({
               </span>
             </>
           ) : (
-            <>Not premium</>
+            <>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.notPremium}</>
+              )}
+            </>
           )}
         </span>
-        <span>Total rewards</span>
+        <span>
+          {typeof dict?.account !== "string" && (
+            <>{dict?.account.totalRewards}</>
+          )}
+        </span>
       </div>
       <div
         className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
@@ -445,16 +502,39 @@ const Header: React.FC<HeaderProps> = ({
               </span>
             </>
           ) : (
-            <>Not premium</>
+            <>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.notPremium}</>
+              )}
+            </>
           )}
         </span>{" "}
-        <span>Quizzes answered</span>
+        <span>
+          {typeof dict?.account !== "string" && (
+            <>{dict?.account.quizzesAnswered}</>
+          )}
+        </span>
       </div>
     </div>
   </>
 );
 
-export default function Account() {
+export default function Account({
+  params: { lang },
+}: {
+  params: { lang: Lang };
+}) {
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
+
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
 
@@ -549,19 +629,24 @@ export default function Account() {
               intermediateBalance={intermediateBalance}
               expertBalance={expertBalance}
               balance={balance}
+              dict={dict}
             />
             <LevelSection
               isNotPremium={isNotPremium}
               userLevel={userLevel}
               tokensNeededForNextLevel={tokensNeededForNextLevel}
               width={width}
+              dict={dict}
             />
-            <BadgesSection isNotPremium={isNotPremium} />
+            <BadgesSection isNotPremium={isNotPremium} dict={dict} />
           </>
         ) : (
           <>
             <h2 className="text-center text-gray-900 dark:text-gray-100 text-xl">
-              You need to connect your wallet and sign in.
+              {typeof dict?.modals !== "string" &&
+                typeof dict?.modals.connectWallet !== "string" && (
+                  <>{dict?.modals.connectWallet.message}</>
+                )}
             </h2>
           </>
         )}

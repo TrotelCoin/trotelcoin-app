@@ -17,34 +17,13 @@ import Confetti from "react-dom-confetti";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
 import { useSession } from "next-auth/react";
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import { DictType, Lang } from "@/types/types";
 
 interface QuizProps {
   quizId: number;
+  lang: Lang;
 }
-
-const getTierByQuizId = (quizId: number): string => {
-  let foundTier = "";
-  lessons.forEach((lesson) => {
-    lesson.courses.forEach((course) => {
-      if (course.quizId === quizId) {
-        foundTier = course.tier;
-      }
-    });
-  });
-  return foundTier;
-};
-
-const getAvailabilityByQuizId = (quizId: number): boolean => {
-  let foundAvailability = false;
-  lessons.forEach((lesson) => {
-    lesson.courses.forEach((course) => {
-      if (course.quizId === quizId) {
-        foundAvailability = course.available;
-      }
-    });
-  });
-  return foundAvailability;
-};
 
 const loadQuizData = async (
   quizId: number,
@@ -70,10 +49,7 @@ const loadQuizData = async (
   }
 };
 
-const Quiz: React.FC<QuizProps> = ({ quizId }) => {
-  const available = getAvailabilityByQuizId(quizId);
-  const tier = getTierByQuizId(quizId);
-
+const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
@@ -88,6 +64,17 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
 
   const secretToken = process.env.NEXT_PUBLIC_SERVER_SECRET_TOKEN;
 
@@ -247,7 +234,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
             </ul>
           ) : (
             <span className="font-semibold mt-3 py-6 text-gray-900 dark:text-gray-100">
-              Loading...
+              {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
             </span>
           )}
           {!isCorrect && questions && (
@@ -267,14 +254,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
               } bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
               onClick={goToPrevious}
             >
-              Previous
+              {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
             </button>
             {questions && currentQuestion < questions.length - 1 && (
               <button
                 className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 onClick={goToNext}
               >
-                Next
+                {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
               </button>
             )}
             {questions && currentQuestion === questions.length - 1 ? (
@@ -283,12 +270,12 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
                   onClick={handleSubmit}
                   className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 >
-                  Submit
+                  {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
                   <Confetti active={showConfetti} />
                 </button>
               ) : (
                 <span className="text-sm text-gray-900 dark:text-gray-100">
-                  Missing captcha.
+                  {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
                 </span>
               )
             ) : (
@@ -304,8 +291,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
               }`}
             >
               {isCorrect
-                ? "Congratulations! All the answers are correct!"
-                : "Something's wrong. Check your answers and try again."}
+                ? `${
+                    typeof dict?.quiz !== "string" && <>{dict?.quiz.correct}</>
+                  }}`
+                : `${
+                    typeof dict?.quiz !== "string" && (
+                      <>{dict?.quiz.incorrect}</>
+                    )
+                  }}`}
             </div>
           )}
         </div>
@@ -314,32 +307,59 @@ const Quiz: React.FC<QuizProps> = ({ quizId }) => {
       {isCorrect && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            Claim your reward
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimRewards}</>}
           </h2>
           <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              You will get approximately {estimatedRewardsBalance} TROTEL.
+              {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}{" "}
+              {estimatedRewardsBalance} TROTEL.
             </h3>
             <div className="mt-6 items-center">
               <button
                 onClick={handleClaimRewards}
                 className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
               >
-                Receive my crypto
+                {typeof dict?.quiz !== "string" && (
+                  <>{dict?.quiz.receiveCrypto}</>
+                )}
               </button>
             </div>
           </div>
         </div>
       )}
       <Success
-        title="Congratulations!"
-        message={`You claimed your TrotelCoin.`}
+        title={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.claimedTrotelCoin !== "string" &&
+          dict?.modals.claimedTrotelCoin.title === "string"
+            ? dict?.modals.claimedTrotelCoin.title
+            : ""
+        }
+        message={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.claimedTrotelCoin !== "string" &&
+          typeof dict?.modals.claimedTrotelCoin.message === "string"
+            ? dict?.modals.claimedTrotelCoin.message
+            : ""
+        }
         show={claimedRewards}
         onClose={() => setClaimedRewards(false)}
       />
       <Fail
-        title="Connect your wallet!"
-        message={`You need to connect your wallet and sign in to claim your rewards.`}
+        title={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.connectWallet !== "string" &&
+          dict?.modals.connectWallet.title === "string"
+            ? dict?.modals.connectWallet.title
+            : ""
+        }
+        message={
+          typeof dict?.modals !== "string" &&
+          typeof dict?.modals.connectWallet !== "string" &&
+          typeof dict?.modals.connectWallet.message === "string"
+            ? dict?.modals.connectWallet.message
+            : ""
+        }
         show={isLearnerDisconnected}
         onClose={() => setIsLearnerDisconnected(false)}
       />

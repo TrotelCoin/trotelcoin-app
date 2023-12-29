@@ -1,8 +1,8 @@
 "use client";
 
 import "animate.css";
-import { Course, Lang } from "@/types/types";
-import React from "react";
+import { Course, DictType, Lang } from "@/types/types";
+import React, { useEffect, useState } from "react";
 import lessons from "@/data/lessonsData";
 import Link from "next/link";
 import Quiz from "@/app/[lang]/components/quiz";
@@ -15,6 +15,7 @@ import {
   trotelCoinExpertAddress,
 } from "@/data/addresses";
 import { polygon } from "viem/chains";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 const getTierByQuizId = (quizIdParam: number): string => {
   let foundTier = "";
@@ -45,6 +46,17 @@ const CoursePage = ({
 }: {
   params: { lang: Lang; quizId: number };
 }) => {
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
+
   const tier = getTierByQuizId(quizId);
   const available = getAvailabilityByQuizId(quizId);
 
@@ -84,18 +96,23 @@ const CoursePage = ({
         <main className="grid min-h-full place-items-center bg-white dark:bg-black px-6 py-24 sm:py-32 lg:px-8">
           <div className="text-center">
             <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-5xl">
-              Not available
+              {typeof dict?.lesson !== "string" && (
+                <>{dict?.lesson.notAvailable}</>
+              )}
             </h1>
             <p className="mt-6 text-base leading-7 text-gray-700 dark:text-gray-300">
-              Either connect your wallet or become a premium user to access this
-              course.
+              {typeof dict?.lesson !== "string" && (
+                <>{dict?.lesson.notAvailableMessage}</>
+              )}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href={`/${lang}/home`}
                 className="rounded-md bg-blue-600 dark:bg-blue-200 px-3.5 py-2.5 text-sm font-semibold text-gray-100 dark:text-gray-900 shadow-sm hover:bg-blue-800 dark:hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
-                Go back home
+                {typeof dict?.lesson !== "string" && (
+                  <>{dict?.lesson.goBackHome}</>
+                )}
               </Link>
             </div>
           </div>
@@ -108,13 +125,13 @@ const CoursePage = ({
     return (
       <>
         <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
-          Course
+          {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
           {currentCourse?.title}
         </h1>
         <p className="mt-2 text-gray-900 dark:text-gray-100">
-          What are you going to learn?
+          {typeof dict?.lesson !== "string" && <>{dict?.lesson.goingToLearn}</>}
         </p>
         <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-gray-900">
           <ul
@@ -125,21 +142,38 @@ const CoursePage = ({
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span className="text-gray-900 dark:text-gray-100">
-                    Choose a crypto wallet that suits your needs.
+                    {typeof dict?.lesson !== "string" &&
+                      typeof dict?.lesson.lessons !== "string" &&
+                      typeof dict?.lesson.lessons.introductionToTrotelCoin !==
+                        "string" && (
+                        <>{dict?.lesson.lessons.introductionToTrotelCoin.one}</>
+                      )}
                   </span>
                 </li>
               </div>
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span className="text-gray-900 dark:text-gray-100">
-                    Understand that crypto wallets serve specific purposes.
+                    {typeof dict?.lesson !== "string" &&
+                      typeof dict?.lesson.lessons !== "string" &&
+                      typeof dict?.lesson.lessons.introductionToTrotelCoin !==
+                        "string" && (
+                        <>{dict?.lesson.lessons.introductionToTrotelCoin.two}</>
+                      )}
                   </span>
                 </li>
               </div>
               <div className="py-4">
                 <li className="flex gap-x-3">
                   <span className="text-gray-900 dark:text-gray-100">
-                    Know good practices to navigate on the web3.
+                    {typeof dict?.lesson !== "string" &&
+                      typeof dict?.lesson.lessons !== "string" &&
+                      typeof dict?.lesson.lessons.introductionToTrotelCoin !==
+                        "string" && (
+                        <>
+                          {dict?.lesson.lessons.introductionToTrotelCoin.three}
+                        </>
+                      )}
                   </span>
                 </li>
               </div>
@@ -203,7 +237,7 @@ const CoursePage = ({
         </div>
 
         {/* Quizz */}
-        <Quiz quizId={quizId} />
+        <Quiz quizId={quizId} lang={lang} />
         <GoHomeButton lang={lang} />
       </>
     );

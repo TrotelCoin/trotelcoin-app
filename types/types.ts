@@ -88,7 +88,5 @@ export interface Answers {
 export type Lang = "en" | "fr";
 
 export type DictType = {
-  [key: string]: {
-    [key: string]: string;
-  };
+  [key: string]: string | DictType;
 };

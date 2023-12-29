@@ -1,16 +1,35 @@
 "use client";
 
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { usePathname } from "next/navigation";
+import { DictType, Lang } from "@/types/types";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 interface Language {
   code: string;
   label: string;
 }
 
-const LanguageSelector = ({ router }: { router: AppRouterInstance }) => {
+const LanguageSelector = ({
+  router,
+  lang,
+}: {
+  router: AppRouterInstance;
+  lang: Lang;
+}) => {
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
+
   const languages = [
     { code: "en", label: "English" },
     { code: "fr", label: "Français" },
@@ -30,7 +49,7 @@ const LanguageSelector = ({ router }: { router: AppRouterInstance }) => {
     <Menu as="div" className="relative inline-block text-center">
       <div>
         <Menu.Button className="inline-flex font-semibold justify-center items-center text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">
-          Language
+          {dict?.language.language}
         </Menu.Button>
       </div>
 

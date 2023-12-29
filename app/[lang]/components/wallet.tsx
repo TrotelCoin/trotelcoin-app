@@ -1,13 +1,26 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useConnect, useAccount, useDisconnect, useSignMessage } from "wagmi";
 import { getCsrfToken, signIn, useSession } from "next-auth/react";
 import { SiweMessage } from "siwe";
 import { polygon } from "wagmi/chains";
 import { Menu, Transition } from "@headlessui/react";
+import { DictType, Lang } from "@/types/types";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
-export default function Wallet() {
+export default function Wallet({ lang }: { lang: Lang }) {
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
+
   const { connect, connectors } = useConnect({ chainId: polygon.id });
   const { signMessageAsync } = useSignMessage();
   const { disconnect } = useDisconnect();
@@ -66,7 +79,7 @@ export default function Wallet() {
             {({ open }) => (
               <>
                 <Menu.Button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900">
-                  Connect wallet
+                  {dict?.wallet.connect}
                 </Menu.Button>
 
                 <Transition
@@ -111,7 +124,7 @@ export default function Wallet() {
       {isConnecting && (
         <div className="relative inline-block">
           <button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900">
-            Connecting...
+            {dict?.wallet.connecting}
           </button>
         </div>
       )}
@@ -122,7 +135,7 @@ export default function Wallet() {
             className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
             onClick={handleLogin}
           >
-            Sign in
+            {dict?.wallet.signin}
           </button>
         </div>
       )}
@@ -133,7 +146,7 @@ export default function Wallet() {
             className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
             onClick={handleDisconnect}
           >
-            Disconnect
+            {dict?.wallet.disconnect}
           </button>
         </div>
       )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import lessons from "@/data/lessonsData";
 import { useAccount, useContractRead } from "wagmi";
@@ -11,7 +11,8 @@ import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
 } from "@/data/addresses";
-import { Lessons, Lesson, Lang } from "@/types/types";
+import { Lessons, Lesson, Lang, DictType } from "@/types/types";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -29,7 +30,8 @@ function renderCourses(
   intermediateBalance: number,
   expertBalance: number,
   isConnected: boolean,
-  lang: Lang
+  lang: Lang,
+  quizId: number
 ) {
   const isIntermediate =
     course.tier === "Intermediate" && intermediateBalance > 0;
@@ -37,8 +39,8 @@ function renderCourses(
 
   const courseLink =
     isIntermediate || isExpert || course.tier === "Beginner"
-      ? course.href
-      : "/not-premium";
+      ? `/${lang}/${quizId}${course.href}`
+      : `/${lang}/not-premium`;
 
   const borderClass =
     (course.tier === "Expert" && expertBalance > 0) ||
@@ -58,7 +60,7 @@ function renderCourses(
   }
 
   return (
-    <Link href={`/${lang}/${course.quizId}${courseLink}`} key={course.title}>
+    <Link href={`${courseLink}`} key={course.title}>
       <div
         className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
@@ -114,6 +116,16 @@ function renderCourses(
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
 
   const handleSearch = (e: { target: { value: string } }) => {
     setSearchTerm(e.target.value.toLowerCase());
@@ -160,7 +172,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
       <>
         <form className="my-20">
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
-            What do you wanna learn?
+            {typeof dict?.home !== "string" && <>{dict?.home.search}</>}
           </label>
           <div className="relative mx-auto w-full">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -183,7 +195,12 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               type="search"
               id="default-search"
               className="block w-full p-4 pl-10 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
-              placeholder="What do you wanna learn?"
+              placeholder={
+                typeof dict?.home !== "string" &&
+                typeof dict?.home.search === "string"
+                  ? dict?.home.search
+                  : "What do you want to learn?"
+              }
               onChange={handleSearch}
               style={{ appearance: "none" }}
             />
@@ -212,7 +229,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       intermediateBalance,
                       expertBalance,
                       isConnected,
-                      lang
+                      lang,
+                      course.quizId
                     )
                   )}
               </div>

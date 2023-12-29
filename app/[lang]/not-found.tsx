@@ -1,11 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { Lang } from "@/types/types";
 
 export default function NotFound() {
   return (
     <>
-      <main className="grid min-h-full place-items-center bg-white dark:bg-black px-6 py-72 lg:px-8">
+      <main className="grid min-h-full place-items-center bg-white dark:bg-black px-6 py-48 lg:px-8">
         <div className="text-center">
           <p className="text-base font-semibold text-blue-600 dark:text-blue-200">
             404

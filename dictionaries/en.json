@@ -1,9 +1,130 @@
 {
+  "tier": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "expert": "Expert"
+  },
+  "banner": {
+    "message": "TrotelCoin is in beta version.",
+    "button": "Read the whitepaper"
+  },
   "header": {
     "home": "Home",
     "learn": "Learn",
     "community": "Community",
     "account": "Account",
-    "premium": "Premium"
+    "premium": "Premium",
+    "version": "beta version"
+  },
+  "home": {
+    "search": "What do you want to learn?"
+  },
+  "wallet": {
+    "connect": "Connect wallet",
+    "connecting": "Connecting...",
+    "signin": "Sign in",
+    "disconnect": "Disconnect"
+  },
+  "language": {
+    "language": "Language"
+  },
+  "comingSoon": {
+    "comingSoon": "Coming soon..."
+  },
+  "footer": {
+    "about": "About",
+    "documentation": "Documentation",
+    "pricing": "Pricing",
+    "business": "Business"
+  },
+  "premium": {
+    "claimNFTs": "Claim NFTs",
+    "statistics": "Statistics",
+    "eligibility": "Check eligibility",
+    "claim": "Claim",
+    "claimed": "Already claimed",
+    "early": "Early access",
+    "intermediate": "Intermediate",
+    "expert": "Expert"
+  },
+  "intermediate": {
+    "advantage1": "Access to more courses providing in-depth content and additional tutorials",
+    "advantage2": "Gamification features to enhance your learning experience"
+  },
+  "expert": {
+    "advantage1": "Early access to experimental features and projects",
+    "advantage2": "Join an exclusive crypto community to network and more"
+  },
+  "modals": {
+    "connectWallet": {
+      "title": "Connect your wallet",
+      "message": "You need to connect your wallet and/or sign in."
+    },
+    "eligible": {
+      "title": "You are eligible!",
+      "message": "You are eligible to claim your NFTs."
+    },
+    "claimedIntermediateNFT": {
+      "title": "You claimed your NFT",
+      "message": "You are now an Intermediate user."
+    },
+    "claimedExpertNFT": {
+      "title": "You claimed your NFT",
+      "message": "You are now an Expert user."
+    },
+    "claimedTrotelCoin": {
+      "title": "You claimed your TrotelCoin",
+      "message": "You can now use your TrotelCoin."
+    }
+  },
+  "account": {
+    "hello": "Hello",
+    "rank": "Rank",
+    "balance": "Balance",
+    "totalRewards": "Total rewards",
+    "quizzesAnswered": "Quizzes answered",
+    "level": "Level",
+    "youAreLevel": "You are level",
+    "trotelCoinsLeft": "TrotelCoins left",
+    "badges": {
+      "beginner": "Beginner"
+    },
+    "notPremium": "Not premium"
+  },
+  "badges": {
+    "beginner": "Beginner",
+    "tenQuizzes": "10 quizzes answered",
+    "hundredTrotelCoins": "100 TrotelCoins earned",
+    "early": "Early access"
+  },
+  "lesson": {
+    "notAvailable": "Not available yet",
+    "notAvailableMessage": "This lesson is not available yet. Please come back later.",
+    "goBackHome": "Go back home",
+    "course": "Course",
+    "goingToLearn": "What you are going to learn?",
+    "lessons": {
+      "introductionToTrotelCoin": {
+        "one": "Understand how TrotelCoin works and how it will help you to learn about crypto.",
+        "two": "Learn about the TrotelCoin token and its use cases.",
+        "three": "Be able to claim your TrotelCoin tokens."
+      }
+    }
+  },
+  "notPremium": {
+    "title": "You are not premium",
+    "message": "Either connect your wallet or become a premium user to access this course."
+  },
+  "quiz": {
+    "loading": "Loading quiz...",
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "Submit",
+    "captcha": "Missing captcha",
+    "claimRewards": "Claim rewards",
+    "youWillGet": "You will get approximately",
+    "receiveCrypto": "Receive crypto",
+    "correct": "Correct. You answered correctly.",
+    "incorrect": "Incorrect. You answered incorrectly."
   }
 }

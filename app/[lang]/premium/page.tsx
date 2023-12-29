@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Intermediate from "@/app/[lang]/ui/premium/intermediate";
 import Expert from "@/app/[lang]/ui/premium/expert";
 import { useContractRead } from "wagmi";
@@ -14,8 +14,21 @@ import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
 } from "@/data/addresses";
+import { DictType, Lang } from "@/types/types";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
-const Subscription = () => {
+const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
+
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
@@ -42,14 +55,14 @@ const Subscription = () => {
     <>
       <div className="flex flex-col my-20 max-w-4xl mx-auto">
         <h1 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-          Claim your NFTs
+          {typeof dict?.premium !== "string" && <>{dict?.premium.claimNFTs}</>}
         </h1>
         <div className="grid grid-cols-1 mt-4 md:grid-cols-2 gap-4">
-          <Intermediate />
-          <Expert />
+          <Intermediate lang={lang} />
+          <Expert lang={lang} />
         </div>
         <h1 className="text-xl mt-10 text-gray-900 dark:text-gray-100 font-semibold">
-          Statistics
+          {typeof dict?.premium !== "string" && <>{dict?.premium.statistics}</>}
         </h1>
         <div className="overflow-hidden grid grid-cols-1 mt-4 text-gray-900 dark:text-gray-100 items-center text-center divide-y divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
           <div className="items-center flex flex-col py-6 md:col-span-2">
@@ -59,8 +72,10 @@ const Subscription = () => {
                 end={parseFloat(early as string)}
                 duration={5}
               />
-            </span>{" "}
-            <span>Early</span>
+            </span>
+            <span>
+              {typeof dict?.premium !== "string" && <>{dict?.premium.early}</>}
+            </span>
           </div>
           <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-black/10 dark:divide-white/10">
             <div className="items-center flex flex-col py-6">
@@ -70,8 +85,12 @@ const Subscription = () => {
                   end={parseFloat(intermediate as string)}
                   duration={5}
                 />
-              </span>{" "}
-              <span>Intermediate</span>
+              </span>
+              <span>
+                {typeof dict?.premium !== "string" && (
+                  <>{dict?.premium.intermediate}</>
+                )}
+              </span>
             </div>
             <div className="items-center flex flex-col py-6">
               <span className="text-6xl font-semibold">
@@ -80,8 +99,12 @@ const Subscription = () => {
                   end={parseFloat(expert as string)}
                   duration={5}
                 />
-              </span>{" "}
-              <span>Expert</span>
+              </span>
+              <span>
+                {typeof dict?.premium !== "string" && (
+                  <>{dict?.premium.expert}</>
+                )}
+              </span>
             </div>
           </div>
         </div>

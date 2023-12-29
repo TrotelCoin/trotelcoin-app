@@ -1,10 +1,23 @@
 "use client";
 
+import { DictType, Lang } from "@/types/types";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useState, useEffect } from "react";
+import { getDictionary } from "@/app/[lang]/dictionaries";
+import Link from "next/link";
 
-export default function Banner() {
+export default function Banner({ lang }: { lang: Lang }) {
   const [isHidden, setIsHidden] = useState<boolean | null>(null);
+  const [dict, setDict] = useState<DictType | null>(null);
+
+  useEffect(() => {
+    const fetchDictionary = async () => {
+      const result = await getDictionary(lang);
+      setDict(result);
+    };
+
+    fetchDictionary();
+  }, [lang]);
 
   useEffect(() => {
     const isBannerHidden = localStorage.getItem("bannerHidden");
@@ -57,14 +70,15 @@ export default function Banner() {
       </div>
       {/* Banner content */}
       <p className="text-sm leading-6 dark:text-gray-900 text-gray-100">
-        TrotelCoin is currently in alpha.{" "}
-        <a
+        {typeof dict?.banner !== "string" && <>{dict?.banner.message}</>}{" "}
+        <Link
           href="https://docs.trotelcoin.com/overview/whitepaper"
           target="_blank"
           className="whitespace-nowrap font-semibold"
         >
-          Read the whitepaper&nbsp;<span aria-hidden="true">&rarr;</span>
-        </a>
+          {typeof dict?.banner !== "string" && <>{dict?.banner.button}</>}&nbsp;
+          <span aria-hidden="true">&rarr;</span>
+        </Link>
       </p>
       {/* Close button */}
       <div className="flex flex-1 justify-end">

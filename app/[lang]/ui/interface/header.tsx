@@ -40,10 +40,26 @@ const Header = ({
   }, [lang]);
 
   const navigation = [
-    { name: dict?.header.home, href: "/home", id: 1 },
-    { name: dict?.header.learn, href: "/learn", id: 2 },
-    { name: dict?.header.premium, href: "/premium", id: 3 },
-    { name: dict?.header.account, href: "/account", id: 4 },
+    {
+      name: typeof dict?.header !== "string" && dict?.header.home,
+      href: "/home",
+      id: 1,
+    },
+    {
+      name: typeof dict?.header !== "string" && dict?.header.learn,
+      href: "/learn",
+      id: 2,
+    },
+    {
+      name: typeof dict?.header !== "string" && dict?.header.premium,
+      href: "/premium",
+      id: 3,
+    },
+    {
+      name: typeof dict?.header !== "string" && dict?.header.account,
+      href: "/account",
+      id: 4,
+    },
   ];
 
   const closeMenu = () => {
@@ -76,7 +92,9 @@ const Header = ({
           </p>
           <div className="hidden sm:block">{<TrotelPriceChange />}</div>
           <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
-            <span className="animate-pulse">beta version</span>
+            <span className="animate-pulse">
+              {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
+            </span>
           </span>
         </div>
 
@@ -92,7 +110,7 @@ const Header = ({
                   : "text-gray-700 dark:text-gray-300  hover:text-gray-900 dark:hover:text-gray-100"
               } font-semibold rounded-full leading-6`}
             >
-              {item.name}
+              <>{item.name}</>
             </Link>
           ))}
         </div>
@@ -103,10 +121,10 @@ const Header = ({
             {/*<span className="font-semibold text-gray-900 dark:text-gray-100 hidden xl:flex">
               <TrotelBalance /> TROTEL
             </span>*/}
-            <Wallet />
+            <Wallet lang={lang} />
           </div>
           <div className="items-center flex pl-4 gap-2">
-            <LanguageSelector router={router} />
+            <LanguageSelector router={router} lang={lang} />
             <ThemeSwitcher />
             <AudioComponent />
           </div>
@@ -117,7 +135,7 @@ const Header = ({
           <div className="flex gap-2 items-center">
             <ThemeSwitcher />
             <AudioComponent />
-            <LanguageSelector router={router} />
+            <LanguageSelector router={router} lang={lang} />
           </div>
           <button
             type="button"
@@ -151,7 +169,7 @@ const Header = ({
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
-              <Wallet />
+              <Wallet lang={lang} />
               <button
                 type="button"
                 className="-m-2.5 rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
@@ -174,7 +192,7 @@ const Header = ({
                     }}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-black/80"
                   >
-                    {item.name}
+                    <>{item.name}</>
                   </Link>
                 ))}
               </div>
