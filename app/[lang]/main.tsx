@@ -60,6 +60,7 @@ const MainComponent = ({
           <meta charSet="UTF-8"></meta>
           <meta name="theme-color" content="#fff" />
           <meta name="apple-mobile-web-app-capable" content="yes"></meta>
+          <link rel="icon" href="/favicon.ico" sizes="any" />
           <link rel="manifest" href="/manifest.json" as="manifest" />
           <link
             rel="apple-touch-icon"
