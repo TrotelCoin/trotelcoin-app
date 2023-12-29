@@ -2,7 +2,7 @@
 
 import "animate.css";
 import { Course, Lang } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import lessons from "@/data/lessonsData";
 import Link from "next/link";
 import Quiz from "@/app/[lang]/components/quiz";
@@ -16,11 +16,11 @@ import {
 } from "@/data/addresses";
 import { polygon } from "viem/chains";
 
-const getTierByQuizId = (quizId: number): string => {
+const getTierByQuizId = (quizIdParam: number): string => {
   let foundTier = "";
   lessons.forEach((lesson) => {
     lesson.courses.forEach((course) => {
-      if (course.quizId === quizId) {
+      if (course.quizId.toString() === quizIdParam.toString()) {
         foundTier = course.tier;
       }
     });
@@ -28,11 +28,11 @@ const getTierByQuizId = (quizId: number): string => {
   return foundTier;
 };
 
-const getAvailabilityByQuizId = (quizId: number): boolean => {
+const getAvailabilityByQuizId = (quizIdParam: number): boolean => {
   let foundAvailability = false;
   lessons.forEach((lesson) => {
     lesson.courses.forEach((course) => {
-      if (course.quizId === quizId) {
+      if (course.quizId.toString() === quizIdParam.toString()) {
         foundAvailability = course.available;
       }
     });
@@ -45,21 +45,12 @@ const CoursePage = ({
 }: {
   params: { lang: Lang; quizId: number };
 }) => {
-  const [currentCourse, setCurrentCourse] = useState<Course | null>(null);
-  const [tier, setTier] = useState<string>("");
-  const [available, setAvailable] = useState<boolean>(false);
+  const tier = getTierByQuizId(quizId);
+  const available = getAvailabilityByQuizId(quizId);
 
-  useEffect(() => {
-    if (quizId) {
-      setTier(getTierByQuizId(quizId));
-      setAvailable(getAvailabilityByQuizId(quizId));
-
-      const course: Course = lessons
-        .flatMap((lesson) => lesson.courses)
-        .find((course) => course.quizId === quizId) as Course;
-      setCurrentCourse(course);
-    }
-  }, [quizId]);
+  const currentCourse: Course = lessons
+    .flatMap((lesson) => lesson.courses)
+    .find((course) => course.quizId.toString() === quizId.toString()) as Course;
 
   const { address, isDisconnected } = useAccount();
 

@@ -16,11 +16,11 @@ import {
 } from "@/data/addresses";
 import { polygon } from "viem/chains";
 
-const getTierByQuizId = (quizId: number): string => {
+const getTierByQuizId = (quizIdParam: number): string => {
   let foundTier = "";
   lessons.forEach((lesson) => {
     lesson.courses.forEach((course) => {
-      if (course.quizId === quizId) {
+      if (course.quizId.toString() === quizIdParam.toString()) {
         foundTier = course.tier;
       }
     });
@@ -28,11 +28,11 @@ const getTierByQuizId = (quizId: number): string => {
   return foundTier;
 };
 
-const getAvailabilityByQuizId = (quizId: number): boolean => {
+const getAvailabilityByQuizId = (quizIdParam: number): boolean => {
   let foundAvailability = false;
   lessons.forEach((lesson) => {
     lesson.courses.forEach((course) => {
-      if (course.quizId === quizId) {
+      if (course.quizId.toString() === quizIdParam.toString()) {
         foundAvailability = course.available;
       }
     });
@@ -50,7 +50,7 @@ const CoursePage = ({
 
   const currentCourse: Course = lessons
     .flatMap((lesson) => lesson.courses)
-    .find((course) => course.quizId === quizId) as Course;
+    .find((course) => course.quizId.toString() === quizId.toString()) as Course;
 
   const { address, isDisconnected } = useAccount();
 
@@ -111,7 +111,7 @@ const CoursePage = ({
           Course
         </p>
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-          {currentCourse.title}
+          {currentCourse?.title}
         </h1>
         <p className="mt-2 text-gray-900 dark:text-gray-100">
           What are you going to learn?

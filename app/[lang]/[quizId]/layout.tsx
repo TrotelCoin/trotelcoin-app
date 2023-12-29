@@ -1,5 +1,6 @@
 "use client";
 
+import { Lang } from "@/types/types";
 import React from "react";
 
 // Define the main Document component

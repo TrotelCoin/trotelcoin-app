@@ -3,7 +3,7 @@
   "short_name": "TrotelCoin",
   "icons": [
     {
-      "src": "/assets/logo/trotelcoin.png",
+      "src": "/assets/logo/trotelcoin-white.png",
       "sizes": "192x192",
       "type": "image/png"
     }
