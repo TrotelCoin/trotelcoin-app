@@ -290,8 +290,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               }`}
             >
               {isCorrect
-                ? `${typeof dict?.quiz !== "string" && dict?.quiz.correct}}`
-                : `${typeof dict?.quiz !== "string" && dict?.quiz.incorrect}}`}
+                ? `${typeof dict?.quiz !== "string" && dict?.quiz.correct}`
+                : `${typeof dict?.quiz !== "string" && dict?.quiz.incorrect}`}
             </div>
           )}
         </div>
