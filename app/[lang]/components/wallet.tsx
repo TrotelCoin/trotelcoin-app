@@ -79,7 +79,9 @@ export default function Wallet({ lang }: { lang: Lang }) {
             {({ open }) => (
               <>
                 <Menu.Button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900">
-                  {dict?.wallet.connect}
+                  {typeof dict?.wallet !== "string" && (
+                    <>{dict?.wallet.connect}</>
+                  )}
                 </Menu.Button>
 
                 <Transition
@@ -124,7 +126,7 @@ export default function Wallet({ lang }: { lang: Lang }) {
       {isConnecting && (
         <div className="relative inline-block">
           <button className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900">
-            {dict?.wallet.connecting}
+            {typeof dict?.wallet !== "string" && <>{dict?.wallet.connecting}</>}
           </button>
         </div>
       )}
@@ -135,7 +137,7 @@ export default function Wallet({ lang }: { lang: Lang }) {
             className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
             onClick={handleLogin}
           >
-            {dict?.wallet.signin}
+            {typeof dict?.wallet !== "string" && <>{dict?.wallet.signin}</>}
           </button>
         </div>
       )}
@@ -146,7 +148,7 @@ export default function Wallet({ lang }: { lang: Lang }) {
             className="text-sm font-semibold rounded-full px-6 py-2 bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 text-gray-100 dark:text-gray-900"
             onClick={handleDisconnect}
           >
-            {dict?.wallet.disconnect}
+            {typeof dict?.wallet !== "string" && <>{dict?.wallet.disconnect}</>}
           </button>
         </div>
       )}
