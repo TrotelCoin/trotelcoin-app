@@ -126,6 +126,7 @@
     "receiveCrypto": "Receive crypto",
     "correct": "Correct. You answered correctly.",
     "incorrect": "Incorrect. You answered incorrectly.",
-    "alreadyClaimed": "You already claimed this quiz."
+    "alreadyClaimed": "You already claimed this quiz.",
+    "connectWallet": "Connect your wallet to claim your rewards."
   }
 }
