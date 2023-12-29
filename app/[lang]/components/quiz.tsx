@@ -251,14 +251,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
                 currentQuestion !== 0
                   ? "cursor-pointer"
                   : "disabled cursor-not-allowed"
-              } bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
+              } bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
               onClick={goToPrevious}
             >
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
             </button>
             {questions && currentQuestion < questions.length - 1 && (
               <button
-                className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 onClick={goToNext}
               >
                 {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
@@ -268,7 +268,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               isCaptchaVerified ? (
                 <button
                   onClick={handleSubmit}
-                  className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                  className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 >
                   {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
                   <Confetti active={showConfetti} />
@@ -291,14 +291,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               }`}
             >
               {isCorrect
-                ? `${
-                    typeof dict?.quiz !== "string" && <>{dict?.quiz.correct}</>
-                  }}`
-                : `${
-                    typeof dict?.quiz !== "string" && (
-                      <>{dict?.quiz.incorrect}</>
-                    )
-                  }}`}
+                ? `${typeof dict?.quiz !== "string" && dict?.quiz.correct}}`
+                : `${typeof dict?.quiz !== "string" && dict?.quiz.incorrect}}`}
             </div>
           )}
         </div>
@@ -317,7 +311,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             <div className="mt-6 items-center">
               <button
                 onClick={handleClaimRewards}
-                className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-600/80 dark:hover:bg-blue-200/80 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
               >
                 {typeof dict?.quiz !== "string" && (
                   <>{dict?.quiz.receiveCrypto}</>
