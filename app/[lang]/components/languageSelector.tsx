@@ -49,7 +49,7 @@ const LanguageSelector = ({
     <Menu as="div" className="relative inline-block text-center">
       <div>
         <Menu.Button className="inline-flex font-semibold justify-center items-center text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100">
-          {dict?.language.language}
+          {typeof dict?.language !== "string" && <>{dict?.language.language}</>}
         </Menu.Button>
       </div>
 
