@@ -65,6 +65,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
+  const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -185,9 +186,12 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   const handleSubmit = () => {
     let correctCount = 0;
+    let newWrongAnswers: number[] = [];
     answers.forEach((answer, index) => {
       if (answer === correctAnswers[index]) {
         correctCount++;
+      } else {
+        newWrongAnswers.push(index + 1);
       }
     });
 
@@ -200,6 +204,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       setShowConfetti(false);
       setAudio(false);
     }
+    setWrongAnswers(newWrongAnswers);
     setShowMessage(true);
   };
 
@@ -301,7 +306,9 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             >
               {isCorrect
                 ? `${typeof dict?.quiz !== "string" && dict?.quiz.correct}`
-                : `${typeof dict?.quiz !== "string" && dict?.quiz.incorrect}`}
+                : `${
+                    typeof dict?.quiz !== "string" && dict?.quiz.incorrect
+                  } ${wrongAnswers.join(", ")}`}
             </div>
           )}
         </div>
