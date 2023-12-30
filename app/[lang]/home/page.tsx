@@ -3,16 +3,19 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import lessons from "@/data/lessonsData";
-import { useAccount, useContractRead } from "wagmi";
+import { Address, useAccount, useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import QuizStatus from "@/app/[lang]/components/quizCompleted";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
+  trotelCoinLearningAddress,
 } from "@/data/addresses";
 import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -23,6 +26,16 @@ function filterByTitleOrDescription(course: Lesson, searchTerm: string) {
     course.title.toLowerCase().includes(searchTerm) ||
     course.description.toLowerCase().includes(searchTerm)
   );
+}
+
+function allQuizzesIds(lessons: Lessons[]) {
+  return lessons.flatMap((lesson) =>
+    lesson.courses.map((course) => course.quizId)
+  );
+}
+
+function lessonsLength(lessons: Lessons[]) {
+  return lessons.flatMap((lesson) => lesson.courses).length;
 }
 
 function renderCourses(
@@ -48,16 +61,20 @@ function renderCourses(
       ? "rainbow-border"
       : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
-  {
-    /*const statusClass =
-    course.status === "Not started"
-      ? "hidden bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
-      : course.status === "Finished"
+  const { address } = useAccount();
+
+  let status = new Array(lessonsLength(lessons)).fill("Not started");
+
+  status = status.map((_, index) =>
+    QuizStatus({ index, address: address as Address })
+  );
+
+  const statusClass =
+    status[quizId - 1] === "Not started"
+      ? "bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
+      : status[quizId - 1] === "Finished"
       ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
-      : course.status === "Ongoing"
-      ? "hidden bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
-: "";*/
-  }
+      : "";
 
   return (
     <Link href={`${courseLink}`} key={course.title}>
@@ -88,15 +105,17 @@ function renderCourses(
               </span>
             )}
             {!course.available && (
-              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-black dark:bg-white text-gray-100 dark:text-gray-900">
                 Not available
               </span>
             )}
-            {/*<span
-              className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${statusClass}`}
-            >
-              {course.status}
-            </span>*/}
+            {course.available && (
+              <span
+                className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${statusClass}`}
+              >
+                {status[quizId - 1]}
+              </span>
+            )}
             {course.sponsored && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
                 Sponsored

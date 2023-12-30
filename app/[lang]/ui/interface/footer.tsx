@@ -24,36 +24,43 @@ export default function Footer({ lang }: { lang: Lang }) {
         name: typeof dict?.footer !== "string" && dict?.footer.about,
         href: "https://trotelcoin.com",
         display: true,
+        id: 1,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.documentation,
         href: "https://docs.trotelcoin.com",
         display: true,
+        id: 2,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.pricing,
         href: "https://trotelcoin.com/pricing",
         display: true,
+        id: 3,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.business,
         href: "mailto:hello@trotelcoin.com",
         display: true,
+        id: 4,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.partners,
         href: "#",
         display: false,
+        id: 5,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.jobs,
         href: "#",
         display: false,
+        id: 6,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.blog,
         href: "#",
         display: false,
+        id: 7,
       },
     ],
     social: [
@@ -92,7 +99,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           aria-label="Footer"
         >
           {displayedItems.map((item: any) => (
-            <div key={item.name} className="pb-6">
+            <div key={item.id} className="pb-6">
               {item.display && (
                 <Link
                   href={item.href}
