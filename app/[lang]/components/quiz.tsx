@@ -59,7 +59,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [answers, setAnswers] = useState<string[]>([]);
   const [isLearnerDisconnected, setIsLearnerDisconnected] =
     useState<boolean>(false);
-  const [secret, setSecret] = useState<string>("");
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -75,30 +74,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
     fetchDictionary();
   }, [lang]);
-
-  const secretToken = process.env.NEXT_PUBLIC_SERVER_SECRET_TOKEN;
-
-  useEffect(() => {
-    async function fetchSecret() {
-      try {
-        if (secretToken) {
-          const response = await fetch("/api/secret/trotelSecret", {
-            method: "GET",
-            headers: {
-              "x-server-secret-token": secretToken,
-            },
-          });
-
-          const responseData = await response.json();
-          setSecret(responseData.secret);
-        }
-      } catch (error) {
-        console.error("Error fetching secret:", error);
-      }
-    }
-
-    fetchSecret();
-  }, []);
 
   const { address, isDisconnected } = useAccount();
   const { data: session } = useSession();
@@ -118,7 +93,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     abi: trotelCoinLearningABI,
     account: address,
     enabled: Boolean(address),
-    args: [address, secret, parseFloat(quizId.toString())],
+    args: [address, parseFloat(quizId.toString())],
     functionName: "claimRewards",
   });
   const { data: alreadyAnswered } = useContractRead({
