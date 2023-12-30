@@ -11,11 +11,9 @@ import QuizStatus from "@/app/[lang]/components/quizCompleted";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
-  trotelCoinLearningAddress,
 } from "@/data/addresses";
 import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -25,12 +23,6 @@ function filterByTitleOrDescription(course: Lesson, searchTerm: string) {
   return (
     course.title.toLowerCase().includes(searchTerm) ||
     course.description.toLowerCase().includes(searchTerm)
-  );
-}
-
-function allQuizzesIds(lessons: Lessons[]) {
-  return lessons.flatMap((lesson) =>
-    lesson.courses.map((course) => course.quizId)
   );
 }
 
@@ -44,7 +36,8 @@ function renderCourses(
   expertBalance: number,
   isConnected: boolean,
   lang: Lang,
-  quizId: number
+  quizId: number,
+  status: string[]
 ) {
   const isIntermediate =
     course.tier === "Intermediate" && intermediateBalance > 0;
@@ -60,14 +53,6 @@ function renderCourses(
     (course.tier === "Intermediate" && intermediateBalance > 0)
       ? "rainbow-border"
       : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50";
-
-  const { address } = useAccount();
-
-  let status = new Array(lessonsLength(lessons)).fill("Not started");
-
-  status = status.map((_, index) =>
-    QuizStatus({ index, address: address as Address })
-  );
 
   const statusClass =
     status[quizId - 1] === "Not started"
@@ -186,6 +171,12 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
 
+  let status = new Array(lessonsLength(lessons)).fill("Not started");
+
+  status = status.map((_, index) =>
+    QuizStatus({ index, address: address as Address })
+  );
+
   return (
     <>
       <>
@@ -249,7 +240,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       expertBalance,
                       isConnected,
                       lang,
-                      course.quizId
+                      course.quizId,
+                      status
                     )
                   )}
               </div>
