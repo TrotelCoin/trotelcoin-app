@@ -5,22 +5,38 @@ const lessons: Lessons[] = [
     category: "TrotelCoin",
     courses: [
       {
-        title: "Introduction to TrotelCoin",
-        description:
-          "Get acquainted with using TrotelCoin, exploring its functionalities",
+        title: {
+          en: "Introduction to TrotelCoin",
+          fr: "Introduction à TrotelCoin",
+        },
+        description: {
+          en: "Get acquainted with using TrotelCoin, exploring its functionalities",
+          fr: "Familiarisez-vous avec l'utilisation de TrotelCoin, en explorant ses fonctionnalités",
+        },
         href: "/trotelcoin/introduction-to-trotelcoin",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 1,
         available: true,
       },
       {
-        title: "Claim your NFTs",
-        description:
-          "Understand the process of claiming TrotelCoin's NFTs and their utilization",
+        title: {
+          en: "Claim your NFTs",
+          fr: "Revendiquez vos NFTs",
+        },
+        description: {
+          en: "Understand the process of claiming TrotelCoin's NFTs and their utilization",
+          fr: "Comprenez le processus de réclamation des NFT de TrotelCoin et leur utilisation",
+        },
         href: "/trotelcoin/claim-your-nfts",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 2,
@@ -32,44 +48,76 @@ const lessons: Lessons[] = [
     category: "Wallet",
     courses: [
       {
-        title: "Create your first wallet",
-        description:
-          "Learn the steps involved in creating your initial digital wallet securely",
+        title: {
+          en: "Create your first wallet",
+          fr: "Créez votre premier portefeuille",
+        },
+        description: {
+          en: "Learn the steps involved in creating your initial digital wallet securely",
+          fr: "Apprenez les étapes de création de votre premier portefeuille numérique en toute sécurité",
+        },
         href: "/wallet/create-your-first-wallet",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 3,
         available: false,
       },
       {
-        title: "Secure your wallet",
-        description:
-          "Implement advanced security measures to protect your digital assets",
+        title: {
+          en: "Secure your wallet",
+          fr: "Sécurisez votre portefeuille",
+        },
+        description: {
+          en: "Discover methods to secure your wallet and its contents",
+          fr: "Découvrez des méthodes pour sécuriser votre portefeuille et son contenu",
+        },
         href: "/wallet/secure-your-wallet",
-        tier: "Expert",
+        tier: {
+          en: "Expert",
+          fr: "Expert",
+        },
         sponsored: false,
         new: false,
         quizId: 4,
         available: false,
       },
       {
-        title: "Authenticate with your wallet",
-        description:
-          "Discover methods to authenticate and access your wallet securely",
+        title: {
+          en: "Authenticate with your wallet",
+          fr: "Authentifiez-vous avec votre portefeuille",
+        },
+        description: {
+          en: "Discover methods to authenticate and access your wallet securely",
+          fr: "Découvrez des méthodes pour vous authentifier et accéder à votre portefeuille en toute sécurité",
+        },
         href: "/wallet/authenticate-with-your-wallet",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 5,
         available: false,
       },
       {
-        title: "Make your first transaction",
-        description:
-          "Gain hands-on experience in making your first digital transaction",
+        title: {
+          en: "Make your first transaction",
+          fr: "Effectuez votre première transaction",
+        },
+        description: {
+          en: "Gain hands-on experience in making your first digital transaction",
+          fr: "Acquérez une expérience pratique pour effectuer votre première transaction numérique",
+        },
         href: "/wallet/make-your-first-transaction",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 6,
@@ -81,22 +129,38 @@ const lessons: Lessons[] = [
     category: "Blockchain",
     courses: [
       {
-        title: "What is a blockchain?",
-        description:
-          "Grasp the concepts underlying the functionality of a blockchain",
+        title: {
+          en: "What is a blockchain?",
+          fr: "Qu'est-ce qu'une blockchain?",
+        },
+        description: {
+          en: "Grasp the concepts underlying the functionality of a blockchain",
+          fr: "Saisissez les concepts sous-jacents à la fonctionnalité d'une blockchain",
+        },
         href: "/blockchain/what-is-a-blockchain",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 7,
         available: false,
       },
       {
-        title: "Consensus mechanisms",
-        description:
-          "Explore various consensus mechanisms utilized within blockchain networks",
+        title: {
+          en: "Consensus mechanisms",
+          fr: "Mécanismes de consensus",
+        },
+        description: {
+          en: "Explore the various consensus mechanisms that power blockchains",
+          fr: "Explorez les différents mécanismes de consensus qui alimentent les blockchains",
+        },
         href: "/blockchain/consensus-mechanisms",
-        tier: "Intermediate",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire",
+        },
         sponsored: false,
         new: false,
         quizId: 8,
@@ -108,22 +172,38 @@ const lessons: Lessons[] = [
     category: "Bitcoin",
     courses: [
       {
-        title: "Introduction to Bitcoin",
-        description:
-          "Explore the basics and core principles of the Bitcoin cryptocurrency",
+        title: {
+          en: "Introduction to Bitcoin",
+          fr: "Introduction à Bitcoin",
+        },
+        description: {
+          en: "Explore the basics and core principles of the Bitcoin cryptocurrency",
+          fr: "Explorez les bases et les principes fondamentaux de la crypto-monnaie Bitcoin",
+        },
         href: "/bitcoin/introduction-to-bitcoin",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 9,
         available: false,
       },
       {
-        title: "The history of Bitcoin",
-        description:
-          "Dive into the historical evolution and significant milestones of Bitcoin",
+        title: {
+          en: "The history of Bitcoin",
+          fr: "L'histoire de Bitcoin",
+        },
+        description: {
+          en: "Dive into the historical evolution and significant milestones of Bitcoin",
+          fr: "Plongez dans l'évolution historique et les jalons importants de Bitcoin",
+        },
         href: "/bitcoin/the-history-of-bitcoin",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 10,
@@ -135,43 +215,76 @@ const lessons: Lessons[] = [
     category: "Ethereum",
     courses: [
       {
-        title: "Introduction to Ethereum",
-        description:
-          "Understand the aspects and principles behind the Ethereum network",
+        title: {
+          en: "Introduction to Ethereum",
+          fr: "Introduction à Ethereum",
+        },
+        description: {
+          en: "Explore the basics and core principles of the Ethereum blockchain",
+          fr: "Explorez les bases et les principes fondamentaux de la blockchain Ethereum",
+        },
         href: "/ethereum/introduction-to-ethereum",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 11,
         available: false,
       },
       {
-        title: "Understand the layers 2",
-        description: "Explore the secondary layers of Ethereum's architecture",
+        title: {
+          en: "Understand the layers 2",
+          fr: "Comprendre les couches de niveau 2",
+        },
+        description: {
+          en: "Explore the secondary layers of Ethereum's architecture",
+          fr: "Explorez les couches secondaires de l'architecture d'Ethereum",
+        },
         href: "/ethereum/understand-the-layers-2",
-        tier: "Intermediate",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire",
+        },
         sponsored: false,
         new: false,
         quizId: 12,
         available: false,
       },
       {
-        title: "Smart contracts",
-        description:
-          "Learn about Ethereum's smart contracts and their innovative applications",
+        title: {
+          en: "Smart contracts",
+          fr: "Contrats intelligents",
+        },
+        description: {
+          en: "Learn about Ethereum's smart contracts and their innovative applications",
+          fr: "Découvrez les contrats intelligents d'Ethereum et leurs applications innovantes",
+        },
         href: "/ethereum/smart-contracts",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 13,
         available: false,
       },
       {
-        title: "EVM",
-        description:
-          "Gain insights into Ethereum's virtual machine and its functionalities",
+        title: {
+          en: "Ethereum Virtual Machine",
+          fr: "Machine virtuelle Ethereum",
+        },
+        description: {
+          en: "Gain insights into Ethereum's virtual machine and its functionalities",
+          fr: "Acquérez des connaissances sur la machine virtuelle Ethereum et ses fonctionnalités",
+        },
         href: "/ethereum/evm",
-        tier: "Expert",
+        tier: {
+          en: "Expert",
+          fr: "Expert",
+        },
         sponsored: false,
         new: false,
         quizId: 15,
@@ -183,11 +296,19 @@ const lessons: Lessons[] = [
     category: "Governance",
     courses: [
       {
-        title: "What are DAOs?",
-        description:
-          "Gain insights into the decentralized autonomous organizations (DAOs)",
+        title: {
+          en: "What are DAOs?",
+          fr: "Qu'est-ce que les DAO?",
+        },
+        description: {
+          en: "Discover the concept of Decentralized Autonomous Organizations",
+          fr: "Découvrez le concept d'organisations autonomes décentralisées",
+        },
         href: "/governance/what-are-daos",
-        tier: "Beginner",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
         sponsored: false,
         new: false,
         quizId: 14,

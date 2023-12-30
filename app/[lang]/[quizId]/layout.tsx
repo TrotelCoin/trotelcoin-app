@@ -22,7 +22,7 @@ const getTierByQuizId = (quizIdParam: number): string => {
   lessons.forEach((lesson) => {
     lesson.courses.forEach((course) => {
       if (course.quizId.toString() === quizIdParam.toString()) {
-        foundTier = course.tier;
+        foundTier = course.tier.en;
       }
     });
   });
@@ -59,12 +59,30 @@ const CoursePage = ({
     fetchDictionary();
   }, [lang]);
 
-  const tier = getTierByQuizId(quizId);
-  const available = getAvailabilityByQuizId(quizId);
+  const foundTier = getTierByQuizId(quizId);
+  const foundAvailability = getAvailabilityByQuizId(quizId);
 
   const currentCourse: Course = lessons
     .flatMap((lesson) => lesson.courses)
     .find((course) => course.quizId.toString() === quizId.toString()) as Course;
+
+  let tier = "";
+  let title = "";
+  let description = "";
+
+  switch (lang) {
+    case "en":
+      tier = foundTier;
+      title = currentCourse?.title.en;
+      break;
+    case "fr":
+      tier = foundTier;
+      title = currentCourse?.title.fr;
+      break;
+    default:
+      tier = foundTier;
+      title = currentCourse?.title.en;
+  }
 
   const { address, isDisconnected } = useAccount();
 
@@ -131,7 +149,7 @@ const CoursePage = ({
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-            {currentCourse?.title}
+            {title}
           </h1>
           <p className="mt-2 text-gray-900 dark:text-gray-100">
             {typeof dict?.lesson !== "string" && (
@@ -206,7 +224,7 @@ const CoursePage = ({
     <>
       {isDisconnected && tier !== "Beginner"
         ? renderUnauthorizedContent()
-        : !available ||
+        : !foundAvailability ||
           (tier !== "Beginner" &&
             ((tier === "Intermediate" && intermediateBalance < 1) ||
               (tier === "Expert" && expertBalance < 1)))

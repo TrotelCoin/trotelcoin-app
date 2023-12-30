@@ -19,11 +19,28 @@ function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
 }
 
-function filterByTitleOrDescription(course: Lesson, searchTerm: string) {
-  return (
-    course.title.toLowerCase().includes(searchTerm) ||
-    course.description.toLowerCase().includes(searchTerm)
-  );
+function filterByTitleOrDescription(
+  course: Lesson,
+  searchTerm: string,
+  lang: Lang
+) {
+  switch (lang) {
+    case "en":
+      return (
+        course.title.en.toLowerCase().includes(searchTerm) ||
+        course.description.en.toLowerCase().includes(searchTerm)
+      );
+    case "fr":
+      return (
+        course.title.fr.toLowerCase().includes(searchTerm) ||
+        course.description.fr.toLowerCase().includes(searchTerm)
+      );
+    default:
+      return (
+        course.title.en.toLowerCase().includes(searchTerm) ||
+        course.description.en.toLowerCase().includes(searchTerm)
+      );
+  }
 }
 
 function lessonsLength(lessons: Lessons[]) {
@@ -37,20 +54,44 @@ function renderCourses(
   isConnected: boolean,
   lang: Lang,
   quizId: number,
-  status: string[]
+  status: string[],
+  dict: DictType | null
 ) {
+  let tier = "";
+  let title = "";
+  let description = "";
+
+  switch (lang) {
+    case "en":
+      tier = course.tier.en;
+      title = course.title.en;
+      description = course.description.en;
+      break;
+    case "fr":
+      tier = course.tier.fr;
+      title = course.title.fr;
+      description = course.description.fr;
+      break;
+    default:
+      tier = course.tier.en;
+      title = course.title.en;
+      description = course.description.en;
+  }
+
   const isIntermediate =
-    course.tier === "Intermediate" && intermediateBalance > 0;
-  const isExpert = course.tier === "Expert" && expertBalance > 0 && isConnected;
+    (tier === "Intermediate" || tier === "Intermédiaire") &&
+    intermediateBalance > 0;
+  const isExpert = tier === "Expert" && expertBalance > 0 && isConnected;
 
   const courseLink =
-    isIntermediate || isExpert || course.tier === "Beginner"
+    isIntermediate || isExpert || tier === "Beginner" || tier === "Débutant"
       ? `/${lang}/${quizId}${course.href}`
       : `/${lang}/not-premium`;
 
   const borderClass =
-    (course.tier === "Expert" && expertBalance > 0) ||
-    (course.tier === "Intermediate" && intermediateBalance > 0)
+    (tier === "Expert" && expertBalance > 0) ||
+    ((tier === "Intermediate" || tier === "Intermédiaire") &&
+      intermediateBalance > 0)
       ? "rainbow-border"
       : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
@@ -62,53 +103,70 @@ function renderCourses(
       : "";
 
   return (
-    <Link href={`${courseLink}`} key={course.title}>
+    <Link href={`${courseLink}`} key={course.quizId}>
       <div
         className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
         <div className="px-4 pb-4">
           <h3 className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}>
-            {course.title}
+            {title}
           </h3>
           <p className={`text-gray-700 dark:text-gray-300 text-xs`}>
-            {course.description}
+            {description}
           </p>
           <div className="flex flex-wrap mt-4 gap-2 items-center">
-            {course.tier === "Beginner" && (
+            {(tier === "Beginner" || tier === "Débutant") && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
-                {course.tier}
+                {tier}
               </span>
             )}
-            {course.tier === "Intermediate" && (
+            {(tier === "Intermediate" || tier === "Intermédiaire") && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
-                {course.tier}
+                {tier}
               </span>
             )}
-            {course.tier === "Expert" && (
+            {tier === "Expert" && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
-                {course.tier}
+                {tier}
               </span>
             )}
             {!course.available && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-black dark:bg-white text-gray-100 dark:text-gray-900">
-                Not available
+                {typeof dict?.lesson !== "string" && (
+                  <>{dict?.lesson.notAvailable}</>
+                )}
               </span>
             )}
             {course.available && (
               <span
                 className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${statusClass}`}
               >
-                {status[quizId - 1]}
+                {status[quizId - 1] === "Not started" && lang === "en" && (
+                  <>Not started</>
+                )}
+                {status[quizId - 1] === "Not started" && lang === "fr" && (
+                  <>Pas commencé</>
+                )}
+                {status[quizId - 1] === "Finished" && lang === "en" && (
+                  <>Finished</>
+                )}
+                {status[quizId - 1] === "Finished" && lang === "fr" && (
+                  <>Terminé</>
+                )}
               </span>
             )}
             {course.sponsored && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
-                Sponsored
+                {typeof dict?.lesson !== "string" && (
+                  <>{dict?.lesson.sponsored}</>
+                )}
               </span>
             )}
             {course.new && (
               <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
-                New course
+                {typeof dict?.lesson !== "string" && (
+                  <>{dict?.lesson.newCourse}</>
+                )}
               </span>
             )}
           </div>
@@ -138,7 +196,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const filterLessons = (lesson: Lessons) => {
     const categoryMatch = filterByCategory(lesson, searchTerm);
     const titleOrDescMatch = lesson.courses.some((course) =>
-      filterByTitleOrDescription(course, searchTerm)
+      filterByTitleOrDescription(course, searchTerm, lang)
     );
     return categoryMatch || titleOrDescMatch;
   };
@@ -231,7 +289,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       Intermediate: 1,
                       Expert: 2,
                     };
-                    return tierOrder[a.tier] - tierOrder[b.tier];
+                    return tierOrder[a.tier.en] - tierOrder[b.tier.en];
                   })
                   .map((course) =>
                     renderCourses(
@@ -241,7 +299,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       isConnected,
                       lang,
                       course.quizId,
-                      status
+                      status,
+                      dict
                     )
                   )}
               </div>

@@ -99,6 +99,8 @@
   },
   "lesson": {
     "notAvailable": "Pas encore disponible",
+    "sponsored": "Sponsorisé",
+    "newCourse": "Nouveau cours",
     "notAvailableMessage": "Cette leçon n'est pas encore disponible. Veuillez revenir plus tard.",
     "goBackHome": "Retourner à l'accueil",
     "course": "Cours",

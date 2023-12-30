@@ -98,7 +98,9 @@
     "early": "Early access"
   },
   "lesson": {
-    "notAvailable": "Not available yet",
+    "notAvailable": "Not available",
+    "sponsored": "Sponsored",
+    "newCourse": "New course",
     "notAvailableMessage": "This lesson is not available yet. Please come back later.",
     "goBackHome": "Go back home",
     "course": "Course",

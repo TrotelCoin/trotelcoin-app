@@ -27,12 +27,17 @@ interface QuizProps {
 const loadQuizData = async (
   quizId: number,
   setQuestions: Function,
-  setCorrectAnswers: Function
+  setCorrectAnswers: Function,
+  lang: Lang
 ) => {
   noStore();
   try {
-    const quizResponse = await fetch(`/api/quizzes/${quizId.toString()}`);
-    const answersResponse = await fetch(`/api/answers/${quizId.toString()}`);
+    const quizResponse = await fetch(
+      `/api/quizzes/${lang}/${quizId.toString()}`
+    );
+    const answersResponse = await fetch(
+      `/api/answers/${lang}/${quizId.toString()}`
+    );
 
     if (quizResponse.ok && answersResponse.ok) {
       const quizData = await quizResponse.json();
@@ -130,7 +135,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, [claimedRewardsSuccess]);
 
   useEffect(() => {
-    loadQuizData(quizId, setQuestions, setCorrectAnswers);
+    loadQuizData(quizId, setQuestions, setCorrectAnswers, lang);
   }, []);
 
   useEffect(() => {

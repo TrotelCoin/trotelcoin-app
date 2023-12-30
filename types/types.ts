@@ -61,11 +61,21 @@ export interface BalanceData {
   isLoading: boolean;
 }
 
+export interface Languages {
+  en: string;
+  fr: string;
+}
+
+export interface Tier {
+  en: "Beginner" | "Intermediate" | "Expert";
+  fr: "Débutant" | "Intermédiaire" | "Expert";
+}
+
 export interface Lesson {
-  title: string;
-  description: string;
+  title: Languages;
+  description: Languages;
   href: string;
-  tier: "Beginner" | "Intermediate" | "Expert";
+  tier: Tier;
   sponsored: boolean;
   new: boolean;
   quizId: number;
@@ -78,7 +88,7 @@ export interface Lessons {
 }
 
 export interface Course {
-  title: string;
+  title: Languages;
 }
 
 export interface Answers {
