@@ -10,7 +10,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
     <Transition.Root show={show} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed inset-0 flex items-center justify-center h-screen m-auto"
+        className="fixed inset-0 flex z-50 items-center justify-center h-screen m-auto"
         onClose={onClose}
       >
         <Transition.Child
