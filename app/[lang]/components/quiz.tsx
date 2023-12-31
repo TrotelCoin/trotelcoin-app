@@ -115,7 +115,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     useContractWrite(claimRewardsConfig);
 
   const estimatedRewardsBalance = parseFloat(
-    (parseFloat(estimatedRewards as string) * 1e-18).toFixed(2)
+    (parseFloat(estimatedRewards as string) / 1e18).toFixed(2)
   );
 
   const handleClaimRewards = async () => {
