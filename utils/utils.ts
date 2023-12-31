@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Address } from "viem";
 
-const useDebounce = (value: any, delay: number) => {
+export const useDebounce = (value: any, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
@@ -16,4 +17,8 @@ const useDebounce = (value: any, delay: number) => {
   return debouncedValue;
 };
 
-export default useDebounce;
+export const reduceAddressSize = (address: Address): Address => {
+  const prefix = address.slice(0, 6) as Address;
+  const suffix = address.slice(-6);
+  return `${prefix}...${suffix}`;
+};

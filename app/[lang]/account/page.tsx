@@ -5,6 +5,7 @@ import { useAccount, useContractRead, useEnsName, useBalance } from "wagmi";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
+import { reduceAddressSize } from "@/utils/utils";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
@@ -41,12 +42,6 @@ interface BadgesSectionProps {
   isNotPremium: boolean;
   dict: DictType | null;
 }
-
-const reduceAddressSize = (address: Address): Address => {
-  const prefix = address.slice(0, 6) as Address;
-  const suffix = address.slice(-6);
-  return `${prefix}...${suffix}`;
-};
 
 const calculateUserLevelAndTokens = (tokensEarned: number) => {
   let userLevel = 1;

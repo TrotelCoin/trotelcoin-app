@@ -2,22 +2,23 @@ import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import { trotelCoinLearningAddress } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { useContractEvent } from "wagmi";
-import { Log } from "viem";
+import { Address, Log } from "viem";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { reduceAddressSize } from "@/utils/utils";
 
 type MyLog = Log & {
   args: {
-    learner: string;
+    learner: Address;
     rewardsClaimed: string;
   };
 };
 
 export default function Events({ lang }: { lang: Lang }) {
   const [rewardsClaimed, setRewardsClaimed] = useState<Log[] | null>(null);
-  const [user, setUser] = useState<string>("");
+  const [user, setUser] = useState<Address | null>(null);
   const [amountClaimed, setAmountClaimed] = useState<number | null>(null);
   const [dict, setDict] = useState<DictType | null>(null);
 
@@ -41,7 +42,7 @@ export default function Events({ lang }: { lang: Lang }) {
 
       const length = log.length;
 
-      setUser((log[length - 1] as MyLog).args.learner);
+      setUser(reduceAddressSize((log[length - 1] as MyLog).args.learner));
       setAmountClaimed(
         parseFloat((log[length - 1] as MyLog).args.rewardsClaimed.toString()) /
           1e18
@@ -82,18 +83,18 @@ export default function Events({ lang }: { lang: Lang }) {
                 </span>
                 <p className="ml-3 truncate font-medium text-gray-100 dark:text-gray-900">
                   <span className="md:hidden">
-                    {user}{" "}
+                    {user as Address}{" "}
                     {typeof dict?.events !== "string" && (
                       <>{dict?.events.claimed}</>
                     )}{" "}
-                    {amountClaimed} TrotelCoins!
+                    {amountClaimed as number} TrotelCoins!
                   </span>
                   <span className="hidden md:inline">
-                    {user}{" "}
+                    {user as Address}{" "}
                     {typeof dict?.events !== "string" && (
                       <>{dict?.events.claimed}</>
                     )}{" "}
-                    {amountClaimed} TrotelCoins!
+                    {amountClaimed as number} TrotelCoins!
                   </span>
                 </p>
               </div>
