@@ -130,5 +130,8 @@
     "incorrect": "Incorrect. You answered incorrectly to :",
     "alreadyClaimed": "You already claimed this quiz.",
     "connectWallet": "Connect your wallet and signin to claim your rewards."
+  },
+  "events": {
+    "claimed": "claimed"
   }
 }

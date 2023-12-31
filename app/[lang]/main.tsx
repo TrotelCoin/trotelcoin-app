@@ -8,6 +8,7 @@ import Header from "@/app/[lang]/ui/interface/header";
 import Loading from "@/app/[lang]/ui/interface/loading";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Lang } from "@/types/types";
+import Events from "@/app/[lang]/components/events";
 import { poppins } from "@/app/[lang]/ui/fonts";
 import Script from "next/script";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
@@ -124,6 +125,7 @@ const MainComponent = ({
                 {children}
               </main>
               <Footer lang={lang} />
+              <Events lang={lang} />
             </DictionaryProvider>
           </Suspense>
           <Analytics />
