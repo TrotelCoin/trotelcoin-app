@@ -2,12 +2,13 @@ import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import { trotelCoinLearningAddress } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { useContractEvent } from "wagmi";
 import { Address, Log } from "viem";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { reduceAddressSize } from "@/utils/utils";
+import "animate.css";
 
 type MyLog = Log & {
   args: {
@@ -50,7 +51,7 @@ export default function Events({ lang }: { lang: Lang }) {
 
       setTimeout(() => {
         setRewardsClaimed(null);
-      }, 5000);
+      }, 10000);
     },
   });
 
@@ -59,7 +60,7 @@ export default function Events({ lang }: { lang: Lang }) {
       <div
         className={`${
           rewardsClaimed ? "fixed" : "hidden"
-        } inset-x-0 bottom-0 pb-2 sm:pb-5`}
+        } inset-x-0 bottom-0 pb-2 sm:pb-5 animate__animated animate__fadeInUp z-50`}
       >
         <div className="mx-auto max-w-4xl px-2 sm:px-6 lg:px-8">
           <div className="rounded-lg bg-green-600 dark:bg-green-200 p-2 shadow-lg sm:p-3">
