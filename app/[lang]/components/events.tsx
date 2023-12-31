@@ -1,7 +1,7 @@
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import { trotelCoinLearningAddress } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
-import { MegaphoneIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { useContractEvent } from "wagmi";
@@ -60,15 +60,25 @@ export default function Events({ lang }: { lang: Lang }) {
           rewardsClaimed ? "fixed" : "hidden"
         } inset-x-0 bottom-0 pb-2 sm:pb-5`}
       >
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-blue-600 dark:bg-blue-200 p-2 shadow-lg sm:p-3">
+        <div className="mx-auto max-w-4xl px-2 sm:px-6 lg:px-8">
+          <div className="rounded-lg bg-green-600 dark:bg-green-200 p-2 shadow-lg sm:p-3">
             <div className="flex flex-wrap items-center justify-between">
               <div className="flex w-0 flex-1 items-center">
-                <span className="flex rounded-lg bg-blue-800 dark:bg-blue-300 p-2">
-                  <MegaphoneIcon
-                    className="h-6 w-6 text-gray-100 dark:text-gray-900"
-                    aria-hidden="true"
-                  />
+                <span className="flex rounded-lg bg-green-800 dark:bg-green-300 p-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 text-gray-100 dark:text-gray-900"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                    />
+                  </svg>
                 </span>
                 <p className="ml-3 truncate font-medium text-gray-100 dark:text-gray-900">
                   <span className="md:hidden">
@@ -90,7 +100,7 @@ export default function Events({ lang }: { lang: Lang }) {
               <div className="order-2 flex-shrink-0 sm:order-3 sm:ml-2">
                 <button
                   type="button"
-                  className="-mr-1 flex rounded-md p-2 hover:bg-blue-800 dark:hover:bg-blue-300 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-900"
+                  className="-mr-1 flex rounded-md p-2 hover:bg-green-800 dark:hover:bg-green-300 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:focus:ring-gray-900"
                 >
                   <span className="sr-only">Dismiss</span>
                   <XMarkIcon
