@@ -122,20 +122,22 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <TheAlgorithmSection
-        dict={dict}
-        remainingTokens={parseFloat(
-          (parseFloat(remainingTokens as string) / 1e18).toFixed(0)
-        )}
-        remainingTime={parseFloat(remainingTime as string)}
-        trotelCoinsDistributed={parseFloat(
-          (parseFloat(trotelCoinsDistributed as string) / 1e18).toFixed(0)
-        )}
-      />
-      <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
-        {lang === "en" ? <>The future</> : <>Le futur</>}
-      </h2>
-      <ComingSoon lang={lang} />
+      <div className="max-w-4xl">
+        <TheAlgorithmSection
+          dict={dict}
+          remainingTokens={parseFloat(
+            (parseFloat(remainingTokens as string) / 1e18).toFixed(0)
+          )}
+          remainingTime={parseFloat(remainingTime as string)}
+          trotelCoinsDistributed={parseFloat(
+            (parseFloat(trotelCoinsDistributed as string) / 1e18).toFixed(0)
+          )}
+        />
+        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
+          {lang === "en" ? <>The future</> : <>Le futur</>}
+        </h2>
+        <ComingSoon lang={lang} />
+      </div>
     </>
   );
 };

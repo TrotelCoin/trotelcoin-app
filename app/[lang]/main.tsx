@@ -122,7 +122,7 @@ const MainComponent = ({
             <DictionaryProvider lang={lang}>
               <Banner lang={lang} />
               <Header router={router} lang={lang} />
-              <main className="mx-10 lg:mx-auto my-10 max-w-4xl">
+              <main className="mx-10 lg:mx-auto my-10 max-w-6xl">
                 {children}
               </main>
               <Footer lang={lang} />
