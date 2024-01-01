@@ -99,20 +99,30 @@ const Header = ({
         </div>
 
         {/* Desktop navigation links */}
-        <div className="hidden lg:flex lg:gap-x-4">
-          {navigation.map((item) => (
-            <Link
-              key={item.id}
-              href={`/${lang}${item.href}`}
-              className={`text-sm px-6 py-2 ${
-                pathname === `/${lang}${item.href}`
-                  ? "bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900"
-                  : "text-gray-700 dark:text-gray-300  hover:text-gray-900 dark:hover:text-gray-100"
-              } font-semibold rounded-full leading-6`}
-            >
-              <>{item.name}</>
-            </Link>
-          ))}
+        <div
+          className={`hidden lg:flex backdrop-blur-xl items-center bg-black dark:bg-white py-2 px-3 rounded-full lg:gap-x-8`}
+        >
+          {navigation.map((item) => {
+            const defaultClasses =
+              "text-gray-100 dark:text-gray-900 text-sm font-semibold hover:bg-white dark:hover:bg-black hover:text-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+
+            const dynamicClasses =
+              "bg-white dark:bg-black text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-black dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+
+            return (
+              <Link
+                key={item.id}
+                href={`/${lang}${item.href}`}
+                className={
+                  pathname === `/${lang}${item.href}`
+                    ? dynamicClasses
+                    : defaultClasses
+                }
+              >
+                {item.name as string}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right section with Wallet component */}

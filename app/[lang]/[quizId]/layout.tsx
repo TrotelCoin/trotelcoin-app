@@ -68,7 +68,6 @@ const CoursePage = ({
 
   let tier = "";
   let title = "";
-  let description = "";
 
   switch (lang) {
     case "en":
@@ -128,7 +127,7 @@ const CoursePage = ({
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href={`/${lang}/home`}
-                className="rounded-md bg-blue-600 dark:bg-blue-200 px-3.5 py-2.5 text-sm font-semibold text-gray-100 dark:text-gray-900 shadow-sm hover:bg-blue-800 dark:hover:bg-blue-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-100 dark:text-gray-900 shadow-sm hover:bg-gray-800 dark:hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.goBackHome}</>
@@ -145,7 +144,7 @@ const CoursePage = ({
     return (
       <>
         <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
-          <p className="text-base font-semibold leading-7 text-blue-600 dark:text-blue-200">
+          <p className="text-base font-semibold leading-7 text-yellow-700 dark:text-yellow-300">
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
@@ -226,7 +225,8 @@ const CoursePage = ({
         ? renderUnauthorizedContent()
         : !foundAvailability ||
           (tier !== "Beginner" &&
-            (((tier === "Intermediate" || tier === "Intermédiaire") && intermediateBalance < 1) ||
+            (((tier === "Intermediate" || tier === "Intermédiaire") &&
+              intermediateBalance < 1) ||
               (tier === "Expert" && expertBalance < 1)))
         ? renderUnauthorizedContent()
         : renderCourseContent(children)}

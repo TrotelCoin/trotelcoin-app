@@ -181,7 +181,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
         </p>
       </div>
       <div
-        className={`overflow-hidden h-2 text-xs bg-gray-400 mt-2 dark:bg-gray-200 flex rounded-full ${
+        className={`overflow-hidden h-2 text-xs bg-gray-600 mt-2 dark:bg-gray-400 flex rounded-full ${
           isNotPremium && "mt-4"
         }`}
       >
@@ -190,7 +190,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
             width: isNotPremium ? "0%" : `${width}%`,
             transition: "width 1s ease-in",
           }}
-          className="rounded-full h-2 bg-blue-600 dark:bg-blue-400"
+          className="rounded-full h-2 bg-yellow-500 dark:bg-yellow-300"
         ></div>
       </div>
     </div>

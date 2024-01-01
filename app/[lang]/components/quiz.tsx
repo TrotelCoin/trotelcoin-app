@@ -245,14 +245,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
                 currentQuestion !== 0
                   ? "cursor-pointer"
                   : "disabled cursor-not-allowed"
-              } bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
+              }  px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold`}
               onClick={goToPrevious}
             >
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
             </button>
             {questions && currentQuestion < questions.length - 1 && (
               <button
-                className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                className="cursor-pointer px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold"
                 onClick={goToNext}
               >
                 {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
@@ -262,13 +262,13 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               isCaptchaVerified ? (
                 <button
                   onClick={handleSubmit}
-                  className="cursor-pointer bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                  className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
                 >
                   {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
                   <Confetti active={showConfetti} />
                 </button>
               ) : (
-                <span className="text-sm text-gray-900 dark:text-gray-100">
+                <span className="text-sm px-6 py-2 font-semibold text-gray-700 dark:text-gray-300">
                   {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
                 </span>
               )
