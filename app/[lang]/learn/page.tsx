@@ -122,7 +122,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="max-w-4xl">
+      <div className="max-w-4xl mx-auto">
         <TheAlgorithmSection
           dict={dict}
           remainingTokens={parseFloat(
