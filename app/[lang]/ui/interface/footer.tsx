@@ -100,7 +100,7 @@ export default function Footer({ lang }: { lang: Lang }) {
 
   return (
     <footer className="bg-white dark:bg-black mx-10">
-      <div className="mx-auto flex justify-between max-w-4xl overflow-hidden px-6 py-10 sm:py-12 border-t border-black/20 dark:border-white/20">
+      <div className="mx-auto flex justify-between max-w-5xl overflow-hidden px-6 py-10 sm:py-12 border-t border-black/20 dark:border-white/20">
         <nav
           className="-mb-6 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
