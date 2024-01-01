@@ -116,22 +116,22 @@ function renderCourses(
           </p>
           <div className="flex flex-wrap mt-4 gap-2 items-center">
             {(tier === "Beginner" || tier === "Débutant") && (
-              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
                 {tier} 🐣
               </span>
             )}
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
-              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
                 {tier} 🙈
               </span>
             )}
             {tier === "Expert" && (
-              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
                 {tier} 🦊
               </span>
             )}
             {!course.available && (
-              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium border border-black dark:border-white bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium border border-black dark:border-white bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.notAvailable} ❌</>
                 )}
@@ -139,7 +139,7 @@ function renderCourses(
             )}
             {course.available && (
               <span
-                className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${statusClass}`}
+                className={`inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium ${statusClass}`}
               >
                 {status[quizId - 1] === "Not started" && lang === "en" && (
                   <>Not started 🤔</>
@@ -156,14 +156,14 @@ function renderCourses(
               </span>
             )}
             {course.sponsored && (
-              <span className="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.sponsored} 📚</>
                 )}
               </span>
             )}
             {course.new && (
-              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-md px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
+              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.newCourse} 👀</>
                 )}
@@ -280,7 +280,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                 {lesson.category}
               </h2>
-              <div className="mt-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3">
                 {lesson.courses
                   .slice()
                   .sort((a, b) => {
