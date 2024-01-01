@@ -131,9 +131,9 @@ function renderCourses(
               </span>
             )}
             {!course.available && (
-              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium border border-black dark:border-white bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
                 {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.notAvailable} ❌</>
+                  <>{dict?.lesson.notAvailable}</>
                 )}
               </span>
             )}

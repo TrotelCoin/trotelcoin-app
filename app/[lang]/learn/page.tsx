@@ -33,9 +33,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         >
           <span className="font-semibold text-4xl">
             {trotelCoinsDistributed ? (
-              <>
-                {trotelCoinsDistributed} 💸
-              </>
+              <>{trotelCoinsDistributed} 💸</>
             ) : (
               <span className="animate-pulse">0</span>
             )}

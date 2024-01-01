@@ -197,123 +197,113 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       ></audio>
       {/* Quiz */}
       <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-          Quiz
-        </h2>
-        <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
-          {questions && questions[currentQuestion] && (
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {questions[currentQuestion].question} ({currentQuestion + 1}/
-              {questions.length})
-            </h3>
-          )}
-          {questions && questions[currentQuestion] ? (
-            <ul className="mt-3 py-6 space-y-4">
-              {questions[currentQuestion].options.map(
-                (option: string, index: number) => (
-                  <li key={index} className="items-center">
-                    <div
-                      className={`cursor-pointer px-4 py-2 rounded-lg border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 ${
-                        answers[currentQuestion] === option
-                          ? "bg-blue-600 text-white"
-                          : "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
-                      }`}
-                      onClick={() => handleAnswer(option)}
-                    >
-                      {option}
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
-          ) : (
-            <span className="font-semibold mt-3 py-6 text-gray-900 dark:text-gray-100">
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
-            </span>
-          )}
-          {!isCorrect && questions && (
-            <ReCAPTCHA
-              sitekey={
-                process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
-              }
-              onChange={handleCaptchaVerify}
-            />
-          )}
-          <div className="mt-6 flex justify-between items-center">
-            <button
-              className={`${
-                currentQuestion !== 0
-                  ? "cursor-pointer"
-                  : "disabled cursor-not-allowed"
-              }  px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold`}
-              onClick={goToPrevious}
-            >
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
-            </button>
-            {questions && currentQuestion < questions.length - 1 && (
-              <button
-                className="cursor-pointer px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold"
-                onClick={goToNext}
-              >
-                {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
-              </button>
-            )}
-            {questions && currentQuestion === questions.length - 1 ? (
-              isCaptchaVerified ? (
-                <button
-                  onClick={handleSubmit}
-                  className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
-                >
-                  {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
-                  <Confetti active={showConfetti} />
-                </button>
-              ) : (
-                <span className="text-sm px-6 py-2 font-semibold text-gray-700 dark:text-gray-300">
-                  {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
-                </span>
+        {questions && questions[currentQuestion] && (
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+            {questions[currentQuestion].question} ({currentQuestion + 1}/
+            {questions.length})
+          </h3>
+        )}
+        {questions && questions[currentQuestion] ? (
+          <ul className="mt-3 py-6 space-y-4">
+            {questions[currentQuestion].options.map(
+              (option: string, index: number) => (
+                <li key={index} className="items-center">
+                  <div
+                    className={`cursor-pointer px-4 py-2 rounded-lg ${
+                      answers[currentQuestion] === option
+                        ? "bg-yellow-500 text-gray-900 hover:bg-yellow-500 hover:text-gray-900"
+                        : "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    }`}
+                    onClick={() => handleAnswer(option)}
+                  >
+                    {option}
+                  </div>
+                </li>
               )
-            ) : (
-              <></>
             )}
-          </div>
-          {showMessage && (
-            <div
-              className={`mt-6 animate__animated animate__fadeIn ${
-                isCorrect
-                  ? "text-green-600 dark:text-green-200"
-                  : "text-red-600 dark:text-red-200"
-              }`}
+          </ul>
+        ) : (
+          <span className="font-semibold mt-3 py-6 text-gray-900 dark:text-gray-100">
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
+          </span>
+        )}
+        {!isCorrect && questions && (
+          <ReCAPTCHA
+            sitekey={
+              process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
+            }
+            onChange={handleCaptchaVerify}
+          />
+        )}
+        <div className="mt-6 flex justify-between items-center">
+          <button
+            className={`${
+              currentQuestion !== 0
+                ? "cursor-pointer"
+                : "disabled cursor-not-allowed"
+            }  px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold`}
+            onClick={goToPrevious}
+          >
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
+          </button>
+          {questions && currentQuestion < questions.length - 1 && (
+            <button
+              className="cursor-pointer px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold"
+              onClick={goToNext}
             >
-              {isCorrect
-                ? `${typeof dict?.quiz !== "string" && dict?.quiz.correct}`
-                : `${
-                    typeof dict?.quiz !== "string" && dict?.quiz.incorrect
-                  } ${wrongAnswers.join(", ")}`}
-            </div>
+              {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
+            </button>
+          )}
+          {questions && currentQuestion === questions.length - 1 ? (
+            isCaptchaVerified ? (
+              <button
+                onClick={handleSubmit}
+                className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+              >
+                {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
+                <Confetti active={showConfetti} />
+              </button>
+            ) : (
+              <span className="text-sm px-6 py-2 font-semibold text-gray-700 dark:text-gray-300">
+                {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
+              </span>
+            )
+          ) : (
+            <></>
           )}
         </div>
+        {showMessage && (
+          <div
+            className={`mt-6 animate__animated animate__fadeIn ${
+              isCorrect
+                ? "text-green-600 dark:text-green-200"
+                : "text-red-600 dark:text-red-200"
+            }`}
+          >
+            {isCorrect
+              ? `${typeof dict?.quiz !== "string" && dict?.quiz.correct}`
+              : `${
+                  typeof dict?.quiz !== "string" && dict?.quiz.incorrect
+                } ${wrongAnswers.join(", ")}`}
+          </div>
+        )}
       </div>
       {/* Reward */}
       {isCorrect && !alreadyAnswered && !isDisconnected && session && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimRewards}</>}
-          </h2>
-          <div className="mt-6 py-6 px-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}{" "}
-              {estimatedRewardsBalance} TROTEL.
-            </h3>
-            <div className="mt-6 items-center">
-              <button
-                onClick={handleClaimRewards}
-                className="bg-blue-600 dark:bg-blue-200 hover:bg-blue-800 dark:hover:bg-blue-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
-              >
-                {typeof dict?.quiz !== "string" && (
-                  <>{dict?.quiz.receiveCrypto}</>
-                )}
-              </button>
-            </div>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}{" "}
+            {estimatedRewardsBalance} TrotelCoins.
+          </h3>
+          <div className="mt-6 items-center">
+            <button
+              onClick={handleClaimRewards}
+              className="bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+            >
+              {typeof dict?.quiz !== "string" && (
+                <>{dict?.quiz.receiveCrypto}</>
+              )}
+            </button>
           </div>
         </div>
       )}
