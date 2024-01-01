@@ -108,7 +108,7 @@ const MainComponent = ({
             />*/}
           </div>
           <NextTopLoader
-            color="#3b82f6"
+            color="#eab308"
             initialPosition={0.08}
             crawlSpeed={200}
             height={3}
