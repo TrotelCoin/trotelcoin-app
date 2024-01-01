@@ -11,6 +11,7 @@ import { Lang } from "@/types/types";
 import Events from "@/app/[lang]/components/events";
 import { poppins } from "@/app/[lang]/ui/fonts";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 
 export const metadata = {
@@ -129,6 +130,7 @@ const MainComponent = ({
             </DictionaryProvider>
           </Suspense>
           <Analytics />
+          <SpeedInsights />
         </body>
       </html>
     </>
