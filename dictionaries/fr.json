@@ -136,7 +136,8 @@
   },
   "algorithm": {
     "title": "L'algorithme",
-    "remainingTokens": "Estimation des récompenses de TrotelCoins",
-    "cycle": "Secondes restantes avant le prochain cycle"
+    "remainingTokens": "Récompenses de TrotelCoins",
+    "cycle": "Cycle en cours",
+    "trotelCoinsDistributed": "TrotelCoins distribués"
   }
 }

@@ -13,19 +13,40 @@ interface TheAlgorithmSectionProps {
   dict: DictType | null;
   remainingTokens: number;
   remainingTime: number;
+  trotelCoinsDistributed: number;
 }
 
 const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   dict,
   remainingTokens,
   remainingTime,
+  trotelCoinsDistributed,
 }) => {
   return (
     <>
-      <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+      <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
         {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
       </h2>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
+        <div
+          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <span className="font-semibold text-4xl">
+            {trotelCoinsDistributed ? (
+              <>
+                {trotelCoinsDistributed} 💸
+              </>
+            ) : (
+              <span className="animate-pulse">0</span>
+            )}
+          </span>
+
+          <span>
+            {typeof dict?.algorithm !== "string" && (
+              <>{dict?.algorithm.trotelCoinsDistributed}</>
+            )}
+          </span>
+        </div>
         <div
           className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
         >
@@ -93,6 +114,13 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     functionName: "calculateRemainingRewardsPeriod",
     watch: true,
   });
+  const { data: trotelCoinsDistributed } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinLearningABI,
+    address: trotelCoinLearningAddress,
+    functionName: "totalRewards",
+    watch: true,
+  });
 
   return (
     <>
@@ -102,8 +130,11 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
           (parseFloat(remainingTokens as string) / 1e18).toFixed(0)
         )}
         remainingTime={parseFloat(remainingTime as string)}
+        trotelCoinsDistributed={parseFloat(
+          (parseFloat(trotelCoinsDistributed as string) / 1e18).toFixed(0)
+        )}
       />
-      <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+      <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
         {lang === "en" ? <>The future</> : <>Le futur</>}
       </h2>
       <ComingSoon lang={lang} />
