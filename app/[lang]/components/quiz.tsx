@@ -198,9 +198,11 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       {/* Quiz */}
       <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
         {questions && questions[currentQuestion] && (
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {questions[currentQuestion].question} ({currentQuestion + 1}/
-            {questions.length})
+          <h3 className="text-lg font-semibold text-gray-900 flex justify-between dark:text-gray-100">
+            <span>{questions[currentQuestion].question}</span>
+            <span>
+              {currentQuestion + 1}/{questions.length}
+            </span>
           </h3>
         )}
         {questions && questions[currentQuestion] ? (
@@ -241,14 +243,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               currentQuestion !== 0
                 ? "cursor-pointer"
                 : "disabled cursor-not-allowed"
-            }  px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold`}
+            } bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
             onClick={goToPrevious}
           >
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
           </button>
           {questions && currentQuestion < questions.length - 1 && (
             <button
-              className="cursor-pointer px-6 py-2 text-sm text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 hover:text-gray-900 rounded-full font-semibold"
+              className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
               onClick={goToNext}
             >
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}

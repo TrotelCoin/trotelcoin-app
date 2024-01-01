@@ -141,7 +141,21 @@ const Expert = ({ lang }: { lang: Lang }) => {
               <div className="flex flex-col gap-2 my-4">
                 {Object.values(advantages).map((advantage, index) => (
                   <div key={index} className="flex gap-1">
-                    <span className="text-gray-700 dark:text-gray-300">
+                    <span className="text-gray-700 flex items-center dark:text-gray-300">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5 mr-1 text-gray-900 dark:text-gray-100"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m4.5 12.75 6 6 9-13.5"
+                        />
+                      </svg>
                       <>{advantage}</>
                     </span>
                   </div>
