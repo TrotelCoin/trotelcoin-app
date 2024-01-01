@@ -141,6 +141,13 @@ const trotelCoinLearningABI = [
   },
   {
     inputs: [],
+    name: "calculateRemainingRewardsPeriod",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "calculateRewards",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",

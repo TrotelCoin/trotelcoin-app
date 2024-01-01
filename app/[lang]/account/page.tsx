@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useAccount, useContractRead, useEnsName, useBalance } from "wagmi";
+import {
+  useAccount,
+  useContractRead,
+  useEnsName,
+  useBalance,
+  useContractEvent,
+} from "wagmi";
+import { Address, Log } from "viem";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
@@ -13,7 +20,6 @@ import {
   trotelCoinAddress,
 } from "@/data/addresses";
 import { mainnet, polygon } from "viem/chains";
-import { Address } from "viem";
 import CountUp from "react-countup";
 import { useSession } from "next-auth/react";
 import { Lang, DictType } from "@/types/types";
@@ -42,6 +48,20 @@ interface BadgesSectionProps {
   isNotPremium: boolean;
   dict: DictType | null;
 }
+
+interface TheAlgorithmSectionProps {
+  dict: DictType | null;
+  isNotPremium: boolean;
+  remainingTokens: number;
+  remainingTime: number;
+}
+
+type MyLog = Log & {
+  args: {
+    learner: Address;
+    rewardsClaimed: string;
+  };
+};
 
 const calculateUserLevelAndTokens = (tokensEarned: number) => {
   let userLevel = 1;
@@ -147,7 +167,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
               {userLevel ? (
                 <CountUp start={0} end={userLevel} duration={5} />
               ) : (
-                <>0</>
+                <span className="animate-pulse">0</span>
               )}
             </>
           )}
@@ -184,21 +204,94 @@ const LevelSection: React.FC<LevelSectionProps> = ({
   </>
 );
 
+const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
+  dict,
+  isNotPremium,
+  remainingTokens,
+  remainingTime,
+}) => {
+  return (
+    <>
+      <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+        {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
+      </h2>
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
+        <div
+          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <span
+            className={`${
+              !isNotPremium
+                ? "text-4xl"
+                : "blur mb-4 hover:blur-none duration-500 text-xl"
+            } `}
+          >
+            {!isNotPremium ? (
+              <>
+                <span className="font-semibold">
+                  {remainingTokens ? (
+                    <>{remainingTokens}</>
+                  ) : (
+                    <span className="animate-pulse">0</span>
+                  )}
+                </span>
+              </>
+            ) : (
+              <>
+                {typeof dict?.account !== "string" && (
+                  <>{dict?.account.notPremium}</>
+                )}
+              </>
+            )}
+          </span>
+          <span>
+            {typeof dict?.account !== "string" && (
+              <>{dict?.account.remainingTokens}</>
+            )}
+          </span>
+        </div>
+        <div
+          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <span
+            className={`${
+              !isNotPremium
+                ? "text-4xl"
+                : "blur mb-4 hover:blur-none duration-500 text-xl"
+            } `}
+          >
+            {!isNotPremium ? (
+              <>
+                <span className="font-semibold">
+                  {remainingTime ? (
+                    <>{remainingTime}</>
+                  ) : (
+                    <span className="animate-pulse">0</span>
+                  )}
+                </span>
+              </>
+            ) : (
+              <>
+                {typeof dict?.account !== "string" && (
+                  <>{dict?.account.notPremium}</>
+                )}
+              </>
+            )}
+          </span>
+          <span>
+            {typeof dict?.account !== "string" && <>{dict?.account.cycle}</>}
+          </span>
+        </div>
+      </div>
+    </>
+  );
+};
+
 const BadgesSection: React.FC<BadgesSectionProps> = ({
   isNotPremium,
   dict,
 }) => {
   const { address } = useAccount();
-
-  const { data: quizzesAnswered } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "getNumberOfQuizzesAnswer",
-    enabled: Boolean(address),
-    args: [address],
-    watch: true,
-  });
 
   const { data: learner } = useContractRead({
     chainId: polygon.id,
@@ -256,7 +349,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
         </svg>
       ),
       condition:
-        Boolean(quizzesAnswered) && parseFloat(quizzesAnswered as string) >= 10,
+        Boolean(learnerTuple[1]) && parseFloat(learnerTuple[1] as string) >= 10,
     },
     {
       id: 3,
@@ -420,7 +513,7 @@ const Header: React.FC<HeaderProps> = ({
                     end={parseFloat(balance?.formatted as string)}
                   />
                 ) : (
-                  <>0</>
+                  <span className="animate-pulse">0</span>
                 )}
               </span>
             </>
@@ -455,7 +548,7 @@ const Header: React.FC<HeaderProps> = ({
                     end={parseFloat(learnerTuple[2]) * 1e-18}
                   />
                 ) : (
-                  <>0</>
+                  <span className="animate-pulse">0</span>
                 )}
               </span>
             </>
@@ -492,7 +585,7 @@ const Header: React.FC<HeaderProps> = ({
                     end={parseFloat(learnerTuple[1] as string)}
                   />
                 ) : (
-                  <>0</>
+                  <span className="animate-pulse">0</span>
                 )}
               </span>
             </>
@@ -532,6 +625,7 @@ export default function Account({
 
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
+  const [logs, setLogs] = useState<MyLog[]>([]);
 
   const { address, isConnected } = useAccount();
   const { data: session, status } = useSession();
@@ -566,6 +660,20 @@ export default function Account({
     enabled: Boolean(address),
     watch: true,
   });
+  const { data: remainingTokens } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinLearningABI,
+    address: trotelCoinLearningAddress,
+    functionName: "remainingTokens",
+    watch: true,
+  });
+  const { data: remainingTime } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinLearningABI,
+    address: trotelCoinLearningAddress,
+    functionName: "calculateRemainingRewardsPeriod",
+    watch: true,
+  });
   const { data: ensName } = useEnsName({
     address: address,
     enabled: Boolean(address),
@@ -576,6 +684,15 @@ export default function Account({
     token: trotelCoinAddress,
     enabled: Boolean(address),
     address: address,
+  });
+  useContractEvent({
+    chainId: polygon.id,
+    address: trotelCoinLearningAddress,
+    abi: trotelCoinLearningABI,
+    eventName: "RewardsClaimed",
+    listener(logs) {
+      setLogs(logs as MyLog[]);
+    },
   });
 
   const intermediateBalance: number = parseFloat(intermediate as string);
@@ -632,6 +749,14 @@ export default function Account({
               tokensNeededForNextLevel={tokensNeededForNextLevel}
               width={width}
               dict={dict}
+            />
+            <TheAlgorithmSection
+              dict={dict}
+              remainingTokens={parseFloat(
+                (parseFloat(remainingTokens as string) / 1e18).toFixed(0)
+              )}
+              isNotPremium={false}
+              remainingTime={parseFloat(remainingTime as string)}
             />
             <BadgesSection isNotPremium={isNotPremium} dict={dict} />
           </>
