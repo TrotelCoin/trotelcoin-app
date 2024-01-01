@@ -88,7 +88,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </span>
               <span>
                 {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.intermediate} 🙈</>
+                  <>{dict?.premium.intermediate}</>
                 )}
               </span>
             </div>
@@ -102,7 +102,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </span>
               <span>
                 {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.expert} 🦊</>
+                  <>{dict?.premium.expert}</>
                 )}
               </span>
             </div>
