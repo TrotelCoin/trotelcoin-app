@@ -243,26 +243,13 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             {typeof dict?.home !== "string" && <>{dict?.home.search}</>}
           </label>
           <div className="relative mx-auto w-full">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-5 h-5 text-gray-900 dark:text-gray-100"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
+            <div className="absolute inset-y-0 left-0 flex items-center px-5 pointer-events-none">
+              <>🔍</>
             </div>
             <input
               type="search"
               id="default-search"
-              className="block w-full p-4 pl-10 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+              className="block w-full p-4 pl-14 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
               placeholder={
                 typeof dict?.home !== "string" &&
                 typeof dict?.home.search === "string"
