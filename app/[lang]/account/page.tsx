@@ -49,13 +49,6 @@ interface BadgesSectionProps {
   dict: DictType | null;
 }
 
-interface TheAlgorithmSectionProps {
-  dict: DictType | null;
-  isNotPremium: boolean;
-  remainingTokens: number;
-  remainingTime: number;
-}
-
 type MyLog = Log & {
   args: {
     learner: Address;
@@ -203,89 +196,6 @@ const LevelSection: React.FC<LevelSectionProps> = ({
     </div>
   </>
 );
-
-const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
-  dict,
-  isNotPremium,
-  remainingTokens,
-  remainingTime,
-}) => {
-  return (
-    <>
-      <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
-        {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
-      </h2>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
-        <div
-          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-        >
-          <span
-            className={`${
-              !isNotPremium
-                ? "text-4xl"
-                : "blur mb-4 hover:blur-none duration-500 text-xl"
-            } `}
-          >
-            {!isNotPremium ? (
-              <>
-                <span className="font-semibold">
-                  {remainingTokens ? (
-                    <>{remainingTokens}</>
-                  ) : (
-                    <span className="animate-pulse">0</span>
-                  )}
-                </span>
-              </>
-            ) : (
-              <>
-                {typeof dict?.account !== "string" && (
-                  <>{dict?.account.notPremium}</>
-                )}
-              </>
-            )}
-          </span>
-          <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.remainingTokens}</>
-            )}
-          </span>
-        </div>
-        <div
-          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-        >
-          <span
-            className={`${
-              !isNotPremium
-                ? "text-4xl"
-                : "blur mb-4 hover:blur-none duration-500 text-xl"
-            } `}
-          >
-            {!isNotPremium ? (
-              <>
-                <span className="font-semibold">
-                  {remainingTime ? (
-                    <>{remainingTime}</>
-                  ) : (
-                    <span className="animate-pulse">0</span>
-                  )}
-                </span>
-              </>
-            ) : (
-              <>
-                {typeof dict?.account !== "string" && (
-                  <>{dict?.account.notPremium}</>
-                )}
-              </>
-            )}
-          </span>
-          <span>
-            {typeof dict?.account !== "string" && <>{dict?.account.cycle}</>}
-          </span>
-        </div>
-      </div>
-    </>
-  );
-};
 
 const BadgesSection: React.FC<BadgesSectionProps> = ({
   isNotPremium,
@@ -660,20 +570,6 @@ export default function Account({
     enabled: Boolean(address),
     watch: true,
   });
-  const { data: remainingTokens } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "remainingTokens",
-    watch: true,
-  });
-  const { data: remainingTime } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "calculateRemainingRewardsPeriod",
-    watch: true,
-  });
   const { data: ensName } = useEnsName({
     address: address,
     enabled: Boolean(address),
@@ -749,14 +645,6 @@ export default function Account({
               tokensNeededForNextLevel={tokensNeededForNextLevel}
               width={width}
               dict={dict}
-            />
-            <TheAlgorithmSection
-              dict={dict}
-              remainingTokens={parseFloat(
-                (parseFloat(remainingTokens as string) / 1e18).toFixed(0)
-              )}
-              isNotPremium={false}
-              remainingTime={parseFloat(remainingTime as string)}
             />
             <BadgesSection isNotPremium={isNotPremium} dict={dict} />
           </>

@@ -48,12 +48,12 @@
     "expert": "Expert"
   },
   "intermediate": {
-    "advantage1": "Accès à plus de cours offrant un contenu approfondi et des tutoriels supplémentaires",
-    "advantage2": "Fonctionnalités de gamification pour améliorer votre expérience d'apprentissage"
+    "advantage1": "Plus de cours avec du contenu approfondi",
+    "advantage2": "Fonctionnalités de gamification"
   },
   "expert": {
-    "advantage1": "Accès anticipé aux fonctionnalités et projets expérimentaux",
-    "advantage2": "Rejoignez une communauté crypto exclusive pour réseauter et plus encore"
+    "advantage1": "Accès anticipé aux fonctionnalités",
+    "advantage2": "Rejoignez une communauté crypto exclusive"
   },
   "modals": {
     "connectWallet": {
@@ -86,8 +86,6 @@
     "level": "Niveau",
     "youAreLevel": "Vous êtes au niveau",
     "trotelCoinsLeft": "TrotelCoins restants",
-    "remainingTokens": "TrotelCoins restants pour ce cycle",
-    "cycle": "Secondes restantes avant le prochain cycle",
     "badges": {
       "beginner": "Débutant"
     },
@@ -137,6 +135,8 @@
     "claimed": "a obtenu"
   },
   "algorithm": {
-    "title": "L'algorithme"
+    "title": "L'algorithme",
+    "remainingTokens": "Estimation des récompenses de TrotelCoins",
+    "cycle": "Secondes restantes avant le prochain cycle"
   }
 }

@@ -31,8 +31,8 @@ const LanguageSelector = ({
   }, [lang]);
 
   const languages = [
-    { code: "en", label: "English" },
-    { code: "fr", label: "Français" },
+    { code: "en", label: "English 🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+    { code: "fr", label: "Français 🇫🇷" },
   ];
   const pathname = usePathname();
 
@@ -62,7 +62,7 @@ const LanguageSelector = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right rounded-lg absolute z-50 right-0 mt-4 w-40 shadow bg-white dark:bg-gray-900 ring-1 ring-gray-900/10 dark:ring-gray-100/10 focus:outline-none">
+        <Menu.Items className="origin-top-right rounded-lg absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-900 ring-1 ring-gray-900/10 dark:ring-gray-100/10 focus:outline-none">
           <div className="p-2">
             {languages.map((language, _) => (
               <Menu.Item key={language.code}>

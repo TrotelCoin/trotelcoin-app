@@ -14,7 +14,7 @@ import ThemeSwitcher from "@/app/[lang]/components/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import AudioComponent from "@/app/[lang]/components/audio";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import { getDictionary, dictionaries } from "@/app/[lang]/dictionaries";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
 
 // Define the Header component

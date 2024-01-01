@@ -20,7 +20,7 @@ const ComingSoon = ({ lang }: { lang: Lang }) => {
   return (
     <>
       {/* Container for the "Coming Soon" message */}
-      <div className="mx-auto max-w-lg my-20">
+      <div className="mx-auto max-w-6xl mt-4 mb-20">
         {/* Card with a "Coming Soon" message */}
         <div className="w-full bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
           {/* Text displaying "Coming Soon" */}
