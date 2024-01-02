@@ -144,7 +144,7 @@ const CoursePage = ({
     return (
       <>
         <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
-          <p className="text-base font-semibold leading-7 text-yellow-700 dark:text-yellow-300">
+          <p className="text-base font-semibold leading-7 text-yellow-500 dark:text-yellow-300">
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
