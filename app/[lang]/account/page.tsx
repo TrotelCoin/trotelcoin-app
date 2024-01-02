@@ -229,7 +229,10 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
       name: typeof dict?.badges !== "string" && dict?.badges.tenQuizzes,
       image: "🌱",
       condition:
-        Boolean(learnerTuple[1]) && parseFloat(learnerTuple[1] as string) >= 10,
+        learnerTuple &&
+        learnerTuple.length === 3 &&
+        learnerTuple[1] &&
+        parseFloat(learnerTuple[1] as string) >= 10,
     },
     {
       id: 3,
@@ -238,6 +241,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
       condition:
         learnerTuple &&
         learnerTuple.length === 3 &&
+        learnerTuple[2] &&
         parseFloat(learnerTuple[2] as string) * 1e-18 >= 100,
     },
     {
@@ -352,7 +356,7 @@ const Header: React.FC<HeaderProps> = ({
           {!isNotPremium ? (
             <>
               <span className="font-semibold">
-                {learnerTuple && learnerTuple.length >= 3 ? (
+                {balance ? (
                   <CountUp
                     start={0}
                     end={parseFloat(balance?.formatted as string)}
@@ -387,7 +391,7 @@ const Header: React.FC<HeaderProps> = ({
           {!isNotPremium ? (
             <>
               <span className="font-semibold">
-                {learnerTuple && learnerTuple.length >= 3 ? (
+                {learnerTuple && learnerTuple.length >= 3 && learnerTuple[2] ? (
                   <CountUp
                     start={0}
                     end={parseFloat(learnerTuple[2]) * 1e-18}
@@ -424,7 +428,7 @@ const Header: React.FC<HeaderProps> = ({
           {!isNotPremium ? (
             <>
               <span className="font-semibold">
-                {learnerTuple && learnerTuple.length >= 2 ? (
+                {learnerTuple && learnerTuple.length >= 2 && learnerTuple[1] ? (
                   <CountUp
                     start={0}
                     end={parseFloat(learnerTuple[1] as string)}
