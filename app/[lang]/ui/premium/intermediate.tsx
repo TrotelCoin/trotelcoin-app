@@ -189,7 +189,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               </button>
             )}
             {isClaimed && (
-              <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+              <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-100 rounded-lg font-semibold">
                 {typeof dict?.premium !== "string" && (
                   <>{dict?.premium.claimed}</>
                 )}
