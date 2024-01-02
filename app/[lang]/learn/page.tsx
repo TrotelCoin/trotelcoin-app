@@ -8,6 +8,7 @@ import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import { trotelCoinLearningAddress } from "@/data/addresses";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
+import CountUp from "react-countup";
 
 interface TheAlgorithmSectionProps {
   dict: DictType | null;
@@ -33,7 +34,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         >
           <span className="font-semibold text-4xl">
             {trotelCoinsDistributed ? (
-              <>{trotelCoinsDistributed} 💸</>
+              <>
+                <CountUp start={0} end={trotelCoinsDistributed} duration={5} />{" "}
+                💸
+              </>
             ) : (
               <span className="animate-pulse">0</span>
             )}
@@ -51,7 +55,17 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           <span className="font-semibold text-4xl">
             {remainingTokens ? (
               <>
-                {remainingTokens / 10} {"< 🧠 <"} {remainingTokens / 4}
+                <CountUp
+                  start={0}
+                  end={parseFloat((remainingTokens / 10).toFixed(0))}
+                  duration={5}
+                />{" "}
+                {"< 🧠 <"}{" "}
+                <CountUp
+                  start={0}
+                  end={parseFloat((remainingTokens / 4).toFixed(0))}
+                  duration={5}
+                />
               </>
             ) : (
               <span className="animate-pulse">0</span>

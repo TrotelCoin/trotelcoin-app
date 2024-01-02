@@ -113,7 +113,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     useContractWrite(claimRewardsConfig);
 
   const remainingTokens = parseFloat(
-    (parseFloat(remainingTokensBalance as string) / 1e18).toFixed(1)
+    (parseFloat(remainingTokensBalance as string) / 1e18).toFixed(0)
   );
 
   const handleClaimRewards = async () => {
