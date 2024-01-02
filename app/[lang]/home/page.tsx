@@ -105,7 +105,7 @@ function renderCourses(
   return (
     <Link href={`${courseLink}`} key={course.quizId}>
       <div
-        className={`rounded-lg hover:shadow mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+        className={`rounded-lg hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
         <div className="px-4 pb-4">
           <h3 className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}>
