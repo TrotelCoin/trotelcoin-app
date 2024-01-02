@@ -83,13 +83,11 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const { address, isDisconnected } = useAccount();
   const { data: session } = useSession();
 
-  const { data: estimatedRewards } = useContractRead({
+  const { data: remainingTokensBalance } = useContractRead({
     chainId: polygon.id,
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
-    account: address,
-    enabled: Boolean(address),
-    functionName: "calculateRewards",
+    functionName: "remainingTokens",
     watch: true,
   });
   const { config: claimRewardsConfig } = usePrepareContractWrite({
@@ -114,8 +112,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
     useContractWrite(claimRewardsConfig);
 
-  const estimatedRewardsBalance = parseFloat(
-    (parseFloat(estimatedRewards as string) / 1e18).toFixed(2)
+  const remainingTokens = parseFloat(
+    (parseFloat(remainingTokensBalance as string) / 1e18).toFixed(1)
   );
 
   const handleClaimRewards = async () => {
@@ -295,7 +293,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}{" "}
-            {estimatedRewardsBalance} TrotelCoins.
+            {remainingTokens / 10} & {remainingTokens / 4} TrotelCoins.
           </h3>
           <div className="mt-6 items-center">
             <button
