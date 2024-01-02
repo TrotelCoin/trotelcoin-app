@@ -171,7 +171,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
             {!isClaimed && !isEligible && (
               <button
                 onClick={checkEligibility}
-                className="bg-blue-600 hover:bg-blue-800 dark:bg-blue-200 dark:hover:bg-blue-300 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
+                className="bg-yellow-500 hover:bg-yellow-700 dark:bg-yellow-300 dark:hover:bg-yellow-500 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
               >
                 {typeof dict?.premium !== "string" && (
                   <>{dict?.premium.eligibility}</>
@@ -181,7 +181,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
             {isEligible && !isClaimed && (
               <button
                 onClick={claim}
-                className="bg-blue-600 hover:bg-blue-800 dark:bg-blue-200 dark:hover:bg-blue-300 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
+                className="bg-yellow-500 hover:bg-yellow-700 dark:bg-yellow-300 dark:hover:bg-yellow-500 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
               >
                 {typeof dict?.premium !== "string" && (
                   <>{dict?.premium.claim}</>
@@ -189,7 +189,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               </button>
             )}
             {isClaimed && (
-              <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-600 dark:focus:border-blue-200 dark:hover-bg-blue-50 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+              <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                 {typeof dict?.premium !== "string" && (
                   <>{dict?.premium.claimed}</>
                 )}
