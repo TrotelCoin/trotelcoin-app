@@ -18,12 +18,14 @@ import {
   trotelCoinExpertAddress,
   trotelCoinLearningAddress,
   trotelCoinAddress,
+  trotelCoinEarlyAddress,
 } from "@/data/addresses";
 import { mainnet, polygon } from "viem/chains";
 import CountUp from "react-countup";
 import { useSession } from "next-auth/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 
 interface LevelSectionProps {
   isNotPremium: boolean;
@@ -213,9 +215,19 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
     account: address,
     watch: true,
   });
+  const { data: earlyBalance } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinEarlyABI,
+    address: trotelCoinEarlyAddress,
+    functionName: "balanceOf",
+    args: [address],
+    enabled: Boolean(address),
+    account: address,
+    watch: true,
+  });
 
   const learnerTuple = learner as [any, any, any];
-  const early = false; // to change
+  const early = parseFloat(earlyBalance as string) > 0;
 
   const badges = [
     {
