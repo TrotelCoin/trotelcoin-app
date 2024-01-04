@@ -151,6 +151,10 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? <>The future</> : <>Le futur</>}
         </h2>
         <ComingSoon lang={lang} />
+        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
+          {typeof dict?.learn !== "string" && <>{dict?.learn.trainingCenter}</>}
+        </h2>
+        <ComingSoon lang={lang} />
       </div>
     </>
   );

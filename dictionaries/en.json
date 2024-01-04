@@ -139,5 +139,8 @@
     "remainingTokens": "Rewards",
     "cycle": "Current cycle",
     "trotelCoinsDistributed": "TrotelCoins distributed"
+  },
+  "learn": {
+    "trainingCenter": "Training center"
   }
 }
