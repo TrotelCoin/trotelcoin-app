@@ -43,7 +43,7 @@ const loadQuizData = async (
       const quizData = await quizResponse.json();
       const answersData = await answersResponse.json();
 
-      setQuestions(quizData);
+      setQuestions(shuffleArray(quizData));
       setCorrectAnswers(answersData);
     } else {
       console.error("Failed to fetch quiz data or answers data");
@@ -52,6 +52,14 @@ const loadQuizData = async (
     console.error("An error occurred while fetching data:", error);
   }
 };
+
+function shuffleArray(array: any) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
 
 const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
@@ -135,6 +143,12 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   useEffect(() => {
     loadQuizData(quizId, setQuestions, setCorrectAnswers, lang);
   }, []);
+
+  useEffect(() => {
+    questions?.forEach((question: { options: any; }) => {
+      question.options = shuffleArray(question.options);
+    });
+  }, [questions]);
 
   useEffect(() => {
     if (audio) {
