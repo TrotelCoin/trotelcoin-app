@@ -179,8 +179,10 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const handleSubmit = () => {
     let correctCount = 0;
     let newWrongAnswers: number[] = [];
+    
     answers.forEach((answer, index) => {
-      if (answer === correctAnswers[index]) {
+      const correctAnswer = correctAnswers[currentQuestion][index];
+      if (answer === correctAnswer) {
         correctCount++;
       } else {
         newWrongAnswers.push(index + 1);
