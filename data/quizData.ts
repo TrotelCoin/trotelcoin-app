@@ -101,7 +101,7 @@ const quizzes = [
             "Token burning is irrelevant and doesn't affect TrotelCoin's stability or value.",
           ],
           fr: [
-            "La destruction de jetons stabilise la valeur de TrotelCoin en maintenant l'offre existante et en évitant les perturbations causées par une frappe excessive.",
+            "La destruction de jetons stabilise la valeur de TrotelCoin en maintenant l'offre existante et en évitant les perturbations causées par une mise en circulation excessive.",
             "La destruction de jetons n'a aucun impact sur la stabilité mais augmente l'offre totale de jetons.",
             "La destruction de jetons déstabilise TrotelCoin en réduisant son offre globale.",
             "La destruction de jetons est sans rapport et n'affecte pas la stabilité ou la valeur de TrotelCoin.",
