@@ -6,7 +6,7 @@ const answers = quizzes.map(quiz => {
     fr: quiz.questions.map(question => question.options.fr.findIndex(option => option === question.options.fr[0])),
   };
 
-  return { quizId: quiz.quizId, correctAnswers };
+  return correctAnswers;
 });
 
 export default answers;
