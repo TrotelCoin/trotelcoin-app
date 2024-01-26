@@ -43,7 +43,7 @@ const loadQuizData = async (
       const quizData = await quizResponse.json();
       const answersData = await answersResponse.json();
 
-      setQuestions(shuffleArray(quizData));
+      setQuestions(quizData);
       setCorrectAnswers(answersData);
     } else {
       console.error("Failed to fetch quiz data or answers data");
@@ -191,19 +191,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     let correctCount = 0;
     let newWrongAnswers: number[] = [];
     
-    questions.forEach((question: any) => {
-      answers.forEach((answer, optionIndex) => {
-        const correctAnswer = question.options.indexOf(
-          correctAnswers[question.originalIndex][optionIndex]
-        );
-        const selectedAnswer = question.options.indexOf(answer);
-        if (selectedAnswer === correctAnswer) {
-          correctCount++;
-        } else {
-          newWrongAnswers.push(optionIndex + 1);
-        }
-      });
-    });
+    for (let i = 0; i < correctAnswers.length; i++) {
+      console.log("Correct answer :", correctAnswers[i], " answer :", answers[i]);
+      if (correctAnswers[i] === answers[i]) {
+        correctCount++;
+      } else {
+        newWrongAnswers.push(i + 1);
+      }
+    }
 
     if (correctCount === correctAnswers.length) {
       setIsCorrect(true);
