@@ -145,10 +145,17 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, []);
 
   useEffect(() => {
-    questions?.forEach((question: { options: any; }) => {
+    const shuffledQuestions = questions?.map((question: any, index: number) => ({
+      ...question,
+      originalIndex: index,
+    }));
+  
+    shuffledQuestions?.forEach((question: any) => {
       question.options = shuffleArray(question.options);
     });
-  }, [questions]);
+  
+    setQuestions(shuffledQuestions);
+  }, [questions]);  
 
   useEffect(() => {
     if (audio) {
@@ -180,13 +187,18 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     let correctCount = 0;
     let newWrongAnswers: number[] = [];
     
-    answers.forEach((answer, index) => {
-      const correctAnswer = correctAnswers[currentQuestion][index];
-      if (answer === correctAnswer) {
-        correctCount++;
-      } else {
-        newWrongAnswers.push(index + 1);
-      }
+    questions.forEach((question) => {
+      answers.forEach((answer, optionIndex) => {
+        const correctAnswer = question.options.indexOf(
+          correctAnswers[question.originalIndex][optionIndex]
+        );
+        const selectedAnswer = question.options.indexOf(answer);
+        if (selectedAnswer === correctAnswer) {
+          correctCount++;
+        } else {
+          newWrongAnswers.push(optionIndex + 1);
+        }
+      });
     });
 
     if (correctCount === correctAnswers.length) {
