@@ -160,7 +160,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
                 )}
               </p>
               {userLevel ? (
-                <CountUp start={0} end={userLevel} duration={5} />
+                <CountUp start={0} end={userLevel} duration={2} />
               ) : (
                 <span className="animate-pulse">0</span>
               )}
@@ -371,7 +371,7 @@ const Header: React.FC<HeaderProps> = ({
                 {balance ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(balance?.formatted as string)}
+                    end={parseFloat(balance?.formatted as string)} duration={2}
                   />
                 ) : (
                   <span className="animate-pulse">0</span>
@@ -406,7 +406,7 @@ const Header: React.FC<HeaderProps> = ({
                 {learnerTuple && learnerTuple.length >= 3 && learnerTuple[2] ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(learnerTuple[2]) * 1e-18}
+                    end={parseFloat(learnerTuple[2]) * 1e-18} duration={2}
                   />
                 ) : (
                   <span className="animate-pulse">0</span>
@@ -443,7 +443,7 @@ const Header: React.FC<HeaderProps> = ({
                 {learnerTuple && learnerTuple.length >= 2 && learnerTuple[1] ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(learnerTuple[1] as string)}
+                    end={parseFloat(learnerTuple[1] as string)} duration={2}
                   />
                 ) : (
                   <span className="animate-pulse">0</span>

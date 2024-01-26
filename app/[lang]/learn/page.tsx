@@ -35,7 +35,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           <span className="font-semibold text-4xl">
             {trotelCoinsDistributed ? (
               <>
-                <CountUp start={0} end={trotelCoinsDistributed} duration={5} />{" "}
+                <CountUp start={0} end={trotelCoinsDistributed} duration={2} />{" "}
                 💸
               </>
             ) : (
@@ -58,13 +58,13 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                 <CountUp
                   start={0}
                   end={parseFloat((remainingTokens / 10).toFixed(0))}
-                  duration={5}
+                  duration={2}
                 />{" "}
                 {"< 🧠 <"}{" "}
                 <CountUp
                   start={0}
                   end={parseFloat((remainingTokens / 4).toFixed(0))}
-                  duration={5}
+                  duration={2}
                 />
               </>
             ) : (

@@ -6,29 +6,29 @@ const quizzes = [
       {
         questionId: 1,
         question: {
-          en: "What is the mission of TrotelCoin and its vision for the future?",
-          fr: "Quelle est la mission de TrotelCoin et sa vision pour l'avenir?",
+          en: "What is the mission of TrotelCoin and its vision?",
+          fr: "Quelle est la mission de TrotelCoin et sa vision?",
         },
         options: {
           en: [
-            "TrotelCoin aims to create a world where individuals have the knowledge and tools to thrive in the web3 space. Its vision is to revolutionize the cryptocurrency education landscape.",
-            "TrotelCoin's mission is to maximize profits for token holders, and its vision is centered around becoming the most valuable cryptocurrency in the market.",
-            "TrotelCoin's mission is solely to provide a cryptocurrency learning platform, and its vision is limited to being an educational resource.",
-            "TrotelCoin has no specific mission or vision outlined.",
+            "TrotelCoin focuses on cryptocurrency education, aspiring to be a key educational resource.",
+            "TrotelCoin envisions an empowered web3 community through knowledge and tools.",
+            "TrotelCoin strives to be the top cryptocurrency, maximizing profits for token holders.",
+            "TrotelCoin lacks a defined mission or vision.",
           ],
           fr: [
-            "TrotelCoin vise à créer un monde où les individus ont les connaissances et les outils pour prospérer dans l'espace web3. Sa vision est de révolutionner le paysage de l'éducation sur les crypto-monnaies.",
-            "La mission de TrotelCoin est de maximiser les profits des détenteurs de jetons, et sa vision est centrée sur le fait de devenir la crypto-monnaie la plus précieuse du marché.",
-            "La mission de TrotelCoin est uniquement de fournir une plateforme d'apprentissage sur les crypto-monnaies, et sa vision se limite à être une ressource éducative.",
-            "TrotelCoin n'a aucune mission ou vision spécifique.",
+            "TrotelCoin se concentre sur l'éducation aux crypto-monnaies, aspirant à être une ressource éducative clé.",
+            "TrotelCoin envisage une communauté web3 autonomisée grâce aux connaissances et aux outils.",
+            "TrotelCoin s'efforce d'être la meilleure crypto-monnaie, maximisant les profits pour les détenteurs de jetons.",
+            "TrotelCoin n'a pas de mission ou de vision définie.",
           ],
         },
       },
       {
         questionId: 2,
         question: {
-          en: "What is the tokenomics of TrotelCoin, including its distribution and governance participation?",
-          fr: "Quelle est la tokenomie de TrotelCoin, y compris sa distribution et sa participation à la gouvernance?",
+          en: "What is the tokenomics of TrotelCoin?",
+          fr: "Quelle est la tokenomie de TrotelCoin?",
         },
         options: {
           en: [
