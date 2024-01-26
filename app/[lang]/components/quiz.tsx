@@ -187,7 +187,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     let correctCount = 0;
     let newWrongAnswers: number[] = [];
     
-    questions.forEach((question) => {
+    questions.forEach((question: any) => {
       answers.forEach((answer, optionIndex) => {
         const correctAnswer = question.options.indexOf(
           correctAnswers[question.originalIndex][optionIndex]
