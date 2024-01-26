@@ -104,14 +104,7 @@
     "notAvailableMessage": "This lesson is not available yet. Please come back later.",
     "goBackHome": "Go back home",
     "course": "Course",
-    "goingToLearn": "What you are going to learn?",
-    "lessons": {
-      "introductionToTrotelCoin": {
-        "one": "Understand how TrotelCoin works and how it will help you to learn about crypto.",
-        "two": "Learn about the TrotelCoin token and its use cases.",
-        "three": "Be able to claim your TrotelCoin tokens."
-      }
-    }
+    "goingToLearn": "What you are going to learn?"
   },
   "notPremium": {
     "title": "You are not premium",

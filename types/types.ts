@@ -74,6 +74,9 @@ export interface Tier {
 export interface Lesson {
   title: Languages;
   description: Languages;
+  one: Languages;
+  two: Languages;
+  three: Languages;
   href: string;
   tier: Tier;
   sponsored: boolean;
@@ -89,6 +92,9 @@ export interface Lessons {
 
 export interface Course {
   title: Languages;
+  one: Languages;
+  two: Languages;
+  three: Languages;
 }
 
 export interface Answers {

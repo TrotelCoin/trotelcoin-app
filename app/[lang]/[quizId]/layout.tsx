@@ -164,45 +164,48 @@ const CoursePage = ({
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
-                      {typeof dict?.lesson !== "string" &&
-                        typeof dict?.lesson.lessons !== "string" &&
-                        typeof dict?.lesson.lessons.introductionToTrotelCoin !==
-                          "string" && (
-                          <>
-                            {dict?.lesson.lessons.introductionToTrotelCoin.one}
-                          </>
-                        )}
+                      {lang == "en" && (
+                        <>
+                          {currentCourse?.one.en}
+                        </>
+                      )}
+                      {lang == "fr" && (
+                        <>
+                          {currentCourse?.one.fr}
+                        </>
+                      )}
                     </span>
                   </li>
                 </div>
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
-                      {typeof dict?.lesson !== "string" &&
-                        typeof dict?.lesson.lessons !== "string" &&
-                        typeof dict?.lesson.lessons.introductionToTrotelCoin !==
-                          "string" && (
-                          <>
-                            {dict?.lesson.lessons.introductionToTrotelCoin.two}
-                          </>
-                        )}
+                      {lang == "en" && (
+                        <>
+                          {currentCourse?.two.en}
+                        </>
+                      )}
+                      {lang == "fr" && (
+                        <>
+                          {currentCourse?.two.fr}
+                        </>
+                      )}
                     </span>
                   </li>
                 </div>
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
-                      {typeof dict?.lesson !== "string" &&
-                        typeof dict?.lesson.lessons !== "string" &&
-                        typeof dict?.lesson.lessons.introductionToTrotelCoin !==
-                          "string" && (
-                          <>
-                            {
-                              dict?.lesson.lessons.introductionToTrotelCoin
-                                .three
-                            }
-                          </>
-                        )}
+                      {lang == "en" && (
+                        <>
+                          {currentCourse?.three.en}
+                        </>
+                      )}
+                      {lang == "fr" && (
+                        <>
+                          {currentCourse?.three.fr}
+                        </>
+                      )}
                     </span>
                   </li>
                 </div>
