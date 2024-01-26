@@ -27,8 +27,8 @@ const quizzes = [
       {
         questionId: 2,
         question: {
-          en: "Explain the tokenomics of TrotelCoin, including its distribution and governance participation.",
-          fr: "Expliquez la tokenomie de TrotelCoin, y compris sa distribution et sa participation à la gouvernance.",
+          en: "What is the tokenomics of TrotelCoin, including its distribution and governance participation?",
+          fr: "Quelle est la tokenomie de TrotelCoin, y compris sa distribution et sa participation à la gouvernance?",
         },
         options: {
           en: [
@@ -48,8 +48,8 @@ const quizzes = [
       {
         questionId: 3,
         question: {
-          en: "Simulate the TrotelCoin distribution algorithm for a given number of quizzes answered.",
-          fr: "Simulez l'algorithme de distribution de TrotelCoin pour un nombre donné de quiz répondu.",
+          en: "How the distribution algorithm works and what its impact on inflation?",
+          fr: "Comment fonctionne l'algorithme de distribution et quel est son impact sur l'inflation?",
         },
         options: {
           en: [
@@ -69,8 +69,8 @@ const quizzes = [
       {
         questionId: 4,
         question: {
-          en: "Discuss the benefits and risks of adding liquidity to the Uniswap pool.",
-          fr: "Discutez des avantages et des risques d'ajouter de la liquidité au pool Uniswap.",
+          en: "What is the aim of adding liquidity to the Uniswap pool?",
+          fr: "Quel est l'objectif de l'ajout de liquidité au pool Uniswap?",
         },
         options: {
           en: [
@@ -90,8 +90,8 @@ const quizzes = [
       {
         questionId: 5,
         question: {
-          en: "Evaluate the impact of token burning on TrotelCoin's stability and value.",
-          fr: "Évaluez l'impact de la destruction de jetons sur la stabilité et la valeur de TrotelCoin.",
+          en: "What is the impact of token burning on TrotelCoin's stability and value?",
+          fr: "Quel est l'impact de la destruction de jetons sur la stabilité et la valeur de TrotelCoin?",
         },
         options: {
           en: [
@@ -111,21 +111,63 @@ const quizzes = [
       {
         questionId: 6,
         question: {
-          en: "Describe the anti-fraud measures in place and their importance.",
-          fr: "Décrivez les mesures anti-fraude en place et leur importance.",
+          en: "What are the anti-fraud measures in place and their importance?",
+          fr: "Quelles sont les mesures anti-fraude en place et leur importance?",
         },
         options: {
           en: [
-            "Yes, it's mandatory",
-            "No, you can entirely use the platform for free",
-            "Yes, but you can use the platform for free",
-            "I don't know",
+            "Participants can only answer the questionnaire once, and captcha is used to prevent bot spam. These measures ensure fairness and honesty.",
+            "Anti-fraud measures are absent, and participants can submit the quiz multiple times.",
+            "Worldcoin ID adoption is the only anti-fraud measure in place.",
+            "Anti-fraud measures are unnecessary and impede participant engagement.",
           ],
           fr: [
-            "Oui, c'est obligatoire",
-            "Non, vous pouvez utiliser la plateforme entièrement gratuitement",
-            "Oui, mais vous pouvez utiliser la plateforme gratuitement",
-            "Je ne sais pas",
+            "Les participants ne peuvent répondre au questionnaire qu'une seule fois, et le captcha est utilisé pour empêcher le spam de bot. Ces mesures garantissent l'équité et l'honnêteté.",
+            "Les mesures anti-fraude sont absentes, et les participants peuvent soumettre le quiz plusieurs fois.",
+            "L'adoption de Worldcoin ID est la seule mesure anti-fraude en place.",
+            "Les mesures anti-fraude sont inutiles et entravent l'engagement des participants.",
+          ],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "What is the purpose of the TrotelCoin token?",
+          fr: "Quel est le but du jeton TrotelCoin?",
+        },
+        options: {
+          en: [
+            "TrotelCoin provides incentives for progress, guiding users through their first transactions and serving as an accessible entry point for new cryptocurrency users.",
+            "TrotelCoin has no utility in education and serves only as a digital asset.",
+            "TrotelCoin's utility is limited to a single aspect of cryptocurrency education, and it doesn't contribute to navigating the landscape.",
+            "The utility of TrotelCoin is solely determined by market trends.",
+          ],
+          fr: [
+            "TrotelCoin offre des incitations pour progresser, guidant les utilisateurs dans leurs premières transactions et servant de point d'entrée accessible pour les nouveaux utilisateurs de crypto-monnaies.",
+            "TrotelCoin n'a aucune utilité dans l'éducation et ne sert que de bien numérique.",
+            "L'utilité de TrotelCoin se limite à un seul aspect de l'éducation sur les crypto-monnaies, et elle ne contribue pas à la navigation dans l'écosystème.",
+            "L'utilité de TrotelCoin est uniquement déterminée par les tendances du marché.",
+          ],
+        },
+      },
+      {
+        questionId: 8,
+        question: {
+          en: "What are potential future features for courses development on TrotelCoin?",
+          fr: "Quelles sont les fonctionnalités futures potentielles pour le développement de cours sur TrotelCoin?",
+        },
+        options: {
+          en: [
+            "Future features may include advanced project development courses, providing guidance and support for launching unique crypto projects.",
+            "No potential future features are envisioned for project development courses.",
+            "Future features are restricted to basic educational resources without expanding into project development.",
+            "Project development courses are unnecessary, and no additional features are required.",
+          ],
+          fr: [
+            "Les fonctionnalités futures peuvent inclure des cours de développement de projets avancés, fournissant des conseils et un soutien pour le lancement de projets crypto uniques.",
+            "Aucune fonctionnalité future potentielle n'est envisagée pour les cours de développement de projets.",
+            "Les fonctionnalités futures sont limitées aux ressources éducatives de base sans s'étendre au développement de projets.",
+            "Les cours de développement de projets sont inutiles, et aucune fonctionnalité supplémentaire n'est requise.",
           ],
         },
       },
