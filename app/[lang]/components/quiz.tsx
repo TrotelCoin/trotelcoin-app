@@ -78,6 +78,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
+  const [shuffled, setShuffled] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -145,17 +146,20 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, []);
 
   useEffect(() => {
-    const shuffledQuestions = questions?.map((question: any, index: number) => ({
-      ...question,
-      originalIndex: index,
-    }));
+    if (!shuffled && questions) {
+      const shuffledQuestions = questions.map((question: any, index: number) => ({
+        ...question,
+        originalIndex: index,
+      }));
   
-    shuffledQuestions?.forEach((question: any) => {
-      question.options = shuffleArray(question.options);
-    });
+      shuffledQuestions.forEach((question: any) => {
+        question.options = shuffleArray(question.options);
+      });
   
-    setQuestions(shuffledQuestions);
-  }, [questions]);  
+      setQuestions(shuffledQuestions);
+      setShuffled(true);
+    }
+  }, [questions, shuffled]);
 
   useEffect(() => {
     if (audio) {
