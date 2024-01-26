@@ -116,7 +116,7 @@ const MainComponent = ({
             showSpinner={false}
             easing="ease"
             speed={200}
-            shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+            shadow="0 0 10px #F5AD3B,0 0 5px #F5AD3B"
           />
           <Suspense fallback={<Loading />}>
             <DictionaryProvider lang={lang}>
