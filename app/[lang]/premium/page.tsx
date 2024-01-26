@@ -70,7 +70,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <CountUp
                 start={0}
                 end={parseFloat(early as string)}
-                duration={2}
+                duration={1}
               />
             </span>
             <span>
@@ -83,7 +83,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <CountUp
                   start={0}
                   end={parseFloat(intermediate as string)}
-                  duration={2}
+                  duration={1}
                 />
               </span>
               <span>
@@ -97,7 +97,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <CountUp
                   start={0}
                   end={parseFloat(expert as string)}
-                  duration={2}
+                  duration={1}
                 />
               </span>
               <span>

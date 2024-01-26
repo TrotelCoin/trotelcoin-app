@@ -58,13 +58,13 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                 <CountUp
                   start={0}
                   end={parseFloat((remainingTokens / 10).toFixed(0))}
-                  duration={2}
+                  duration={1}
                 />{" "}
                 {"< 🧠 <"}{" "}
                 <CountUp
                   start={0}
                   end={parseFloat((remainingTokens / 4).toFixed(0))}
-                  duration={2}
+                  duration={1}
                 />
               </>
             ) : (
