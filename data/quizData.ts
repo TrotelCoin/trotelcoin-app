@@ -6,20 +6,20 @@ const quizzes = [
       {
         questionId: 1,
         question: {
-          en: "What is the mission of TrotelCoin and its vision?",
-          fr: "Quelle est la mission de TrotelCoin et sa vision?",
+          en: "What is the mission of TrotelCoin?",
+          fr: "Quelle est la mission de TrotelCoin?",
         },
         options: {
           en: [
-            "TrotelCoin focuses on cryptocurrency education, aspiring to be a key educational resource.",
-            "TrotelCoin envisions an empowered web3 community through knowledge and tools.",
-            "TrotelCoin strives to be the top cryptocurrency, maximizing profits for token holders.",
+            "TrotelCoin focuses on crypto education.",
+            "TrotelCoin wants to build an empowered web3 community.",
+            "TrotelCoin wants to maximize profits for token holders.",
             "TrotelCoin lacks a defined mission or vision.",
           ],
           fr: [
-            "TrotelCoin se concentre sur l'éducation aux crypto-monnaies, aspirant à être une ressource éducative clé.",
-            "TrotelCoin envisage une communauté web3 autonomisée grâce aux connaissances et aux outils.",
-            "TrotelCoin s'efforce d'être la meilleure crypto-monnaie, maximisant les profits pour les détenteurs de jetons.",
+            "TrotelCoin se concentre sur l'éducation sur les crypto.",
+            "TrotelCoin veut créer une communauté web3.",
+            "TrotelCoin veut maximiser les profits pour les détenteurs de jetons.",
             "TrotelCoin n'a pas de mission ou de vision définie.",
           ],
         },
@@ -27,18 +27,18 @@ const quizzes = [
       {
         questionId: 2,
         question: {
-          en: "What is the tokenomics of TrotelCoin?",
-          fr: "Quelle est la tokenomie de TrotelCoin?",
+          en: "What is the initial distribution of TrotelCoin?",
+          fr: "Quelle est la distribution initiale de TrotelCoin?",
         },
         options: {
           en: [
-            "TrotelCoin allocates 50% to Uniswap, 5% for rewards, and private sales, with governance tied to token count.",
+            "TrotelCoin distributed inital tokens for public sale and marketing operations. Other tokens can be minted for users completing quizzes.",
             "TrotelCoin has a fixed 100 million token supply, and no consideration for governance in token holding.",
-            "TrotelCoin's distribution is undisclosed, and governance isn't a factor for token holders.",
+            "TrotelCoin's distribution is kept secret and governance isn't a factor for token holders.",
             "TrotelCoin has an unlimited supply, and external governance doesn't involve token holders.",
           ],
           fr: [
-            "TrotelCoin alloue 50% à Uniswap, 5% pour les récompenses et les ventes privées, la gouvernance étant liée au nombre de jetons.",
+            "TrotelCoin a distribué des jetons initiaux pour la vente publique et les opérations marketing. D'autres jetons peuvent être créés pour les utilisateurs qui complètent les quiz.",
             "TrotelCoin a une offre fixe de 100 millions de jetons, et aucune considération pour la gouvernance dans la détention de jetons.",
             "La distribution de TrotelCoin est confidentielle, et la gouvernance n'est pas un facteur pour les détenteurs de jetons.",
             "TrotelCoin a une offre illimitée, et la gouvernance externe n'implique pas les détenteurs de jetons.",
@@ -137,15 +137,15 @@ const quizzes = [
         },
         options: {
           en: [
-            "TrotelCoin incentivizes progress, guiding users in their first transactions for new cryptocurrency users.",
+            "TrotelCoin incentivizes progress, guiding users in their learning journey.",
             "TrotelCoin has no utility in education and serves only as a digital asset.",
-            "TrotelCoin's utility is confined to one aspect of cryptocurrency education, lacking broader contributions to navigation.",
+            "TrotelCoin's utility is only about governance.",
             "The utility of TrotelCoin is solely determined by market trends.",
           ],
           fr: [
             "TrotelCoin incite au progrès, guidant les utilisateurs dans leurs premières transactions.",
             "TrotelCoin n'a aucune utilité dans l'éducation et ne sert que de bien numérique.",
-            "L'utilité de TrotelCoin se limite à un aspect de l'éducation aux crypto-monnaies.",
+            "L'utilité de TrotelCoin ne concerne que la gouvernance.",
             "L'utilité de TrotelCoin est uniquement déterminée par les tendances du marché.",
           ],
         },
@@ -158,15 +158,15 @@ const quizzes = [
         },
         options: {
           en: [
-            "Future features may include advanced courses, and support for launching unique crypto projects.",
+            "Future features will be there to improving users' learning.",
             "No potential future features are envisioned for project development courses.",
-            "Future features are restricted to basic educational resources without expanding into project development.",
+            "Future features are restricted to anti-fraud measures.",
             "Project development courses are unnecessary, and no additional features are required.",
           ],
           fr: [
-            "Les fonctionnalités futures peuvent inclure des cours avancés, et un soutien pour le lancement de projets crypto uniques.",
+            "Les fonctionnalités futures seront là pour améliorer l'apprentissage des utilisateurs.",
             "Aucune fonctionnalité future potentielle n'est envisagée pour les cours de développement de projets.",
-            "Les fonctionnalités futures sont limitées aux ressources éducatives de base sans s'étendre au développement de projets.",
+            "Les fonctionnalités futures sont limitées aux mesures anti-fraude.",
             "Les cours de développement de projets sont inutiles, et aucune fonctionnalité supplémentaire n'est requise.",
           ],
         },

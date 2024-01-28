@@ -223,7 +223,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       {/* Quiz */}
       <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
         {questions && questions[currentQuestion] && (
-          <h3 className="text-lg font-semibold text-gray-900 flex justify-between dark:text-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
             <span>{questions[currentQuestion].question}</span>
             <span>
               {currentQuestion + 1}/{questions.length}
