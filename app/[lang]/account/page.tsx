@@ -45,6 +45,7 @@ interface HeaderProps {
   balance: any;
   dict: DictType | null;
   totalRewardsPending: number;
+  numberOfQuizzesAnswered: number;
 }
 
 interface BadgesSectionProps {
@@ -317,6 +318,7 @@ const Header: React.FC<HeaderProps> = ({
   balance,
   dict,
   totalRewardsPending,
+  numberOfQuizzesAnswered,
 }) => (
   <>
     <h2 className="text-gray-900 dark:text-gray-100 text-xl">
@@ -449,7 +451,7 @@ const Header: React.FC<HeaderProps> = ({
                 {learnerTuple && learnerTuple.length >= 2 && learnerTuple[1] ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(learnerTuple[1] as string)}
+                    end={numberOfQuizzesAnswered}
                     duration={2}
                   />
                 ) : (
@@ -495,6 +497,8 @@ export default function Account({
   const [width, setWidth] = useState<number>(0);
   const [logs, setLogs] = useState<MyLog[]>([]);
   const [totalRewardsPending, setTotalRewardsPending] = useState<number>(0);
+  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] =
+    useState<number>(0);
 
   const { address, isConnected } = useAccount();
   const { data: session, status } = useSession();
@@ -566,15 +570,28 @@ export default function Account({
   }, [learnerTuple]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/totalRewardsPending?wallet=${address}`)
+    fetch(
+      `http://localhost:3000/api/database/totalRewardsPending?wallet=${address}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setTotalRewardsPending(data);
       });
-  }, []);
+  }, [address]);
 
-  const tokensEarned = totalRewards;
+  useEffect(() => {
+    fetch(
+      `http://localhost:3000/api/database/numberOfQuizzesAnswered?wallet=${address}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setNumberOfQuizzesAnswered(data);
+      });
+  }, [address]);
+
+  const tokensEarned = totalRewards + totalRewardsPending;
 
   const {
     userLevel,
@@ -607,6 +624,7 @@ export default function Account({
               balance={balance}
               dict={dict}
               totalRewardsPending={totalRewardsPending}
+              numberOfQuizzesAnswered={numberOfQuizzesAnswered}
             />
             <LevelSection
               isNotPremium={isNotPremium}

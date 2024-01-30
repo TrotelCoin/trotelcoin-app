@@ -67,7 +67,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                 <CountUp
                   start={0}
                   end={Math.floor(trotelCoinsDistributed)}
-                  duration={1}
+                  duration={2}
                 />{" "}
                 💸
               </>
@@ -91,13 +91,13 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                 <CountUp
                   start={0}
                   end={Math.floor(remainingRewards / 10)}
-                  duration={1}
+                  duration={2}
                 />{" "}
                 {"< 🧠 <"}
                 <CountUp
                   start={0}
                   end={Math.floor(remainingRewards / 4)}
-                  duration={1}
+                  duration={2}
                 />
               </>
             ) : (
@@ -120,7 +120,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                 <CountUp
                   start={0}
                   end={Math.floor(numberOfLearners)}
-                  duration={1}
+                  duration={2}
                 />{" "}
                 👨‍💻
               </>
