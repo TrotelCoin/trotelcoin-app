@@ -80,9 +80,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-      async jwt({ token, user }: { token: any; user: any }) {
-        return token;
-      },
       async session({ session, token }: { session: any; token: any }) {
         session.address = token.sub;
         session.user.name = token.sub;
