@@ -3,9 +3,9 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
-const ipfsClient = require('ipfs-http-client');
+import { Web3Storage } from "web3.storage";
 
-const ipfs = ipfsClient({ host: 'localhost', port: 5001, protocol: 'http' });
+const web3Storage = new Web3Storage({ token: process.env.WEB3_STORAGE_API_KEY });
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
@@ -47,11 +47,14 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               totalRewardsPending: 0,
             };
 
-            const cid = await ipfs.add(JSON.stringify(userData));
+            const cid = await web3Storage.put({
+              path: '/user-info.json',
+              content: new TextEncoder().encode(JSON.stringify(userData)),
+            });
 
             return {
               id: siwe.address,
-              ipfs_cid : cid.toString(),
+              web3_storage_cid: cid,
             };
           }
           return null;
@@ -78,16 +81,16 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-      async jwt({token, user}: {token: any, user: any}) {
+      async jwt({ token, user }: { token: any; user: any }) {
         if (user) {
-          token.ipfs_cid = user.ipfs_cid;
+          token.web3_storage_cid = user.web3_storage_cid;
         }
         return token;
       },
       async session({ session, token }: { session: any; token: any }) {
         session.address = token.sub;
         session.user.name = token.sub;
-        session.ipfs_cid = token.ipfs_cid;
+        session.web3_storage_cid = token.web3_storage_cid;
         return session;
       },
     },
