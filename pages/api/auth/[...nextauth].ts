@@ -3,8 +3,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
-import { createHelia } from "helia";
-import { createOrbitDB } from "@orbitdb/core";
+import { db } from "@/lib/db";
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
@@ -36,15 +35,22 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           });
 
           if (result.success) {
-            const userData = {
-              id: siwe.address,
-              wallet: siwe.address,
-              numberOfQuizzesAnswered: 0,
-              numberOfQuizzesCreated: 0,
-              totalRewards: 0,
-              totalRewardsClaimed: 0,
-              totalRewardsPending: 0,
-            };
+            const existingUser = await db.learner.findUnique({
+              where: { wallet: siwe.address },
+            });
+
+            if (!existingUser) {
+              await db.learner.create({
+                data: {
+                  wallet: siwe.address,
+                  numberOfQuizzesAnswered: 0,
+                  numberOfQuizzesCreated: 0,
+                  totalRewards: 0,
+                  totalRewardsClaimed: 0,
+                  totalRewardsPending: 0,
+                },
+              });
+            }
 
             return {
               id: siwe.address,
@@ -76,6 +82,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     callbacks: {
       async session({ session, token }: { session: any; token: any }) {
         session.address = token.sub;
+        session.user.name = token.sub;
         return session;
       },
     },
