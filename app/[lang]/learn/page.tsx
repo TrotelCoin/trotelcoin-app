@@ -12,17 +12,46 @@ import CountUp from "react-countup";
 
 interface TheAlgorithmSectionProps {
   dict: DictType | null;
-  remainingTokens: number;
-  remainingTime: number;
   trotelCoinsDistributed: number;
 }
 
 const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   dict,
-  remainingTokens,
-  remainingTime,
   trotelCoinsDistributed,
 }) => {
+  const [remainingRewards, setRemainingRewards] = useState<number | null>(null);
+  const [numberOfLearners, setNumberOfLearners] = useState<number | null>(null);
+  const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchRemainingRewards = async () => {
+      const response = await fetch("/api/database/remainingRewards");
+      const remainingRewards = await response.json();
+      console.log(remainingRewards);
+      setRemainingRewards(remainingRewards);
+    };
+
+    fetchRemainingRewards();
+  }, []);
+
+  useEffect(() => {
+    // finding number of learners by taking max id in the table "learners"
+
+    const fetchNumberOfLearners = async () => {
+      const response = await fetch("/api/database/numberOfLearners");
+      const numberOfLearners = await response.json();
+      setNumberOfLearners(numberOfLearners);
+    };
+
+    fetchNumberOfLearners();
+  }, []);
+
+  useEffect(() => {
+    if (remainingRewards !== null && numberOfLearners !== null) {
+      setIsDataFetched(true);
+    }
+  }, [remainingRewards, numberOfLearners]);
+
   return (
     <>
       <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-20">
@@ -33,13 +62,17 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
         >
           <span className="font-semibold text-4xl">
-            {trotelCoinsDistributed ? (
+            {trotelCoinsDistributed && isDataFetched ? (
               <>
-                <CountUp start={0} end={trotelCoinsDistributed} duration={2} />{" "}
+                <CountUp
+                  start={0}
+                  end={Math.floor(trotelCoinsDistributed)}
+                  duration={1}
+                />{" "}
                 💸
               </>
             ) : (
-              <span className="animate-pulse">0</span>
+              <span className="animate-pulse">0 💸</span>
             )}
           </span>
 
@@ -53,22 +86,22 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
         >
           <span className="font-semibold text-4xl">
-            {remainingTokens ? (
+            {remainingRewards && isDataFetched ? (
               <>
                 <CountUp
                   start={0}
-                  end={parseFloat((remainingTokens / 10).toFixed(0))}
+                  end={Math.floor(remainingRewards / 10)}
                   duration={1}
                 />{" "}
-                {"< 🧠 <"}{" "}
+                {"< 🧠 <"}
                 <CountUp
                   start={0}
-                  end={parseFloat((remainingTokens / 4).toFixed(0))}
+                  end={Math.floor(remainingRewards / 4)}
                   duration={1}
                 />
               </>
             ) : (
-              <span className="animate-pulse">0</span>
+              <span className="animate-pulse">{"0 < 🧠 < 0"}</span>
             )}
           </span>
 
@@ -82,16 +115,23 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
         >
           <span className="font-semibold text-4xl">
-            {remainingTime ? (
-              <>{remainingTime} ⏳</>
+            {numberOfLearners && isDataFetched ? (
+              <>
+                <CountUp
+                  start={0}
+                  end={Math.floor(numberOfLearners)}
+                  duration={1}
+                />{" "}
+                👨‍💻
+              </>
             ) : (
-              <span className="animate-pulse">0</span>
+              <span className="animate-pulse">0 👨‍💻</span>
             )}
           </span>
 
           <span>
             {typeof dict?.algorithm !== "string" && (
-              <>{dict?.algorithm.cycle}</>
+              <>{dict?.algorithm.learners}</>
             )}
           </span>
         </div>
