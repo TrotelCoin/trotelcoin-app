@@ -9,7 +9,7 @@ datasource supabase {
   directUrl = env("DIRECT_DATABASE_URL")
 }
 
-model Learner {
+model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

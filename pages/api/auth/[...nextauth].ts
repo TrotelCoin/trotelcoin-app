@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
+import { db } from "@/lib/db";
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
@@ -34,6 +35,25 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           });
 
           if (result.success) {
+            const existingUser = await db.user.findUnique({
+              where: { wallet: siwe.address },
+            });
+
+            if (!existingUser) {
+              await db.user.create({
+                data: {
+                  wallet: siwe.address,
+                  username: null,
+                  avatar: null,
+                  numberOfQuizzesAnswered: 0,
+                  numberOfQuizzesCreated: 0,
+                  totalRewards: 0,
+                  totalRewardsClaimed: 0,
+                  totalRewardsPending: 0,
+                },
+              });
+            }
+
             return {
               id: siwe.address,
             };
