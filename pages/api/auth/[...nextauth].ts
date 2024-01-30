@@ -35,6 +35,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           });
 
           if (result.success) {
+            /*
             const existingUser = await db.learner.findUnique({
               where: { wallet: siwe.address },
             });
@@ -50,7 +51,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
                   totalRewardsPending: 0,
                 },
               });
-            }
+            }*/
 
             return {
               id: siwe.address,
