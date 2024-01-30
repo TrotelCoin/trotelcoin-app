@@ -39,7 +39,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               await sql`SELECT * FROM "learners" WHERE wallet = ${siwe.address}`;
 
             if (existingUser.length === 0) {
-              await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered, number_of_quizzes_created, total_rewards, total_rewards_claimed, total_rewards_pending, created_at, updated_at) VALUES (${siwe.address}, 0, 0, 0, 0, 0, now(), now())`;
+              await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered, number_of_quizzes_created, total_rewards_pending, created_at, updated_at) VALUES (${siwe.address}, 0, 0, 0, now(), now())`;
             }
 
             return {
