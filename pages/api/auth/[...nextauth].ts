@@ -35,29 +35,37 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           });
 
           if (result.success) {
-            const existingUser = await db.user.findUnique({
-              where: { wallet: siwe.address },
-            });
-
-            if (!existingUser) {
-              await db.user.create({
-                data: {
-                  wallet: siwe.address,
-                  username: null,
-                  avatar: null,
-                  numberOfQuizzesAnswered: 0,
-                  numberOfQuizzesCreated: 0,
-                  totalRewards: 0,
-                  totalRewardsClaimed: 0,
-                  totalRewardsPending: 0,
-                },
+            /*try {
+              const existingUser = await db.user.findUnique({
+                where: { wallet: siwe.address },
               });
-            }
+
+              if (!existingUser) {
+                await db.user.create({
+                  data: {
+                    wallet: siwe.address,
+                    username: null,
+                    avatar: null,
+                    numberOfQuizzesAnswered: 0,
+                    numberOfQuizzesCreated: 0,
+                    totalRewards: 0,
+                    totalRewardsClaimed: 0,
+                    totalRewardsPending: 0,
+                  },
+                });
+              }
+            } catch (e) {
+              console.error(e);
+              return null;
+            } finally {
+              await db.$disconnect();
+            }*/
 
             return {
               id: siwe.address,
             };
           }
+
           return null;
         } catch (e) {
           return null;
