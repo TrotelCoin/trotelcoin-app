@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAccount,
   useContractRead,
@@ -566,7 +566,7 @@ export default function Account({
   }, [learnerTuple]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/totalRewardsPending?wallet=${wallet}`)
+    fetch(`http://localhost:3000/api/totalRewardsPending?wallet=${address}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
