@@ -46,12 +46,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               totalRewardsPending: 0,
             };
 
-            const ipfs = await createHelia();
-            const orbitdb = await createOrbitDB({ ipfs });
-            const db = await orbitdb.open("trotelcoin-users-db");
-            console.log(db.address.toString());
-            await db.add(userData);
-
             return {
               id: siwe.address,
             };
@@ -82,7 +76,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     callbacks: {
       async session({ session, token }: { session: any; token: any }) {
         session.address = token.sub;
-        session.user.name = token.sub;
         return session;
       },
     },
