@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+import postgres from "postgres";
 
-const prisma = new PrismaClient();
+const connectionString = process.env.POSTGRES_URL;
+const sql = postgres(connectionString as string);
 
-export const db = prisma;
+export default sql;

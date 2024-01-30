@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma generate && next build",
-    "start": "npx prisma generate && next start",
+    "build": "next build",
+    "start": "next start",
     "lint": "next lint",
     "postinstall": "npx prisma generate"
   },
@@ -68,6 +68,7 @@
     "pg": "^8.11.3",
     "pino-pretty": "^10.2.3",
     "postcss": "^8.4.31",
+    "postgres": "^3.4.3",
     "qs": "^6.11.2",
     "react": "^18.2.0",
     "react-animated-cursor": "^2.11.2",

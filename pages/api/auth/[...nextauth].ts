@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
-import { db } from "@/lib/db";
+import sql from "@/lib/db";
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
@@ -35,31 +35,12 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           });
 
           if (result.success) {
-            /*try {
-              const existingUser = await db.user.findUnique({
-                where: { wallet: siwe.address },
-              });
+            const existingUser =
+              await sql`SELECT * FROM "learners" WHERE wallet = ${siwe.address}`;
 
-              if (!existingUser) {
-                await db.user.create({
-                  data: {
-                    wallet: siwe.address,
-                    username: null,
-                    avatar: null,
-                    numberOfQuizzesAnswered: 0,
-                    numberOfQuizzesCreated: 0,
-                    totalRewards: 0,
-                    totalRewardsClaimed: 0,
-                    totalRewardsPending: 0,
-                  },
-                });
-              }
-            } catch (e) {
-              console.error(e);
-              return null;
-            } finally {
-              await db.$disconnect();
-            }*/
+            if (existingUser.length === 0) {
+              await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered, number_of_quizzes_created, total_rewards, total_rewards_claimed, total_rewards_pending, created_at, updated_at) VALUES (${siwe.address}, 0, 0, 0, 0, 0, now(), now())`;
+            }
 
             return {
               id: siwe.address,
@@ -68,6 +49,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 
           return null;
         } catch (e) {
+          console.error(e);
           return null;
         }
       },
