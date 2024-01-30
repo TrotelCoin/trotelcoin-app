@@ -3,6 +3,9 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
+const ipfsClient = require('ipfs-http-client');
+
+const ipfs = ipfsClient({ host: 'localhost', port: 5001, protocol: 'http' });
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
@@ -34,8 +37,21 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           });
 
           if (result.success) {
+            const userData = {
+              id: siwe.address,
+              wallet: siwe.address,
+              numberOfQuizzesAnswered: 0,
+              numberOfQuizzesCreated: 0,
+              totalRewards: 0,
+              totalRewardsClaimed: 0,
+              totalRewardsPending: 0,
+            };
+
+            const cid = await ipfs.add(JSON.stringify(userData));
+
             return {
               id: siwe.address,
+              ipfs_cid : cid.toString(),
             };
           }
           return null;
@@ -62,9 +78,16 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
+      async jwt({token, user}: {token: any, user: any}) {
+        if (user) {
+          token.ipfs_cid = user.ipfs_cid;
+        }
+        return token;
+      },
       async session({ session, token }: { session: any; token: any }) {
         session.address = token.sub;
         session.user.name = token.sub;
+        session.ipfs_cid = token.ipfs_cid;
         return session;
       },
     },

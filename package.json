@@ -50,6 +50,8 @@
     "global": "^4.4.0",
     "googleapis": "^126.0.1",
     "i18n": "^0.15.1",
+    "ipfs": "^0.66.1",
+    "ipfs-http-client": "^60.0.1",
     "jsonwebtoken": "^9.0.2",
     "lodash.merge": "^4.6.2",
     "lokijs": "^1.5.12",
