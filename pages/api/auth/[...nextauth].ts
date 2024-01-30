@@ -6,10 +6,6 @@ import { SiweMessage } from "siwe";
 import { createHelia } from "helia";
 import { createOrbitDB } from "@orbitdb/core";
 
-const ipfs = await createHelia()
-const orbitdb = await createOrbitDB({ ipfs });
-const db = await orbitdb.open("trotelcoin-users-db");
-
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
     CredentialsProvider({
@@ -49,6 +45,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               totalRewardsClaimed: 0,
               totalRewardsPending: 0,
             };
+
+            const ipfs = await createHelia()
+            const orbitdb = await createOrbitDB({ ipfs });
+            const db = await orbitdb.open("trotelcoin-users-db");
 
             await db.add(userData);
 
