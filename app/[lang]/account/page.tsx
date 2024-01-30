@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   useAccount,
   useContractRead,
@@ -44,6 +44,7 @@ interface HeaderProps {
   expertBalance: number;
   balance: any;
   dict: DictType | null;
+  totalRewardsPending: number;
 }
 
 interface BadgesSectionProps {
@@ -315,6 +316,7 @@ const Header: React.FC<HeaderProps> = ({
   expertBalance,
   balance,
   dict,
+  totalRewardsPending,
 }) => (
   <>
     <h2 className="text-gray-900 dark:text-gray-100 text-xl">
@@ -371,7 +373,8 @@ const Header: React.FC<HeaderProps> = ({
                 {balance ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(balance?.formatted as string)} duration={2}
+                    end={parseFloat(balance?.formatted as string)}
+                    duration={2}
                   />
                 ) : (
                   <span className="animate-pulse">0</span>
@@ -406,7 +409,10 @@ const Header: React.FC<HeaderProps> = ({
                 {learnerTuple && learnerTuple.length >= 3 && learnerTuple[2] ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(learnerTuple[2]) * 1e-18} duration={2}
+                    end={
+                      parseFloat(learnerTuple[2]) * 1e-18 + totalRewardsPending
+                    }
+                    duration={2}
                   />
                 ) : (
                   <span className="animate-pulse">0</span>
@@ -443,7 +449,8 @@ const Header: React.FC<HeaderProps> = ({
                 {learnerTuple && learnerTuple.length >= 2 && learnerTuple[1] ? (
                   <CountUp
                     start={0}
-                    end={parseFloat(learnerTuple[1] as string)} duration={2}
+                    end={parseFloat(learnerTuple[1] as string)}
+                    duration={2}
                   />
                 ) : (
                   <span className="animate-pulse">0</span>
@@ -487,6 +494,7 @@ export default function Account({
   const [totalRewards, setTotalRewards] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
   const [logs, setLogs] = useState<MyLog[]>([]);
+  const [totalRewardsPending, setTotalRewardsPending] = useState<number>(0);
 
   const { address, isConnected } = useAccount();
   const { data: session, status } = useSession();
@@ -557,6 +565,15 @@ export default function Account({
     }
   }, [learnerTuple]);
 
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/totalRewardsPending?wallet=${wallet}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTotalRewardsPending(data);
+      });
+  }, []);
+
   const tokensEarned = totalRewards;
 
   const {
@@ -589,6 +606,7 @@ export default function Account({
               expertBalance={expertBalance}
               balance={balance}
               dict={dict}
+              totalRewardsPending={totalRewardsPending}
             />
             <LevelSection
               isNotPremium={isNotPremium}

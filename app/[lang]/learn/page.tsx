@@ -179,10 +179,6 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       <div className="max-w-4xl mx-auto">
         <TheAlgorithmSection
           dict={dict}
-          remainingTokens={parseFloat(
-            (parseFloat(remainingTokens as string) / 1e18).toFixed(0)
-          )}
-          remainingTime={parseFloat(remainingTime as string)}
           trotelCoinsDistributed={parseFloat(
             (parseFloat(trotelCoinsDistributed as string) / 1e18).toFixed(0)
           )}
