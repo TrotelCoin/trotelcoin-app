@@ -46,10 +46,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
               totalRewardsPending: 0,
             };
 
-            const ipfs = await createHelia()
+            const ipfs = await createHelia();
             const orbitdb = await createOrbitDB({ ipfs });
             const db = await orbitdb.open("trotelcoin-users-db");
-
+            console.log(db.address.toString());
             await db.add(userData);
 
             return {
