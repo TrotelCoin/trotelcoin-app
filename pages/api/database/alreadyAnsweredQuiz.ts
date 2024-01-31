@@ -8,8 +8,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } AND quiz_id = ${req.query.quizId as string}`;
 
   if (result[0] && "answered" in result[0]) {
-    res.json(result[0].answered);
+    res.status(200).json(result[0].answered);
   } else {
-    res.json({});
+    res.status(500).json({ error: "Something went wrong." });
   }
 };

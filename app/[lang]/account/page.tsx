@@ -44,6 +44,7 @@ interface HeaderProps {
   expertBalance: number;
   balance: any;
   dict: DictType | null;
+  tokensEarned: number;
   totalRewardsPending: number;
   numberOfQuizzesAnswered: number;
 }
@@ -317,6 +318,7 @@ const Header: React.FC<HeaderProps> = ({
   expertBalance,
   balance,
   dict,
+  tokensEarned,
   totalRewardsPending,
   numberOfQuizzesAnswered,
 }) => (
@@ -398,7 +400,7 @@ const Header: React.FC<HeaderProps> = ({
           <span className="text-4xl">
             <>
               <span className="font-semibold">
-                {learnerTuple && learnerTuple.length >= 2 && learnerTuple[1] ? (
+                {numberOfQuizzesAnswered ? (
                   <span>
                     <CountUp
                       start={0}
@@ -426,16 +428,9 @@ const Header: React.FC<HeaderProps> = ({
           <span className="text-4xl">
             <>
               <span className="font-semibold">
-                {learnerTuple && learnerTuple.length >= 3 && learnerTuple[2] ? (
+                {tokensEarned ? (
                   <span>
-                    <CountUp
-                      start={0}
-                      end={
-                        parseFloat(learnerTuple[2]) * 1e-18 +
-                        totalRewardsPending
-                      }
-                      duration={2}
-                    />{" "}
+                    <CountUp start={0} end={tokensEarned} duration={2} />{" "}
                   </span>
                 ) : (
                   <span className="animate-pulse">0</span>
@@ -500,6 +495,7 @@ export default function Account({
   const [totalRewardsPending, setTotalRewardsPending] = useState<number>(0);
   const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] =
     useState<number>(0);
+  const [tokensEarned, setTokensEarned] = useState<number>(0);
 
   const { address, isConnected } = useAccount();
   const { data: session, status } = useSession();
@@ -571,22 +567,43 @@ export default function Account({
   }, [learnerTuple]);
 
   useEffect(() => {
-    fetch(`/api/database/totalRewardsPending?wallet=${address}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalRewardsPending(data);
-      });
+    const fetchRewardsPending = () => {
+      fetch(`/api/database/totalRewardsPending?wallet=${address}`)
+        .then((response) => response?.json())
+        .then((data) => {
+          setTotalRewardsPending(data);
+        });
+    };
+
+    if (address) {
+      fetchRewardsPending();
+    }
   }, [address]);
 
   useEffect(() => {
-    fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setNumberOfQuizzesAnswered(data);
-      });
+    const fetchNumberOfQuizzesAnswered = () => {
+      fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`)
+        .then((response) => response?.json())
+        .then((data) => {
+          setNumberOfQuizzesAnswered(data);
+        });
+    };
+    if (address) {
+      fetchNumberOfQuizzesAnswered();
+    }
   }, [address]);
 
-  const tokensEarned = totalRewards + totalRewardsPending;
+  useEffect(() => {
+    if (totalRewards && totalRewardsPending) {
+      setTokensEarned(totalRewards + totalRewardsPending);
+    } else if (totalRewards) {
+      setTokensEarned(totalRewards);
+    } else if (totalRewardsPending) {
+      setTokensEarned(totalRewardsPending);
+    } else {
+      setTokensEarned(0);
+    }
+  }, [totalRewards, totalRewardsPending, address]);
 
   const {
     userLevel,
@@ -618,6 +635,7 @@ export default function Account({
               expertBalance={expertBalance}
               balance={balance}
               dict={dict}
+              tokensEarned={tokensEarned}
               totalRewardsPending={totalRewardsPending}
               numberOfQuizzesAnswered={numberOfQuizzesAnswered}
             />

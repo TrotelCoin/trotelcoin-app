@@ -21,7 +21,6 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 }) => {
   const [remainingRewards, setRemainingRewards] = useState<number | null>(null);
   const [numberOfLearners, setNumberOfLearners] = useState<number | null>(null);
-  const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
   const [trotelCoinsPending, setTrotelCoinsPending] = useState<number | null>(
     null
   );
@@ -32,7 +31,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   useEffect(() => {
     const fetchRemainingRewards = async () => {
       const response = await fetch("/api/database/remainingRewards");
-      const remainingRewards = await response.json();
+      const remainingRewards = await response?.json();
       setRemainingRewards(remainingRewards);
     };
 
@@ -42,7 +41,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   useEffect(() => {
     const fetchTrotelCoinsPending = async () => {
       const response = await fetch("/api/database/trotelCoinsPending");
-      const trotelCoinsPending = await response.json();
+      const trotelCoinsPending = await response?.json();
       setTrotelCoinsPending(trotelCoinsPending);
     };
 
@@ -51,8 +50,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {
-      const response = await fetch("/api/database/totalNumberOfQuizzesAnswered");
-      const numberOfQuizzesAnswered = await response.json();
+      const response = await fetch(
+        "/api/database/totalNumberOfQuizzesAnswered"
+      );
+      const numberOfQuizzesAnswered = await response?.json();
       setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
     };
 
@@ -64,18 +65,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
     const fetchNumberOfLearners = async () => {
       const response = await fetch("/api/database/numberOfLearners");
-      const numberOfLearners = await response.json();
+      const numberOfLearners = await response?.json();
       setNumberOfLearners(numberOfLearners);
     };
 
     fetchNumberOfLearners();
   }, []);
-
-  useEffect(() => {
-    if (remainingRewards !== null && numberOfLearners !== null) {
-      setIsDataFetched(true);
-    }
-  }, [remainingRewards, numberOfLearners]);
 
   return (
     <>
@@ -88,7 +83,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
-              {trotelCoinsDistributed && isDataFetched ? (
+              {trotelCoinsDistributed ? (
                 <>
                   <CountUp
                     start={0}
@@ -112,7 +107,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
-              {trotelCoinsPending && isDataFetched ? (
+              {trotelCoinsPending ? (
                 <>
                   <CountUp
                     start={0}
@@ -137,7 +132,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
-              {numberOfLearners && isDataFetched ? (
+              {numberOfLearners ? (
                 <>
                   <CountUp
                     start={0}
@@ -161,7 +156,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             className={`bg-gray-50 flex flex-col md:col-span-2 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
-              {remainingRewards && isDataFetched ? (
+              {remainingRewards ? (
                 <>
                   <CountUp
                     start={0}
@@ -190,7 +185,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
-              {numberOfQuizzesAnswered && isDataFetched ? (
+              {numberOfQuizzesAnswered ? (
                 <>
                   <CountUp
                     start={0}
