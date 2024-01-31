@@ -3,7 +3,7 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useAccount } from "wagmi";
+import { Address, useAccount } from "wagmi";
 import Confetti from "react-dom-confetti";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
@@ -123,13 +123,12 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       const responseUpdate = await fetch("/api/database/updateRewards", {
         method: "POST",
         body: JSON.stringify({
-          wallet: address,
-          rewards: rewardsToClaim,
+          wallet: address as Address,
+          rewards: rewardsToClaim as number,
           quizId: quizId,
         }),
       });
       const dataUpdate = await responseUpdate.json();
-      console.log(dataUpdate);
       if (dataUpdate.success) {
         setClaimedRewards(true);
       }
