@@ -571,7 +571,7 @@ export default function Account({
 
   useEffect(() => {
     fetch(
-      `http://localhost:3000/api/database/totalRewardsPending?wallet=${address}`
+      `/api/database/totalRewardsPending?wallet=${address}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -582,7 +582,7 @@ export default function Account({
 
   useEffect(() => {
     fetch(
-      `http://localhost:3000/api/database/numberOfQuizzesAnswered?wallet=${address}`
+      `/api/database/numberOfQuizzesAnswered?wallet=${address}`
     )
       .then((response) => response.json())
       .then((data) => {

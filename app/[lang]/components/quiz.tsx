@@ -1,17 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
-import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import ReCAPTCHA from "react-google-recaptcha";
-import { trotelCoinLearningAddress } from "@/data/addresses";
-import { polygon } from "viem/chains";
-import {
-  useAccount,
-  useContractRead,
-  usePrepareContractWrite,
-  useContractWrite,
-} from "wagmi";
+import { useAccount } from "wagmi";
 import Confetti from "react-dom-confetti";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
@@ -23,6 +15,8 @@ interface QuizProps {
   quizId: number;
   lang: Lang;
 }
+
+const debug = true;
 
 const loadQuizData = async (
   quizId: number,
@@ -75,10 +69,11 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
   const [shuffled, setShuffled] = useState<boolean>(false);
+  const [hasAlreadyAnswered, setHasAlreadyAnswered] = useState<boolean>(false);
+  const [rewardsToClaim, setRewardsToClaim] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -92,54 +87,56 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const { address, isDisconnected } = useAccount();
   const { data: session } = useSession();
 
-  const { data: remainingTokensBalance } = useContractRead({
-    chainId: polygon.id,
-    address: trotelCoinLearningAddress,
-    abi: trotelCoinLearningABI,
-    functionName: "remainingTokens",
-    watch: true,
-  });
-  const { config: claimRewardsConfig } = usePrepareContractWrite({
-    chainId: polygon.id,
-    address: trotelCoinLearningAddress,
-    abi: trotelCoinLearningABI,
-    account: address,
-    enabled: Boolean(address),
-    args: [address, parseFloat(quizId.toString())],
-    functionName: "claimRewards",
-  });
-  const { data: alreadyAnswered } = useContractRead({
-    chainId: polygon.id,
-    address: trotelCoinLearningAddress,
-    abi: trotelCoinLearningABI,
-    account: address,
-    args: [address, parseFloat(quizId.toString())],
-    enabled: Boolean(address),
-    functionName: "quizzesIdAnsweredPerLearner",
-    watch: true,
-  });
-  const { write: claimRewards, isSuccess: claimedRewardsSuccess } =
-    useContractWrite(claimRewardsConfig);
-
-  const remainingTokens = parseFloat(
-    (parseFloat(remainingTokensBalance as string) / 1e18).toFixed(0)
-  );
+  useEffect(() => {
+    if (address) {
+      fetch(
+        `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data === true) {
+            setHasAlreadyAnswered(true);
+          }
+        });
+    }
+  }, [address, claimedRewards]);
 
   const handleClaimRewards = async () => {
     if (isDisconnected && !session) {
       setIsLearnerDisconnected(true);
       return;
     }
-    if (claimRewards) {
-      claimRewards();
+
+    fetch("/api/database/getRewards", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setRewardsToClaim(parseFloat(data));
+      })
+      .catch((error) => console.error("Fetch error:", error));
+
+    try {
+      // update database rewards by calling api and if success
+      const responseUpdate = await fetch("/api/database/updateRewards", {
+        method: "POST",
+        body: JSON.stringify({
+          wallet: address,
+          rewards: rewardsToClaim,
+          quizId: quizId,
+        }),
+      });
+      const dataUpdate = await responseUpdate.json();
+      console.log(dataUpdate);
+      if (dataUpdate.success) {
+        setClaimedRewards(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
-
-  useEffect(() => {
-    if (claimedRewardsSuccess) {
-      setClaimedRewards(true);
-    }
-  }, [claimedRewardsSuccess]);
 
   useEffect(() => {
     loadQuizData(quizId, setQuestions, setCorrectAnswers, lang);
@@ -147,15 +144,17 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   useEffect(() => {
     if (!shuffled && questions) {
-      const shuffledQuestions = questions.map((question: any, index: number) => ({
-        ...question,
-        originalIndex: index,
-      }));
-  
+      const shuffledQuestions = questions.map(
+        (question: any, index: number) => ({
+          ...question,
+          originalIndex: index,
+        })
+      );
+
       shuffledQuestions.forEach((question: any) => {
         question.options = shuffleArray(question.options);
       });
-  
+
       setQuestions(shuffledQuestions);
       setShuffled(true);
     }
@@ -190,9 +189,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const handleSubmit = () => {
     let correctCount = 0;
     let newWrongAnswers: number[] = [];
-    
+
     for (let i = 0; i < correctAnswers.length; i++) {
-      console.log("Correct answer :", correctAnswers[i], " answer :", answers[i]);
       if (correctAnswers[i] === answers[i]) {
         correctCount++;
       } else {
@@ -282,7 +280,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             </button>
           )}
           {questions && currentQuestion === questions.length - 1 ? (
-            isCaptchaVerified ? (
+            isCaptchaVerified || debug ? (
               <button
                 onClick={handleSubmit}
                 className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
@@ -316,11 +314,11 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         )}
       </div>
       {/* Reward */}
-      {isCorrect && !alreadyAnswered && !isDisconnected && session && (
+      {isCorrect && !hasAlreadyAnswered && !isDisconnected && session && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}{" "}
-            {remainingTokens / 10} & {remainingTokens / 4} TrotelCoins.
+            {(rewardsToClaim as number)?.toFixed(2)} TrotelCoins.
           </h3>
           <div className="mt-6 items-center">
             <button
@@ -334,14 +332,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           </div>
         </div>
       )}
-      {(isDisconnected || !session) && !alreadyAnswered && (
+      {(isDisconnected || !session) && !hasAlreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
           </h2>
         </div>
       )}
-      {alreadyAnswered && (
+      {hasAlreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
