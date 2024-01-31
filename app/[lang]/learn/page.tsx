@@ -189,7 +189,8 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                 <>
                   <CountUp
                     start={0}
-                    end={Math.floor(remainingRewards)}
+                    end={remainingRewards}
+                    decimals={1}
                     duration={2}
                   />{" "}
                   ⏳
