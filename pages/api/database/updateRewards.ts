@@ -17,6 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await sql`UPDATE "algorithm" SET remaining_rewards = remaining_rewards - ${
         rewards / 50
       }`;
+      await sql`UPDATE "quiz" SET number_of_answers = number_of_answers + 1 WHERE id = ${quizId}`;
     });
 
     res.json({ success: true });
