@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Address, useAccount } from "wagmi";
@@ -73,7 +73,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
   const [shuffled, setShuffled] = useState<boolean>(false);
   const [hasAlreadyAnswered, setHasAlreadyAnswered] = useState<boolean>(false);
-  const [rewardsToClaim, setRewardsToClaim] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -107,24 +106,12 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       return;
     }
 
-    fetch("/api/database/getRewards", {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setRewardsToClaim(parseFloat(data));
-      })
-      .catch((error) => console.error("Fetch error:", error));
-
     try {
       // update database rewards by calling api and if success
       const responseUpdate = await fetch("/api/database/updateRewards", {
         method: "POST",
         body: JSON.stringify({
           wallet: address as Address,
-          rewards: rewardsToClaim as number,
           quizId: quizId,
         }),
       });
@@ -316,8 +303,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       {isCorrect && !hasAlreadyAnswered && !isDisconnected && session && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}{" "}
-            {(rewardsToClaim as number)?.toFixed(2)} TrotelCoins.
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
           </h3>
           <div className="mt-6 items-center">
             <button

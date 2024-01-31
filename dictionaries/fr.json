@@ -17,7 +17,7 @@
     "version": "version beta"
   },
   "home": {
-    "search": "Que voulez-vous apprendre ?"
+    "search": "Que veux-tu apprendre ?"
   },
   "wallet": {
     "connect": "Se connecter",
@@ -38,7 +38,7 @@
     "business": "Entreprise"
   },
   "premium": {
-    "claimNFTs": "Obtenez vos NFTs",
+    "claimNFTs": "Obtiens tes NFTs",
     "statistics": "Statistiques",
     "eligibility": "Vérifier l'éligibilité",
     "claim": "Obtenir",
@@ -53,28 +53,28 @@
   },
   "expert": {
     "advantage1": "Accès anticipé aux fonctionnalités",
-    "advantage2": "Rejoignez une communauté crypto exclusive"
+    "advantage2": "Rejoins une communauté crypto exclusive"
   },
   "modals": {
     "connectWallet": {
-      "title": "Connectez votre portefeuille",
-      "message": "Vous devez vous connecter à votre portefeuille et/ou vous authentifier."
+      "title": "Connecte ton portefeuille",
+      "message": "Tu dois connecter ton portefeuille et/ou t'authentifier."
     },
     "eligible": {
-      "title": "Vous êtes éligible",
-      "message": "Vous êtes éligible pour obtenir vos NFTs."
+      "title": "Tu es éligible",
+      "message": "Tu es éligible pour obtenir tes NFTs."
     },
     "claimedIntermediateNFT": {
-      "title": "Vous avez obtenu votre NFT",
-      "message": "Vous êtes maintenant un utilisateur Intermédiaire."
+      "title": "Tu as obtenu ton NFT",
+      "message": "Tu es maintenant un utilisateur Intermédiaire."
     },
     "claimedExpertNFT": {
-      "title": "Vous avez obtenu votre NFT",
-      "message": "Vous êtes maintenant un utilisateur Expert."
+      "title": "Tu as obtenu ton NFT",
+      "message": "Tu es maintenant un utilisateur Expert."
     },
     "claimedTrotelCoin": {
-      "title": "Vous avez obtenu vos TrotelCoins",
-      "message": "Vous pouvez désormais utilisez vos TrotelCoins."
+      "title": "Tu as obtenu tes TrotelCoins",
+      "message": "Tu peux désormais utiliser tes TrotelCoins."
     }
   },
   "account": {
@@ -84,7 +84,7 @@
     "totalRewards": "Total des récompenses",
     "quizzesAnswered": "Quiz répondu",
     "level": "Niveau",
-    "youAreLevel": "Vous êtes au niveau",
+    "youAreLevel": "Tu es au niveau",
     "trotelCoinsLeft": "TrotelCoins restants",
     "badges": {
       "beginner": "Débutant"
@@ -101,14 +101,14 @@
     "notAvailable": "Pas encore disponible",
     "sponsored": "Sponsorisé",
     "newCourse": "Nouveau cours",
-    "notAvailableMessage": "Cette leçon n'est pas encore disponible. Veuillez revenir plus tard.",
+    "notAvailableMessage": "Cette leçon n'est pas encore disponible. Reviens plus tard.",
     "goBackHome": "Retourner à l'accueil",
     "course": "Cours",
-    "goingToLearn": "Qu'allez-vous apprendre?"
+    "goingToLearn": "Que vas-tu apprendre?"
   },
   "notPremium": {
-    "title": "Vous n'êtes pas premium",
-    "message": "Connectez votre portefeuille ou devenez un utilisateur premium pour accéder à ce cours."
+    "title": "Tu n'es pas premium",
+    "message": "Connecte ton portefeuille ou deviens un utilisateur premium pour accéder à ce cours."
   },
   "quiz": {
     "loading": "Quiz en cours de chargement...",
@@ -116,13 +116,13 @@
     "next": "Suivant",
     "submit": "Soumettre",
     "captcha": "Captcha manquant",
-    "claimRewards": "Obtenir vos récompenses",
+    "claimRewards": "Obtiens tes récompenses",
     "youWillGet": "Vous allez obtenir",
-    "receiveCrypto": "Recevoir mes crypto",
-    "correct": "Correct. Vous avez répondu correctement.",
-    "incorrect": "Incorrect. Vous avez répondu incorrectement à :",
-    "alreadyClaimed": "Vous avez déjà obtenu vos récompenses pour ce quiz.",
-    "connectWallet": "Connectez votre portefeuille et authentifiez-vous pour obtenir vos récompenses."
+    "receiveCrypto": "Obtiens tes récompenses.",
+    "correct": "Correct. Tu as répondu correctement.",
+    "incorrect": "Incorrect. Tu as répondu incorrectement à :",
+    "alreadyClaimed": "Tu as déjà obtenu tes récompenses pour ce quiz.",
+    "connectWallet": "Connecte ton portefeuille et authentifie-toi pour obtenir tes récompenses."
   },
   "events": {
     "claimed": "a obtenu"
