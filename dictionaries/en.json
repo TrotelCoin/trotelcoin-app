@@ -133,7 +133,8 @@
     "remainingTokens": "Rewards",
     "learners": "Number of learners",
     "trotelCoinsDistributed": "TrotelCoins distributed",
-    "trotelCoinsPending": "TrotelCoins pending"
+    "trotelCoinsPending": "TrotelCoins pending",
+    "numberOfQuizzesAnswered": "Quizzes answered"
   },
   "learn": {
     "trainingCenter": "Training center"

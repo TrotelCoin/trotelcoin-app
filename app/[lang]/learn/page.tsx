@@ -25,6 +25,9 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   const [trotelCoinsPending, setTrotelCoinsPending] = useState<number | null>(
     null
   );
+  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
     const fetchRemainingRewards = async () => {
@@ -47,6 +50,16 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   }, []);
 
   useEffect(() => {
+    const fetchNumberOfQuizzesAnswered = async () => {
+      const response = await fetch("/api/database/totalNumberOfQuizzesAnswered");
+      const numberOfQuizzesAnswered = await response.json();
+      setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
+    };
+
+    fetchNumberOfQuizzesAnswered();
+  }, []);
+
+  useEffect(() => {
     // finding number of learners by taking max id in the table "learners"
 
     const fetchNumberOfLearners = async () => {
@@ -66,110 +79,137 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
   return (
     <>
-      <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-20">
-        {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
-      </h2>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
-        <div
-          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-        >
-          <span className="font-semibold text-4xl">
-            {trotelCoinsDistributed && isDataFetched ? (
-              <>
-                <CountUp
-                  start={0}
-                  end={Math.floor(trotelCoinsDistributed)}
-                  duration={2}
-                />{" "}
-                💸
-              </>
-            ) : (
-              <span className="animate-pulse">0 💸</span>
-            )}
-          </span>
+      <div>
+        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-20">
+          {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
+        </h2>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
+          <div
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-4xl">
+              {trotelCoinsDistributed && isDataFetched ? (
+                <>
+                  <CountUp
+                    start={0}
+                    end={Math.floor(trotelCoinsDistributed)}
+                    duration={2}
+                  />{" "}
+                  💸
+                </>
+              ) : (
+                <span className="animate-pulse">0 💸</span>
+              )}
+            </span>
 
-          <span>
-            {typeof dict?.algorithm !== "string" && (
-              <>{dict?.algorithm.trotelCoinsDistributed}</>
-            )}
-          </span>
-        </div>
-        <div
-          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-        >
-          <span className="font-semibold text-4xl">
-            {trotelCoinsPending && isDataFetched ? (
-              <>
-                <CountUp
-                  start={0}
-                  end={Math.floor(trotelCoinsPending)}
-                  duration={2}
-                />{" "}
-                💰
-              </>
-            ) : (
-              <span className="animate-pulse">0 💰</span>
-            )}
-          </span>
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.trotelCoinsDistributed}</>
+              )}
+            </span>
+          </div>
+          <div
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-4xl">
+              {trotelCoinsPending && isDataFetched ? (
+                <>
+                  <CountUp
+                    start={0}
+                    end={Math.floor(trotelCoinsPending)}
+                    duration={2}
+                  />{" "}
+                  💰
+                </>
+              ) : (
+                <span className="animate-pulse">0 💰</span>
+              )}
+            </span>
 
-          <span>
-            {typeof dict?.algorithm !== "string" && (
-              <>{dict?.algorithm.trotelCoinsPending}</>
-            )}
-          </span>
-        </div>
-        <div
-          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-        >
-          <span className="font-semibold text-4xl">
-            {remainingRewards && isDataFetched ? (
-              <>
-                <CountUp
-                  start={0}
-                  end={Math.floor(remainingRewards / 10)}
-                  duration={2}
-                />{" "}
-                {"< 🧠 <"}
-                <CountUp
-                  start={0}
-                  end={Math.floor(remainingRewards / 4)}
-                  duration={2}
-                />
-              </>
-            ) : (
-              <span className="animate-pulse">{"0 < 🧠 < 0"}</span>
-            )}
-          </span>
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.trotelCoinsPending}</>
+              )}
+            </span>
+          </div>
 
-          <span>
-            {typeof dict?.algorithm !== "string" && (
-              <>{dict?.algorithm.remainingTokens}</>
-            )}
-          </span>
-        </div>
-        <div
-          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-        >
-          <span className="font-semibold text-4xl">
-            {numberOfLearners && isDataFetched ? (
-              <>
-                <CountUp
-                  start={0}
-                  end={Math.floor(numberOfLearners)}
-                  duration={2}
-                />{" "}
-                👨‍💻
-              </>
-            ) : (
-              <span className="animate-pulse">0 👨‍💻</span>
-            )}
-          </span>
+          <div
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-4xl">
+              {numberOfLearners && isDataFetched ? (
+                <>
+                  <CountUp
+                    start={0}
+                    end={Math.floor(numberOfLearners)}
+                    duration={2}
+                  />{" "}
+                  👨‍💻
+                </>
+              ) : (
+                <span className="animate-pulse">0 👨‍💻</span>
+              )}
+            </span>
 
-          <span>
-            {typeof dict?.algorithm !== "string" && (
-              <>{dict?.algorithm.learners}</>
-            )}
-          </span>
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.learners}</>
+              )}
+            </span>
+          </div>
+          <div
+            className={`bg-gray-50 flex flex-col col-span-2 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-4xl">
+              {remainingRewards && isDataFetched ? (
+                <>
+                  <CountUp
+                    start={0}
+                    end={Math.floor(remainingRewards / 10)}
+                    duration={2}
+                  />{" "}
+                  {"< 🧠 <"}
+                  <CountUp
+                    start={0}
+                    end={Math.floor(remainingRewards / 4)}
+                    duration={2}
+                  />
+                </>
+              ) : (
+                <span className="animate-pulse">{"0 < 🧠 < 0"}</span>
+              )}
+            </span>
+
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.remainingTokens}</>
+              )}
+            </span>
+          </div>
+          <div
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-4xl">
+              {numberOfQuizzesAnswered && isDataFetched ? (
+                <>
+                  <CountUp
+                    start={0}
+                    end={Math.floor(numberOfQuizzesAnswered)}
+                    duration={2}
+                  />{" "}
+                  📚
+                </>
+              ) : (
+                <span className="animate-pulse">0 📚</span>
+              )}
+            </span>
+
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.numberOfQuizzesAnswered}</>
+              )}
+            </span>
+          </div>
         </div>
       </div>
     </>
@@ -222,14 +262,6 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <div>
           <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
             {lang === "en" ? <>The future</> : <>Le futur</>}
-          </h2>
-          <ComingSoon lang={lang} />
-        </div>
-        <div className="mb-20">
-          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
-            {typeof dict?.learn !== "string" && (
-              <>{dict?.learn.trainingCenter}</>
-            )}
           </h2>
           <ComingSoon lang={lang} />
         </div>

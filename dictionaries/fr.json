@@ -133,7 +133,8 @@
     "remainingTokens": "Récompenses",
     "learners": "Nombre d'apprenants",
     "trotelCoinsDistributed": "TrotelCoins distribués",
-    "trotelCoinsPending": "TrotelCoins en attente"
+    "trotelCoinsPending": "TrotelCoins en attente",
+    "numberOfQuizzesAnswered": "Quiz répondus"
   },
   "learn": {
     "trainingCenter": "Centre de formation"
