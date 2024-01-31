@@ -27,7 +27,6 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     const fetchRemainingRewards = async () => {
       const response = await fetch("/api/database/remainingRewards");
       const remainingRewards = await response.json();
-      console.log(remainingRewards);
       setRemainingRewards(remainingRewards);
     };
 

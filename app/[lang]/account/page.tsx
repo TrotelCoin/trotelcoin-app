@@ -575,7 +575,6 @@ export default function Account({
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setTotalRewardsPending(data);
       });
   }, [address]);
@@ -586,7 +585,6 @@ export default function Account({
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setNumberOfQuizzesAnswered(data);
       });
   }, [address]);
