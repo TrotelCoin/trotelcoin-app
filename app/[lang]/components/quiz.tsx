@@ -16,7 +16,7 @@ interface QuizProps {
   lang: Lang;
 }
 
-const debug = true;
+const debug = false;
 
 const loadQuizData = async (
   quizId: number,
