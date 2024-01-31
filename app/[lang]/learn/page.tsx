@@ -201,7 +201,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
             <span>
               {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.remainingRewards}</>
+                <>{dict?.algorithm.remainingCycle}</>
               )}
             </span>
           </div>

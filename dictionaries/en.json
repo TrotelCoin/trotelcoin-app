@@ -131,7 +131,7 @@
   "algorithm": {
     "title": "The algorithm",
     "remainingTokens": "Rewards",
-    "remainingRewards": "Remaining rewards",
+    "remainingCycle": "Current cycle",
     "learners": "Number of learners",
     "trotelCoinsDistributed": "TrotelCoins distributed",
     "trotelCoinsPending": "TrotelCoins pending",
