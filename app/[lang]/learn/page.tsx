@@ -69,7 +69,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
       <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-20">
         {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
       </h2>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4 mx-auto">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
         <div
           className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
         >
@@ -105,10 +105,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   end={Math.floor(trotelCoinsPending)}
                   duration={2}
                 />{" "}
-                ⏳
+                💰
               </>
             ) : (
-              <span className="animate-pulse">0 ⏳</span>
+              <span className="animate-pulse">0 💰</span>
             )}
           </span>
 
