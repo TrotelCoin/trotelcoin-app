@@ -131,6 +131,7 @@
   "algorithm": {
     "title": "The algorithm",
     "remainingTokens": "Rewards",
+    "remainingRewards": "Remaining rewards",
     "learners": "Number of learners",
     "trotelCoinsDistributed": "TrotelCoins distributed",
     "trotelCoinsPending": "TrotelCoins pending",
