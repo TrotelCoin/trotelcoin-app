@@ -387,9 +387,7 @@ const Header: React.FC<HeaderProps> = ({
             </>
           </span>
           <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.balance}</>
-            )}
+            {typeof dict?.account !== "string" && <>{dict?.account.balance}</>}
           </span>
         </div>
       </div>
