@@ -336,142 +336,145 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`${
           !isNotPremium && "rainbow-border"
-        } col-span-1 md:col-span-3 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        } col-span-1 md:col-span-2 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <span
-          className={`text-6xl mb-4 font-semibold ${
-            !isNotPremium && "rainbow-text"
-          }`}
-        >
-          {intermediateBalance > 0 && expertBalance <= 0 && (
-            <>
-              {typeof dict?.tier !== "string" && <>{dict?.tier.intermediate}</>}
-            </>
-          )}
-          {expertBalance > 0 && (
-            <>{typeof dict?.tier !== "string" && <>{dict?.tier.expert}</>}</>
-          )}
-          {isNotPremium && (
-            <>{typeof dict?.tier !== "string" && <>{dict?.tier.beginner}</>}</>
-          )}
-        </span>{" "}
-        <span>
-          {typeof dict?.account !== "string" && <>{dict?.account.rank}</>}
-        </span>
+        <div className="flex flex-col mx-auto">
+          <span
+            className={`text-6xl mb-4 font-semibold ${
+              !isNotPremium && "rainbow-text"
+            }`}
+          >
+            {intermediateBalance > 0 && expertBalance <= 0 && (
+              <>
+                {typeof dict?.tier !== "string" && (
+                  <>{dict?.tier.intermediate}</>
+                )}
+              </>
+            )}
+            {expertBalance > 0 && (
+              <>{typeof dict?.tier !== "string" && <>{dict?.tier.expert}</>}</>
+            )}
+            {isNotPremium && (
+              <>
+                {typeof dict?.tier !== "string" && <>{dict?.tier.beginner}</>}
+              </>
+            )}
+          </span>{" "}
+          <span>
+            {typeof dict?.account !== "string" && <>{dict?.account.rank}</>}
+          </span>
+        </div>
       </div>
       <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <span
-          className={`${
-            !isNotPremium
-              ? "text-4xl"
-              : "blur mb-4 hover:blur-none duration-500 text-xl"
-          } `}
-        >
-          {!isNotPremium ? (
+        <div className="flex flex-col mx-auto">
+          <span className="text-4xl">
             <>
               <span className="font-semibold">
                 {balance ? (
-                  <CountUp
-                    start={0}
-                    end={parseFloat(balance?.formatted as string)}
-                    duration={2}
-                  />
+                  <span>
+                    <CountUp
+                      start={0}
+                      end={parseFloat(balance?.formatted as string)}
+                      duration={2}
+                    />{" "}
+                  </span>
                 ) : (
                   <span className="animate-pulse">0</span>
                 )}
               </span>
             </>
-          ) : (
-            <>
-              {typeof dict?.account !== "string" && (
-                <>{dict?.account.notPremium}</>
-              )}
-            </>
-          )}
-        </span>
-        <span>
-          {typeof dict?.account !== "string" && <>{dict?.account.balance}</>}
-        </span>
+          </span>
+          <span>
+            {typeof dict?.account !== "string" && (
+              <>{dict?.account.balance}</>
+            )}
+          </span>
+        </div>
       </div>
       <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <span
-          className={`${
-            !isNotPremium
-              ? "text-4xl"
-              : "blur mb-4 hover:blur-none duration-500 text-xl"
-          } `}
-        >
-          {!isNotPremium ? (
-            <>
-              <span className="font-semibold">
-                {learnerTuple && learnerTuple.length >= 3 && learnerTuple[2] ? (
-                  <CountUp
-                    start={0}
-                    end={
-                      parseFloat(learnerTuple[2]) * 1e-18 + totalRewardsPending
-                    }
-                    duration={2}
-                  />
-                ) : (
-                  <span className="animate-pulse">0</span>
-                )}
-              </span>
-            </>
-          ) : (
-            <>
-              {typeof dict?.account !== "string" && (
-                <>{dict?.account.notPremium}</>
-              )}
-            </>
-          )}
-        </span>
-        <span>
-          {typeof dict?.account !== "string" && (
-            <>{dict?.account.totalRewards}</>
-          )}
-        </span>
-      </div>
-      <div
-        className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <span
-          className={`${
-            !isNotPremium
-              ? "text-4xl"
-              : "blur mb-4 hover:blur-none duration-500 text-xl"
-          }`}
-        >
-          {!isNotPremium ? (
+        <div className="flex flex-col mx-auto">
+          <span className="text-4xl">
             <>
               <span className="font-semibold">
                 {learnerTuple && learnerTuple.length >= 2 && learnerTuple[1] ? (
-                  <CountUp
-                    start={0}
-                    end={numberOfQuizzesAnswered}
-                    duration={2}
-                  />
+                  <span>
+                    <CountUp
+                      start={0}
+                      end={numberOfQuizzesAnswered}
+                      duration={2}
+                    />{" "}
+                  </span>
                 ) : (
                   <span className="animate-pulse">0</span>
                 )}
               </span>
             </>
-          ) : (
+          </span>
+          <span>
+            {typeof dict?.account !== "string" && (
+              <>{dict?.account.quizzesAnswered}</>
+            )}
+          </span>
+        </div>
+      </div>
+      <div
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      >
+        <div className="flex flex-col mx-auto">
+          <span className="text-4xl">
             <>
-              {typeof dict?.account !== "string" && (
-                <>{dict?.account.notPremium}</>
-              )}
+              <span className="font-semibold">
+                {learnerTuple && learnerTuple.length >= 3 && learnerTuple[2] ? (
+                  <span>
+                    <CountUp
+                      start={0}
+                      end={
+                        parseFloat(learnerTuple[2]) * 1e-18 +
+                        totalRewardsPending
+                      }
+                      duration={2}
+                    />{" "}
+                  </span>
+                ) : (
+                  <span className="animate-pulse">0</span>
+                )}
+              </span>
             </>
-          )}
-        </span>{" "}
-        <span>
-          {typeof dict?.account !== "string" && (
-            <>{dict?.account.quizzesAnswered}</>
-          )}
-        </span>
+          </span>
+          <span>
+            {typeof dict?.account !== "string" && (
+              <>{dict?.account.totalRewards}</>
+            )}
+          </span>
+        </div>
+      </div>
+      <div
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      >
+        <div className="flex flex-col mx-auto">
+          <span className="text-4xl">
+            <>
+              <span className="font-semibold">
+                {totalRewardsPending ? (
+                  <span>
+                    <CountUp start={0} end={totalRewardsPending} duration={2} />{" "}
+                  </span>
+                ) : (
+                  <span className="animate-pulse">0</span>
+                )}
+              </span>
+            </>
+          </span>
+          <span>
+            {typeof dict?.account !== "string" && (
+              <>{dict?.account.rewardsPending}</>
+            )}
+          </span>
+        </div>
       </div>
     </div>
   </>
@@ -570,9 +573,7 @@ export default function Account({
   }, [learnerTuple]);
 
   useEffect(() => {
-    fetch(
-      `/api/database/totalRewardsPending?wallet=${address}`
-    )
+    fetch(`/api/database/totalRewardsPending?wallet=${address}`)
       .then((response) => response.json())
       .then((data) => {
         setTotalRewardsPending(data);
@@ -580,9 +581,7 @@ export default function Account({
   }, [address]);
 
   useEffect(() => {
-    fetch(
-      `/api/database/numberOfQuizzesAnswered?wallet=${address}`
-    )
+    fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`)
       .then((response) => response.json())
       .then((data) => {
         setNumberOfQuizzesAnswered(data);
