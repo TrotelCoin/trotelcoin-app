@@ -131,7 +131,8 @@
     "title": "L'algorithme",
     "remainingTokens": "Récompenses",
     "learners": "Nombre d'apprenants",
-    "trotelCoinsDistributed": "TrotelCoins distribués"
+    "trotelCoinsDistributed": "TrotelCoins distribués",
+    "trotelCoinsPending": "TrotelCoins en attente"
   },
   "learn": {
     "trainingCenter": "Centre de formation"

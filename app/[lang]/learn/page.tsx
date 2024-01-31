@@ -22,6 +22,9 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   const [remainingRewards, setRemainingRewards] = useState<number | null>(null);
   const [numberOfLearners, setNumberOfLearners] = useState<number | null>(null);
   const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
+  const [trotelCoinsPending, setTrotelCoinsPending] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchRemainingRewards = async () => {
@@ -31,6 +34,16 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     };
 
     fetchRemainingRewards();
+  }, []);
+
+  useEffect(() => {
+    const fetchTrotelCoinsPending = async () => {
+      const response = await fetch("/api/database/trotelCoinsPending");
+      const trotelCoinsPending = await response.json();
+      setTrotelCoinsPending(trotelCoinsPending);
+    };
+
+    fetchTrotelCoinsPending();
   }, []);
 
   useEffect(() => {
@@ -56,7 +69,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
       <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-20">
         {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
       </h2>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-4 gap-4 mx-auto">
         <div
           className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
         >
@@ -78,6 +91,30 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           <span>
             {typeof dict?.algorithm !== "string" && (
               <>{dict?.algorithm.trotelCoinsDistributed}</>
+            )}
+          </span>
+        </div>
+        <div
+          className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <span className="font-semibold text-4xl">
+            {trotelCoinsPending && isDataFetched ? (
+              <>
+                <CountUp
+                  start={0}
+                  end={Math.floor(trotelCoinsPending)}
+                  duration={2}
+                />{" "}
+                ⏳
+              </>
+            ) : (
+              <span className="animate-pulse">0 ⏳</span>
+            )}
+          </span>
+
+          <span>
+            {typeof dict?.algorithm !== "string" && (
+              <>{dict?.algorithm.trotelCoinsPending}</>
             )}
           </span>
         </div>
