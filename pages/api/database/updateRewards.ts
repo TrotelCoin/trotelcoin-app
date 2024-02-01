@@ -5,6 +5,7 @@ import cron from "node-cron";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    // maybe use cycle_timestamp from database to reset rewards
     cron.schedule("0 0 * * *", async () => {
       const defaultRewards = 54.7945205479;
       try {
@@ -30,7 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       await sql`UPDATE "algorithm" SET remaining_rewards = remaining_rewards - ${
         rewards / 50
       }`;
-      await sql`UPDATE "quizzes" SET number_of_answers = number_of_answers + 1 WHERE quiz_id = ${quizId}`;
+      await sql`INSERT INTO "quizzes" (quiz_id, last_answered_to) VALUES (${quizId}, NOW()) ON CONFLICT (quiz_id) DO UPDATE SET last_answered_to = NOW()`;
       await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered) VALUES (${wallet}, 1) ON CONFLICT (wallet) DO UPDATE SET number_of_quizzes_answered = "learners".number_of_quizzes_answered + 1`;
     });
 
