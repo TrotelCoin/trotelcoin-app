@@ -11,7 +11,7 @@ const lessons: Lessons[] = [
         },
         description: {
           en: "Discover what's TrotelCoin",
-          fr: "Découvrez TrotelCoin",
+          fr: "Découvre TrotelCoin",
         },
         href: "/trotelcoin/introduction-to-trotelcoin",
         tier: {
