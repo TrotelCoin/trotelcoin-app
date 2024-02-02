@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import lessons from "@/data/lessonsData";
 import { Address, useAccount, useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import QuizStatus from "@/app/[lang]/components/quizCompleted";
+import placeholder from "@/public/courses/placeholder.gif";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
@@ -108,6 +110,13 @@ function renderCourses(
         className={`rounded-lg hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
         <div className="px-4 pb-4">
+          {/*<Image
+            height={400}
+            width={400}
+            src={placeholder}
+            alt="Placeholder"
+            className="mt-4 rounded-lg"
+          />*/}
           <h3 className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}>
             {title}
           </h3>
@@ -163,7 +172,7 @@ function renderCourses(
               </span>
             )}
             {course.new && (
-              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium bg-gradient-to-r from-yellow-200 dark:from-yellow-200 to-pink-200 dark:to-pink-200 text-gray-900 dark:text-gray-900">
+              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.newCourse} 👀</>
                 )}

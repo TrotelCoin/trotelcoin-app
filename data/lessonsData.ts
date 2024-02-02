@@ -10,8 +10,8 @@ const lessons: Lessons[] = [
           fr: "Introduction à TrotelCoin",
         },
         description: {
-          en: "Get acquainted with using TrotelCoin, exploring its functionalities",
-          fr: "Familiarisez-vous avec l'utilisation de TrotelCoin, en explorant ses fonctionnalités",
+          en: "Discover what's TrotelCoin",
+          fr: "Découvrez TrotelCoin",
         },
         href: "/trotelcoin/introduction-to-trotelcoin",
         tier: {
@@ -19,42 +19,42 @@ const lessons: Lessons[] = [
           fr: "Débutant",
         },
         one: {
-          en: "Understand how TrotelCoin works and how it will help you to learn about crypto.",
-          fr: "Comprennez comment TrotelCoin fonctionne et comment il vous aidera à apprendre la crypto.",
+          en: "Understand how TrotelCoin helps you in your crypto learning journey.",
+          fr: "Comprends comment TrotelCoin va t'aider à apprendre les crypto.",
         },
         two: {
           en: "Learn about the TrotelCoin token and its use cases.",
-          fr: "Apprenez-en plus sur le token TrotelCoin et ses cas d'utilisation.",
+          fr: "Apprends en plus sur le token TrotelCoin et ses cas d'utilisation.",
         },
         three: {
           en: "Be able to claim your TrotelCoin tokens.",
-          fr: "Soyez capable de réclamer vos tokens TrotelCoin.",
+          fr: "Sois capable de réclamer tes TrotelCoin.",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 1,
         available: true,
       },
       {
         title: {
           en: "Claim your NFTs",
-          fr: "Revendiquez vos NFTs",
+          fr: "Revendique tes NFTs",
         },
         description: {
           en: "Understand the process of claiming TrotelCoin's NFTs and their utilization",
-          fr: "Comprenez le processus de réclamation des NFT de TrotelCoin et leur utilisation",
+          fr: "Comprends le processus de réclamation des NFT de TrotelCoin et leur utilisation",
         },
         one: {
           en: "Understand the process of claiming TrotelCoin's NFTs.",
-          fr: "Comprenez le processus de réclamation des NFT de TrotelCoin.",
+          fr: "Comprends le processus de réclamation des NFT de TrotelCoin.",
         },
         two: {
           en: "Discover the different types of NFTs that you can claim.",
-          fr: "Découvrez les différents types de NFT que vous pouvez réclamer.",
+          fr: "Découvre les différents types de NFT que tu peux réclamer.",
         },
         three: {
           en: "Learn how to use your NFTs to access exclusive content.",
-          fr: "Apprenez à utiliser vos NFTs pour accéder à du contenu exclusif.",
+          fr: "Apprends à utiliser tes NFTs pour accéder à du contenu exclusif.",
         },
         href: "/trotelcoin/claim-your-nfts",
         tier: {
@@ -74,23 +74,23 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Create your first wallet",
-          fr: "Créez votre premier portefeuille",
+          fr: "Crée ton premier portefeuille",
         },
         description: {
           en: "Learn the steps involved in creating your initial digital wallet securely",
-          fr: "Apprenez les étapes de création de votre premier portefeuille numérique en toute sécurité",
+          fr: "Apprends les étapes de création de ton premier portefeuille crypto en toute sécurité",
         },
         one: {
           en: "Learn about the different types of wallets and their use cases.",
-          fr: "Découvrez les différents types de portefeuilles et leurs cas d'utilisation.",
+          fr: "Découvre les différents types de portefeuilles et leurs cas d'utilisation.",
         },
         two: {
           en: "Understand the process of creating your first wallet.",
-          fr: "Comprenez le processus de création de votre premier portefeuille.",
+          fr: "Comprends le processus de création de ton premier portefeuille.",
         },
         three: {
           en: "Learn how to use your wallet to store your cryptocurrencies.",
-          fr: "Apprenez à utiliser votre portefeuille pour stocker vos crypto-monnaies.",
+          fr: "Apprends à utiliser ton portefeuille pour stocker tes crypto.",
         },
         href: "/wallet/create-your-first-wallet",
         tier: {
@@ -105,23 +105,23 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Secure your wallet",
-          fr: "Sécurisez votre portefeuille",
+          fr: "Sécurise ton portefeuille",
         },
         description: {
-          en: "Discover methods to secure your wallet and its contents",
-          fr: "Découvrez des méthodes pour sécuriser votre portefeuille et son contenu",
+          en: "Discover methods to secure your wallet",
+          fr: "Découvre des méthodes pour sécuriser ton portefeuille",
         },
         one: {
           en: "Understand the importance of securing your wallet.",
-          fr: "Comprenez l'importance de sécuriser votre portefeuille.",
+          fr: "Comprends l'importance de sécuriser ton portefeuille.",
         },
         two: {
           en: "Learn about the different methods to secure your wallet.",
-          fr: "Découvrez les différentes méthodes pour sécuriser votre portefeuille.",
+          fr: "Découvre les différentes méthodes pour sécuriser ton portefeuille.",
         },
         three: {
           en: "Learn how to use your wallet to store safely your cryptocurrencies.",
-          fr: "Apprenez à utiliser votre portefeuille pour stocker de manière sécurisée vos crypto-monnaies.",
+          fr: "Apprends à utiliser ton portefeuille pour stocker de manière sécurisée tes crypto.",
         },
         href: "/wallet/secure-your-wallet",
         tier: {
@@ -135,26 +135,26 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Authenticate with your wallet",
-          fr: "Authentifiez-vous avec votre portefeuille",
+          en: "Sign in with your wallet",
+          fr: "Connecte toi avec ton portefeuille",
         },
         description: {
           en: "Discover methods to authenticate and access your wallet securely",
-          fr: "Découvrez des méthodes pour vous authentifier et accéder à votre portefeuille en toute sécurité",
+          fr: "Découvre des méthodes pour te connecter et accéder à ton portefeuille en toute sécurité",
         },
         one: {
-          en: "Understand the importance of authenticating with your wallet.",
-          fr: "Comprenez l'importance de vous authentifier avec votre portefeuille.",
+          en: "Understand the advantages of signing in with your wallet.",
+          fr: "Comprends les avantages de te connecter avec votre portefeuille.",
         },
         two: {
           en: "Discover the notion of decentralized identity.",
-          fr: "Découvrez la notion d'identité décentralisée.",
+          fr: "Découvre la notion d'identité décentralisée.",
         },
         three: {
-          en: "Learn how to use your wallet to authenticate yourself.",
-          fr: "Apprenez à utiliser votre portefeuille pour vous authentifier.",
+          en: "Learn how to use your wallet to sign in yourself.",
+          fr: "Apprends à utiliser ton portefeuille pour te connecter.",
         },
-        href: "/wallet/authenticate-with-your-wallet",
+        href: "/wallet/sign-in-with-your-wallet",
         tier: {
           en: "Beginner",
           fr: "Débutant",
@@ -167,23 +167,23 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Make your first transaction",
-          fr: "Effectuez votre première transaction",
+          fr: "Effectue ta première transaction",
         },
         description: {
-          en: "Gain hands-on experience in making your first digital transaction",
-          fr: "Acquérez une expérience pratique pour effectuer votre première transaction numérique",
+          en: "Gain experience in making your first digital transaction",
+          fr: "Obtient l'expérience pour effectuer ta première transaction numérique",
         },
         one: {
           en: "Learn to make your first transaction.",
-          fr: "Apprenez à effectuer votre première transaction.",
+          fr: "Apprends à effectuer ta première transaction.",
         },
         two: {
           en: "Understand the different types of transactions.",
-          fr: "Comprenez les différents types de transactions.",
+          fr: "Comprends les différents types de transactions.",
         },
         three: {
-          en: "Understand the importance of transaction fees.",
-          fr: "Comprenez l'importance des frais de transaction.",
+          en: "Understand the necessity of gas fees.",
+          fr: "Comprends la nécessité des frais de transaction.",
         },
         href: "/wallet/make-your-first-transaction",
         tier: {
@@ -206,20 +206,20 @@ const lessons: Lessons[] = [
           fr: "Qu'est-ce qu'une blockchain?",
         },
         description: {
-          en: "Grasp the concepts underlying the functionality of a blockchain",
-          fr: "Saisissez les concepts sous-jacents à la fonctionnalité d'une blockchain",
+          en: "Understand the concepts of a blockchain",
+          fr: "Comprends les concepts d'une blockchain",
         },
         one: {
           en: "Understand the basics of blockchain technology.",
-          fr: "Comprenez les bases de la technologie blockchain.",
+          fr: "Comprends les bases de la technologie blockchain.",
         },
         two: {
           en: "Learn about the different types of blockchains.",
-          fr: "Découvrez les différents types de blockchains.",
+          fr: "Découvre les différents types de blockchains.",
         },
         three: {
           en: "Learn about the different components of a blockchain.",
-          fr: "Découvrez les différents composants d'une blockchain.",
+          fr: "Découvre les différents composants d'une blockchain.",
         },
         href: "/blockchain/what-is-a-blockchain",
         tier: {
@@ -237,20 +237,20 @@ const lessons: Lessons[] = [
           fr: "Mécanismes de consensus",
         },
         description: {
-          en: "Explore the various consensus mechanisms that power blockchains",
-          fr: "Explorez les différents mécanismes de consensus qui alimentent les blockchains",
+          en: "Explore the various consensus mechanisms",
+          fr: "Explore les différents mécanismes de consensus",
         },
         one: {
           en: "Understand the importance of consensus mechanisms.",
-          fr: "Comprenez l'importance des mécanismes de consensus.",
+          fr: "Comprends l'importance des mécanismes de consensus.",
         },
         two: {
           en: "Learn about the different types of consensus mechanisms.",
-          fr: "Découvrez les différents types de mécanismes de consensus.",
+          fr: "Découvre les différents types de mécanismes de consensus.",
         },
         three: {
-          en: "Discover some exotics consensus mechanisms.",
-          fr: "Découvrez quelques mécanismes de consensus exotiques.",
+          en: "Discover other consensus mechanisms.",
+          fr: "Découvre d'autres mécanismes de consensus.",
         },
         href: "/blockchain/consensus-mechanisms",
         tier: {
@@ -273,20 +273,20 @@ const lessons: Lessons[] = [
           fr: "Introduction à Bitcoin",
         },
         description: {
-          en: "Explore the basics and core principles of the Bitcoin cryptocurrency",
-          fr: "Explorez les bases et les principes fondamentaux de la crypto-monnaie Bitcoin",
+          en: "Explore the basics and core principles of Bitcoin",
+          fr: "Explore les bases et les principes fondamentaux de Bitcoin",
         },
         one: {
           en: "Understand the basics of Bitcoin.",
-          fr: "Comprenez les bases de Bitcoin.",
+          fr: "Comprends les bases de Bitcoin.",
         },
         two: {
-          en: "Discover why Bitcoin is so important.",
-          fr: "Découvrez pourquoi Bitcoin est si important.",
+          en: "Understand why Bitcoin is fundamental for the society.",
+          fr: "Comprends pourquoi Bitcoin est fondamental pour la société.",
         },
         three: {
-          en: "Learn about the philosophy behind Bitcoin.",
-          fr: "Apprenez la philosophie derrière Bitcoin.",
+          en: "Discover the philosophy behind Bitcoin.",
+          fr: "Découvre la philosophie derrière Bitcoin.",
         },
         href: "/bitcoin/introduction-to-bitcoin",
         tier: {
@@ -304,20 +304,20 @@ const lessons: Lessons[] = [
           fr: "L'histoire de Bitcoin",
         },
         description: {
-          en: "Dive into the historical evolution and significant milestones of Bitcoin",
-          fr: "Plongez dans l'évolution historique et les jalons importants de Bitcoin",
+          en: "Dive into the historical evolution of Bitcoin",
+          fr: "Plonge dans l'évolution historique de Bitcoin",
         },
         one: {
-          en: "Understand the history of Bitcoin.",
-          fr: "Comprenez l'histoire de Bitcoin.",
+          en: "Dive into the history of Bitcoin.",
+          fr: "Plonge dans l'histoire de Bitcoin.",
         },
         two: {
-          en: "Discover the different phases of Bitcoin.",
-          fr: "Découvrez les différentes phases de Bitcoin.",
+          en: "Understand the different phases of Bitcoin.",
+          fr: "Comprends les différentes phases de Bitcoin.",
         },
         three: {
-          en: "Learn about the different Bitcoin forks.",
-          fr: "Apprenez les différents forks de Bitcoin.",
+          en: "Discover about the different Bitcoin forks.",
+          fr: "Découvre les différents forks de Bitcoin.",
         },
         href: "/bitcoin/the-history-of-bitcoin",
         tier: {
@@ -341,19 +341,19 @@ const lessons: Lessons[] = [
         },
         description: {
           en: "Explore the basics and core principles of the Ethereum blockchain",
-          fr: "Explorez les bases et les principes fondamentaux de la blockchain Ethereum",
+          fr: "Explore les bases et les principes fondamentaux de la blockchain Ethereum",
         },
         one: {
           en: "Understand the basics of Ethereum.",
-          fr: "Comprenez les bases d'Ethereum.",
+          fr: "Comprends les bases d'Ethereum.",
         },
         two: {
-          en: "Discover why Ethereum is so important.",
-          fr: "Découvrez pourquoi Ethereum est si important.",
+          en: "Discover why Ethereum is a revolution.",
+          fr: "Découvre en quoi Ethereum est une révolution.",
         },
         three: {
           en: "Understand why we talk about a giant computer.",
-          fr: "Comprenez pourquoi on parle d'un ordinateur géant.",
+          fr: "Comprends pourquoi on parle d'un ordinateur géant.",
         },
         href: "/ethereum/introduction-to-ethereum",
         tier: {
@@ -371,20 +371,20 @@ const lessons: Lessons[] = [
           fr: "Comprendre les couches de niveau 2",
         },
         description: {
-          en: "Explore the secondary layers of Ethereum's architecture",
-          fr: "Explorez les couches secondaires de l'architecture d'Ethereum",
+          en: "Explore the other blockchains of Ethereum's ecosystem",
+          fr: "Explore les autres blockchains de l'écosystème d'Ethereum",
         },
         one: {
           en: "Understand the different layers of Ethereum.",
-          fr: "Comprenez les différentes couches d'Ethereum.",
+          fr: "Comprends les différentes couches d'Ethereum.",
         },
         two: {
           en: "Discover the different types of layers.",
-          fr: "Découvrez les différents types de couches.",
+          fr: "Découvre les différents types de couches.",
         },
         three: {
           en: "Discover why L2 are essential for Ethereum.",
-          fr: "Découvrez pourquoi L2 sont essentiels pour Ethereum.",
+          fr: "Découvre pourquoi les L2 sont essentiels pour Ethereum.",
         },
         href: "/ethereum/understand-the-layers-2",
         tier: {
@@ -403,19 +403,19 @@ const lessons: Lessons[] = [
         },
         description: {
           en: "Learn about Ethereum's smart contracts and their innovative applications",
-          fr: "Découvrez les contrats intelligents d'Ethereum et leurs applications innovantes",
+          fr: "Découvre les contrats intelligents d'Ethereum et leurs applications innovantes",
         },
         one: {
           en: "Understand the basics of smart contracts.",
-          fr: "Comprenez les bases des contrats intelligents.",
+          fr: "Comprends les bases des contrats intelligents.",
         },
         two: {
           en: "Learn why smart contracts are so important.",
-          fr: "Apprenez pourquoi les contrats intelligents sont si importants.",
+          fr: "Apprends pourquoi les contrats intelligents sont si importants.",
         },
         three: {
           en: "Discover some real use cases of smart contracts.",
-          fr: "Découvrez quelques cas d'utilisation réels des contrats intelligents.",
+          fr: "Découvre quelques cas d'utilisation réels des contrats intelligents.",
         },
         href: "/ethereum/smart-contracts",
         tier: {
@@ -434,19 +434,19 @@ const lessons: Lessons[] = [
         },
         description: {
           en: "Gain insights into Ethereum's virtual machine and its functionalities",
-          fr: "Acquérez des connaissances sur la machine virtuelle Ethereum et ses fonctionnalités",
+          fr: "Gagne des connaissances sur la machine virtuelle Ethereum et ses fonctionnalités",
         },
         one: {
           en: "Understand the basics of the Ethereum Virtual Machine.",
-          fr: "Comprenez les bases de la machine virtuelle Ethereum.",
+          fr: "Comprends les bases de la machine virtuelle Ethereum.",
         },
         two: {
-          en: "Learn why the EVM is so important for Ethereum.",
-          fr: "Apprenez pourquoi l'EVM est si important pour Ethereum.",
+          en: "Understand why the EVM is so important for Ethereum.",
+          fr: "Comprends pourquoi l'EVM est si important pour Ethereum.",
         },
         three: {
-          en: "Discover Solidity, the main language of the EVM.",
-          fr: "Découvrez Solidity, le langage principal de l'EVM.",
+          en: "Discover Solidity, the programmation language of the EVM.",
+          fr: "Découvre Solidity, le langage de programmation de l'EVM.",
         },
         href: "/ethereum/evm",
         tier: {
@@ -470,19 +470,19 @@ const lessons: Lessons[] = [
         },
         description: {
           en: "Discover the concept of Decentralized Autonomous Organizations",
-          fr: "Découvrez le concept d'organisations autonomes décentralisées",
+          fr: "Découvre le concept d'organisations autonomes décentralisées",
         },
         one: {
           en: "Understand the basics of DAOs.",
-          fr: "Comprenez les bases des DAO.",
+          fr: "Comprends les bases des DAO.",
         },
         two: {
           en: "Learn about the different types of DAOs.",
-          fr: "Découvrez les différents types de DAO.",
+          fr: "Découvre les différents types de DAO.",
         },
         three: {
-          en: "Discover real use cases of DAOs.",
-          fr: "Découvrez de vrais cas d'utilisation de DAO.",
+          en: "Explore use cases of DAOs.",
+          fr: "Explore des cas d'utilisation de DAO.",
         },
         href: "/governance/what-are-daos",
         tier: {

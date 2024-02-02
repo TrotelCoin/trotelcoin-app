@@ -128,3 +128,21 @@ a:hover {
   opacity: 0;
   transition: opacity 500ms;
 }
+
+@keyframes changeGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animation {
+  background: linear-gradient(to right, #fef08a, #f5d0fe);
+  background-size: 200% 100%;
+  animation: changeGradient 3s linear infinite;
+}
