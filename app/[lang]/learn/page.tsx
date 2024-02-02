@@ -80,7 +80,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         </h2>
         <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
           <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
               {trotelCoinsDistributed ? (
@@ -106,7 +106,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             </span>
           </div>
           <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
               {trotelCoinsPending ? (
@@ -132,7 +132,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             </span>
           </div>
           <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
               {numberOfQuizzesAnswered ? (
@@ -158,7 +158,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             </span>
           </div>
           <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
               {remainingRewards ? (
@@ -185,7 +185,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             </span>
           </div>
           <div
-            className={`bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            className={`bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
               {remainingRewards ? (

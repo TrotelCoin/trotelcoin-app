@@ -123,7 +123,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
         className={`overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 ${
           isClaimed
             ? "rainbow-border"
-            : "border border-black/10 dark:border-white/10 hover:border-black/50 dark:hover:border-white/50"
+            : "border border-black/10 dark:border-white/10"
         } backdrop-blur-xl`}
       >
         <div className="px-4 py-5 sm:p-6">
