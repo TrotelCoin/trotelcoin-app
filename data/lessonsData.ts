@@ -170,8 +170,8 @@ const lessons: Lessons[] = [
           fr: "Effectue ta première transaction",
         },
         description: {
-          en: "Gain experience in making your first digital transaction",
-          fr: "Obtient l'expérience pour effectuer ta première transaction numérique",
+          en: "Learn how to make your first digital transaction",
+          fr: "Apprends comment effectuer ta première transaction numérique",
         },
         one: {
           en: "Learn to make your first transaction.",
