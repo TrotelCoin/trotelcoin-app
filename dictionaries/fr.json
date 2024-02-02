@@ -58,7 +58,7 @@
   "modals": {
     "connectWallet": {
       "title": "Connecte ton portefeuille",
-      "message": "Tu dois connecter ton portefeuille et/ou t'authentifier."
+      "message": "Tu dois connecter ton portefeuille et t'authentifier."
     },
     "eligible": {
       "title": "Tu es éligible",

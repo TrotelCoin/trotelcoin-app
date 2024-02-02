@@ -58,7 +58,7 @@
   "modals": {
     "connectWallet": {
       "title": "Connect your wallet",
-      "message": "You need to connect your wallet and/or sign in."
+      "message": "You need to connect your wallet and sign in."
     },
     "eligible": {
       "title": "You are eligible!",
