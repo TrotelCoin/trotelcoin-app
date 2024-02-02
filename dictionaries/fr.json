@@ -6,7 +6,7 @@
   },
   "banner": {
     "message": "TrotelCoin est en version beta.",
-    "button": "Lire le livre blanc"
+    "button": "Lire le whitepaper"
   },
   "header": {
     "home": "Accueil",
@@ -48,11 +48,11 @@
     "expert": "Expert"
   },
   "intermediate": {
-    "advantage1": "Plus de cours avec du contenu approfondi",
-    "advantage2": "Fonctionnalités de gamification"
+    "advantage1": "Accède à des cours plus avancés pour en apprendre plus",
+    "advantage2": "Obtiens des fonctionnalités de gamification pour apprendre plus vite"
   },
   "expert": {
-    "advantage1": "Accès anticipé aux fonctionnalités",
+    "advantage1": "Obtiens un accès anticipé aux fonctionnalités",
     "advantage2": "Rejoins une communauté crypto exclusive"
   },
   "modals": {
@@ -73,8 +73,8 @@
       "message": "Tu es maintenant un utilisateur Expert."
     },
     "claimedTrotelCoin": {
-      "title": "Tu as obtenu tes TrotelCoins",
-      "message": "Tu peux désormais utiliser tes TrotelCoins."
+      "title": "Félicitations",
+      "message": "Tu as obtenu tes TrotelCoins."
     }
   },
   "account": {
@@ -120,8 +120,8 @@
     "claimRewards": "Obtiens tes récompenses",
     "youWillGet": "Vous allez obtenir",
     "receiveCrypto": "Obtiens tes récompenses.",
-    "correct": "Correct. Tu as répondu correctement.",
-    "incorrect": "Incorrect. Tu as répondu incorrectement à :",
+    "correct": "Félicitations. Tu as répondu correctement à toutes les questions.",
+    "incorrect": "Oups. Tu as répondu incorrectement aux questions suivantes :",
     "alreadyClaimed": "Tu as déjà obtenu tes récompenses pour ce quiz.",
     "connectWallet": "Connecte ton portefeuille et authentifie-toi pour obtenir tes récompenses."
   },

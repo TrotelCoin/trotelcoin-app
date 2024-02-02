@@ -17,7 +17,7 @@
     "version": "beta version"
   },
   "home": {
-    "search": "What do you want to learn?"
+    "search": "What do you wanna learn?"
   },
   "wallet": {
     "connect": "Connect wallet",
@@ -38,7 +38,7 @@
     "business": "Business"
   },
   "premium": {
-    "claimNFTs": "Claim NFTs",
+    "claimNFTs": "Claim NFT",
     "statistics": "Statistics",
     "eligibility": "Check eligibility",
     "claim": "Claim",
@@ -48,11 +48,11 @@
     "expert": "Expert"
   },
   "intermediate": {
-    "advantage1": "More courses providing in-depth content",
-    "advantage2": "Gamification features"
+    "advantage1": "Access detailed courses to learn more about crypto",
+    "advantage2": "Benefit from gamification features to learn faster"
   },
   "expert": {
-    "advantage1": "Early access to experimental features",
+    "advantage1": "Get an early access to experimental features",
     "advantage2": "Join an exclusive crypto community"
   },
   "modals": {
@@ -62,7 +62,7 @@
     },
     "eligible": {
       "title": "You are eligible!",
-      "message": "You are eligible to claim your NFTs."
+      "message": "You are eligible to claim your NFT."
     },
     "claimedIntermediateNFT": {
       "title": "You claimed your NFT",
@@ -73,8 +73,8 @@
       "message": "You are now an Expert user."
     },
     "claimedTrotelCoin": {
-      "title": "You claimed your TrotelCoin",
-      "message": "You can now use your TrotelCoin."
+      "title": "Congratulations",
+      "message": "You claimed your TrotelCoins."
     }
   },
   "account": {
@@ -109,7 +109,7 @@
   },
   "notPremium": {
     "title": "You are not premium",
-    "message": "Either connect your wallet or become a premium user to access this course."
+    "message": "Connect your wallet or become a premium user to access this course."
   },
   "quiz": {
     "loading": "Loading quiz...",
@@ -120,8 +120,8 @@
     "claimRewards": "Claim rewards",
     "youWillGet": "Claim your rewards.",
     "receiveCrypto": "Receive crypto",
-    "correct": "Correct. You answered correctly.",
-    "incorrect": "Incorrect. You answered incorrectly to :",
+    "correct": "Congratulations. You answered all answers correctly.",
+    "incorrect": "Oups. You answered incorrectly to the following questions :",
     "alreadyClaimed": "You already claimed this quiz.",
     "connectWallet": "Connect your wallet and signin to claim your rewards."
   },
