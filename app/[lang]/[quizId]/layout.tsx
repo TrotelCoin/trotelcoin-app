@@ -143,7 +143,7 @@ const CoursePage = ({
   const renderCourseContent = (children: React.ReactNode) => {
     return (
       <>
-        <div className="mx-auto mt-20 max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
+        <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
           <p className="text-base font-semibold leading-7 text-yellow-500 dark:text-yellow-300">
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
           </p>

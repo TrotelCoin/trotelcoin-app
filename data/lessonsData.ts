@@ -37,12 +37,12 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Claim your NFTs",
-          fr: "Revendique tes NFTs",
+          en: "Claim your NFT",
+          fr: "Récupère tes NFT",
         },
         description: {
-          en: "Understand the process of claiming TrotelCoin's NFTs and their utilization",
-          fr: "Comprends le processus de réclamation des NFT de TrotelCoin et leur utilisation",
+          en: "Learn how to claim your TrotelCoin's NFT",
+          fr: "Apprends comment réclamer tes NFT TrotelCoin",
         },
         one: {
           en: "Understand the process of claiming TrotelCoin's NFTs.",
@@ -77,8 +77,8 @@ const lessons: Lessons[] = [
           fr: "Crée ton premier portefeuille",
         },
         description: {
-          en: "Learn the steps involved in creating your initial digital wallet securely",
-          fr: "Apprends les étapes de création de ton premier portefeuille crypto en toute sécurité",
+          en: "Learn how to create your first crypto wallet",
+          fr: "Apprends à créer ton premier portefeuille crypto",
         },
         one: {
           en: "Learn about the different types of wallets and their use cases.",
@@ -108,8 +108,8 @@ const lessons: Lessons[] = [
           fr: "Sécurise ton portefeuille",
         },
         description: {
-          en: "Discover methods to secure your wallet",
-          fr: "Découvre des méthodes pour sécuriser ton portefeuille",
+          en: "Discover how to secure your wallet",
+          fr: "Découvre comment sécuriser ton portefeuille",
         },
         one: {
           en: "Understand the importance of securing your wallet.",
@@ -139,8 +139,8 @@ const lessons: Lessons[] = [
           fr: "Connecte toi avec ton portefeuille",
         },
         description: {
-          en: "Discover methods to authenticate and access your wallet securely",
-          fr: "Découvre des méthodes pour te connecter et accéder à ton portefeuille en toute sécurité",
+          en: "Discover methods to sign in with your wallet securely",
+          fr: "Découvre des méthodes pour te connecter avec ton portefeuille en toute sécurité",
         },
         one: {
           en: "Understand the advantages of signing in with your wallet.",
@@ -170,8 +170,8 @@ const lessons: Lessons[] = [
           fr: "Effectue ta première transaction",
         },
         description: {
-          en: "Learn how to make your first digital transaction",
-          fr: "Apprends comment effectuer ta première transaction numérique",
+          en: "Learn how to make your first crypto transaction",
+          fr: "Apprends comment effectuer ta première transaction crypto",
         },
         one: {
           en: "Learn to make your first transaction.",
@@ -371,8 +371,8 @@ const lessons: Lessons[] = [
           fr: "Comprendre les couches de niveau 2",
         },
         description: {
-          en: "Explore the other blockchains of Ethereum's ecosystem",
-          fr: "Explore les autres blockchains de l'écosystème d'Ethereum",
+          en: "Understand why L2 are essential for Ethereum",
+          fr: "Comprends pourquoi les L2 sont essentiels pour Ethereum",
         },
         one: {
           en: "Understand the different layers of Ethereum.",
@@ -402,8 +402,8 @@ const lessons: Lessons[] = [
           fr: "Contrats intelligents",
         },
         description: {
-          en: "Learn about Ethereum's smart contracts and their innovative applications",
-          fr: "Découvre les contrats intelligents d'Ethereum et leurs applications innovantes",
+          en: "Discover smart contracts and their applications",
+          fr: "Découvre les contrats intelligents et leurs applications",
         },
         one: {
           en: "Understand the basics of smart contracts.",
@@ -433,8 +433,8 @@ const lessons: Lessons[] = [
           fr: "Machine virtuelle Ethereum",
         },
         description: {
-          en: "Gain insights into Ethereum's virtual machine and its functionalities",
-          fr: "Gagne des connaissances sur la machine virtuelle Ethereum et ses fonctionnalités",
+          en: "Learn what's Ethereum's virtual machine",
+          fr: "Apprends ce qu'est la machine virtuelle Ethereum",
         },
         one: {
           en: "Understand the basics of the Ethereum Virtual Machine.",
