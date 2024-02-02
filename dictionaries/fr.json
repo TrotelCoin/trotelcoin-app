@@ -82,7 +82,7 @@
     "rank": "Rang",
     "balance": "Solde",
     "totalRewards": "Total des récompenses",
-    "quizzesAnswered": "Quiz répondu",
+    "quizzesAnswered": "Quiz répondus",
     "level": "Niveau",
     "youAreLevel": "Tu es au niveau",
     "trotelCoinsLeft": "TrotelCoins restants",
@@ -94,7 +94,7 @@
   },
   "badges": {
     "beginner": "Débutant",
-    "tenQuizzes": "10 quiz répondu",
+    "tenQuizzes": "10 quiz répondus",
     "hundredTrotelCoins": "100 TrotelCoins gagnés",
     "early": "Accès anticipé"
   },
