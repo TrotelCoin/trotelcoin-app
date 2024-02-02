@@ -53,7 +53,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="flex flex-col my-20 max-w-4xl mx-auto">
+      <div className="flex flex-col max-w-4xl mx-auto">
         <h1 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
           {typeof dict?.premium !== "string" && <>{dict?.premium.claimNFTs}</>}
         </h1>

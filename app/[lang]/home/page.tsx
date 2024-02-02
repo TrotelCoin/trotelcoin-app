@@ -238,7 +238,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   return (
     <>
       <>
-        <form className="my-20">
+        <form className="mb-10">
           <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
             {typeof dict?.home !== "string" && <>{dict?.home.search}</>}
           </label>
@@ -263,7 +263,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
         </form>
         <div className="flex flex-col">
           {filteredLessons.map((lesson) => (
-            <div className="py-10" key={lesson.category}>
+            <div className="my-10" key={lesson.category}>
               <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                 {lesson.category}
               </h2>

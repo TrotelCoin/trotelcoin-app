@@ -75,10 +75,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   return (
     <>
       <div>
-        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-20">
+        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
           {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
         </h2>
-        <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
           <div
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
@@ -90,10 +90,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                     end={Math.floor(trotelCoinsDistributed)}
                     duration={2}
                   />{" "}
-                  💸
+                  <span className="hidden md:inline">💸</span>
                 </>
               ) : (
-                <span className="animate-pulse">0 💸</span>
+                <span className="animate-pulse">
+                  0 <span className="hidden md:inline">💸</span>
+                </span>
               )}
             </span>
 
@@ -114,10 +116,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                     end={Math.floor(trotelCoinsPending)}
                     duration={2}
                   />{" "}
-                  💰
+                  <span className="hidden md:inline">💰</span>
                 </>
               ) : (
-                <span className="animate-pulse">0 💰</span>
+                <span className="animate-pulse">
+                  0 <span className="hidden md:inline">💰</span>
+                </span>
               )}
             </span>
 
@@ -127,33 +131,61 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
               )}
             </span>
           </div>
-
           <div
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
-              {numberOfLearners ? (
+              {numberOfQuizzesAnswered ? (
                 <>
                   <CountUp
                     start={0}
-                    end={Math.floor(numberOfLearners)}
+                    end={Math.floor(numberOfQuizzesAnswered)}
                     duration={2}
                   />{" "}
-                  👨‍💻
+                  <span className="hidden md:inline">📚</span>
                 </>
               ) : (
-                <span className="animate-pulse">0 👨‍💻</span>
+                <span className="animate-pulse">
+                  0 <span className="hidden md:inline">📚</span>
+                </span>
               )}
             </span>
 
             <span>
               {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.learners}</>
+                <>{dict?.algorithm.numberOfQuizzesAnswered}</>
               )}
             </span>
           </div>
           <div
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-4xl">
+              {remainingRewards ? (
+                <>
+                  <CountUp
+                    start={0}
+                    end={remainingRewards}
+                    decimals={1}
+                    duration={2}
+                  />{" "}
+                  <span className="hidden md:inline">⏳</span>
+                </>
+              ) : (
+                <span className="animate-pulse">
+                  0 <span className="hidden md:inline">⏳</span>
+                </span>
+              )}
+            </span>
+
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.remainingCycle}</>
+              )}
+            </span>
+          </div>
+          <div
+            className={`bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-4xl">
               {remainingRewards ? (
@@ -178,55 +210,6 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span>
               {typeof dict?.algorithm !== "string" && (
                 <>{dict?.algorithm.remainingTokens}</>
-              )}
-            </span>
-          </div>
-          <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {remainingRewards ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={remainingRewards}
-                    decimals={1}
-                    duration={2}
-                  />{" "}
-                  ⏳
-                </>
-              ) : (
-                <span className="animate-pulse">0 ⏳</span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.remainingCycle}</>
-              )}
-            </span>
-          </div>
-          <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {numberOfQuizzesAnswered ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(numberOfQuizzesAnswered)}
-                    duration={2}
-                  />{" "}
-                  📚
-                </>
-              ) : (
-                <span className="animate-pulse">0 📚</span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.numberOfQuizzesAnswered}</>
               )}
             </span>
           </div>
