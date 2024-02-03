@@ -131,7 +131,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setCooldown("00:00:00");
       setDisabled(false);
     }
-  }, [address, streak, isConnected]);
+  }, [address, streak, maxStreak, disabled, isConnected]);
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
@@ -145,7 +145,11 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     if (address) {
       fetchMaxStreak();
     }
-  }, [address, streak, maxStreak, isConnected]);
+
+    if (!isConnected) {
+      setMaxStreak(0);
+    }
+  }, [address, streak, maxStreak, disabled, isConnected]);
 
   const updateStreak = async (address: Address) => {
     const result = await fetch(`/api/database/updateStreak`, {
