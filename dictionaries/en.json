@@ -47,13 +47,17 @@
     "intermediate": "Intermediate",
     "expert": "Expert"
   },
+  "beginner": {
+    "advantage1": "Free courses",
+    "advantage2": "Crypto rewards"
+  },
   "intermediate": {
     "advantage1": "Advanced courses",
     "advantage2": "Gamification features"
   },
   "expert": {
     "advantage1": "Access to beta features",
-    "advantage2": "An exclusive crypto community"
+    "advantage2": "A crypto community"
   },
   "modals": {
     "connectWallet": {
@@ -86,7 +90,7 @@
     "level": "Level",
     "youAreLevel": "You are level",
     "trotelCoinsLeft": "TrotelCoins left",
-    "rewardsPending": "TrotelCoins pending",
+    "rewardsPending": "Pendings rewards",
     "satisfaction": "Would you recommend TrotelCoin to a friend?",
     "badges": {
       "beginner": "Beginner"
@@ -137,13 +141,16 @@
     "learners": "Number of learners",
     "trotelCoinsDistributed": "TrotelCoins distributed",
     "trotelCoinsPending": "TrotelCoins pending",
-    "numberOfQuizzesAnswered": "Quizzes answered"
+    "numberOfQuizzesAnswered": "Quizzes answered",
+    "maxStreak": "Biggest streak",
+    "numberOfLearners": "Learners"
   },
   "learn": {
     "trainingCenter": "Training center",
-    "streaks": "Streaks",
+    "streak": "Streak",
     "cooldown": "Cooldown",
-    "streaksDisabled": "Come back tomorrow to increase your streaks. Don't lose your streaks!",
-    "streaksEnabled": "Click on the flame to increase your streaks."
+    "streakDisabled": "Come back tomorrow to increase your streak. Don't lose your streak!",
+    "streakEnabled": "Click on the flame to increase your streak.",
+    "maxStreak": "Max streak"
   }
 }

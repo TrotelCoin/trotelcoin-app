@@ -26,6 +26,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
     number | null
   >(null);
+  const [maxStreak, setMaxStreak] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchRemainingRewards = async () => {
@@ -71,13 +72,23 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     fetchNumberOfLearners();
   }, []);
 
+  useEffect(() => {
+    const fetchMaxStreak = async () => {
+      const response = await fetch("/api/database/totalMaxStreak");
+      const { maxStreak } = await response.json();
+      setMaxStreak(maxStreak);
+    };
+
+    fetchMaxStreak();
+  }, []);
+
   return (
     <>
       <div>
         <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
           {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
         </h2>
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
           <div
             className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
@@ -184,7 +195,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             </span>
           </div>
           <div
-            className={`bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
           >
             <span className="font-semibold text-2xl md:text-4xl">
               {remainingRewards ? (
@@ -209,6 +220,50 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span>
               {typeof dict?.algorithm !== "string" && (
                 <>{dict?.algorithm.remainingTokens}</>
+              )}
+            </span>
+          </div>
+          <div
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-2xl md:text-4xl">
+              {maxStreak ? (
+                <>
+                  <CountUp start={0} end={maxStreak} duration={2} />{" "}
+                  <span className="hidden md:inline">🔥</span>
+                </>
+              ) : (
+                <span className="animate-pulse">
+                  0 <span className="hidden md:inline">🔥</span>
+                </span>
+              )}
+            </span>
+
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.maxStreak}</>
+              )}
+            </span>
+          </div>
+          <div
+            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+          >
+            <span className="font-semibold text-2xl md:text-4xl">
+              {numberOfLearners ? (
+                <>
+                  <CountUp start={0} end={numberOfLearners} duration={2} />{" "}
+                  <span className="hidden md:inline">👨‍💻</span>
+                </>
+              ) : (
+                <span className="animate-pulse">
+                  0 <span className="hidden md:inline">👨‍💻</span>
+                </span>
+              )}
+            </span>
+
+            <span>
+              {typeof dict?.algorithm !== "string" && (
+                <>{dict?.algorithm.numberOfLearners}</>
               )}
             </span>
           </div>

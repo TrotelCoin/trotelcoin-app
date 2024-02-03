@@ -47,13 +47,17 @@
     "intermediate": "Intermédiaire",
     "expert": "Expert"
   },
+  "beginner": {
+    "advantage1": "Des cours gratuits",
+    "advantage2": "Récompenses en crypto"
+  },
   "intermediate": {
     "advantage1": "Des cours avancés",
     "advantage2": "Fonctionnalités de gamification"
   },
   "expert": {
     "advantage1": "Accès aux fonctionnalités beta",
-    "advantage2": "Une communauté crypto exclusive"
+    "advantage2": "Une communauté crypto"
   },
   "modals": {
     "connectWallet": {
@@ -81,12 +85,12 @@
     "hello": "Bonjour",
     "rank": "Rang",
     "balance": "Solde",
-    "totalRewards": "Total des récompenses",
+    "totalRewards": "Récompenses totales",
     "quizzesAnswered": "Quiz répondus",
     "level": "Niveau",
     "youAreLevel": "Tu es au niveau",
     "trotelCoinsLeft": "TrotelCoins restants",
-    "rewardsPending": "TrotelCoins en attente",
+    "rewardsPending": "Récompenses en attente",
     "satisfaction": "Tu recommenderais TrotelCoin à un ami ?",
     "badges": {
       "beginner": "Débutant"
@@ -137,13 +141,16 @@
     "learners": "Nombre d'apprenants",
     "trotelCoinsDistributed": "TrotelCoins distribués",
     "trotelCoinsPending": "TrotelCoins en attente",
-    "numberOfQuizzesAnswered": "Quiz répondus"
+    "numberOfQuizzesAnswered": "Quiz répondus",
+    "maxStreak": "Plus grosse série",
+    "numberOfLearners": "Apprenants"
   },
   "learn": {
     "trainingCenter": "Centre de formation",
-    "streaks": "Streaks",
+    "streak": "Streak",
     "cooldown": "Cooldown",
-    "streaksDisabled": "Reviens demain pour augmenter ta série. Attention à ne pas perdre ta série !",
-    "streaksEnabled": "Clique sur la flame pour augmenter ta série."
+    "streakDisabled": "Reviens demain pour augmenter ta série. Attention à ne pas perdre ta série !",
+    "streakEnabled": "Clique sur la flame pour augmenter ta série.",
+    "maxStreak": "Plus grosse série"
   }
 }

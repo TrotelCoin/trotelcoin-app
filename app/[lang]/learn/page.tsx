@@ -5,40 +5,39 @@ import ComingSoon from "@/app/[lang]/ui/interface/comingSoon";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Address } from "viem";
-import { useSession } from "next-auth/react";
 import { useAccount } from "wagmi";
 
-interface StreaksSectionProps {
-  streaks: number;
+interface StreakSectionProps {
+  streak: number;
   disabled: boolean;
   dict: DictType | null;
   cooldown: string;
-  updateStreaks: (address: Address) => void;
+  updateStreak: (address: Address) => void;
   address: Address;
   isConnected: boolean;
+  maxStreak: number;
 }
 
-const StreaksSection: React.FC<StreaksSectionProps> = ({
+const StreakSection: React.FC<StreakSectionProps> = ({
   dict,
-  streaks,
+  streak,
   disabled,
   cooldown,
-  updateStreaks,
+  updateStreak,
   address,
   isConnected,
+  maxStreak,
 }) => (
   <>
     <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
-      {typeof dict?.learn !== "string" && <>{dict?.learn.streaks}</>}
+      {typeof dict?.learn !== "string" && <>{dict?.learn.streak}</>}
     </h2>
     <p className="text-gray-700 dark:text-gray-300">
       {isConnected &&
         (disabled
-          ? typeof dict?.learn !== "string" && (
-              <>{dict?.learn.streaksDisabled}</>
-            )
+          ? typeof dict?.learn !== "string" && <>{dict?.learn.streakDisabled}</>
           : typeof dict?.learn !== "string" && (
-              <>{dict?.learn.streaksEnabled}</>
+              <>{dict?.learn.streakEnabled}</>
             ))}
       {!isConnected &&
         typeof dict?.modals !== "string" &&
@@ -51,11 +50,13 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
     <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
       <button
         className={`${
-          disabled ? "cursor-not-allowed" : "hover:border-gray-900/50 dark:hover:border-gray-100/50"
+          disabled
+            ? "cursor-not-allowed"
+            : "hover:border-gray-900/50 dark:hover:border-gray-100/50 active:border-yellow-500 dark:active:border-yellow-300"
         } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 text-gray-900 dark:text-gray-100`}
         onClick={() => {
           if (!disabled) {
-            updateStreaks(address);
+            updateStreak(address);
           }
         }}
       >
@@ -65,13 +66,21 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
       </button>
       <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-2xl md:text-4xl font-semibold">
-          {streaks}
+          {streak}
           <p className="font-normal text-base">
-            {typeof dict?.learn !== "string" && <>{dict?.learn.streaks}</>}
+            {typeof dict?.learn !== "string" && <>{dict?.learn.streak}</>}
           </p>
         </span>
       </div>
-      <div className="bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <span className="text-2xl md:text-4xl font-semibold">
+          {maxStreak}
+          <p className="font-normal text-base">
+            {typeof dict?.learn !== "string" && <>{dict?.learn.maxStreak}</>}
+          </p>
+        </span>
+      </div>
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-2xl md:text-4xl font-semibold">
           {cooldown && <>{cooldown}</>}
           <p className="font-normal text-base">
@@ -85,10 +94,11 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
 
 const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
-  const [streaks, setStreaks] = useState<number>(0);
+  const [streak, setStreak] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [lastUpdatedStreak, setLastUpdatedStreak] = useState<string>("");
   const [cooldown, setCooldown] = useState<string>("00:00:00");
+  const [maxStreak, setMaxStreak] = useState<number>(0);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -102,39 +112,53 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const { address, isConnected } = useAccount();
 
   useEffect(() => {
-    const fetchStreaks = async () => {
-      const result = await fetch(`/api/database/streaks?wallet=${address}`);
+    const fetchStreak = async () => {
+      const result = await fetch(`/api/database/streak?wallet=${address}`);
       const data = await result.json();
-      if (Number(data.currentStreaks)) {
-        setStreaks(data.currentStreaks);
+      if (Number(data.currentStreak)) {
+        setStreak(data.currentStreak);
       }
       setLastUpdatedStreak(data.lastUpdated);
       setDisabled(data.disabled);
     };
 
     if (address) {
-      fetchStreaks();
+      fetchStreak();
     }
 
     if (!isConnected) {
-      setStreaks(0);
+      setStreak(0);
       setCooldown("00:00:00");
       setDisabled(false);
     }
-  }, [address, streaks, isConnected]);
+  }, [address, streak, isConnected]);
 
-  const updateStreaks = async (address: Address) => {
-    const result = await fetch(`/api/database/updateStreaks`, {
+  useEffect(() => {
+    const fetchMaxStreak = async () => {
+      const result = await fetch(
+        `/api/database/userMaxStreak?wallet=${address}`
+      );
+      const data = await result.json();
+      setMaxStreak(data.maxStreak);
+    };
+
+    if (address) {
+      fetchMaxStreak();
+    }
+  }, [address, streak, maxStreak, isConnected]);
+
+  const updateStreak = async (address: Address) => {
+    const result = await fetch(`/api/database/updateStreak`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ wallet: address }),
     });
-    // if success from response is true, then setStreaks to streaks + 1
+    // if success from response is true, then setStreak to streak + 1
     const data = await result.json();
-    if (data.success === "Streaks updated.") {
-      setStreaks((streaks) => streaks + 1);
+    if (data.success === "Streak updated.") {
+      setStreak((streak) => streak + 1);
     }
   };
 
@@ -156,15 +180,16 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto">
-        <StreaksSection
-          streaks={streaks}
+      <div className="mx-auto">
+        <StreakSection
+          streak={streak}
           disabled={disabled}
           cooldown={cooldown}
           dict={dict}
-          updateStreaks={updateStreaks}
+          updateStreak={updateStreak}
           address={address as Address}
           isConnected={isConnected}
+          maxStreak={maxStreak}
         />
         <div>
           <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">

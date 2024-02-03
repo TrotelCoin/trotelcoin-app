@@ -125,7 +125,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- Increase your streaks every day on the Learn page"
+                        ? "- Increase your streak every day on the Learn page"
                         : "- Augmente tes séries tous les jours sur la page Apprendre"}
                     </p>
                   </div>

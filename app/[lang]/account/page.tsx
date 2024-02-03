@@ -678,7 +678,7 @@ export default function Account({
 
   return (
     <>
-      <div className="max-w-4xl mx-auto">
+      <div className="mx-auto">
         {isConnected && session ? (
           <>
             <Header
