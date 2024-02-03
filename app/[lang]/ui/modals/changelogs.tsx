@@ -61,7 +61,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 text-left transition-all my-8 w-full max-w-2xl p-6">
                 <button
-                  className="absolute top-4 right-4 p-1 hover:bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full duration-500"
+                  className="absolute top-4 right-4 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full duration-500"
                   onClick={hide}
                 >
                   <svg
