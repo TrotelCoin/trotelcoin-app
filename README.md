@@ -38,4 +38,10 @@ Build the project using the following command.
 yarn build
 ```
 
-Feel free to explore and engage with TrotelCoin's app on your own machine, ensuring a seamless and transparent learning experience.
+## License
+
+This TrotelCoin repository is licensed under the [MIT License].
+
+## Contribution
+
+Feel free to participate in our open-source project. We are confident that collaborative efforts and open-source contributions can lead to significant achievements.
