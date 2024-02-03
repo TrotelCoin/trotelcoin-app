@@ -31,7 +31,7 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
     <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
       {typeof dict?.learn !== "string" && <>{dict?.learn.streaks}</>}
     </h2>
-    <p>
+    <p className="text-gray-700 dark:text-gray-300">
       {isConnected &&
         (disabled
           ? typeof dict?.learn !== "string" && (
