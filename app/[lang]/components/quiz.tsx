@@ -73,6 +73,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
   const [shuffled, setShuffled] = useState<boolean>(false);
   const [hasAlreadyAnswered, setHasAlreadyAnswered] = useState<boolean>(false);
+  const [claimingError, setClaimingError] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -121,6 +122,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       }
     } catch (error) {
       console.error("Error:", error);
+      setClaimingError(true);
     }
   };
 
@@ -328,6 +330,13 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
+          </h2>
+        </div>
+      )}
+      {claimingError && (
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+          <h2 className="text-red-600 dark:text-red-200">
+            {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimingError}</>}
           </h2>
         </div>
       )}

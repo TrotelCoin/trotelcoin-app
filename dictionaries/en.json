@@ -119,11 +119,12 @@
     "captcha": "Missing captcha",
     "claimRewards": "Claim rewards",
     "youWillGet": "Claim your rewards.",
-    "receiveCrypto": "Receive crypto",
+    "receiveCrypto": "Receive rewards",
     "correct": "Congratulations. You answered all answers correctly.",
     "incorrect": "Oups. You answered incorrectly to the following questions :",
     "alreadyClaimed": "You already claimed this quiz.",
-    "connectWallet": "Connect your wallet and signin to claim your rewards."
+    "connectWallet": "Connect your wallet and signin to claim your rewards.",
+    "claimingError": "An error occured. Please try again later."
   },
   "events": {
     "claimed": "claimed"

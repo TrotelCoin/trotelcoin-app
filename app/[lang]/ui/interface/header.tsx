@@ -12,7 +12,6 @@ import TrotelPrice from "@/app/[lang]/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/[lang]/hooks/trotelPriceChange";
 import ThemeSwitcher from "@/app/[lang]/components/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/languageSelector";
-import AudioComponent from "@/app/[lang]/components/audio";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
@@ -136,7 +135,7 @@ const Header = ({
           <div className="items-center flex pl-4 gap-2">
             <LanguageSelector router={router} lang={lang} />
             <ThemeSwitcher />
-            <AudioComponent />
+            {/*<AudioComponent />*/}
           </div>
         </div>
 
@@ -144,7 +143,7 @@ const Header = ({
         <div className="flex gap-4 items-center md:hidden">
           <div className="flex gap-2 items-center">
             <ThemeSwitcher />
-            <AudioComponent />
+            {/*<AudioComponent />*/}
             <LanguageSelector router={router} lang={lang} />
           </div>
           <button

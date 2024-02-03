@@ -119,11 +119,12 @@
     "captcha": "Captcha manquant",
     "claimRewards": "Obtiens tes récompenses",
     "youWillGet": "Vous allez obtenir",
-    "receiveCrypto": "Obtiens tes récompenses.",
+    "receiveCrypto": "Obtiens tes récompenses",
     "correct": "Félicitations. Tu as répondu correctement à toutes les questions.",
     "incorrect": "Oups. Tu as répondu incorrectement aux questions suivantes :",
     "alreadyClaimed": "Tu as déjà obtenu tes récompenses pour ce quiz.",
-    "connectWallet": "Connecte ton portefeuille et authentifie-toi pour obtenir tes récompenses."
+    "connectWallet": "Connecte ton portefeuille et authentifie-toi pour obtenir tes récompenses.",
+    "claimingError": "Une erreur est survenue. Réessaye plus tard."
   },
   "events": {
     "claimed": "a obtenu"
