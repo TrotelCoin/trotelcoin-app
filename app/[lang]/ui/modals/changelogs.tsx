@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 
-const version: string = "0.8.1";
+const version: string = "0.8.3";
 
 const Changelogs = ({ lang, visible }: { lang: string; visible: boolean }) => {
   const [isOpen, setIsOpen] = useState(true);
@@ -118,6 +118,11 @@ const Changelogs = ({ lang, visible }: { lang: string; visible: boolean }) => {
                         {lang === "en"
                           ? "- New label to indicate new courses on the homepage"
                           : "- Nouveau label pour indiquer les nouveaux cours sur la page d'accueil"}
+                      </p>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        {lang === "en"
+                          ? "- Give feedback about TrotelCoin in your account page"
+                          : "- Donne ton avis sur TrotelCoin dans ta page de compte"}
                       </p>
                     </div>
                     <div className="mt-8">
