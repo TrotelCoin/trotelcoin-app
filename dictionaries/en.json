@@ -143,7 +143,7 @@
     "trainingCenter": "Training center",
     "streaks": "Streaks",
     "cooldown": "Cooldown",
-    "streaksDisabled": "Come back tomorrow to increase your streaks.",
+    "streaksDisabled": "Come back tomorrow to increase your streaks. Don't lose your streaks!",
     "streaksEnabled": "Click on the flame to increase your streaks."
   }
 }

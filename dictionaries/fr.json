@@ -143,7 +143,7 @@
     "trainingCenter": "Centre de formation",
     "streaks": "Streaks",
     "cooldown": "Cooldown",
-    "streaksDisabled": "Reviens demain pour augmenter ta série.",
+    "streaksDisabled": "Reviens demain pour augmenter ta série. Attention à ne pas perdre ta série !",
     "streaksEnabled": "Clique sur la flame pour augmenter ta série."
   }
 }
