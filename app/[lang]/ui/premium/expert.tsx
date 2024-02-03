@@ -198,6 +198,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
           title="Vous n'êtes pas éligible"
           message={`Vous avez besoin de ${holdingRequirements} TrotelCoins pour réclamer ce NFT.`}
           onClose={() => setIsEligibleMessage(false)}
+          lang={lang}
         />
       ) : (
         <Fail
@@ -205,6 +206,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
           title="You're not eligible"
           message={`You need ${holdingRequirements} TrotelCoin to claim the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
+          lang={lang}
         />
       )}
       <Fail
@@ -224,6 +226,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
             : ""
         }
         onClose={() => setIsNotConnectedMessage(false)}
+        lang={lang}
       />
       <Success
         show={isEligibleMessageSuccess}
@@ -242,6 +245,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
             : ""
         }
         onClose={() => setIsEligibleMessageSuccess(false)}
+        lang={lang}
       />
       <Success
         show={isClaimedMessage}
@@ -260,6 +264,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
             : ""
         }
         onClose={() => setIsClaimedMessage(false)}
+        lang={lang}
       />
     </>
   );

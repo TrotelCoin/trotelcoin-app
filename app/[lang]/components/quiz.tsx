@@ -357,6 +357,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         }
         show={claimedRewards}
         onClose={() => setClaimedRewards(false)}
+        lang={lang}
       />
       <Fail
         title={
@@ -375,6 +376,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         }
         show={isLearnerDisconnected}
         onClose={() => setIsLearnerDisconnected(false)}
+        lang={lang}
       />
     </>
   );
