@@ -340,17 +340,18 @@ const Header: React.FC<HeaderProps> = ({
     </h2>
     <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
       <div
-        className={`col-span-2 md:col-span-3 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
-          alreadyAnsweredSatisfaction && "hidden animate__animated animate__fadeOut"
+        className={`col-span-2 md:col-span-3 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-6 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
+          alreadyAnsweredSatisfaction &&
+          "hidden animate__animated animate__fadeOut"
         }`}
       >
         <div className="flex flex-col mx-auto text-center">
           {typeof dict?.account !== "string" && (
-            <span className="text-2xl font-semibold">
+            <span className="text-xl font-semibold">
               {dict?.account.satisfaction as string}
             </span>
           )}
-          <div className="flex flex-wrap justify-center mt-2">
+          <div className="grid grid-cols-6 lg:grid-cols-11 gap-2 mx-auto mt-2">
             {[...Array(11).keys()].map((number) => (
               <button
                 key={number}
@@ -371,7 +372,7 @@ const Header: React.FC<HeaderProps> = ({
       >
         <div className="flex flex-col mx-auto text-center">
           <span
-            className={`text-6xl mb-4 font-semibold ${
+            className={`text-4xl font-semibold ${
               !isNotPremium && "rainbow-text"
             }`}
           >
