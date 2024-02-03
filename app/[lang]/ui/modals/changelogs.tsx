@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-const version: string = "0.8.5";
+const version: string = "0.8.6";
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -110,8 +110,8 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- More transparency about the algorithm on Learn page"
-                        : "- + de transparence sur l'algorithme sur la page Apprendre"}
+                        ? "- More transparency about the algorithm on Statistics page"
+                        : "- + de transparence sur l'algorithme sur la page Statistiques"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
@@ -122,6 +122,11 @@ const Changelogs = ({ lang }: { lang: string }) => {
                       {lang === "en"
                         ? "- Give feedback about TrotelCoin in your account page"
                         : "- Donne ton avis sur TrotelCoin dans ta page de compte"}
+                    </p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en"
+                        ? "- Increase your streaks every day on the Learn page"
+                        : "- Augmente tes séries tous les jours sur la page Apprendre"}
                     </p>
                   </div>
                   <div className="mt-8">

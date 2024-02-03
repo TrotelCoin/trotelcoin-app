@@ -33,7 +33,7 @@
   },
   "footer": {
     "about": "About",
-    "documentation": "Documentation",
+    "statistics": "Statistics",
     "pricing": "Pricing",
     "business": "Business"
   },
@@ -140,6 +140,10 @@
     "numberOfQuizzesAnswered": "Quizzes answered"
   },
   "learn": {
-    "trainingCenter": "Training center"
+    "trainingCenter": "Training center",
+    "streaks": "Streaks",
+    "cooldown": "Cooldown",
+    "streaksDisabled": "Come back tomorrow to increase your streaks.",
+    "streaksEnabled": "Click on the flame to increase your streaks."
   }
 }

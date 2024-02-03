@@ -33,12 +33,12 @@
   },
   "footer": {
     "about": "À propos",
-    "documentation": "Documentation",
+    "statistics": "Statistiques",
     "pricing": "Tarifs",
     "business": "Entreprise"
   },
   "premium": {
-    "claimNFTs": "Obtiens tes NFTs",
+    "claimNFTs": "Obtiens tes NFT",
     "statistics": "Statistiques",
     "eligibility": "Vérifier l'éligibilité",
     "claim": "Obtenir",
@@ -62,7 +62,7 @@
     },
     "eligible": {
       "title": "Tu es éligible",
-      "message": "Tu es éligible pour obtenir tes NFTs."
+      "message": "Tu es éligible pour obtenir tes NFT."
     },
     "claimedIntermediateNFT": {
       "title": "Tu as obtenu ton NFT",
@@ -140,6 +140,10 @@
     "numberOfQuizzesAnswered": "Quiz répondus"
   },
   "learn": {
-    "trainingCenter": "Centre de formation"
+    "trainingCenter": "Centre de formation",
+    "streaks": "Streaks",
+    "cooldown": "Cooldown",
+    "streaksDisabled": "Reviens demain pour augmenter ta série.",
+    "streaksEnabled": "Clique sur la flame pour augmenter ta série."
   }
 }

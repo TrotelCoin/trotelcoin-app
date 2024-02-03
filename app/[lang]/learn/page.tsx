@@ -4,223 +4,91 @@ import React, { useEffect, useState } from "react";
 import ComingSoon from "@/app/[lang]/ui/interface/comingSoon";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
-import { trotelCoinLearningAddress } from "@/data/addresses";
-import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
-import CountUp from "react-countup";
+import { Address } from "viem";
+import { useSession } from "next-auth/react";
+import { useAccount } from "wagmi";
 
-interface TheAlgorithmSectionProps {
+interface StreaksSectionProps {
+  streaks: number;
+  disabled: boolean;
   dict: DictType | null;
-  trotelCoinsDistributed: number;
+  cooldown: string;
+  updateStreaks: (address: Address) => void;
+  address: Address;
+  isConnected: boolean;
 }
 
-const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
+const StreaksSection: React.FC<StreaksSectionProps> = ({
   dict,
-  trotelCoinsDistributed,
-}) => {
-  const [remainingRewards, setRemainingRewards] = useState<number | null>(null);
-  const [numberOfLearners, setNumberOfLearners] = useState<number | null>(null);
-  const [trotelCoinsPending, setTrotelCoinsPending] = useState<number | null>(
-    null
-  );
-  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
-    number | null
-  >(null);
-
-  useEffect(() => {
-    const fetchRemainingRewards = async () => {
-      const response = await fetch("/api/database/remainingRewards");
-      const remainingRewards = await response?.json();
-      setRemainingRewards(remainingRewards);
-    };
-
-    fetchRemainingRewards();
-  }, []);
-
-  useEffect(() => {
-    const fetchTrotelCoinsPending = async () => {
-      const response = await fetch("/api/database/trotelCoinsPending");
-      const trotelCoinsPending = await response?.json();
-      setTrotelCoinsPending(trotelCoinsPending);
-    };
-
-    fetchTrotelCoinsPending();
-  }, []);
-
-  useEffect(() => {
-    const fetchNumberOfQuizzesAnswered = async () => {
-      const response = await fetch(
-        "/api/database/totalNumberOfQuizzesAnswered"
-      );
-      const numberOfQuizzesAnswered = await response?.json();
-      setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
-    };
-
-    fetchNumberOfQuizzesAnswered();
-  }, []);
-
-  useEffect(() => {
-    // finding number of learners by taking max id in the table "learners"
-
-    const fetchNumberOfLearners = async () => {
-      const response = await fetch("/api/database/numberOfLearners");
-      const numberOfLearners = await response?.json();
-      setNumberOfLearners(numberOfLearners);
-    };
-
-    fetchNumberOfLearners();
-  }, []);
-
-  return (
-    <>
-      <div>
-        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
-          {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
-        </h2>
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
-          <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {trotelCoinsDistributed ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(trotelCoinsDistributed)}
-                    duration={2}
-                  />{" "}
-                  <span className="hidden md:inline">💸</span>
-                </>
-              ) : (
-                <span className="animate-pulse">
-                  0 <span className="hidden md:inline">💸</span>
-                </span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.trotelCoinsDistributed}</>
-              )}
-            </span>
-          </div>
-          <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {trotelCoinsPending ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(trotelCoinsPending)}
-                    duration={2}
-                  />{" "}
-                  <span className="hidden md:inline">💰</span>
-                </>
-              ) : (
-                <span className="animate-pulse">
-                  0 <span className="hidden md:inline">💰</span>
-                </span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.trotelCoinsPending}</>
-              )}
-            </span>
-          </div>
-          <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {numberOfQuizzesAnswered ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(numberOfQuizzesAnswered)}
-                    duration={2}
-                  />{" "}
-                  <span className="hidden md:inline">📚</span>
-                </>
-              ) : (
-                <span className="animate-pulse">
-                  0 <span className="hidden md:inline">📚</span>
-                </span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.numberOfQuizzesAnswered}</>
-              )}
-            </span>
-          </div>
-          <div
-            className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {remainingRewards ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={remainingRewards}
-                    decimals={1}
-                    duration={2}
-                  />{" "}
-                  <span className="hidden md:inline">⏳</span>
-                </>
-              ) : (
-                <span className="animate-pulse">
-                  0 <span className="hidden md:inline">⏳</span>
-                </span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.remainingCycle}</>
-              )}
-            </span>
-          </div>
-          <div
-            className={`bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-          >
-            <span className="font-semibold text-4xl">
-              {remainingRewards ? (
-                <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(remainingRewards / 10)}
-                    duration={2}
-                  />{" "}
-                  {"< 🧠 <"}
-                  <CountUp
-                    start={0}
-                    end={Math.floor(remainingRewards / 4)}
-                    duration={2}
-                  />
-                </>
-              ) : (
-                <span className="animate-pulse">{"0 < 🧠 < 0"}</span>
-              )}
-            </span>
-
-            <span>
-              {typeof dict?.algorithm !== "string" && (
-                <>{dict?.algorithm.remainingTokens}</>
-              )}
-            </span>
-          </div>
-        </div>
+  streaks,
+  disabled,
+  cooldown,
+  updateStreaks,
+  address,
+  isConnected,
+}) => (
+  <>
+    <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
+      {typeof dict?.learn !== "string" && <>{dict?.learn.streaks}</>}
+    </h2>
+    <p>
+      {isConnected &&
+        (disabled
+          ? typeof dict?.learn !== "string" && (
+              <>{dict?.learn.streaksDisabled}</>
+            )
+          : typeof dict?.learn !== "string" && (
+              <>{dict?.learn.streaksEnabled}</>
+            ))}
+      {!isConnected &&
+        typeof dict?.modals !== "string" &&
+        dict?.modals.connectWallet !== "string" &&
+        typeof dict?.modals.connectWallet !== "string" &&
+        dict?.modals.connectWallet.message && (
+          <>{dict?.modals.connectWallet.message}</>
+        )}
+    </p>
+    <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
+      <button
+        className={`${
+          disabled ? "cursor-not-allowed" : "hover:shadow active:shadow-none"
+        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 text-gray-900 dark:text-gray-100`}
+        onClick={() => {
+          if (!disabled) {
+            updateStreaks(address);
+          }
+        }}
+      >
+        <span className="text-4xl text-center mx-auto">
+          {!disabled ? "🔥" : "⏳"}
+        </span>
+      </button>
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <span className="text-4xl font-semibold">
+          {streaks}
+          <p className="font-normal text-base">
+            {typeof dict?.learn !== "string" && <>{dict?.learn.streaks}</>}
+          </p>
+        </span>
       </div>
-    </>
-  );
-};
+      <div className="bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <span className="text-4xl font-semibold">
+          {cooldown && <>{cooldown}</>}
+          <p className="font-normal text-base">
+            {typeof dict?.learn !== "string" && <>{dict?.learn.cooldown}</>}
+          </p>
+        </span>
+      </div>
+    </div>
+  </>
+);
 
 const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
+  const [streaks, setStreaks] = useState<number>(0);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [lastUpdatedStreak, setLastUpdatedStreak] = useState<string>("");
+  const [cooldown, setCooldown] = useState<string>("Loading...");
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -231,36 +99,64 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     fetchDictionary();
   }, [lang]);
 
-  const { data: remainingTokens } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "remainingTokens",
-    watch: true,
-  });
-  const { data: remainingTime } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "calculateRemainingRewardsPeriod",
-    watch: true,
-  });
-  const { data: trotelCoinsDistributed } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "totalRewards",
-    watch: true,
-  });
+  const { address, isConnected } = useAccount();
+
+  useEffect(() => {
+    const fetchStreaks = async () => {
+      const result = await fetch(`/api/database/streaks?wallet=${address}`);
+      const data = await result.json();
+      setStreaks(data.currentStreaks);
+      setLastUpdatedStreak(data.lastUpdated);
+      setDisabled(data.disabled);
+    };
+
+    if (address) {
+      fetchStreaks();
+    }
+  }, [address]);
+
+  const updateStreaks = async (address: Address) => {
+    const result = await fetch(`/api/database/updateStreaks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ wallet: address }),
+    });
+    // if success from response is true, then setStreaks to streaks + 1
+    const data = await result.json();
+    if (data.success === "Streaks updated.") {
+      setStreaks((streaks) => streaks + 1);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (lastUpdatedStreak) {
+        const lastUpdated = new Date(lastUpdatedStreak);
+        const now = new Date();
+        const difference = now.getTime() - lastUpdated.getTime();
+        const cooldown = 86400000 - difference;
+        const cooldownString = new Date(cooldown).toISOString();
+        const time = cooldownString.split("T")[1].split(".")[0];
+        setCooldown(time);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [lastUpdatedStreak]);
 
   return (
     <>
       <div className="max-w-4xl mx-auto">
-        <TheAlgorithmSection
+        <StreaksSection
+          streaks={streaks}
+          disabled={disabled}
+          cooldown={cooldown}
           dict={dict}
-          trotelCoinsDistributed={parseFloat(
-            (parseFloat(trotelCoinsDistributed as string) / 1e18).toFixed(0)
-          )}
+          updateStreaks={updateStreaks}
+          address={address as Address}
+          isConnected={isConnected}
         />
         <div>
           <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">

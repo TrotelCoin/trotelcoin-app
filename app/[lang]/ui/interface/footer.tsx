@@ -46,8 +46,8 @@ export default function Footer({ lang }: { lang: Lang }) {
         id: 1,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.documentation,
-        href: "https://docs.trotelcoin.com",
+        name: typeof dict?.footer !== "string" && dict?.footer.statistics,
+        href: `/${lang}/statistics`,
         display: true,
         id: 2,
       },

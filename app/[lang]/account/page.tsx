@@ -138,7 +138,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
   dict,
 }) => (
   <>
-    <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">
+    <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
       {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
     </h2>
     <div
@@ -271,8 +271,8 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
 
   return (
     <>
-      <h2 className="text-gray-900 dark:text-gray-100 text-xl mt-10">Badges</h2>
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
+      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">Badges</h2>
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
         {badges.map(
           (badge) =>
             badge.condition && (
@@ -327,9 +327,9 @@ const Header: React.FC<HeaderProps> = ({
   satisfactionResult,
 }) => (
   <>
-    <h2 className="text-gray-900 dark:text-gray-100 text-xl">
+    <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
       {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
-      <span className={`font-semibold`}>
+      <span className={`font-bold`}>
         {ensName && ensName !== null ? (
           <>{ensName}</>
         ) : (
@@ -609,33 +609,6 @@ export default function Account({
   }, [learnerTuple]);
 
   useEffect(() => {
-    const fetchRewardsPending = () => {
-      fetch(`/api/database/totalRewardsPending?wallet=${address}`)
-        .then((response) => response?.json())
-        .then((data) => {
-          setTotalRewardsPending(data);
-        });
-    };
-
-    if (address) {
-      fetchRewardsPending();
-    }
-  }, [address]);
-
-  useEffect(() => {
-    const fetchNumberOfQuizzesAnswered = () => {
-      fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`)
-        .then((response) => response?.json())
-        .then((data) => {
-          setNumberOfQuizzesAnswered(data);
-        });
-    };
-    if (address) {
-      fetchNumberOfQuizzesAnswered();
-    }
-  }, [address]);
-
-  useEffect(() => {
     if (totalRewards && totalRewardsPending) {
       setTokensEarned(totalRewards + totalRewardsPending);
     } else if (totalRewards) {
@@ -676,6 +649,33 @@ export default function Account({
     setAlreadyAnsweredSatisfaction(true);
   };
 
+  useEffect(() => {
+    const fetchRewardsPending = () => {
+      fetch(`/api/database/totalRewardsPending?wallet=${address}`)
+        .then((response) => response?.json())
+        .then((data) => {
+          setTotalRewardsPending(data);
+        });
+    };
+
+    if (address) {
+      fetchRewardsPending();
+    }
+  }, [address]);
+
+  useEffect(() => {
+    const fetchNumberOfQuizzesAnswered = () => {
+      fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`)
+        .then((response) => response?.json())
+        .then((data) => {
+          setNumberOfQuizzesAnswered(data);
+        });
+    };
+    if (address) {
+      fetchNumberOfQuizzesAnswered();
+    }
+  }, [address]);
+
   return (
     <>
       <div className="max-w-4xl mx-auto">
@@ -707,12 +707,12 @@ export default function Account({
           </>
         ) : (
           <>
-            <h2 className="text-center text-gray-900 dark:text-gray-100 text-xl">
+            <p className="text-center text-gray-900 dark:text-gray-100 text-xl">
               {typeof dict?.modals !== "string" &&
                 typeof dict?.modals.connectWallet !== "string" && (
                   <>{dict?.modals.connectWallet.message}</>
                 )}
-            </h2>
+            </p>
           </>
         )}
       </div>
