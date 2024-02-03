@@ -142,7 +142,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
       {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
     </h2>
     <div
-      className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
     >
       <div className="flex justify-between">
         <div
@@ -338,9 +338,9 @@ const Header: React.FC<HeaderProps> = ({
       </span>{" "}
       👋
     </h2>
-    <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
+    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
       <div
-        className={`col-span-2 md:col-span-3 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-6 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
+        className={`col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-6 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
           alreadyAnsweredSatisfaction &&
           "hidden animate__animated animate__fadeOut"
         }`}
@@ -368,11 +368,11 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`${
           !isNotPremium && "rainbow-border"
-        } col-span-2 md:col-span-2 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        } col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span
-            className={`text-4xl font-semibold ${
+            className={`text-4xl md:text-6xl font-semibold ${
               !isNotPremium && "rainbow-text"
             }`}
           >
@@ -398,10 +398,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
-          <span className="text-4xl">
+          <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
                 {balance ? (
@@ -424,10 +424,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
-          <span className="text-4xl">
+          <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
                 {numberOfQuizzesAnswered ? (
@@ -452,10 +452,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
-          <span className="text-4xl">
+          <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
                 {tokensEarned ? (
@@ -476,10 +476,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
-          <span className="text-4xl">
+          <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
                 {totalRewardsPending ? (

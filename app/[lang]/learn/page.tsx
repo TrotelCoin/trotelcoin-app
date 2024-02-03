@@ -52,27 +52,27 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
       <button
         className={`${
           disabled ? "cursor-not-allowed" : "hover:border-gray-900/50 dark:hover:border-gray-100/50"
-        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 text-gray-900 dark:text-gray-100`}
+        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 text-gray-900 dark:text-gray-100`}
         onClick={() => {
           if (!disabled) {
             updateStreaks(address);
           }
         }}
       >
-        <span className="text-4xl text-center mx-auto">
+        <span className="text-2xl md:text-4xl text-center mx-auto">
           {!disabled ? "🔥" : "⏳"}
         </span>
       </button>
-      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        <span className="text-4xl font-semibold">
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <span className="text-2xl md:text-4xl font-semibold">
           {streaks}
           <p className="font-normal text-base">
             {typeof dict?.learn !== "string" && <>{dict?.learn.streaks}</>}
           </p>
         </span>
       </div>
-      <div className="bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-        <span className="text-4xl font-semibold">
+      <div className="bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <span className="text-2xl md:text-4xl font-semibold">
           {cooldown && <>{cooldown}</>}
           <p className="font-normal text-base">
             {typeof dict?.learn !== "string" && <>{dict?.learn.cooldown}</>}
