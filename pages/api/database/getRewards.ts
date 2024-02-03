@@ -10,5 +10,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // calculate rewards
   const calculatedRewards = calculateRewards(remainingRewards);
 
-  res.status(200).json(calculatedRewards);
+  if (result[0] && "remaining_rewards" in result[0]) {
+    res.status(200).json(calculatedRewards);
+  } else {
+    res.status(500).json({ error: "Something went wrong." });
+  }
 };

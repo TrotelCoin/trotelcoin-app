@@ -10,6 +10,7 @@ import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import QuizStatus from "@/app/[lang]/components/quizCompleted";
 import placeholder from "@/public/courses/placeholder.gif";
+import coursesCompleted from "@/pages/api/database/coursesCompleted";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
@@ -188,6 +189,9 @@ function renderCourses(
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [dict, setDict] = useState<DictType | null>(null);
+  const [status, setStatus] = useState<string[]>(
+    new Array(lessonsLength(lessons)).fill("Not started")
+  );
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -238,11 +242,33 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
 
-  let status = new Array(lessonsLength(lessons)).fill("Not started");
+  // status = status.map((_, index) =>
+  //   QuizStatus({ index, address: address as Address })
+  //);
 
-  status = status.map((_, index) =>
-    QuizStatus({ index, address: address as Address })
-  );
+  useEffect(() => {
+    const fetchCoursesCompleted = async () => {
+      const response = await fetch("/api/database/coursesCompleted", {
+        method: "POST",
+        body: JSON.stringify({ wallet: address as Address }),
+      });
+      const result = await response.json();
+
+      result?.map((course: { quiz_id: number; answered: boolean }) => {
+        if (course.answered) {
+          setStatus((prev) => {
+            const newState = [...prev];
+            newState[course.quiz_id - 1] = "Finished";
+            return newState;
+          });
+        }
+      });
+    };
+
+    if (address) {
+      fetchCoursesCompleted();
+    }
+  }, [address]);
 
   return (
     <>
