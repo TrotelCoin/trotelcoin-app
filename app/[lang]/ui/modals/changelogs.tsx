@@ -90,7 +90,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     February 3, 2024 - v{version}
                   </p>
                   <div className="mt-8">
-                    <h2 className="text-base font-semibold">
+                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                       {lang === "en" ? "New courses 📚" : "Nouveaux cours 📚"}
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
@@ -105,7 +105,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </p>
                   </div>
                   <div className="mt-8">
-                    <h2 className="text-base font-semibold">
+                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                       {lang === "en" ? "Features 👨‍💻" : "Fonctionnalités 👨‍💻"}
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
@@ -130,7 +130,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </p>
                   </div>
                   <div className="mt-8">
-                    <h2 className="text-base font-semibold">
+                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                       {lang === "en" ? "Community 🦊" : "Communauté 🦊"}
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
@@ -150,7 +150,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </p>
                   </div>
                   <div className="mt-8">
-                    <h2 className="text-base font-semibold">
+                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
                       {lang === "en"
                         ? "What about next updates? 🙈"
                         : "Et les prochaines mises à jour? 🙈"}
