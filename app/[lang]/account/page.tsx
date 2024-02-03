@@ -47,6 +47,8 @@ interface HeaderProps {
   tokensEarned: number;
   totalRewardsPending: number;
   numberOfQuizzesAnswered: number;
+  alreadyAnsweredSatisfaction: boolean;
+  satisfactionResult: (number: number) => void;
 }
 
 interface BadgesSectionProps {
@@ -321,6 +323,8 @@ const Header: React.FC<HeaderProps> = ({
   tokensEarned,
   totalRewardsPending,
   numberOfQuizzesAnswered,
+  alreadyAnsweredSatisfaction,
+  satisfactionResult,
 }) => (
   <>
     <h2 className="text-gray-900 dark:text-gray-100 text-xl">
@@ -335,6 +339,31 @@ const Header: React.FC<HeaderProps> = ({
       👋
     </h2>
     <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
+      <div
+        className={`col-span-2 md:col-span-3 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
+          alreadyAnsweredSatisfaction && "hidden animate__animated animate__fadeOut"
+        }`}
+      >
+        <div className="flex flex-col mx-auto text-center">
+          {typeof dict?.account !== "string" && (
+            <span className="text-2xl font-semibold">
+              {dict?.account.satisfaction as string}
+            </span>
+          )}
+          <div className="flex flex-wrap justify-center mt-2">
+            {[...Array(11).keys()].map((number) => (
+              <button
+                key={number}
+                onClick={() => satisfactionResult(number)}
+                className="m-1 w-10 h-10 rounded-lg text-xl text-gray-100 dark:text-gray-900 bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 flex items-center justify-center"
+              >
+                {number}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div
         className={`${
           !isNotPremium && "rainbow-border"
@@ -496,6 +525,8 @@ export default function Account({
   const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] =
     useState<number>(0);
   const [tokensEarned, setTokensEarned] = useState<number>(0);
+  const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
+    useState<boolean>(true);
 
   const { address, isConnected } = useAccount();
   const { data: session, status } = useSession();
@@ -550,6 +581,16 @@ export default function Account({
       setLogs(logs as MyLog[]);
     },
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("satisfactionAnswered") === null) {
+      localStorage.setItem("satisfactionAnswered", "false");
+    } else {
+      setAlreadyAnsweredSatisfaction(
+        localStorage.getItem("satisfactionAnswered") === "true"
+      );
+    }
+  }, []);
 
   const intermediateBalance: number = parseFloat(intermediate as string);
   const expertBalance: number = parseFloat(expert as string);
@@ -621,6 +662,19 @@ export default function Account({
 
   const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
+  const satisfactionResult = async (number: number) => {
+    await fetch("/api/database/satisfactionHandler", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(number),
+    });
+
+    localStorage.setItem("satisfactionAnswered", "true");
+    setAlreadyAnsweredSatisfaction(true);
+  };
+
   return (
     <>
       <div className="max-w-4xl mx-auto">
@@ -638,6 +692,8 @@ export default function Account({
               tokensEarned={tokensEarned}
               totalRewardsPending={totalRewardsPending}
               numberOfQuizzesAnswered={numberOfQuizzesAnswered}
+              alreadyAnsweredSatisfaction={alreadyAnsweredSatisfaction}
+              satisfactionResult={satisfactionResult}
             />
             <LevelSection
               isNotPremium={isNotPremium}

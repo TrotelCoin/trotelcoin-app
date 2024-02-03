@@ -2,15 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import lessons from "@/data/lessonsData";
 import { Address, useAccount, useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import QuizStatus from "@/app/[lang]/components/quizCompleted";
-import placeholder from "@/public/courses/placeholder.gif";
-import coursesCompleted from "@/pages/api/database/coursesCompleted";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
