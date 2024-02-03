@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         rewards / 50
       }`;
       await sql`UPDATE "quizzes" SET number_of_answers = number_of_answers + 1 WHERE quiz_id = ${quizId}`;
-      await sql`INSERT INTO "quizzes" last_answered_at VALUES (now()) WHERE quiz_id = ${quizId} ON CONFLICT (quiz_id) DO UPDATE SET last_answered_at = now()`;
+      await sql`INSERT INTO "quizzes" (quiz_id, last_answered_at) VALUES (${quizId}, now()) ON CONFLICT (quiz_id) DO UPDATE SET last_answered_at = now()`;
       await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered) VALUES (${wallet}, 1) ON CONFLICT (wallet) DO UPDATE SET number_of_quizzes_answered = "learners".number_of_quizzes_answered + 1`;
     });
 

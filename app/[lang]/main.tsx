@@ -13,6 +13,7 @@ import { poppins } from "@/app/[lang]/ui/fonts";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
+import Changelogs from "@/app/[lang]/ui/modals/changelogs";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -121,6 +122,7 @@ const MainComponent = ({
           <Suspense fallback={<Loading />}>
             <DictionaryProvider lang={lang}>
               <Banner lang={lang} />
+              <Changelogs lang={lang} />
               <Header router={router} lang={lang} />
               <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
                 {children}

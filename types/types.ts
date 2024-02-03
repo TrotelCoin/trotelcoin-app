@@ -14,6 +14,7 @@ export interface Modals {
   show: boolean; // Indicates whether the dialog should be displayed
   message: string; // The success message to display
   onClose: () => void; // A function to handle the dialog close action
+  lang: string;
 }
 
 export interface Token {
