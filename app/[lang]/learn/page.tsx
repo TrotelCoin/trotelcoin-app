@@ -52,7 +52,7 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
       <button
         className={`${
           disabled ? "cursor-not-allowed" : "hover:shadow active:shadow-none"
-        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 text-gray-900 dark:text-gray-100`}
+        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 text-gray-900 dark:text-gray-100`}
         onClick={() => {
           if (!disabled) {
             updateStreaks(address);
@@ -63,7 +63,7 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
           {!disabled ? "🔥" : "⏳"}
         </span>
       </button>
-      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-4xl font-semibold">
           {streaks}
           <p className="font-normal text-base">
@@ -71,7 +71,7 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
           </p>
         </span>
       </div>
-      <div className="bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="bg-gray-50 col-span-2 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-4xl font-semibold">
           {cooldown && <>{cooldown}</>}
           <p className="font-normal text-base">

@@ -142,7 +142,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
       {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
     </h2>
     <div
-      className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
     >
       <div className="flex justify-between">
         <div
@@ -368,7 +368,7 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`${
           !isNotPremium && "rainbow-border"
-        } col-span-2 md:col-span-2 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        } col-span-2 md:col-span-2 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span
@@ -398,7 +398,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
@@ -424,7 +424,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
@@ -452,7 +452,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
@@ -476,7 +476,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
