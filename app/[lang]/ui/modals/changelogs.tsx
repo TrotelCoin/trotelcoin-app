@@ -57,7 +57,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-2xl p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 text-left transition-all my-8 w-full max-w-2xl p-6">
                 <button
                   className="absolute top-4 right-4 p-1 hover:bg-gray-50 dark:bg-gray-800 rounded-full duration-500"
                   onClick={hide}
@@ -83,9 +83,6 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     className="text-2xl font-bold leading-6 text-gray-900 dark:text-gray-100 items-center flex gap-2"
                   >
                     Changelogs
-                    <span className="inline-flex items-center rounded-md bg-green-50 dark:bg-green-500/10 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400 ring-1 ring-inset ring-green-600/20 dark:ring-green-500/20">
-                      Updates
-                    </span>
                   </Dialog.Title>
                   <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
                     February 3, 2024 - v{version}
