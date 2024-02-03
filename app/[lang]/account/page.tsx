@@ -370,7 +370,7 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <div className="flex flex-col mx-auto">
+        <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
             <>
               <span className="font-semibold">
@@ -396,7 +396,7 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`bg-gray-50 col-span-2 md:col-span-1 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <div className="flex flex-col mx-auto">
+        <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
             <>
               <span className="font-semibold">
@@ -424,7 +424,7 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <div className="flex flex-col mx-auto">
+        <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
             <>
               <span className="font-semibold">
@@ -448,7 +448,7 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
-        <div className="flex flex-col mx-auto">
+        <div className="flex flex-col mx-auto text-center">
           <span className="text-4xl">
             <>
               <span className="font-semibold">
