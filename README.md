@@ -20,16 +20,22 @@ All the code within this project is open-source, reflecting our commitment to co
 
 1. **Clone the Repository:**
 
-```batch git clone https://github.com/TrotelCoin/trotelcoin-app```
+```batch
+git clone https://github.com/TrotelCoin/trotelcoin-app
+```
 
 2. **Install Dependencies:**
 Execute the following command to install all the necessary packages using Yarn.
 
-```batch yarn```
+```batch
+yarn
+```
 
 3. **Build the Project:**
 Build the project using the following command.
 
-```batch yarn build```
+```batch
+yarn build
+```
 
 Feel free to explore and engage with TrotelCoin's app on your own machine, ensuring a seamless and transparent learning experience.
