@@ -29,15 +29,6 @@ const MainComponent = ({
   router: AppRouterInstance;
   lang: Lang;
 }) => {
-  const [changeLogsVisible, setChangeLogsVisible] = React.useState(false);
-
-  React.useEffect(() => {
-    const changeLogs = localStorage.getItem("changelogsState");
-    if (!changeLogs) {
-      setChangeLogsVisible(true);
-    }
-  }, []);
-
   return (
     <>
       <html lang={lang}>
@@ -131,7 +122,7 @@ const MainComponent = ({
           <Suspense fallback={<Loading />}>
             <DictionaryProvider lang={lang}>
               <Banner lang={lang} />
-              <Changelogs lang={lang} visible={changeLogsVisible} />
+              <Changelogs lang={lang} />
               <Header router={router} lang={lang} />
               <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
                 {children}
