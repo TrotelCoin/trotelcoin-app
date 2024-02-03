@@ -80,7 +80,7 @@ const quizzes = [
             "Adding liquidity to Uniswap only benefits the project, with no risks involved.",
           ],
           fr: [
-            "L'ajout de liquidité stabilise les échanges, génère des commissions, mais comporte des risques tels que l'impermanent loss'.",
+            "L'ajout de liquidité stabilise les échanges, génère des commissions, mais comporte des risques tels que l'impermanent loss.",
             "L'ajout de liquidité n'a aucun avantage mais présente des risques tels que la perte de tous les fonds investis.",
             "Les avantages de l'ajout de liquidité sont inconnus, et les risques sont minimes.",
             "L'ajout de liquidité à Uniswap ne profite qu'au projet, sans risque.",
