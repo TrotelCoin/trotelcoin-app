@@ -51,7 +51,7 @@ const StreaksSection: React.FC<StreaksSectionProps> = ({
     <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
       <button
         className={`${
-          disabled ? "cursor-not-allowed" : "hover:shadow active:shadow-none"
+          disabled ? "cursor-not-allowed" : "hover:border-gray-900/50 dark:hover:border-gray-100/50"
         } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 text-gray-900 dark:text-gray-100`}
         onClick={() => {
           if (!disabled) {
