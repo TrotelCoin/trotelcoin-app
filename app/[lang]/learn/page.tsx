@@ -88,7 +88,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [streaks, setStreaks] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [lastUpdatedStreak, setLastUpdatedStreak] = useState<string>("");
-  const [cooldown, setCooldown] = useState<string>("Loading...");
+  const [cooldown, setCooldown] = useState<string>("00:00:00");
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -105,7 +105,9 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     const fetchStreaks = async () => {
       const result = await fetch(`/api/database/streaks?wallet=${address}`);
       const data = await result.json();
-      setStreaks(data.currentStreaks);
+      if (Number(data.currentStreaks)) {
+        setStreaks(data.currentStreaks);
+      }
       setLastUpdatedStreak(data.lastUpdated);
       setDisabled(data.disabled);
     };
@@ -113,7 +115,13 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     if (address) {
       fetchStreaks();
     }
-  }, [address]);
+
+    if (!isConnected) {
+      setStreaks(0);
+      setCooldown("00:00:00");
+      setDisabled(false);
+    }
+  }, [address, streaks, isConnected]);
 
   const updateStreaks = async (address: Address) => {
     const result = await fetch(`/api/database/updateStreaks`, {
@@ -132,7 +140,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (lastUpdatedStreak) {
+      if (lastUpdatedStreak && disabled) {
         const lastUpdated = new Date(lastUpdatedStreak);
         const now = new Date();
         const difference = now.getTime() - lastUpdated.getTime();
@@ -144,7 +152,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [lastUpdatedStreak]);
+  }, [lastUpdatedStreak, disabled]);
 
   return (
     <>
