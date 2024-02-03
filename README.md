@@ -2,7 +2,7 @@
 
 TrotelCoin's app is the central component of the TrotelCoin project. This application serves as the user interface, facilitating interaction with the platform and enhancing the overall learning experience.
 
-## Technologies Used
+## Technologies used
 
 The application is developed using various technologies, including:
 
@@ -12,11 +12,11 @@ The application is developed using various technologies, including:
 - **PostgreSQL**: A powerful, open-source relational database.
 - **wagmi.sh**: A library containing useful hooks to interact with EVM blockchains.
 
-## Open Source Philosophy
+## Open Source philosophy
 
 All the code within this project is open-source, reflecting our commitment to complete transparency. We adhere to the principle of "Don't trust, verify." Users should have the ability to independently launch and verify the project. Follow the steps below to set up the TrotelCoin app on your local machine.
 
-## Installation Steps
+## Installation steps
 
 1. **Clone the Repository:**
 
