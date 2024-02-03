@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!streakExists.length) {
       // create a new streak if the wallet does not exist
-      await sql`INSERT INTO "streaks" (wallet, current_streak) VALUES (${wallet}, 0)`;
+      await sql`INSERT INTO "streaks" (wallet, current_streak, max_streak) VALUES (${wallet}, 0, 0)`;
       await sql`UPDATE "streaks" SET current_streak = current_streak + 1, last_streaks_at = now() WHERE wallet = ${wallet}`;
       res.status(200).json({ success: "Streaks updated." });
       return;
@@ -32,6 +32,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // update only if the last streak was more than 1 day ago
     if (oneDay.length) {
       await sql`UPDATE "streaks" SET current_streak = current_streak + 1, last_streaks_at = now() WHERE wallet = ${wallet}`;
+
+      // update max streak
+      await sql`UPDATE "streaks" SET max_streak = GREATEST(max_streak, current_streak) WHERE wallet = ${wallet}`;
+
       res.status(200).json({ success: "Streaks updated." });
     } else {
       res.status(200).json({ success: "Streaks not updated." });
