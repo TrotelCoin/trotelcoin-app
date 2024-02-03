@@ -268,7 +268,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     if (address) {
       fetchCoursesCompleted();
     }
-  }, [address]);
+  }, [isConnected, address]);
 
   return (
     <>
