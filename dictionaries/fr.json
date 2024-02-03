@@ -38,7 +38,7 @@
     "business": "Entreprise"
   },
   "premium": {
-    "claimNFTs": "Obtiens tes NFT",
+    "claimNFTs": "Obtiens tes NFTs",
     "statistics": "Statistiques",
     "eligibility": "Vérifier l'éligibilité",
     "claim": "Obtenir",
@@ -66,7 +66,7 @@
     },
     "eligible": {
       "title": "Tu es éligible",
-      "message": "Tu es éligible pour obtenir tes NFT."
+      "message": "Tu es éligible pour obtenir ton NFT."
     },
     "claimedIntermediateNFT": {
       "title": "Tu as obtenu ton NFT",
@@ -148,7 +148,7 @@
   "learn": {
     "trainingCenter": "Centre de formation",
     "streak": "Streak",
-    "cooldown": "Cooldown",
+    "cooldown": "Temps restant",
     "streakDisabled": "Reviens demain pour augmenter ta série. Attention à ne pas perdre ta série !",
     "streakEnabled": "Clique sur la flame pour augmenter ta série.",
     "maxStreak": "Plus grosse série"
