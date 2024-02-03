@@ -261,6 +261,12 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             newState[course.quiz_id - 1] = "Finished";
             return newState;
           });
+        } else {
+          setStatus((prev) => {
+            const newState = [...prev];
+            newState[course.quiz_id - 1] = "Not started";
+            return newState;
+          });
         }
       });
     };
