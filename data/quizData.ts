@@ -95,13 +95,13 @@ const quizzes = [
         },
         options: {
           en: [
-            "Quiz can be answered once, and captcha prevents bot spam.",
+            "Quiz can be answered once and there's a captcha.",
             "No measures and participants can submit the quiz multiple times.",
             "Worldcoin ID is the only anti-fraud measure in place.",
             "Measures are not necessary and limit participant engagement.",
           ],
           fr: [
-            "Le quiz ne peut être répondu qu'une seule fois et le captcha empêche le spam de bots.",
+            "Le quiz ne peut être répondu qu'une seule fois et il y a un captcha.",
             "Pas de mesure et les participants peuvent soumettre le quiz plusieurs fois.",
             "Worldcoin ID est la seule mesure anti-fraude en place.",
             "Les mesures sont inutiles et entravent l'engagement des learners.",
