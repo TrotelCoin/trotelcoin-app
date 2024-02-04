@@ -40,7 +40,7 @@
   "premium": {
     "claimNFTs": "Obtiens tes NFTs",
     "statistics": "Statistiques",
-    "eligibility": "Vérifier l'éligibilité",
+    "eligibility": "Vérifie ton éligibilité",
     "claim": "Obtenir",
     "claimed": "Déjà obtenu",
     "early": "Accès anticipé",
@@ -123,7 +123,7 @@
     "submit": "Soumettre",
     "captcha": "Captcha manquant",
     "claimRewards": "Obtiens tes récompenses",
-    "youWillGet": "Vous allez obtenir",
+    "youWillGet": "Tu vas obtenir",
     "receiveCrypto": "Obtiens tes récompenses",
     "correct": "Félicitations. Tu as répondu correctement à toutes les questions.",
     "incorrect": "Oups. Tu as répondu incorrectement aux questions suivantes :",
