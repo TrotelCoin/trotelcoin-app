@@ -128,7 +128,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Our mission</> : <>Notre mission</>}
         </h1>
-        <p className="mt-6">
+        <p className="mt-6 text-justify">
           {lang === "en" ? (
             <>
               Our mission is to empower individuals with the knowledge and tools
@@ -317,13 +317,12 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               Now, turning our attention back to TrotelCoin – the project have
               its own token known as TROTEL. You can find this token on the
-              Polygon explorer at
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
                 className="text-blue-500 dark:text-blue-300"
               >
-                0x85057d5a8d063f9075ba963101d76352051675e5
+                Polygon explorer
               </Link>
               . This token serves as a key to unlock various features on the
               platform. Additionally, TrotelCoin token holders can actively
