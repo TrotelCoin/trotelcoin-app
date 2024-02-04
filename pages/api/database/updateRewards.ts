@@ -5,15 +5,13 @@ import cron from "node-cron";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    // maybe use cycle_timestamp from database to reset rewards
-    cron.schedule("0 0 * * *", async () => {
-      const defaultRewards = 54.7945205479;
-      try {
-        await sql`UPDATE "algorithm" SET remaining_rewards = ${defaultRewards}`;
-      } catch (error) {
-        console.error("Error resetting remaining rewards:", error);
-      }
-    });
+    // reset rewards if 24h has passed
+    try {
+      await sql`UPDATE "algorithm" SET remaining_rewards = 54.7945205479 WHERE cycle_timestampd < now() - interval '1 day' RETURNING *`;
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Something went wrong." });
+    }
 
     const jsonString = req.body;
     const parsedObject = JSON.parse(jsonString);
