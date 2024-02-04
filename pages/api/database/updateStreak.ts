@@ -32,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     // check if one day has passed since the last streak
     const oneDay =
-      await sql`SELECT * WHERE last_streak_at < now() - interval '1 day' RETURNING *`;
+      await sql`SELECT * FROM "streak" WHERE wallet = ${wallet} AND last_streak_at < now() - interval '1 day'`;
 
     // update only if the last streak was more than 1 day ago
     if (oneDay.length) {
