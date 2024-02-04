@@ -1,10 +1,11 @@
 import sql from "@/lib/db";
 import { NextApiRequest, NextApiResponse } from "next";
+import remainingRewards from "@/data/remainingRewards";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // reset rewards if 24h has passed
   try {
-    await sql`UPDATE "algorithm" SET remaining_rewards = 54.7945205479 WHERE updated_at < now() - interval '1 day' RETURNING *`;
+    await sql`UPDATE "algorithm" SET remaining_rewards = ${remainingRewards} WHERE updated_at < now() - interval '1 day' RETURNING *`;
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong." });
