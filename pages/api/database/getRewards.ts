@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
 import { calculateRewards } from "@/lib/calculateRewards";
-import remainingRewards from "@/data/remainingRewards";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // get remaining rewards
