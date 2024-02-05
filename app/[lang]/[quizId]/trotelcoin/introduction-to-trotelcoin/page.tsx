@@ -20,11 +20,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <br />
             <br />
             Perhaps these concepts have crossed your path before, and you found
-            them a bit puzzling.
-            <br />
-            <br />
-            However, if you're here, it means you're prepared and eager to
-            learn.
+            them a bit puzzling. However, if you're here, it means you're
+            prepared and eager to learn.
             <br />
             <br />
             As a starting point, let me clarify why understanding Web3 is
@@ -38,11 +35,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <br />
             <br />
             Peut-être que ces concepts ont déjà croisé votre chemin et que vous
-            les avez trouvés un peu déroutants.
-            <br />
-            <br />
-            Cependant, si vous êtes ici, cela signifie que vous êtes prêt et
-            désireux d'apprendre.
+            les avez trouvés un peu déroutants. Cependant, si vous êtes ici,
+            cela signifie que vous êtes prêt et désireux d'apprendre.
             <br />
             <br />
             Pour commencer, permettez-moi de préciser pourquoi il est
@@ -445,10 +439,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? (
             <>
               Now, turning our attention back to TrotelCoin &ndash; the project
-              have its own token known as TROTEL.
-              <br />
-              <br />
-              You can find this token on the{" "}
+              have its own token known as TROTEL. You can find this token on the{" "}
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
@@ -456,10 +447,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               >
                 Polygon explorer
               </Link>
-              .
-              <br />
-              <br />
-              This token serves as a key to unlock various features on the
+              . This token serves as a key to unlock various features on the
               platform.
               <br />
               <br />
@@ -481,10 +469,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           ) : (
             <>
               Pour en revenir à TrotelCoin - le projet a sa propre cryptomonnaie
-              appelée TROTEL.
-              <br />
-              <br />
-              Vous pouvez trouver ce jeton sur l'
+              appelée TROTEL. Vous pouvez trouver ce jeton sur l'
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
@@ -492,10 +477,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               >
                 explorateur Polygon
               </Link>
-              .
-              <br />
-              <br />
-              Ce jeton sert de clé pour débloquer diverses fonctionnalités sur
+              . Ce jeton sert de clé pour débloquer diverses fonctionnalités sur
               la plateforme.
               <br />
               <br />
@@ -584,34 +566,21 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? (
             <>
               The distribution of TrotelCoins as rewards follow a specific
-              algorithm.
-              <br />
-              <br />
-              Let explain it.
+              algorithm. Let explain it.
               <br />
               <br />
               There is a special part in the program (called the
               TrotelCoin&apos;s distribution function) that gives the rewards.
-              <br />
-              <br />
               The rewards depend on how many tokens are left daily.
               <br />
               <br />
-              The more tokens there are, the more rewards you might get.
-              <br />
-              <br />
-              It's like a game where you win prizes.
-              <br />
-              <br />
-              This mechanism is put in place to ensure there are no spam since
-              the reward is decreasing.
+              The more tokens there are, the more rewards you might get. It's
+              like a game where you win prizes. This mechanism is put in place
+              to ensure there are no spam since the reward is decreasing.
               <br />
               <br />
               Another program calculates the minimum and maximum rewards you can
-              get.
-              <br />
-              <br />
-              It uses percentages (like 10% and 25%) to decide the range of
+              get. It uses percentages (like 10% and 25%) to decide the range of
               rewards.
               <br />
               <br />
@@ -621,36 +590,22 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           ) : (
             <>
               La distribution des TrotelCoins en tant que récompenses suit un
-              algorithme spécifique.
-              <br />
-              <br />
-              Expliquons-le.
+              algorithme spécifique. Expliquons-le.
               <br />
               <br />
               Il y a une partie spéciale dans le programme (appelée fonction de
-              distribution des TrotelCoins) qui donne les récompenses.
-              <br />
-              <br />
-              Les récompenses dépendent du nombre de jetons restants chaque
-              jour.
+              distribution des TrotelCoins) qui donne les récompenses. Les
+              récompenses dépendent du nombre de jetons restants chaque jour.
               <br />
               <br />
               Plus il y a de jetons, plus vous pouvez obtenir de récompenses.
-              <br />
-              <br />
-              C'est comme un jeu où l'on gagne des prix.
-              <br />
-              <br />
-              Ce mécanisme est mis en place pour éviter les spams, car les
-              récompenses sont dégressives.
+              C'est comme un jeu où l'on gagne des prix. Ce mécanisme est mis en
+              place pour éviter les spams, car les récompenses sont dégressives.
               <br />
               <br />
               Un autre programme calcule les récompenses minimales et maximales
-              que vous pouvez obtenir.
-              <br />
-              <br />
-              Il utilise des pourcentages (comme 10 % et 25 %) pour déterminer
-              la fourchette des récompenses.
+              que vous pouvez obtenir. Il utilise des pourcentages (comme 10 %
+              et 25 %) pour déterminer la fourchette des récompenses.
               <br />
               <br />
               Ensuite, il choisit au hasard un nombre dans cette fourchette
@@ -668,11 +623,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? (
             <>
               To help the TrotelCoin community, you can add an equal value of
-              MATIC and TROTEL tokens to the Uniswap liquidity pool.
-              <br />
-              <br />
-              You&apos;ll be able to learn more about a liquidity pool in
-              another course.
+              MATIC and TROTEL tokens to the Uniswap liquidity pool. You&apos;ll
+              be able to learn more about a liquidity pool in another course.
               <br />
               <br />
               But to make it simple, this action makes it easier for users to
@@ -684,14 +636,10 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               transactions on Uniswap using TrotelCoin.
               <br />
               <br />
-              Uniswap sets a fixed default fee that you benefit from.
-              <br />
-              <br />
-              The fees from our liquidity pool is used for the platform
-              development and marketing.
-              <br />
-              <br />
-              This ensures the project's growth and success in the long run.
+              Uniswap sets a fixed default fee that you benefit from. The fees
+              from our liquidity pool is used for the platform development and
+              marketing. This ensures the project's growth and success in the
+              long run.
               <br />
               <br />
               Contributing to the pool not only benefits you by providing
@@ -713,11 +661,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               Pour aider la communauté TrotelCoin, vous pouvez ajouter une
               valeur égale de jetons MATIC et TROTEL au pool de liquidité
-              Uniswap.
-              <br />
-              <br />
-              Vous pourrez en apprendre plus sur le pool de liquidité dans un
-              autre cours.
+              Uniswap. Vous pourrez en apprendre plus sur les pools de liquidité
+              dans un autre cours.
               <br />
               <br />
               Mais pour simplifier, cette action permet aux utilisateurs
@@ -734,8 +679,6 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Uniswap fixe une commission par défaut dont vous bénéficiez. Les
               frais de notre pool de liquidité sont utilisés pour le
               développement et le marketing de la plateforme et sont fixés à 1%.
-              <br />
-              <br />
               Cela permet de garantir la croissance et le succès du projet à
               long terme.
               <br />
@@ -823,10 +766,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? (
             <>
               When you have TrotelCoins, you can access more courses and cool
-              stuff.
-              <br />
-              <br />
-              Right now, there are two levels: Intermediate and Expert.
+              stuff. Right now, there are two levels: Intermediate and Expert.
               <br />
               <br />
               These levels give you access to advanced courses, extra features,
@@ -835,10 +775,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           ) : (
             <>
               Lorsque vous avez des TrotelCoins, vous pouvez accéder à plus de
-              cours et de fonctionnalités sympas.
-              <br />
-              <br />
-              Pour l'instant, il y a deux niveaux : Intermédiaire et Expert.
+              cours et de fonctionnalités sympas. Pour l'instant, il y a deux
+              niveaux : Intermédiaire et Expert.
               <br />
               <br />
               Ces niveaux vous donnent accès à des cours avancés, à des
@@ -892,11 +830,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               The token is made to protect everyone in the community. On the
               platform, we'll feature sponsored courses, but we'll make sure
-              they're high quality.
-              <br />
-              <br />
-              This gives businesses a chance to show off what they're doing and
-              bring in users.
+              they're high quality. This gives businesses a chance to show off
+              what they're doing and bring in users.
               <br />
               <br />
               And when businesses want to be on the platform, they use
@@ -909,11 +844,9 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               <br />
               Sur la plateforme, nous proposerons des cours sponsorisés, mais
-              nous veillerons à ce qu'ils soient de grande qualité.
-              <br />
-              <br />
-              Cela permet aux entreprises de montrer ce qu'elles font et
-              d'attirer des utilisateurs.
+              nous veillerons à ce qu'ils soient de grande qualité. Cela permet
+              aux entreprises de montrer ce qu'elles font et d'attirer des
+              utilisateurs.
               <br />
               <br />
               Et lorsque les entreprises veulent être présentes sur la
@@ -960,11 +893,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               <br />
               Enfin, vous trouverez ci-dessous un quiz qui vous permettra de
-              vérifier ce que vous avez appris.
-              <br />
-              <br />
-              En répondant au quiz, vous obtiendrez des TrotelCoins en guise de
-              récompense.
+              vérifier ce que vous avez appris. En répondant au quiz, vous
+              obtiendrez des TrotelCoins en guise de récompense.
               <br />
               <br />
               Nous vous souhaitons bonne chance dans votre aventure
