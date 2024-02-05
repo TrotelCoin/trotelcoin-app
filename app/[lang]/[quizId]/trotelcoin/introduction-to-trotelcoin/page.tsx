@@ -72,8 +72,14 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <strong className="font-semibold text-gray-900 dark:text-gray-100">
               Satoshi Nakamoto
             </strong>{" "}
-            –{" "}
-            {lang == "en" ? <>Founder of Bitcoin</> : <>Fondateur de Bitcoin</>}
+            &ndash;{" "}
+            <span className="font-light">
+              {lang == "en" ? (
+                <>Founder of Bitcoin</>
+              ) : (
+                <>Fondateur de Bitcoin</>
+              )}
+            </span>
           </div>
         </figcaption>
       </figure>
