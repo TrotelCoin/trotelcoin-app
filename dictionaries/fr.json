@@ -37,7 +37,9 @@
     "pricing": "Tarifs",
     "business": "Entreprise",
     "documentation": "Documentation",
-    "premium": "Deviens premium"
+    "premium": "Deviens premium",
+    "terms": "Conditions d'utilisation",
+    "privacy": "Politique de confidentialité"
   },
   "premium": {
     "claimNFTs": "Obtiens tes NFTs",

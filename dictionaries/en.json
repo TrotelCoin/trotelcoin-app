@@ -37,7 +37,9 @@
     "pricing": "Pricing",
     "business": "Business",
     "documentation": "Documentation",
-    "premium": "Become premium"
+    "premium": "Become premium",
+    "terms": "Terms and conditions",
+    "privacy": "Privacy policy"
   },
   "premium": {
     "claimNFTs": "Claim your NFTs",

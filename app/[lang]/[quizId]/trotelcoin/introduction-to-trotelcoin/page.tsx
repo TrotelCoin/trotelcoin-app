@@ -593,7 +593,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </>
           ) : (
             <>
-              Si vous possédez TrotelCoin, vous pouvez participer et aider à
+              Si vous possédez des TrotelCoins, vous pouvez participer et aider à
               prendre des décisions sur le fonctionnement de la plateforme. Vous
               pouvez voter sur des idées pour changer la façon dont les choses
               sont faites ou pour améliorer l'expérience de l'utilisateur. De

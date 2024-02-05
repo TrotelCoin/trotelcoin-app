@@ -95,6 +95,20 @@ export default function Footer({ lang }: { lang: Lang }) {
         id: 8,
         anotherWindow: true,
       },
+      {
+        name: typeof dict?.footer !== "string" && dict?.footer.terms,
+        href: "/terms-and-conditions",
+        display: false,
+        id: 9,
+        anotherWindow: false,
+      },
+      {
+        name: typeof dict?.footer !== "string" && dict?.footer.privacy,
+        href: "/privacy-policy",
+        display: false,
+        id: 10,
+        anotherWindow: false,
+      },
     ],
     social: [
       {

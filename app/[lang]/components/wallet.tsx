@@ -51,7 +51,8 @@ export default function Wallet({ lang }: { lang: Lang }) {
       const message = new SiweMessage({
         domain: window.location.host,
         address: address,
-        statement: "Sign in with your wallet to the TrotelCoin's app.",
+        statement:
+          "Sign in with your wallet to the TrotelCoin's app. By signing in, you agree to the terms of service and privacy policy.",
         uri: window.location.origin,
         version: "1",
         chainId: polygon.id,
