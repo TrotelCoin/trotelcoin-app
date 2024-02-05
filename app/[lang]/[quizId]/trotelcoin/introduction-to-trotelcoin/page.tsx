@@ -325,19 +325,15 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               gamification, and more.
               <br />
               <br />
-              But don't worry, it's not a must.
-              <br />
-              <br />
-              If you're here just to learn without earning TrotelCoins, feel
-              free to explore our free courses.
+              But don't worry, it's not a must. If you're here just to learn
+              without earning TrotelCoins, feel free to explore our free
+              courses.
               <br />
               <br />
               However, if you want the full experience, we recommend checking
-              out courses in the "Wallet" category.
-              <br />
-              <br />
-              There, you'll discover what a wallet is, how to use it for website
-              sign-ins, and crypto transactions.
+              out courses in the "Wallet" category. There, you'll discover what
+              a wallet is, how to use it for website sign-ins, and crypto
+              transactions.
               <br />
               <br />
               We decided to register users with a wallet so we don't require
@@ -364,12 +360,9 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               Cependant, si vous souhaitez profiter pleinement de l'expérience,
               nous vous recommandons de consulter les cours de la catégorie
-              "Wallet".
-              <br />
-              <br />
-              Vous y découvrirez ce qu'est un portefeuille, comment l'utiliser
-              pour se connecter à une application décentralisée et effectuer des
-              transactions en crypto.
+              "Wallet". Vous y découvrirez ce qu'est un portefeuille, comment
+              l'utiliser pour se connecter à une application décentralisée et
+              effectuer des transactions en crypto.
               <br />
               <br />
               Nous avons décidé d'enregistrer les utilisateurs avec un
