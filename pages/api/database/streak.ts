@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   // disabled if one day hasn't passed since the last streak
   if (lastUpdated) {
     const oneDay =
-      await sql`SELECT * FROM "streak" WHERE last_streak_at < now() - interval '1 day'`;
+      await sql`SELECT * FROM "streak" WHERE last_streak_at < now() - interval '1 day' AND wallet = ${wallet}`;
     if (!oneDay.length) {
       disabled = true;
     }

@@ -176,6 +176,8 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
         const cooldownString = new Date(cooldown).toISOString();
         const time = cooldownString.split("T")[1].split(".")[0];
         setCooldown(time);
+      } else {
+        setCooldown("00:00:00");
       }
     }, 1000);
 
