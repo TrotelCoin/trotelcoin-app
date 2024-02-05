@@ -10,7 +10,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
         {lang == "en" ? <>Introduction</> : <>Introduction</>}
       </h1>
-      <p className="mt-6 text-justify">
+      <p className="mt-6 font-light">
         {lang == "en" ? (
           <>
             Greetings and welcome to the initial course offered by TrotelCoin.
@@ -37,7 +37,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       </p>
       <figure className="mt-10 border-l border-yellow-500 dark:border-yellow-300 pl-9">
         <blockquote className="text-gray-900 dark:text-gray-100">
-          <p className="text-justify">
+          <p className="font-light">
             {lang == "en" ? (
               <>
                 The root problem with conventional currency is all the trust
@@ -56,16 +56,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 la confiance qui est nécessaire pour qu'elle fonctionne. Il faut
                 faire confiance à la banque centrale pour qu'elle ne dévalorise
                 pas la monnaie, mais l'histoire des monnaies fiduciaires est
-                pleine de la monnaie, mais l'histoire des monnaies fiduciaires
-                est pleine d'abus de confiance. L'histoire des monnaies
-                fiduciaires est jalonnée d'abus de confiance. Il faut faire
-                confiance aux banques pour détenir notre argent et le transférer
-                électroniquement. et de le transférer électroniquement, mais
+                pleine d'abus de confiance. Il faut faire confiance aux banques
+                pour détenir notre argent et le transférer électroniquement mais
                 elles le prêtent dans des vagues de de crédit, avec à peine une
                 fraction en réserve. Nous devons leur faire confiance de notre
                 vie privée, de ne pas laisser les usurpateurs d'identité vider
-                nos comptes. comptes. Leurs frais généraux considérables rendent
-                les micropaiements impossible.
+                nos comptes. Leurs frais généraux considérables rendent les
+                micropaiements impossible.
               </>
             )}
           </p>
@@ -89,7 +86,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Pourquoi devriez-vous apprendre la crypto maintenant ?</>
           )}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               Blockchain is a technology with the potential to bring about a
@@ -128,7 +125,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Our mission</> : <>Notre mission</>}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               Our mission is to empower individuals with the knowledge and tools
@@ -163,7 +160,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Our vision</> : <>Notre vision</>}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               Our vision is to create a world where individuals have the
@@ -199,7 +196,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Qu'est-ce que TrotelCoin?</>
           )}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               TrotelCoin serves as an educational platform designed for an
@@ -240,7 +237,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>How to get started?</> : <>Comment se lancer?</>}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               To begin earning TrotelCoins, you'll need a crypto wallet. This is
@@ -286,7 +283,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h2 className="mt-6 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Definition</> : <>Définition</>}
         </h2>
-        <p className="mt-6">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               Before we explore the details, let's briefly understand the
@@ -312,11 +309,11 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Token de TrotelCoin</>
           )}
         </h2>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
-              Now, turning our attention back to TrotelCoin – the project have
-              its own token known as TROTEL. You can find this token on the
+              Now, turning our attention back to TrotelCoin &ndash; the project
+              have its own token known as TROTEL. You can find this token on the{" "}
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
@@ -341,14 +338,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           ) : (
             <>
               Pour en revenir à TrotelCoin - le projet a sa propre cryptomonnaie
-              appelée TROTEL. Vous pouvez trouver ce jeton sur l'explorateur
-              Polygon à l'adresse suivante :{" "}
+              appelée TROTEL. Vous pouvez trouver ce jeton sur l'
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
                 className="text-blue-500 dark:text-blue-300"
               >
-                0x85057d5a8d063f9075ba963101d76352051675e5
+                explorateur Polygon
               </Link>
               . Ce jeton sert de clé pour débloquer diverses fonctionnalités sur
               la plateforme. De plus, les détenteurs de jetons TrotelCoin
@@ -373,7 +369,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Distribution initiale</>
           )}
         </h2>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               Initially, the total supply of TrotelCoin tokens was fixed at
@@ -409,7 +405,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Algorithme de distribution</>
           )}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               The distribution of TrotelCoins as rewards follow a specific
@@ -447,7 +443,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Notion of liquidity</> : <>Notion de liquidité</>}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               To help the TrotelCoin community, you can add an equal value of
@@ -507,7 +503,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Prévenir les fraudes et les bots</>
           )}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               Please remember, you can only do the quiz once. We're putting in a
@@ -541,7 +537,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h2 className="mt-6 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Ranks with NFTs</> : <>Rangs avec les NFTs</>}
         </h2>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               When you have TrotelCoins, you can access more courses and cool
@@ -566,7 +562,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Prendre part à la gouvernance</>
           )}
         </h2>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               If you own TrotelCoin, you can join in and help make decisions
@@ -588,7 +584,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h2 className="mt-6 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Helping Businesses</> : <>Aider les entreprises</>}
         </h2>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               The token is made to protect everyone in the community. On the
@@ -615,7 +611,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Conclusion</> : <>Conclusion</>}
         </h1>
-        <p className="mt-6 text-justify">
+        <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
               In conclusion, TrotelCoin aims to change how people learn about
