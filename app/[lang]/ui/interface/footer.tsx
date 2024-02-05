@@ -44,42 +44,56 @@ export default function Footer({ lang }: { lang: Lang }) {
         href: "https://trotelcoin.com",
         display: true,
         id: 1,
+        anotherWindow: true,
+      },
+      {
+        name: typeof dict?.footer !== "string" && dict?.footer.documentation,
+        href: "https://docs.trotelcoin.com",
+        display: true,
+        id: 2,
+        anotherWindow: true,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.statistics,
         href: `/${lang}/statistics`,
         display: true,
-        id: 2,
+        id: 3,
+        anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.pricing,
-        href: "https://trotelcoin.com/pricing",
-        display: true,
-        id: 3,
+        name: typeof dict?.footer !== "string" && dict?.footer.premium,
+        href: `/${lang}/premium`,
+        display: false,
+        id: 4,
+        anotherWindow: false,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.business,
         href: "mailto:hello@trotelcoin.com",
         display: true,
-        id: 4,
+        id: 5,
+        anotherWindow: false,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.partners,
         href: "#",
         display: false,
-        id: 5,
+        id: 6,
+        anotherWindow: false,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.jobs,
         href: "#",
         display: false,
-        id: 6,
+        id: 7,
+        anotherWindow: false,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.blog,
         href: "#",
         display: false,
-        id: 7,
+        id: 8,
+        anotherWindow: true,
       },
     ],
     social: [
@@ -106,14 +120,33 @@ export default function Footer({ lang }: { lang: Lang }) {
           aria-label="Footer"
         >
           {displayedItems.map((item: any) => (
-            <div key={item.id} className="pb-6">
+            <div key={item.id} className="pb-6 flex items-center">
               {item.display && (
                 <Link
                   href={item.href}
+                  target={item.anotherWindow ? "_blank" : "_self"}
                   className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
                 >
                   {item.name}
                 </Link>
+              )}
+              {item.anotherWindow && (
+                <span className="ml-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-3 h-3"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </span>
               )}
             </div>
           ))}

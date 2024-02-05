@@ -35,7 +35,9 @@
     "about": "À propos",
     "statistics": "Statistiques",
     "pricing": "Tarifs",
-    "business": "Entreprise"
+    "business": "Entreprise",
+    "documentation": "Documentation",
+    "premium": "Deviens premium"
   },
   "premium": {
     "claimNFTs": "Obtiens tes NFTs",

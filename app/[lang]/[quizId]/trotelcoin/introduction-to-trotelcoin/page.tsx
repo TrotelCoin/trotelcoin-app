@@ -3,6 +3,7 @@
 import React from "react";
 import { Lang } from "@/types/types";
 import Link from "next/link";
+import Image from "next/image";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
@@ -286,6 +287,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Tokenomics</> : <>Tokénomique</>}
         </h1>
+        <Image
+          className="mt-6"
+          width={1400}
+          height={600}
+          src="/assets/courses/1/tokenomics.png"
+          alt="tokenomics"
+        ></Image>
         <h2 className="mt-6 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Definition</> : <>Définition</>}
         </h2>
@@ -411,6 +419,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>Algorithme de distribution</>
           )}
         </h1>
+        <Image
+          src="/assets/courses/1/algorithm-simulation.png"
+          width={640}
+          height={480}
+          alt="algorithm simulation"
+          className="mt-6"
+        ></Image>
         <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
