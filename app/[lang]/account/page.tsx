@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import {
   useAccount,
   useContractRead,
@@ -271,7 +271,9 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
 
   return (
     <>
-      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">Badges</h2>
+      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
+        Badges
+      </h2>
       <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
         {badges.map(
           (badge) =>
@@ -648,6 +650,16 @@ export default function Account({
     localStorage.setItem("satisfactionAnswered", "true");
     setAlreadyAnsweredSatisfaction(true);
   };
+
+  useEffect(() => {
+    const fetchNewLearner = () => {
+      fetch(`/api/database/newLearner?wallet=${address}`);
+    };
+
+    if (address) {
+      fetchNewLearner();
+    }
+  }, [address]);
 
   useEffect(() => {
     const fetchRewardsPending = () => {
