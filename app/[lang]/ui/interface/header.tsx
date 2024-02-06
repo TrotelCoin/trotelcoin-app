@@ -14,7 +14,8 @@ import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useAddress, useDisconnect } from "@thirdweb-dev/react";
+import { useSession } from "next-auth/react";
 
 // Define the Header component
 const Header = ({
@@ -30,6 +31,16 @@ const Header = ({
   const pathname = usePathname();
 
   const isLightTheme = useTheme();
+
+  const session = useSession();
+  const address = useAddress();
+  const disconnect = useDisconnect();
+
+  const handleDisconnect = () => {
+    if (address) {
+      disconnect();
+    }
+  };
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -133,14 +144,23 @@ const Header = ({
               <TrotelBalance /> TROTEL
             </span>*/}
             {/*<Wallet lang={lang} />*/}
-            <ConnectWallet
-              theme={isLightTheme ? "light" : "dark"}
-              auth={{ loginOptional: false }}
-              switchToActiveChain={true}
-              modalSize={"wide"}
-              modalTitleIconUrl={""}
-              className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-            />
+            {address && session ? (
+              <button
+                onClick={handleDisconnect}
+                className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+              >
+                Disconnect
+              </button>
+            ) : (
+              <ConnectWallet
+                theme={isLightTheme ? "light" : "dark"}
+                auth={{ loginOptional: false }}
+                switchToActiveChain={true}
+                modalSize={"wide"}
+                modalTitleIconUrl={""}
+                className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+              />
+            )}
           </div>
           <div className="items-center flex pl-4 gap-2">
             <LanguageSelector router={router} lang={lang} />
@@ -189,16 +209,23 @@ const Header = ({
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
               {/*<Wallet lang={lang} />*/}
-              <ConnectWallet
-                theme={isLightTheme ? "light" : "dark"}
-                auth={{ loginOptional: false }}
-                switchToActiveChain={true}
-                modalSize={"wide"}
-                modalTitleIconUrl={""}
-                termsOfServiceUrl={`/${lang}/terms-of-service`}
-                privacyPolicyUrl={`/${lang}/privacy-policy`}
-                className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-              />
+              {address && session ? (
+                <button
+                  onClick={handleDisconnect}
+                  className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                >
+                  Disconnect
+                </button>
+              ) : (
+                <ConnectWallet
+                  theme={isLightTheme ? "light" : "dark"}
+                  auth={{ loginOptional: false }}
+                  switchToActiveChain={true}
+                  modalSize={"wide"}
+                  modalTitleIconUrl={""}
+                  className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                />
+              )}
               <button
                 type="button"
                 className="-m-2.5 rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
