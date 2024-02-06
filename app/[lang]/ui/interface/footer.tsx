@@ -166,7 +166,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           ))}
         </nav>
         <div>
-          <Link href="/home">
+          <Link href={`/${lang}/home`}>
             <Image
               width={128}
               height={128}
