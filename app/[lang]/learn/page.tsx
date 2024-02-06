@@ -5,7 +5,7 @@ import ComingSoon from "@/app/[lang]/ui/interface/comingSoon";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Address } from "viem";
-import { useAccount } from "wagmi";
+import { useAddress } from "@thirdweb-dev/react";
 
 interface StreakSectionProps {
   streak: number;
@@ -14,7 +14,6 @@ interface StreakSectionProps {
   cooldown: string;
   updateStreak: (address: Address) => void;
   address: Address;
-  isConnected: boolean;
   maxStreak: number;
 }
 
@@ -25,7 +24,6 @@ const StreakSection: React.FC<StreakSectionProps> = ({
   cooldown,
   updateStreak,
   address,
-  isConnected,
   maxStreak,
 }) => (
   <>
@@ -33,13 +31,13 @@ const StreakSection: React.FC<StreakSectionProps> = ({
       {typeof dict?.learn !== "string" && <>{dict?.learn.streak}</>}
     </h2>
     <p className="text-gray-700 dark:text-gray-300">
-      {isConnected &&
+      {address &&
         (disabled
           ? typeof dict?.learn !== "string" && <>{dict?.learn.streakDisabled}</>
           : typeof dict?.learn !== "string" && (
               <>{dict?.learn.streakEnabled}</>
             ))}
-      {!isConnected &&
+      {!address &&
         typeof dict?.modals !== "string" &&
         dict?.modals.connectWallet !== "string" &&
         typeof dict?.modals.connectWallet !== "string" &&
@@ -109,7 +107,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     fetchDictionary();
   }, [lang]);
 
-  const { address, isConnected } = useAccount();
+  const address = useAddress();
 
   useEffect(() => {
     const fetchStreak = async () => {
@@ -126,12 +124,12 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       fetchStreak();
     }
 
-    if (!isConnected) {
+    if (!address) {
       setStreak(0);
       setCooldown("00:00:00");
       setDisabled(false);
     }
-  }, [address, streak, maxStreak, disabled, isConnected]);
+  }, [address, streak, maxStreak, disabled]);
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
@@ -146,10 +144,10 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       fetchMaxStreak();
     }
 
-    if (!isConnected) {
+    if (!address) {
       setMaxStreak(0);
     }
-  }, [address, streak, maxStreak, disabled, isConnected]);
+  }, [address, streak, maxStreak, disabled]);
 
   const updateStreak = async (address: Address) => {
     const result = await fetch(`/api/database/updateStreak`, {
@@ -194,7 +192,6 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
           dict={dict}
           updateStreak={updateStreak}
           address={address as Address}
-          isConnected={isConnected}
           maxStreak={maxStreak}
         />
         <div>

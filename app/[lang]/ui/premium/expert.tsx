@@ -3,11 +3,11 @@
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useEffect, useState } from "react";
 import {
-  useAccount,
   useBalance,
   usePrepareContractWrite,
   useContractWrite,
   useContractRead,
+  Address,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -16,6 +16,7 @@ import Success from "@/app/[lang]/ui/modals/success";
 import { trotelCoinAddress, trotelCoinExpertAddress } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { useAddress } from "@thirdweb-dev/react";
 
 const holdingRequirements: number = 50000;
 
@@ -45,9 +46,9 @@ const Expert = ({ lang }: { lang: Lang }) => {
     2: typeof dict?.expert !== "string" && dict?.expert.advantage2,
   };
 
-  const { address, isConnected } = useAccount();
+  const address = useAddress();
   const { data } = useBalance({
-    address: address,
+    address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
     watch: true,
@@ -58,7 +59,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
     abi: trotelCoinExpertABI,
     functionName: "mint",
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
   });
   const { write, isSuccess } = useContractWrite(config);
@@ -68,22 +69,22 @@ const Expert = ({ lang }: { lang: Lang }) => {
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
   });
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
       setIsClaimed(true);
-    } else if (!isConnected) {
+    } else if (!address) {
       setIsClaimed(false);
     } else {
       setIsClaimed(false);
     }
-  }, [isConnected, address]);
+  }, [address]);
 
   const checkEligibility = async () => {
-    if (isConnected) {
+    if (address) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);

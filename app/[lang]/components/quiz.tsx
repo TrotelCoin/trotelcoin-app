@@ -3,13 +3,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Address, useAccount } from "wagmi";
+import { Address } from "wagmi";
 import Confetti from "react-dom-confetti";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
 import { useSession } from "next-auth/react";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
+import { useAddress } from "@thirdweb-dev/react";
 
 interface QuizProps {
   quizId: number;
@@ -84,7 +85,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     fetchDictionary();
   }, [lang]);
 
-  const { address, isDisconnected } = useAccount();
+  const address = useAddress();
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, [address, claimedRewards]);
 
   const handleClaimRewards = async () => {
-    if (isDisconnected && !session) {
+    if (!address && !session) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -302,7 +303,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         )}
       </div>
       {/* Reward */}
-      {isCorrect && !hasAlreadyAnswered && !isDisconnected && session && (
+      {isCorrect && !hasAlreadyAnswered && address && session && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
@@ -319,7 +320,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           </div>
         </div>
       )}
-      {(isDisconnected || !session) && !hasAlreadyAnswered && (
+      {(!address || !session) && !hasAlreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}

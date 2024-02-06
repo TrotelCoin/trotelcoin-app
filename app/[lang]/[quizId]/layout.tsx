@@ -6,7 +6,8 @@ import React, { useEffect, useState } from "react";
 import lessons from "@/data/lessonsData";
 import Link from "next/link";
 import Quiz from "@/app/[lang]/components/quiz";
-import { useAccount, useContractRead } from "wagmi";
+import { Address, useContractRead } from "wagmi";
+import { useAddress } from "@thirdweb-dev/react";
 import GoHomeButton from "@/app/[lang]/components/goHomeButton";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
@@ -83,14 +84,14 @@ const CoursePage = ({
       title = currentCourse?.title.en;
   }
 
-  const { address, isDisconnected } = useAccount();
+  const address = useAddress();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
@@ -100,7 +101,7 @@ const CoursePage = ({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
@@ -164,48 +165,24 @@ const CoursePage = ({
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
-                      {lang == "en" && (
-                        <>
-                          {currentCourse?.one.en}
-                        </>
-                      )}
-                      {lang == "fr" && (
-                        <>
-                          {currentCourse?.one.fr}
-                        </>
-                      )}
+                      {lang == "en" && <>{currentCourse?.one.en}</>}
+                      {lang == "fr" && <>{currentCourse?.one.fr}</>}
                     </span>
                   </li>
                 </div>
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
-                      {lang == "en" && (
-                        <>
-                          {currentCourse?.two.en}
-                        </>
-                      )}
-                      {lang == "fr" && (
-                        <>
-                          {currentCourse?.two.fr}
-                        </>
-                      )}
+                      {lang == "en" && <>{currentCourse?.two.en}</>}
+                      {lang == "fr" && <>{currentCourse?.two.fr}</>}
                     </span>
                   </li>
                 </div>
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
-                      {lang == "en" && (
-                        <>
-                          {currentCourse?.three.en}
-                        </>
-                      )}
-                      {lang == "fr" && (
-                        <>
-                          {currentCourse?.three.fr}
-                        </>
-                      )}
+                      {lang == "en" && <>{currentCourse?.three.en}</>}
+                      {lang == "fr" && <>{currentCourse?.three.fr}</>}
                     </span>
                   </li>
                 </div>
@@ -224,7 +201,7 @@ const CoursePage = ({
 
   return (
     <>
-      {isDisconnected && tier !== "Beginner"
+      {!address && tier !== "Beginner"
         ? renderUnauthorizedContent()
         : !foundAvailability ||
           (tier !== "Beginner" &&

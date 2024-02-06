@@ -1,16 +1,17 @@
 "use client";
 
-import { useBalance, useAccount } from "wagmi";
+import { useBalance } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
 import { trotelCoinAddress } from "@/data/addresses";
+import { useAddress } from "@thirdweb-dev/react";
 
 export default function TrotelBalance() {
   const [balance, setBalance] = useState("0");
 
   // Get the Ethereum address using the getAccount function
-  const { address, isConnected } = useAccount();
+  const address = useAddress();
 
   // Use the useBalance hook to fetch the balance data
   const { data, isError, isLoading }: BalanceData = useBalance({
@@ -32,10 +33,10 @@ export default function TrotelBalance() {
       setBalance("0");
     }
 
-    if (!isConnected) {
+    if (!address) {
       setBalance("0");
     }
-  }, [isLoading, isError, isConnected]);
+  }, [isLoading, isError, address]);
 
   // Extract the balance value from the formatted data or default to "0"
   useEffect(() => {

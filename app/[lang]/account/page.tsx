@@ -1,8 +1,7 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  useAccount,
   useContractRead,
   useEnsName,
   useBalance,
@@ -26,6 +25,7 @@ import { useSession } from "next-auth/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
+import { useAddress } from "@thirdweb-dev/react";
 
 interface LevelSectionProps {
   isNotPremium: boolean;
@@ -208,7 +208,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
   isNotPremium,
   dict,
 }) => {
-  const { address } = useAccount();
+  const address = useAddress();
 
   const { data: learner } = useContractRead({
     chainId: polygon.id,
@@ -217,7 +217,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
     functionName: "learners",
     args: [address],
     enabled: Boolean(address),
-    account: address,
+    account: address as Address,
     watch: true,
   });
   const { data: earlyBalance } = useContractRead({
@@ -227,7 +227,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
     functionName: "balanceOf",
     args: [address],
     enabled: Boolean(address),
-    account: address,
+    account: address as Address,
     watch: true,
   });
 
@@ -531,7 +531,7 @@ export default function Account({
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(true);
 
-  const { address, isConnected } = useAccount();
+  const address = useAddress();
   const { data: session, status } = useSession();
 
   const { data: intermediate } = useContractRead({
@@ -540,7 +540,7 @@ export default function Account({
     address: trotelCoinIntermediateAddress,
     functionName: "balanceOf",
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     watch: true,
   });
@@ -550,7 +550,7 @@ export default function Account({
     address: trotelCoinExpertAddress,
     functionName: "balanceOf",
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     watch: true,
   });
@@ -560,12 +560,12 @@ export default function Account({
     address: trotelCoinLearningAddress,
     functionName: "learners",
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     watch: true,
   });
   const { data: ensName } = useEnsName({
-    address: address,
+    address: address as Address,
     enabled: Boolean(address),
     chainId: mainnet.id,
   });
@@ -573,7 +573,7 @@ export default function Account({
     chainId: polygon.id,
     token: trotelCoinAddress,
     enabled: Boolean(address),
-    address: address,
+    address: address as Address,
   });
   useContractEvent({
     chainId: polygon.id,
@@ -691,7 +691,7 @@ export default function Account({
   return (
     <>
       <div className="mx-auto">
-        {isConnected && session ? (
+        {address && session ? (
           <>
             <Header
               ensName={ensName?.toString() as string}

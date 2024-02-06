@@ -3,11 +3,11 @@
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
 import {
-  useAccount,
   useBalance,
   usePrepareContractWrite,
   useContractWrite,
   useContractRead,
+  Address,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -20,6 +20,7 @@ import {
 import { useSession } from "next-auth/react";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { useAddress } from "@thirdweb-dev/react";
 
 const holdingRequirements: number = 10000;
 
@@ -49,10 +50,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     2: typeof dict?.intermediate !== "string" && dict?.intermediate.advantage2,
   };
 
-  const { address, isConnected } = useAccount();
+  const address = useAddress();
   const { data: session } = useSession();
   const { data } = useBalance({
-    address: address,
+    address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
     enabled: Boolean(address),
@@ -65,7 +66,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     enabled: Boolean(address),
     functionName: "mint",
     args: [address],
-    account: address,
+    account: address as Address,
   });
   const { write, isSuccess } = useContractWrite(config);
   const { data: claimed } = useContractRead({
@@ -75,21 +76,21 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],
-    account: address,
+    account: address as Address,
   });
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
       setIsClaimed(true);
-    } else if (!isConnected) {
+    } else if (!address) {
       setIsClaimed(false);
     } else {
       setIsClaimed(false);
     }
-  }, [isConnected, address]);
+  }, [address]);
 
   const checkEligibility = async () => {
-    if (isConnected && session) {
+    if (address && session) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);

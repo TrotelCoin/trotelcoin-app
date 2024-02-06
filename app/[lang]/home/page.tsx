@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import lessons from "@/data/lessonsData";
-import { Address, useAccount, useContractRead } from "wagmi";
+import { Address, useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
@@ -13,6 +13,7 @@ import {
 } from "@/data/addresses";
 import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { useAddress } from "@thirdweb-dev/react";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -50,10 +51,10 @@ function renderCourses(
   course: Lesson,
   intermediateBalance: number,
   expertBalance: number,
-  isConnected: boolean,
   lang: Lang,
   quizId: number,
   status: string[],
+  address: Address | null,
   dict: DictType | null
 ) {
   let tier = "";
@@ -80,7 +81,7 @@ function renderCourses(
   const isIntermediate =
     (tier === "Intermediate" || tier === "Intermédiaire") &&
     intermediateBalance > 0;
-  const isExpert = tier === "Expert" && expertBalance > 0 && isConnected;
+  const isExpert = tier === "Expert" && expertBalance > 0 && address;
 
   const courseLink =
     isIntermediate || isExpert || tier === "Beginner" || tier === "Débutant"
@@ -212,14 +213,14 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const filteredLessons = lessons.filter(filterLessons);
 
-  const { address, isConnected } = useAccount();
+  const address = useAddress();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
@@ -229,7 +230,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     args: [address],
-    account: address,
+    account: address as Address,
     enabled: Boolean(address),
     functionName: "balanceOf",
     watch: true,
@@ -270,7 +271,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     if (address) {
       fetchCoursesCompleted();
     }
-  }, [isConnected, address]);
+  }, [address]);
 
   return (
     <>
@@ -320,10 +321,10 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       course,
                       intermediateBalance,
                       expertBalance,
-                      isConnected,
                       lang,
                       course.quizId,
                       status,
+                      address as Address,
                       dict
                     )
                   )}
