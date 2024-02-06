@@ -125,13 +125,15 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
     try {
       // update database rewards by calling api and if success
-      const responseUpdate = await fetch("/api/database/updateRewards", {
-        method: "POST",
-        body: JSON.stringify({
-          wallet: address as Address,
-          quizId: quizId,
-        }),
-      });
+      const responseUpdate = await fetch(
+        `/api/database/updateRewards?wallet=${address}&quizId=${quizId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const dataUpdate = await responseUpdate.json();
       if (dataUpdate.success) {
         setClaimedRewards(true);
