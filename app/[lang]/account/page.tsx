@@ -21,11 +21,10 @@ import {
 } from "@/data/addresses";
 import { mainnet, polygon } from "viem/chains";
 import CountUp from "react-countup";
-import { useUser } from "@thirdweb-dev/react";
+import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
-import { useAddress } from "@thirdweb-dev/react";
 
 interface LevelSectionProps {
   isNotPremium: boolean;

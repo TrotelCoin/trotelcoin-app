@@ -19,6 +19,7 @@ import {
   useAddress,
   useDisconnect,
   useLogout,
+  useUser,
 } from "@thirdweb-dev/react";
 
 // Define the Header component

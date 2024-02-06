@@ -9,7 +9,7 @@ import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useUser } from "@thirdweb-dev/react";
 
 interface QuizProps {
   quizId: number;

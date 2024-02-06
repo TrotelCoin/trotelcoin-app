@@ -19,7 +19,7 @@ import {
 } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useUser } from "@thirdweb-dev/react";
 
 const holdingRequirements: number = 10000;
 
