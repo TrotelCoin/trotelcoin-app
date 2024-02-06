@@ -97,14 +97,14 @@ export default function Footer({ lang }: { lang: Lang }) {
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.terms,
-        href: "/terms-and-conditions",
+        href: `/${lang}/terms-of-service`,
         display: false,
         id: 9,
         anotherWindow: false,
       },
       {
         name: typeof dict?.footer !== "string" && dict?.footer.privacy,
-        href: "/privacy-policy",
+        href: `/${lang}/privacy-policy`,
         display: false,
         id: 10,
         anotherWindow: false,

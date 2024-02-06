@@ -4,9 +4,16 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
 import sql from "@/lib/db";
+import {
+  ThirdwebAuthProvider,
+  authSession,
+} from "@thirdweb-dev/auth/next-auth";
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const providers = [
+    ThirdwebAuthProvider({
+      domain: process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN ?? "",
+    }),
     CredentialsProvider({
       name: "Ethereum",
       credentials: {
@@ -72,11 +79,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-      async session({ session, token }: { session: any; token: any }) {
-        session.address = token.sub;
-        session.user.name = token.sub;
-        return session;
-      },
+      session: authSession,
     },
   });
 }

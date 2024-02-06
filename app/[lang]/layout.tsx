@@ -5,6 +5,7 @@ import Wagmi from "@/app/[lang]/wagmi";
 import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
 import RouterComponent from "@/app/[lang]/routerComponent";
+import ThirdWebProvider from "@/app/[lang]/ThirdWebProvider";
 import { Lang } from "@/types/types";
 
 export default function Layout({
@@ -20,9 +21,11 @@ export default function Layout({
     <>
       {/* Use Suspense for loading fallback */}
       <Wagmi>
-        <SessionProviderComponent session={session}>
-          <RouterComponent lang={lang}>{children}</RouterComponent>
-        </SessionProviderComponent>
+        <ThirdWebProvider lang={lang}>
+          <SessionProviderComponent session={session}>
+            <RouterComponent lang={lang}>{children}</RouterComponent>
+          </SessionProviderComponent>
+        </ThirdWebProvider>
       </Wagmi>
     </>
   );
