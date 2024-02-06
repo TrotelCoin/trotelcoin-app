@@ -19,7 +19,7 @@ import {
 import { Lang } from "@/types/types";
 
 const smartWalletOptions = {
-  factoryAddress: "YOUR_FACTORY_ADDRESS",
+  factoryAddress: "0xc8984fdfdd1796a338a81d37ab54cf8283c11e7d",
   gasless: true,
 };
 
@@ -85,7 +85,7 @@ export default function ThirdWebProvider({
       ]}
       authConfig={{
         authUrl: "/api/auth",
-        domain: "https://app.trotelcoin.com",
+        domain: process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN ?? "",
       }}
     >
       {children}

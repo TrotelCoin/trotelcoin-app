@@ -1,85 +1,18 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { getCsrfToken } from "next-auth/react";
-import { SiweMessage } from "siwe";
-import sql from "@/lib/db";
 import {
   ThirdwebAuthProvider,
   authSession,
 } from "@thirdweb-dev/auth/next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-  const providers = [
+export const authOptions: NextAuthOptions = {
+  providers: [
     ThirdwebAuthProvider({
       domain: process.env.NEXT_PUBLIC_THIRDWEB_AUTH_DOMAIN ?? "",
     }),
-    CredentialsProvider({
-      name: "Ethereum",
-      credentials: {
-        message: {
-          label: "Message",
-          type: "text",
-          placeholder: "0x0",
-        },
-        signature: {
-          label: "Signature",
-          type: "text",
-          placeholder: "0x0",
-        },
-      },
-      async authorize(credentials) {
-        try {
-          const siwe = new SiweMessage(
-            JSON.parse(credentials?.message ?? "{}")
-          );
-          const nextAuthUrl = new URL(process.env.NEXTAUTH_URL as string);
+  ],
+  callbacks: {
+    session: authSession,
+  },
+};
 
-          const result = await siwe.verify({
-            signature: credentials?.signature ?? "",
-            domain: nextAuthUrl.host,
-            nonce: await getCsrfToken({ req }),
-          });
-
-          if (result.success) {
-            const existingUser =
-              await sql`SELECT * FROM "learners" WHERE wallet = ${siwe.address}`;
-
-            if (existingUser.length === 0) {
-              await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered, number_of_quizzes_created, total_rewards_pending, created_at, updated_at) VALUES (${siwe.address}, 0, 0, 0, now(), now())`;
-            }
-
-            return {
-              id: siwe.address,
-            };
-          }
-
-          return null;
-        } catch (e) {
-          console.error(e);
-          return null;
-        }
-      },
-    }),
-  ];
-
-  const isDefaultSigninPage =
-    req.method === "GET" && req.query.nextauth?.includes("signin");
-
-  // Hide Sign-In with Ethereum from default sign page
-  if (isDefaultSigninPage) {
-    providers.pop();
-  }
-
-  return await NextAuth(req, res, {
-    // https://next-auth.js.org/configuration/providers/oauth
-    providers,
-    session: {
-      strategy: "jwt",
-    },
-    secret: process.env.NEXTAUTH_SECRET,
-    callbacks: {
-      session: authSession,
-    },
-  });
-}
+export default NextAuth(authOptions);
