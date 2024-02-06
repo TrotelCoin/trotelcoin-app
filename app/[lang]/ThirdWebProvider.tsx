@@ -18,11 +18,6 @@ import {
 } from "@thirdweb-dev/react";
 import { Lang } from "@/types/types";
 
-const smartWalletOptions = {
-  factoryAddress: "0xc8984fdfdd1796a338a81d37ab54cf8283c11e7d",
-  gasless: true,
-};
-
 export default function ThirdWebProvider({
   children,
   lang,
@@ -51,29 +46,23 @@ export default function ThirdWebProvider({
             walletConnect({
               recommended: true,
             }),
-            smartWallet(
-              embeddedWallet({
-                auth: {
-                  options: ["email", "google", "apple", "facebook"],
-                },
-              }),
-              smartWalletOptions
-            ),
+            embeddedWallet({
+              auth: {
+                options: ["email", "google", "apple", "facebook"],
+              },
+            }),
             trustWallet({ recommended: true }),
             zerionWallet(),
             rainbowWallet(),
             phantomWallet(),
           ],
         }),
-        smartWallet(
-          embeddedWallet({
-            auth: {
-              options: ["email", "google", "apple", "facebook"],
-            },
-            recommended: true,
-          }),
-          smartWalletOptions
-        ),
+        embeddedWallet({
+          auth: {
+            options: ["email", "google", "apple", "facebook"],
+          },
+          recommended: true,
+        }),
         trustWallet({ recommended: true }),
         zerionWallet(),
         rainbowWallet(),
