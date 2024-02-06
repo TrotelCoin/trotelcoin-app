@@ -1,21 +1,25 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+import { Address } from "viem";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const jsonString = req.body;
-  const parsedObject = JSON.parse(jsonString);
+export async function GET(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
 
-  const wallet = parsedObject.wallet;
+  const wallet = searchParams.get("wallet");
 
   // get courses completed by user
   const courses =
-    await sql`SELECT quiz_id, answered FROM "quizzes_answered" WHERE wallet = ${wallet} AND answered = true`;
+    await sql`SELECT quiz_id, answered FROM "quizzes_answered" WHERE wallet = ${
+      wallet as Address
+    } AND answered = true`;
 
   // return courses
   if (courses) {
-    res.status(200).json(courses);
+    return new NextResponse(JSON.stringify(courses), { status: 200 });
   } else {
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      { status: 500 }
+    );
   }
 }
-

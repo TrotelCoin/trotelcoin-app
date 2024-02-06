@@ -1,8 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const wallet = req.body.wallet;
+export async function POST(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+
+  const wallet = searchParams.get("wallet");
 
   try {
     // check if the wallet exists in the database
@@ -12,14 +14,21 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     if (!userExists.length) {
       // wallet does not exist in the database
       await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered, number_of_quizzes_created, total_rewards_pending, created_at, updated_at) VALUES (${wallet}, 0, 0, 0, now(), now())`;
-      res.status(200).json({ success: "New learner added." });
-      return;
+      return new NextResponse(
+        JSON.stringify({ success: "New learner added." }),
+        { status: 200 }
+      );
     }
 
-    res.status(200).json({ success: "Learner already exists." });
+    return new NextResponse(
+      JSON.stringify({ success: "Learner already exists." }),
+      { status: 200 }
+    );
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      { status: 500 }
+    );
   }
 }
-

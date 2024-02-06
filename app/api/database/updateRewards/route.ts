@@ -1,23 +1,25 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
 import { calculateRewards } from "@/lib/calculateRewards";
 import remainingRewards from "@/data/remainingRewards";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+
+  const wallet = searchParams.get("wallet");
+  const quizId = searchParams.get("quizId");
+
   try {
     // reset rewards if 24h has passed
     try {
       await sql`UPDATE "algorithm" SET remaining_rewards = ${remainingRewards} WHERE updated_at < now() - interval '1 day' RETURNING *`;
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Something went wrong." });
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
     }
-
-    const jsonString = req.body;
-    const parsedObject = JSON.parse(jsonString);
-
-    const wallet = parsedObject.wallet;
-    const quizId = parsedObject.quizId;
 
     await sql.begin(async (sql) => {
       const remainingRewards =
@@ -34,9 +36,11 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered) VALUES (${wallet}, 1) ON CONFLICT (wallet) DO UPDATE SET number_of_quizzes_answered = "learners".number_of_quizzes_answered + 1`;
     });
 
-    res.json({ success: true });
+    return new NextResponse(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
     console.error(error);
-    res.json({ success: false });
+    return new NextResponse(JSON.stringify({ success: false }), {
+      status: 500,
+    });
   }
 }

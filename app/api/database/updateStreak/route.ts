@@ -1,8 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const wallet = req.body.wallet;
+export async function POST(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+
+  const wallet = searchParams.get("wallet");
 
   try {
     const walletExists =
@@ -26,8 +28,9 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 
       // update max streak
       await sql`UPDATE "streak" SET max_streak = GREATEST(max_streak, current_streak) WHERE wallet = ${wallet}`;
-      res.status(200).json({ success: "Streak updated." });
-      return;
+      return new NextResponse(JSON.stringify({ success: "Streak updated" }), {
+        status: 200,
+      });
     }
 
     // check if one day has passed since the last streak
@@ -41,14 +44,24 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       // update max streak
       await sql`UPDATE "streak" SET max_streak = GREATEST(max_streak, current_streak) WHERE wallet = ${wallet}`;
 
-      res.status(200).json({ success: "Streak updated." });
+      return new NextResponse(JSON.stringify({ success: "Streak updated." }), {
+        status: 200,
+      });
     } else {
-      res.status(200).json({ success: "Streak not updated." });
+      return new NextResponse(
+        JSON.stringify({ success: "Streak not updated." }),
+        {
+          status: 200,
+        }
+      );
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      {
+        status: 200,
+      }
+    );
   }
 }
-
-

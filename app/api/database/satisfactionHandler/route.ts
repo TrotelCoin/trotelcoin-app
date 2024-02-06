@@ -1,14 +1,22 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const satisfaction = req.body;
+export async function POST(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+
+  const satisfaction = searchParams.get("satisfaction");
 
   try {
     await sql`INSERT INTO "satisfaction" (net_promoter_score, answered_at) VALUES (${satisfaction}, now())`;
-    res.status(200).json({ success: "Satisfaction recorded." });
+    return new NextResponse(
+      JSON.stringify({ success: "Satisfaction recorded." }),
+      { status: 200 }
+    );
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      { status: 500 }
+    );
   }
 }

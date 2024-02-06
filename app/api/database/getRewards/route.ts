@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
 import { calculateRewards } from "@/lib/calculateRewards";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   // get remaining rewards
   const result = await sql`SELECT remaining_rewards FROM "algorithm"`;
   const remainingRewards = result[0]?.remaining_rewards;
@@ -12,16 +12,21 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     await sql`UPDATE "algorithm" SET remaining_rewards = ${remainingRewards} WHERE updated_at < now() - interval '1 day' RETURNING *`;
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      { status: 500 }
+    );
   }
 
   // calculate rewards
   const calculatedRewards = calculateRewards(remainingRewards);
 
   if (result[0] && "remaining_rewards" in result[0]) {
-    res.status(200).json(calculatedRewards);
+    return new NextResponse(JSON.stringify(calculatedRewards), { status: 200 });
   } else {
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      { status: 500 }
+    );
   }
 }
-

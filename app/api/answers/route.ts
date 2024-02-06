@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import answers from "@/data/quizAnswers";
 
 const getAnswersByLanguage = (quiz: any, lang: string) => {
@@ -12,24 +12,25 @@ const getAnswersByLanguage = (quiz: any, lang: string) => {
   }
 };
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const {
-    query: { quizId, lang },
-  } = req;
+export async function GET(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+
+  const quizId = searchParams.get("quizId");
+  const lang = searchParams.get("lang");
 
   const quiz = answers.find(
     (answer) => answer.quizId === parseFloat(quizId as string)
   );
 
   if (!quiz) {
-    return res.status(404).json({ message: "Answers not found" });
+    return new NextResponse("Answers not found", { status: 404 });
   }
 
   const answersInLanguage = getAnswersByLanguage(quiz, lang as string);
 
   if (!answersInLanguage) {
-    return res.status(404).json({ message: "Language not found" });
+    return new NextResponse("Language not found", { status: 404 });
   }
 
-  return res.status(200).json(answersInLanguage);
+  return new NextResponse(JSON.stringify(answersInLanguage), { status: 200 });
 }

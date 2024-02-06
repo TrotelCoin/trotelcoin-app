@@ -1,9 +1,9 @@
 import { trotelCoinAddress } from "@/data/addresses";
 import Moralis from "moralis";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { polygon } from "viem/chains";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   try {
     if (!Moralis.Core.isStarted) {
       await Moralis.start({
@@ -19,10 +19,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     const tokenPrice = response.raw.usdPrice;
 
-    res.status(200).json({ tokenPrice });
+    return new NextResponse(JSON.stringify(tokenPrice), { status: 200 });
   } catch (error) {
-    res.status(500).json({ error: "Error fetching token price" });
+    return new NextResponse("Error fetching token price", { status: 500 });
   }
 }
-
-

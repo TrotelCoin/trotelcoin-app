@@ -1,16 +1,26 @@
 import sql from "@/lib/db";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
+import { Address } from "viem";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+
+  const wallet = searchParams.get("wallet");
+  const quizId = searchParams.get("quizId");
+
   const result =
     await sql`SELECT answered FROM "quizzes_answered" WHERE wallet = ${
-      req.query.wallet as string
-    } AND quiz_id = ${req.query.quizId as string}`;
+      wallet as Address
+    } AND quiz_id = ${quizId}`;
 
   if (result[0] && "answered" in result[0]) {
-    res.status(200).json(result[0].answered);
+    return new NextResponse(JSON.stringify(result[0].answered), {
+      status: 200,
+    });
   } else {
-    res.status(500).json({ error: "Something went wrong." });
+    return new NextResponse(
+      JSON.stringify({ error: "Something went wrong." }),
+      { status: 500 }
+    );
   }
 }
-

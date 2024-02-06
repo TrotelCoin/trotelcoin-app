@@ -1,8 +1,8 @@
 import Moralis from "moralis";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { polygon } from "viem/chains";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   try {
     if (!Moralis.Core.isStarted) {
       await Moralis.start({
@@ -18,9 +18,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 
     const priceChange = parseFloat(response.raw["24hrPercentChange"] ?? "0");
 
-    res.status(200).json({ priceChange });
+    return new NextResponse(JSON.stringify(priceChange), { status: 200 });
   } catch (error) {
-    res.status(500).json({ error: "Error fetching token price change" });
+    return new NextResponse("Error fetching token price change", { status: 500 });
   }
 }
-

@@ -27,15 +27,30 @@ const loadQuizData = async (
   noStore();
   try {
     const quizResponse = await fetch(
-      `/api/quizzes/${lang}/${quizId.toString()}`
+      `/api/quizzes?lang=${lang}&quizId=${quizId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
     const answersResponse = await fetch(
-      `/api/answers/${lang}/${quizId.toString()}`
+      `/api/answers?lang=${lang}&quizId=${quizId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
 
     if (quizResponse.ok && answersResponse.ok) {
       const quizData = await quizResponse.json();
       const answersData = await answersResponse.json();
+
+      console.log(quizData);
+      console.log(answersData);
 
       setQuestions(quizData);
       setCorrectAnswers(answersData);

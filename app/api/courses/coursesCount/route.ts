@@ -1,5 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import lessons from "@/data/lessonsData";
+import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 const allowCors =
   (handler: Function) => async (req: NextApiRequest, res: NextApiResponse) => {
@@ -13,11 +14,11 @@ const allowCors =
     return handler(req, res);
   };
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   const totalCourses = lessons.reduce(
     (acc, curr) => acc + curr.courses.length,
     0
   );
 
-  res.status(200).json({ totalCourses });
+  return new NextResponse(JSON.stringify({ totalCourses }), { status: 200 });
 }

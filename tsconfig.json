@@ -30,7 +30,7 @@
     "pages/i18n.js",
     "pages/user.jsx",
     "pages/user.jsx",
-    "pages/api/moralis/[...moralis].js",
+    "app/api/moralis/[...moralis].js",
     "pages/api/auth/[...nextauth].js",
     ".next/types/**/*.ts",
     "app/404.js",
