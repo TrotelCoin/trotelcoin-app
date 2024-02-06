@@ -42,20 +42,15 @@ export default function ThirdWebProvider({
         rabbyWallet({ recommended: true }),
         safeWallet({
           personalWallets: [
-            smartWallet(
-              metamaskWallet({
-                recommended: true,
-              }),
-              smartWalletOptions
-            ),
-            smartWallet(rabbyWallet({ recommended: true }), smartWalletOptions),
-            smartWallet(coinbaseWallet(), smartWalletOptions),
-            smartWallet(
-              walletConnect({
-                recommended: true,
-              }),
-              smartWalletOptions
-            ),
+            metamaskWallet({
+              recommended: true,
+            }),
+            rabbyWallet({ recommended: true }),
+            coinbaseWallet(),
+
+            walletConnect({
+              recommended: true,
+            }),
             smartWallet(
               embeddedWallet({
                 auth: {
@@ -79,10 +74,10 @@ export default function ThirdWebProvider({
           }),
           smartWalletOptions
         ),
-        smartWallet(trustWallet({ recommended: true }), smartWalletOptions),
-        smartWallet(zerionWallet(), smartWalletOptions),
-        smartWallet(rainbowWallet(), smartWalletOptions),
-        smartWallet(phantomWallet(), smartWalletOptions),
+        trustWallet({ recommended: true }),
+        zerionWallet(),
+        rainbowWallet(),
+        phantomWallet(),
       ]}
       authConfig={{
         authUrl: "/api/auth",
