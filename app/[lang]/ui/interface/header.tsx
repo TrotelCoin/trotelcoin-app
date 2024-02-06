@@ -14,7 +14,12 @@ import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
-import { ConnectWallet, useAddress, useDisconnect } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useAddress,
+  useDisconnect,
+  useLogout,
+} from "@thirdweb-dev/react";
 import { useSession } from "next-auth/react";
 
 // Define the Header component
@@ -34,11 +39,11 @@ const Header = ({
 
   const session = useSession();
   const address = useAddress();
-  const disconnect = useDisconnect();
+  const { logout } = useLogout();
 
   const handleDisconnect = () => {
     if (address) {
-      disconnect();
+      logout();
     }
   };
 
@@ -149,7 +154,9 @@ const Header = ({
                 onClick={handleDisconnect}
                 className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
               >
-                Disconnect
+                {typeof dict?.header !== "string" && (
+                  <>{dict?.header.disconnect}</>
+                )}
               </button>
             ) : (
               <ConnectWallet
@@ -158,6 +165,7 @@ const Header = ({
                 switchToActiveChain={true}
                 modalSize={"wide"}
                 modalTitleIconUrl={""}
+                btnTitle={lang === "en" ? "Log in" : "Se connecter"}
                 className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
               />
             )}
@@ -214,7 +222,9 @@ const Header = ({
                   onClick={handleDisconnect}
                   className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
                 >
-                  Disconnect
+                  {typeof dict?.header !== "string" && (
+                    <>{dict?.header.disconnect}</>
+                  )}
                 </button>
               ) : (
                 <ConnectWallet
@@ -223,6 +233,7 @@ const Header = ({
                   switchToActiveChain={true}
                   modalSize={"wide"}
                   modalTitleIconUrl={""}
+                  btnTitle={lang === "en" ? "Log in" : "Se connecter"}
                   className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
                 />
               )}

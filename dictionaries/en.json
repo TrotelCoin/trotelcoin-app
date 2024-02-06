@@ -14,7 +14,8 @@
     "community": "Community",
     "account": "Account",
     "premium": "Premium",
-    "version": "beta version"
+    "version": "beta version",
+    "disconnect": "Log out"
   },
   "home": {
     "search": "What do you wanna learn?"
