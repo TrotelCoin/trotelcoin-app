@@ -111,7 +111,12 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     const fetchStreak = async () => {
-      const result = await fetch(`/api/database/streak?wallet=${address}`);
+      const result = await fetch(`/api/database/streak?wallet=${address}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await result.json();
       if (Number(data.currentStreak)) {
         setStreak(data.currentStreak);
@@ -134,7 +139,13 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   useEffect(() => {
     const fetchMaxStreak = async () => {
       const result = await fetch(
-        `/api/database/userMaxStreak?wallet=${address}`
+        `/api/database/userMaxStreak?wallet=${address}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       const data = await result.json();
       setMaxStreak(data.maxStreak);
@@ -150,12 +161,11 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [address, streak, maxStreak, disabled]);
 
   const updateStreak = async (address: Address) => {
-    const result = await fetch(`/api/database/updateStreak`, {
+    const result = await fetch(`/api/database/updateStreak?wallet=${address}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ wallet: address }),
     });
     // if success from response is true, then setStreak to streak + 1
     const data = await result.json();

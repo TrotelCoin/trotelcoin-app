@@ -638,12 +638,11 @@ export default function Account({
   const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
   const satisfactionResult = async (number: number) => {
-    await fetch("/api/database/satisfactionHandler", {
+    await fetch(`/api/database/satisfactionHandler?number=${number}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(number),
     });
 
     localStorage.setItem("satisfactionAnswered", "true");
@@ -652,7 +651,12 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = () => {
-      fetch(`/api/database/newLearner?wallet=${address}`);
+      fetch(`/api/database/newLearner?wallet=${address}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     };
 
     if (address) {
@@ -662,7 +666,12 @@ export default function Account({
 
   useEffect(() => {
     const fetchRewardsPending = () => {
-      fetch(`/api/database/totalRewardsPending?wallet=${address}`)
+      fetch(`/api/database/totalRewardsPending?wallet=${address}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response?.json())
         .then((data) => {
           setTotalRewardsPending(data);
@@ -676,7 +685,12 @@ export default function Account({
 
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = () => {
-      fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`)
+      fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response?.json())
         .then((data) => {
           setNumberOfQuizzesAnswered(data);

@@ -245,10 +245,15 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   useEffect(() => {
     const fetchCoursesCompleted = async () => {
-      const response = await fetch("/api/database/coursesCompleted", {
-        method: "POST",
-        body: JSON.stringify({ wallet: address as Address }),
-      });
+      const response = await fetch(
+        `/api/database/coursesCompleted?wallet=${address}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const result = await response.json();
 
       result?.map((course: { quiz_id: number; answered: boolean }) => {

@@ -105,7 +105,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   useEffect(() => {
     if (address) {
       fetch(
-        `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`
+        `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
+        { method: "GET", headers: { "Content-Type": "application/json" } }
       )
         .then((response) => response.json())
         .then((data) => {

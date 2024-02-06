@@ -12,6 +12,10 @@ const TrotelPrice = () => {
       try {
         const response = await fetch("/api/moralis/trotelPrice", {
           cache: "no-store",
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
         const data = await response.json();
         if (!data.tokenPrice || data.tokenPrice === null) {

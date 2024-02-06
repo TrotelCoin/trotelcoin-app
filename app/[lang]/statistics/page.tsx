@@ -30,7 +30,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
   useEffect(() => {
     const fetchRemainingRewards = async () => {
-      const response = await fetch("/api/database/remainingRewards");
+      const response = await fetch("/api/database/remainingRewards", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const remainingRewards = await response?.json();
       setRemainingRewards(remainingRewards);
     };
@@ -40,7 +45,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
   useEffect(() => {
     const fetchTrotelCoinsPending = async () => {
-      const response = await fetch("/api/database/trotelCoinsPending");
+      const response = await fetch("/api/database/trotelCoinsPending", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const trotelCoinsPending = await response?.json();
       setTrotelCoinsPending(trotelCoinsPending);
     };
@@ -51,7 +61,13 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {
       const response = await fetch(
-        "/api/database/totalNumberOfQuizzesAnswered"
+        "/api/database/totalNumberOfQuizzesAnswered",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       const numberOfQuizzesAnswered = await response?.json();
       setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
@@ -64,7 +80,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     // finding number of learners by taking max id in the table "learners"
 
     const fetchNumberOfLearners = async () => {
-      const response = await fetch("/api/database/numberOfLearners");
+      const response = await fetch("/api/database/numberOfLearners", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const numberOfLearners = await response?.json();
       setNumberOfLearners(numberOfLearners);
     };
@@ -74,7 +95,12 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
-      const response = await fetch("/api/database/totalMaxStreak");
+      const response = await fetch("/api/database/totalMaxStreak", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const { maxStreak } = await response.json();
       setMaxStreak(maxStreak);
     };
