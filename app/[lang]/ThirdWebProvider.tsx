@@ -36,10 +36,10 @@ export default function ThirdWebProvider({
       clientId="2df090c727adc0d357cb129145005409"
       locale={en()}
       supportedWallets={[
-        smartWallet(metamaskWallet({ recommended: true }), smartWalletOptions),
-        smartWallet(coinbaseWallet(), smartWalletOptions),
-        smartWallet(walletConnect({ recommended: true }), smartWalletOptions),
-        smartWallet(rabbyWallet({ recommended: true }), smartWalletOptions),
+        metamaskWallet({ recommended: true }),
+        coinbaseWallet(),
+        walletConnect({ recommended: true }),
+        rabbyWallet({ recommended: true }),
         safeWallet({
           personalWallets: [
             smartWallet(
@@ -64,10 +64,10 @@ export default function ThirdWebProvider({
               }),
               smartWalletOptions
             ),
-            smartWallet(trustWallet({ recommended: true }), smartWalletOptions),
-            smartWallet(zerionWallet(), smartWalletOptions),
-            smartWallet(rainbowWallet(), smartWalletOptions),
-            smartWallet(phantomWallet(), smartWalletOptions),
+            trustWallet({ recommended: true }),
+            zerionWallet(),
+            rainbowWallet(),
+            phantomWallet(),
           ],
         }),
         smartWallet(
@@ -75,6 +75,7 @@ export default function ThirdWebProvider({
             auth: {
               options: ["email", "google", "apple", "facebook"],
             },
+            recommended: true,
           }),
           smartWalletOptions
         ),
