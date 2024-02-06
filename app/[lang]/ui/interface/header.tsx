@@ -39,10 +39,12 @@ const Header = ({
 
   const session = useSession();
   const address = useAddress();
+  const disconnect = useDisconnect();
   const { logout } = useLogout();
 
   const handleDisconnect = () => {
     if (address) {
+      disconnect();
       logout();
     }
   };
