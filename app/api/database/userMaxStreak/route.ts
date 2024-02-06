@@ -15,3 +15,5 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     res.status(500).json({ error: "Something went wrong." });
   }
 }
+
+
