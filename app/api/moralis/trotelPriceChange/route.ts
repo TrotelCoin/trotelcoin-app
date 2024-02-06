@@ -2,10 +2,7 @@ import Moralis from "moralis";
 import { NextApiRequest, NextApiResponse } from "next";
 import { polygon } from "viem/chains";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (!Moralis.Core.isStarted) {
       await Moralis.start({

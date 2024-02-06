@@ -7,7 +7,6 @@ import { Address } from "wagmi";
 import Confetti from "react-dom-confetti";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
-import { useSession } from "next-auth/react";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
@@ -86,7 +85,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, [lang]);
 
   const address = useAddress();
-  const { data: session } = useSession();
+  const { user, isLoggedIn, isLoading } = useUser();
 
   useEffect(() => {
     if (address) {
@@ -103,7 +102,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, [address, claimedRewards]);
 
   const handleClaimRewards = async () => {
-    if (!address && !session) {
+    if (!address && !isLoggedIn) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -303,7 +302,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         )}
       </div>
       {/* Reward */}
-      {isCorrect && !hasAlreadyAnswered && address && session && (
+      {isCorrect && !hasAlreadyAnswered && address && isLoggedIn && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
@@ -320,7 +319,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           </div>
         </div>
       )}
-      {(!address || !session) && !hasAlreadyAnswered && (
+      {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}

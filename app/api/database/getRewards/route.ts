@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
 import { calculateRewards } from "@/lib/calculateRewards";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   // get remaining rewards
   const result = await sql`SELECT remaining_rewards FROM "algorithm"`;
   const remainingRewards = result[0]?.remaining_rewards;
@@ -23,4 +23,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     res.status(500).json({ error: "Something went wrong." });
   }
-};
+}

@@ -21,7 +21,7 @@ import {
 } from "@/data/addresses";
 import { mainnet, polygon } from "viem/chains";
 import CountUp from "react-countup";
-import { useSession } from "next-auth/react";
+import { useUser } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
@@ -532,7 +532,7 @@ export default function Account({
     useState<boolean>(true);
 
   const address = useAddress();
-  const { data: session, status } = useSession();
+  const { user, isLoggedIn, isLoading } = useUser();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
@@ -691,7 +691,7 @@ export default function Account({
   return (
     <>
       <div className="mx-auto">
-        {address && session ? (
+        {address && isLoggedIn ? (
           <>
             <Header
               ensName={ensName?.toString() as string}

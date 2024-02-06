@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import sql from "@/lib/db";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const satisfaction = req.body;
 
   try {
@@ -11,4 +11,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.error(error);
     res.status(500).json({ error: "Something went wrong." });
   }
-};
+}

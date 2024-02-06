@@ -17,7 +17,6 @@ import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
 } from "@/data/addresses";
-import { useSession } from "next-auth/react";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
@@ -51,7 +50,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const address = useAddress();
-  const { data: session } = useSession();
+  const { user, isLoggedIn, isLoading } = useUser();
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
@@ -90,7 +89,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && session) {
+    if (address && isLoggedIn) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);

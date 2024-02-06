@@ -24,7 +24,7 @@ const getQuestionsByLanguage = (quiz: any, lang: string) => {
   }
 };
 
-export default function quizHandler(req: NextApiRequest, res: NextApiResponse) {
+export function GET(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { quizId, lang },
   } = req;

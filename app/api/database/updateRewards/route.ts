@@ -3,7 +3,7 @@ import sql from "@/lib/db";
 import { calculateRewards } from "@/lib/calculateRewards";
 import remainingRewards from "@/data/remainingRewards";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
     // reset rewards if 24h has passed
     try {
@@ -39,4 +39,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     console.error(error);
     res.json({ success: false });
   }
-};
+}

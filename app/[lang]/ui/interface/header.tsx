@@ -20,7 +20,6 @@ import {
   useDisconnect,
   useLogout,
 } from "@thirdweb-dev/react";
-import { useSession } from "next-auth/react";
 
 // Define the Header component
 const Header = ({
@@ -37,7 +36,7 @@ const Header = ({
 
   const isLightTheme = useTheme();
 
-  const session = useSession();
+  const { user, isLoggedIn, isLoading } = useUser();
   const address = useAddress();
   const disconnect = useDisconnect();
   const { logout } = useLogout();
@@ -151,7 +150,7 @@ const Header = ({
               <TrotelBalance /> TROTEL
             </span>*/}
             {/*<Wallet lang={lang} />*/}
-            {address && session ? (
+            {address && isLoggedIn ? (
               <button
                 onClick={handleDisconnect}
                 className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
@@ -219,7 +218,7 @@ const Header = ({
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-6">
               {/*<Wallet lang={lang} />*/}
-              {address && session ? (
+              {address && isLoggedIn ? (
                 <button
                   onClick={handleDisconnect}
                   className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"

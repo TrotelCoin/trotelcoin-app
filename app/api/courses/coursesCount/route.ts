@@ -13,17 +13,11 @@ const allowCors =
     return handler(req, res);
   };
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
-    const totalCourses = lessons.reduce(
-      (acc, curr) => acc + curr.courses.length,
-      0
-    );
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
+  const totalCourses = lessons.reduce(
+    (acc, curr) => acc + curr.courses.length,
+    0
+  );
 
-    res.status(200).json({ totalCourses });
-  } else {
-    res.status(405).json({ message: "Method Not Allowed" });
-  }
-};
-
-export default allowCors(handler);
+  res.status(200).json({ totalCourses });
+}
