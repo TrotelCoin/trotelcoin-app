@@ -9,7 +9,7 @@ import Loading from "@/app/[lang]/ui/interface/loading";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { Lang } from "@/types/types";
 import Events from "@/app/[lang]/components/events";
-import { poppins } from "@/app/[lang]/ui/fonts";
+import { inter } from "@/app/[lang]/ui/fonts";
 import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
@@ -93,7 +93,7 @@ const MainComponent = ({
         </head>
 
         <body
-          className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+          className={`bg-white dark:bg-black ${inter.className} antialiased`}
         >
           {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
             <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
