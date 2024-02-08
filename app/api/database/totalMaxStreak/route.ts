@@ -3,11 +3,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const result =
-    await sql`SELECT max_streak FROM "streak" ORDER BY max_streak DESC LIMIT 1`;
+    await sql`SELECT MAX(max_streak) as biggest_streak FROM "streak"`;
 
   if (result) {
     return new NextResponse(
-      JSON.stringify({ maxStreak: result[0].max_streak }),
+      JSON.stringify({ maxStreak: result[0].biggest_streak }),
       { status: 200 }
     );
   } else {
