@@ -1,22 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
-import sql from "@/lib/db";
+import { supabase } from "@/lib/db";
 import { Address } from "viem";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
   const wallet = searchParams.get("wallet");
 
-  const result = await sql`SELECT max_streak FROM "streak" WHERE wallet = ${
-    wallet as Address
-  } ORDER BY max_streak DESC LIMIT 1`;
+  try {
+    const { data: result, error } = await supabase
+      .from("streak")
+      .select("max_streak")
+      .eq("wallet", wallet as Address);
 
-  if (result) {
-    return new NextResponse(
-      JSON.stringify({ maxStreak: result[0].max_streak })
-    );
-  } else {
-    console.error(result);
+    if (error) {
+      console.error(error);
+      return new NextResponse("Something went wrong.", { status: 500 });
+    }
+
+    if (result.length > 0) {
+      return new NextResponse(JSON.stringify({ maxStreak: result[0].max_streak }));
+    } else {
+      console.error("No result found");
+      return new NextResponse("No result found.", { status: 404 });
+    }
+  } catch (error) {
+    console.error(error);
     return new NextResponse("Something went wrong.", { status: 500 });
   }
 }

@@ -31,7 +31,6 @@ export default function Wallet({ lang }: { lang: Lang }) {
     try {
       connect({ connector });
     } catch (error) {
-      console.log(error);
       return;
     }
   };
@@ -40,7 +39,6 @@ export default function Wallet({ lang }: { lang: Lang }) {
     try {
       disconnect();
     } catch (error) {
-      console.log(error);
       return;
     }
   };

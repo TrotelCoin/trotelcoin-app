@@ -1,13 +1,37 @@
-import sql from "@/lib/db";
+import { supabase } from "@/lib/db";
 import remainingRewards from "@/data/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    // reset rewards if 24h has passed
-    await sql`UPDATE "algorithm" SET remaining_rewards = ${remainingRewards} WHERE updated_at < now() - interval '1 day' RETURNING *`;
+    // Reset rewards if 24h has passed
+    const { error: updateError } = await supabase
+      .from("algorithm")
+      .update({ remaining_rewards: remainingRewards })
+      .lte(
+        "updated_at",
+        new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+      );
 
-    const result = await sql`SELECT remaining_rewards FROM "algorithm"`;
+    if (updateError) {
+      console.error(updateError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
+    }
+
+    const { data: result, error: selectError } = await supabase
+      .from("algorithm")
+      .select("remaining_rewards");
+
+    if (selectError) {
+      console.error(selectError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
+    }
 
     if (result[0] && "remaining_rewards" in result[0]) {
       return new NextResponse(JSON.stringify(result[0].remaining_rewards), {

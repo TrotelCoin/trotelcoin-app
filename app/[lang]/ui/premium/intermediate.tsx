@@ -108,11 +108,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       if (write) {
         write();
       } else {
-        console.log("write function is undefined");
         return;
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

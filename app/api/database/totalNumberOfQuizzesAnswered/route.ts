@@ -1,17 +1,26 @@
-import sql from "@/lib/db";
+import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const result =
-    await sql`SELECT SUM(number_of_quizzes_answered) AS total_quizzes_answered FROM "learners"`;
-  if (result[0] && "total_quizzes_answered" in result[0]) {
-    return new NextResponse(JSON.stringify(result[0].total_quizzes_answered), {
-      status: 200,
-    });
-  } else {
+  const { data, error } = await supabase
+    .from("learners")
+    .select("number_of_quizzes_answered");
+
+  console.log(data, error);
+
+  if (error) {
     return new NextResponse(
       JSON.stringify({ error: "Something went wrong." }),
       { status: 500 }
     );
+  } else {
+    const result: number = data.reduce(
+      (acc, curr) => acc + curr.number_of_quizzes_answered,
+      0
+    );
+
+    return new NextResponse(JSON.stringify(result), {
+      status: 200,
+    });
   }
 }

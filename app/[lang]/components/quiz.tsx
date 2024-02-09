@@ -49,9 +49,6 @@ const loadQuizData = async (
       const quizData = await quizResponse.json();
       const answersData = await answersResponse.json();
 
-      console.log(quizData);
-      console.log(answersData);
-
       setQuestions(quizData);
       setCorrectAnswers(answersData);
     } else {

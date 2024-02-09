@@ -1,4 +1,4 @@
-import sql from "@/lib/db";
+import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -7,42 +7,163 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const wallet = searchParams.get("wallet");
 
   try {
-    const walletExists =
-      await sql`SELECT * FROM "learners" WHERE wallet = ${wallet}`;
+    // Check if wallet exists in "learners" table
+    const { data: walletExists, error: walletExistsError } = await supabase
+      .from("learners")
+      .select("*")
+      .eq("wallet", wallet);
 
-    if (!walletExists.length) {
-      // wallet does not exist in the database
-      await sql`INSERT INTO "learners" (wallet, number_of_quizzes_answered, number_of_quizzes_created, total_rewards_pending, created_at, updated_at) VALUES (${wallet}, 0, 0, 0, now(), now())`;
+    if (walletExistsError) {
+      console.error(walletExistsError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
     }
 
-    // check if the wallet exists in the database
-    const streakExists =
-      await sql`SELECT * FROM "streak" WHERE wallet = ${wallet}`;
+    if (!walletExists.length) {
+      // wallet does not exist in the "learners" table
+      const { error: insertError } = await supabase.from("learners").insert([
+        {
+          wallet,
+          number_of_quizzes_answered: 0,
+          number_of_quizzes_created: 0,
+          total_rewards_pending: 0,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      ]);
+
+      if (insertError) {
+        console.error(insertError);
+        return new NextResponse(
+          JSON.stringify({ error: "Something went wrong." }),
+          { status: 500 }
+        );
+      }
+    }
+
+    // Check if wallet exists in "streak" table
+    const { data: streakExists, error: streakExistsError } = await supabase
+      .from("streak")
+      .select("*")
+      .eq("wallet", wallet);
+
+    if (streakExistsError) {
+      console.error(streakExistsError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
+    }
 
     if (!streakExists.length) {
       // create a new streak if the wallet does not exist
-      await sql`INSERT INTO "streak" (wallet, current_streak, max_streak) VALUES (${wallet}, 0, 0)`;
+      const { error: insertStreakError } = await supabase
+        .from("streak")
+        .insert([
+          {
+            wallet,
+            current_streak: 0,
+            max_streak: 0,
+          },
+        ]);
 
-      // update current streak
-      await sql`UPDATE "streak" SET current_streak = current_streak + 1, last_streak_at = now() WHERE wallet = ${wallet}`;
+      if (insertStreakError) {
+        console.error(insertStreakError);
+        return new NextResponse(
+          JSON.stringify({ error: "Something went wrong." }),
+          { status: 500 }
+        );
+      }
 
-      // update max streak
-      await sql`UPDATE "streak" SET max_streak = GREATEST(max_streak, current_streak) WHERE wallet = ${wallet}`;
       return new NextResponse(JSON.stringify({ success: "Streak updated" }), {
         status: 200,
       });
     }
 
     // check if one day has passed since the last streak
-    const oneDay =
-      await sql`SELECT * FROM "streak" WHERE wallet = ${wallet} AND last_streak_at < now() - interval '1 day'`;
+    const { data: oneDay, error: oneDayError } = await supabase
+      .from("streak")
+      .select("*")
+      .eq("wallet", wallet)
+      .lte(
+        "last_streak_at",
+        new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+      );
+
+    if (oneDayError) {
+      console.error(oneDayError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
+    }
+
+    // fetch the current streak
+    const { data: currentStreak, error: currentStreakError } = await supabase
+      .from("streak")
+      .select("current_streak")
+      .eq("wallet", wallet);
+
+    if (currentStreakError) {
+      console.error(currentStreakError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
+    }
 
     // update only if the last streak was more than 1 day ago
-    if (oneDay.length) {
-      await sql`UPDATE "streak" SET current_streak = current_streak + 1, last_streak_at = now() WHERE wallet = ${wallet}`;
+    if (oneDay.length !== 0) {
+      const { error: updateCurrentStreakError } = await supabase
+        .from("streak")
+        .update({
+          current_streak: currentStreak[0].current_streak + 1,
+          last_streak_at: new Date().toISOString(),
+        })
+        .eq("wallet", wallet);
+
+      if (updateCurrentStreakError) {
+        console.error(updateCurrentStreakError);
+        return new NextResponse(
+          JSON.stringify({ error: "Something went wrong." }),
+          { status: 500 }
+        );
+      }
+
+      // get max streak
+      const { data: maxStreak, error: maxStreakError } = await supabase
+        .from("streak")
+        .select("max_streak")
+        .eq("wallet", wallet);
+
+      if (maxStreakError) {
+        console.error(maxStreakError);
+        return new NextResponse(
+          JSON.stringify({ error: "Something went wrong." }),
+          { status: 500 }
+        );
+      }
 
       // update max streak
-      await sql`UPDATE "streak" SET max_streak = GREATEST(max_streak, current_streak) WHERE wallet = ${wallet}`;
+      const { error: updateMaxStreakError } = await supabase
+        .from("streak")
+        .update({
+          max_streak: Math.max(
+            maxStreak[0].max_streak,
+            currentStreak[0].current_streak
+          ),
+        })
+        .eq("wallet", wallet);
+
+      if (updateMaxStreakError) {
+        console.error(updateMaxStreakError);
+        return new NextResponse(
+          JSON.stringify({ error: "Something went wrong." }),
+          { status: 500 }
+        );
+      }
 
       return new NextResponse(JSON.stringify({ success: "Streak updated." }), {
         status: 200,
