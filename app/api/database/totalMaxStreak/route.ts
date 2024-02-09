@@ -14,8 +14,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
       { status: 500 }
     );
   } else {
-    return new NextResponse(JSON.stringify({ maxStreak: result[0].max_streak }), {
-      status: 200,
-    });
+    return new NextResponse(
+      JSON.stringify({ maxStreak: result[0].max_streak }),
+      {
+        status: 200,
+      }
+    );
   }
 }

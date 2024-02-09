@@ -18,7 +18,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     if (result.length > 0) {
-      return new NextResponse(JSON.stringify({ maxStreak: result[0].max_streak }));
+      return new NextResponse(
+        JSON.stringify({ maxStreak: result[0].max_streak })
+      );
     } else {
       console.error("No result found");
       return new NextResponse("No result found.", { status: 404 });
