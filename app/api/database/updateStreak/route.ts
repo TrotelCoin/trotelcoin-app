@@ -152,10 +152,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
         .update({
           max_streak: Math.max(
             maxStreak[0].max_streak,
-            currentStreak[0].current_streak
+            currentStreak[0].current_streak + 1
           ),
         })
         .eq("wallet", wallet);
+
 
       if (updateMaxStreakError) {
         console.error(updateMaxStreakError);
