@@ -64,8 +64,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         .insert([
           {
             wallet: wallet as string,
-            current_streak: 0,
-            max_streak: 0,
+            current_streak: 1,
+            max_streak: 1,
+            last_streat_at: new Date().toISOString(),
           },
         ]);
 
