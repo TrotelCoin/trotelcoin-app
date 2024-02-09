@@ -171,6 +171,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     const data = await result.json();
     if (data.success === "Streak updated.") {
       setStreak((streak) => streak + 1);
+      setMaxStreak((maxStreak) => Math.max(maxStreak, streak + 1));
     }
   };
 
