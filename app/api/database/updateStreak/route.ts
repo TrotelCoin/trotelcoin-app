@@ -66,7 +66,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             wallet: wallet as string,
             current_streak: 1,
             max_streak: 1,
-            last_streat_at: new Date().toISOString(),
+            last_streak_at: new Date().toISOString(),
           },
         ]);
 
