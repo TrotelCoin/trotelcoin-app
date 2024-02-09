@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { data: walletExists, error: walletExistsError } = await supabase
       .from("learners")
       .select("*")
-      .eq("wallet", wallet);
+      .eq("wallet", wallet as string);
 
     if (walletExistsError) {
       console.error(walletExistsError);
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       // wallet does not exist in the "learners" table
       const { error: insertError } = await supabase.from("learners").insert([
         {
-          wallet,
+          wallet: wallet as string,
           number_of_quizzes_answered: 0,
           number_of_quizzes_created: 0,
           total_rewards_pending: 0,
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { data: streakExists, error: streakExistsError } = await supabase
       .from("streak")
       .select("*")
-      .eq("wallet", wallet);
+      .eq("wallet", wallet as string);
 
     if (streakExistsError) {
       console.error(streakExistsError);
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         .from("streak")
         .insert([
           {
-            wallet,
+            wallet: wallet as string,
             current_streak: 0,
             max_streak: 0,
           },
@@ -86,7 +86,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { data: oneDay, error: oneDayError } = await supabase
       .from("streak")
       .select("*")
-      .eq("wallet", wallet)
+      .eq("wallet", wallet as string)
       .lte(
         "last_streak_at",
         new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { data: currentStreak, error: currentStreakError } = await supabase
       .from("streak")
       .select("current_streak")
-      .eq("wallet", wallet);
+      .eq("wallet", wallet as string);
 
     if (currentStreakError) {
       console.error(currentStreakError);
@@ -122,7 +122,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           current_streak: currentStreak[0].current_streak + 1,
           last_streak_at: new Date().toISOString(),
         })
-        .eq("wallet", wallet);
+        .eq("wallet", wallet as string);
 
       if (updateCurrentStreakError) {
         console.error(updateCurrentStreakError);
@@ -136,7 +136,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const { data: maxStreak, error: maxStreakError } = await supabase
         .from("streak")
         .select("max_streak")
-        .eq("wallet", wallet);
+        .eq("wallet", wallet as string);
 
       if (maxStreakError) {
         console.error(maxStreakError);
@@ -155,8 +155,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             currentStreak[0].current_streak + 1
           ),
         })
-        .eq("wallet", wallet);
-
+        .eq("wallet", wallet as string);
 
       if (updateMaxStreakError) {
         console.error(updateMaxStreakError);

@@ -148,7 +148,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
         }
       );
       const data = await result.json();
-      setMaxStreak(data.maxStreak);
+      setMaxStreak(data);
     };
 
     if (address) {
