@@ -119,8 +119,19 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     if (isSuccess) {
       setIsClaimed(true);
       setIsClaimedMessage(true);
+
+      const postClaimIntermediate = async () => {
+        fetch(`/api/database/claimIntermediate?wallet=${address}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      };
+
+      postClaimIntermediate();
     }
-  }, [isSuccess]);
+  }, [isSuccess, address, setIsClaimed, setIsClaimedMessage]);
 
   return (
     <>

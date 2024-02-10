@@ -114,8 +114,19 @@ const Expert = ({ lang }: { lang: Lang }) => {
     if (isSuccess) {
       setIsClaimed(true);
       setIsClaimedMessage(true);
+
+      const postClaimExpert = async () => {
+        fetch(`/api/database/claimExpert?wallet=${address}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      };
+
+      postClaimExpert();
     }
-  }, [isSuccess]);
+  }, [isSuccess, address, setIsClaimedMessage, setIsClaimed]);
 
   return (
     <>
