@@ -47,6 +47,26 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
+    const { data: quizExistence, error: quizExistenceError } = await supabase
+      .from("quizzes")
+      .select("quiz_id")
+      .eq("quiz_id", quizId);
+
+    if (quizExistenceError) {
+      console.error(quizExistenceError);
+      return new NextResponse(
+        JSON.stringify({ error: "Something went wrong." }),
+        { status: 500 }
+      );
+    }
+
+    if (!quizExistence || quizExistence.length === 0) {
+      console.error("Quiz not found with the specified quizId");
+      return new NextResponse(JSON.stringify({ error: "Quiz not found." }), {
+        status: 404,
+      });
+    }
+
     const remainingRewardsValue = algorithmData[0].remaining_rewards;
     const rewards = calculateRewards(remainingRewardsValue);
 
