@@ -353,7 +353,7 @@ const Header: React.FC<HeaderProps> = ({
             </span>
           )}
           <div className="grid grid-cols-6 lg:grid-cols-11 gap-2 mx-auto mt-2">
-            {[...Array(11).keys()].map((number) => (
+            {Array.from(Array(11).keys()).map((number) => (
               <button
                 key={number}
                 onClick={() => satisfactionResult(number)}

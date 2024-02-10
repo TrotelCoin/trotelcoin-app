@@ -2,7 +2,7 @@ import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
-export default async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
     const wallet = searchParams.get("wallet");

@@ -6,8 +6,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     .from("learners")
     .select("number_of_quizzes_answered");
 
-  console.log(data, error);
-
   if (error) {
     return new NextResponse(
       JSON.stringify({ error: "Something went wrong." }),
