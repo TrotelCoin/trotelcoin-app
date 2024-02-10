@@ -157,5 +157,11 @@
     "streakDisabled": "Reviens demain pour augmenter ta série. Attention à ne pas perdre ta série !",
     "streakEnabled": "Clique sur la flame pour augmenter ta série.",
     "maxStreak": "Plus grosse série"
+  },
+  "privacyPolicy": {
+    "title": "Politique de confidentialité"
+  },
+  "termsOfService": {
+    "title": "Conditions d'utilisation"
   }
 }

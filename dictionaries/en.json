@@ -157,5 +157,11 @@
     "streakDisabled": "Come back tomorrow to increase your streak. Don't lose your streak!",
     "streakEnabled": "Click on the flame to increase your streak.",
     "maxStreak": "Max streak"
+  },
+  "privacyPolicy": {
+    "title": "Privacy policy"
+  },
+  "termsOfService": {
+    "title": "Terms of service"
   }
 }

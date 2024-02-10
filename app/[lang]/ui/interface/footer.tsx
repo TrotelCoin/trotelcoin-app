@@ -98,7 +98,7 @@ export default function Footer({ lang }: { lang: Lang }) {
       {
         name: typeof dict?.footer !== "string" && dict?.footer.terms,
         href: `/${lang}/terms-of-service`,
-        display: false,
+        display: true,
         id: 9,
         anotherWindow: false,
       },
