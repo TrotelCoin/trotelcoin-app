@@ -18,10 +18,10 @@ const TrotelPrice = () => {
           },
         });
         const data = await response.json();
-        if (!data.tokenPrice || data.tokenPrice === null) {
+        if (!data) {
           setTokenPrice(0);
         } else {
-          setTokenPrice(data.tokenPrice);
+          setTokenPrice(data);
           setIsLoading(false);
         }
       } catch (error) {

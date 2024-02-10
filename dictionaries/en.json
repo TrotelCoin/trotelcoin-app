@@ -115,7 +115,10 @@
     "notAvailableMessage": "This lesson is not available yet. Please come back later.",
     "goBackHome": "Go back home",
     "course": "Course",
-    "goingToLearn": "What you are going to learn?"
+    "goingToLearn": "What you are going to learn?",
+    "satisfaction": "Rate this course",
+    "satisfactionMessage": "Thank you for rating this course.",
+    "errorMessage": "An error occured. Please try again later."
   },
   "notPremium": {
     "title": "You are not premium",

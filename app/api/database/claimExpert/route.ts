@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { Address } from "viem";
 
 export default async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -9,7 +10,7 @@ export default async function POST(req: NextRequest, res: NextResponse) {
     const { data, error } = await supabase
       .from("subscriptions")
       .select("wallet")
-      .eq("wallet", wallet);
+      .eq("wallet", wallet as Address);
 
     if (error) {
       console.error(error);
@@ -28,7 +29,10 @@ export default async function POST(req: NextRequest, res: NextResponse) {
       const { data, error } = await supabase
         .from("subscriptions")
         .insert([
-          { wallet: wallet, claimed_expert_at: new Date().toISOString() },
+          {
+            wallet: wallet as Address,
+            claimed_expert_at: new Date().toISOString(),
+          },
         ]);
 
       if (error) {

@@ -115,7 +115,10 @@
     "notAvailableMessage": "Cette leçon n'est pas encore disponible. Reviens plus tard.",
     "goBackHome": "Retourner à l'accueil",
     "course": "Cours",
-    "goingToLearn": "Que vas-tu apprendre?"
+    "goingToLearn": "Que vas-tu apprendre?",
+    "satisfaction": "Tu as aimé ce cours ?",
+    "satisfactionMessage": "Merci d'avoir donné ton avis sur ce cours.",
+    "errorMessage": "Une erreur est survenue. Réessaye plus tard."
   },
   "notPremium": {
     "title": "Tu n'es pas premium",

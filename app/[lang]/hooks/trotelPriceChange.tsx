@@ -18,8 +18,8 @@ const TrotelPriceChange = () => {
         });
         const data = await response.json();
 
-        if (data.priceChange || data.priceChange !== null) {
-          const priceChange = parseFloat(data.priceChange);
+        if (data) {
+          const priceChange = parseFloat(data);
 
           setTokenPriceChange(priceChange);
 

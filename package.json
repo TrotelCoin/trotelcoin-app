@@ -83,6 +83,7 @@
     "react-i18next": "^13.4.0",
     "react-router-dom": "^6.16.0",
     "siwe": "^2.1.4",
+    "supports-color": "latest",
     "tailwindcss": "^3.3.3",
     "use-debounce": "^9.0.4",
     "vercel": "^33.4.1",

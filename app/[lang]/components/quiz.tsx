@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Address } from "wagmi";
 import Confetti from "react-dom-confetti";
 import Fail from "@/app/[lang]/ui/modals/fail";
 import Success from "@/app/[lang]/ui/modals/success";
@@ -100,7 +99,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const { user, isLoggedIn, isLoading } = useUser();
 
   useEffect(() => {
-    if (address) {
+    if (address && quizId) {
       fetch(
         `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
         { method: "GET", headers: { "Content-Type": "application/json" } }
@@ -110,9 +109,12 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           if (data === true) {
             setHasAlreadyAnswered(true);
           }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
         });
     }
-  }, [address, claimedRewards]);
+  }, [address, quizId]);
 
   const handleClaimRewards = async () => {
     if (!address && !isLoggedIn) {
