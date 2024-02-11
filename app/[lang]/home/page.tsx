@@ -105,14 +105,12 @@ function renderCourses(
 
   return (
     <Link href={`${courseLink}`} key={course.quizId}>
-      <div
-        className={`rounded-lg px-4 pb-4 hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
-      >
+      <div className={`mr-4 my-2`}>
         <Tilt
           glareEnable={true}
           tiltMaxAngleX={5}
           tiltMaxAngleY={5}
-          glareMaxOpacity={0.2}
+          glareMaxOpacity={0.45}
           perspective={800}
           scale={1.05}
         >
@@ -123,7 +121,9 @@ function renderCourses(
             alt="Placeholder"
             className="mt-4 rounded-lg"
             />*/}
-          <div>
+          <div
+            className={`rounded-lg px-4 pb-4 hover:shadow active:border-yellow-500 dark:active:border-yellow-300 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+          >
             <div>
               <div
                 className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}

@@ -29,7 +29,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
         glareEnable={true}
         tiltMaxAngleX={5}
         tiltMaxAngleY={5}
-        glareMaxOpacity={0.2}
+        glareMaxOpacity={0.45}
         perspective={800}
         scale={1.05}
       >
