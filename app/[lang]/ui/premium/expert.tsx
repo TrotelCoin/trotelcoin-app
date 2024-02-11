@@ -17,6 +17,7 @@ import { trotelCoinAddress, trotelCoinExpertAddress } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
+import Tilt from "react-parallax-tilt";
 
 const holdingRequirements: number = 50000;
 
@@ -130,79 +131,88 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div
-        className={`overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 ${
-          isClaimed
-            ? "rainbow-border"
-            : "border border-black/10 dark:border-white/10"
-        } backdrop-blur-xl`}
+      <Tilt
+        glareEnable={true}
+        tiltMaxAngleX={5}
+        tiltMaxAngleY={5}
+        glareMaxOpacity={0.45}
+        perspective={800}
+        scale={1.05}
       >
-        <div className="px-4 py-5 sm:p-6">
-          <div className="flex items-center gap-1">
-            <h2
-              className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
-                isClaimed && "rainbow-text"
-              }`}
-            >
-              🦊 Expert
-            </h2>
-          </div>
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col mt-4">
-              <div className="flex flex-col gap-2 my-4">
-                {Object.values(advantages).map((advantage, index) => (
-                  <div key={index} className="flex gap-1">
-                    <span className="text-gray-700 flex items-center dark:text-gray-300">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-5 h-5 mr-1 text-gray-900 dark:text-gray-100"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m4.5 12.75 6 6 9-13.5"
-                        />
-                      </svg>
-                      <>{advantage}</>
-                    </span>
-                  </div>
-                ))}
-              </div>
+        <div
+          className={`overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 ${
+            isClaimed
+              ? "rainbow-border"
+              : "border border-black/10 dark:border-white/10"
+          } backdrop-blur-xl`}
+        >
+          <div className="px-4 py-5 sm:p-6">
+            <div className="flex items-center gap-1">
+              <h2
+                className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
+                  isClaimed && "rainbow-text"
+                }`}
+              >
+                🦊 Expert
+              </h2>
             </div>
-            {!isClaimed && !isEligible && (
-              <button
-                onClick={checkEligibility}
-                className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
-              >
-                {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.eligibility}</>
-                )}
-              </button>
-            )}
-            {isEligible && !isClaimed && (
-              <button
-                onClick={claim}
-                className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
-              >
-                {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.claim}</>
-                )}
-              </button>
-            )}
-            {isClaimed && (
-              <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.claimed}</>
-                )}
-              </button>
-            )}
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-col mt-4">
+                <div className="flex flex-col gap-2 my-4">
+                  {Object.values(advantages).map((advantage, index) => (
+                    <div key={index} className="flex gap-1">
+                      <span className="text-gray-700 flex items-center dark:text-gray-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-5 h-5 mr-1 text-gray-900 dark:text-gray-100"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
+                        <>{advantage}</>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {!isClaimed && !isEligible && (
+                <button
+                  onClick={checkEligibility}
+                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                >
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.eligibility}</>
+                  )}
+                </button>
+              )}
+              {isEligible && !isClaimed && (
+                <button
+                  onClick={claim}
+                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                >
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.claim}</>
+                  )}
+                </button>
+              )}
+              {isClaimed && (
+                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.claimed}</>
+                  )}
+                </button>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </Tilt>
       {lang === "fr" ? (
         <Fail
           show={isEligibleMessage}

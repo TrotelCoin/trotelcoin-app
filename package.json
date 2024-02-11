@@ -98,6 +98,7 @@
     "eslint": "^8.51.0",
     "file-loader": "^6.2.0",
     "prisma": "5.9.0",
+    "react-parallax-tilt": "^1.7.210",
     "typed.js": "^2.0.16",
     "typescript": "^5.2.2",
     "url-loader": "^4.1.1"

@@ -14,6 +14,7 @@ import {
 import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
+import Tilt from "react-parallax-tilt";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -104,23 +105,36 @@ function renderCourses(
 
   return (
     <Link href={`${courseLink}`} key={course.quizId}>
-      <div
-        className={`rounded-lg hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+      <Tilt
+        glareEnable={true}
+        tiltMaxAngleX={5}
+        tiltMaxAngleY={5}
+        glareMaxOpacity={0.45}
+        perspective={800}
+        scale={1.05}
       >
-        <div className="px-4 pb-4">
+        <div
+          className={`rounded-lg px-4 pb-4 hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+        >
           {/*<Image
             height={400}
             width={400}
             src={placeholder}
             alt="Placeholder"
             className="mt-4 rounded-lg"
-          />*/}
-          <h3 className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}>
-            {title}
-          </h3>
-          <p className={`text-gray-700 dark:text-gray-300 text-xs`}>
-            {description}
-          </p>
+            />*/}
+          <div>
+            <h3
+              className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
+            >
+              {title}
+            </h3>
+          </div>
+          <div>
+            <p className={`text-gray-700 dark:text-gray-300 text-xs`}>
+              {description}
+            </p>
+          </div>
           <div className="flex flex-wrap mt-4 gap-2 items-center">
             {(tier === "Beginner" || tier === "Débutant") && (
               <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
@@ -178,7 +192,7 @@ function renderCourses(
             )}
           </div>
         </div>
-      </div>
+      </Tilt>
     </Link>
   );
 }
