@@ -105,16 +105,16 @@ function renderCourses(
 
   return (
     <Link href={`${courseLink}`} key={course.quizId}>
-      <Tilt
-        glareEnable={true}
-        tiltMaxAngleX={5}
-        tiltMaxAngleY={5}
-        glareMaxOpacity={0.2}
-        perspective={800}
-        scale={1.05}
+      <div
+        className={`rounded-lg px-4 pb-4 hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
       >
-        <div
-          className={`rounded-lg px-4 pb-4 hover:shadow active:border-yellow-500 dark:active:border-yellow-300 mr-4 my-2 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.2}
+          perspective={800}
+          scale={1.05}
         >
           {/*<Image
             height={400}
@@ -124,75 +124,77 @@ function renderCourses(
             className="mt-4 rounded-lg"
             />*/}
           <div>
-            <div
-              className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
-            >
-              {title}
-            </div>
-          </div>
-          <div>
-            <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
-              {description}
-            </div>
-          </div>
-          <div className="flex flex-wrap mt-4 gap-2 items-center">
-            {(tier === "Beginner" || tier === "Débutant") && (
-              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
-                {tier} 🐣
-              </div>
-            )}
-            {(tier === "Intermediate" || tier === "Intermédiaire") && (
-              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
-                {tier} 🙈
-              </div>
-            )}
-            {tier === "Expert" && (
-              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
-                {tier} 🦊
-              </div>
-            )}
-            {!course.available && (
-              <div className="inline-flex items-center rounded-lg  text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
-                {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.notAvailable}</>
-                )}
-              </div>
-            )}
-            {course.available && (
+            <div>
               <div
-                className={`inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium ${statusClass}`}
+                className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
               >
-                {status[quizId - 1] === "Not started" && lang === "en" && (
-                  <>Not started 🤔</>
-                )}
-                {status[quizId - 1] === "Not started" && lang === "fr" && (
-                  <>Pas commencé 🤔</>
-                )}
-                {status[quizId - 1] === "Finished" && lang === "en" && (
-                  <>Finished 💪</>
-                )}
-                {status[quizId - 1] === "Finished" && lang === "fr" && (
-                  <>Terminé 💪</>
-                )}
+                {title}
               </div>
-            )}
-            {course.sponsored && (
-              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
-                {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.sponsored} 📚</>
-                )}
+            </div>
+            <div>
+              <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
+                {description}
               </div>
-            )}
-            {course.new && (
-              <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
-                {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.newCourse} 👀</>
-                )}
-              </div>
-            )}
+            </div>
+            <div className="flex flex-wrap mt-4 gap-2 items-center">
+              {(tier === "Beginner" || tier === "Débutant") && (
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+                  {tier} 🐣
+                </div>
+              )}
+              {(tier === "Intermediate" || tier === "Intermédiaire") && (
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+                  {tier} 🙈
+                </div>
+              )}
+              {tier === "Expert" && (
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
+                  {tier} 🦊
+                </div>
+              )}
+              {!course.available && (
+                <div className="inline-flex items-center rounded-lg  text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
+                  {typeof dict?.lesson !== "string" && (
+                    <>{dict?.lesson.notAvailable}</>
+                  )}
+                </div>
+              )}
+              {course.available && (
+                <div
+                  className={`inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium ${statusClass}`}
+                >
+                  {status[quizId - 1] === "Not started" && lang === "en" && (
+                    <>Not started 🤔</>
+                  )}
+                  {status[quizId - 1] === "Not started" && lang === "fr" && (
+                    <>Pas commencé 🤔</>
+                  )}
+                  {status[quizId - 1] === "Finished" && lang === "en" && (
+                    <>Finished 💪</>
+                  )}
+                  {status[quizId - 1] === "Finished" && lang === "fr" && (
+                    <>Terminé 💪</>
+                  )}
+                </div>
+              )}
+              {course.sponsored && (
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+                  {typeof dict?.lesson !== "string" && (
+                    <>{dict?.lesson.sponsored} 📚</>
+                  )}
+                </div>
+              )}
+              {course.new && (
+                <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+                  {typeof dict?.lesson !== "string" && (
+                    <>{dict?.lesson.newCourse} 👀</>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </Tilt>
+        </Tilt>
+      </div>
     </Link>
   );
 }
