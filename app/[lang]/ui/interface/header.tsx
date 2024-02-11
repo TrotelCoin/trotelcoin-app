@@ -174,7 +174,7 @@ const Header = ({
               <TrotelBalance /> TROTEL
             </span>*/}
             {/*<Wallet lang={lang} />*/}
-            <div className="flex gap-1 text-xl items-center">
+            <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray">
               {streak ? (
                 <>
                   <CountUp start={0} end={streak} duration={2} />
@@ -252,7 +252,7 @@ const Header = ({
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
               {/*<Wallet lang={lang} />*/}
-              <div className="flex gap-1 text-xl items-center">
+              <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray-100">
                 {streak ? (
                   <>
                     <CountUp start={0} end={streak} duration={2} />
