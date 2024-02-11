@@ -135,7 +135,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
         glareEnable={true}
         tiltMaxAngleX={5}
         tiltMaxAngleY={5}
-        glareMaxOpacity={0.45}
+        glareMaxOpacity={0.2}
         perspective={800}
         scale={1.05}
       >
