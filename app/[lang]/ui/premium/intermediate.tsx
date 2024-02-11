@@ -188,37 +188,31 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </div>
               </div>
               {!isClaimed && !isEligible && (
-                <div>
-                  <button
-                    onClick={checkEligibility}
-                    className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
-                  >
-                    {typeof dict?.premium !== "string" && (
-                      <>{dict?.premium.eligibility}</>
-                    )}
-                  </button>
-                </div>
+                <button
+                  onClick={checkEligibility}
+                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                >
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.eligibility}</>
+                  )}
+                </button>
               )}
               {isEligible && !isClaimed && (
-                <div>
-                  <button
-                    onClick={claim}
-                    className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
-                  >
-                    {typeof dict?.premium !== "string" && (
-                      <>{dict?.premium.claim}</>
-                    )}
-                  </button>
-                </div>
+                <button
+                  onClick={claim}
+                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                >
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.claim}</>
+                  )}
+                </button>
               )}
               {isClaimed && (
-                <div>
-                  <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                    {typeof dict?.premium !== "string" && (
-                      <>{dict?.premium.claimed}</>
-                    )}
-                  </button>
-                </div>
+                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.claimed}</>
+                  )}
+                </button>
               )}
             </div>
           </div>
