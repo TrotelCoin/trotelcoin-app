@@ -38,16 +38,16 @@ const Beginner = ({ lang }: { lang: Lang }) => {
         >
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center gap-1">
-              <h2 className={`font-semibold rainbow-text text-2xl`}>
+              <div className={`font-semibold rainbow-text text-2xl`}>
                 🐣 Beginner
-              </h2>
+              </div>
             </div>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col mt-4">
                 <div className="flex flex-col gap-2 my-4">
                   {Object.values(advantages).map((advantage, index) => (
                     <div key={index} className="flex gap-1">
-                      <span className="text-gray-700 flex items-center dark:text-gray-300">
+                      <div className="text-gray-700 flex items-center dark:text-gray-300">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -63,16 +63,18 @@ const Beginner = ({ lang }: { lang: Lang }) => {
                           />
                         </svg>
                         <>{advantage}</>
-                      </span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.claimed}</>
-                )}
-              </button>
+              <div>
+                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                  {typeof dict?.premium !== "string" && (
+                    <>{dict?.premium.claimed}</>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

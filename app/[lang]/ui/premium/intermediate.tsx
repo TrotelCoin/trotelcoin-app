@@ -153,20 +153,20 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         >
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center gap-1">
-              <h2
+              <div
                 className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
                   isClaimed && "rainbow-text"
                 }`}
               >
                 🙈 Intermediate
-              </h2>
+              </div>
             </div>
             <div className="flex flex-col gap-5">
               <div className="flex flex-col mt-4">
                 <div className="flex flex-col gap-2 my-4">
                   {Object.values(advantages).map((advantage, index) => (
                     <div key={index} className="flex gap-1">
-                      <span className="text-gray-700 flex items-center dark:text-gray-300">
+                      <div className="text-gray-700 flex items-center dark:text-gray-300">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -182,37 +182,43 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                           />
                         </svg>
                         <>{advantage}</>
-                      </span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
               {!isClaimed && !isEligible && (
-                <button
-                  onClick={checkEligibility}
-                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
-                >
-                  {typeof dict?.premium !== "string" && (
-                    <>{dict?.premium.eligibility}</>
-                  )}
-                </button>
+                <div>
+                  <button
+                    onClick={checkEligibility}
+                    className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                  >
+                    {typeof dict?.premium !== "string" && (
+                      <>{dict?.premium.eligibility}</>
+                    )}
+                  </button>
+                </div>
               )}
               {isEligible && !isClaimed && (
-                <button
-                  onClick={claim}
-                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
-                >
-                  {typeof dict?.premium !== "string" && (
-                    <>{dict?.premium.claim}</>
-                  )}
-                </button>
+                <div>
+                  <button
+                    onClick={claim}
+                    className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                  >
+                    {typeof dict?.premium !== "string" && (
+                      <>{dict?.premium.claim}</>
+                    )}
+                  </button>
+                </div>
               )}
               {isClaimed && (
-                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                  {typeof dict?.premium !== "string" && (
-                    <>{dict?.premium.claimed}</>
-                  )}
-                </button>
+                <div>
+                  <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                    {typeof dict?.premium !== "string" && (
+                      <>{dict?.premium.claimed}</>
+                    )}
+                  </button>
+                </div>
               )}
             </div>
           </div>

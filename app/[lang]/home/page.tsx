@@ -124,42 +124,42 @@ function renderCourses(
             className="mt-4 rounded-lg"
             />*/}
           <div>
-            <h3
+            <div
               className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
             >
               {title}
-            </h3>
+            </div>
           </div>
           <div>
-            <p className={`text-gray-700 dark:text-gray-300 text-xs`}>
+            <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
               {description}
-            </p>
+            </div>
           </div>
           <div className="flex flex-wrap mt-4 gap-2 items-center">
             {(tier === "Beginner" || tier === "Débutant") && (
-              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
                 {tier} 🐣
-              </span>
+              </div>
             )}
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
-              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
                 {tier} 🙈
-              </span>
+              </div>
             )}
             {tier === "Expert" && (
-              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
+              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
                 {tier} 🦊
-              </span>
+              </div>
             )}
             {!course.available && (
-              <span className="inline-flex items-center rounded-lg  text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
+              <div className="inline-flex items-center rounded-lg  text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.notAvailable}</>
                 )}
-              </span>
+              </div>
             )}
             {course.available && (
-              <span
+              <div
                 className={`inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium ${statusClass}`}
               >
                 {status[quizId - 1] === "Not started" && lang === "en" && (
@@ -174,21 +174,21 @@ function renderCourses(
                 {status[quizId - 1] === "Finished" && lang === "fr" && (
                   <>Terminé 💪</>
                 )}
-              </span>
+              </div>
             )}
             {course.sponsored && (
-              <span className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+              <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.sponsored} 📚</>
                 )}
-              </span>
+              </div>
             )}
             {course.new && (
-              <span className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+              <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.newCourse} 👀</>
                 )}
-              </span>
+              </div>
             )}
           </div>
         </div>
