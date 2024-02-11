@@ -21,6 +21,8 @@ import {
   useLogout,
   useUser,
 } from "@thirdweb-dev/react";
+import CountUp from "react-countup";
+import { Address } from "viem";
 
 // Define the Header component
 const Header = ({
@@ -32,6 +34,7 @@ const Header = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
+  const [streak, setStreak] = useState<number | null>(null);
 
   const pathname = usePathname();
 
@@ -48,6 +51,26 @@ const Header = ({
       logout();
     }
   };
+
+  useEffect(() => {
+    const fetchUserStreak = async () => {
+      await fetch(`/api/database/streak?wallet=${address as Address}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setStreak(data.currentStreak);
+          console.log(data);
+        });
+    };
+
+    if (address) {
+      fetchUserStreak();
+    }
+  }, [address, streak]);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -151,6 +174,16 @@ const Header = ({
               <TrotelBalance /> TROTEL
             </span>*/}
             {/*<Wallet lang={lang} />*/}
+            <div className="flex gap-1 text-xl items-center">
+              {streak ? (
+                <>
+                  <CountUp start={0} end={streak} duration={2} />
+                </>
+              ) : (
+                <>0</>
+              )}{" "}
+              🔥
+            </div>
             {address && isLoggedIn ? (
               <button
                 onClick={handleDisconnect}
@@ -217,8 +250,18 @@ const Header = ({
                 ></Image>
               </Link>
             </div>
-            <div className="flex flex-1 items-center justify-end gap-x-6">
+            <div className="flex flex-1 items-center justify-end gap-x-4">
               {/*<Wallet lang={lang} />*/}
+              <div className="flex gap-1 text-xl items-center">
+                {streak ? (
+                  <>
+                    <CountUp start={0} end={streak} duration={2} />
+                  </>
+                ) : (
+                  <>0</>
+                )}{" "}
+                🔥
+              </div>
               {address && isLoggedIn ? (
                 <button
                   onClick={handleDisconnect}
