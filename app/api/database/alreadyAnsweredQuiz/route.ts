@@ -11,9 +11,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     // select answered from "quizzes_answered"
     const { data: result, error } = await supabase
       .from("quizzes_answered")
-      .select("answered")
-      .eq("wallet", wallet as Address)
-      .eq("quiz_id", quizId);
+      .select("answered, quiz_id")
+      .eq("wallet", wallet as Address);
 
     if (error) {
       console.error(error);
@@ -23,16 +22,27 @@ export async function GET(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (result[0] && "answered" in result[0]) {
-      return new NextResponse(JSON.stringify(result[0].answered), {
-        status: 200,
-      });
-    } else {
+    if (!Array.isArray(result)) {
+      console.error("Result is not an array.");
       return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+        JSON.stringify({ error: "Invalid result format." }),
         { status: 500 }
       );
     }
+
+    const matchingResult = result.find(
+      (object) => object.quiz_id === parseFloat(quizId as string)
+    );
+
+    let answeredValue = false;
+
+    if (matchingResult) {
+      answeredValue = matchingResult.answered;
+    }
+
+    return new NextResponse(JSON.stringify(answeredValue), {
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     return new NextResponse(
