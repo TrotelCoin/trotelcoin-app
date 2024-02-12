@@ -6,6 +6,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");
 
+  let life = 3;
+
   try {
     // if doesn't exist create a new record
     const { data: result, error } = await supabase
@@ -17,6 +19,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
       console.error(error);
       return new NextResponse("Something went wrong.", { status: 500 });
     }
+
+    life = result[0].life;
 
     if (result.length === 0) {
       const { error: insertError } = await supabase.from("life").insert([
@@ -35,19 +39,21 @@ export async function GET(req: NextRequest, res: NextResponse) {
       return new NextResponse(JSON.stringify(3), { status: 200 });
     }
 
-    // if last_reset_at is more than 1 day old, reset life
-    const { error: updateError } = await supabase
-      .from("life")
-      .update({ life: 3 })
-      .lte(
-        "last_reset_at",
-        new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-      )
-      .eq("wallet", wallet as Address);
+    // if last_reset_at is more than 1 day old and life < 3, reset life
+    if (life < 3) {
+      const { error: updateError } = await supabase
+        .from("life")
+        .update({ life: 3 })
+        .lte(
+          "last_reset_at",
+          new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+        )
+        .eq("wallet", wallet as Address);
 
-    if (updateError) {
-      console.error(updateError);
-      return new NextResponse("Something went wrong.", { status: 500 });
+      if (updateError) {
+        console.error(updateError);
+        return new NextResponse("Something went wrong.", { status: 500 });
+      }
     }
 
     return new NextResponse(JSON.stringify(result[0].life), { status: 200 });
