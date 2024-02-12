@@ -15,7 +15,11 @@
     "account": "Compte",
     "premium": "Premium",
     "version": "version beta",
-    "disconnect": "Se déconnecter"
+    "disconnect": "Se déconnecter",
+    "lifeMessage": "Tes vies actuelles",
+    "streakMessage": "Ta série actuelle",
+    "lifeButton": "Obtiens vies illimitées",
+    "streakButton": "Augmente ta série"
   },
   "home": {
     "search": "Que veux-tu apprendre ?"
@@ -137,7 +141,8 @@
     "incorrect": "Oups. Tu as répondu incorrectement aux questions suivantes :",
     "alreadyClaimed": "Tu as déjà obtenu tes récompenses pour ce quiz.",
     "connectWallet": "Connecte ton portefeuille et authentifie-toi pour obtenir tes récompenses.",
-    "claimingError": "Une erreur est survenue. Réessaye plus tard."
+    "claimingError": "Une erreur est survenue. Réessaye plus tard.",
+    "life": "Tu ne peux pas faire le quiz, car tu n'as plus de vie restante. Reviens demain ou achète des vies."
   },
   "events": {
     "claimed": "a obtenu"

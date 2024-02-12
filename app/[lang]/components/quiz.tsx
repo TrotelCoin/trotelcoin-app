@@ -9,6 +9,15 @@ import Success from "@/app/[lang]/ui/modals/success";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useContractRead, Address } from "wagmi";
+import LifeContext from "@/app/[lang]/lifeProvider";
+import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import {
+  trotelCoinIntermediateAddress,
+  trotelCoinExpertAddress,
+} from "@/data/addresses";
+import { polygon } from "viem/chains";
 
 interface QuizProps {
   quizId: number;
@@ -85,6 +94,11 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [shuffled, setShuffled] = useState<boolean>(false);
   const [hasAlreadyAnswered, setHasAlreadyAnswered] = useState<boolean>(false);
   const [claimingError, setClaimingError] = useState<boolean>(false);
+  const [isIntermediateBalance, setIsIntermediateBalance] =
+    useState<boolean>(false);
+  const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
+
+  const { updateLife, life, setLife } = React.useContext(LifeContext);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -214,7 +228,53 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     }
     setWrongAnswers(newWrongAnswers);
     setShowMessage(true);
+    updateLife();
   };
+
+  const { data: intermediate } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinIntermediateABI,
+    address: trotelCoinIntermediateAddress,
+    functionName: "balanceOf",
+    args: [address as Address],
+    account: address as Address,
+    enabled: Boolean(address),
+    watch: true,
+  });
+
+  const { data: expert } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinExpertABI,
+    address: trotelCoinExpertAddress,
+    functionName: "balanceOf",
+    args: [address as Address],
+    account: address as Address,
+    enabled: Boolean(address),
+    watch: true,
+  });
+
+  useEffect(() => {
+    const intermediateBalance: number = parseFloat(intermediate as string);
+    const expertBalance: number = parseFloat(expert as string);
+
+    if (intermediateBalance > 0) {
+      setIsIntermediateBalance(true);
+    }
+
+    if (expertBalance > 0) {
+      setIsExpertBalance(true);
+    }
+  }, [intermediate, expert]);
+
+  if (life === 0 && !isIntermediateBalance && !isExpertBalance) {
+    return (
+      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+        <p className="text-red-500 dark:text-red-300">
+          {typeof dict?.quiz !== "string" && <>{dict?.quiz.life}</>}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <>

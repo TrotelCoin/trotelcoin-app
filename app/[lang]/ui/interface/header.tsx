@@ -2,8 +2,8 @@
 
 // Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog } from "@headlessui/react";
-import React, { useEffect, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import React, { useEffect, useState, Fragment } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,6 +14,7 @@ import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
+import { useContractRead } from "wagmi";
 import {
   ConnectWallet,
   useAddress,
@@ -23,18 +24,32 @@ import {
 } from "@thirdweb-dev/react";
 import CountUp from "react-countup";
 import { Address } from "viem";
+import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import {
+  trotelCoinExpertAddress,
+  trotelCoinIntermediateAddress,
+} from "@/data/addresses";
+import { polygon } from "viem/chains";
+import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 
 // Define the Header component
 const Header = ({
   router,
   lang,
+  life,
 }: {
   router: AppRouterInstance;
   lang: Lang;
+  life: number;
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
   const [streak, setStreak] = useState<number | null>(null);
+  const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
+  const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
+  const [isIntermediateBalance, setIsIntermediateBalance] =
+    useState<boolean>(false);
+  const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
 
   const pathname = usePathname();
 
@@ -63,7 +78,6 @@ const Header = ({
         .then((res) => res.json())
         .then((data) => {
           setStreak(data.currentStreak);
-          console.log(data);
         });
     };
 
@@ -107,6 +121,41 @@ const Header = ({
   const closeMenu = () => {
     setMobileMenuOpen(false);
   };
+
+  const { data: intermediate } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinIntermediateABI,
+    address: trotelCoinIntermediateAddress,
+    functionName: "balanceOf",
+    args: [address as Address],
+    account: address as Address,
+    enabled: Boolean(address),
+    watch: true,
+  });
+
+  const { data: expert } = useContractRead({
+    chainId: polygon.id,
+    abi: trotelCoinExpertABI,
+    address: trotelCoinExpertAddress,
+    functionName: "balanceOf",
+    args: [address as Address],
+    account: address as Address,
+    enabled: Boolean(address),
+    watch: true,
+  });
+
+  useEffect(() => {
+    const intermediateBalance: number = parseFloat(intermediate as string);
+    const expertBalance: number = parseFloat(expert as string);
+
+    if (intermediateBalance > 0) {
+      setIsIntermediateBalance(true);
+    }
+
+    if (expertBalance > 0) {
+      setIsExpertBalance(true);
+    }
+  }, [intermediate, expert]);
 
   return (
     <header className="bg-white dark:bg-black">
@@ -174,15 +223,95 @@ const Header = ({
               <TrotelBalance /> TROTEL
             </span>*/}
             {/*<Wallet lang={lang} />*/}
-            <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray-100">
-              {streak ? (
-                <>
-                  <CountUp start={0} end={streak} duration={2} />
-                </>
+            <div
+              className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
+              onMouseEnter={() => setIsHoveringLife(true)}
+              onMouseLeave={() => setIsHoveringLife(false)}
+            >
+              {isExpertBalance || isIntermediateBalance ? (
+                <span className="font-semibold text-2xl">&infin;</span>
+              ) : life ? (
+                <span className="font-semibold">
+                  <CountUp start={0} end={life} duration={2} />
+                </span>
               ) : (
-                <>0</>
+                <span className="font-semibold">0</span>
+              )}{" "}
+              💛
+              <Transition
+                as={Fragment}
+                show={isHoveringLife}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+              >
+                <div
+                  className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
+                  style={{ width: "300px" }}
+                >
+                  <div className="absolute flex flex-col gap-4 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/20 p-4 rounded-xl">
+                    <p>
+                      {typeof dict?.header !== "string" && (
+                        <>{dict?.header.lifeMessage}</>
+                      )}
+                    </p>
+                    <Link href={`/${lang}/premium`}>
+                      <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+                        {typeof dict?.header !== "string" && (
+                          <>{dict?.header.lifeButton}</>
+                        )}
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </Transition>
+            </div>
+            <div
+              className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
+              onMouseEnter={() => setIsHoveringStreak(true)}
+              onMouseLeave={() => setIsHoveringStreak(false)}
+            >
+              {streak ? (
+                <span className="font-semibold">
+                  <CountUp start={0} end={streak} duration={2} />
+                </span>
+              ) : (
+                <span className="font-semibold">0</span>
               )}{" "}
               🔥
+              <Transition
+                as={Fragment}
+                show={isHoveringStreak}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+              >
+                <div
+                  className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
+                  style={{ width: "300px" }}
+                >
+                  <div className="absolute flex flex-col gap-4 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/20 p-4 rounded-xl">
+                    <p>
+                      {typeof dict?.header !== "string" && (
+                        <>{dict?.header.streakMessage}</>
+                      )}
+                    </p>
+                    <Link href={`/${lang}/learn`}>
+                      <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+                        {typeof dict?.header !== "string" && (
+                          <>{dict?.header.streakButton}</>
+                        )}
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </Transition>
             </div>
             {address && isLoggedIn ? (
               <button
@@ -253,12 +382,24 @@ const Header = ({
             <div className="flex flex-1 items-center justify-end gap-x-4">
               {/*<Wallet lang={lang} />*/}
               <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray-100">
-                {streak ? (
-                  <>
-                    <CountUp start={0} end={streak} duration={2} />
-                  </>
+                {isExpertBalance || isIntermediateBalance ? (
+                  <span className="font-semibold text-2xl">&infin;</span>
+                ) : life ? (
+                  <span className="font-semibold">
+                    <CountUp start={0} end={life} duration={2} />
+                  </span>
                 ) : (
-                  <>0</>
+                  <span className="font-semibold">0</span>
+                )}{" "}
+                💛
+              </div>
+              <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray-100">
+                {streak ? (
+                  <span className="font-semibold">
+                    <CountUp start={0} end={streak} duration={2} />
+                  </span>
+                ) : (
+                  <span className="font-semibold">0</span>
                 )}{" "}
                 🔥
               </div>

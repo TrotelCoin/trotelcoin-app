@@ -15,7 +15,11 @@
     "account": "Account",
     "premium": "Premium",
     "version": "beta version",
-    "disconnect": "Log out"
+    "disconnect": "Log out",
+    "lifeMessage": "Your life count",
+    "streakMessage": "Your streak count",
+    "lifeButton": "Get unlimited lives",
+    "streakButton": "Do your streak"
   },
   "home": {
     "search": "What do you wanna learn?"
@@ -137,7 +141,8 @@
     "incorrect": "Oups. You answered incorrectly to the following questions :",
     "alreadyClaimed": "You already claimed this quiz.",
     "connectWallet": "Connect your wallet and signin to claim your rewards.",
-    "claimingError": "An error occured. Please try again later."
+    "claimingError": "An error occured. Please try again later.",
+    "life": "You can't take the quiz because you don't have life left. Comeback tomorrow or buy some lives."
   },
   "events": {
     "claimed": "claimed"

@@ -1,6 +1,6 @@
 import { Analytics } from "@vercel/analytics/react";
 import NextTopLoader from "nextjs-toploader";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
 import Banner from "@/app/[lang]/ui/interface/banner";
 import Footer from "@/app/[lang]/ui/interface/footer";
@@ -14,6 +14,8 @@ import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import Changelogs from "@/app/[lang]/ui/modals/changelogs";
+import { useAddress, useUser } from "@thirdweb-dev/react";
+import LifeContext from "@/app/[lang]/lifeProvider";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -29,6 +31,45 @@ const MainComponent = ({
   router: AppRouterInstance;
   lang: Lang;
 }) => {
+  const [life, setLife] = React.useState<number>(0);
+
+  const address = useAddress();
+  const user = useUser();
+
+  const updateLife = async () => {
+    await fetch(`/api/database/updateLife?wallet=${address}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setLife(life - 1);
+  };
+
+  useEffect(() => {
+    const fetchUserLife = async () => {
+      await fetch(`/api/database/life?wallet=${address}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLife(data);
+        });
+    };
+
+    if (address && user) {
+      fetchUserLife();
+    }
+  }, [address, user]);
+
+  const contextValue = useMemo(
+    () => ({ updateLife, life, setLife }),
+    [updateLife, life, setLife]
+  );
+
   return (
     <>
       <html lang={lang}>
@@ -123,9 +164,11 @@ const MainComponent = ({
             <DictionaryProvider lang={lang}>
               <Banner lang={lang} />
               <Changelogs lang={lang} />
-              <Header router={router} lang={lang} />
+              <Header router={router} lang={lang} life={life} />
               <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
-                {children}
+                <LifeContext.Provider value={contextValue}>
+                  {children}
+                </LifeContext.Provider>
               </main>
               <Footer lang={lang} />
               <Events lang={lang} />
