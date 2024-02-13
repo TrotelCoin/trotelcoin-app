@@ -20,6 +20,22 @@ import LifeContext from "@/app/[lang]/lifeProvider";
 export const metadata = {
   title: "TrotelCoin App",
   description: "Learn & earn crypto.",
+  generator: "Next.js",
+  manifest: "/manifest.json",
+  keywords: "trotelcoin, learn, earn, crypto, bitcoin, ethereum",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", content: "#000" },
+    { media: "(prefers-color-scheme: light)", content: "#fff" },
+  ],
+  authors: "TrotelCoin",
+  viewport: "width=device-width, initial-scale=1",
+  icons: [
+    {
+      href: "/assets/logo/trotelcoin.png",
+      sizes: "any",
+      type: "image/png",
+    },
+  ],
 };
 
 const MainComponent = ({
