@@ -179,10 +179,10 @@ const Header = ({
             </Link>
           </div>
 
-          <p className="hidden lg:block font-semibold text-gray-900 dark:text-gray-100">
+          <p className="hidden md:block font-semibold text-gray-900 dark:text-gray-100">
             {<TrotelPrice />}
           </p>
-          <div className="hidden lg:block">{<TrotelPriceChange />}</div>
+          <div className="hidden md:block">{<TrotelPriceChange />}</div>
           <span className="hidden xl:inline-flex items-center rounded-lg bg-yellow-50 dark:bg-yellow-200/10 px-2 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-200 ring-1 ring-inset ring-yellow-700/10 dark:ring-yellow-200/30">
             <span className="animate-pulse">
               {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
@@ -218,8 +218,8 @@ const Header = ({
         </div>
 
         {/* Right section with Wallet component */}
-        <div className="hidden md:flex justify-end flex-1 items-center divide-x divide-double divide-gray-900/10 dark:divide-gray-100/30">
-          <div className="items-center flex pr-6 gap-x-4">
+        <div className="hidden lg:flex justify-end flex-1 items-center divide-x divide-double divide-gray-900/10 dark:divide-gray-100/30">
+          <div className="items-center flex pr-4 gap-x-4">
             {/*<span className="font-semibold text-gray-900 dark:text-gray-100 hidden xl:flex">
               <TrotelBalance /> TROTEL
             </span>*/}
@@ -318,6 +318,7 @@ const Header = ({
               <button
                 onClick={handleDisconnect}
                 className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                style={{ minWidth: "0px" }}
               >
                 {typeof dict?.header !== "string" && (
                   <>{dict?.header.disconnect}</>
@@ -330,11 +331,13 @@ const Header = ({
                 switchToActiveChain={true}
                 modalSize={"wide"}
                 modalTitleIconUrl={""}
-                btnTitle={lang === "en" ? "Log in" : "Se connecter"}
+                btnTitle={lang === "en" ? "Sign in" : "Se connecter"}
                 className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                style={{ minWidth: "0px" }}
               />
             )}
           </div>
+
           <div className="items-center flex pl-4 gap-2">
             <LanguageSelector router={router} lang={lang} />
             <ThemeSwitcher />
@@ -343,45 +346,9 @@ const Header = ({
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex gap-4 items-center md:hidden">
-          <div className="flex gap-2 items-center">
-            <ThemeSwitcher />
-            {/*<AudioComponent />*/}
-            <LanguageSelector router={router} lang={lang} />
-          </div>
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
-      <Dialog
-        as="div"
-        className="lg:hidden"
-        open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
-      >
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center gap-x-6">
-            <div className="-m-1.5 p-1.5">
-              <Link href={`/${lang}/home`}>
-                <Image
-                  className="h-12 w-auto"
-                  width={128}
-                  height={128}
-                  src="/assets/logo/trotelcoin-white.png"
-                  alt="TrotelCoin logo"
-                ></Image>
-              </Link>
-            </div>
-            <div className="flex flex-1 items-center justify-end gap-x-4">
-              {/*<Wallet lang={lang} />*/}
+        <div className="flex gap-2 items-center lg:hidden">
+          <div className="flex items-center divide-x divide-gray-900/10 dark:divide-gray-100/10">
+            <div className="flex gap-2 items-center pr-4">
               <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray-100">
                 {isExpertBalance || isIntermediateBalance ? (
                   <span className="font-semibold text-2xl">&infin;</span>
@@ -404,10 +371,41 @@ const Header = ({
                 )}{" "}
                 🔥
               </div>
+            </div>
+            <div className="flex gap-2 items-center pl-4">
+              {/*<AudioComponent />*/}
+              <LanguageSelector router={router} lang={lang} />
+              <ThemeSwitcher />
+            </div>
+          </div>
+          <button
+            type="button"
+            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
+            onClick={() => setMobileMenuOpen(true)}
+          >
+            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      <Dialog
+        as="div"
+        className="lg:hidden"
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+      >
+        <div className="fixed inset-0 z-10" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div className="flex items-center gap-x-6">
+            <div className="flex flex-1 items-center justify-between gap-x-4">
+              {/*<Wallet lang={lang} />*/}
+
               {address && isLoggedIn ? (
                 <button
                   onClick={handleDisconnect}
                   className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                  style={{ minWidth: "0px" }}
                 >
                   {typeof dict?.header !== "string" && (
                     <>{dict?.header.disconnect}</>
@@ -420,8 +418,9 @@ const Header = ({
                   switchToActiveChain={true}
                   modalSize={"wide"}
                   modalTitleIconUrl={""}
-                  btnTitle={lang === "en" ? "Log in" : "Se connecter"}
+                  btnTitle={lang === "en" ? "Sign in" : "Se connecter"}
                   className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                  style={{ minWidth: "0px" }}
                 />
               )}
               <button

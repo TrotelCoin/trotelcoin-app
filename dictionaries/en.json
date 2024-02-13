@@ -15,7 +15,7 @@
     "account": "Account",
     "premium": "Premium",
     "version": "beta version",
-    "disconnect": "Log out",
+    "disconnect": "Sign out",
     "lifeMessage": "Your life count",
     "streakMessage": "Your streak count",
     "lifeButton": "Get unlimited lives",
@@ -25,7 +25,7 @@
     "search": "What do you wanna learn?"
   },
   "wallet": {
-    "connect": "Connect wallet",
+    "connect": "Sign in",
     "connecting": "Connecting...",
     "signin": "Sign in",
     "disconnect": "Disconnect"
@@ -70,8 +70,8 @@
   },
   "modals": {
     "connectWallet": {
-      "title": "Connect your wallet",
-      "message": "You need to connect your wallet and sign in."
+      "title": "Sign in",
+      "message": "You need to sign in."
     },
     "eligible": {
       "title": "You are eligible!",
@@ -126,7 +126,7 @@
   },
   "notPremium": {
     "title": "You are not premium",
-    "message": "Connect your wallet or become a premium user to access this course."
+    "message": "Sign in or become a premium user to access this course."
   },
   "quiz": {
     "loading": "Loading quiz...",
@@ -140,7 +140,7 @@
     "correct": "Congratulations. You answered all answers correctly.",
     "incorrect": "Oups. You answered incorrectly to the following questions :",
     "alreadyClaimed": "You already claimed this quiz.",
-    "connectWallet": "Connect your wallet and signin to claim your rewards.",
+    "connectWallet": "Sign in to claim your rewards.",
     "claimingError": "An error occured. Please try again later.",
     "life": "You can't take the quiz because you don't have life left. Comeback tomorrow or buy some lives."
   },

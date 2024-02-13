@@ -70,8 +70,8 @@
   },
   "modals": {
     "connectWallet": {
-      "title": "Connecte ton portefeuille",
-      "message": "Tu dois connecter ton portefeuille et t'authentifier."
+      "title": "Connecte toi",
+      "message": "Tu dois te connecter."
     },
     "eligible": {
       "title": "Tu es éligible",
@@ -126,7 +126,7 @@
   },
   "notPremium": {
     "title": "Tu n'es pas premium",
-    "message": "Connecte ton portefeuille ou deviens un utilisateur premium pour accéder à ce cours."
+    "message": "Connecte toi ou deviens un utilisateur premium pour accéder à ce cours."
   },
   "quiz": {
     "loading": "Quiz en cours de chargement...",
@@ -140,7 +140,7 @@
     "correct": "Félicitations. Tu as répondu correctement à toutes les questions.",
     "incorrect": "Oups. Tu as répondu incorrectement aux questions suivantes :",
     "alreadyClaimed": "Tu as déjà obtenu tes récompenses pour ce quiz.",
-    "connectWallet": "Connecte ton portefeuille et authentifie-toi pour obtenir tes récompenses.",
+    "connectWallet": "Connecte toi pour obtenir tes récompenses.",
     "claimingError": "Une erreur est survenue. Réessaye plus tard.",
     "life": "Tu ne peux pas faire le quiz, car tu n'as plus de vie restante. Reviens demain ou achète des vies."
   },
