@@ -41,6 +41,7 @@ const loadQuizData = async (
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       }
     );
     const answersResponse = await fetch(
@@ -50,6 +51,7 @@ const loadQuizData = async (
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       }
     );
 
@@ -116,7 +118,11 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     if (address && quizId) {
       fetch(
         `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
-        { method: "GET", headers: { "Content-Type": "application/json" } }
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-cache",
+        }
       )
         .then((response) => response.json())
         .then((data) => {
@@ -145,6 +151,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           headers: {
             "Content-Type": "application/json",
           },
+          cache: "no-cache",
         }
       );
       const dataUpdate = await responseUpdate.json();

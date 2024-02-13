@@ -74,6 +74,7 @@ const Header = ({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       })
         .then((res) => res.json())
         .then((data) => {

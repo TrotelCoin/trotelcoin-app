@@ -643,6 +643,7 @@ export default function Account({
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-cache",
     });
 
     localStorage.setItem("satisfactionAnswered", "true");
@@ -656,6 +657,7 @@ export default function Account({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       });
     };
 
@@ -671,6 +673,7 @@ export default function Account({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       })
         .then((response) => response?.json())
         .then((data) => {
@@ -690,6 +693,7 @@ export default function Account({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       })
         .then((response) => response?.json())
         .then((data) => {

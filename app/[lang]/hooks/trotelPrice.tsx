@@ -11,7 +11,7 @@ const TrotelPrice = () => {
     const fetchTokenPrice = async () => {
       try {
         const response = await fetch("/api/moralis/trotelPrice", {
-          cache: "no-store",
+          cache: "no-cache",
           method: "GET",
           headers: {
             "Content-Type": "application/json",

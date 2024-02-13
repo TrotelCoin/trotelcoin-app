@@ -35,6 +35,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       });
       const remainingRewards = await response?.json();
       setRemainingRewards(remainingRewards);
@@ -50,6 +51,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       });
       const trotelCoinsPending = await response?.json();
       setTrotelCoinsPending(trotelCoinsPending);
@@ -67,6 +69,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
           headers: {
             "Content-Type": "application/json",
           },
+          cache: "no-cache",
         }
       );
       const numberOfQuizzesAnswered = await response?.json();
@@ -85,6 +88,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       });
       const numberOfLearners = await response?.json();
       setNumberOfLearners(numberOfLearners);
@@ -100,6 +104,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-cache",
       });
       const { maxStreak } = await response.json();
       setMaxStreak(maxStreak);

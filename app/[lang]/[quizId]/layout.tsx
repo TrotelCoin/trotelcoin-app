@@ -75,6 +75,10 @@ const CoursePage = ({
         `/api/database/coursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`,
         {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          cache: "no-cache",
         }
       );
 
@@ -114,7 +118,14 @@ const CoursePage = ({
   useEffect(() => {
     const fetchCoursesSatisfactionAnswered = async () => {
       const response = await fetch(
-        `/api/database/coursesSatisfactionAnswered?wallet=${address}&quizId=${quizId}`
+        `/api/database/coursesSatisfactionAnswered?wallet=${address}&quizId=${quizId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          cache: "no-cache",
+        }
       );
       const data = await response.json();
       const { answered } = data;
