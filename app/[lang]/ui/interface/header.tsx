@@ -179,10 +179,10 @@ const Header = ({
             </Link>
           </div>
 
-          <p className="hidden md:block font-semibold text-gray-900 dark:text-gray-100">
+          <p className="hidden lg:block font-semibold text-gray-900 dark:text-gray-100">
             {<TrotelPrice />}
           </p>
-          <div className="hidden sm:block">{<TrotelPriceChange />}</div>
+          <div className="hidden lg:block">{<TrotelPriceChange />}</div>
           <span className="hidden xl:inline-flex items-center rounded-lg bg-yellow-50 dark:bg-yellow-200/10 px-2 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-200 ring-1 ring-inset ring-yellow-700/10 dark:ring-yellow-200/30">
             <span className="animate-pulse">
               {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
