@@ -6,14 +6,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const satisfaction = searchParams.get("satisfaction");
 
   try {
-    const { data, error } = await supabase
-      .from("satisfaction")
-      .insert([
-        {
-          net_promoter_score: satisfaction,
-          answered_at: new Date().toISOString(),
-        },
-      ]);
+    const { data, error } = await supabase.from("satisfaction").insert([
+      {
+        net_promoter_score: parseFloat(satisfaction as string),
+        answered_at: new Date().toISOString(),
+      },
+    ]);
 
     if (error) {
       console.error(error);
