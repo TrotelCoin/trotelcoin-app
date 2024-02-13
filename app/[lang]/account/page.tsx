@@ -141,7 +141,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
       {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
     </h2>
     <div
-      className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+      className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
     >
       <div className="flex justify-between">
         <div
@@ -279,7 +279,7 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
             badge.condition && (
               <div
                 key={badge.id}
-                className={`bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/10 dark:border-gray-100/10`}
+                className={`bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/20 dark:border-gray-100/40`}
               >
                 <div className="flex flex-col gap-2 text-center items-center">
                   <span
@@ -341,7 +341,7 @@ const Header: React.FC<HeaderProps> = ({
     </h2>
     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
       <div
-        className={`col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-6 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
+        className={`col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg p-6 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
           alreadyAnsweredSatisfaction &&
           "hidden animate__animated animate__fadeOut"
         }`}
@@ -369,7 +369,7 @@ const Header: React.FC<HeaderProps> = ({
       <div
         className={`${
           !isNotPremium && "rainbow-border"
-        } col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        } col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span
@@ -399,7 +399,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-2xl md:text-4xl">
@@ -425,7 +425,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-2xl md:text-4xl">
@@ -453,7 +453,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-2xl md:text-4xl">
@@ -477,7 +477,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
       <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center">
           <span className="text-2xl md:text-4xl">

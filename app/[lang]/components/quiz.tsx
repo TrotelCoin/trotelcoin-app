@@ -275,7 +275,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   if (life === 0 && !isIntermediateBalance && !isExpertBalance) {
     return (
-      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10">
         <p className="text-red-500 dark:text-red-300">
           {typeof dict?.quiz !== "string" && <>{dict?.quiz.life}</>}
         </p>
@@ -291,7 +291,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         className="hidden"
       ></audio>
       {/* Quiz */}
-      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10">
         {questions && questions[currentQuestion] && (
           <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
             <span>{questions[currentQuestion].question}</span>
@@ -387,7 +387,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       </div>
       {/* Reward */}
       {isCorrect && !hasAlreadyAnswered && address && isLoggedIn && (
-        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
           </h3>
@@ -404,21 +404,21 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         </div>
       )}
       {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
-        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
           </h2>
         </div>
       )}
       {hasAlreadyAnswered && (
-        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
           </h2>
         </div>
       )}
       {claimingError && (
-        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-red-600 dark:text-red-200">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimingError}</>}
           </h2>

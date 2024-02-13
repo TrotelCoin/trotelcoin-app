@@ -209,12 +209,12 @@ const CoursePage = ({
               <>{dict?.lesson.goingToLearn}</>
             )}
           </p>
-          <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-gray-900">
+          <div className="bg-gray-50 my-10 border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 rounded-lg px-10 py-2 dark:bg-gray-900">
             <ul
               role="list"
               className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
             >
-              <div className="grid grid-cols-1 divide-y divide-gray-900/10 dark:divide-gray-100/10">
+              <div className="grid grid-cols-1 divide-y divide-gray-900/20 dark:divide-gray-100/40">
                 <div className="py-4">
                   <li className="flex gap-x-3">
                     <span className="text-gray-900 dark:text-gray-100">
@@ -246,7 +246,7 @@ const CoursePage = ({
 
           {/* Satisfaction */}
           {(address as Address) && !alreadyAnsweredSatisfaction && (
-            <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 flex flex-col">
+            <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 flex flex-col">
               <div className="flex items-center">
                 {!alreadyAnsweredSatisfaction && (
                   <>

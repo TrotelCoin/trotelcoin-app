@@ -66,7 +66,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h1 className="text-xl mt-10 text-gray-900 dark:text-gray-100 font-semibold">
           {typeof dict?.premium !== "string" && <>{dict?.premium.statistics}</>}
         </h1>
-        <div className="overflow-hidden grid grid-cols-1 md:grid-cols-3 mt-4 text-gray-900 dark:text-gray-100 items-center text-center md:divide-x md:divide-y-0 divide-x-0 divide-y divide-black/10 dark:divide-white/10 rounded-lg bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 blackdrop-blur-xl">
+        <div className="overflow-hidden grid grid-cols-1 md:grid-cols-3 mt-4 text-gray-900 dark:text-gray-100 items-center text-center md:divide-x md:divide-y-0 divide-x-0 divide-y divide-gray-900/20 dark:divide-gray-100/40 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/20 dark:border-gray-100/40 blackdrop-blur-xl">
           <div className="items-center flex flex-col py-6">
             <span className="text-2xl md:text-4xl font-semibold">
               <CountUp

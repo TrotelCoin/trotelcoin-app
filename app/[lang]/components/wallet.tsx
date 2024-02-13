@@ -94,7 +94,7 @@ export default function Wallet({ lang }: { lang: Lang }) {
                 >
                   <Menu.Items
                     static
-                    className="absolute p-2 mt-4 right-0 bg-white dark:bg-gray-900 border border-gray-900/10 dark:border-gray-100/10 rounded-lg"
+                    className="absolute p-2 mt-4 right-0 bg-white dark:bg-gray-900 border border-gray-900/20 dark:border-gray-100/40 rounded-lg"
                   >
                     {connectors.map((connector, index) => (
                       <Menu.Item key={connector.id}>

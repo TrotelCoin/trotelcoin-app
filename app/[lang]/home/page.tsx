@@ -94,7 +94,7 @@ function renderCourses(
     ((tier === "Intermediate" || tier === "Intermédiaire") &&
       intermediateBalance > 0)
       ? "rainbow-border"
-      : "active:border-blue-600 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50";
+      : "active:border-blue-600 border border-gray-900/20 dark:border-gray-100/40 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
   const statusClass =
     status[quizId - 1] === "Not started"
@@ -185,7 +185,7 @@ function renderCourses(
                 </div>
               )}
               {course.new && (
-                <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/10 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+                <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-lg px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
                   {typeof dict?.lesson !== "string" && (
                     <>{dict?.lesson.newCourse} 👀</>
                   )}
@@ -309,7 +309,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             <input
               type="search"
               id="default-search"
-              className="block w-full p-4 pl-14 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+              className="block w-full p-4 pl-14 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/20 rounded-full bg-gray-50 dark:bg-gray-900 dark:border-gray-100/40 dark:placeholder-gray-400 dark:text-white focus:outline-none"
               placeholder={
                 typeof dict?.home !== "string" &&
                 typeof dict?.home.search === "string"

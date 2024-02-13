@@ -51,7 +51,7 @@ const StreakSection: React.FC<StreakSectionProps> = ({
           disabled
             ? "cursor-not-allowed"
             : "hover:border-gray-900/50 dark:hover:border-gray-100/50 active:border-yellow-500 dark:active:border-yellow-300"
-        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 text-gray-900 dark:text-gray-100`}
+        } bg-gray-50 dark:bg-gray-900 border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 text-gray-900 dark:text-gray-100`}
         onClick={() => {
           if (!disabled) {
             updateStreak(address);
@@ -62,7 +62,7 @@ const StreakSection: React.FC<StreakSectionProps> = ({
           {!disabled ? "🔥" : "⏳"}
         </span>
       </button>
-      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-2xl md:text-4xl font-semibold">
           {streak}
           <p className="font-normal text-base">
@@ -70,7 +70,7 @@ const StreakSection: React.FC<StreakSectionProps> = ({
           </p>
         </span>
       </div>
-      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-2xl md:text-4xl font-semibold">
           {maxStreak}
           <p className="font-normal text-base">
@@ -78,7 +78,7 @@ const StreakSection: React.FC<StreakSectionProps> = ({
           </p>
         </span>
       </div>
-      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
         <span className="text-2xl md:text-4xl font-semibold">
           {cooldown && <>{cooldown}</>}
           <p className="font-normal text-base">

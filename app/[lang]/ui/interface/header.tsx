@@ -218,8 +218,8 @@ const Header = ({
         </div>
 
         {/* Right section with Wallet component */}
-        <div className="hidden lg:flex justify-end flex-1 items-center divide-x divide-double divide-gray-900/10 dark:divide-gray-100/30">
-          <div className="items-center flex pr-4 gap-x-4">
+        <div className="hidden lg:flex justify-end flex-1 items-center">
+          <div className="items-center flex gap-x-4">
             {/*<span className="font-semibold text-gray-900 dark:text-gray-100 hidden xl:flex">
               <TrotelBalance /> TROTEL
             </span>*/}
@@ -253,7 +253,7 @@ const Header = ({
                   className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
                   style={{ width: "300px" }}
                 >
-                  <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/20 p-4 rounded-xl">
+                  <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
                     <p>
                       {typeof dict?.header !== "string" && (
                         <>{dict?.header.lifeMessage}</>
@@ -297,7 +297,7 @@ const Header = ({
                   className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
                   style={{ width: "300px" }}
                 >
-                  <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/20 p-4 rounded-xl">
+                  <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
                     <p>
                       {typeof dict?.header !== "string" && (
                         <>{dict?.header.streakMessage}</>
@@ -337,8 +337,8 @@ const Header = ({
               />
             )}
           </div>
-
-          <div className="items-center flex pl-4 gap-2">
+          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-900/20 dark:bg-gray-100/40" />
+          <div className="items-center flex gap-2">
             <LanguageSelector router={router} lang={lang} />
             <ThemeSwitcher />
             {/*<AudioComponent />*/}
@@ -347,8 +347,8 @@ const Header = ({
 
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
-          <div className="flex items-center divide-x divide-gray-900/10 dark:divide-gray-100/10">
-            <div className="flex gap-2 items-center pr-4">
+          <div className="flex items-center">
+            <div className="flex gap-2 items-center">
               <div className="flex gap-1 text-xl items-center text-gray-900 dark:text-gray-100">
                 {isExpertBalance || isIntermediateBalance ? (
                   <span className="font-semibold text-2xl">&infin;</span>
@@ -372,7 +372,8 @@ const Header = ({
                 🔥
               </div>
             </div>
-            <div className="flex gap-2 items-center pl-4">
+            <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-900/20 dark:bg-gray-100/40" />
+            <div className="flex gap-2 items-center">
               {/*<AudioComponent />*/}
               <LanguageSelector router={router} lang={lang} />
               <ThemeSwitcher />
@@ -396,7 +397,7 @@ const Header = ({
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/20">
           <div className="flex items-center gap-x-6">
             <div className="flex flex-1 items-center justify-between gap-x-4">
               {/*<Wallet lang={lang} />*/}
