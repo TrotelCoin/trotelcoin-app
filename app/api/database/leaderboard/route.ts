@@ -22,7 +22,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     // get the position of the learner
     const position = leaderboard.findIndex(
-      (learner) => learner.wallet === wallet
+      (learner) => learner.wallet === (wallet as string)
     );
 
     return new NextResponse(
