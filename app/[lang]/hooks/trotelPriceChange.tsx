@@ -41,7 +41,7 @@ const TrotelPriceChange = () => {
           } else {
             setTokenPriceChange(0);
             setContainerClass(
-              "inline-flex animate-pulse items-center rounded-lg bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
+              "inline-flex animate__animated animate__flash animate__slower animate__infinite items-center rounded-lg bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
             );
             setSign("");
           }

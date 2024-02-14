@@ -39,7 +39,7 @@ const TrotelPrice = () => {
   }, [error]);
 
   return (
-    <span className={`${isLoading && "animate-pulse"}`}>
+    <span className={`${isLoading && "animate__animated animate__flash animate__slower animate__infinite"}`}>
       ${tokenPrice?.toFixed(5)}
     </span>
   );

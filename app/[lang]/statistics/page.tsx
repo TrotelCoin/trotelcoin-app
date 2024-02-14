@@ -134,7 +134,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   <span className="hidden md:inline">💸</span>
                 </>
               ) : (
-                <span className="animate-pulse">
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0 <span className="hidden md:inline">💸</span>
                 </span>
               )}
@@ -160,7 +160,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   <span className="hidden md:inline">💰</span>
                 </>
               ) : (
-                <span className="animate-pulse">
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0 <span className="hidden md:inline">💰</span>
                 </span>
               )}
@@ -186,7 +186,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   <span className="hidden md:inline">📚</span>
                 </>
               ) : (
-                <span className="animate-pulse">
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0 <span className="hidden md:inline">📚</span>
                 </span>
               )}
@@ -213,7 +213,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   <span className="hidden md:inline">⏳</span>
                 </>
               ) : (
-                <span className="animate-pulse">
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0 <span className="hidden md:inline">⏳</span>
                 </span>
               )}
@@ -244,7 +244,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   />
                 </>
               ) : (
-                <span className="animate-pulse">{"0 < 🧠 < 0"}</span>
+                <span className="animate__animated animate__flash animate__slower animate__infinite">{"0 < 🧠 < 0"}</span>
               )}
             </span>
 
@@ -264,7 +264,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   <span className="hidden md:inline">🔥</span>
                 </>
               ) : (
-                <span className="animate-pulse">
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0 <span className="hidden md:inline">🔥</span>
                 </span>
               )}
@@ -286,7 +286,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   <span className="hidden md:inline">👨‍💻</span>
                 </>
               ) : (
-                <span className="animate-pulse">
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0 <span className="hidden md:inline">👨‍💻</span>
                 </span>
               )}
