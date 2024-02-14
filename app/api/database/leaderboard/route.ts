@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     // get leaderboard all of learners depending of total rewards
     const { data: leaderboard, error: leaderboardError } = await supabase
       .from("learners")
-      .select("*")
+      .select("wallet, total_rewards_pending, number_of_quizzes_answered")
       .order("number_of_quizzes_answered", { ascending: false });
 
     if (leaderboardError) {
