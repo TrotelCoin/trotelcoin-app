@@ -106,7 +106,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         },
         cache: "no-cache",
       });
-      const { maxStreak } = await response.json();
+      const maxStreak = await response?.json();
       setMaxStreak(maxStreak);
     };
 
@@ -244,7 +244,9 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
                   />
                 </>
               ) : (
-                <span className="animate__animated animate__flash animate__slower animate__infinite">{"0 < 🧠 < 0"}</span>
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
+                  {"0 < 🧠 < 0"}
+                </span>
               )}
             </span>
 
