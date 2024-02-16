@@ -2,13 +2,7 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
-import {
-  useBalance,
-  usePrepareContractWrite,
-  useContractWrite,
-  useContractRead,
-  Address,
-} from "wagmi";
+import { useBalance, useContractRead, Address } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/ui/modals/fail";
@@ -19,7 +13,13 @@ import {
 } from "@/data/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useUser,
+  useContractWrite,
+  useContract,
+  Web3Button,
+} from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 
 const holdingRequirements: number = 10000;
@@ -52,6 +52,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const address = useAddress();
   const { user, isLoggedIn, isLoading } = useUser();
+  const { contract } = useContract(trotelCoinIntermediateAddress);
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
@@ -59,16 +60,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     enabled: Boolean(address),
     watch: true,
   });
-  const { config } = usePrepareContractWrite({
-    chainId: polygon.id,
-    address: trotelCoinIntermediateAddress,
-    abi: trotelCoinIntermediateABI,
-    enabled: Boolean(address),
-    functionName: "mint",
-    args: [address],
-    account: address as Address,
-  });
-  const { write, isSuccess } = useContractWrite(config);
+  const {
+    mutateAsync,
+    isLoading: isLoadingWrite,
+    isSuccess,
+    error,
+  } = useContractWrite(contract, "mint");
   const { data: claimed } = useContractRead({
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
@@ -101,18 +98,6 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     } else {
       setIsNotConnected(true);
       setIsNotConnectedMessage(true);
-    }
-  };
-
-  const claim = async () => {
-    try {
-      if (write) {
-        write();
-      } else {
-        return;
-      }
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -199,14 +184,15 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </button>
               )}
               {isEligible && !isClaimed && (
-                <button
-                  onClick={claim}
-                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                <Web3Button
+                  action={() => mutateAsync({ args: [address as Address] })}
+                  contractAddress={trotelCoinIntermediateAddress}
+                  className="!bg-yellow-500 !hover:bg-yellow-400 !dark:bg-yellow-300 !dark:hover:bg-yellow-400 !hover:border-gray-900/50 !dark:hover:border-gray-100/50 !focus:border-yellow-500 !dark:focus:border-yellow-300 !text-sm !px-6 !py-2 !text-gray-900 !dark:text-gray-900 !rounded-lg !font-semibold" style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claim}</>
                   )}
-                </button>
+                </Web3Button>
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
