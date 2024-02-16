@@ -12,8 +12,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (leaderboardError) {
       console.error(leaderboardError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -25,16 +25,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
         learner.wallet !== ""
     );
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         filteredLeaderboard,
-      }),
+      },
       { status: 200 }
     );
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }

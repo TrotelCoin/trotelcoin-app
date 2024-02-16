@@ -19,7 +19,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (updateError) {
       console.error(updateError);
-      return new NextResponse("Something went wrong.", { status: 500 });
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
     }
 
     // get streak information for the specified wallet
@@ -30,7 +33,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return new NextResponse("Something went wrong.", { status: 500 });
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
     }
 
     const currentStreak = result[0]?.current_streak;
@@ -50,7 +56,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       if (oneDayError) {
         console.error(oneDayError);
-        return new NextResponse("Something went wrong.", { status: 500 });
+        return NextResponse.json(
+          { error: "Something went wrong." },
+          { status: 500 }
+        );
       }
 
       if (!oneDay.length) {
@@ -63,12 +72,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
       lastUpdated = date;
     }
 
-    return new NextResponse(
-      JSON.stringify({ currentStreak, lastUpdated, disabled }),
+    return NextResponse.json(
+      { currentStreak, lastUpdated, disabled },
       { status: 200 }
     );
   } catch (error) {
     console.error(error);
-    return new NextResponse("Something went wrong.", { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong." },
+      { status: 500 }
+    );
   }
 }

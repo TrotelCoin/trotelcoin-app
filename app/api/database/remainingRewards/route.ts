@@ -15,8 +15,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (updateError) {
       console.error(updateError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -27,26 +27,26 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (selectError) {
       console.error(selectError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
 
     if (result[0] && "remaining_rewards" in result[0]) {
-      return new NextResponse(JSON.stringify(result[0].remaining_rewards), {
+      return NextResponse.json(result[0].remaining_rewards, {
         status: 200,
       });
     } else {
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }

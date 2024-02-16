@@ -8,12 +8,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     .order("max_streak", { ascending: false });
 
   if (error) {
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }
-  return new NextResponse(JSON.stringify(result[0].max_streak), {
+  return NextResponse.json(result[0].max_streak, {
     status: 200,
   });
 }

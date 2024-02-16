@@ -23,14 +23,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   if (!quiz) {
-    return new NextResponse("Answers not found", { status: 404 });
+    return NextResponse.json({ result: "Answers not found" }, { status: 404 });
   }
 
   const answersInLanguage = getAnswersByLanguage(quiz, lang as string);
 
   if (!answersInLanguage) {
-    return new NextResponse("Language not found", { status: 404 });
+    return NextResponse.json({ result: "Language not found" }, { status: 404 });
   }
 
-  return new NextResponse(JSON.stringify(answersInLanguage), { status: 200 });
+  return NextResponse.json(answersInLanguage, { status: 200 });
 }

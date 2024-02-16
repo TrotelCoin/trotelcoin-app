@@ -20,5 +20,5 @@ export async function GET(req: NextRequest, res: NextResponse) {
     0
   );
 
-  return new NextResponse(JSON.stringify({ totalCourses }), { status: 200 });
+  return NextResponse.json(totalCourses, { status: 200 });
 }

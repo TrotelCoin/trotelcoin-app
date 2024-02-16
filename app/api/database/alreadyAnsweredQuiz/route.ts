@@ -16,16 +16,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
 
     if (!Array.isArray(result)) {
       console.error("Result is not an array.");
-      return new NextResponse(
-        JSON.stringify({ error: "Invalid result format." }),
+      return NextResponse.json(
+        { error: "Invalid result format." },
         { status: 500 }
       );
     }
@@ -40,13 +40,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
       answeredValue = matchingResult.answered;
     }
 
-    return new NextResponse(JSON.stringify(answeredValue), {
+    return NextResponse.json(answeredValue, {
       status: 200,
     });
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }

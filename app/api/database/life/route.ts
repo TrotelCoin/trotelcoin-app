@@ -17,7 +17,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return new NextResponse("Something went wrong.", { status: 500 });
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
     }
 
     if (result.length === 0) {
@@ -31,10 +34,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       if (insertError) {
         console.error(insertError);
-        return new NextResponse("Something went wrong.", { status: 500 });
+        return NextResponse.json(
+          { error: "Something went wrong." },
+          { status: 500 }
+        );
       }
 
-      return new NextResponse(JSON.stringify(3), { status: 200 });
+      return NextResponse.json(3, { status: 200 });
     } else {
       life = result[0].life;
     }
@@ -52,13 +58,19 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       if (updateError) {
         console.error(updateError);
-        return new NextResponse("Something went wrong.", { status: 500 });
+        return NextResponse.json(
+          { error: "Something went wrong." },
+          { status: 500 }
+        );
       }
     }
 
-    return new NextResponse(JSON.stringify(result[0].life), { status: 200 });
+    return NextResponse.json(result[0].life, { status: 200 });
   } catch (error) {
     console.error(error);
-    return new NextResponse("Something went wrong.", { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong." },
+      { status: 500 }
+    );
   }
 }

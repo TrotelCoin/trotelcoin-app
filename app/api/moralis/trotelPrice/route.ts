@@ -19,8 +19,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const tokenPrice = response.raw.usdPrice;
 
-    return new NextResponse(JSON.stringify(tokenPrice), { status: 200 });
+    return NextResponse.json(tokenPrice, { status: 200 });
   } catch (error) {
-    return new NextResponse("Error fetching token price", { status: 500 });
+    return NextResponse.json(
+      { error: "Error fetching token price" },
+      { status: 500 }
+    );
   }
 }

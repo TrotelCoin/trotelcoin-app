@@ -15,7 +15,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return new NextResponse("Something went wrong.", { status: 500 });
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
     }
 
     if (result.length === 0) {
@@ -29,10 +32,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (insertError) {
         console.error(insertError);
-        return new NextResponse("Something went wrong.", { status: 500 });
+        return NextResponse.json(
+          { error: "Something went wrong." },
+          { status: 500 }
+        );
       }
 
-      return new NextResponse(JSON.stringify(2), { status: 200 });
+      return NextResponse.json(2, { status: 200 });
     }
 
     // remove 1 life from the user
@@ -43,14 +49,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (updateError) {
       console.error(updateError);
-      return new NextResponse("Something went wrong.", { status: 500 });
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
     }
 
-    return new NextResponse(JSON.stringify(result[0].life - 1), {
+    return NextResponse.json(result[0].life - 1, {
       status: 200,
     });
   } catch (error) {
     console.error(error);
-    return new NextResponse("Something went wrong.", { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong." },
+      { status: 500 }
+    );
   }
 }

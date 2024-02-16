@@ -18,8 +18,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const priceChange = parseFloat(response.raw["24hrPercentChange"] ?? "0");
 
-    return new NextResponse(JSON.stringify(priceChange), { status: 200 });
+    return NextResponse.json(priceChange, { status: 200 });
   } catch (error) {
-    return new NextResponse("Error fetching token price change", { status: 500 });
+    return NextResponse.json(
+      { error: "Error fetching token price change" },
+      { status: 500 }
+    );
   }
 }

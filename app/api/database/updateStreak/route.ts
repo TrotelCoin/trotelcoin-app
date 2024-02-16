@@ -15,8 +15,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (walletExistsError) {
       console.error(walletExistsError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -36,8 +36,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (insertError) {
         console.error(insertError);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
@@ -51,8 +51,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (streakExistsError) {
       console.error(streakExistsError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -72,15 +72,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (insertStreakError) {
         console.error(insertStreakError);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
 
-      return new NextResponse(JSON.stringify({ success: "Streak updated" }), {
-        status: 200,
-      });
+      return NextResponse.json(
+        { success: "Streak updated" },
+        {
+          status: 200,
+        }
+      );
     }
 
     // check if one day has passed since the last streak
@@ -95,8 +98,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (oneDayError) {
       console.error(oneDayError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -109,8 +112,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (currentStreakError) {
       console.error(currentStreakError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -127,8 +130,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (updateCurrentStreakError) {
         console.error(updateCurrentStreakError);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
@@ -141,8 +144,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (maxStreakError) {
         console.error(maxStreakError);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
@@ -160,18 +163,21 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (updateMaxStreakError) {
         console.error(updateMaxStreakError);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
 
-      return new NextResponse(JSON.stringify({ success: "Streak updated." }), {
-        status: 200,
-      });
+      return NextResponse.json(
+        { success: "Streak updated." },
+        {
+          status: 200,
+        }
+      );
     } else {
-      return new NextResponse(
-        JSON.stringify({ success: "Streak not updated." }),
+      return NextResponse.json(
+        { success: "Streak not updated." },
         {
           status: 200,
         }
@@ -179,8 +185,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       {
         status: 200,
       }

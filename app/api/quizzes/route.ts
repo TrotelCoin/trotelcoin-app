@@ -35,14 +35,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   );
 
   if (!quiz) {
-    return new NextResponse("Quiz not found", { status: 404 });
+    return NextResponse.json({ error: "Quiz not found" }, { status: 404 });
   }
 
   const questionsInLanguage = getQuestionsByLanguage(quiz, lang as string);
 
   if (!questionsInLanguage) {
-    return new NextResponse("Language not found", { status: 404 });
+    return NextResponse.json({ error: "Language not found" }, { status: 404 });
   }
 
-  return new NextResponse(JSON.stringify(questionsInLanguage), { status: 200 });
+  return NextResponse.json(questionsInLanguage, { status: 200 });
 }

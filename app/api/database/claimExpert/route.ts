@@ -14,46 +14,44 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
 
     if (data.length > 0) {
-      return new NextResponse(
-        JSON.stringify({ claimed: "You have already claimed this." }),
+      return NextResponse.json(
+        { claimed: "You have already claimed this." },
         { status: 200 }
       );
     } else {
-      const { data, error } = await supabase
-        .from("subscriptions")
-        .insert([
-          {
-            wallet: wallet as Address,
-            claimed_expert_at: new Date().toISOString(),
-          },
-        ]);
+      const { data, error } = await supabase.from("subscriptions").insert([
+        {
+          wallet: wallet as Address,
+          claimed_expert_at: new Date().toISOString(),
+        },
+      ]);
 
       if (error) {
         console.error(error);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
 
       if (data) {
-        return new NextResponse(
-          JSON.stringify({ claimed: "Claimed successfully." }),
+        return NextResponse.json(
+          { claimed: "Claimed successfully." },
           { status: 200 }
         );
       }
     }
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }

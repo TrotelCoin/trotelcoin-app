@@ -15,8 +15,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (leaderboardError) {
       console.error(leaderboardError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -38,17 +38,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
         filteredLeaderboard[position].number_of_quizzes_answered;
     }
 
-    return new NextResponse(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         position: position + 1,
         numberOfQuizzesAnswered,
-      }),
+      },
       { status: 200 }
     );
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }

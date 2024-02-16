@@ -7,8 +7,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     .select("number_of_quizzes_answered");
 
   if (error) {
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   } else {
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       0
     );
 
-    return new NextResponse(JSON.stringify(result), {
+    return NextResponse.json(result, {
       status: 200,
     });
   }

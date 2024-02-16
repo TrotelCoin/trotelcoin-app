@@ -11,8 +11,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (selectError) {
       console.error(selectError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -30,8 +30,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (updateError) {
       console.error(updateError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -39,11 +39,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
     // calculate rewards
     const calculatedRewards = calculateRewards(remainingRewards);
 
-    return new NextResponse(JSON.stringify(calculatedRewards), { status: 200 });
+    return NextResponse.json(calculatedRewards, { status: 200 });
   } catch (error) {
     console.error(error);
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }

@@ -7,8 +7,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     .select("total_rewards_pending");
 
   if (error) {
-    return new NextResponse(
-      JSON.stringify({ error: "Something went wrong." }),
+    return NextResponse.json(
+      { error: "Something went wrong." },
       { status: 500 }
     );
   } else {
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       (acc, curr) => acc + curr.total_rewards_pending,
       0
     );
-    return new NextResponse(JSON.stringify(total_rewards_pending_sum), {
+    return NextResponse.json(total_rewards_pending_sum, {
       status: 200,
     });
   }

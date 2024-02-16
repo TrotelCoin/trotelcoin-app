@@ -23,15 +23,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (error) {
         console.error(error);
-        return new NextResponse(
-          JSON.stringify({ error: "Something went wrong." }),
+        return NextResponse.json(
+          { error: "Something went wrong." },
           { status: 500 }
         );
       }
     } catch (error) {
       console.error(error);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -43,8 +43,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (algorithmError) {
       console.error(algorithmError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -57,8 +57,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (quizExistenceError) {
       console.error(quizExistenceError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -66,9 +66,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // if quiz doesn't exist return error
     if (!quizExistence || quizExistence.length === 0) {
       console.error("Quiz not found with the specified quizId");
-      return new NextResponse(JSON.stringify({ error: "Quiz not found." }), {
-        status: 404,
-      });
+      return NextResponse.json(
+        { error: "Quiz not found." },
+        {
+          status: 404,
+        }
+      );
     }
 
     // calculate rewards
@@ -101,8 +104,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (insertError1 || insertError2) {
       console.error("Error inserting data into learners or quizzes_answered");
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -120,8 +123,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (fetchQuizError) {
       console.error(fetchQuizError);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
@@ -158,17 +161,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
       insertLearnersError
     ) {
       console.error("Error updating data in algorithm, quizzes, or learners");
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
+      return NextResponse.json(
+        { error: "Something went wrong." },
         { status: 500 }
       );
     }
 
-    return new NextResponse(JSON.stringify({ success: true }), { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error(error);
-    return new NextResponse(JSON.stringify({ success: false }), {
-      status: 500,
-    });
+    return NextResponse.json(
+      { success: false },
+      {
+        status: 500,
+      }
+    );
   }
 }
