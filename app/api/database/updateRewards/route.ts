@@ -164,10 +164,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    return new NextResponse(JSON.stringify(true), { status: 200 });
+    return new NextResponse(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
     console.error(error);
-    return new NextResponse(JSON.stringify(false), {
+    return new NextResponse(JSON.stringify({ success: false }), {
       status: 500,
     });
   }
