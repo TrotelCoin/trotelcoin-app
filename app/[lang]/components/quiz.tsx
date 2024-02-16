@@ -154,7 +154,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         }
       );
       const dataUpdate = await responseUpdate.json();
-      if (dataUpdate.success) {
+      if (dataUpdate) {
         setClaimedRewards(true);
       }
     } catch (error) {
