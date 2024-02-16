@@ -5,8 +5,8 @@ export const trotelCoinAddress: Address =
 export const trotelCoinEarlyAddress: Address =
   "0x72589e2FdDE5503d1cC5b17Bb2e112d589AA69D5";
 export const trotelCoinIntermediateAddress: Address =
-  "0xA762FbF2765F3Eeb7E52ca0EBa1E9138e6dc9073";
+  "0xC637150711632dEB7313A3E87bE66D772BC9BA8C";
 export const trotelCoinExpertAddress: Address =
-  "0x41D5DD5Bf408bd3aE164594C6b4a4718f1f5C9bF";
+  "0xc40B8aF9E501ef716b9caa284Ea26a919Ab43863";
 export const trotelCoinLearningAddress: Address =
   "0x25AB0cE7059499d32d49f2ad93a8898295DFa718";
