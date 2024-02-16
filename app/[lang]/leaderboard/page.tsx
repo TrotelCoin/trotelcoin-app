@@ -19,7 +19,7 @@ const Page = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-cache",
+        cache: "no-store",
       });
       const data = await response.json();
       if (data) {
@@ -39,7 +39,7 @@ const Page = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         }
       );
       const data = await response.json();

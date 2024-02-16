@@ -116,7 +116,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-cache",
+        cache: "no-store",
       });
       const data = await result.json();
       if (Number(data.currentStreak)) {
@@ -146,7 +146,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         }
       );
       const data = await result.json();
@@ -168,7 +168,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-cache",
+      cache: "no-store",
     });
     // if success from response is true, then setStreak to streak + 1
     const data = await result.json();

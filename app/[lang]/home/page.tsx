@@ -268,7 +268,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         }
       );
       const result = await response.json();

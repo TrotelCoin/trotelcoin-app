@@ -78,7 +78,7 @@ const CoursePage = ({
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         }
       );
 
@@ -124,7 +124,7 @@ const CoursePage = ({
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         }
       );
       const data = await response.json();

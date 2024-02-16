@@ -58,7 +58,7 @@ const MainComponent = ({
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-cache",
+      cache: "no-store",
     });
     setLife(life - 1);
   };
@@ -70,7 +70,7 @@ const MainComponent = ({
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-cache",
+        cache: "no-store",
       })
         .then((res) => res.json())
         .then((data) => {

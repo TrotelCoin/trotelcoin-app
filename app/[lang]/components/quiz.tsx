@@ -41,7 +41,7 @@ const loadQuizData = async (
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-cache",
+        cache: "no-store",
       }
     );
     const answersResponse = await fetch(
@@ -51,7 +51,7 @@ const loadQuizData = async (
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-cache",
+        cache: "no-store",
       }
     );
 
@@ -121,7 +121,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
-          cache: "no-cache",
+          cache: "no-store",
         }
       )
         .then((response) => response.json())
@@ -151,7 +151,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         }
       );
       const dataUpdate = await responseUpdate.json();

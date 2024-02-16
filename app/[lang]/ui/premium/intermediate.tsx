@@ -127,7 +127,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-cache",
+          cache: "no-store",
         });
       };
 
