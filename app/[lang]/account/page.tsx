@@ -166,7 +166,9 @@ const LevelSection: React.FC<LevelSectionProps> = ({
               {userLevel ? (
                 <CountUp start={0} end={userLevel} duration={2} />
               ) : (
-                <span className="animate__animated animate__flash animate__slower animate__infinite">0</span>
+                <span className="animate__animated animate__flash animate__slower animate__infinite">
+                  0
+                </span>
               )}
             </>
           )}
@@ -414,7 +416,9 @@ const Header: React.FC<HeaderProps> = ({
                     />{" "}
                   </span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">0</span>
+                  <span className="animate__animated animate__flash animate__slower animate__infinite">
+                    0
+                  </span>
                 )}
               </span>
             </>
@@ -440,7 +444,9 @@ const Header: React.FC<HeaderProps> = ({
                     />{" "}
                   </span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">0</span>
+                  <span className="animate__animated animate__flash animate__slower animate__infinite">
+                    0
+                  </span>
                 )}
               </span>
             </>
@@ -464,7 +470,9 @@ const Header: React.FC<HeaderProps> = ({
                     <CountUp start={0} end={tokensEarned} duration={2} />{" "}
                   </span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">0</span>
+                  <span className="animate__animated animate__flash animate__slower animate__infinite">
+                    0
+                  </span>
                 )}
               </span>
             </>
@@ -488,7 +496,9 @@ const Header: React.FC<HeaderProps> = ({
                     <CountUp start={0} end={totalRewardsPending} duration={2} />{" "}
                   </span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">0</span>
+                  <span className="animate__animated animate__flash animate__slower animate__infinite">
+                    0
+                  </span>
                 )}
               </span>
             </>
@@ -643,7 +653,6 @@ export default function Account({
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
     });
 
     localStorage.setItem("satisfactionAnswered", "true");
@@ -657,7 +666,6 @@ export default function Account({
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-store",
       });
     };
 

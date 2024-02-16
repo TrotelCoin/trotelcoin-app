@@ -112,7 +112,6 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-store",
         });
       };
 
@@ -187,7 +186,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 <Web3Button
                   action={() => mutateAsync({ args: [address as Address] })}
                   contractAddress={trotelCoinIntermediateAddress}
-                  className="!bg-yellow-500 !hover:bg-yellow-400 !dark:bg-yellow-300 !dark:hover:bg-yellow-400 !hover:border-gray-900/50 !dark:hover:border-gray-100/50 !focus:border-yellow-500 !dark:focus:border-yellow-300 !text-sm !px-6 !py-2 !text-gray-900 !dark:text-gray-900 !rounded-lg !font-semibold" style={{}}
+                  className="!bg-yellow-500 !hover:bg-yellow-400 !dark:bg-yellow-300 !dark:hover:bg-yellow-400 !hover:border-gray-900/50 !dark:hover:border-gray-100/50 !focus:border-yellow-500 !dark:focus:border-yellow-300 !text-sm !px-6 !py-2 !text-gray-900 !dark:text-gray-900 !rounded-lg !font-semibold"
+                  style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claim}</>

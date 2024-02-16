@@ -2,6 +2,7 @@ import { supabase } from "@/lib/db";
 import { calculateRewards } from "@/lib/calculateRewards";
 import remainingRewards from "@/data/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
+import { Address } from "viem";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
@@ -35,6 +36,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
+    // fetch remaining rewards
     const { data: algorithmData, error: algorithmError } = await supabase
       .from("algorithm")
       .select("remaining_rewards");
@@ -47,6 +49,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
+    // check if quiz exists
     const { data: quizExistence, error: quizExistenceError } = await supabase
       .from("quizzes")
       .select("quiz_id")
@@ -60,6 +63,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
+    // if quiz doesn't exist return error
     if (!quizExistence || quizExistence.length === 0) {
       console.error("Quiz not found with the specified quizId");
       return new NextResponse(JSON.stringify({ error: "Quiz not found." }), {
@@ -67,21 +71,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
       });
     }
 
+    // calculate rewards
     const remainingRewardsValue = algorithmData[0].remaining_rewards;
     const rewards = calculateRewards(remainingRewardsValue);
 
+    // insert rewards and quiz data
     const { error: insertError1 } = await supabase
       .from("learners")
-      .upsert([{ wallet, total_rewards_pending: rewards }], {
+      .upsert([{ wallet: wallet as Address, total_rewards_pending: rewards }], {
         onConflict: "wallet",
       });
 
+    // insert rewards and quiz data
     const { error: insertError2 } = await supabase
       .from("quizzes_answered")
       .upsert(
         [
           {
-            wallet,
+            wallet: wallet as Address,
             quiz_id: quizId,
             answered: true,
             answered_at: new Date().toISOString(),
@@ -100,10 +107,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
+    // update remaining rewards
     const { error: updateAlgorithmError } = await supabase
       .from("algorithm")
       .update({ remaining_rewards: remainingRewardsValue - rewards / 50 });
 
+    // update number of answers and last answered at
     const { data: currentQuizData, error: fetchQuizError } = await supabase
       .from("quizzes")
       .select("number_of_answers")
@@ -117,13 +126,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    const currentNumberOfAnswers = currentQuizData[0]?.number_of_answers || 0;
+    const currentNumberOfAnswers = currentQuizData[0]?.number_of_answers ?? 0;
 
+    // update number of answers and last answered at
     const { error: updateQuizzesError } = await supabase
       .from("quizzes")
       .update({ number_of_answers: currentNumberOfAnswers + 1 })
       .eq("quiz_id", quizId);
 
+    // insert quiz if it doesn't exist
     const { error: insertQuizzesError } = await supabase
       .from("quizzes")
       .upsert(
@@ -133,6 +144,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }
       );
 
+    // insert learner if it doesn't exist
     const { error: insertLearnersError } = await supabase
       .from("learners")
       .upsert([{ wallet, number_of_quizzes_answered: 1 }], {

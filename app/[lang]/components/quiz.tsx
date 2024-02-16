@@ -151,7 +151,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           headers: {
             "Content-Type": "application/json",
           },
-          cache: "no-store",
         }
       );
       const dataUpdate = await responseUpdate.json();
