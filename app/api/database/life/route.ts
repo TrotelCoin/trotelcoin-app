@@ -20,8 +20,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       return new NextResponse("Something went wrong.", { status: 500 });
     }
 
-    life = result[0].life;
-
     if (result.length === 0) {
       const { error: insertError } = await supabase.from("life").insert([
         {
@@ -37,6 +35,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
       }
 
       return new NextResponse(JSON.stringify(3), { status: 200 });
+    } else {
+      life = result[0].life;
     }
 
     // if last_reset_at is more than 1 day old and life < 3, reset life
