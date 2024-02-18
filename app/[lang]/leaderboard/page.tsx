@@ -28,10 +28,6 @@ const Page = () => {
     };
 
     fetchLeaderboard();
-
-    const interval = setInterval(fetchLeaderboard, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -56,10 +52,6 @@ const Page = () => {
 
     if (address) {
       fetchLeaderboard();
-
-      const interval = setInterval(fetchLeaderboard, 10000);
-
-      return () => clearInterval(interval);
     }
   }, [address as Address]);
 

@@ -8,6 +8,7 @@ import { useContractEvent, useEnsName } from "wagmi";
 import { Address, Log } from "viem";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { reduceAddressSize } from "@/utils/utils";
+import { Transition } from "@headlessui/react";
 import "animate.css";
 
 type MyLog = Log & {
@@ -22,7 +23,6 @@ export default function Events({ lang }: { lang: Lang }) {
   const [amountClaimed, setAmountClaimed] = useState<number | null>(null);
   const [dict, setDict] = useState<DictType | null>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -67,24 +67,20 @@ export default function Events({ lang }: { lang: Lang }) {
     }
   }, [ensNameExists]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsMounted(true);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      <div
-        className={`fixed inset-x-0 bottom-0 pb-2 sm:pb-5 ${
-          isVisible
-            ? "animate__animated animate__fadeInUp"
-            : "animate__animated animate__fadeOutDown"
-        } animate__faster z-50`}
+      <Transition
+        show={isVisible}
+        enter="transition-opacity duration-500"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-500"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
       >
-        <div className={`${!isMounted && "hidden"}`}>
+        <div
+          className={`fixed inset-x-0 bottom-0 pb-2 sm:pb-5 animate__faster z-50`}
+        >
           <div className="mx-auto max-w-4xl px-2 sm:px-6 lg:px-8">
             <div className="rounded-lg bg-green-600 dark:bg-green-200 p-2 shadow-lg sm:p-3">
               <div className="flex flex-wrap items-center justify-between">
@@ -138,7 +134,7 @@ export default function Events({ lang }: { lang: Lang }) {
             </div>
           </div>
         </div>
-      </div>
+      </Transition>
     </>
   );
 }
