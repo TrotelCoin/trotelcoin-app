@@ -47,6 +47,7 @@ interface HeaderProps {
   numberOfQuizzesAnswered: number;
   alreadyAnsweredSatisfaction: boolean;
   satisfactionResult: (number: number) => void;
+  lang: Lang;
 }
 
 interface BadgesSectionProps {
@@ -327,177 +328,199 @@ const Header: React.FC<HeaderProps> = ({
   numberOfQuizzesAnswered,
   alreadyAnsweredSatisfaction,
   satisfactionResult,
-}) => (
-  <>
-    <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
-      {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
-      <span className={`font-bold`}>
-        {ensName && ensName !== null ? (
-          <>{ensName}</>
-        ) : (
-          <>{reduceAddressSize(address)}</>
-        )}
-      </span>{" "}
-      👋
-    </h2>
-    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
-      <div
-        className={`col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg p-6 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
-          alreadyAnsweredSatisfaction &&
-          "hidden animate__animated animate__fadeOut"
-        }`}
-      >
-        <div className="flex flex-col mx-auto text-center">
-          {typeof dict?.account !== "string" && (
-            <span className="text-xl font-semibold">
-              {dict?.account.satisfaction as string}
-            </span>
+  lang,
+}) => {
+  const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+
+  return (
+    <>
+      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
+        {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
+        <span className={`font-bold`}>
+          {ensName && ensName !== null ? (
+            <>{ensName}</>
+          ) : (
+            <>{reduceAddressSize(address)}</>
           )}
-          <div className="grid grid-cols-6 lg:grid-cols-11 gap-2 mx-auto mt-2">
-            {Array.from(Array(11).keys()).map((number, index) => (
+        </span>{" "}
+        👋
+      </h2>
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
+        <div
+          className={`col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
+            alreadyAnsweredSatisfaction &&
+            "hidden animate__animated animate__fadeOut"
+          }`}
+        >
+          <div className="flex flex-col gap-4 mx-auto text-center">
+            {typeof dict?.account !== "string" && (
+              <span className="text-xl font-semibold">
+                {dict?.account.satisfaction as string}
+              </span>
+            )}
+            <div className="grid grid-cols-6 lg:grid-cols-11 gap-2 mx-auto mt-2">
+              {Array.from(Array(11).keys()).map((number, index) => (
+                <div key={index}>
+                  <div
+                    onClick={() => setSelectedNumber(number)}
+                    className={`m-1 w-10 h-10 rounded-lg ${
+                      selectedNumber === number
+                        ? "bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-gray-100 dark:text-gray-900"
+                        : "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100"
+                    } cursor-pointer text-xl flex items-center justify-center`}
+                  >
+                    {number}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="w-1/2 mx-auto">
               <button
-                key={index}
-                onClick={() => satisfactionResult(number)}
-                className="m-1 w-10 h-10 rounded-lg text-xl text-gray-100 dark:text-gray-900 bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 flex items-center justify-center"
+                onClick={() => satisfactionResult(selectedNumber as number)}
+                className="mt-2 text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
               >
-                {number}
+                {lang === "en" ? <>Submit</> : <>Envoyer</>}
               </button>
-            ))}
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`${
+            !isNotPremium && "rainbow-border"
+          } col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <div className="flex flex-col mx-auto text-center">
+            <span
+              className={`text-4xl md:text-6xl font-semibold ${
+                !isNotPremium && "rainbow-text"
+              }`}
+            >
+              {intermediateBalance > 0 && expertBalance <= 0 && (
+                <>
+                  {typeof dict?.tier !== "string" && (
+                    <>{dict?.tier.intermediate}</>
+                  )}
+                </>
+              )}
+              {expertBalance > 0 && (
+                <>
+                  {typeof dict?.tier !== "string" && <>{dict?.tier.expert}</>}
+                </>
+              )}
+              {isNotPremium && (
+                <>
+                  {typeof dict?.tier !== "string" && <>{dict?.tier.beginner}</>}
+                </>
+              )}
+            </span>{" "}
+            <span>
+              {typeof dict?.account !== "string" && <>{dict?.account.rank}</>}
+            </span>
+          </div>
+        </div>
+        <div
+          className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <div className="flex flex-col mx-auto text-center">
+            <span className="text-2xl md:text-4xl">
+              <>
+                <span className="font-semibold">
+                  {balance ? (
+                    <span>
+                      {Math.floor(parseFloat(balance?.formatted as string))}
+                    </span>
+                  ) : (
+                    <span className="animate__animated animate__flash animate__slower animate__infinite">
+                      0
+                    </span>
+                  )}
+                </span>
+              </>
+            </span>
+            <span>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.balance}</>
+              )}
+            </span>
+          </div>
+        </div>
+        <div
+          className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <div className="flex flex-col mx-auto text-center">
+            <span className="text-2xl md:text-4xl">
+              <>
+                <span className="font-semibold">
+                  {numberOfQuizzesAnswered ? (
+                    <span>{numberOfQuizzesAnswered}</span>
+                  ) : (
+                    <span className="animate__animated animate__flash animate__slower animate__infinite">
+                      0
+                    </span>
+                  )}
+                </span>
+              </>
+            </span>
+            <span>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.quizzesAnswered}</>
+              )}
+            </span>
+          </div>
+        </div>
+        <div
+          className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <div className="flex flex-col mx-auto text-center">
+            <span className="text-2xl md:text-4xl">
+              <>
+                <span className="font-semibold">
+                  {tokensEarned ? (
+                    <span>{Math.floor(tokensEarned)}</span>
+                  ) : (
+                    <span className="animate__animated animate__flash animate__slower animate__infinite">
+                      0
+                    </span>
+                  )}
+                </span>
+              </>
+            </span>
+            <span>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.totalRewards}</>
+              )}
+            </span>
+          </div>
+        </div>
+        <div
+          className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <div className="flex flex-col mx-auto text-center">
+            <span className="text-2xl md:text-4xl">
+              <>
+                <span className="font-semibold">
+                  {totalRewardsPending ? (
+                    <span>{Math.floor(totalRewardsPending)}</span>
+                  ) : (
+                    <span className="animate__animated animate__flash animate__slower animate__infinite">
+                      0
+                    </span>
+                  )}
+                </span>
+              </>
+            </span>
+            <span>
+              {typeof dict?.account !== "string" && (
+                <>{dict?.account.rewardsPending}</>
+              )}
+            </span>
           </div>
         </div>
       </div>
-
-      <div
-        className={`${
-          !isNotPremium && "rainbow-border"
-        } col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <div className="flex flex-col mx-auto text-center">
-          <span
-            className={`text-4xl md:text-6xl font-semibold ${
-              !isNotPremium && "rainbow-text"
-            }`}
-          >
-            {intermediateBalance > 0 && expertBalance <= 0 && (
-              <>
-                {typeof dict?.tier !== "string" && (
-                  <>{dict?.tier.intermediate}</>
-                )}
-              </>
-            )}
-            {expertBalance > 0 && (
-              <>{typeof dict?.tier !== "string" && <>{dict?.tier.expert}</>}</>
-            )}
-            {isNotPremium && (
-              <>
-                {typeof dict?.tier !== "string" && <>{dict?.tier.beginner}</>}
-              </>
-            )}
-          </span>{" "}
-          <span>
-            {typeof dict?.account !== "string" && <>{dict?.account.rank}</>}
-          </span>
-        </div>
-      </div>
-      <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <div className="flex flex-col mx-auto text-center">
-          <span className="text-2xl md:text-4xl">
-            <>
-              <span className="font-semibold">
-                {balance ? (
-                  <span>
-                    {Math.floor(parseFloat(balance?.formatted as string))}
-                  </span>
-                ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
-                )}
-              </span>
-            </>
-          </span>
-          <span>
-            {typeof dict?.account !== "string" && <>{dict?.account.balance}</>}
-          </span>
-        </div>
-      </div>
-      <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <div className="flex flex-col mx-auto text-center">
-          <span className="text-2xl md:text-4xl">
-            <>
-              <span className="font-semibold">
-                {numberOfQuizzesAnswered ? (
-                  <span>{numberOfQuizzesAnswered}</span>
-                ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
-                )}
-              </span>
-            </>
-          </span>
-          <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.quizzesAnswered}</>
-            )}
-          </span>
-        </div>
-      </div>
-      <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <div className="flex flex-col mx-auto text-center">
-          <span className="text-2xl md:text-4xl">
-            <>
-              <span className="font-semibold">
-                {tokensEarned ? (
-                  <span>{Math.floor(tokensEarned)}</span>
-                ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
-                )}
-              </span>
-            </>
-          </span>
-          <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.totalRewards}</>
-            )}
-          </span>
-        </div>
-      </div>
-      <div
-        className={`bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 text-center rounded-lg px-2 py-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <div className="flex flex-col mx-auto text-center">
-          <span className="text-2xl md:text-4xl">
-            <>
-              <span className="font-semibold">
-                {totalRewardsPending ? (
-                  <span>{Math.floor(totalRewardsPending)}</span>
-                ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
-                )}
-              </span>
-            </>
-          </span>
-          <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.rewardsPending}</>
-            )}
-          </span>
-        </div>
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 export default function Account({
   params: { lang },
@@ -727,6 +750,7 @@ export default function Account({
               numberOfQuizzesAnswered={numberOfQuizzesAnswered}
               alreadyAnsweredSatisfaction={alreadyAnsweredSatisfaction}
               satisfactionResult={satisfactionResult}
+              lang={lang}
             />
             <LevelSection
               isNotPremium={isNotPremium}
