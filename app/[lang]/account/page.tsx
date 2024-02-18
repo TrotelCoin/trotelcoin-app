@@ -656,16 +656,18 @@ export default function Account({
   const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
   const satisfactionResult = async (number: number) => {
-    await fetch(`/api/database/satisfactionHandler?number=${number}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    });
+    if (Boolean(number)) {
+      await fetch(`/api/database/satisfactionHandler?number=${number}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      });
 
-    localStorage.setItem("satisfactionAnswered", "true");
-    setAlreadyAnsweredSatisfaction(true);
+      localStorage.setItem("satisfactionAnswered", "true");
+      setAlreadyAnsweredSatisfaction(true);
+    }
   };
 
   useEffect(() => {
