@@ -123,7 +123,7 @@
     "satisfaction": "Rate this course",
     "satisfactionMessage": "Thank you for rating this course.",
     "errorMessage": "An error occured. Please try again later.",
-    "disclaimer": "Disclaimer: None of our courses are financial advice. We are not responsible for any financial loss. Please do your own research."
+    "disclaimer": "None of our courses are financial advice. We are not responsible for any financial loss. Please do your own research."
   },
   "notPremium": {
     "title": "You are not premium",
