@@ -44,7 +44,8 @@
     "documentation": "Documentation",
     "premium": "Become premium",
     "terms": "Terms of service",
-    "privacy": "Privacy policy"
+    "privacy": "Privacy policy",
+    "leaderboard": "Leaderboard"
   },
   "premium": {
     "claimNFTs": "Claim your NFTs",

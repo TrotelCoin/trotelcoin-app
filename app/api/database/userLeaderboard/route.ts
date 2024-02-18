@@ -1,6 +1,6 @@
 import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-import { Address } from "viem";
+import { Address, isAddress } from "viem";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -21,11 +21,28 @@ export async function GET(req: NextRequest, res: NextResponse) {
       );
     }
 
+    const { data: streak, error: streakError } = await supabase
+      .from("streak")
+      .select("current_streak")
+      .eq("wallet", wallet as Address)
+      .limit(1);
+
+    if (streakError) {
+      console.error(streakError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
+
     let position: number = 0;
     let numberOfQuizzesAnswered: number = 0;
 
     const filteredLeaderboard = leaderboard.filter(
-      (learner) => learner.wallet !== "undefined" && learner.wallet !== null
+      (learner) =>
+        learner.wallet !== "undefined" &&
+        learner.wallet !== null &&
+        isAddress(learner.wallet)
     );
 
     // get the position of the learner
@@ -42,6 +59,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       {
         position: position + 1,
         numberOfQuizzesAnswered,
+        streak: streak.length > 0 ? streak[0].current_streak : 0,
       },
       { status: 200 }
     );

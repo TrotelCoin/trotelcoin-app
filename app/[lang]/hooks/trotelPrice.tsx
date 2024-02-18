@@ -39,8 +39,13 @@ const TrotelPrice = () => {
   }, [error]);
 
   return (
-    <span className={`${isLoading && "animate__animated animate__flash animate__slower animate__infinite"}`}>
-      ${tokenPrice?.toFixed(5)}
+    <span
+      className={`${
+        isLoading &&
+        "animate__animated animate__flash animate__slower animate__infinite"
+      }`}
+    >
+      ${typeof tokenPrice === "number" ? tokenPrice.toFixed(5) : "0.00000"}
     </span>
   );
 };

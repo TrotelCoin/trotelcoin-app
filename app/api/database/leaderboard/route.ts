@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { isAddress } from "viem";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -8,7 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       .from("learners")
       .select("wallet, total_rewards_pending, number_of_quizzes_answered")
       .order("number_of_quizzes_answered", { ascending: false })
-      .limit(20);
+      .limit(50);
 
     if (leaderboardError) {
       console.error(leaderboardError);
@@ -22,12 +23,40 @@ export async function GET(req: NextRequest, res: NextResponse) {
       (learner) =>
         learner.wallet !== "undefined" &&
         learner.wallet !== null &&
-        learner.wallet !== ""
+        isAddress(learner.wallet)
     );
+
+    const updatedLeaderboard = [];
+
+    // for each learner, get their streak from streak table
+    for (let i = 0; i < 20; i++) {
+      const { data: streak, error: streakError } = await supabase
+        .from("streak")
+        .select("current_streak")
+        .eq("wallet", filteredLeaderboard[i].wallet)
+        .limit(1);
+
+      if (streakError) {
+        console.error(streakError);
+        return NextResponse.json(
+          { error: "Something went wrong." },
+          { status: 500 }
+        );
+      }
+
+      const updatedLearner = { ...filteredLeaderboard[i], current_streak: 0 };
+
+      if (streak.length > 0) {
+        updatedLearner.current_streak = streak[0].current_streak;
+      } else {
+        updatedLearner.current_streak = 0;
+      }
+      updatedLeaderboard.push(updatedLearner);
+    }
 
     return NextResponse.json(
       {
-        filteredLeaderboard,
+        updatedLeaderboard,
       },
       { status: 200 }
     );
