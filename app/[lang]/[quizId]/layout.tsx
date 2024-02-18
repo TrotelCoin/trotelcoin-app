@@ -245,7 +245,7 @@ const CoursePage = ({
               </div>
             </ul>
           </div>
-          <p className="mt-2 text-gray-900 dark:text-gray-100">
+          <p className="mt-2 text-gray-900 dark:text-gray-100 font-light">
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.disclaimer}</>}
           </p>
           <>{children}</>
