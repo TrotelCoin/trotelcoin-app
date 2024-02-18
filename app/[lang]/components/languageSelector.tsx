@@ -77,8 +77,8 @@ const LanguageSelector = ({
       >
         <Menu.Items className="origin-top-right rounded-lg absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-900 ring-1 ring-gray-900/20 dark:ring-gray-100/40 focus:outline-none">
           <div className="p-2">
-            {languages.map((language, _) => (
-              <Menu.Item key={language.code}>
+            {languages.map((language, index) => (
+              <Menu.Item key={index}>
                 {({ active }) => (
                   <button
                     onClick={() => onChangeLanguage(language)}

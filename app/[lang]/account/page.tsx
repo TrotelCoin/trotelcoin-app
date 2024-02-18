@@ -276,10 +276,10 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({
       </h2>
       <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
         {badges.map(
-          (badge) =>
+          (badge, index) =>
             badge.condition && (
               <div
-                key={badge.id}
+                key={index}
                 className={`bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/20 dark:border-gray-100/40`}
               >
                 <div className="flex flex-col gap-2 text-center items-center">
@@ -354,9 +354,9 @@ const Header: React.FC<HeaderProps> = ({
             </span>
           )}
           <div className="grid grid-cols-6 lg:grid-cols-11 gap-2 mx-auto mt-2">
-            {Array.from(Array(11).keys()).map((number) => (
+            {Array.from(Array(11).keys()).map((number, index) => (
               <button
-                key={number}
+                key={index}
                 onClick={() => satisfactionResult(number)}
                 className="m-1 w-10 h-10 rounded-lg text-xl text-gray-100 dark:text-gray-900 bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 flex items-center justify-center"
               >

@@ -56,7 +56,8 @@ function renderCourses(
   quizId: number,
   status: string[],
   address: Address | null,
-  dict: DictType | null
+  dict: DictType | null,
+  index: number
 ) {
   let tier = "";
   let title = "";
@@ -104,7 +105,7 @@ function renderCourses(
       : "";
 
   return (
-    <Link href={`${courseLink}`} key={course.quizId}>
+    <Link href={`${courseLink}`} key={index}>
       <div className={`mr-4 my-2`}>
         <Tilt
           glareEnable={true}
@@ -326,8 +327,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           </div>
         </form>
         <div className="flex flex-col">
-          {filteredLessons.map((lesson) => (
-            <div className="my-10" key={lesson.category}>
+          {filteredLessons.map((lesson, index) => (
+            <div className="my-10" key={index}>
               <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
                 {lesson.category}
               </h2>
@@ -342,7 +343,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                     };
                     return tierOrder[a.tier.en] - tierOrder[b.tier.en];
                   })
-                  .map((course) =>
+                  .map((course, index) =>
                     renderCourses(
                       course,
                       intermediateBalance,
@@ -351,7 +352,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       course.quizId,
                       status,
                       address as Address,
-                      dict
+                      dict,
+                      index
                     )
                   )}
               </div>

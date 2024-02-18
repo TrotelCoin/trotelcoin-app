@@ -150,8 +150,8 @@ export default function Footer({ lang }: { lang: Lang }) {
           className="-mb-6 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
-          {displayedItems.map((item: any) => (
-            <div key={item.id} className="pb-6 flex items-center">
+          {displayedItems.map((item: any, index: number) => (
+            <div key={index} className="pb-6 flex items-center">
               {item.display && (
                 <Link
                   href={item.href}
@@ -193,9 +193,9 @@ export default function Footer({ lang }: { lang: Lang }) {
             ></Image>
           </Link>
           <div className="flex justify-center space-x-10">
-            {navigation.social.map((item) => (
+            {navigation.social.map((item, index) => (
               <Link
-                key={item.name}
+                key={index}
                 href={item.href}
                 target="_blank"
                 className="hidden sm:block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"

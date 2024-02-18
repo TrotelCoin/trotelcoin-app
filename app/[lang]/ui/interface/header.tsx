@@ -198,7 +198,7 @@ const Header = ({
         <div
           className={`hidden lg:flex backdrop-blur-xl items-center bg-black dark:bg-white py-2 px-3 rounded-full lg:gap-x-8`}
         >
-          {navigation.map((item) => {
+          {navigation.map((item, index) => {
             const defaultClasses =
               "text-gray-100 dark:text-gray-900 text-sm font-semibold hover:bg-white dark:hover:bg-black hover:text-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
 
@@ -207,7 +207,7 @@ const Header = ({
 
             return (
               <Link
-                key={item.id}
+                key={index}
                 href={`/${lang}${item.href}`}
                 className={
                   pathname === `/${lang}${item.href}`
@@ -520,9 +520,9 @@ const Header = ({
             <div className="-my-6">
               <div className="space-y-2 py-6">
                 {/* Mobile navigation links */}
-                {navigation.map((item) => (
+                {navigation.map((item, index) => (
                   <Link
-                    key={item.id}
+                    key={index}
                     href={`/${lang}${item.href}`}
                     onClick={() => {
                       closeMenu();

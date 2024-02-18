@@ -97,7 +97,7 @@ export default function Wallet({ lang }: { lang: Lang }) {
                     className="absolute p-2 mt-4 right-0 bg-white dark:bg-gray-900 border border-gray-900/20 dark:border-gray-100/40 rounded-lg"
                   >
                     {connectors.map((connector, index) => (
-                      <Menu.Item key={connector.id}>
+                      <Menu.Item key={index}>
                         {({ active }) => (
                           <button
                             className={`block w-full px-4 py-2 text-left text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 ${
