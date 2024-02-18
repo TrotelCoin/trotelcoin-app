@@ -14,7 +14,7 @@ const allowCors =
     return handler(req, res);
   };
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function handler(req: NextRequest, res: NextResponse) {
   const totalCourses = lessons.reduce(
     (acc, curr) => acc + curr.courses.length,
     0
