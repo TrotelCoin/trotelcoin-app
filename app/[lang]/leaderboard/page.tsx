@@ -80,10 +80,11 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 : "Connecte ton portefeuille"
             }
           >
-            {address &&
-              typeof address === "string" &&
-              isAddress(address) &&
-              resolveAddress(address)}
+            {address && typeof address === "string" && isAddress(address)
+              ? resolveAddress(address)
+              : lang === "en"
+              ? "Connect your wallet"
+              : "Connecte ton portefeuille"}
           </React.Suspense>
         </div>
         <div className="block md:hidden">
@@ -94,7 +95,11 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 : "Connecte ton portefeuille"
             }
           >
-            {address && shortenAddress(address)}
+            {address
+              ? shortenAddress(address)
+              : lang === "en"
+              ? "Connect your wallet"
+              : "Connecte ton portefeuille"}
           </React.Suspense>
         </div>
 
