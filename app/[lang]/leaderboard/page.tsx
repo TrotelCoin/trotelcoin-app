@@ -153,8 +153,9 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     <React.Suspense
                       fallback={lang === "en" ? "Loading..." : "Chargement..."}
                     >
-                      {(entry.wallet && shortenAddress(entry.wallet)) ??
-                      lang === "en"
+                      {entry.wallet
+                        ? shortenAddress(entry.wallet)
+                        : lang === "en"
                         ? "Loading..."
                         : "Chargement..."}
                     </React.Suspense>
