@@ -101,13 +101,11 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <div className="flex items-center gap-2 text-lg">
           <span>
             <React.Suspense fallback={"0 📚"}>
-              {leaderboard[index].number_of_quizzes_answered} 📚
+              {numberOfQuizzesAnswered} 📚
             </React.Suspense>
           </span>
           <span>
-            <React.Suspense fallback={"0 🔥"}>
-              {leaderboard[index].current_streak ?? 0} 🔥
-            </React.Suspense>
+            <React.Suspense fallback={"0 🔥"}>{streak} 🔥</React.Suspense>
           </span>
         </div>
       </div>
