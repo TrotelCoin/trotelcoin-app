@@ -23,8 +23,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (result.length > 0) {
       return NextResponse.json(result[0].max_streak);
     } else {
-      console.error("No result found");
-      return NextResponse.json({ error: "No result found." }, { status: 404 });
+      return NextResponse.json(0, { status: 200 });
     }
   } catch (error) {
     console.error(error);
