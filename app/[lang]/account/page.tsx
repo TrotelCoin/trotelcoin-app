@@ -691,6 +691,10 @@ export default function Account({
 
     if (address) {
       fetchRewardsPending();
+
+      const interval = setInterval(fetchRewardsPending, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [address]);
 
@@ -710,6 +714,10 @@ export default function Account({
     };
     if (address) {
       fetchNumberOfQuizzesAnswered();
+
+      const interval = setInterval(fetchNumberOfQuizzesAnswered, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [address]);
 

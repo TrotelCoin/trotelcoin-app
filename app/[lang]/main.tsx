@@ -79,6 +79,10 @@ const MainComponent = ({
 
     if (address && user) {
       fetchUserLife();
+
+      const interval = setInterval(fetchUserLife, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [address, user]);
 

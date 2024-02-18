@@ -84,6 +84,10 @@ const Header = ({
 
     if (address) {
       fetchUserStreak();
+
+      const interval = setInterval(fetchUserStreak, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [address, streak]);
 

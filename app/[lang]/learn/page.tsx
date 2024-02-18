@@ -128,6 +128,10 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     if (address) {
       fetchStreak();
+
+      const interval = setInterval(fetchStreak, 10000);
+
+      return () => clearInterval(interval);
     }
 
     if (!address) {
@@ -155,6 +159,10 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     if (address) {
       fetchMaxStreak();
+
+      const interval = setInterval(fetchMaxStreak, 10000);
+
+      return () => clearInterval(interval);
     }
 
     if (!address) {

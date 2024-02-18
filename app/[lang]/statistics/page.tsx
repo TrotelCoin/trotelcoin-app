@@ -42,6 +42,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     };
 
     fetchRemainingRewards();
+
+    const interval = setInterval(fetchRemainingRewards, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -58,6 +62,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     };
 
     fetchTrotelCoinsPending();
+
+    const interval = setInterval(fetchTrotelCoinsPending, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -77,6 +85,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     };
 
     fetchNumberOfQuizzesAnswered();
+
+    const interval = setInterval(fetchNumberOfQuizzesAnswered, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -95,6 +107,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     };
 
     fetchNumberOfLearners();
+
+    const interval = setInterval(fetchNumberOfLearners, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -111,6 +127,10 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
     };
 
     fetchMaxStreak();
+
+    const interval = setInterval(fetchMaxStreak, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

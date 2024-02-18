@@ -135,6 +135,10 @@ const CoursePage = ({
 
     if (address && quizId) {
       fetchCoursesSatisfactionAnswered();
+
+      const interval = setInterval(fetchCoursesSatisfactionAnswered, 10000);
+
+      return () => clearInterval(interval);
     }
   }, [address, quizId]);
 
