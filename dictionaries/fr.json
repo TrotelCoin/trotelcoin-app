@@ -122,7 +122,8 @@
     "goingToLearn": "Que vas-tu apprendre?",
     "satisfaction": "Tu as aimé ce cours ?",
     "satisfactionMessage": "Merci d'avoir donné ton avis sur ce cours.",
-    "errorMessage": "Une erreur est survenue. Réessaye plus tard."
+    "errorMessage": "Une erreur est survenue. Réessaye plus tard.",
+    "disclaimer": "Disclaimer: Aucun de nos cours ne constitue un conseil financier. Nous ne sommes pas responsables de vos pertes financières. Veuillez effectuer vos propres recherches."
   },
   "notPremium": {
     "title": "Tu n'es pas premium",
