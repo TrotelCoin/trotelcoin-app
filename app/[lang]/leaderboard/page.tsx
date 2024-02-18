@@ -144,9 +144,12 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       fallback={lang === "en" ? "Loading..." : "Chargement..."}
                     >
                       {entry.wallet &&
-                        typeof entry.wallet === "string" &&
-                        isAddress(entry.wallet) &&
-                        resolveAddress(entry.wallet as Address)}
+                      typeof entry.wallet === "string" &&
+                      isAddress(entry.wallet)
+                        ? resolveAddress(entry.wallet as Address)
+                        : lang === "en"
+                        ? "Loading..."
+                        : "Chargement..."}
                     </React.Suspense>
                   </div>
                   <div className="block md:hidden">
