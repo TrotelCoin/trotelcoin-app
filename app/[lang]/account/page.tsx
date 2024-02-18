@@ -20,7 +20,6 @@ import {
   trotelCoinEarlyAddress,
 } from "@/data/addresses";
 import { mainnet, polygon } from "viem/chains";
-import CountUp from "react-countup";
 import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
@@ -164,7 +163,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
                 )}
               </p>
               {userLevel ? (
-                <CountUp start={0} end={userLevel} duration={2} />
+                <>{userLevel}</>
               ) : (
                 <span className="animate__animated animate__flash animate__slower animate__infinite">
                   0
@@ -409,11 +408,7 @@ const Header: React.FC<HeaderProps> = ({
               <span className="font-semibold">
                 {balance ? (
                   <span>
-                    <CountUp
-                      start={0}
-                      end={parseFloat(balance?.formatted as string)}
-                      duration={2}
-                    />{" "}
+                    {Math.floor(parseFloat(balance?.formatted as string))}
                   </span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
@@ -436,13 +431,7 @@ const Header: React.FC<HeaderProps> = ({
             <>
               <span className="font-semibold">
                 {numberOfQuizzesAnswered ? (
-                  <span>
-                    <CountUp
-                      start={0}
-                      end={numberOfQuizzesAnswered}
-                      duration={2}
-                    />{" "}
-                  </span>
+                  <span>{numberOfQuizzesAnswered}</span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0
@@ -466,9 +455,7 @@ const Header: React.FC<HeaderProps> = ({
             <>
               <span className="font-semibold">
                 {tokensEarned ? (
-                  <span>
-                    <CountUp start={0} end={tokensEarned} duration={2} />{" "}
-                  </span>
+                  <span>{Math.floor(tokensEarned)}</span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0
@@ -492,9 +479,7 @@ const Header: React.FC<HeaderProps> = ({
             <>
               <span className="font-semibold">
                 {totalRewardsPending ? (
-                  <span>
-                    <CountUp start={0} end={totalRewardsPending} duration={2} />{" "}
-                  </span>
+                  <span>{Math.floor(totalRewardsPending)}</span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0
@@ -653,6 +638,7 @@ export default function Account({
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store",
     });
 
     localStorage.setItem("satisfactionAnswered", "true");
@@ -666,6 +652,7 @@ export default function Account({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-store",
       });
     };
 

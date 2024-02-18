@@ -2,7 +2,6 @@
 
 import { DictType, Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import CountUp from "react-countup";
 import { getDictionary } from "../dictionaries";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import { trotelCoinLearningAddress } from "@/data/addresses";
@@ -146,11 +145,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {trotelCoinsDistributed ? (
                 <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(trotelCoinsDistributed)}
-                    duration={2}
-                  />{" "}
+                  {Math.floor(trotelCoinsDistributed)}{" "}
                   <span className="hidden md:inline">💸</span>
                 </>
               ) : (
@@ -172,11 +167,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {trotelCoinsPending ? (
                 <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(trotelCoinsPending)}
-                    duration={2}
-                  />{" "}
+                  {Math.floor(trotelCoinsPending)}{" "}
                   <span className="hidden md:inline">💰</span>
                 </>
               ) : (
@@ -198,11 +189,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {numberOfQuizzesAnswered ? (
                 <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(numberOfQuizzesAnswered)}
-                    duration={2}
-                  />{" "}
+                  {Math.floor(numberOfQuizzesAnswered)}{" "}
                   <span className="hidden md:inline">📚</span>
                 </>
               ) : (
@@ -224,12 +211,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {remainingRewards ? (
                 <>
-                  <CountUp
-                    start={0}
-                    end={remainingRewards}
-                    decimals={1}
-                    duration={2}
-                  />{" "}
+                  {Math.floor(remainingRewards)}{" "}
                   <span className="hidden md:inline">⏳</span>
                 </>
               ) : (
@@ -251,17 +233,8 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {remainingRewards ? (
                 <>
-                  <CountUp
-                    start={0}
-                    end={Math.floor(remainingRewards / 10)}
-                    duration={2}
-                  />{" "}
-                  {"< 🧠 <"}
-                  <CountUp
-                    start={0}
-                    end={Math.floor(remainingRewards / 4)}
-                    duration={2}
-                  />
+                  {Math.floor(remainingRewards / 10)} {"< 🧠 <"}
+                  {Math.floor(remainingRewards / 4)}
                 </>
               ) : (
                 <span className="animate__animated animate__flash animate__slower animate__infinite">
@@ -282,8 +255,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {maxStreak ? (
                 <>
-                  <CountUp start={0} end={maxStreak} duration={2} />{" "}
-                  <span className="hidden md:inline">🔥</span>
+                  {maxStreak} <span className="hidden md:inline">🔥</span>
                 </>
               ) : (
                 <span className="animate__animated animate__flash animate__slower animate__infinite">
@@ -304,7 +276,7 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
             <span className="font-semibold text-2xl md:text-4xl">
               {numberOfLearners ? (
                 <>
-                  <CountUp start={0} end={numberOfLearners} duration={2} />{" "}
+                  {numberOfLearners}{" "}
                   <span className="hidden md:inline">👨‍💻</span>
                 </>
               ) : (

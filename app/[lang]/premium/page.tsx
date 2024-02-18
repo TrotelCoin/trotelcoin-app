@@ -9,7 +9,6 @@ import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
-import CountUp from "react-countup";
 import {
   trotelCoinEarlyAddress,
   trotelCoinIntermediateAddress,
@@ -69,11 +68,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <div className="overflow-hidden grid grid-cols-1 md:grid-cols-3 mt-4 text-gray-900 dark:text-gray-100 items-center text-center md:divide-x md:divide-y-0 divide-x-0 divide-y divide-gray-900/20 dark:divide-gray-100/40 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-900/20 dark:border-gray-100/40 blackdrop-blur-xl">
           <div className="items-center flex flex-col py-6">
             <span className="text-2xl md:text-4xl font-semibold">
-              <CountUp
-                start={0}
-                end={parseFloat(early as string)}
-                duration={2}
-              />
+              {parseFloat(early as string)}
             </span>
             <span>
               {typeof dict?.premium !== "string" && <>{dict?.premium.early}</>}
@@ -81,11 +76,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
           <div className="items-center flex flex-col py-6">
             <span className="text-2xl md:text-4xl font-semibold">
-              <CountUp
-                start={0}
-                end={parseFloat(intermediate as string)}
-                duration={2}
-              />
+              {parseFloat(intermediate as string)}
             </span>
             <span>
               {typeof dict?.premium !== "string" && (
@@ -95,11 +86,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
           <div className="items-center flex flex-col py-6">
             <span className="text-2xl md:text-4xl font-semibold">
-              <CountUp
-                start={0}
-                end={parseFloat(expert as string)}
-                duration={2}
-              />
+              {parseFloat(expert as string)}
             </span>
             <span>
               {typeof dict?.premium !== "string" && <>{dict?.premium.expert}</>}

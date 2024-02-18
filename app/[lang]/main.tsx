@@ -58,6 +58,7 @@ const MainComponent = ({
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store",
     });
     setLife(life - 1);
   };

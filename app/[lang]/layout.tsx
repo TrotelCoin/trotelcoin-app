@@ -8,6 +8,8 @@ import RouterComponent from "@/app/[lang]/routerComponent";
 import ThirdWebProvider from "@/app/[lang]/ThirdWebProvider";
 import { Lang } from "@/types/types";
 
+export const revalidate = 10; // revalidate every 10 seconds
+
 export default function Layout({
   session,
   children,

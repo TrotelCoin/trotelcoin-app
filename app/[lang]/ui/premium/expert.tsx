@@ -106,6 +106,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
           headers: {
             "Content-Type": "application/json",
           },
+          cache: "no-store",
         });
       };
 
