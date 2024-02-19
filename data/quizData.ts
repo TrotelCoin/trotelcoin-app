@@ -260,7 +260,6 @@ const quizzes = [
             "Rien",
           ],
         },
-        }
       },
     ],
   },
