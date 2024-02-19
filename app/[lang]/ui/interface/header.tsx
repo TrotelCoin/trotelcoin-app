@@ -54,6 +54,8 @@ const Header = ({
     null
   );
   const [cooldown, setCooldown] = useState<string | null>(null);
+  const [streakCountdown, setStreakCountdown] = useState<string | null>(null);
+  const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 
   const pathname = usePathname();
 
@@ -119,6 +121,29 @@ const Header = ({
   }, [address]);
 
   useEffect(() => {
+    const fetchResetStreakCountdown = async () => {
+      const result = await fetch(
+        `/api/database/streak?wallet=${address as Address}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+        }
+      );
+      const data = await result.json();
+      setStreakCountdown(data.lastUpdated);
+    };
+
+    if (address) {
+      fetchResetStreakCountdown();
+
+      const interval = setInterval(fetchResetStreakCountdown, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [address]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (resetLifeCountdown) {
         const lastUpdated = new Date(resetLifeCountdown);
@@ -135,6 +160,24 @@ const Header = ({
 
     return () => clearInterval(interval);
   }, [resetLifeCountdown]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (streakCountdown) {
+        const lastUpdated = new Date(streakCountdown);
+        const now = new Date();
+        const difference = now.getTime() - lastUpdated.getTime();
+        const cooldown = 86400000 - difference;
+        const cooldownString = new Date(cooldown).toISOString();
+        const time = cooldownString.split("T")[1].split(".")[0];
+        setStreakCooldown(time);
+      } else {
+        setStreakCooldown("00:00:00");
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [streakCountdown]);
 
   useEffect(() => {
     const fetchDictionary = async () => {
