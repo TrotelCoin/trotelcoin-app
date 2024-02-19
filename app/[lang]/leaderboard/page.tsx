@@ -63,58 +63,72 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
         Your ranking
       </h2>
-      <div
-        className={`mt-4 bg-gray-50 flex items-center justify-between ${
-          (position as number) < 4
-            ? "rainbow-border"
-            : "border-gray-900/20 dark:border-gray-100/40"
-        } border backdrop-blur-xl text-center rounded-full p-4 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
-      >
-        <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-200 dark:bg-gray-800">
-          <React.Suspense fallback={0}>{position ?? 0}</React.Suspense>
-        </div>
-        <div className="hidden md:block">
-          <React.Suspense
-            fallback={
-              lang === "en"
+      {position ? (
+        <div
+          className={`mt-4 bg-gray-50 flex items-center justify-between ${
+            position < 4
+              ? "rainbow-border"
+              : "border-gray-900/20 dark:border-gray-100/40"
+          } border backdrop-blur-xl text-center rounded-full p-4 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        >
+          <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-200 dark:bg-gray-800">
+            <React.Suspense fallback={0}>{position ?? 0}</React.Suspense>
+          </div>
+          <div className="hidden md:block">
+            <React.Suspense
+              fallback={
+                lang === "en"
+                  ? "Connect your wallet"
+                  : "Connecte ton portefeuille"
+              }
+            >
+              {address && typeof address === "string" && isAddress(address)
+                ? resolveAddress(address)
+                : lang === "en"
                 ? "Connect your wallet"
-                : "Connecte ton portefeuille"
-            }
-          >
-            {address && typeof address === "string" && isAddress(address)
-              ? resolveAddress(address)
-              : lang === "en"
-              ? "Connect your wallet"
-              : "Connecte ton portefeuille"}
-          </React.Suspense>
-        </div>
-        <div className="block md:hidden">
-          <React.Suspense
-            fallback={
-              lang === "en"
-                ? "Connect your wallet"
-                : "Connecte ton portefeuille"
-            }
-          >
-            {address
-              ? shortenAddress(address)
-              : lang === "en"
-              ? "Connect your wallet"
-              : "Connecte ton portefeuille"}
-          </React.Suspense>
-        </div>
-
-        <div className="flex items-center gap-2 text-lg">
-          <span>
-            <React.Suspense fallback={"0 📚"}>
-              {numberOfQuizzesAnswered ?? 0} 📚
+                : "Connecte ton portefeuille"}
             </React.Suspense>
-          </span>
-          <span>
-            <React.Suspense fallback={"0 🔥"}>{streak ?? 0} 🔥</React.Suspense>
-          </span>
+          </div>
+          <div className="block md:hidden">
+            <React.Suspense
+              fallback={
+                lang === "en"
+                  ? "Connect your wallet"
+                  : "Connecte ton portefeuille"
+              }
+            >
+              {address
+                ? shortenAddress(address)
+                : lang === "en"
+                ? "Connect your wallet"
+                : "Connecte ton portefeuille"}
+            </React.Suspense>
+          </div>
+
+          <div className="flex items-center gap-2 text-lg">
+            <span>
+              <React.Suspense fallback={"0 📚"}>
+                {numberOfQuizzesAnswered ?? 0} 📚
+              </React.Suspense>
+            </span>
+            <span>
+              <React.Suspense fallback={"0 🔥"}>
+                {streak ?? 0} 🔥
+              </React.Suspense>
+            </span>
+          </div>
         </div>
-      </div>
+      ) : (
+        <>
+          <p className="mt-2 text-gray-700 dark:text-gray-300">
+            {lang === "en" ? (
+              <>Connect your wallet</>
+            ) : (
+              <>Connecte ton portefeuille</>
+            )}
+          </p>
+        </>
+      )}
       <h2 className="mt-6 font-semibold text-gray-900 dark:text-gray-100 text-xl">
         Top 20
       </h2>
