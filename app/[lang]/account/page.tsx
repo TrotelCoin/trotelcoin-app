@@ -198,7 +198,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({
             width: isNotPremium ? "0%" : `${width}%`,
             transition: "width 1s ease-in",
           }}
-          className="rounded-full h-2 bg-yellow-500 dark:bg-yellow-300"
+          className="rounded-full h-2 bg-blue-500 dark:bg-blue-300"
         ></div>
       </div>
     </div>

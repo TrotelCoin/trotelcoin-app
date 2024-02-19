@@ -170,7 +170,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
               {!isClaimed && !isEligible && (
                 <button
                   onClick={checkEligibility}
-                  className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold"
+                  className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
                 >
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.eligibility}</>
@@ -181,7 +181,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 <Web3Button
                   action={() => mutateAsync({ args: [address as Address] })}
                   contractAddress={trotelCoinExpertAddress}
-                  className="!bg-yellow-500 !hover:bg-yellow-400 !dark:bg-yellow-300 !dark:hover:bg-yellow-400 !hover:border-gray-900/50 !dark:hover:border-gray-100/50 !focus:border-yellow-500 !dark:focus:border-yellow-300 !text-sm !px-6 !py-2 !text-gray-900 !dark:text-gray-900 !rounded-lg !font-semibold"
+                  className="!bg-blue-500 !hover:bg-blue-400 !dark:bg-blue-300 !dark:hover:bg-blue-400 !hover:border-gray-900/50 !dark:hover:border-gray-100/50 !focus:border-blue-500 !dark:focus:border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 !dark:text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
@@ -190,7 +190,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 </Web3Button>
               )}
               {isClaimed && (
-                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claimed}</>
                   )}

@@ -123,7 +123,7 @@ function renderCourses(
             className="mt-4 rounded-lg"
             />*/}
           <div
-            className={`rounded-lg px-4 pb-4 hover:shadow active:border-yellow-500 dark:active:border-yellow-300 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+            className={`rounded-lg px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
           >
             <div>
               <div
@@ -179,7 +179,7 @@ function renderCourses(
                 </div>
               )}
               {course.sponsored && (
-                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-yellow-600 dark:bg-yellow-200 text-gray-100 dark:text-gray-900">
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
                   {typeof dict?.lesson !== "string" && (
                     <>{dict?.lesson.sponsored} 📚</>
                   )}

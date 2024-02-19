@@ -185,7 +185,7 @@ const CoursePage = ({
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
                 href={`/${lang}/home`}
-                className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-100 dark:text-gray-900 shadow-sm hover:bg-gray-800 dark:hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500"
+                className="rounded-md bg-black dark:bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-100 dark:text-gray-900 shadow-sm hover:bg-gray-800 dark:hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
               >
                 {typeof dict?.lesson !== "string" && (
                   <>{dict?.lesson.goBackHome}</>
@@ -202,7 +202,7 @@ const CoursePage = ({
     return (
       <>
         <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
-          <p className="text-base font-semibold leading-7 text-yellow-500 dark:text-yellow-300">
+          <p className="text-base font-semibold leading-7 text-blue-500 dark:text-blue-300">
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
           </p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
@@ -285,7 +285,7 @@ const CoursePage = ({
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
-                                className="w-5 h-5 text-yellow-500 dark:text-yellow-300"
+                                className="w-5 h-5 text-blue-500 dark:text-blue-300"
                               >
                                 <path
                                   fillRule="evenodd"
@@ -301,7 +301,7 @@ const CoursePage = ({
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-5 h-5 hover:text-yellow-500 dark:hover:text-yellow-300"
+                                className="w-5 h-5 hover:text-blue-500 dark:hover:text-blue-300"
                               >
                                 <path
                                   strokeLinecap="round"

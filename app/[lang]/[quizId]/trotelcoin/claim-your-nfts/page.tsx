@@ -45,7 +45,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         )}
       </p>
-      <figure className="mt-10 border-l border-yellow-500 dark:border-yellow-300 pl-9">
+      <figure className="mt-10 border-l border-blue-500 dark:border-blue-300 pl-9">
         <blockquote className="text-gray-900 dark:text-gray-100">
           <p className="font-light">
             {lang == "en" ? (

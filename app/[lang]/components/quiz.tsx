@@ -308,7 +308,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
                   <div
                     className={`cursor-pointer px-4 py-2 rounded-lg ${
                       answers[currentQuestion] === option
-                        ? "bg-yellow-500 text-gray-900 hover:bg-yellow-500 hover:text-gray-900"
+                        ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
                         : "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800"
                     }`}
                     onClick={() => handleAnswer(option)}

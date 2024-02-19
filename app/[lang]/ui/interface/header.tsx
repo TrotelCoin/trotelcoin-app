@@ -275,7 +275,7 @@ const Header = ({
             {<TrotelPrice />}
           </p>
           <div className="hidden md:block">{<TrotelPriceChange />}</div>
-          <span className="hidden xl:inline-flex items-center rounded-lg bg-yellow-50 dark:bg-yellow-200/10 px-2 py-1 text-xs font-medium text-yellow-600 dark:text-yellow-200 ring-1 ring-inset ring-yellow-700/10 dark:ring-yellow-200/30">
+          <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
             <span className="animate__animated animate__flash animate__slower animate__infinite">
               {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
             </span>
@@ -358,7 +358,7 @@ const Header = ({
                       </p>
                     )}
                     <Link href={`/${lang}/premium`}>
-                      <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+                      <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                         {typeof dict?.header !== "string" && (
                           <>{dict?.header.lifeButton}</>
                         )}
@@ -408,7 +408,7 @@ const Header = ({
                       </p>
                     )}
                     <Link href={`/${lang}/learn`}>
-                      <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+                      <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                         {typeof dict?.header !== "string" && (
                           <>{dict?.header.streakButton}</>
                         )}
@@ -497,7 +497,7 @@ const Header = ({
                         </p>
                       )}
                       <Link href={`/${lang}/premium`}>
-                        <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+                        <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                           {typeof dict?.header !== "string" && (
                             <>{dict?.header.lifeButton}</>
                           )}
@@ -549,7 +549,7 @@ const Header = ({
                         </p>
                       )}
                       <Link href={`/${lang}/learn`}>
-                        <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
+                        <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                           {typeof dict?.header !== "string" && (
                             <>{dict?.header.streakButton}</>
                           )}

@@ -57,7 +57,7 @@ const Fail: React.FC<Modals> = ({ title, show, message, onClose }) => {
                 <div className="mt-5 sm:mt-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-full bg-yellow-500 dark:hover:bg-yellow-400 hover:bg-yellow-400 dark:bg-yellow-300 px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-900"
+                    className="inline-flex w-full justify-center rounded-full bg-blue-500 dark:hover:bg-blue-400 hover:bg-blue-400 dark:bg-blue-300 px-3 py-2 text-sm font-semibold text-gray-100 dark:text-gray-900"
                     onClick={onClose}
                   >
                     Close
