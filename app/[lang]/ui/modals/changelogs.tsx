@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-export const version: string = "0.8.6";
+export const version: string = "0.8.8";
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -87,7 +87,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     Changelogs
                   </Dialog.Title>
                   <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                    February 3, 2024 - v{version}
+                    February 19, 2024 - v{version}
                   </p>
                   <div className="mt-8">
                     <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
@@ -95,13 +95,8 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- Introduction to TrotelCoin is now available"
-                        : "- Introduction à TrotelCoin est maintenant disponible"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- We are cooking 3 other courses"
-                        : "- Nous préparons 3 autres cours"}
+                        ? "- Claim your NFTs will be soon available"
+                        : "- Récupère tes NFTs sera bientôt disponible"}
                     </p>
                   </div>
                   <div className="mt-8">
@@ -110,23 +105,13 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- More transparency about the algorithm on Statistics page"
-                        : "- + de transparence sur l'algorithme sur la page Statistiques"}
+                        ? "- We added leaderboard on a specific page"
+                        : "- On a ajouté un classement sur une page spécifique"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- New label to indicate new courses on the homepage"
-                        : "- Nouveau label pour indiquer les nouveaux cours sur la page d'accueil"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- Give feedback about TrotelCoin in your account page"
-                        : "- Donne ton avis sur TrotelCoin dans ta page de compte"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- Increase your streak every day on the Learn page"
-                        : "- Augmente tes séries tous les jours sur la page Apprendre"}
+                        ? "- We added lives depending on your quizzes answers"
+                        : "- On a ajouté des vies en fonction de tes réponses aux quiz"}
                     </p>
                   </div>
                   <div className="mt-8">
@@ -135,18 +120,13 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- We've been interviewed by cryptonaute.fr"
-                        : "- Nous avons été interviewés par cryptonaute.fr"}
+                        ? "- We will be having a lot of events on our Discord"
+                        : "- On va organiser beaucoup d'événements sur notre Discord"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- We gonna list on ProductHunt and dApps websites"
-                        : "- On va lister sur ProductHunt et des sites de dApps"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- We reached 1200 followers on X / Twitter"
-                        : "- On a atteint 1200 followers sur X / Twitter"}
+                        ? "- We reached $31k of market cap"
+                        : "- On a atteint 31k$ de capitalisation"}
                     </p>
                   </div>
                   <div className="mt-8">

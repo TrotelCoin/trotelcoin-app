@@ -50,6 +50,10 @@ const Header = ({
   const [isIntermediateBalance, setIsIntermediateBalance] =
     useState<boolean>(false);
   const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
+  const [resetLifeCountdown, setResetLifeCountdown] = useState<string | null>(
+    null
+  );
+  const [cooldown, setCooldown] = useState<string | null>(null);
 
   const pathname = usePathname();
 
@@ -90,6 +94,47 @@ const Header = ({
       return () => clearInterval(interval);
     }
   }, [address, streak]);
+
+  useEffect(() => {
+    const fetchResetLifeCountdown = async () => {
+      const result = await fetch(
+        `/api/database/resetLifeCount?wallet=${address as Address}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+        }
+      );
+      const data = await result.json();
+      setResetLifeCountdown(data);
+    };
+
+    if (address) {
+      fetchResetLifeCountdown();
+
+      const interval = setInterval(fetchResetLifeCountdown, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [address]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (resetLifeCountdown) {
+        const lastUpdated = new Date(resetLifeCountdown);
+        const now = new Date();
+        const difference = now.getTime() - lastUpdated.getTime();
+        const cooldown = 86400000 - difference;
+        const cooldownString = new Date(cooldown).toISOString();
+        const time = cooldownString.split("T")[1].split(".")[0];
+        setCooldown(time);
+      } else {
+        setCooldown("00:00:00");
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [resetLifeCountdown]);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -263,6 +308,12 @@ const Header = ({
                         <>{dict?.header.lifeMessage}</>
                       )}
                     </p>
+                    {cooldown && (
+                      <p>
+                        {lang === "en" ? "Reset in:" : "Réinitialisation dans:"}{" "}
+                        {cooldown}
+                      </p>
+                    )}
                     <Link href={`/${lang}/premium`}>
                       <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
                         {typeof dict?.header !== "string" && (
@@ -388,6 +439,14 @@ const Header = ({
                           <>{dict?.header.lifeMessage}</>
                         )}
                       </p>
+                      {cooldown && (
+                        <p>
+                          {lang === "en"
+                            ? "Reset in:"
+                            : "Réinitialisation dans:"}{" "}
+                          {cooldown}
+                        </p>
+                      )}
                       <Link href={`/${lang}/premium`}>
                         <button className="bg-yellow-500 hover:bg-yellow-400 dark:bg-yellow-300 dark:hover:bg-yellow-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-yellow-500 dark:focus:border-yellow-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-900 rounded-lg font-semibold">
                           {typeof dict?.header !== "string" && (
