@@ -9,6 +9,7 @@ const TrotelPriceChange = () => {
   );
   const [sign, setSign] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [loadingClass, setLoadingClass] = useState<string>("");
 
   useEffect(() => {
     const fetchTokenPriceChange = async () => {
@@ -27,21 +28,27 @@ const TrotelPriceChange = () => {
             setContainerClass(
               "inline-flex items-center rounded-lg bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
             );
+            setLoadingClass("");
             setSign("");
           } else if (priceChange < 0) {
             setContainerClass(
               "inline-flex items-center rounded-lg bg-red-50 dark:bg-red-200/10 px-2 py-1 text-xs font-medium text-red-600 dark:text-red-200 ring-1 ring-inset ring-red-500/20 dark:ring-red-200/40"
             );
+            setLoadingClass("");
             setSign("");
           } else if (priceChange > 0) {
             setContainerClass(
               "inline-flex items-center rounded-lg bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-600 dark:text-green-200 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40"
             );
+            setLoadingClass("");
             setSign("+");
           } else {
             setTokenPriceChange(0);
             setContainerClass(
-              "inline-flex animate__animated animate__flash animate__slower animate__infinite items-center rounded-lg bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
+              "inline-flex items-center rounded-lg bg-gray-50 dark:bg-gray-200/10 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
+            );
+            setLoadingClass(
+              "animate__animated animate__flash animate__slower animate__infinite"
             );
             setSign("");
           }
@@ -61,9 +68,11 @@ const TrotelPriceChange = () => {
   }, [error]);
 
   return (
-    <span className={containerClass}>{`${sign}${tokenPriceChange.toFixed(
-      2
-    )}%`}</span>
+    <span className={containerClass}>
+      <span className={loadingClass}>{`${sign}${tokenPriceChange.toFixed(
+        2
+      )}%`}</span>
+    </span>
   );
 };
 
