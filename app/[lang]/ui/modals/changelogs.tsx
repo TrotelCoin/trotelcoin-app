@@ -95,8 +95,8 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- Claim your NFTs will be soon available"
-                        : "- Récupère tes NFTs sera bientôt disponible"}
+                        ? "- Claim your NFTs is available"
+                        : "- Récupère tes NFTs est disponible"}
                     </p>
                   </div>
                   <div className="mt-8">

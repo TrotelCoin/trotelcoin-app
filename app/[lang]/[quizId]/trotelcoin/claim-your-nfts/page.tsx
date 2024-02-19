@@ -235,12 +235,16 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </span>
               .
               {isCopied && (
-                <p className="mt-2 text-green-500 dark:text-green-300">
+                <p className="my-2 text-green-500 dark:text-green-300">
                   L'addresse a été copiée.
                 </p>
               )}
-              <br />
-              <br />
+              {!isCopied && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
               Ensuite, sur la page de récupération des NFTs, il ne te reste plus
               qu'à vérifier si tu as le nombre de TrotelCoins requis et à
               cliquer sur le bouton pour récupérer tes NFTs.

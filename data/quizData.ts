@@ -131,6 +131,139 @@ const quizzes = [
       },
     ],
   },
+  {
+    quizId: 2,
+    title: "Claim your NFTs", // not used
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What are the two TrotelCoin's NFTs?",
+          fr: "Quels sont les deux NFTs TrotelCoin?",
+        },
+        options: {
+          en: [
+            "Intermediate 🙈 et Expert 🦊",
+            "Basic 🐦 et Advanced 🚀",
+            "Starter 🌱 et Pro 🌟",
+            "Novice 🐣 et Master 🧙‍♂️",
+          ],
+          fr: [
+            "Intermediate 🙈 et Expert 🦊",
+            "Basic 🐦 et Advanced 🚀",
+            "Starter 🌱 et Pro 🌟",
+            "Novice 🐣 et Master 🧙‍♂️",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is the main purpose of these NFTs?",
+          fr: "Quel est le but principal de ces NFTs?",
+        },
+        options: {
+          en: [
+            "They are used to reward learners and provide access to exclusive content",
+            "There are digital collectibles",
+            "They are used for financial transactions",
+            "They are used to vote on governance proposals",
+          ],
+          fr: [
+            "Ils récomponsent les apprenants et fournir un accès à du contenu exclusif",
+            "Ce sont des objets de collection numériques",
+            "Ils sont utilisés pour des transactions financières",
+            "Ils sont utilisés pour voter sur des propositions de gouvernance",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What do you need to claim the NFTs?",
+          fr: "De quoi as-tu besoin pour réclamer les NFTs?",
+        },
+        options: {
+          en: [
+            "A certain amount of TrotelCoin",
+            "A fast internet connection",
+            "An account on TrotelCoin without any TrotelCoin",
+            "A certain amount of Bitcoin",
+          ],
+          fr: [
+            "Un certain montant de TrotelCoin",
+            "Une connexion internet rapide",
+            "Un compte sur TrotelCoin sans aucun TrotelCoin",
+            "Un certain montant de Bitcoin",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Where can you stay updated about the NFTs?",
+          fr: "Où peux-tu rester informé sur les NFTs?",
+        },
+        options: {
+          en: [
+            "On the TrotelCoin documentation mainly",
+            "On the TrotelCoin Discord only",
+            "On the TrotelCoin Twitter only",
+            "Nowhere",
+          ],
+          fr: [
+            "Sur le site web de TrotelCoin principalement",
+            "Sur le Discord de TrotelCoin seulement",
+            "Sur le Twitter de TrotelCoin seulement",
+            "Nulle part",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What action do you need to take to claim the NFTs?",
+          fr: "Quelle action dois-tu prendre pour réclamer les NFTs?",
+        },
+        options: {
+          en: [
+            "Click on the claim button",
+            "Complete a transaction",
+            "Complete a form",
+            "Complete a survey",
+          ],
+          fr: [
+            "Cliquer sur le bouton de réclamation",
+            "Compléter une transaction",
+            "Compléter un formulaire",
+            "Compléter un sondage",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "What's the last step to confirm the NFTs claim?",
+          fr: "Quelle est la dernière étape pour confirmer la réclamation des NFTs?",
+        },
+        options: {
+          en: [
+            "Rainbow border around the NFTs 🌈",
+            "Get a mail confirmation",
+            "Obtain a QR code",
+            "Nothing",
+          ],
+          fr: [
+            "Bordure arc-en-ciel autour des NFTs 🌈",
+            "Recevoir une confirmation par mail",
+            "Obtenir un QR code",
+            "Rien",
+          ],
+        },
+        }
+      },
+    ],
+  },
 ];
 
 export default quizzes;
