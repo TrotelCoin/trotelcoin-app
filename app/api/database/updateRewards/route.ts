@@ -160,6 +160,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
       insertQuizzesError ||
       insertLearnersError
     ) {
+      if (updateAlgorithmError) {
+        console.error(updateAlgorithmError);
+      }
+      if (updateQuizzesError) {
+        console.error(updateQuizzesError);
+      }
+      if (insertQuizzesError) {
+        console.error(insertQuizzesError);
+      }
+      if (insertLearnersError) {
+        console.error(insertLearnersError);
+      }
       console.error("Error updating data in algorithm, quizzes, or learners");
       return NextResponse.json(
         { error: "Something went wrong." },
