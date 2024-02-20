@@ -72,8 +72,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Moreover, some gamification features are only available if you own
               the NFTs. For example, the badges you can earn by completing
               courses, increasing your streaks, etc.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/2/advantages.png"
+                alt="Advantages"
+              ></Image>
               The platform is still in its early stages and new features will be
               added. Intermediate and Expert will have early access to these new
               features.
@@ -103,8 +108,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               sont disponibles que si tu détiens les NFTs. Par exemple, les
               badges que tu peux gagner en terminant des cours, en augmentant
               tes séries, etc.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/2/advantages.png"
+                alt="Advantages"
+              ></Image>
               La plateforme n'en est qu'à ses débuts et de nouvelles
               fonctionnalités seront ajoutées. Les Intermediate et Expert auront
               accès à ces nouvelles fonctionnalités en avant-première.
@@ -189,8 +199,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               If everything goes well, you should see rainbow borders around
               your NFTs.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/2/claim.png"
+                alt="Claim"
+              ></Image>
               Congratulations, you have successfully claimed your NFTs!
             </>
           ) : (
@@ -252,8 +267,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               Si tout se passe bien, tu devrais voir apparaître des contours
               arc-en-ciel autour de tes NFTs.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/2/claim.png"
+                alt="Claim"
+              ></Image>
               Félicitations, tu as récupéré tes NFTs avec succès !
             </>
           )}
