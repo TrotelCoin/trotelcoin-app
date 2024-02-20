@@ -35,7 +35,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       );
     }
 
-    let position: number = 0;
+    let position: number = -1;
     let numberOfQuizzesAnswered: number = 0;
 
     const filteredLeaderboard = leaderboard.filter(
@@ -50,7 +50,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       (learner) => learner.wallet === (wallet as Address)
     );
 
-    if (position !== 0) {
+    if (position !== -1) {
       numberOfQuizzesAnswered =
         filteredLeaderboard[position].number_of_quizzes_answered;
     }
