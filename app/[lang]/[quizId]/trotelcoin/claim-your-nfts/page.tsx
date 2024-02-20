@@ -34,7 +34,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : (
           <>
-            Dans ce cours, tu peux apprendre comment récupérer vos NFTs
+            Dans ce cours, tu peux apprendre comment récupérer tes NFTs
             TrotelCoin. Les 2 NFTs que tu peux récupérer sont les suivants :
             Intermediate 🙈 et Expert 🦊
             <br />
@@ -91,7 +91,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </>
           ) : (
             <>
-              Ces NFTs vous permettent d'accéder à des cours plus avancés et à
+              Ces NFTs te permette d'accéder à des cours plus avancés et à
               d'autres fonctionnalités.
               <br />
               <br />
@@ -199,8 +199,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               comment récupérer ces NFTs.
               <br />
               <br />
-              Pour cela, vous devez vous rendre sur la page de récupération des
-              NFTs en cliquant sur le lien suivant :{" "}
+              Pour cela, tu dois te rendre sur la page de récupération des NFTs
+              en cliquant sur le lien suivant :{" "}
               <Link
                 href={`/${lang}/premium`}
                 className="text-blue-500 dark:text-blue-300"
@@ -215,7 +215,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               sur le portefeuille connecté.
               <br />
               <br />
-              Si tu es connecté avec tpn adresse mail ou réseaux sociaux, tu
+              Si tu es connecté avec ton adresse mail ou tes réseaux sociaux, tu
               dois simplement récupérer l'adresse du portefeuille crypto associé
               à ton compte.
               <br />
