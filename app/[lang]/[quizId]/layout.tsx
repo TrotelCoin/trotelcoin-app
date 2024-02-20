@@ -17,7 +17,8 @@ import {
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { supabase } from "@/lib/supabase/db";
+
+// factorize this component
 
 const getTierByQuizId = (quizIdParam: number): string => {
   let foundTier = "";
@@ -253,7 +254,7 @@ const CoursePage = ({
             <span className="font-semibold">Disclaimer: </span>
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.disclaimer}</>}
           </p>
-          <div className="whitespace-normal break-all">{children}</div>
+          <div className="whitespace-normal break-words">{children}</div>
 
           {/* Satisfaction */}
           {(address as Address) && !alreadyAnsweredSatisfaction && (
