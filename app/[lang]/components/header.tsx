@@ -14,22 +14,9 @@ import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
-import { useContractRead } from "wagmi";
-import {
-  ConnectWallet,
-  useAddress,
-  useDisconnect,
-  useLogout,
-  useUser,
-} from "@thirdweb-dev/react";
-import { Address } from "viem";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinExpertAddress,
-  trotelCoinIntermediateAddress,
-} from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import LifeCount from "@/app/[lang]/components/lifeCount";
+import StreakCount from "@/app/[lang]/components/streakCount";
+import Wallet from "@/app/[lang]/components/wallet";
 
 // Define the Header component
 const Header = ({
@@ -43,147 +30,8 @@ const Header = ({
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
-  const [streak, setStreak] = useState<number | null>(null);
-  const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
-  const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
-  const [isIntermediateBalance, setIsIntermediateBalance] =
-    useState<boolean>(false);
-  const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
-  const [resetLifeCountdown, setResetLifeCountdown] = useState<string | null>(
-    null
-  );
-  const [cooldown, setCooldown] = useState<string | null>(null);
-  const [streakCountdown, setStreakCountdown] = useState<string | null>(null);
-  const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 
   const pathname = usePathname();
-
-  const isLightTheme = useTheme();
-
-  const { user, isLoggedIn, isLoading } = useUser();
-  const address = useAddress();
-  const disconnect = useDisconnect();
-  const { logout } = useLogout();
-
-  const handleDisconnect = () => {
-    if (address) {
-      disconnect();
-      logout();
-    }
-  };
-
-  useEffect(() => {
-    const fetchUserStreak = async () => {
-      await fetch(`/api/database/streak?wallet=${address as Address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        cache: "no-store",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setStreak(data.currentStreak);
-        });
-    };
-
-    if (address) {
-      fetchUserStreak();
-
-      const interval = setInterval(fetchUserStreak, 10000);
-
-      return () => clearInterval(interval);
-    } else {
-      setStreak(0);
-      setStreakCountdown(null);
-    }
-  }, [address, streak]);
-
-  useEffect(() => {
-    const fetchResetLifeCountdown = async () => {
-      const result = await fetch(
-        `/api/database/resetLifeCount?wallet=${address as Address}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setResetLifeCountdown(data);
-    };
-
-    if (address) {
-      fetchResetLifeCountdown();
-
-      const interval = setInterval(fetchResetLifeCountdown, 1000);
-
-      return () => clearInterval(interval);
-    } else {
-      setResetLifeCountdown(null);
-    }
-  }, [address]);
-
-  useEffect(() => {
-    const fetchResetStreakCountdown = async () => {
-      const result = await fetch(
-        `/api/database/streak?wallet=${address as Address}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setStreakCountdown(data.lastUpdated);
-    };
-
-    if (address) {
-      fetchResetStreakCountdown();
-
-      const interval = setInterval(fetchResetStreakCountdown, 1000);
-
-      return () => clearInterval(interval);
-    } else {
-      setStreakCountdown(null);
-    }
-  }, [address]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (resetLifeCountdown) {
-        const lastUpdated = new Date(resetLifeCountdown);
-        const now = new Date();
-        const difference = now.getTime() - lastUpdated.getTime();
-        const cooldown = 86400000 - difference;
-        const cooldownString = new Date(cooldown).toISOString();
-        const time = cooldownString.split("T")[1].split(".")[0];
-        setCooldown(time);
-      } else {
-        setCooldown("00:00:00");
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [resetLifeCountdown]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (streakCountdown) {
-        const lastUpdated = new Date(streakCountdown);
-        const now = new Date();
-        const difference = now.getTime() - lastUpdated.getTime();
-        const cooldown = 86400000 - difference;
-        const cooldownString = new Date(cooldown).toISOString();
-        const time = cooldownString.split("T")[1].split(".")[0];
-        setStreakCooldown(time);
-      } else {
-        setStreakCooldown("00:00:00");
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [streakCountdown]);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -193,6 +41,10 @@ const Header = ({
 
     fetchDictionary();
   }, [lang]);
+
+  const closeMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   const navigation = [
     {
@@ -216,45 +68,6 @@ const Header = ({
       id: 4,
     },
   ];
-
-  const closeMenu = () => {
-    setMobileMenuOpen(false);
-  };
-
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  useEffect(() => {
-    const intermediateBalance: number = parseFloat(intermediate as string);
-    const expertBalance: number = parseFloat(expert as string);
-
-    if (intermediateBalance > 0) {
-      setIsIntermediateBalance(true);
-    }
-
-    if (expertBalance > 0) {
-      setIsExpertBalance(true);
-    }
-  }, [intermediate, expert]);
 
   return (
     <header className="bg-white dark:bg-black">
@@ -318,136 +131,14 @@ const Header = ({
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
           <div className="items-center flex gap-x-4">
-            {/*<span className="font-semibold text-gray-900 dark:text-gray-100 hidden xl:flex">
-              <TrotelBalance /> TROTEL
-            </span>*/}
-            {/*<Wallet lang={lang} />*/}
-            <div
-              className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
-              onMouseEnter={() => setIsHoveringLife(true)}
-              onMouseLeave={() => setIsHoveringLife(false)}
-            >
-              {isExpertBalance || isIntermediateBalance ? (
-                <span className="font-semibold text-2xl">&infin;</span>
-              ) : life ? (
-                <>{life}</>
-              ) : (
-                <span className="font-semibold">0</span>
-              )}{" "}
-              💛
-              <Transition
-                as={Fragment}
-                show={isHoveringLife}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <div
-                  className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
-                  style={{ width: "300px" }}
-                >
-                  <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
-                    <p>
-                      {typeof dict?.header !== "string" && (
-                        <>{dict?.header.lifeMessage}</>
-                      )}
-                    </p>
-                    {cooldown && (
-                      <p>
-                        {lang === "en" ? "Reset in:" : "Réinitialisation dans:"}{" "}
-                        {cooldown}
-                      </p>
-                    )}
-                    <Link href={`/${lang}/premium`}>
-                      <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                        {typeof dict?.header !== "string" && (
-                          <>{dict?.header.lifeButton}</>
-                        )}
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </Transition>
-            </div>
-            <div
-              className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
-              onMouseEnter={() => setIsHoveringStreak(true)}
-              onMouseLeave={() => setIsHoveringStreak(false)}
-            >
-              {streak ? (
-                <span className="font-semibold">{streak}</span>
-              ) : (
-                <span className="font-semibold">0</span>
-              )}{" "}
-              🔥
-              <Transition
-                as={Fragment}
-                show={isHoveringStreak}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <div
-                  className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
-                  style={{ width: "300px" }}
-                >
-                  <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
-                    <p>
-                      {typeof dict?.header !== "string" && (
-                        <>{dict?.header.streakMessage}</>
-                      )}
-                    </p>
-                    {streakCooldown && (
-                      <p>
-                        {lang === "en" ? "Reset in:" : "Réinitialisation dans:"}{" "}
-                        {streakCooldown}
-                      </p>
-                    )}
-                    <Link href={`/${lang}/learn`}>
-                      <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                        {typeof dict?.header !== "string" && (
-                          <>{dict?.header.streakButton}</>
-                        )}
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-              </Transition>
-            </div>
-            {address && isLoggedIn ? (
-              <button
-                onClick={handleDisconnect}
-                className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-                style={{ minWidth: "0px" }}
-              >
-                {typeof dict?.header !== "string" && (
-                  <>{dict?.header.disconnect}</>
-                )}
-              </button>
-            ) : (
-              <ConnectWallet
-                theme={isLightTheme ? "light" : "dark"}
-                auth={{ loginOptional: false }}
-                switchToActiveChain={true}
-                modalSize={"wide"}
-                modalTitleIconUrl={""}
-                btnTitle={lang === "en" ? "Sign in" : "Se connecter"}
-                className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-                style={{ minWidth: "0px" }}
-              />
-            )}
+            <LifeCount dict={dict as DictType} lang={lang} life={life} />
+            <StreakCount dict={dict as DictType} lang={lang} />
+            <Wallet dict={dict as DictType} lang={lang} />
           </div>
           <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-900/20 dark:bg-gray-100/40" />
           <div className="items-center flex gap-2">
             <LanguageSelector router={router} lang={lang} />
             <ThemeSwitcher />
-            {/*<AudioComponent />*/}
           </div>
         </div>
 
@@ -455,108 +146,8 @@ const Header = ({
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
             <div className="flex gap-2 items-center">
-              <div
-                className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
-                onMouseEnter={() => setIsHoveringLife(true)}
-                onMouseLeave={() => setIsHoveringLife(false)}
-              >
-                {isExpertBalance || isIntermediateBalance ? (
-                  <span className="font-semibold text-2xl">&infin;</span>
-                ) : life ? (
-                  <span className="font-semibold">{life}</span>
-                ) : (
-                  <span className="font-semibold">0</span>
-                )}{" "}
-                💛
-                <Transition
-                  as={Fragment}
-                  show={isHoveringLife}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
-                >
-                  <div
-                    className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
-                    style={{ width: "300px" }}
-                  >
-                    <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
-                      <p>
-                        {typeof dict?.header !== "string" && (
-                          <>{dict?.header.lifeMessage}</>
-                        )}
-                      </p>
-                      {cooldown && (
-                        <p>
-                          {lang === "en"
-                            ? "Reset in:"
-                            : "Réinitialisation dans:"}{" "}
-                          {cooldown}
-                        </p>
-                      )}
-                      <Link href={`/${lang}/premium`}>
-                        <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                          {typeof dict?.header !== "string" && (
-                            <>{dict?.header.lifeButton}</>
-                          )}
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </Transition>
-              </div>
-              <div
-                className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
-                onMouseEnter={() => setIsHoveringStreak(true)}
-                onMouseLeave={() => setIsHoveringStreak(false)}
-              >
-                {streak ? (
-                  <span className="font-semibold">{streak}</span>
-                ) : (
-                  <span className="font-semibold">0</span>
-                )}{" "}
-                🔥
-                <Transition
-                  as={Fragment}
-                  show={isHoveringStreak}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
-                >
-                  <div
-                    className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
-                    style={{ width: "300px" }}
-                  >
-                    <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
-                      <p>
-                        {typeof dict?.header !== "string" && (
-                          <>{dict?.header.streakMessage}</>
-                        )}
-                      </p>
-                      {streakCooldown && (
-                        <p>
-                          {lang === "en"
-                            ? "Reset in:"
-                            : "Réinitialisation dans:"}{" "}
-                          {streakCooldown}
-                        </p>
-                      )}
-                      <Link href={`/${lang}/learn`}>
-                        <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                          {typeof dict?.header !== "string" && (
-                            <>{dict?.header.streakButton}</>
-                          )}
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </Transition>
-              </div>
+              <LifeCount dict={dict as DictType} lang={lang} life={life} />
+              <StreakCount dict={dict as DictType} lang={lang} />
             </div>
             <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-900/20 dark:bg-gray-100/40" />
             <div className="flex gap-2 items-center">
@@ -597,30 +188,7 @@ const Header = ({
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
-              {/*<Wallet lang={lang} />*/}
-
-              {address && isLoggedIn ? (
-                <button
-                  onClick={handleDisconnect}
-                  className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-                  style={{ minWidth: "0px" }}
-                >
-                  {typeof dict?.header !== "string" && (
-                    <>{dict?.header.disconnect}</>
-                  )}
-                </button>
-              ) : (
-                <ConnectWallet
-                  theme={isLightTheme ? "light" : "dark"}
-                  auth={{ loginOptional: false }}
-                  switchToActiveChain={true}
-                  modalSize={"wide"}
-                  modalTitleIconUrl={""}
-                  btnTitle={lang === "en" ? "Sign in" : "Se connecter"}
-                  className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-                  style={{ minWidth: "0px" }}
-                />
-              )}
+              <Wallet dict={dict as DictType} lang={lang} />
               <button
                 type="button"
                 className="-m-2.5 rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
