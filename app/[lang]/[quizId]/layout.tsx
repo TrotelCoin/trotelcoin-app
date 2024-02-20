@@ -253,7 +253,7 @@ const CoursePage = ({
             <span className="font-semibold">Disclaimer: </span>
             {typeof dict?.lesson !== "string" && <>{dict?.lesson.disclaimer}</>}
           </p>
-          <>{children}</>
+          <div className="whitespace-normal">{children}</div>
 
           {/* Satisfaction */}
           {(address as Address) && !alreadyAnsweredSatisfaction && (
