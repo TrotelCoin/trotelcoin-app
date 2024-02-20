@@ -141,7 +141,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
               isNotPremium && "blur hover:blur-none duration-500"
             }`}
           >
-            {quizzesRemaining > 0 && !isNotPremium
+            {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium
               ? `${quizzesRemaining.toFixed(0)} ${
                   typeof dict?.account !== "string" &&
                   dict?.account.trotelCoinsLeft
