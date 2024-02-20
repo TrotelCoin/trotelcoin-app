@@ -58,7 +58,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json(
       {
         position: position + 1,
-        numberOfQuizzesAnswered,
+        numberOfQuizzesAnswered: numberOfQuizzesAnswered,
         streak: streak.length > 0 ? streak[0].current_streak : 0,
       },
       { status: 200 }

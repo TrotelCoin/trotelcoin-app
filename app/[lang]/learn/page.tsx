@@ -6,6 +6,7 @@ import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
+import { supabase } from "@/lib/db";
 
 interface StreakSectionProps {
   streak: number;
@@ -132,9 +133,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       const interval = setInterval(fetchStreak, 10000);
 
       return () => clearInterval(interval);
-    }
-
-    if (!address) {
+    } else {
       setStreak(0);
       setCooldown("00:00:00");
       setDisabled(false);
@@ -163,9 +162,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       const interval = setInterval(fetchMaxStreak, 10000);
 
       return () => clearInterval(interval);
-    }
-
-    if (!address) {
+    } else {
       setMaxStreak(0);
     }
   }, [address, streak, maxStreak, disabled]);
@@ -183,6 +180,9 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     if (data.success === "Streak updated.") {
       setStreak((streak) => streak + 1);
       setMaxStreak((maxStreak) => Math.max(maxStreak, streak + 1));
+    } else {
+      setStreak(0);
+      setMaxStreak(0);
     }
   };
 

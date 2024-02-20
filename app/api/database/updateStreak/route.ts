@@ -8,10 +8,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     // Check if wallet exists in "learners" table
-    const { data: walletExists, error: walletExistsError } = await supabase
-      .from("learners")
-      .select("*")
-      .eq("wallet", wallet as string);
+    const { data: walletExists, error: walletExistsError } =
+      await supabase
+        .from("learners")
+        .select("*")
+        .eq("wallet", wallet as string);
 
     if (walletExistsError) {
       console.error(walletExistsError);
@@ -23,16 +24,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     if (!walletExists.length) {
       // wallet does not exist in the "learners" table
-      const { error: insertError } = await supabase.from("learners").insert([
-        {
-          wallet: wallet as string,
-          number_of_quizzes_answered: 0,
-          number_of_quizzes_created: 0,
-          total_rewards_pending: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
-      ]);
+      const { error: insertError } = await supabase
+        .from("learners")
+        .insert([
+          {
+            wallet: wallet as string,
+            number_of_quizzes_answered: 0,
+            number_of_quizzes_created: 0,
+            total_rewards_pending: 0,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+        ]);
 
       if (insertError) {
         console.error(insertError);
@@ -44,10 +47,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     // Check if wallet exists in "streak" table
-    const { data: streakExists, error: streakExistsError } = await supabase
-      .from("streak")
-      .select("*")
-      .eq("wallet", wallet as string);
+    const { data: streakExists, error: streakExistsError } =
+      await supabase
+        .from("streak")
+        .select("*")
+        .eq("wallet", wallet as string);
 
     if (streakExistsError) {
       console.error(streakExistsError);
@@ -105,10 +109,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     // fetch the current streak
-    const { data: currentStreak, error: currentStreakError } = await supabase
-      .from("streak")
-      .select("current_streak")
-      .eq("wallet", wallet as string);
+    const { data: currentStreak, error: currentStreakError } =
+      await supabase
+        .from("streak")
+        .select("current_streak")
+        .eq("wallet", wallet as string);
 
     if (currentStreakError) {
       console.error(currentStreakError);

@@ -24,6 +24,7 @@ import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
+import { supabase } from "@/lib/db";
 
 interface LevelSectionProps {
   isNotPremium: boolean;
@@ -667,6 +668,8 @@ export default function Account({
 
       localStorage.setItem("satisfactionAnswered", "true");
       setAlreadyAnsweredSatisfaction(true);
+    } else {
+      setAlreadyAnsweredSatisfaction(false);
     }
   };
 
@@ -707,6 +710,8 @@ export default function Account({
       const interval = setInterval(fetchRewardsPending, 10000);
 
       return () => clearInterval(interval);
+    } else {
+      setTotalRewardsPending(0);
     }
   }, [address]);
 
@@ -724,12 +729,15 @@ export default function Account({
           setNumberOfQuizzesAnswered(data);
         });
     };
+
     if (address) {
       fetchNumberOfQuizzesAnswered();
 
       const interval = setInterval(fetchNumberOfQuizzesAnswered, 10000);
 
       return () => clearInterval(interval);
+    } else {
+      setNumberOfQuizzesAnswered(0);
     }
   }, [address]);
 

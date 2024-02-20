@@ -7,6 +7,7 @@ import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
 import { trotelCoinLearningAddress } from "@/data/addresses";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
+import { supabase } from "@/lib/db";
 
 interface TheAlgorithmSectionProps {
   dict: DictType | null;
@@ -37,7 +38,11 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         cache: "no-store",
       });
       const remainingRewards = await response?.json();
-      setRemainingRewards(remainingRewards);
+      if (remainingRewards) {
+        setRemainingRewards(remainingRewards);
+      } else {
+        setRemainingRewards(0);
+      }
     };
 
     fetchRemainingRewards();
@@ -57,7 +62,11 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         cache: "no-store",
       });
       const trotelCoinsPending = await response?.json();
-      setTrotelCoinsPending(trotelCoinsPending);
+      if (trotelCoinsPending) {
+        setTrotelCoinsPending(trotelCoinsPending);
+      } else {
+        setTrotelCoinsPending(0);
+      }
     };
 
     fetchTrotelCoinsPending();
@@ -80,7 +89,11 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         }
       );
       const numberOfQuizzesAnswered = await response?.json();
-      setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
+      if (numberOfQuizzesAnswered) {
+        setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
+      } else {
+        setNumberOfQuizzesAnswered(0);
+      }
     };
 
     fetchNumberOfQuizzesAnswered();
@@ -102,7 +115,11 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         cache: "no-store",
       });
       const numberOfLearners = await response?.json();
-      setNumberOfLearners(numberOfLearners);
+      if (numberOfLearners) {
+        setNumberOfLearners(numberOfLearners);
+      } else {
+        setNumberOfLearners(0);
+      }
     };
 
     fetchNumberOfLearners();
@@ -122,7 +139,11 @@ const TheAlgorithmSection: React.FC<TheAlgorithmSectionProps> = ({
         cache: "no-store",
       });
       const maxStreak = await response?.json();
-      setMaxStreak(maxStreak);
+      if (maxStreak) {
+        setMaxStreak(maxStreak);
+      } else {
+        setMaxStreak(0);
+      }
     };
 
     fetchMaxStreak();

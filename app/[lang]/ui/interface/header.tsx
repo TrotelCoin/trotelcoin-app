@@ -31,6 +31,7 @@ import {
 } from "@/data/addresses";
 import { polygon } from "viem/chains";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import { supabase } from "@/lib/db";
 
 // Define the Header component
 const Header = ({
@@ -94,6 +95,9 @@ const Header = ({
       const interval = setInterval(fetchUserStreak, 10000);
 
       return () => clearInterval(interval);
+    } else {
+      setStreak(0);
+      setStreakCountdown(null);
     }
   }, [address, streak]);
 
@@ -117,6 +121,8 @@ const Header = ({
       const interval = setInterval(fetchResetLifeCountdown, 1000);
 
       return () => clearInterval(interval);
+    } else {
+      setResetLifeCountdown(null);
     }
   }, [address]);
 
@@ -140,6 +146,8 @@ const Header = ({
       const interval = setInterval(fetchResetStreakCountdown, 1000);
 
       return () => clearInterval(interval);
+    } else {
+      setStreakCountdown(null);
     }
   }, [address]);
 

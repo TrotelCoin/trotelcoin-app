@@ -13,6 +13,7 @@ import { useContractRead, Address } from "wagmi";
 import LifeContext from "@/app/[lang]/lifeProvider";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import { supabase } from "@/lib/db";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
@@ -114,28 +115,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const address = useAddress();
   const { user, isLoggedIn, isLoading } = useUser();
 
-  useEffect(() => {
-    if (address && quizId) {
-      fetch(
-        `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          cache: "no-store",
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data === true) {
-            setHasAlreadyAnswered(true);
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  }, [address, quizId]);
-
   const handleClaimRewards = async () => {
     if (!address && !isLoggedIn) {
       setIsLearnerDisconnected(true);
@@ -167,6 +146,36 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   useEffect(() => {
     loadQuizData(quizId, setQuestions, setCorrectAnswers, lang);
   }, []);
+
+  useEffect(() => {
+    const fetchAlreadyAnsweredQuiz = async () => {
+      await fetch(
+        `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          cache: "no-store",
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data === true) {
+            setHasAlreadyAnswered(true);
+          } else {
+            setHasAlreadyAnswered(false);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    };
+
+    if (address && quizId) {
+      fetchAlreadyAnsweredQuiz();
+    } else {
+      setHasAlreadyAnswered(false);
+    }
+  }, [address, quizId]);
 
   useEffect(() => {
     if (!shuffled && questions) {

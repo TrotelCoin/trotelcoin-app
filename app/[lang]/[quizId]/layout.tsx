@@ -17,6 +17,7 @@ import {
 } from "@/data/addresses";
 import { polygon } from "viem/chains";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { supabase } from "@/lib/db";
 
 const getTierByQuizId = (quizIdParam: number): string => {
   let foundTier = "";
@@ -140,6 +141,8 @@ const CoursePage = ({
       const interval = setInterval(fetchCoursesSatisfactionAnswered, 10000);
 
       return () => clearInterval(interval);
+    } else {
+      setAlreadyAnsweredSatisfaction(false);
     }
   }, [address, quizId]);
 

@@ -15,6 +15,7 @@ import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
+import { supabase } from "@/lib/db";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);
@@ -297,6 +298,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
       const interval = setInterval(fetchCoursesCompleted, 10000);
 
       return () => clearInterval(interval);
+    } else {
+      setStatus(new Array(lessonsLength(lessons)).fill("Not started"));
     }
   }, [address]);
 

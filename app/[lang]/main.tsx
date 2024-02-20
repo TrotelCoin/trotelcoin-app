@@ -16,6 +16,8 @@ import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import Changelogs from "@/app/[lang]/ui/modals/changelogs";
 import { useAddress, useUser } from "@thirdweb-dev/react";
 import LifeContext from "@/app/[lang]/lifeProvider";
+import { supabase } from "@/lib/db";
+import { Address } from "viem";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -60,6 +62,7 @@ const MainComponent = ({
       },
       cache: "no-store",
     });
+
     setLife(life - 1);
   };
 
@@ -84,6 +87,8 @@ const MainComponent = ({
       const interval = setInterval(fetchUserLife, 10000);
 
       return () => clearInterval(interval);
+    } else {
+      setLife(3);
     }
   }, [address, user]);
 

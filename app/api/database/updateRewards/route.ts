@@ -50,10 +50,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     // check if quiz exists
-    const { data: quizExistence, error: quizExistenceError } = await supabase
-      .from("quizzes")
-      .select("quiz_id")
-      .eq("quiz_id", quizId);
+    const { data: quizExistence, error: quizExistenceError } =
+      await supabase
+        .from("quizzes")
+        .select("quiz_id")
+        .eq("quiz_id", quizId);
 
     if (quizExistenceError) {
       console.error(quizExistenceError);
@@ -116,10 +117,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .update({ remaining_rewards: remainingRewardsValue - rewards / 50 });
 
     // update number of answers and last answered at
-    const { data: currentQuizData, error: fetchQuizError } = await supabase
-      .from("quizzes")
-      .select("number_of_answers")
-      .eq("quiz_id", quizId);
+    const { data: currentQuizData, error: fetchQuizError } =
+      await supabase
+        .from("quizzes")
+        .select("number_of_answers")
+        .eq("quiz_id", quizId);
 
     if (fetchQuizError) {
       console.error(fetchQuizError);
