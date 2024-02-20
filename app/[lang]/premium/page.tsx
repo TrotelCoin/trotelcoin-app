@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Intermediate from "@/app/[lang]/ui/premium/intermediate";
-import Expert from "@/app/[lang]/ui/premium/expert";
-import Beginner from "@/app/[lang]/ui/premium/beginner";
+import Intermediate from "@/app/[lang]/premium/components/intermediate";
+import Expert from "@/app/[lang]/premium/components/expert";
+import Beginner from "@/app/[lang]/premium/components/beginner";
 import { useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";

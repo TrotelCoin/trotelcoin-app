@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ComingSoon from "@/app/[lang]/ui/interface/comingSoon";
+import ComingSoon from "@/app/[lang]/components/comingSoon";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Address } from "viem";
