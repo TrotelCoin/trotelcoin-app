@@ -22,7 +22,6 @@ import {
   useLogout,
   useUser,
 } from "@thirdweb-dev/react";
-import CountUp from "react-countup";
 import { Address } from "viem";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {
@@ -31,7 +30,6 @@ import {
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import { supabase } from "@/lib/supabase/db";
 
 // Define the Header component
 const Header = ({
@@ -332,9 +330,7 @@ const Header = ({
               {isExpertBalance || isIntermediateBalance ? (
                 <span className="font-semibold text-2xl">&infin;</span>
               ) : life ? (
-                <span className="font-semibold">
-                  <CountUp start={0} end={life} duration={2} />
-                </span>
+                <>{life}</>
               ) : (
                 <span className="font-semibold">0</span>
               )}{" "}
@@ -382,9 +378,7 @@ const Header = ({
               onMouseLeave={() => setIsHoveringStreak(false)}
             >
               {streak ? (
-                <span className="font-semibold">
-                  <CountUp start={0} end={streak} duration={2} />
-                </span>
+                <span className="font-semibold">{streak}</span>
               ) : (
                 <span className="font-semibold">0</span>
               )}{" "}
@@ -469,9 +463,7 @@ const Header = ({
                 {isExpertBalance || isIntermediateBalance ? (
                   <span className="font-semibold text-2xl">&infin;</span>
                 ) : life ? (
-                  <span className="font-semibold">
-                    <CountUp start={0} end={life} duration={2} />
-                  </span>
+                  <span className="font-semibold">{life}</span>
                 ) : (
                   <span className="font-semibold">0</span>
                 )}{" "}
@@ -521,9 +513,7 @@ const Header = ({
                 onMouseLeave={() => setIsHoveringStreak(false)}
               >
                 {streak ? (
-                  <span className="font-semibold">
-                    <CountUp start={0} end={streak} duration={2} />
-                  </span>
+                  <span className="font-semibold">{streak}</span>
                 ) : (
                   <span className="font-semibold">0</span>
                 )}{" "}
