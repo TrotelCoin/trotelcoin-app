@@ -219,7 +219,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { error: updateAlgorithmError } = await supabase
       .from("algorithm")
       .update({ remaining_rewards: remainingRewardsValue - rewards / 50 })
-      .gte("remaining_rewards", 0);
+      .eq("id", 1);
 
     if (updateAlgorithmError) {
       console.error(updateAlgorithmError);
@@ -229,7 +229,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    // update number of answers and last answered at
+    // get number of answers
     const { data: currentQuizData, error: fetchQuizError } = await supabase
       .from("quizzes")
       .select("number_of_answers")
