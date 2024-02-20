@@ -22,7 +22,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
     // reset rewards if 24h has passed
     const { data: updateResult, error: updateError } = await supabase
       .from("algorithm")
-      .update({ remaining_rewards: remainingRewards })
+      .upsert(
+        [
+          {
+            remaining_rewards: remainingRewards,
+            updated_at: new Date().toISOString(),
+          },
+        ],
+        { onConflict: "updated_at" }
+      )
       .lte(
         "updated_at",
         new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
@@ -31,7 +39,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (updateError) {
       console.error(updateError);
       return NextResponse.json(
-        { error: "Something went wrong." },
+        { error: "Something went wrong during the upsert operation." },
         { status: 500 }
       );
     }

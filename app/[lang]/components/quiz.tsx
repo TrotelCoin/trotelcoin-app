@@ -25,7 +25,7 @@ interface QuizProps {
   lang: Lang;
 }
 
-const debug = false;
+const debug = process.env.NODE_ENV === "development";
 
 const loadQuizData = async (
   quizId: number,
@@ -90,6 +90,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isLearnerDisconnected, setIsLearnerDisconnected] =
     useState<boolean>(false);
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
+  const [claimedRewardsMessage, setClaimedRewardsMessage] =
+    useState<boolean>(false);
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [dict, setDict] = useState<DictType | null>(null);
@@ -100,6 +102,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isIntermediateBalance, setIsIntermediateBalance] =
     useState<boolean>(false);
   const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
+  const [claimingLoading, setClaimingLoading] = useState<boolean>(false);
 
   const { updateLife, life, setLife } = React.useContext(LifeContext);
 
@@ -121,6 +124,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       return;
     }
 
+    setClaimingLoading(true);
+
     try {
       // update database rewards by calling api and if success
       const responseUpdate = await fetch(
@@ -134,8 +139,10 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         }
       );
       const dataUpdate = await responseUpdate.json();
+      setClaimingLoading(false);
       if (dataUpdate.success) {
         setClaimedRewards(true);
+        setClaimedRewardsMessage(true);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -172,6 +179,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
     if (address && quizId) {
       fetchAlreadyAnsweredQuiz();
+      console.log(hasAlreadyAnswered);
     } else {
       setHasAlreadyAnswered(false);
     }
@@ -241,10 +249,10 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       setIsCorrect(false);
       setShowConfetti(false);
       setAudio(false);
+      updateLife();
     }
     setWrongAnswers(newWrongAnswers);
     setShowMessage(true);
-    updateLife();
   };
 
   const { data: intermediate } = useContractRead({
@@ -395,23 +403,28 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
         )}
       </div>
       {/* Reward */}
-      {isCorrect && !hasAlreadyAnswered && address && isLoggedIn && (
-        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
-          </h3>
-          <div className="mt-6 items-center">
-            <button
-              onClick={handleClaimRewards}
-              className="bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
-            >
-              {typeof dict?.quiz !== "string" && (
-                <>{dict?.quiz.receiveCrypto}</>
-              )}
-            </button>
+      {isCorrect &&
+        !hasAlreadyAnswered &&
+        address &&
+        isLoggedIn &&
+        !claimedRewards &&
+        !claimingLoading && (
+          <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
+            </h3>
+            <div className="mt-6 items-center">
+              <button
+                onClick={handleClaimRewards}
+                className="bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+              >
+                {typeof dict?.quiz !== "string" && (
+                  <>{dict?.quiz.receiveCrypto}</>
+                )}
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
       {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
@@ -419,7 +432,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           </h2>
         </div>
       )}
-      {hasAlreadyAnswered && (
+      {claimingLoading && (
+        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
+          <h2 className="text-gray-900 dark:text-gray-100">
+            {lang === "en" ? "Loading..." : "Chargement..."}
+          </h2>
+        </div>
+      )}
+      {(hasAlreadyAnswered || claimedRewards) && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/40 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
@@ -448,8 +468,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             ? dict?.modals.claimedTrotelCoin.message
             : ""
         }
-        show={claimedRewards}
-        onClose={() => setClaimedRewards(false)}
+        show={claimedRewardsMessage}
+        onClose={() => setClaimedRewardsMessage(false)}
         lang={lang}
       />
       <Fail

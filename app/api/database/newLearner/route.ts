@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { Address } from "viem";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       // wallet does not exist in the database
       const { error: insertError } = await supabase.from("learners").insert([
         {
-          wallet,
+          wallet: wallet as Address,
           number_of_quizzes_answered: 0,
           number_of_quizzes_created: 0,
           total_rewards_pending: 0,

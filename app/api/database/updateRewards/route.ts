@@ -36,6 +36,67 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
+    // check if user exists
+    const { data: userExistence, error: userExistenceError } = await supabase
+      .from("learners")
+      .select("wallet")
+      .eq("wallet", wallet as Address);
+
+    if (userExistenceError) {
+      console.error(userExistenceError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
+
+    // insert user if doesn't exist
+    if (!userExistence || userExistence.length === 0) {
+      const { error: insertLearnersError } = await supabase
+        .from("learners")
+        .insert([
+          {
+            wallet: wallet as Address,
+            total_rewards_pending: 0,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+        ]);
+
+      if (insertLearnersError) {
+        console.error(insertLearnersError);
+        return NextResponse.json(
+          { error: "Something went wrong." },
+          { status: 500 }
+        );
+      }
+    }
+
+    // if user already answered the quiz return error
+    const { data: quizAnswered, error: quizAnsweredError } = await supabase
+      .from("quizzes_answered")
+      .select("wallet")
+      .eq("wallet", wallet as Address)
+      .eq("quiz_id", quizId);
+
+    if (quizAnsweredError) {
+      console.error(quizAnsweredError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
+
+    if (quizAnswered && quizAnswered.length > 0) {
+      console.error("User already answered the quiz");
+      return NextResponse.json(
+        { error: "User already answered the quiz." },
+        {
+          status: 400,
+        }
+      );
+    }
+
     // fetch remaining rewards
     const { data: algorithmData, error: algorithmError } = await supabase
       .from("algorithm")
@@ -50,11 +111,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     // check if quiz exists
-    const { data: quizExistence, error: quizExistenceError } =
-      await supabase
-        .from("quizzes")
-        .select("quiz_id")
-        .eq("quiz_id", quizId);
+    const { data: quizExistence, error: quizExistenceError } = await supabase
+      .from("quizzes")
+      .select("quiz_id")
+      .eq("quiz_id", quizId);
 
     if (quizExistenceError) {
       console.error(quizExistenceError);
@@ -79,32 +139,76 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const remainingRewardsValue = algorithmData[0].remaining_rewards;
     const rewards = calculateRewards(remainingRewardsValue);
 
-    // insert rewards and quiz data
-    const { error: insertError1 } = await supabase
-      .from("learners")
-      .upsert([{ wallet: wallet as Address, total_rewards_pending: rewards }], {
-        onConflict: "wallet",
-      });
+    // get total rewards pending of user
+    const { data: totalRewardsPendingData, error: totalRewardsPendingError } =
+      await supabase
+        .from("learners")
+        .select("total_rewards_pending")
+        .eq("wallet", wallet as Address);
 
-    // insert rewards and quiz data
-    const { error: insertError2 } = await supabase
-      .from("quizzes_answered")
-      .upsert(
-        [
-          {
-            wallet: wallet as Address,
-            quiz_id: quizId,
-            answered: true,
-            answered_at: new Date().toISOString(),
-          },
-        ],
-        {
-          onConflict: "id",
-        }
+    if (totalRewardsPendingError) {
+      console.error(totalRewardsPendingError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
       );
+    }
 
-    if (insertError1 || insertError2) {
-      console.error("Error inserting data into learners or quizzes_answered");
+    // get number of quizzes answered
+    const {
+      data: numberOfQuizzesAnsweredData,
+      error: numberOfQuizzesAnsweredError,
+    } = await supabase
+      .from("learners")
+      .select("number_of_quizzes_answered")
+      .eq("wallet", wallet as Address);
+
+    if (numberOfQuizzesAnsweredError) {
+      console.error(numberOfQuizzesAnsweredError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
+
+    // update total rewards pending
+    const totalRewardsPending =
+      totalRewardsPendingData[0]?.total_rewards_pending ?? 0;
+
+    const numberOfQuizzesAnswered =
+      numberOfQuizzesAnsweredData[0]?.number_of_quizzes_answered ?? 0;
+
+    const { error: updateLearnersError } = await supabase
+      .from("learners")
+      .update({
+        total_rewards_pending: totalRewardsPending + rewards,
+        updated_at: new Date().toISOString(),
+        number_of_quizzes_answered: numberOfQuizzesAnswered + 1,
+      })
+      .eq("wallet", wallet as Address);
+
+    if (updateLearnersError) {
+      console.error(updateLearnersError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
+
+    // insert quiz answered
+    const { error: insertQuizzesAnsweredError } = await supabase
+      .from("quizzes_answered")
+      .insert([
+        {
+          wallet: wallet as Address,
+          quiz_id: quizId,
+          answered: true,
+          answered_at: new Date().toISOString(),
+        },
+      ]);
+
+    if (insertQuizzesAnsweredError) {
+      console.error(insertQuizzesAnsweredError);
       return NextResponse.json(
         { error: "Something went wrong." },
         { status: 500 }
@@ -114,14 +218,22 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // update remaining rewards
     const { error: updateAlgorithmError } = await supabase
       .from("algorithm")
-      .update({ remaining_rewards: remainingRewardsValue - rewards / 50 });
+      .update({ remaining_rewards: remainingRewardsValue - rewards / 50 })
+      .gte("remaining_rewards", 0);
+
+    if (updateAlgorithmError) {
+      console.error(updateAlgorithmError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
 
     // update number of answers and last answered at
-    const { data: currentQuizData, error: fetchQuizError } =
-      await supabase
-        .from("quizzes")
-        .select("number_of_answers")
-        .eq("quiz_id", quizId);
+    const { data: currentQuizData, error: fetchQuizError } = await supabase
+      .from("quizzes")
+      .select("number_of_answers")
+      .eq("quiz_id", quizId);
 
     if (fetchQuizError) {
       console.error(fetchQuizError);
@@ -136,45 +248,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // update number of answers and last answered at
     const { error: updateQuizzesError } = await supabase
       .from("quizzes")
-      .update({ number_of_answers: currentNumberOfAnswers + 1 })
+      .update({
+        number_of_answers: currentNumberOfAnswers + 1,
+        last_answered_at: new Date().toISOString(),
+      })
       .eq("quiz_id", quizId);
 
-    // insert quiz if it doesn't exist
-    const { error: insertQuizzesError } = await supabase
-      .from("quizzes")
-      .upsert(
-        [{ quiz_id: quizId, last_answered_at: new Date().toISOString() }],
-        {
-          onConflict: "quiz_id",
-        }
-      );
-
-    // insert learner if it doesn't exist
-    const { error: insertLearnersError } = await supabase
-      .from("learners")
-      .upsert([{ wallet, number_of_quizzes_answered: 1 }], {
-        onConflict: "wallet",
-      });
-
-    if (
-      updateAlgorithmError ||
-      updateQuizzesError ||
-      insertQuizzesError ||
-      insertLearnersError
-    ) {
-      if (updateAlgorithmError) {
-        console.error(updateAlgorithmError);
-      }
-      if (updateQuizzesError) {
-        console.error(updateQuizzesError);
-      }
-      if (insertQuizzesError) {
-        console.error(insertQuizzesError);
-      }
-      if (insertLearnersError) {
-        console.error(insertLearnersError);
-      }
-      console.error("Error updating data in algorithm, quizzes, or learners");
+    if (updateQuizzesError) {
+      console.error(updateQuizzesError);
       return NextResponse.json(
         { error: "Something went wrong." },
         { status: 500 }

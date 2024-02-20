@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const satisfaction = searchParams.get("satisfaction");
+  const satisfaction = searchParams.get("number");
 
   try {
-    const { data, error } = await supabase.from("satisfaction").insert([
+    const { error } = await supabase.from("satisfaction").insert([
       {
         net_promoter_score: parseFloat(satisfaction as string),
         answered_at: new Date().toISOString(),

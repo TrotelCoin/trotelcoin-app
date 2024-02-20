@@ -657,7 +657,7 @@ export default function Account({
   const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
   const satisfactionResult = async (number: number) => {
-    if (Boolean(number)) {
+    if (number) {
       await fetch(`/api/database/satisfactionHandler?number=${number}`, {
         method: "POST",
         headers: {
@@ -674,8 +674,8 @@ export default function Account({
   };
 
   useEffect(() => {
-    const fetchNewLearner = () => {
-      fetch(`/api/database/newLearner?wallet=${address}`, {
+    const fetchNewLearner = async () => {
+      await fetch(`/api/database/newLearner?wallet=${address}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -690,8 +690,8 @@ export default function Account({
   }, [address]);
 
   useEffect(() => {
-    const fetchRewardsPending = () => {
-      fetch(`/api/database/totalRewardsPending?wallet=${address}`, {
+    const fetchRewardsPending = async () => {
+      await fetch(`/api/database/totalRewardsPending?wallet=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -716,8 +716,8 @@ export default function Account({
   }, [address]);
 
   useEffect(() => {
-    const fetchNumberOfQuizzesAnswered = () => {
-      fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`, {
+    const fetchNumberOfQuizzesAnswered = async () => {
+      await fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

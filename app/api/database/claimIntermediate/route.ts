@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         { status: 200 }
       );
     } else {
-      const { data, error } = await supabase.from("subscriptions").insert([
+      const { data, error } = await supabase.from("subscriptions").upsert([
         {
           wallet: wallet as Address,
           claimed_intermediate_at: new Date().toISOString(),

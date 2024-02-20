@@ -9,12 +9,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const rating = searchParams.get("rating");
     const quizId = searchParams.get("quizId");
 
-    const { data: verification, error: verificationError } =
-      await supabase
-        .from("courses_satisfaction")
-        .select("*")
-        .eq("quiz_id", quizId)
-        .eq("wallet", wallet as Address);
+    const { data: verification, error: verificationError } = await supabase
+      .from("courses_satisfaction")
+      .select("*")
+      .eq("quiz_id", quizId)
+      .eq("wallet", wallet as Address);
 
     if (verificationError) {
       console.error(verificationError);
