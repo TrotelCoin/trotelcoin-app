@@ -120,8 +120,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               However, taking back control also means taking responsibility for
               how you handle your money and data.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/1/web2-web3.png"
+                alt="Web2 x Web3"
+              ></Image>
               That's why we're here to provide you with education, ensuring you
               can navigate safely in this new world.
               <br />
@@ -148,8 +153,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Cependant, reprendre le contrôle signifie également assumer la
               responsabilité de la manière dont vous gérez votre argent et vos
               données.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/1/web2-web3.png"
+                alt="Web2 x Web3"
+              ></Image>
               C'est pourquoi nous sommes là pour vous former afin que vous
               puissiez naviguer en toute sécurité dans ce nouveau monde.
             </>
@@ -549,7 +559,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           )}
         </h1>
         <Image
-          src="/assets/courses/1/algorithm-simulation.png"
+          src="/assets/courses/1/distribution.png"
           width={640}
           height={480}
           alt="algorithm simulation"
@@ -618,8 +628,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               To help the TrotelCoin community, you can add an equal value of
               MATIC and TROTEL tokens to the Uniswap liquidity pool. You&apos;ll
               be able to learn more about a liquidity pool in another course.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/1/liquidity.png"
+                alt="Liquidity"
+              ></Image>
               But to make it simple, this action makes it easier for users to
               trade TROTEL smoothly while keeping things stable.
               <br />
@@ -656,8 +671,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               valeur égale de jetons MATIC et TROTEL au pool de liquidité
               Uniswap. Vous pourrez en apprendre plus sur les pools de liquidité
               dans un autre cours.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/1/liquidity.png"
+                alt="Liquidity"
+              ></Image>
               Mais pour simplifier, cette action permet aux utilisateurs
               d'échanger plus facilement des TROTEL tout en maintenant la
               stabilité.
