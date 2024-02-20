@@ -1,4 +1,4 @@
-import quizzes from "@/data/quizData";
+import quizzes from "@/data/quizzes/quizData";
 import { NextRequest, NextResponse } from "next/server";
 
 const getQuestionsByLanguage = (quiz: any, lang: string) => {

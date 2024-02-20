@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import lessons from "@/data/lessonsData";
+import lessons from "@/data/lessons/lessonsData";
 import { Address, useContractRead } from "wagmi";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
@@ -10,12 +10,12 @@ import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
-} from "@/data/addresses";
+} from "@/data/web3/addresses";
 import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
   return lesson.category.toLowerCase().includes(searchTerm);

@@ -1,5 +1,5 @@
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
-import { trotelCoinLearningAddress } from "@/data/addresses";
+import { trotelCoinLearningAddress } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
 

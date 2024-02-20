@@ -10,7 +10,7 @@ import Success from "../modals/success";
 import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
-} from "@/data/addresses";
+} from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import {

@@ -8,7 +8,7 @@ import {
 import { isAddress, Address } from "viem";
 import React, { useEffect, useState } from "react";
 import { Lang } from "@/types/types";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [leaderboard, setLeaderboard] = useState<Array<any> | null>(null);

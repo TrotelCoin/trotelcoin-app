@@ -3,7 +3,7 @@ import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import { polygon } from "viem/chains";
 import { useAddress } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
-import { trotelCoinIntermediateAddress } from "@/data/addresses";
+import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
 
 const isIntermediate = () => {
   const [isIntermediate, setIsIntermediate] = useState<boolean>(false);

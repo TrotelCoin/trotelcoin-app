@@ -18,13 +18,13 @@ import {
   trotelCoinLearningAddress,
   trotelCoinAddress,
   trotelCoinEarlyAddress,
-} from "@/data/addresses";
+} from "@/data/web3/addresses";
 import { mainnet, polygon } from "viem/chains";
 import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 interface LevelSectionProps {
   isNotPremium: boolean;

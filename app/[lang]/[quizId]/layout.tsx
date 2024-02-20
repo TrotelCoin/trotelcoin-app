@@ -3,7 +3,7 @@
 import "animate.css";
 import { Course, DictType, Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import lessons from "@/data/lessonsData";
+import lessons from "@/data/lessons/lessonsData";
 import Link from "next/link";
 import Quiz from "@/app/[lang]/components/quiz";
 import { Address, useContractRead } from "wagmi";
@@ -14,10 +14,10 @@ import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
-} from "@/data/addresses";
+} from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 const getTierByQuizId = (quizIdParam: number): string => {
   let foundTier = "";

@@ -4,10 +4,10 @@ import { DictType, Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { getDictionary } from "../dictionaries";
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
-import { trotelCoinLearningAddress } from "@/data/addresses";
+import { trotelCoinLearningAddress } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 interface TheAlgorithmSectionProps {
   dict: DictType | null;

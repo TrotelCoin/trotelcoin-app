@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 

@@ -6,7 +6,7 @@ import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 interface StreakSectionProps {
   streak: number;

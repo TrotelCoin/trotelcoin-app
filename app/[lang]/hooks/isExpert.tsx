@@ -3,7 +3,7 @@ import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import { polygon } from "viem/chains";
 import { useAddress } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
-import { trotelCoinExpertAddress } from "@/data/addresses";
+import { trotelCoinExpertAddress } from "@/data/web3/addresses";
 
 const isExpert = () => {
   const [isExpert, setIsExpert] = useState<boolean>(false);

@@ -28,10 +28,10 @@ import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {
   trotelCoinExpertAddress,
   trotelCoinIntermediateAddress,
-} from "@/data/addresses";
+} from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/supabase/db";
 
 // Define the Header component
 const Header = ({

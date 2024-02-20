@@ -1,4 +1,4 @@
-import { trotelCoinAddress } from "@/data/addresses";
+import { trotelCoinAddress } from "@/data/web3/addresses";
 import Moralis from "moralis";
 import { NextRequest, NextResponse } from "next/server";
 import { polygon } from "viem/chains";

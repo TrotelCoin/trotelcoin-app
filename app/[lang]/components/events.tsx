@@ -1,5 +1,5 @@
 import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
-import { trotelCoinLearningAddress } from "@/data/addresses";
+import { trotelCoinLearningAddress } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
