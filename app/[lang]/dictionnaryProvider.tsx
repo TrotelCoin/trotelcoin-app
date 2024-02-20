@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import Loading from "@/app/[lang]/ui/interface/loading";
+import Loading from "@/app/[lang]/components/loading";
 
 const DictionaryContext = createContext<DictType | null>(null);
 

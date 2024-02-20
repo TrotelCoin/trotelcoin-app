@@ -7,9 +7,9 @@ import { mainnet, polygon } from "viem/chains";
 import { useContractEvent, useEnsName } from "wagmi";
 import { Address, Log } from "viem";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { reduceAddressSize } from "@/utils/utils";
 import { Transition } from "@headlessui/react";
 import "animate.css";
+import { shortenAddress } from "@thirdweb-dev/react";
 
 type MyLog = Log & {
   args: {
@@ -43,7 +43,7 @@ export default function Events({ lang }: { lang: Lang }) {
 
       const length = log.length;
 
-      setUser(reduceAddressSize((log[length - 1] as MyLog).args.learner));
+      setUser(shortenAddress((log[length - 1] as MyLog).args.learner));
       setAmountClaimed(
         parseFloat((log[length - 1] as MyLog).args.rewardsClaimed.toString()) /
           1e18

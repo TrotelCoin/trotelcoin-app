@@ -5,10 +5,10 @@ import { Course, DictType, Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import Link from "next/link";
-import Quiz from "@/app/[lang]/components/quiz";
+import Quiz from "@/app/[lang]/[quizId]/components/quiz";
 import { Address, useContractRead } from "wagmi";
 import { useAddress } from "@thirdweb-dev/react";
-import GoHomeButton from "@/app/[lang]/components/goHomeButton";
+import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {
