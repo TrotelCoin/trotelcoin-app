@@ -1,50 +1,45 @@
 import { useEffect } from "react";
 
-export const calculateUserLevelAndTokens = (tokensEarned: number) => {
+export const calculateUserLevel = (quizzesCompleted: number) => {
   let userLevel = 1;
-  let tokensRequiredForCurrentLevel = 10;
-  const levelIntervalIncrease = 10;
-  let nextLevelIncrease = levelIntervalIncrease;
+  let quizzesRequired = 1;
+  const quizzesInitiallyCompleted = quizzesCompleted;
 
-  while (tokensEarned >= tokensRequiredForCurrentLevel) {
-    if (userLevel % levelIntervalIncrease === 0) {
-      tokensRequiredForCurrentLevel *= 2;
-      nextLevelIncrease += levelIntervalIncrease;
-    }
-
-    tokensRequiredForCurrentLevel += nextLevelIncrease;
+  while (quizzesCompleted >= quizzesRequired) {
+    quizzesCompleted -= quizzesRequired;
     userLevel++;
+    quizzesRequired++;
   }
 
-  let tokensNeededForNextLevel = tokensRequiredForCurrentLevel - tokensEarned;
-
-  if (tokensNeededForNextLevel <= 0) {
-    tokensNeededForNextLevel =
-      tokensRequiredForCurrentLevel + nextLevelIncrease - tokensEarned;
-  }
-
-  userLevel = Math.max(userLevel, 1);
+  const quizzesRemaining =
+    userLevel > 1
+      ? (userLevel * (userLevel + 1)) / 2 - quizzesInitiallyCompleted
+      : 1;
 
   return {
     userLevel,
-    tokensNeededForNextLevel,
-    tokensRequiredForCurrentLevel,
-    nextLevelIncrease,
+    quizzesRemaining,
+    quizzesRequired,
   };
 };
 
-export const calculateProgressPercentage = (
-  tokensRequiredForCurrentLevel: number,
-  tokensEarned: number,
-  tokensNeededForNextLevel: number,
-  nextLevelIncrease: number
-) => {
-  const progressTowardsNextLevel =
-    tokensEarned - tokensRequiredForCurrentLevel + nextLevelIncrease;
-  const totalTokensForNextLevel =
-    tokensNeededForNextLevel + progressTowardsNextLevel;
+export const calculateProgressPercentage = (quizzesCompleted: number) => {
+  let userLevel = 1;
+  let quizzesRequired = 1;
+  const quizzesInitiallyCompleted = quizzesCompleted;
 
-  return (progressTowardsNextLevel / totalTokensForNextLevel) * 100;
+  while (quizzesCompleted >= quizzesRequired) {
+    quizzesCompleted -= quizzesRequired;
+    userLevel++;
+    quizzesRequired++;
+  }
+
+  const quizzesRemaining =
+    userLevel > 1
+      ? (userLevel * (userLevel + 1)) / 2 - quizzesInitiallyCompleted
+      : 1;
+
+  return (quizzesRemaining / quizzesRequired) * 100;
 };
 
 export const incrementWidth = (

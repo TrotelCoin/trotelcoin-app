@@ -2,11 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 
-import {
-  calculateUserLevelAndTokens,
-  calculateProgressPercentage,
-  incrementWidth,
-} from "@/utils/level";
 import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";

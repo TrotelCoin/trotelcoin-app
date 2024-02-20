@@ -13,6 +13,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
+import BadgesList from "@/app/[lang]/account/components/badgesList";
 
 interface BadgesSectionProps {
   dict: DictType | null;
@@ -111,41 +112,11 @@ const BadgesSection: React.FC<BadgesSectionProps> = ({ dict }) => {
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
         Badges
       </h2>
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
-        {badges.map(
-          (badge, index) =>
-            badge.condition && (
-              <div
-                key={index}
-                className={`bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/20 dark:border-gray-100/40`}
-              >
-                <div className="flex flex-col gap-2 text-center items-center">
-                  <span
-                    className={`text-gray-900 dark:text-gray-100 text-4xl ${
-                      isNotPremium && "blur hover:blur-none duration-500"
-                    }`}
-                  >
-                    {!isNotPremium && badge.image}
-                  </span>
-                  <span
-                    className={`text-sm ${
-                      isNotPremium && "blur hover:blur-none duration-500"
-                    }`}
-                  >
-                    {!isNotPremium ? (
-                      <>{badge.name}</>
-                    ) : typeof dict?.account !== "string" &&
-                      typeof dict?.account.notPremium === "string" ? (
-                      <>{dict?.account.notPremium}</>
-                    ) : (
-                      <>Loading...</>
-                    )}
-                  </span>
-                </div>
-              </div>
-            )
-        )}
-      </div>
+      <BadgesList
+        badges={badges}
+        isNotPremium={isNotPremium}
+        dict={dict as DictType}
+      />
     </>
   );
 };

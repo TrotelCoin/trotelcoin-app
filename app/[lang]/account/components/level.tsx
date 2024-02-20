@@ -6,7 +6,7 @@ import {
 } from "@/data/web3/addresses";
 import { DictType } from "@/types/types";
 import {
-  calculateUserLevelAndTokens,
+  calculateUserLevel,
   calculateProgressPercentage,
   incrementWidth,
 } from "@/utils/level";
@@ -22,9 +22,11 @@ interface LevelSectionProps {
 
 const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
   const [width, setWidth] = useState<number>(0);
-  const [tokensEarned, setTokensEarned] = useState<number>(0);
-  const [totalRewards, setTotalRewards] = useState<number>(0);
-  const [totalRewardsPending, setTotalRewardsPending] = useState<number>(0);
+  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] =
+    useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [userLevel, setUserLevel] = useState<number | null>(1);
+  const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(1);
 
   const address = useAddress();
 
@@ -54,23 +56,9 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
 
   const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
-  const {
-    userLevel,
-    tokensNeededForNextLevel,
-    tokensRequiredForCurrentLevel,
-    nextLevelIncrease,
-  } = calculateUserLevelAndTokens(tokensEarned);
-  const progressPercentage = calculateProgressPercentage(
-    tokensRequiredForCurrentLevel,
-    tokensEarned,
-    tokensNeededForNextLevel,
-    nextLevelIncrease
-  );
-  incrementWidth(progressPercentage, setWidth);
-
   useEffect(() => {
-    const fetchRewardsPending = async () => {
-      await fetch(`/api/database/totalRewardsPending?wallet=${address}`, {
+    const fetchNumberOfQuizzesAnswered = async () => {
+      await fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -79,32 +67,36 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
       })
         .then((response) => response?.json())
         .then((data) => {
-          setTotalRewardsPending(data);
+          setNumberOfQuizzesAnswered(data);
         });
     };
 
     if (address) {
-      fetchRewardsPending();
+      fetchNumberOfQuizzesAnswered();
 
-      const interval = setInterval(fetchRewardsPending, 10000);
+      const interval = setInterval(fetchNumberOfQuizzesAnswered, 10000);
 
       return () => clearInterval(interval);
     } else {
-      setTotalRewardsPending(0);
+      setNumberOfQuizzesAnswered(0);
     }
   }, [address]);
 
   useEffect(() => {
-    if (totalRewards && totalRewardsPending) {
-      setTokensEarned(totalRewards + totalRewardsPending);
-    } else if (totalRewards) {
-      setTokensEarned(totalRewards);
-    } else if (totalRewardsPending) {
-      setTokensEarned(totalRewardsPending);
+    if (numberOfQuizzesAnswered) {
+      const { userLevel, quizzesRemaining } = calculateUserLevel(
+        numberOfQuizzesAnswered
+      );
+      const width = calculateProgressPercentage(numberOfQuizzesAnswered);
+      setWidth(width);
+      setUserLevel(userLevel);
+      setQuizzesRemaining(quizzesRemaining);
     } else {
-      setTokensEarned(0);
+      setWidth(0);
+      setUserLevel(1);
+      setQuizzesRemaining(0);
     }
-  }, [totalRewards, totalRewardsPending, address]);
+  }, [numberOfQuizzesAnswered]);
 
   return (
     <>
@@ -149,8 +141,8 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
               isNotPremium && "blur hover:blur-none duration-500"
             }`}
           >
-            {tokensNeededForNextLevel > 0 && !isNotPremium
-              ? `${tokensNeededForNextLevel.toFixed(0)} ${
+            {quizzesRemaining > 0 && !isNotPremium
+              ? `${quizzesRemaining.toFixed(0)} ${
                   typeof dict?.account !== "string" &&
                   dict?.account.trotelCoinsLeft
                 }`
