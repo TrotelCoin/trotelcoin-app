@@ -1,22 +1,24 @@
 import { Lang } from "@/types/types";
-import { useTokenBalance, useContract } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
+import { useBalance } from "wagmi";
 import { Address } from "viem";
+import { polygon } from "viem/chains";
 
 const TotalStaked = ({ lang }: { lang: Lang }) => {
   const [totalStaked, setTotalStaked] = useState<number>(0);
 
-  const { contract } = useContract(trotelCoinAddress, "token");
-
-  const { data: balance } = useTokenBalance(
-    contract,
-    trotelCoinStakingV1 as Address
-  );
+  const { data: balance } = useBalance({
+    address: trotelCoinStakingV1 as Address,
+    chainId: polygon.id,
+    token: trotelCoinAddress,
+  });
 
   useEffect(() => {
     if (balance) {
-      setTotalStaked(parseFloat(parseFloat(balance.displayValue).toFixed(2)));
+      setTotalStaked(
+        parseFloat(parseFloat(balance.value.toString()).toFixed(2))
+      );
     }
   }, [balance]);
 
