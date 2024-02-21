@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const privateKeyWallet = process.env.PRIVATE_KEY_WALLET as string;
 
-const network = ethers.Network.from("matic");
+const network = "matic";
 const provider = ethers.getDefaultProvider(network);
 const centralWallet = new ethers.Wallet(privateKeyWallet, provider);
 
@@ -33,7 +33,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       userAddress,
       amount
     );
-
     // return gas price
     return NextResponse.json(parseFloat(gasPrice.toString()), { status: 200 });
   } catch (error) {
