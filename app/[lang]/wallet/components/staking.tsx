@@ -64,7 +64,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
             <span className="text-4xl text-green-500 dark:text-green-300">
               {APY}%{" "}
               <span className="text-base text-gray-700 dark:text-gray-300">
-                APR
+                ROI
               </span>
             </span>
           </div>
