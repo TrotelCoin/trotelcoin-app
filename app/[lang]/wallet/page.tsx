@@ -33,10 +33,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
             {lang === "en" ? <>Staking</> : <>Staking</>}
           </h2>
-          {/* 
-          
-  <Staking lang={lang} />*/}
-          <ComingSoon lang={lang} />
+          <Staking lang={lang} />
         </div>
       </div>
     </>

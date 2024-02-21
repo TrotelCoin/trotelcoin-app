@@ -7,7 +7,10 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/fail";
 import Success from "@/app/[lang]/components/success";
-import { trotelCoinAddress, trotelCoinExpertAddress } from "@/data/web3/addresses";
+import {
+  trotelCoinAddress,
+  trotelCoinExpertAddress,
+} from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import {
