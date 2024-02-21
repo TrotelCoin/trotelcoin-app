@@ -37,15 +37,11 @@ const AvailableToClaim = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div className="flex justify-between">
+        <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
-          <span className="text-4xl text-blue-500 dark:text-blue-300">
-            test
-            <span className="text-base text-gray-700 dark:text-gray-300">
-              TROTEL
-            </span>
-          </span>
+          {parseFloat(availableToClaim?.toFixed(2) as string) ?? 0}{" "}
+          <span className="font-semibold">TROTEL</span>
         </div>
-        <div>{lang === "en" ? "pending" : "en attente"}</div>
       </div>
     </>
   );

@@ -19,7 +19,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     if (data) {
-      setBalance(parseFloat(data.value.toString()));
+      setBalance(parseFloat(data.formatted));
     } else {
       setBalance(0);
     }
@@ -28,15 +28,11 @@ const Balance = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div className="flex justify-between">
+        <span>{lang === "en" ? "Balance" : "Solde"}</span>
         <div>
-          <span className="text-4xl text-blue-500 dark:text-blue-300">
-            {balance ?? 0}
-            <span className="text-base text-gray-700 dark:text-gray-300">
-              TROTEL
-            </span>
-          </span>
+          {parseFloat(balance?.toFixed(2) as string) ?? 0}{" "}
+          <span className="font-semibold">TROTEL</span>
         </div>
-        <div>{lang === "en" ? "balance" : "solde"}</div>
       </div>
     </>
   );

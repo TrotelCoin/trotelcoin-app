@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  centralWalletAddress,
+  centralWalletAccount,
   walletClient,
   publicClient,
 } from "@/lib/viem/client";
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       address: trotelCoinAddress,
       abi: trotelcoinV1ABI,
       functionName: "mint",
-      account: centralWalletAddress.address,
+      account: centralWalletAccount.address,
       args: [userAddress as Address, parseEther(amount)],
       gas: parseEther(gas),
     });

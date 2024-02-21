@@ -12,6 +12,6 @@ export const walletClient = createWalletClient({
   transport: http(),
 });
 
-export const centralWalletAddress = privateKeyToAccount(
+export const centralWalletAccount = privateKeyToAccount(
   process.env.PRIVATE_KEY_WALLET as Address
 );
