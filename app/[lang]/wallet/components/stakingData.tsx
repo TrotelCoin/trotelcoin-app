@@ -21,12 +21,14 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   const { data: balance } = useBalance(trotelCoinAddress);
 
   useEffect(() => {
-    if (balance) {
+    if (balance && address) {
       setAvailableTrotelCoins(
         parseFloat(parseFloat(balance.displayValue).toFixed(2))
       );
+    } else {
+      setAvailableTrotelCoins(0);
     }
-  }, [balance]);
+  }, [balance, address]);
 
   const { contract: trotelCoinStakingContract } = useContract(
     trotelCoinStakingV1,
@@ -46,7 +48,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   );
 
   useEffect(() => {
-    if (getUserStakingData) {
+    if (getUserStakingData && address) {
       const initialTimeLeft = parseFloat(getUserStakingData[1].toString());
       setEarnedTrotelCoins(getUserStakingData[0].toString());
       setTimeLeft(initialTimeLeft);
@@ -60,14 +62,19 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       return () => {
         clearInterval(interval);
       };
+    } else {
+      setTimeLeft(0);
+      setEarnedTrotelCoins(0);
     }
-  }, [getUserStakingData]);
+  }, [getUserStakingData, address]);
 
   useEffect(() => {
     if (getStakingData) {
       setStakedTrotelCoins(getStakingData[0].toString());
+    } else {
+      setStakedTrotelCoins(0);
     }
-  }, [getStakingData]);
+  }, [getStakingData, address]);
 
   return (
     <>

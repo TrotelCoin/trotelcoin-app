@@ -42,16 +42,20 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
   ]);
 
   useEffect(() => {
-    if (getUserStakingData) {
+    if (getUserStakingData && address) {
       setTimeLeft(getUserStakingData[1].toString());
+    } else {
+      setTimeLeft(0);
     }
-  }, [getUserStakingData]);
+  }, [getUserStakingData, address]);
 
   useEffect(() => {
-    if (getStakingData) {
+    if (getStakingData && address) {
       setStakedTrotelCoins(getStakingData[0].toString());
+    } else {
+      setStakedTrotelCoins(0);
     }
-  }, [getStakingData]);
+  }, [getStakingData, address]);
 
   const claim = () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {

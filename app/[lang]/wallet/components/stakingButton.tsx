@@ -53,10 +53,12 @@ const StakingButton = ({
   }, [stakingPeriod]);
 
   useEffect(() => {
-    if (getStakingData) {
+    if (address && getStakingData) {
       setStakedTrotelCoins(getStakingData[0].toString());
+    } else {
+      setStakedTrotelCoins(0);
     }
-  }, [getStakingData]);
+  }, [getStakingData, address]);
 
   const stake = (amount: number, stakingPeriod: number) => {
     if (stakingPeriod <= 0) {
