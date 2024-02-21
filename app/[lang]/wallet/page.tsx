@@ -5,7 +5,6 @@ import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
-import ComingSoon from "../components/comingSoon";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
