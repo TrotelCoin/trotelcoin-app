@@ -67,13 +67,17 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Your deposit" : "Ton dépôt"}</span>
-          <span className="font-semibold">{stakedTrotelCoins} TROTEL</span>
+          <span className="font-semibold">
+            {stakedTrotelCoins * 1e-18} TROTEL
+          </span>
         </div>
         <div className="flex justify-between">
           <span>
             {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
           </span>
-          <span className="font-semibold">{earnedTrotelCoins} TROTEL</span>
+          <span className="font-semibold">
+            {earnedTrotelCoins * 1e-18} TROTEL
+          </span>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
