@@ -184,7 +184,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 <Web3Button
                   action={() => mutateAsync({ args: [address as Address] })}
                   contractAddress={trotelCoinExpertAddress}
-                  className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 !dark:text-gray-900 !rounded-lg !font-semibold"
+                  className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
