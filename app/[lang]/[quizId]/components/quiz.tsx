@@ -8,8 +8,8 @@ import Fail from "@/app/[lang]/components/fail";
 import Success from "@/app/[lang]/components/success";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
-import { useAddress, useUser } from "@thirdweb-dev/react";
-import { useContractRead, Address } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
+import { Address } from "viem";
 import LifeContext from "@/app/[lang]/lifeProvider";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
@@ -115,10 +115,10 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   }, [lang]);
 
   const { address } = useAccount();
-  const { user, isLoggedIn, isLoading } = useUser();
+  // const { user, isLoggedIn, isLoading } = useUser();
 
   const handleClaimRewards = async () => {
-    if (!address && !isLoggedIn) {
+    if (!address) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -254,7 +254,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     setShowMessage(true);
   };
 
-  const { data: intermediate } = useContractRead({
+  const { data: intermediate } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinIntermediateABI,
     address: trotelCoinIntermediateAddress,
@@ -265,7 +265,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     watch: true,
   });
 
-  const { data: expert } = useContractRead({
+  const { data: expert } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinExpertABI,
     address: trotelCoinExpertAddress,
@@ -405,7 +405,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       {isCorrect &&
         !hasAlreadyAnswered &&
         address &&
-        isLoggedIn &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
@@ -424,7 +423,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             </div>
           </div>
         )}
-      {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
+      {!address && !hasAlreadyAnswered && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
