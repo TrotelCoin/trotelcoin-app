@@ -1,5 +1,5 @@
 import { DictType, Lang } from "@/types/types";
-import { shortenAddress } from "@thirdweb-dev/react";
+import shortenAddress from "@/utils/shortenAddress";
 import { Address } from "viem";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
@@ -56,7 +56,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
           {ensName && ensName !== null ? (
             <>{ensName}</>
           ) : (
-            <>{shortenAddress(address)}</>
+            <>{shortenAddress(address as Address)}</>
           )}
         </span>{" "}
         👋

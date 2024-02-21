@@ -4,12 +4,12 @@ import { DictType, Lang } from "@/types/types";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
 import { mainnet, polygon } from "viem/chains";
-import { useContractEvent, useEnsName } from "wagmi";
+import { useWatchContractEvent, useEnsName } from "wagmi";
 import { Address, Log } from "viem";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Transition } from "@headlessui/react";
 import "animate.css";
-import { shortenAddress } from "@thirdweb-dev/react";
+import shortenAddress from "@/utils/shortenAddress";
 
 type MyLog = Log & {
   args: {
@@ -33,12 +33,12 @@ export default function Events({ lang }: { lang: Lang }) {
     fetchDictionary();
   }, [lang]);
 
-  useContractEvent({
+  useWatchContractEvent({
     chainId: polygon.id,
     address: trotelCoinLearningAddress,
     abi: trotelCoinLearningABI,
     eventName: "RewardsClaimed",
-    listener(log) {
+    listener(log: any) {
       setIsVisible(true);
 
       const length = log.length;
@@ -58,7 +58,6 @@ export default function Events({ lang }: { lang: Lang }) {
   const { data: ensName, isSuccess: ensNameExists } = useEnsName({
     chainId: mainnet.id,
     address: user as Address,
-    enabled: Boolean(user),
   });
 
   useEffect(() => {

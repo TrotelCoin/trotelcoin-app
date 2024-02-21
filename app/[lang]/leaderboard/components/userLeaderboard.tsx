@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { resolveAddress, shortenAddress } from "@thirdweb-dev/react";
+import shortenAddress from "@/utils/shortenAddress";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import { useAccount } from "wagmi";
@@ -78,7 +78,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                       {address &&
                       typeof address === "string" &&
                       isAddress(address)
-                        ? resolveAddress(address)
+                        ? address
                         : lang === "en"
                         ? "Connect your wallet"
                         : "Connecte ton portefeuille"}

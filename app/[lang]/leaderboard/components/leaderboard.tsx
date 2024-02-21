@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { shortenAddress } from "@thirdweb-dev/react";
+import shortenAddress from "@/utils/shortenAddress";
 import React, { useEffect, useState } from "react";
 import { isAddress } from "viem";
 import { useAccount } from "wagmi";
