@@ -19,7 +19,8 @@
     "lifeMessage": "Your life count",
     "streakMessage": "Your streak count",
     "lifeButton": "Get unlimited lives",
-    "streakButton": "Do your streak"
+    "streakButton": "Do your streak",
+    "wallet": "Wallet"
   },
   "home": {
     "search": "What do you wanna learn?"

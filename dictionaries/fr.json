@@ -19,7 +19,8 @@
     "lifeMessage": "Tes vies actuelles",
     "streakMessage": "Ta série actuelle",
     "lifeButton": "Obtiens vies illimitées",
-    "streakButton": "Augmente ta série"
+    "streakButton": "Augmente ta série",
+    "wallet": "Portefeuille"
   },
   "home": {
     "search": "Que veux-tu apprendre ?"

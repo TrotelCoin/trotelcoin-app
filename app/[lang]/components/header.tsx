@@ -58,14 +58,19 @@ const Header = ({
       id: 2,
     },
     {
+      name: typeof dict?.header !== "string" && dict?.header.wallet,
+      href: "/wallet",
+      id: 3,
+    },
+    {
       name: typeof dict?.header !== "string" && dict?.header.premium,
       href: "/premium",
-      id: 3,
+      id: 4,
     },
     {
       name: typeof dict?.header !== "string" && dict?.header.account,
       href: "/account",
-      id: 4,
+      id: 5,
     },
   ];
 
