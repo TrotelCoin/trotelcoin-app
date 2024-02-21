@@ -1,14 +1,11 @@
 import { Lang } from "@/types/types";
-import {
-  useAddress,
-  useBalance,
-  useContract,
-  useContractRead,
-} from "@thirdweb-dev/react";
+import { useAddress, useBalance } from "@thirdweb-dev/react";
+import { useReadContract } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import { polygon } from "viem/chains";
 
 const StakingData = ({ lang }: { lang: Lang }) => {
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
@@ -30,22 +27,21 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     }
   }, [balance, address]);
 
-  const { contract: trotelCoinStakingContract } = useContract(
-    trotelCoinStakingV1,
-    trotelCoinStakingV1ABI
-  );
+  const { data: getUserStakingData } = useReadContract({
+    abi: trotelCoinStakingV1ABI,
+    address: trotelCoinStakingV1,
+    functionName: "getUserStakingDetails",
+    args: [address as Address],
+    chainId: polygon.id,
+  });
 
-  const { data: getUserStakingData } = useContractRead(
-    trotelCoinStakingContract,
-    "getUserStakingDetails",
-    [address as Address]
-  );
-
-  const { data: getStakingData } = useContractRead(
-    trotelCoinStakingContract,
-    "stakings",
-    [address as Address]
-  );
+  const { data: getStakingData } = useReadContract({
+    address: trotelCoinStakingV1,
+    functionName: "stakings",
+    args: [address as Address],
+    chainId: polygon.id,
+    abi: trotelCoinStakingV1ABI,
+  });
 
   useEffect(() => {
     if (getUserStakingData && address) {

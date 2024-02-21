@@ -1,19 +1,15 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import {
-  Web3Button,
-  useAddress,
-  useContract,
-  useContractWrite,
-  useContractRead,
-} from "@thirdweb-dev/react";
+import { Web3Button, useAddress } from "@thirdweb-dev/react";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/success";
 import Fail from "@/app/[lang]/components/fail";
 import { Address } from "viem";
+import { useWriteContract, useReadContract } from "wagmi";
 import { parseEther } from "viem";
 import "animate.css";
+import { polygon } from "viem/chains";
 
 const StakingButton = ({
   lang,
@@ -35,16 +31,15 @@ const StakingButton = ({
 
   const address = useAddress();
 
-  const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
+  const { writeContractAsync, isSuccess, isLoading } = useWriteContract();
 
-  const { mutateAsync, isSuccess, isLoading } = useContractWrite(
-    contract,
-    "stake"
-  );
-
-  const { data: getStakingData } = useContractRead(contract, "stakings", [
-    address as Address,
-  ]);
+  const { data: getStakingData } = useReadContract({
+    abi: trotelCoinStakingV1ABI,
+    functionName: "stakings",
+    args: [address as Address],
+    chainId: polygon.id,
+    address: trotelCoinStakingV1,
+  });
 
   useEffect(() => {
     if (stakingPeriod <= 0) {
@@ -97,7 +92,11 @@ const StakingButton = ({
 
     const stakingAmount = parseEther(amount.toString());
 
-    mutateAsync({
+    writeContractAsync({
+      abi: trotelCoinStakingV1ABI,
+      address: trotelCoinStakingV1,
+      chainId: polygon.id,
+      functionName: "stake",
       args: [stakingAmount, stakingDuration],
     });
   };
