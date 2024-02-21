@@ -63,27 +63,34 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       <div className="flex flex-col flex-wrap gap-2">
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
-          <span className="font-semibold">{availableTrotelCoins} TROTEL</span>
+          <div>
+            {availableTrotelCoins} <span className="font-semibold">TROTEL</span>
+          </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
-          <span className="font-semibold">
-            {stakedTrotelCoins * 1e-18} TROTEL
-          </span>
+          <div>
+            {stakedTrotelCoins * 1e-18}{" "}
+            <span className="font-semibold">TROTEL</span>
+          </div>
         </div>
         <div className="flex justify-between">
           <span>
             {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
           </span>
-          <span className="font-semibold">
-            {earnedTrotelCoins * 1e-18} TROTEL
-          </span>
+          <div>
+            {earnedTrotelCoins * 1e-18}{" "}
+            <span className="font-semibold">TROTEL</span>
+          </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
-          <span className="font-semibold">
-            {timeLeft} {lang === "en" ? "seconds" : "secondes"}
-          </span>
+          <div>
+            {timeLeft}{" "}
+            <span className="font-semibold">
+              {lang === "en" ? "seconds" : "secondes"}
+            </span>
+          </div>
         </div>
       </div>
     </>
