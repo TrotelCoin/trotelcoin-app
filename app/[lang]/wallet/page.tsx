@@ -20,10 +20,12 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="mx-auto flex justify-center gap-4">
+        {/* 
         <div>
           <Claim lang={lang} />
         </div>
+        */}
         <div>
           <Staking lang={lang} />
         </div>
