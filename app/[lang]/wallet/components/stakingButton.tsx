@@ -1,13 +1,12 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import { Web3Button, useAddress } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/success";
 import Fail from "@/app/[lang]/components/fail";
-import { Address } from "viem";
+import { Address, parseEther } from "viem";
 import { useWriteContract, useReadContract } from "wagmi";
-import { parseEther } from "viem";
 import "animate.css";
 import { polygon } from "viem/chains";
 
@@ -109,9 +108,8 @@ const StakingButton = ({
 
   return (
     <>
-      <Web3Button
-        contractAddress={trotelCoinStakingV1}
-        action={() => stake(amount, stakingPeriod)}
+      <button
+        onClick={() => stake(amount, stakingPeriod)}
         className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
         style={{}}
       >
@@ -122,7 +120,7 @@ const StakingButton = ({
         ) : (
           <>{lang === "en" ? "Stake" : "Staker"}</>
         )}
-      </Web3Button>
+      </button>
       <Success
         show={stakeMessage}
         lang={lang}

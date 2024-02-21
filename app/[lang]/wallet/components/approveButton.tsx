@@ -1,35 +1,34 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import { Web3Button, useContract, useContractWrite } from "@thirdweb-dev/react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
 import Fail from "@/app/[lang]/components/fail";
-import { Address } from "viem";
-import { parseEther } from "viem";
+import { Address, parseEther } from "viem";
 import "animate.css";
 import Success from "@/app/[lang]/components/success";
+import { useWriteContract } from "wagmi";
+import { polygon } from "viem/chains";
 
 const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   const [amountMessage, setAmountMessage] = useState<boolean>(false);
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
 
-  const { contract } = useContract(trotelCoinAddress, trotelCoinABI);
-
-  const { mutateAsync, isSuccess, isLoading } = useContractWrite(
-    contract,
-    "approve"
-  );
+  const { writeContractAsync, isSuccess, isLoading } = useWriteContract();
 
   const approve = (amount: number) => {
-    if (!Boolean(amount) || amount <= 0) {
+    if (!amount || amount <= 0) {
       setAmountMessage(true);
       return;
     }
 
     const approveAmount = parseEther(amount.toString());
 
-    mutateAsync({
+    writeContractAsync({
+      abi: trotelCoinABI,
+      chainId: polygon.id,
       args: [trotelCoinStakingV1 as Address, approveAmount],
+      functionName: "approve",
+      address: trotelCoinAddress as Address,
     });
   };
 
@@ -41,9 +40,8 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
 
   return (
     <>
-      <Web3Button
-        contractAddress={trotelCoinAddress}
-        action={() => approve(amount)}
+      <button
+        onClick={() => approve(amount)}
         className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
         style={{}}
       >
@@ -54,7 +52,7 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
         ) : (
           <>{lang === "en" ? "Approve" : "Approuver"}</>
         )}
-      </Web3Button>
+      </button>
       <Success
         show={approveMessage}
         onClose={() => setApproveMessage(false)}

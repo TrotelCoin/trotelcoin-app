@@ -1,18 +1,14 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import {
-  Web3Button,
-  useAddress,
-  useContract,
-  useContractWrite,
-  useContractRead,
-} from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/success";
 import Fail from "@/app/[lang]/components/fail";
+import { useWriteContract, useReadContract } from "wagmi";
 import "animate.css";
+import { polygon } from "viem/chains";
 
 const ClaimingButton = ({ lang }: { lang: Lang }) => {
   const [claimMessage, setClaimMessage] = useState<boolean>(false);
@@ -24,22 +20,23 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
 
   const address = useAddress();
 
-  const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
+  const { writeContractAsync, isSuccess, isLoading } = useWriteContract();
 
-  const { mutateAsync, isSuccess, isLoading } = useContractWrite(
-    contract,
-    "unstake"
-  );
+  const { data: getUserStakingData } = useReadContract({
+    abi: trotelCoinStakingV1ABI,
+    functionName: "getUserStakingDetails",
+    args: [address as Address],
+    address: trotelCoinStakingV1 as Address,
+    chainId: polygon.id,
+  });
 
-  const { data: getUserStakingData } = useContractRead(
-    contract,
-    "getUserStakingDetails",
-    [address as Address]
-  );
-
-  const { data: getStakingData } = useContractRead(contract, "stakings", [
-    address as Address,
-  ]);
+  const { data: getStakingData } = useReadContract({
+    abi: trotelCoinStakingV1ABI,
+    functionName: "stakings",
+    args: [address as Address],
+    address: trotelCoinStakingV1 as Address,
+    chainId: polygon.id,
+  });
 
   useEffect(() => {
     if (getUserStakingData && address) {
@@ -68,7 +65,12 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
       return;
     }
 
-    mutateAsync({ args: [] });
+    writeContractAsync({
+      abi: trotelCoinStakingV1ABI,
+      chainId: polygon.id,
+      address: trotelCoinStakingV1 as Address,
+      functionName: "unstake",
+    });
   };
 
   useEffect(() => {
@@ -79,9 +81,8 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <Web3Button
-        contractAddress={trotelCoinStakingV1}
-        action={() => claim()}
+      <button
+        onClick={() => claim()}
         className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
         style={{}}
       >
@@ -92,7 +93,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
         ) : (
           <>{lang === "en" ? "Claim" : "Réclamer"}</>
         )}
-      </Web3Button>
+      </button>
       <Success
         show={claimMessage}
         lang={lang}
