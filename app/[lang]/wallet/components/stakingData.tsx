@@ -54,8 +54,10 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       setTimeLeft(initialTimeLeft);
 
       const interval = setInterval(() => {
-        if (timeLeft > 0) {
+        if (timeLeft >= 0) {
           setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+        } else {
+          setTimeLeft(0);
         }
       }, 1000);
 
