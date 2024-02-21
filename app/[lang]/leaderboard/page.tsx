@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  resolveAddress,
-  shortenAddress,
-  useAddress,
-} from "@thirdweb-dev/react";
-import { isAddress, Address } from "viem";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Lang } from "@/types/types";
 import UserLeaderboard from "@/app/[lang]/leaderboard/components/userLeaderboard";
 import Leaderboard from "@/app/[lang]/leaderboard/components/leaderboard";

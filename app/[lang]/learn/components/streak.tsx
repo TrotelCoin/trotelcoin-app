@@ -120,11 +120,11 @@ const Streak = ({ dict }: { dict: DictType }) => {
           streak={streak}
         />
 
-        <StreakCount dict={dict as DictType} streak={streak} />
+        <StreakCount dict={dict} streak={streak} />
 
-        <MaxStreakCount dict={dict as DictType} maxStreak={maxStreak} />
+        <MaxStreakCount dict={dict} maxStreak={maxStreak} />
 
-        <StreakCooldown dict={dict as DictType} cooldown={cooldown} />
+        <StreakCooldown dict={dict} cooldown={cooldown} />
       </div>
     </>
   );

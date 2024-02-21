@@ -181,7 +181,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   }
                 }}
               >
-                {address ? address : "Connect your wallet"}
+                {address ?? "Connect your wallet"}
               </span>
               .
               {isCopied && (
@@ -245,7 +245,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   }
                 }}
               >
-                {address ? address : "Connecte ton portefeuille"}
+                {address ?? "Connecte ton portefeuille"}
               </span>
               .
               {isCopied && (
