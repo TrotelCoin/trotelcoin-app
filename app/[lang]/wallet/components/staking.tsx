@@ -71,7 +71,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
           <div>
             <Period
               lang={lang}
-              stakingPeriod={stakingPeriod as number}
+              stakingPeriod={stakingPeriod}
               setStakingPeriod={setStakingPeriod}
             />
           </div>
@@ -95,7 +95,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
             <ApproveButton lang={lang} amount={amount as number} />
             <StakingButton
               lang={lang}
-              stakingPeriod={stakingPeriod as number}
+              stakingPeriod={stakingPeriod}
               amount={amount as number}
             />
 
