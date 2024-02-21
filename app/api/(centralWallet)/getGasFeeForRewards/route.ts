@@ -1,14 +1,14 @@
 import { publicClient } from "@/lib/viem/client";
 import { NextRequest, NextResponse } from "next/server";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
-import { parseEther } from "viem";
+import { Address, parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { centralWalletAddress } from "@/lib/viem/client";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const userAddress = searchParams.get("address");
   const amount = searchParams.get("amount");
+  const centralWalletAddress = searchParams.get("centralWalletAddress");
 
   try {
     if (!userAddress) {
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       address: trotelCoinAddress,
       abi: trotelCoinV1ABI,
       functionName: "mint",
-      account: centralWalletAddress,
+      account: centralWalletAddress as Address,
       args: [userAddress, parseEther(amount)],
     });
 

@@ -5,12 +5,17 @@ import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/fail";
 import { useSendTransaction } from "wagmi";
-import { centralWalletAccountAddress } from "@/lib/viem/client";
-import { parseEther } from "viem";
+import { Address, parseEther } from "viem";
 import Success from "@/app/[lang]/components/success";
 import "animate.css";
 
-const RewardsButton = ({ lang }: { lang: Lang }) => {
+const RewardsButton = ({
+  lang,
+  centralWalletAddress,
+}: {
+  lang: Lang;
+  centralWalletAddress: Address;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number>(0);
   const [nothingToClaimMessage, setNothingToClaimMessage] =
@@ -61,7 +66,7 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
 
       if (availableToClaim && availableToClaim > 0) {
         const response = await fetch(
-          `/api/getGasFeeForRewards?address=${address}&amount=${availableToClaim}`,
+          `/api/getGasFeeForRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
           {
             method: "GET",
             headers: {
@@ -81,13 +86,13 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
 
         // make transaction to pay central wallet
         sendTransactionAsync({
-          to: centralWalletAccountAddress,
+          to: centralWalletAddress,
           value: parseEther(gas.toString()),
         });
 
         // make minting transaction
         await fetch(
-          `/api/claimRewards?address=${address}&amount=${availableToClaim}&gas=${gas}`,
+          `/api/claimRewards?address=${address}&amount=${availableToClaim}&gas=${gas}&centralWalletAddress=${centralWalletAddress}`,
           {
             method: "POST",
             headers: {
