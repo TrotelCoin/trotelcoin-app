@@ -4,7 +4,6 @@ import React from "react";
 import { Lang } from "@/types/types";
 import Link from "next/link";
 import Image from "next/image";
-import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {

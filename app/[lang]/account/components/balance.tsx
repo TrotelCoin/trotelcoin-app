@@ -26,9 +26,7 @@ const Balance = ({ dict }: { dict: DictType }) => {
             <>
               <span className="font-semibold">
                 {balance ? (
-                  <span>
-                    {Math.floor(parseFloat(balance?.formatted as string))}
-                  </span>
+                  <span>{Math.floor(parseFloat(balance.formatted))}</span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0

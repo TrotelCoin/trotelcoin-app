@@ -1,28 +1,17 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import {
-  Web3Button,
-  useAddress,
-  useContract,
-  useContractWrite,
-} from "@thirdweb-dev/react";
+import { Web3Button, useContract, useContractWrite } from "@thirdweb-dev/react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
 import Fail from "@/app/[lang]/components/fail";
 import { Address } from "viem";
 import { parseEther } from "viem";
 import "animate.css";
+import Success from "@/app/[lang]/components/success";
 
-const ApproveButton = ({
-  lang,
-  amount,
-  setApprove,
-}: {
-  lang: Lang;
-  amount: number;
-  setApprove: any;
-}) => {
+const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   const [amountMessage, setAmountMessage] = useState<boolean>(false);
+  const [approveMessage, setApproveMessage] = useState<boolean>(false);
 
   const { contract } = useContract(trotelCoinAddress, trotelCoinABI);
 
@@ -46,7 +35,7 @@ const ApproveButton = ({
 
   useEffect(() => {
     if (isSuccess) {
-      setApprove(true);
+      setApproveMessage(true);
     }
   }, [isSuccess]);
 
@@ -66,7 +55,17 @@ const ApproveButton = ({
           <>{lang === "en" ? "Approve" : "Approuver"}</>
         )}
       </Web3Button>
-
+      <Success
+        show={approveMessage}
+        onClose={() => setApproveMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Success" : "Succès"}
+        message={
+          lang === "en"
+            ? "You approved the amount"
+            : "Tu as approuvé le montant"
+        }
+      />
       <Fail
         show={amountMessage}
         onClose={() => setAmountMessage(false)}

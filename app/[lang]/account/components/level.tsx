@@ -5,11 +5,7 @@ import {
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
 import { DictType } from "@/types/types";
-import {
-  calculateUserLevel,
-  calculateProgressPercentage,
-  incrementWidth,
-} from "@/utils/level";
+import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useAddress } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
 import { Address } from "viem";

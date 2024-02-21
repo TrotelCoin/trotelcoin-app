@@ -13,7 +13,6 @@ import { useContractRead, Address } from "wagmi";
 import LifeContext from "@/app/[lang]/lifeProvider";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import { supabase } from "@/lib/supabase/db";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
