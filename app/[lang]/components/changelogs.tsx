@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-export const version: string = "0.8.8";
+export const version: string = "0.9.2";
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -105,13 +105,18 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- We added leaderboard on a specific page"
+                        ? "- We added a leaderboard on a specific page"
                         : "- On a ajouté un classement sur une page spécifique"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
                         ? "- We added lives depending on your quizzes answers"
                         : "- On a ajouté des vies en fonction de tes réponses aux quiz"}
+                    </p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en"
+                        ? "- You can stake your TrotelCoins now"
+                        : "- Tu peux staker tes TrotelCoins maintenant"}
                     </p>
                   </div>
                   <div className="mt-8">
@@ -135,11 +140,6 @@ const Changelogs = ({ lang }: { lang: string }) => {
                         ? "What about next updates? 🙈"
                         : "Et les prochaines mises à jour? 🙈"}
                     </h2>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- You'll be able to stake your TrotelCoins to earn more of them"
-                        : "- Vous pourrez staker vos TrotelCoins pour en gagner +"}
-                    </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
                         ? "- You'll be able to claim your TrotelCoins from a dashboard"
