@@ -140,7 +140,7 @@ const LifeCount = ({
             className="absolute flex justify-center bg-white dark:bg-gray-900 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
             style={{ width: "300px" }}
           >
-            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/40 p-4 rounded-xl">
+            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-900 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/20 p-4 rounded-xl">
               <p>
                 {typeof dict?.header !== "string" && (
                   <>{dict?.header.lifeMessage}</>

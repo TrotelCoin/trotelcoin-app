@@ -134,7 +134,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           className={`overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 ${
             isClaimed
               ? "rainbow-border"
-              : "border border-gray-900/20 dark:border-gray-100/40"
+              : "border border-gray-900/20 dark:border-gray-100/20"
           } backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6">

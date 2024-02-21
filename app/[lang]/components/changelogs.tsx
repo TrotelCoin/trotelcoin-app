@@ -59,7 +59,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/40 bg-white dark:bg-gray-900 text-left transition-all my-8 w-full max-w-2xl p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 bg-white dark:bg-gray-900 text-left transition-all my-8 w-full max-w-2xl p-6">
                 <button
                   className="absolute top-4 right-4 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full"
                   onClick={hide}

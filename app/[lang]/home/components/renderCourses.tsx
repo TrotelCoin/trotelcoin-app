@@ -51,7 +51,7 @@ const renderCourses = (
     ((tier === "Intermediate" || tier === "Intermédiaire") &&
       intermediateBalance > 0)
       ? "rainbow-border"
-      : "active:border-blue-600 border border-gray-900/20 dark:border-gray-100/40 hover:border-gray-900/50 dark:hover:border-gray-100/50";
+      : "active:border-blue-600 border border-gray-900/20 dark:border-gray-100/20 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
   const statusClass =
     status[quizId - 1] === "Not started"
