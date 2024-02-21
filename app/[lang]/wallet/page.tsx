@@ -21,11 +21,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto flex justify-center gap-4">
-        {/* 
         <div>
           <Claim lang={lang} />
         </div>
-        */}
+
         <div>
           <Staking lang={lang} />
         </div>
