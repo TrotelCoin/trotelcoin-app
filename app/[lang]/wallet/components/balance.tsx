@@ -1,3 +1,5 @@
+"use client";
+
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";

@@ -1,11 +1,14 @@
-import { trotelCoinLearningAddress } from "@/data/web3/addresses";
+"use client";
+
 import { Lang } from "@/types/types";
-import { useAddress, Web3Button } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/fail";
 import { useSendTransaction } from "wagmi";
 import { centralWalletAccount } from "@/lib/viem/client";
-import { Address, parseEther } from "viem";
+import { parseEther } from "viem";
+import Success from "@/app/[lang]/components/success";
+import "animate.css";
 
 const RewardsButton = ({ lang }: { lang: Lang }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -13,6 +16,8 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
   const [nothingToClaimMessage, setNothingToClaimMessage] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -48,7 +53,13 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
   const fetchRewards = async () => {
     setIsLoading(true);
     try {
-      if (address && availableToClaim && availableToClaim > 0) {
+      if (!address) {
+        setNoAddressMessage(true);
+        setIsLoading(false);
+        return;
+      }
+
+      if (availableToClaim && availableToClaim > 0) {
         const response = await fetch(
           `/api/getGasFeeForRewards?address=${address}&amount=${availableToClaim}`,
           {
@@ -64,12 +75,13 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
 
         if (gas <= 0) {
           setErrorMessage(true);
+          setIsLoading(false);
           return;
         }
 
         // make transaction to pay central wallet
         sendTransactionAsync({
-          to: centralWalletAccount.address as Address,
+          to: centralWalletAccount.address,
           value: parseEther(gas.toString()),
         });
 
@@ -105,10 +117,13 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
           setErrorMessage(true);
           return;
         }
+
+        setSuccessMessage(true);
+        setIsLoading(false);
       } else {
         setNothingToClaimMessage(true);
+        setIsLoading(false);
       }
-      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       return;
@@ -117,10 +132,9 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <Web3Button
-        action={() => fetchRewards()}
-        contractAddress={trotelCoinLearningAddress}
-        className="!w-full !bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
+      <button
+        onClick={() => fetchRewards()}
+        className="w-full bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
       >
         {isLoading ? (
           <span className="animate__animated animate__slower animate__flash animate__infinite">
@@ -129,7 +143,18 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
         ) : (
           <>{lang === "en" ? "Claim" : "Réclamer"}</>
         )}
-      </Web3Button>
+      </button>
+      <Success
+        show={successMessage}
+        onClose={() => setSuccessMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Success" : "Succès"}
+        message={
+          lang === "en"
+            ? "You got your TrotelCoins"
+            : "Tu as obtenu tes TrotelCoins"
+        }
+      />
       <Fail
         show={nothingToClaimMessage}
         onClose={() => setNothingToClaimMessage(false)}
@@ -150,6 +175,17 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
           lang === "en"
             ? "There was an error claiming your rewards"
             : "Il y a eu une erreur en récupérant tes récompenses"
+        }
+      />
+      <Fail
+        show={noAddressMessage}
+        onClose={() => setNoAddressMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "You didn't connect your wallet"
+            : "Tu n'as pas connecté ton portefeuille"
         }
       />
     </>

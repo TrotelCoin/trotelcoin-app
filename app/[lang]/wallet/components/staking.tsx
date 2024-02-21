@@ -1,3 +1,5 @@
+"use client";
+
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import Period from "@/app/[lang]/wallet/components/period";

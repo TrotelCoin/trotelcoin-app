@@ -1,3 +1,5 @@
+"use client";
+
 import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
