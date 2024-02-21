@@ -8,14 +8,9 @@ import { useSendTransaction } from "wagmi";
 import { Address, parseEther } from "viem";
 import Success from "@/app/[lang]/components/success";
 import "animate.css";
+import { centralWalletAddress } from "@/lib/viem/client";
 
-const RewardsButton = ({
-  lang,
-  centralWalletAddress,
-}: {
-  lang: Lang;
-  centralWalletAddress: Address;
-}) => {
+const RewardsButton = ({ lang }: { lang: Lang }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number>(0);
   const [nothingToClaimMessage, setNothingToClaimMessage] =

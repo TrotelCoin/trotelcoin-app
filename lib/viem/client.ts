@@ -11,3 +11,9 @@ export const walletClient = createWalletClient({
   chain: polygon,
   transport: http(),
 });
+
+const centralWallet = new ethers.Wallet(
+  process.env.PRIVATE_KEY_WALLET as Address
+);
+
+export const centralWalletAddress: Address = centralWallet.address as Address;
