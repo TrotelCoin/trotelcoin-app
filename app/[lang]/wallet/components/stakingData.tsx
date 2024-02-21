@@ -47,8 +47,17 @@ const StakingData = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     if (getUserStakingData) {
+      const initialTimeLeft = parseFloat(getUserStakingData[1].toString());
       setEarnedTrotelCoins(getUserStakingData[0].toString());
-      setTimeLeft(getUserStakingData[1].toString());
+      setTimeLeft(initialTimeLeft);
+
+      const interval = setInterval(() => {
+        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [getUserStakingData]);
 
@@ -63,13 +72,13 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       <div className="flex flex-col flex-wrap gap-2">
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
-          <div className="font-light">
+          <div>
             {availableTrotelCoins} <span className="font-semibold">TROTEL</span>
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
-          <div className="font-light">
+          <div>
             {stakedTrotelCoins * 1e-18}{" "}
             <span className="font-semibold">TROTEL</span>
           </div>
@@ -78,14 +87,14 @@ const StakingData = ({ lang }: { lang: Lang }) => {
           <span>
             {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
           </span>
-          <div className="font-light">
+          <div>
             {earnedTrotelCoins * 1e-18}{" "}
             <span className="font-semibold">TROTEL</span>
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
-          <div className="font-light">
+          <div>
             {timeLeft}{" "}
             <span className="font-semibold">
               {lang === "en" ? "seconds" : "secondes"}

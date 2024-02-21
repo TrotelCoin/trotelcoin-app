@@ -21,7 +21,7 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   );
 
   const approve = (amount: number) => {
-    if (amount <= 0) {
+    if (!Boolean(amount) || amount <= 0) {
       setAmountMessage(true);
       return;
     }
