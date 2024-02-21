@@ -5,6 +5,7 @@ import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
+import ComingSoon from "../components/comingSoon";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
@@ -32,7 +33,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
             {lang === "en" ? <>Staking</> : <>Staking</>}
           </h2>
-          <Staking lang={lang} />
+          {/* 
+          
+  <Staking lang={lang} />*/}
+          <ComingSoon lang={lang} />
         </div>
       </div>
     </>
