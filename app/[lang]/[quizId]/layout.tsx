@@ -5,8 +5,8 @@ import { Course, DictType, Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import Quiz from "@/app/[lang]/[quizId]/components/quiz";
-import { Address, useContractRead } from "wagmi";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount, useReadContract } from "wagmi";
+import { Address } from "viem";
 import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
@@ -20,8 +20,7 @@ import CoursesSatisfaction from "@/app/[lang]/[quizId]/components/coursesSatisfa
 import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
 import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
 import CurrentCourse from "@/app/[lang]/[quizId]/components/currentCourse";
-import { getTierByQuizId } from "@/utils/getByquizId";
-import { getAvailabilityByQuizId } from "@/utils/getByquizId";
+import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
 
 const CoursePage = ({
   params: { lang, quizId },
@@ -65,9 +64,9 @@ const CoursePage = ({
       title = currentCourse?.title.en;
   }
 
-  const address = useAddress();
+  const { address } = useAccount();
 
-  const { data: intermediate } = useContractRead({
+  const { data: intermediate } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
@@ -77,7 +76,7 @@ const CoursePage = ({
     functionName: "balanceOf",
     watch: true,
   });
-  const { data: expert } = useContractRead({
+  const { data: expert } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,

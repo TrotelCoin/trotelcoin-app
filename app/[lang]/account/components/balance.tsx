@@ -7,7 +7,7 @@ import { polygon } from "viem/chains";
 import { useBalance } from "wagmi";
 
 const Balance = ({ dict }: { dict: DictType }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: balance } = useBalance({
     chainId: polygon.id,

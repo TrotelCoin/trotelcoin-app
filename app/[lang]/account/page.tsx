@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
-import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import LevelSection from "@/app/[lang]/account/components/level";
 import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";
+import { useAccount } from "wagmi";
 
 export default function Account({
   params: { lang },
@@ -25,8 +24,8 @@ export default function Account({
     fetchDictionary();
   }, [lang]);
 
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
+  const { address } = useAccount();
+  // const { isLoggedIn } = useUser();
 
   useEffect(() => {
     const fetchNewLearner = async () => {
@@ -47,7 +46,7 @@ export default function Account({
   return (
     <>
       <div className="mx-auto">
-        {address && isLoggedIn ? (
+        {address ? (
           <>
             <HeaderSection dict={dict} lang={lang} />
             <LevelSection dict={dict} />

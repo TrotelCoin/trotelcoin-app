@@ -7,7 +7,7 @@ const TotalRewards = ({ dict }: { dict: DictType }) => {
   const [totalRewardsPending, setTotalRewardsPending] = useState<number>(0);
   const [totalRewards, setTotalRewards] = useState<number | null>(null);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchRewardsPending = async () => {

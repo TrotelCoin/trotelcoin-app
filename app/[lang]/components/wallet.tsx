@@ -11,7 +11,7 @@ import { useTheme } from "@/app/[lang]/components/themeSelector";
 
 const Wallet = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const { isLoggedIn } = useUser();
-  const address = useAddress();
+  const { address } = useAccount();
   const disconnect = useDisconnect();
   const { logout } = useLogout();
 

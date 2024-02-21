@@ -20,7 +20,7 @@ interface BadgesSectionProps {
 }
 
 const BadgesSection: React.FC<BadgesSectionProps> = ({ dict }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: learner } = useContractRead({
     chainId: polygon.id,

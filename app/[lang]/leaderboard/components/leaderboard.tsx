@@ -1,8 +1,8 @@
 import { Lang } from "@/types/types";
-import { useAddress, shortenAddress } from "@thirdweb-dev/react";
-import { resolveAddress } from "@thirdweb-dev/sdk";
+import { shortenAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
-import { isAddress, Address } from "viem";
+import { isAddress } from "viem";
+import { useAccount } from "wagmi";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
   const [leaderboard, setLeaderboard] = useState<Array<any> | null>(null);
@@ -10,7 +10,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
   const [isLoadingLeaderboard, setIsLoadingLeaderboard] =
     useState<boolean>(true);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -58,7 +58,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                         {entry.wallet &&
                         typeof entry.wallet === "string" &&
                         isAddress(entry.wallet)
-                          ? resolveAddress(entry.wallet as Address)
+                          ? entry.wallet
                           : lang === "en"
                           ? "Loading..."
                           : "Chargement..."}

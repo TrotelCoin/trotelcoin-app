@@ -7,7 +7,7 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
     number | null
   >(null);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {

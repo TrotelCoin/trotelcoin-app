@@ -17,7 +17,7 @@ const CoursesSatisfaction = ({
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const postSatisfaction = async (rating: number) => {
     if (rating) {

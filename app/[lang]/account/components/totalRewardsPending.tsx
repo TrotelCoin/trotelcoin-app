@@ -1,13 +1,13 @@
 import { DictType } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
-import React, { use, useEffect, useState } from "react";
+import { useAccount } from "wagmi";
+import React, { useEffect, useState } from "react";
 
 const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
   const [totalRewardsPending, setTotalRewardsPending] = useState<number | null>(
     null
   );
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchRewardsPending = async () => {

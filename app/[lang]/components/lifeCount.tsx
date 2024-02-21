@@ -31,7 +31,7 @@ const LifeCount = ({
     null
   );
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,

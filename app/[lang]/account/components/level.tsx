@@ -24,7 +24,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
   const [userLevel, setUserLevel] = useState<number | null>(1);
   const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(1);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,

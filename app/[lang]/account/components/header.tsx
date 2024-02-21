@@ -1,16 +1,14 @@
 import { DictType, Lang } from "@/types/types";
 import { shortenAddress } from "@thirdweb-dev/react";
-import { useEffect, useState } from "react";
-import { Address, Log } from "viem";
-import { useAddress } from "@thirdweb-dev/react";
+import { Address } from "viem";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
-import { useEnsName, mainnet, useContractRead } from "wagmi";
+import { mainnet, polygon } from "viem/chains";
+import { useEnsName, useReadContract, useAccount } from "wagmi";
 import Satisfaction from "@/app/[lang]/account/components/satisfaction";
 import Rank from "@/app/[lang]/account/components/rank";
 import Balance from "@/app/[lang]/account/components/balance";
@@ -18,9 +16,9 @@ import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/numberOfQui
 import TotalRewardsPending from "@/app/[lang]/account/components/totalRewardsPending";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
-  const { data: intermediate } = useContractRead({
+  const { data: intermediate } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinIntermediateABI,
     address: trotelCoinIntermediateAddress,
@@ -30,7 +28,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
     enabled: Boolean(address),
     watch: true,
   });
-  const { data: expert } = useContractRead({
+  const { data: expert } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinExpertABI,
     address: trotelCoinExpertAddress,
@@ -42,7 +40,6 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   });
   const { data: ensName } = useEnsName({
     address: address as Address,
-    enabled: Boolean(address),
     chainId: mainnet.id,
   });
 

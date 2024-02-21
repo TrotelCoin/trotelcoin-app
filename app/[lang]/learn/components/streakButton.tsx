@@ -13,7 +13,7 @@ const StreakButton = ({
   setMaxStreak: any;
   streak: number;
 }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
   const updateStreak = async (address: Address) => {
     const result = await fetch(`/api/database/updateStreak?wallet=${address}`, {

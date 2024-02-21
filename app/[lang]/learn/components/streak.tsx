@@ -1,10 +1,10 @@
 import { DictType } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import StreakButton from "@/app/[lang]/learn/components/streakButton";
 import StreakCount from "@/app/[lang]/learn/components/streakCount";
 import MaxStreakCount from "@/app/[lang]/learn/components/maxStreakCount";
 import StreakCooldown from "@/app/[lang]/learn/components/streakCooldown";
+import { useAccount } from "wagmi";
 
 const Streak = ({ dict }: { dict: DictType }) => {
   const [streak, setStreak] = useState<number>(0);
@@ -13,7 +13,7 @@ const Streak = ({ dict }: { dict: DictType }) => {
   const [cooldown, setCooldown] = useState<string>("00:00:00");
   const [maxStreak, setMaxStreak] = useState<number>(0);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchStreak = async () => {
@@ -120,11 +120,11 @@ const Streak = ({ dict }: { dict: DictType }) => {
           streak={streak}
         />
 
-        <StreakCount dict={dict as DictType} streak={streak} />
+        <StreakCount dict={dict} streak={streak} />
 
-        <MaxStreakCount dict={dict as DictType} maxStreak={maxStreak} />
+        <MaxStreakCount dict={dict} maxStreak={maxStreak} />
 
-        <StreakCooldown dict={dict as DictType} cooldown={cooldown} />
+        <StreakCooldown dict={dict} cooldown={cooldown} />
       </div>
     </>
   );

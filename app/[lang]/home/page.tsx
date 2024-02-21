@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
-import { Address, useContractRead } from "wagmi";
+import { Address } from "viem";
 import { polygon } from "wagmi/chains";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
@@ -13,7 +13,7 @@ import {
 } from "@/data/web3/addresses";
 import { Lessons, Lesson, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount, useReadContract } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";
 
 function filterByCategory(lesson: Lessons, searchTerm: any) {
@@ -78,9 +78,9 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const filteredLessons = lessons.filter(filterLessons);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
-  const { data: intermediate } = useContractRead({
+  const { data: intermediate } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
@@ -90,7 +90,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     functionName: "balanceOf",
     watch: true,
   });
-  const { data: expert } = useContractRead({
+  const { data: expert } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,

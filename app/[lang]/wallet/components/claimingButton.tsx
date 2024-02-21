@@ -1,12 +1,11 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/success";
 import Fail from "@/app/[lang]/components/fail";
-import { useWriteContract, useReadContract } from "wagmi";
+import { useWriteContract, useReadContract, useAccount } from "wagmi";
 import "animate.css";
 import { polygon } from "viem/chains";
 
@@ -18,7 +17,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { writeContractAsync, isSuccess, isLoading } = useWriteContract();
 

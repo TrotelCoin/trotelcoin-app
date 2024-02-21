@@ -1,9 +1,9 @@
 import { DictType, Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
-import { useAddress } from "@thirdweb-dev/react";
 import Link from "next/link";
 import React, { Fragment, useEffect, useState } from "react";
 import { Address } from "viem";
+import { useAccount } from "wagmi";
 
 const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [streak, setStreak] = useState<number | null>(null);
@@ -12,7 +12,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [streakCountdown, setStreakCountdown] = useState<string | null>(null);
   const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchUserStreak = async () => {

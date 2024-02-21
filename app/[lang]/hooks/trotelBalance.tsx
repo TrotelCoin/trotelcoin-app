@@ -11,7 +11,7 @@ export default function TrotelBalance() {
   const [balance, setBalance] = useState("0");
 
   // Get the Ethereum address using the getAccount function
-  const address = useAddress();
+  const { address } = useAccount();
 
   // Use the useBalance hook to fetch the balance data
   const { data, isError, isLoading }: BalanceData = useBalance({

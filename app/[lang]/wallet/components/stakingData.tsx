@@ -1,6 +1,5 @@
 import { Lang } from "@/types/types";
-import { useAddress, useBalance } from "@thirdweb-dev/react";
-import { useReadContract } from "wagmi";
+import { useAccount, useBalance, useReadContract } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
@@ -13,14 +12,14 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   const [availableTrotelCoins, setAvailableTrotelCoins] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
-  const { data: balance } = useBalance(trotelCoinAddress);
+  const { data: balance } = useBalance({ address: trotelCoinAddress });
 
   useEffect(() => {
     if (balance && address) {
       setAvailableTrotelCoins(
-        parseFloat(parseFloat(balance.displayValue).toFixed(2))
+        parseFloat(parseFloat(balance.value.toString()).toFixed(2))
       );
     } else {
       setAvailableTrotelCoins(0);

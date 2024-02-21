@@ -2,7 +2,12 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
-import { useBalance, useReadContract, useWriteContract } from "wagmi";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/fail";
@@ -13,7 +18,6 @@ import {
 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { useAddress, useUser } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 import { Address } from "viem";
 
@@ -45,8 +49,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     2: typeof dict?.intermediate !== "string" && dict?.intermediate.advantage2,
   };
 
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
+  const { address } = useAccount();
+  // const { isLoggedIn } = useUser();
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
@@ -74,8 +78,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isLoggedIn) {
-      const balance = parseFloat(data?.formatted as string);
+    if (address) {
+      const balance = parseFloat(data?.value.toString() as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
         setIsEligibleMessageSuccess(true);

@@ -4,10 +4,10 @@ import React from "react";
 import { Lang } from "@/types/types";
 import Link from "next/link";
 import Image from "next/image";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
-  const address = useAddress();
+  const { address } = useAccount();
   const [isCopied, setIsCopied] = React.useState(false);
 
   return (
@@ -181,7 +181,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   }
                 }}
               >
-                {address ? address : "Connect your wallet"}
+                {address ?? "Connect your wallet"}
               </span>
               .
               {isCopied && (
@@ -245,7 +245,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   }
                 }}
               >
-                {address ? address : "Connecte ton portefeuille"}
+                {address ?? "Connecte ton portefeuille"}
               </span>
               .
               {isCopied && (

@@ -1,11 +1,8 @@
 import { Lang } from "@/types/types";
-import {
-  resolveAddress,
-  shortenAddress,
-  useAddress,
-} from "@thirdweb-dev/react";
+import { resolveAddress, shortenAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
+import { useAccount } from "wagmi";
 
 const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);
@@ -16,7 +13,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [isLoadingUserLeaderboard, setIsLoadingUserLeaderboard] =
     useState<boolean>(true);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   useEffect(() => {
     const fetchUserLeaderboard = async () => {
@@ -75,7 +72,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                     } border backdrop-blur-xl text-center rounded-full p-4 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
                   >
                     <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-200 dark:bg-gray-800">
-                      {position ? position : 0}
+                      {position ?? 0}
                     </div>
                     <div className="hidden md:block">
                       {address &&
@@ -95,11 +92,8 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                     </div>
 
                     <div className="flex items-center gap-2 text-lg">
-                      <span>
-                        {numberOfQuizzesAnswered ? numberOfQuizzesAnswered : 0}{" "}
-                        📚
-                      </span>
-                      <span>{streak ? streak : 0} 🔥</span>
+                      <span>{numberOfQuizzesAnswered ?? 0} 📚</span>
+                      <span>{streak ?? 0} 🔥</span>
                     </div>
                   </div>
                 )}

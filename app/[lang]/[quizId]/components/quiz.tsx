@@ -114,7 +114,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     fetchDictionary();
   }, [lang]);
 
-  const address = useAddress();
+  const { address } = useAccount();
   const { user, isLoggedIn, isLoading } = useUser();
 
   const handleClaimRewards = async () => {

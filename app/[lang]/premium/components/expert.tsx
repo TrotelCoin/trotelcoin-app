@@ -2,7 +2,12 @@
 
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useEffect, useState } from "react";
-import { useBalance, useReadContract, useWriteContract } from "wagmi";
+import {
+  useBalance,
+  useReadContract,
+  useWriteContract,
+  useAccount,
+} from "wagmi";
 import { polygon } from "wagmi/chains";
 import { Address } from "viem";
 import "animate.css";
@@ -14,7 +19,6 @@ import {
 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { useAddress } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 
 const holdingRequirements: number = 50000;
@@ -45,7 +49,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
     2: typeof dict?.expert !== "string" && dict?.expert.advantage2,
   };
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data } = useBalance({
     address: address as Address,

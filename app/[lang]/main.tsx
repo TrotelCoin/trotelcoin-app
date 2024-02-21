@@ -14,10 +14,8 @@ import Script from "next/script";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import Changelogs from "@/app/[lang]/components/changelogs";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import LifeContext from "@/app/[lang]/lifeProvider";
-import { supabase } from "@/lib/supabase/db";
-import { Address } from "viem";
 
 export const metadata = {
   title: "TrotelCoin App",
@@ -51,8 +49,7 @@ const MainComponent = ({
 }) => {
   const [life, setLife] = React.useState<number>(0);
 
-  const address = useAddress();
-  const user = useUser();
+  const { address } = useAccount();
 
   const updateLife = async () => {
     await fetch(`/api/database/updateLife?wallet=${address}`, {
@@ -81,7 +78,7 @@ const MainComponent = ({
         });
     };
 
-    if (address && user) {
+    if (address) {
       fetchUserLife();
 
       const interval = setInterval(fetchUserLife, 10000);
@@ -90,7 +87,7 @@ const MainComponent = ({
     } else {
       setLife(3);
     }
-  }, [address, user]);
+  }, [address]);
 
   const contextValue = useMemo(
     () => ({ updateLife, life, setLife }),
