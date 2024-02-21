@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const Amount = ({
   lang,
@@ -17,7 +17,7 @@ const Amount = ({
       <input
         type="text"
         className="bg-gray-100 dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-300 w-full p-2 border border-gray-900/20 dark:border-gray-100/20 rounded-lg"
-        value={amount}
+        value={amount as number}
         onChange={(e) => setAmount(e.target.value)}
         placeholder={lang === "en" ? "Amount" : "Montant"}
       ></input>

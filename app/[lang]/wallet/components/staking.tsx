@@ -3,13 +3,16 @@ import React, { useEffect, useState } from "react";
 import Period from "@/app/[lang]/wallet/components/period";
 import StakingData from "@/app/[lang]/wallet/components/stakingData";
 import StakingButton from "@/app/[lang]/wallet/components/stakingButton";
-import Amount from "./amount";
+import Amount from "@/app/[lang]/wallet/components/amount";
+import ClaimingButton from "@/app/[lang]/wallet/components/claimingButton";
+import ApproveButton from "@/app/[lang]/wallet/components/approveButton";
 
 const Staking = ({ lang }: { lang: Lang }) => {
-  const [stakingPeriod, setStakingPeriod] = useState<number | null>(null);
+  const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [APY, setAPY] = useState<number | null>(null);
-  const [amount, setAmount] = useState<number | null>(null);
+  const [amount, setAmount] = useState<number>(0);
   const [amountError, setAmountError] = useState<string | null>(null);
+  const [approve, setApprove] = useState<boolean>(false);
 
   useEffect(() => {
     switch (stakingPeriod) {
@@ -85,7 +88,20 @@ const Staking = ({ lang }: { lang: Lang }) => {
           <StakingData lang={lang} />
         </div>
         <div className="pt-4 px-4">
-          <StakingButton lang={lang} />
+          <div className="grid grid-cols-2 gap-4">
+            <ApproveButton
+              lang={lang}
+              amount={amount as number}
+              setApprove={setApprove}
+            />
+            <StakingButton
+              lang={lang}
+              stakingPeriod={stakingPeriod as number}
+              amount={amount as number}
+            />
+
+            <ClaimingButton lang={lang} />
+          </div>
         </div>
       </div>
     </>
