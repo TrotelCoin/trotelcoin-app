@@ -2,7 +2,7 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
-import { useBalance, useContractRead, Address } from "wagmi";
+import { useBalance, useReadContract, useWriteContract } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/fail";
@@ -13,14 +13,9 @@ import {
 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import {
-  useAddress,
-  useUser,
-  useContractWrite,
-  useContract,
-  Web3Button,
-} from "@thirdweb-dev/react";
+import { useAddress, useUser } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
+import { Address } from "viem";
 
 const holdingRequirements: number = 10000;
 
@@ -51,22 +46,14 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const address = useAddress();
-  const { user, isLoggedIn, isLoading } = useUser();
-  const { contract } = useContract(trotelCoinIntermediateAddress);
+  const { isLoggedIn } = useUser();
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
-    enabled: Boolean(address),
-    watch: true,
   });
-  const {
-    mutateAsync,
-    isLoading: isLoadingWrite,
-    isSuccess,
-    error,
-  } = useContractWrite(contract, "mint");
-  const { data: claimed } = useContractRead({
+  const { writeContractAsync, isLoading, isSuccess } = useWriteContract();
+  const { data: claimed } = useReadContract({
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
     enabled: Boolean(address),
@@ -184,16 +171,23 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </button>
               )}
               {isEligible && !isClaimed && (
-                <Web3Button
-                  action={() => mutateAsync({ args: [address as Address] })}
-                  contractAddress={trotelCoinIntermediateAddress}
+                <button
+                  onClick={() =>
+                    writeContractAsync({
+                      abi: trotelCoinIntermediateABI,
+                      functionName: "mint",
+                      args: [address as Address],
+                      chainId: polygon.id,
+                      address: trotelCoinIntermediateAddress,
+                    })
+                  }
                   className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claim}</>
                   )}
-                </Web3Button>
+                </button>
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
