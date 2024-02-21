@@ -15,3 +15,6 @@ export const walletClient = createWalletClient({
 export const centralWalletAccount = privateKeyToAccount(
   process.env.PRIVATE_KEY_WALLET as Address
 );
+
+export const centralWalletAccountAddress: Address =
+  centralWalletAccount.address;

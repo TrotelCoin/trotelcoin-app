@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import { parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { centralWalletAccount } from "@/lib/viem/client";
+import { centralWalletAddress } from "@/lib/viem/client";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       address: trotelCoinAddress,
       abi: trotelCoinV1ABI,
       functionName: "mint",
-      account: centralWalletAccount.address,
+      account: centralWalletAddress,
       args: [userAddress, parseEther(amount)],
     });
 

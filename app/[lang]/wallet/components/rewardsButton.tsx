@@ -5,7 +5,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/fail";
 import { useSendTransaction } from "wagmi";
-import { centralWalletAccount } from "@/lib/viem/client";
+import { centralWalletAccountAddress } from "@/lib/viem/client";
 import { parseEther } from "viem";
 import Success from "@/app/[lang]/components/success";
 import "animate.css";
@@ -81,7 +81,7 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
 
         // make transaction to pay central wallet
         sendTransactionAsync({
-          to: centralWalletAccount.address,
+          to: centralWalletAccountAddress,
           value: parseEther(gas.toString()),
         });
 
