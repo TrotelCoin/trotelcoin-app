@@ -77,6 +77,8 @@ const RewardsButton = ({
           amount: gasAmount,
         });
 
+        setAvailableToClaim(0);
+
         // make minting transaction
         await fetch(
           `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
@@ -88,8 +90,6 @@ const RewardsButton = ({
             cache: "no-store",
           }
         );
-
-        setAvailableToClaim(0);
 
         // reset database pending rewards
         const reset = await fetch(
