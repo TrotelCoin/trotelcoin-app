@@ -33,7 +33,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
       args: [userAddress, parseEther(amount)],
     });
 
-    return NextResponse.json(parseFloat(gas.toString()), { status: 200 });
+    return NextResponse.json(parseFloat(gas.toString()), {
+      status: 200,
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

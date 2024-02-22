@@ -1,16 +1,20 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAddress, useTransferNativeToken } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/fail";
-import { useSendTransaction } from "wagmi";
-import { Address, parseEther } from "viem";
+import { Address } from "viem";
 import Success from "@/app/[lang]/components/success";
 import "animate.css";
-import { centralWalletAddress } from "@/lib/viem/client";
 
-const RewardsButton = ({ lang }: { lang: Lang }) => {
+const RewardsButton = ({
+  lang,
+  centralWalletAddress,
+}: {
+  lang: Lang;
+  centralWalletAddress: Address;
+}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number>(0);
   const [nothingToClaimMessage, setNothingToClaimMessage] =
@@ -20,8 +24,13 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const address = useAddress();
+  const { mutateAsync, isError } = useTransferNativeToken();
 
-  const { sendTransactionAsync } = useSendTransaction();
+  useEffect(() => {
+    if (isError) {
+      setErrorMessage(true);
+    }
+  }, [isError]);
 
   useEffect(() => {
     const fetchAvailableToClaim = async () => {
@@ -79,10 +88,14 @@ const RewardsButton = ({ lang }: { lang: Lang }) => {
           return;
         }
 
+        const gasAmount: string = (
+          parseFloat(gas.toString()) * 1e-9
+        ).toString();
+
         // make transaction to pay central wallet
-        sendTransactionAsync({
+        await mutateAsync({
           to: centralWalletAddress,
-          value: parseEther(gas.toString()),
+          amount: gasAmount,
         });
 
         // make minting transaction

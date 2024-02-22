@@ -3,13 +3,15 @@ import { walletClient, publicClient } from "@/lib/viem/client";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import trotelcoinV1ABI from "@/abi/trotelCoinV1";
 import { Address, parseEther } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
+
+const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const userAddress = searchParams.get("address");
   const amount = searchParams.get("amount");
   const gas = searchParams.get("gas");
-  const centralWalletAddress = searchParams.get("centralWalletAddress");
 
   try {
     if (!userAddress) {
@@ -38,9 +40,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       address: trotelCoinAddress,
       abi: trotelcoinV1ABI,
       functionName: "mint",
-      account: centralWalletAddress as Address,
+      account: account,
       args: [userAddress as Address, parseEther(amount)],
-      gas: parseEther(gas),
+      gas: BigInt(gas),
     });
 
     // make transaction

@@ -8,6 +8,26 @@ import Balance from "@/app/[lang]/wallet/components/balance";
 import { Address } from "viem";
 
 const Claim = ({ lang }: { lang: Lang }) => {
+  const [centralWalletAddress, setCentralWalletAddress] =
+    useState<Address | null>(null);
+
+  useEffect(() => {
+    const fetchCentralWalletAddress = async () => {
+      const response = await fetch("/api/getCentralWalletAddress", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-store",
+      });
+
+      const data = await response.json();
+
+      setCentralWalletAddress(data);
+    };
+
+    fetchCentralWalletAddress();
+  }, []);
 
   return (
     <>
@@ -31,7 +51,7 @@ const Claim = ({ lang }: { lang: Lang }) => {
           </div>
           <div>
             <RewardsButton
-              
+              centralWalletAddress={centralWalletAddress as Address}
               lang={lang}
             />
           </div>
