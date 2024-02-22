@@ -5,10 +5,10 @@ import React, { useState, useEffect } from "react";
 import Token from "@/app/[lang]/wallet/components/sendAndReceive/token";
 import TokenAmount from "@/app/[lang]/wallet/components/sendAndReceive/tokenAmount";
 import SendButton from "@/app/[lang]/wallet/components/sendAndReceive/sendButton";
-import { useBalance } from "wagmi";
+import { useBalance, useEnsName } from "wagmi";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address, isAddress } from "viem";
-import { polygon } from "viem/chains";
+import { mainnet, polygon } from "viem/chains";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import ReceiverInput from "@/app/[lang]/wallet/components/sendAndReceive/receiverInput";
 import Success from "@/app/[lang]/components/modals/success";
@@ -28,8 +28,22 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
   >(null);
   const [addressCopied, setAddressCopied] = useState<boolean>(false);
   const [addressDisplay, setAddressDisplay] = useState<Address | null>(null);
+  const [ensName, setEnsName] = useState<string | null>(null);
 
   const address = useAddress();
+
+  const { data: ens } = useEnsName({
+    address: address as Address,
+    chainId: mainnet.id,
+  });
+
+  useEffect(() => {
+    if (ens) {
+      setEnsName(ens);
+    } else {
+      setEnsName(null);
+    }
+  }, [ens]);
 
   const { data: matic } = useBalance({
     address: address as Address,
@@ -143,20 +157,40 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
           </div>
           <div className="flex justify-between">
             <span>{lang === "en" ? "Your address" : "Ton addresse"}</span>
-            <div
-              className="cursor-pointer hover:text-green-500 dark:hover:text-green-300"
-              onClick={() => {
-                if (address) {
-                  navigator.clipboard.writeText(address);
-                  setAddressCopied(true);
-                }
-              }}
-            >
-              {addressDisplay
-                ? shortenAddress(addressDisplay)
-                : lang === "en"
-                ? "Not connected"
-                : "Non connecté"}{" "}
+            <div className="flex items-center gap-1">
+              {ensName ??
+                (addressDisplay
+                  ? shortenAddress(addressDisplay)
+                  : lang === "en"
+                  ? "Not connected"
+                  : "Non connecté")}{" "}
+              <span
+                className="cursor-pointer hover:text-blue-500 dark:hover:text-blue-300"
+                onClick={() => {
+                  if (ensName) {
+                    navigator.clipboard.writeText(ensName);
+                    setAddressCopied(true);
+                  } else if (address) {
+                    navigator.clipboard.writeText(address);
+                    setAddressCopied(true);
+                  }
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
           <div>

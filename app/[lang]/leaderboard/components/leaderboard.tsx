@@ -1,9 +1,9 @@
 import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
-import { resolveAddress } from "@thirdweb-dev/sdk";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
+import { fetchEnsName, mainnet } from "@wagmi/core";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
   const [leaderboard, setLeaderboard] = useState<Array<any> | null>(null);
@@ -35,6 +35,33 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
     fetchLeaderboard();
   }, [address]);
 
+  useEffect(() => {
+    const fetchEns = async (address: Address) => {
+      const result = await fetchEnsName({
+        address: address,
+        chainId: mainnet.id,
+      });
+
+      return result ?? address;
+    };
+
+    const fetchLeaderboard = async (leaderboard: any) => {
+      const promises = leaderboard.map(async (entry: any) => {
+        if (entry.wallet && isAddress(entry.wallet)) {
+          entry.wallet = await fetchEns(entry.wallet);
+        }
+        return entry;
+      });
+
+      const updatedLeaderboard = await Promise.all(promises);
+      setLeaderboard(updatedLeaderboard);
+    };
+
+    if (leaderboard) {
+      fetchLeaderboard(leaderboard);
+    }
+  }, [leaderboard]);
+
   return (
     <>
       <React.Suspense fallback={null}>
@@ -55,21 +82,11 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                       <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-300 dark:bg-gray-700">
                         {index + 1}
                       </div>
-                      <div className="hidden md:block">
-                        {entry.wallet &&
-                        typeof entry.wallet === "string" &&
-                        isAddress(entry.wallet)
-                          ? resolveAddress(entry.wallet as Address)
-                          : lang === "en"
-                          ? "Loading..."
-                          : "Chargement..."}
-                      </div>
+                      <div className="hidden md:block">{entry.wallet}</div>
                       <div className="block md:hidden">
-                        {entry.wallet
-                          ? shortenAddress(entry.wallet as Address)
-                          : lang === "en"
-                          ? "Loading..."
-                          : "Chargement..."}
+                        {entry.wallet && isAddress(entry.wallet)
+                          ? shortenAddress(entry.wallet)
+                          : entry.wallet}
                       </div>
                       <div className="flex items-center gap-2 text-lg">
                         <span>

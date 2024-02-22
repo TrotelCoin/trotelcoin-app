@@ -1,8 +1,9 @@
 import { Lang } from "@/types/types";
-import { resolveAddress, useAddress } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
+import { mainnet, useEnsName } from "wagmi";
 
 const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);
@@ -12,8 +13,22 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [streak, setStreak] = useState<number | null>(null);
   const [isLoadingUserLeaderboard, setIsLoadingUserLeaderboard] =
     useState<boolean>(true);
+  const [ensName, setEnsName] = useState<string | null>(null);
 
   const address = useAddress();
+
+  const result = useEnsName({
+    address: address as Address,
+    chainId: mainnet.id,
+  });
+
+  useEffect(() => {
+    if (result) {
+      setEnsName(result.data as string);
+    } else {
+      setEnsName(null);
+    }
+  }, [result]);
 
   useEffect(() => {
     const fetchUserLeaderboard = async () => {
@@ -75,13 +90,12 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                       {position ?? 0}
                     </div>
                     <div className="hidden md:block">
-                      {address &&
-                      typeof address === "string" &&
-                      isAddress(address)
-                        ? resolveAddress(address)
-                        : lang === "en"
-                        ? "Connect your wallet"
-                        : "Connecte ton portefeuille"}
+                      {address && isAddress(address) && !ensName
+                        ? address
+                        : ensName ??
+                          (lang === "en"
+                            ? "Connect your wallet"
+                            : "Connecte ton portefeuille")}
                     </div>
                     <div className="block md:hidden">
                       {address

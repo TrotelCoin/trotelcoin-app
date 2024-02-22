@@ -51,6 +51,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       } else {
         updatedLearner.current_streak = 0;
       }
+
       updatedLeaderboard.push(updatedLearner);
     }
 
