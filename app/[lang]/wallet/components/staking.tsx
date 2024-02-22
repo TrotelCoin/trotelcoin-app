@@ -2,13 +2,13 @@
 
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import Period from "@/app/[lang]/wallet/components/period";
-import StakingData from "@/app/[lang]/wallet/components/stakingData";
-import StakingButton from "@/app/[lang]/wallet/components/stakingButton";
-import Amount from "@/app/[lang]/wallet/components/amount";
-import ClaimingButton from "@/app/[lang]/wallet/components/claimingButton";
-import ApproveButton from "@/app/[lang]/wallet/components/approveButton";
-import TotalStaked from "@/app/[lang]/wallet/components/totalStaked";
+import Period from "@/app/[lang]/wallet/components/staking/period";
+import StakingData from "@/app/[lang]/wallet/components/staking/stakingData";
+import StakingButton from "@/app/[lang]/wallet/components/staking/stakingButton";
+import Amount from "@/app/[lang]/wallet/components/staking/amount";
+import ClaimingButton from "@/app/[lang]/wallet/components/staking/claimingButton";
+import ApproveButton from "@/app/[lang]/wallet/components/staking/approveButton";
+import TotalStaked from "@/app/[lang]/wallet/components/staking/totalStaked";
 
 const Staking = ({ lang }: { lang: Lang }) => {
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
@@ -73,7 +73,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
           <div>
             <Period
               lang={lang}
-              stakingPeriod={stakingPeriod as number}
+              stakingPeriod={stakingPeriod}
               setStakingPeriod={setStakingPeriod}
             />
           </div>
@@ -97,7 +97,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
             <ApproveButton lang={lang} amount={amount as number} />
             <StakingButton
               lang={lang}
-              stakingPeriod={stakingPeriod as number}
+              stakingPeriod={stakingPeriod}
               amount={amount as number}
             />
 

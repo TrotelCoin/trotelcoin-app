@@ -5,10 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
-import Fail from "@/app/[lang]/components/fail";
+import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
-import Success from "@/app/[lang]/components/success";
+import Success from "@/app/[lang]/components/modals/success";
 
 const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   const [amountMessage, setAmountMessage] = useState<boolean>(false);

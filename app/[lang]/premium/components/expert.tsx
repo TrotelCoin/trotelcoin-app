@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useBalance, useContractRead, Address } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
-import Fail from "@/app/[lang]/components/fail";
-import Success from "@/app/[lang]/components/success";
+import Fail from "@/app/[lang]/components/modals/fail";
+import Success from "@/app/[lang]/components/modals/success";
 import {
   trotelCoinAddress,
   trotelCoinExpertAddress,

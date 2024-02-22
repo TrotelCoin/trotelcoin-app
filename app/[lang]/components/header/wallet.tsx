@@ -7,7 +7,7 @@ import {
 } from "@thirdweb-dev/react";
 import React from "react";
 import { DictType, Lang } from "@/types/types";
-import { useTheme } from "@/app/[lang]/components/themeSelector";
+import { useTheme } from "@/app/[lang]/components/selectors/themeSelector";
 
 const Wallet = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const { isLoggedIn } = useUser();

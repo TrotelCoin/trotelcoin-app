@@ -17,7 +17,7 @@ const Amount = ({
       <input
         type="text"
         className="bg-gray-200 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-300 w-full p-2 border border-gray-900/20 dark:border-gray-100/20 rounded-lg"
-        value={amount as number}
+        value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder={lang === "en" ? "Amount" : "Montant"}
       ></input>

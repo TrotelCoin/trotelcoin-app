@@ -1,18 +1,17 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import React, { use, useEffect, useState } from "react";
-import Fail from "@/app/[lang]/components/fail";
-import Success from "@/app/[lang]/components/success";
+import React, { useEffect, useState } from "react";
+import Fail from "@/app/[lang]/components/modals/fail";
+import Success from "@/app/[lang]/components/modals/success";
 import {
   useTransferNativeToken,
   useContractWrite,
   useContract,
 } from "@thirdweb-dev/react";
 import { Address, parseEther } from "viem";
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
-import { usdcAddress } from "@/data/web3/addresses";
 import usdcABI from "@/abi/usdc";
 import { BigNumber } from "ethers";
 

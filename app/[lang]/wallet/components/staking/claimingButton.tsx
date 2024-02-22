@@ -11,8 +11,8 @@ import {
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
-import Success from "@/app/[lang]/components/success";
-import Fail from "@/app/[lang]/components/fail";
+import Success from "@/app/[lang]/components/modals/success";
+import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";
 
 const ClaimingButton = ({ lang }: { lang: Lang }) => {
