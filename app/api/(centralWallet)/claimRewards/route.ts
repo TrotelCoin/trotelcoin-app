@@ -11,7 +11,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const userAddress = searchParams.get("address");
   const amount = searchParams.get("amount");
-  const gas = searchParams.get("gas");
 
   try {
     if (!userAddress) {
@@ -28,13 +27,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (!gas) {
-      return NextResponse.json(
-        { error: "Please provide a valid gas." },
-        { status: 400 }
-      );
-    }
-
     // prepare transaction
     const { request } = await publicClient.simulateContract({
       address: trotelCoinAddress,
@@ -42,7 +34,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       functionName: "mint",
       account: account,
       args: [userAddress as Address, parseEther(amount)],
-      gas: BigInt(gas),
     });
 
     // make transaction

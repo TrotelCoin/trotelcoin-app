@@ -4,7 +4,7 @@ import { Lang } from "@/types/types";
 import { useAddress, useTransferNativeToken } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/fail";
-import { Address } from "viem";
+import { Address, parseGwei } from "viem";
 import Success from "@/app/[lang]/components/success";
 import "animate.css";
 
@@ -69,28 +69,7 @@ const RewardsButton = ({
       }
 
       if (availableToClaim && availableToClaim > 0) {
-        const response = await fetch(
-          `/api/getGasFeeForRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            cache: "no-store",
-          }
-        );
-
-        const gas = await response.json();
-
-        if (gas <= 0) {
-          setErrorMessage(true);
-          setIsLoading(false);
-          return;
-        }
-
-        const gasAmount: string = (
-          parseFloat(gas.toString()) * 1e-9
-        ).toString();
+        const gasAmount: string = "0.02";
 
         // make transaction to pay central wallet
         await mutateAsync({
@@ -100,7 +79,7 @@ const RewardsButton = ({
 
         // make minting transaction
         await fetch(
-          `/api/claimRewards?address=${address}&amount=${availableToClaim}&gas=${gas}&centralWalletAddress=${centralWalletAddress}`,
+          `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
           {
             method: "POST",
             headers: {
