@@ -105,7 +105,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
       {/* QuizComponent */}
       <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <>
             <QuizComponent
               dict={dict as DictType}
@@ -115,14 +115,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               setAudio={setAudio}
               quizId={quizId}
             />
-          </>
-        ) : (
-          <>
-            <h2 className="text-gray-900 dark:text-gray-100 animate__animated animate__FadeIn">
-              {typeof dict?.quiz !== "string" && (
-                <>{dict?.quiz.connectWallet}</>
-              )}
-            </h2>
           </>
         )}
       </div>
