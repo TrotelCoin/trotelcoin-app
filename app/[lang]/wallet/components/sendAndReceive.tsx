@@ -2,15 +2,15 @@
 
 import { Lang } from "@/types/types";
 import React, { useState, useEffect } from "react";
-import Token from "@/app/[lang]/wallet/components/token";
-import TokenAmount from "@/app/[lang]/wallet/components/tokenAmount";
-import SendButton from "@/app/[lang]/wallet/components/sendButton";
+import Token from "@/app/[lang]/wallet/components/sendAndReceive/token";
+import TokenAmount from "@/app/[lang]/wallet/components/sendAndReceive/tokenAmount";
+import SendButton from "@/app/[lang]/wallet/components/sendAndReceive/sendButton";
 import { useBalance } from "wagmi";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address, isAddress } from "viem";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
-import ReceiverInput from "@/app/[lang]/wallet/components/receiverInput";
+import ReceiverInput from "@/app/[lang]/wallet/components/sendAndReceive/receiverInput";
 import Success from "@/app/[lang]/components/modals/success";
 import shortenAddress from "@/utils/shortenAddress";
 

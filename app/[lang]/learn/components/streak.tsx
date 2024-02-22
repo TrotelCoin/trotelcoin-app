@@ -1,10 +1,10 @@
 import { DictType } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
-import StreakButton from "@/app/[lang]/learn/components/streakButton";
-import StreakCount from "@/app/[lang]/learn/components/streakCount";
-import MaxStreakCount from "@/app/[lang]/learn/components/maxStreakCount";
-import StreakCooldown from "@/app/[lang]/learn/components/streakCooldown";
+import StreakButton from "@/app/[lang]/learn/components/streak/streakButton";
+import StreakCount from "@/app/[lang]/learn/components/streak/streakCount";
+import MaxStreakCount from "@/app/[lang]/learn/components/streak/maxStreakCount";
+import StreakCooldown from "@/app/[lang]/learn/components/streak/streakCooldown";
 
 const Streak = ({ dict }: { dict: DictType }) => {
   const [streak, setStreak] = useState<number>(0);

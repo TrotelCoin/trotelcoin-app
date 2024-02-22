@@ -9,11 +9,11 @@ import {
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import { useEnsName, mainnet, useContractRead } from "wagmi";
-import Satisfaction from "@/app/[lang]/account/components/satisfaction";
-import Rank from "@/app/[lang]/account/components/rank";
-import Balance from "@/app/[lang]/account/components/balance";
-import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/numberOfQuizzesAnswered";
-import TotalRewardsPending from "@/app/[lang]/account/components/totalRewardsPending";
+import Satisfaction from "@/app/[lang]/account/components/header/satisfaction";
+import Rank from "@/app/[lang]/account/components/header/rank";
+import Balance from "@/app/[lang]/account/components/header/statistics/balance";
+import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/statistics/numberOfQuizzesAnswered";
+import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
 import shortenAddress from "@/utils/shortenAddress";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
