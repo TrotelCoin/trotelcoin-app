@@ -43,9 +43,7 @@ export default function Events({ lang }: { lang: Lang }) {
 
       const length = log.length;
 
-      setUser(
-        shortenAddress((log[length - 1] as MyLog).args.learner as Address)
-      );
+      setUser(shortenAddress((log[length - 1] as MyLog).args.learner));
       setAmountClaimed(
         parseFloat((log[length - 1] as MyLog).args.rewardsClaimed.toString()) /
           1e18

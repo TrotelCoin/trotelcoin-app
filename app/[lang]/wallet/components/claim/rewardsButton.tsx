@@ -3,9 +3,9 @@
 import { Lang } from "@/types/types";
 import { useAddress, useTransferNativeToken } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
-import Fail from "@/app/[lang]/components/fail";
+import Fail from "@/app/[lang]/components/modals/fail";
 import { Address } from "viem";
-import Success from "@/app/[lang]/components/success";
+import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
 
 const RewardsButton = ({

@@ -11,7 +11,7 @@ import { Address, isAddress } from "viem";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import ReceiverInput from "@/app/[lang]/wallet/components/receiverInput";
-import Success from "@/app/[lang]/components/success";
+import Success from "@/app/[lang]/components/modals/success";
 import shortenAddress from "@/utils/shortenAddress";
 
 const SendAndReceive = ({ lang }: { lang: Lang }) => {
@@ -153,7 +153,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
               }}
             >
               {addressDisplay
-                ? shortenAddress(addressDisplay as Address)
+                ? shortenAddress(addressDisplay)
                 : lang === "en"
                 ? "Not connected"
                 : "Non connecté"}{" "}

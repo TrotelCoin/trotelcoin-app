@@ -11,10 +11,7 @@ const TotalStaked = ({ lang }: { lang: Lang }) => {
 
   const { contract } = useContract(trotelCoinAddress, "token");
 
-  const { data: balance } = useTokenBalance(
-    contract,
-    trotelCoinStakingV1 as Address
-  );
+  const { data: balance } = useTokenBalance(contract, trotelCoinStakingV1);
 
   useEffect(() => {
     if (balance) {
