@@ -153,7 +153,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
               }}
             >
               {addressDisplay
-                ? shortenAddress(addressDisplay)
+                ? shortenAddress(addressDisplay as Address)
                 : lang === "en"
                 ? "Not connected"
                 : "Non connecté"}{" "}

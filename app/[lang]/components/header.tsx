@@ -2,14 +2,14 @@
 
 // Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog, Transition } from "@headlessui/react";
-import React, { useEffect, useState, Fragment } from "react";
+import { Dialog } from "@headlessui/react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import TrotelPrice from "@/app/[lang]/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/[lang]/hooks/trotelPriceChange";
-import ThemeSwitcher, { useTheme } from "@/app/[lang]/components/themeSelector";
+import ThemeSwitcher from "@/app/[lang]/components/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/languageSelector";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
