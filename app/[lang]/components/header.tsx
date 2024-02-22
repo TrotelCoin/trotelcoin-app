@@ -14,9 +14,9 @@ import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
-import LifeCount from "@/app/[lang]/components/lifeCount";
-import StreakCount from "@/app/[lang]/components/streakCount";
-import Wallet from "@/app/[lang]/components/wallet";
+import LifeCount from "@/app/[lang]/components/header/lifeCount";
+import StreakCount from "@/app/[lang]/components/header/streakCount";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
 // Define the Header component
 const Header = ({

@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Lang } from "@/types/types";
-import RewardsButton from "@/app/[lang]/wallet/components/rewardsButton";
-import AvailableToClaim from "@/app/[lang]/wallet/components/availableToClaim";
-import Balance from "@/app/[lang]/wallet/components/balance";
+import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
+import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
+import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";
 
 const Claim = ({ lang }: { lang: Lang }) => {

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ComingSoon from "@/app/[lang]/components/comingSoon";
+import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Streak from "@/app/[lang]/learn/components/streak";

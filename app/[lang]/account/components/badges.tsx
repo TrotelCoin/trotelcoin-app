@@ -13,7 +13,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
-import BadgesList from "@/app/[lang]/account/components/badgesList";
+import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 
 interface BadgesSectionProps {
   dict: DictType | null;
