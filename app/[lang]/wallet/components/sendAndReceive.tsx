@@ -11,8 +11,10 @@ import { Address, isAddress } from "viem";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import ReceiverInput from "@/app/[lang]/wallet/components/receiverInput";
+import Success from "@/app/[lang]/components/success";
+import shortenAddress from "@/utils/shortenAddress";
 
-const Send = ({ lang }: { lang: Lang }) => {
+const SendAndReceive = ({ lang }: { lang: Lang }) => {
   const [token, setToken] = useState<string>("MATIC");
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [amountError, setAmountError] = useState<string | null>(null);
@@ -24,6 +26,8 @@ const Send = ({ lang }: { lang: Lang }) => {
   const [receiverAddressError, setReceiverAddressError] = useState<
     string | null
   >(null);
+  const [addressCopied, setAddressCopied] = useState<boolean>(false);
+  const [addressDisplay, setAddressDisplay] = useState<Address | null>(null);
 
   const address = useAddress();
 
@@ -117,18 +121,42 @@ const Send = ({ lang }: { lang: Lang }) => {
     }
   }, [token, maticBalance, trotelBalance, usdcBalance]);
 
+  useEffect(() => {
+    if (address) {
+      setAddressDisplay(address as Address);
+    }
+  }, [address]);
+
   return (
     <>
       <div className="mt-4 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 rounded-lg py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <div className="flex flex-col flex-wrap gap-4 px-4">
           <span className="font-bold text-xl">
-            {lang === "en" ? <>Send</> : <>Envoyer</>}
+            {lang === "en" ? <>Send & Receive</> : <>Envoyer & Recevoir</>}
           </span>
           <div className="flex justify-between">
             <span>{lang === "en" ? "Balance" : "Solde"}</span>
             <div>
               {balance?.toFixed(2) ?? 0}{" "}
               <span className="font-semibold">{token ?? "TROTEL"}</span>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <span>{lang === "en" ? "Your address" : "Ton addresse"}</span>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                if (address) {
+                  navigator.clipboard.writeText(address);
+                  setAddressCopied(true);
+                }
+              }}
+            >
+              {addressDisplay
+                ? shortenAddress(addressDisplay)
+                : lang === "en"
+                ? "Not connected"
+                : "Non connecté"}{" "}
             </div>
           </div>
           <div>
@@ -161,8 +189,19 @@ const Send = ({ lang }: { lang: Lang }) => {
           </div>
         </div>
       </div>
+      <Success
+        lang={lang}
+        show={addressCopied}
+        onClose={() => setAddressCopied(false)}
+        title={lang === "en" ? "Address copied" : "Adresse copiée"}
+        message={
+          lang === "en"
+            ? "Your address has been copied to the clipboard"
+            : "Ton adresse a été copiée dans le presse-papiers"
+        }
+      />
     </>
   );
 };
 
-export default Send;
+export default SendAndReceive;

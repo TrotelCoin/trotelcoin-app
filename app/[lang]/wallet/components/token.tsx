@@ -37,6 +37,7 @@ const Token = ({
             TROTEL
           </button>
         </li>
+        {/*
         <li>
           <button
             onClick={() => setToken("USDC")}
@@ -49,6 +50,7 @@ const Token = ({
             USDC
           </button>
         </li>
+        */}
       </ul>
     </>
   );
