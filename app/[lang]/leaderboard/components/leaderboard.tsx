@@ -1,8 +1,9 @@
 import { Lang } from "@/types/types";
-import { useAddress, shortenAddress } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { resolveAddress } from "@thirdweb-dev/sdk";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
+import shortenAddress from "@/utils/shortenAddress";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
   const [leaderboard, setLeaderboard] = useState<Array<any> | null>(null);

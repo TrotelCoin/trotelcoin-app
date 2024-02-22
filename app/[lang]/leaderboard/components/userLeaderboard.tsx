@@ -1,11 +1,8 @@
 import { Lang } from "@/types/types";
-import {
-  resolveAddress,
-  shortenAddress,
-  useAddress,
-} from "@thirdweb-dev/react";
+import { resolveAddress, useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
+import shortenAddress from "@/utils/shortenAddress";
 
 const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);

@@ -9,7 +9,7 @@ import { Address, Log } from "viem";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Transition } from "@headlessui/react";
 import "animate.css";
-import { shortenAddress } from "@thirdweb-dev/react";
+import shortenAddress from "@/utils/shortenAddress";
 
 type MyLog = Log & {
   args: {
