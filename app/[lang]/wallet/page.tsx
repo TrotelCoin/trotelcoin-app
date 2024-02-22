@@ -28,10 +28,8 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             {lang === "en" ? <>Wallet</> : <>Portefeuille</>}
           </h2>
           <Claim lang={lang} />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Send lang={lang} />
-            <Receive lang={lang} />
-          </div>
+          <Send lang={lang} />
+          <Receive lang={lang} />
         </div>
 
         <div>
