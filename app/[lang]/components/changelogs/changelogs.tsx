@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-export const version: string = "1.0.3";
+export const version: string = "1.1.1";
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -95,8 +95,8 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- Claim your NFTs is available"
-                        : "- Récupère tes NFTs est disponible"}
+                        ? "- Create your first wallet is available"
+                        : "- Crée ton premier portefeuille est disponible"}
                     </p>
                   </div>
                   <div className="mt-8">
