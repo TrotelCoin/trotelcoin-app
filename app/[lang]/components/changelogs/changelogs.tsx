@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-export const version: string = "1.0.0";
+export const version: string = "1.0.3";
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -117,6 +117,11 @@ const Changelogs = ({ lang }: { lang: string }) => {
                       {lang === "en"
                         ? "- You can send your TROTEL and MATIC now"
                         : "- Tu peux envoyer tes TROTEL et MATIC maintenant"}
+                    </p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en"
+                        ? "- We support ENS now"
+                        : "- On supporte ENS maintenant"}
                     </p>
                   </div>
                   <div className="mt-8">
