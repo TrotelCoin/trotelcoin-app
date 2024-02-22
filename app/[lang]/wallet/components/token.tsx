@@ -18,8 +18,8 @@ const Token = ({
             onClick={() => setToken("MATIC")}
             className={`${
               token === "MATIC"
-                ? "bg-black hover:bg-black dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-                : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+                ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+                : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
             } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
           >
             MATIC
@@ -30,8 +30,8 @@ const Token = ({
             onClick={() => setToken("TROTEL")}
             className={`${
               token === "TROTEL"
-                ? "bg-black hover:bg-black dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-                : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+                ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+                : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
             } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
           >
             TROTEL

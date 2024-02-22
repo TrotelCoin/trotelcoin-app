@@ -159,7 +159,7 @@ const MainComponent = ({
         </head>
 
         <body
-          className={`bg-white dark:bg-black ${poppins.className} antialiased`}
+          className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
         >
           {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
             <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />

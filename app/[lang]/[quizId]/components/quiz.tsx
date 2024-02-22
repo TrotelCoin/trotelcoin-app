@@ -325,7 +325,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
                     className={`cursor-pointer px-4 py-2 rounded-lg ${
                       answers[currentQuestion] === option
                         ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
-                        : "bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800"
+                        : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                     }`}
                     onClick={() => handleAnswer(option)}
                   >
@@ -354,14 +354,14 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               currentQuestion !== 0
                 ? "cursor-pointer"
                 : "disabled cursor-not-allowed"
-            } bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
+            } bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
             onClick={goToPrevious}
           >
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
           </button>
           {questions && currentQuestion < questions.length - 1 && (
             <button
-              className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+              className="cursor-pointer bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
               onClick={goToNext}
             >
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
@@ -371,7 +371,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             isCaptchaVerified || debug ? (
               <button
                 onClick={handleSubmit}
-                className="cursor-pointer bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                className="cursor-pointer bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
               >
                 {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
                 <Confetti active={showConfetti} />
@@ -415,7 +415,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             <div className="mt-6 items-center">
               <button
                 onClick={handleClaimRewards}
-                className="bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
+                className="bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
               >
                 {typeof dict?.quiz !== "string" && (
                   <>{dict?.quiz.receiveCrypto}</>

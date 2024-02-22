@@ -55,7 +55,7 @@ const renderCourses = (
 
   const statusClass =
     status[quizId - 1] === "Not started"
-      ? "bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900"
+      ? "bg-gray-100 dark:bg-gray-300 text-gray-100 dark:text-gray-900"
       : status[quizId - 1] === "Finished"
       ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
       : "";
@@ -79,7 +79,7 @@ const renderCourses = (
               className="mt-4 rounded-lg"
               />*/}
           <div
-            className={`rounded-lg px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-900 ${borderClass} backdrop-blur-xl`}
+            className={`rounded-lg px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-100 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
           >
             <div>
               <div
@@ -95,7 +95,7 @@ const renderCourses = (
             </div>
             <div className="flex flex-wrap mt-4 gap-2 items-center">
               {(tier === "Beginner" || tier === "Débutant") && (
-                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-900">
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-gray-700 dark:bg-gray-300 text-gray-100 dark:text-gray-900">
                   {tier} 🐣
                 </div>
               )}

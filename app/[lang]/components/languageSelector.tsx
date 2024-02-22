@@ -48,7 +48,7 @@ const LanguageSelector = ({
   return (
     <Menu as="div" className="relative inline-block text-center">
       <div>
-        <Menu.Button className="p-2 rounded-full bg-white dark:bg-black focus:bg-white dark:focus:bg-black hover:bg-gray-100 dark:hover:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <Menu.Button className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -75,7 +75,7 @@ const LanguageSelector = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right rounded-lg absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-900 ring-1 ring-gray-900/20 dark:ring-gray-100/40 focus:outline-none">
+        <Menu.Items className="origin-top-right rounded-lg absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-800 ring-1 ring-gray-900/20 dark:ring-gray-100/40 focus:outline-none">
           <div className="p-2">
             {languages.map((language, index) => (
               <Menu.Item key={index}>
@@ -84,9 +84,9 @@ const LanguageSelector = ({
                     onClick={() => onChangeLanguage(language)}
                     className={`${
                       active
-                        ? "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                        ? "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         : "text-gray-900 dark:text-gray-100"
-                    } hover:bg-gray-100 dark:hover:bg-gray-800 block px-4 py-2 text-sm w-full text-left rounded-lg`}
+                    } hover:bg-gray-200 dark:hover:bg-gray-700 block px-4 py-2 text-sm w-full text-left rounded-lg`}
                   >
                     {language.label}
                   </button>

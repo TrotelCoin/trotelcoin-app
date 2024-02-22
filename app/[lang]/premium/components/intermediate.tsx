@@ -131,7 +131,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         scale={1.05}
       >
         <div
-          className={`overflow-hidden rounded-lg bg-gray-50 dark:bg-gray-900 ${
+          className={`overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 ${
             isClaimed
               ? "rainbow-border"
               : "border border-gray-900/20 dark:border-gray-100/20"
@@ -196,7 +196,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </Web3Button>
               )}
               {isClaimed && (
-                <button className="disabled cursor-not-allowed bg-gray-900 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claimed}</>
                   )}

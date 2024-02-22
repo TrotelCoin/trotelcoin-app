@@ -41,7 +41,7 @@ export default function Banner({ lang }: { lang: Lang }) {
   }
 
   return (
-    <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-black dark:bg-white px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
+    <div className="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-900 dark:bg-white px-6 py-2.5 sm:px-3.5 sm:before:flex-1">
       {/* First background shape */}
       <div
         className="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"

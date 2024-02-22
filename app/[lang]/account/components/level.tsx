@@ -100,7 +100,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
         {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
       </h2>
       <div
-        className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 text-center rounded-lg p-10 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+        className={`mt-4 bg-gray-100 flex flex-col border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 text-center rounded-lg p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex justify-between">
           <div
@@ -148,7 +148,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
           </p>
         </div>
         <div
-          className={`overflow-hidden h-2 text-xs bg-gray-600 mt-2 dark:bg-gray-400 flex rounded-full ${
+          className={`overflow-hidden h-2 text-xs bg-gray-400 mt-2 flex rounded-full ${
             isNotPremium && "mt-4"
           }`}
         >

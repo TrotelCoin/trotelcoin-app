@@ -151,7 +151,7 @@ export default function Footer({ lang }: { lang: Lang }) {
   const displayedItems = navigation.main.filter((item) => item.display);
 
   return (
-    <footer className="bg-white dark:bg-black mx-10">
+    <footer className="bg-white dark:bg-gray-900 mx-10">
       <div className="mx-auto flex justify-between max-w-6xl overflow-hidden px-6 py-10 sm:py-12 border-t border-gray-900/20 dark:border-gray-100/20">
         <nav
           className="-mb-6 sm:flex sm:justify-center sm:space-x-12"
