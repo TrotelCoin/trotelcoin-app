@@ -2,7 +2,6 @@ import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { isAddress } from "viem";
 
-
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // get leaderboard all of learners depending of total rewards
