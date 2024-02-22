@@ -104,9 +104,10 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
       ></audio>
 
       {/* QuizComponent */}
-      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
-        {isLoggedIn && (
-          <>
+
+      {isLoggedIn && (
+        <>
+          <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
             <QuizComponent
               dict={dict as DictType}
               lang={lang}
@@ -115,9 +116,9 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               setAudio={setAudio}
               quizId={quizId}
             />
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
 
       {/* Reward */}
       <Rewards
