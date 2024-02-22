@@ -126,7 +126,7 @@ const StakingButton = ({
             {lang === "en" ? "Loading..." : "Chargement..."}
           </span>
         ) : (
-          <>{lang === "en" ? "Stake" : "Staker"}</>
+          <>{lang === "en" ? "Lock" : "Bloquer"}</>
         )}
       </button>
       <Success

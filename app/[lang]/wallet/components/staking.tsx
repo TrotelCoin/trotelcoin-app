@@ -60,7 +60,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
       <div className="mt-4 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/20 dark:divide-gray-100/20 border-gray-900/20 dark:border-gray-100/20 rounded-lg py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <div className="flex flex-col flex-wrap gap-4 px-4">
           <span className="font-bold text-xl">
-            {lang === "en" ? <>Earn TrotelCoins</> : <>Gagne des TrotelCoins</>}
+            {lang === "en" ? <>Earn</> : <>Gagner</>}
           </span>
           <div>
             <span className="text-4xl font-bold text-green-500 dark:text-green-300">
