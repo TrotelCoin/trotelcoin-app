@@ -58,7 +58,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
           {ensName && ensName !== null ? (
             <>{ensName}</>
           ) : (
-            <>{shortenAddress(address)}</>
+            <>{shortenAddress(address as Address)}</>
           )}
         </span>{" "}
         👋

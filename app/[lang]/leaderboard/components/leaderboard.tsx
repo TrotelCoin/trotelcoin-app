@@ -66,7 +66,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                       </div>
                       <div className="block md:hidden">
                         {entry.wallet
-                          ? shortenAddress(entry.wallet)
+                          ? shortenAddress(entry.wallet as Address)
                           : lang === "en"
                           ? "Loading..."
                           : "Chargement..."}
