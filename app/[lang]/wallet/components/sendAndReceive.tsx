@@ -138,6 +138,8 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     if (address) {
       setAddressDisplay(address as Address);
+    } else {
+      setAddressDisplay(null);
     }
   }, [address]);
 
