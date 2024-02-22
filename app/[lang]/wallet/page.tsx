@@ -5,6 +5,8 @@ import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
+import Send from "@/app/[lang]/wallet/components/send";
+import Receive from "@/app/[lang]/wallet/components/receive";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
@@ -26,6 +28,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             {lang === "en" ? <>Wallet</> : <>Portefeuille</>}
           </h2>
           <Claim lang={lang} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Send lang={lang} />
+            <Receive lang={lang} />
+          </div>
         </div>
 
         <div>
