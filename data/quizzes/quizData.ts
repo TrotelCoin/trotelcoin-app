@@ -263,6 +263,136 @@ const quizzes = [
       },
     ],
   },
+  {
+    quizId: 3,
+    title: "Create your fist wallet", // not used
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the main purpose of the wallet?",
+          fr: "Quel est le but principal du portefeuille?",
+        },
+        options: {
+          en: [
+            "To store your cryptocurrencies",
+            "To store your fiat money",
+            "To store your art",
+            "To store your personal data",
+          ],
+          fr: [
+            "Pour stocker tes cryptomonnaies",
+            "Pour stocker ton argent fiat",
+            "Pour stocker tes œuvres d'art",
+            "Pour stocker tes données personnelles",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which type of wallet provides offline storage?",
+          fr: "Quel type de portefeuille fournit un stockage hors ligne?",
+        },
+        options: {
+          en: [
+            "Hardware wallet",
+            "Software wallet",
+            "Web wallet",
+            "Mobile wallet",
+          ],
+          fr: [
+            "Portefeuille matériel",
+            "Portefeuille logiciel",
+            "Portefeuille web",
+            "Portefeuille mobile",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is the significance of a seed phrase in wallet security?",
+          fr: "Quelle est l'importance d'une phrase de récupération dans la sécurité du portefeuille?",
+        },
+        options: {
+          en: [
+            "It's the backup of the wallet",
+            "It's the password of the wallet",
+            "It's the username of the wallet",
+            "It's the wallet's address",
+          ],
+          fr: [
+            "C'est la sauvegarde du portefeuille",
+            "C'est le mot de passe du portefeuille",
+            "C'est le nom d'utilisateur du portefeuille",
+            "C'est l'adresse du portefeuille",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is the main purpose of the public key?",
+          fr: "Quel est le but principal de la clé publique?",
+        },
+        options: {
+          en: [
+            "To receive cryptocurrencies",
+            "To send cryptocurrencies",
+            "To access the wallet",
+            "To secure the wallet",
+          ],
+          fr: [
+            "Recevoir des cryptomonnaies",
+            "Envoyer des cryptomonnaies",
+            "Accéder au portefeuille",
+            "Sécuriser le portefeuille",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Which activity is NOT a part of managing cryptocurrencies in your wallet?",
+          fr: "Quelle activité ne fait PAS partie de la gestion des cryptomonnaies dans ton portefeuille?",
+        },
+        options: {
+          en: [
+            "Mining new cryptocurrencies",
+            "Staking cryptocurrences",
+            "Make some trading",
+            "Lend cryptocurrencies",
+          ],
+          fr: [
+            "Miner des nouvelles crypto",
+            "Staker des cryptos",
+            "Faire du trading",
+            "Prêter des cryptos",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "Why is it essential to back up your wallet's private key or seed phrase?",
+          fr: "Pourquoi est-il essentiel de sauvegarder la phrase de récupération de ton portefeuille?",
+        },
+        options: {
+          en: [
+            "To recover your wallet if it's lost or stolen",
+            "To share it with friends and family",
+            "There's no need to back up your wallet",
+          ],
+          fr: [
+            "Pour récupérer ton portefeuille s'il est perdu ou volé",
+            "Pour le partager avec tes amis et ta famille",
+            "Il n'est pas nécessaire de sauvegarder ton portefeuille",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
