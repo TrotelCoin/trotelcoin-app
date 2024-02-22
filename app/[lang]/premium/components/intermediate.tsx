@@ -18,7 +18,6 @@ import {
   useUser,
   useContractWrite,
   useContract,
-  Web3Button,
 } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 
@@ -28,13 +27,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
   const [isEligibleMessage, setIsEligibleMessage] = useState<boolean>(false);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
-  const [isNotConnected, setIsNotConnected] = useState<boolean>(false);
   const [isNotConnectedMessage, setIsNotConnectedMessage] =
     useState<boolean>(false);
   const [isClaimedMessage, setIsClaimedMessage] = useState<boolean>(false);
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
   const [dict, setDict] = useState<DictType | null>(null);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -52,7 +51,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const address = useAddress();
   const { user, isLoggedIn, isLoading } = useUser();
-  const { contract } = useContract(trotelCoinIntermediateAddress);
+  const { contract } = useContract(
+    trotelCoinIntermediateAddress,
+    trotelCoinIntermediateABI
+  );
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
@@ -64,7 +66,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     mutateAsync,
     isLoading: isLoadingWrite,
     isSuccess,
-    error,
+    isError,
   } = useContractWrite(contract, "mint");
   const { data: claimed } = useContractRead({
     address: trotelCoinIntermediateAddress,
@@ -96,7 +98,6 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         setIsEligibleMessage(true);
       }
     } else {
-      setIsNotConnected(true);
       setIsNotConnectedMessage(true);
     }
   };
@@ -119,6 +120,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       postClaimIntermediate();
     }
   }, [isSuccess, address, setIsClaimed, setIsClaimedMessage]);
+
+  useEffect(() => {
+    if (isError) {
+      setErrorMessage(true);
+    }
+  }, [isError]);
 
   return (
     <>
@@ -184,16 +191,17 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </button>
               )}
               {isEligible && !isClaimed && (
-                <Web3Button
-                  action={() => mutateAsync({ args: [address as Address] })}
-                  contractAddress={trotelCoinIntermediateAddress}
+                <button
+                  onClick={async () =>
+                    await mutateAsync({ args: [address as Address] })
+                  }
                   className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claim}</>
                   )}
-                </Web3Button>
+                </button>
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
@@ -241,6 +249,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         }
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
+      />
+      <Fail
+        show={errorMessage}
+        lang={lang}
+        onClose={() => setErrorMessage(false)}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={lang === "en" ? "An error occured" : "Une erreur a survenue"}
       />
       <Success
         show={isEligibleMessageSuccess}

@@ -13,12 +13,7 @@ import {
 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import {
-  useAddress,
-  useContract,
-  useContractWrite,
-  Web3Button,
-} from "@thirdweb-dev/react";
+import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 
 const holdingRequirements: number = 50000;
@@ -27,13 +22,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
   const [isEligibleMessage, setIsEligibleMessage] = useState<boolean>(false);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
-  const [isNotConnected, setIsNotConnected] = useState<boolean>(false);
   const [isNotConnectedMessage, setIsNotConnectedMessage] =
     useState<boolean>(false);
   const [isClaimedMessage, setIsClaimedMessage] = useState<boolean>(false);
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
   const [dict, setDict] = useState<DictType | null>(null);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -50,19 +45,20 @@ const Expert = ({ lang }: { lang: Lang }) => {
   };
 
   const address = useAddress();
-  const { contract } = useContract(trotelCoinExpertAddress);
+  const { contract } = useContract(
+    trotelCoinExpertAddress,
+    trotelCoinExpertABI
+  );
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
     watch: true,
   });
-  const {
-    mutateAsync,
-    isLoading: isLoadingWrite,
-    isSuccess,
-    error,
-  } = useContractWrite(contract, "mint");
+  const { mutateAsync, isSuccess, isError } = useContractWrite(
+    contract,
+    "mint"
+  );
   const { data: claimed } = useContractRead({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
@@ -93,7 +89,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
         setIsEligibleMessage(true);
       }
     } else {
-      setIsNotConnected(true);
       setIsNotConnectedMessage(true);
     }
   };
@@ -116,6 +111,12 @@ const Expert = ({ lang }: { lang: Lang }) => {
       postClaimExpert();
     }
   }, [isSuccess, address, setIsClaimedMessage, setIsClaimed]);
+
+  useEffect(() => {
+    if (isError) {
+      setErrorMessage(true);
+    }
+  }, [isError]);
 
   return (
     <>
@@ -181,16 +182,17 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 </button>
               )}
               {isEligible && !isClaimed && (
-                <Web3Button
-                  action={() => mutateAsync({ args: [address as Address] })}
-                  contractAddress={trotelCoinExpertAddress}
+                <button
+                  onClick={async () =>
+                    await mutateAsync({ args: [address as Address] })
+                  }
                   className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
                   {typeof dict?.premium !== "string" && (
                     <>{dict?.premium.claim}</>
                   )}
-                </Web3Button>
+                </button>
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
@@ -238,6 +240,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
         }
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
+      />
+      <Fail
+        show={errorMessage}
+        onClose={() => setErrorMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={lang === "en" ? "An error occured" : "Une erreur est survenue"}
       />
       <Success
         show={isEligibleMessageSuccess}

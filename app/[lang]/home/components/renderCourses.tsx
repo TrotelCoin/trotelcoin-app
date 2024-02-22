@@ -55,7 +55,7 @@ const renderCourses = (
 
   const statusClass =
     status[quizId - 1] === "Not started"
-      ? "bg-gray-100 dark:bg-gray-300 text-gray-100 dark:text-gray-900"
+      ? "bg-gray-700 dark:bg-gray-300 text-gray-100 dark:text-gray-900"
       : status[quizId - 1] === "Finished"
       ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
       : "";

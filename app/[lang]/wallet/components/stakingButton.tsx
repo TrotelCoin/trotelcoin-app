@@ -3,7 +3,6 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import {
-  Web3Button,
   useAddress,
   useContract,
   useContractWrite,
@@ -29,16 +28,16 @@ const StakingButton = ({
   const [stakingPeriodMessage, setStakingPeriodMessage] =
     useState<boolean>(false);
   const [amountMessage, setAmountMessage] = useState<boolean>(false);
-
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
   const [alreadyStakingMessage, setAlreadyStakingMessage] =
     useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const address = useAddress();
 
   const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
 
-  const { mutateAsync, isSuccess, isLoading } = useContractWrite(
+  const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
     contract,
     "stake"
   );
@@ -54,6 +53,12 @@ const StakingButton = ({
   }, [stakingPeriod]);
 
   useEffect(() => {
+    if (isError) {
+      setErrorMessage(true);
+    }
+  }, [isError]);
+
+  useEffect(() => {
     if (address && getStakingData) {
       setStakedTrotelCoins(getStakingData[0].toString());
     } else {
@@ -61,7 +66,7 @@ const StakingButton = ({
     }
   }, [getStakingData, address]);
 
-  const stake = (amount: number, stakingPeriod: number) => {
+  const stake = async (amount: number, stakingPeriod: number) => {
     if (stakingPeriod <= 0) {
       setStakingPeriodMessage(true);
       return;
@@ -98,7 +103,7 @@ const StakingButton = ({
 
     const stakingAmount = parseEther(amount.toString());
 
-    mutateAsync({
+    await mutateAsync({
       args: [stakingAmount, stakingDuration],
     });
   };
@@ -111,9 +116,8 @@ const StakingButton = ({
 
   return (
     <>
-      <Web3Button
-        contractAddress={trotelCoinStakingV1}
-        action={() => stake(amount, stakingPeriod)}
+      <button
+        onClick={() => stake(amount, stakingPeriod)}
         className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
         style={{}}
       >
@@ -124,7 +128,7 @@ const StakingButton = ({
         ) : (
           <>{lang === "en" ? "Stake" : "Staker"}</>
         )}
-      </Web3Button>
+      </button>
       <Success
         show={stakeMessage}
         lang={lang}
@@ -167,6 +171,15 @@ const StakingButton = ({
           lang === "en"
             ? "You are already staking TrotelCoins"
             : "Tu stakes déjà des TrotelCoins"
+        }
+      />
+      <Fail
+        show={errorMessage}
+        lang={lang}
+        onClose={() => setErrorMessage(false)}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en" ? "Your transaction failed" : "Ta transaction a échoué"
         }
       />
     </>
