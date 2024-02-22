@@ -3,7 +3,6 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import {
-  Web3Button,
   useAddress,
   useContract,
   useContractWrite,
@@ -23,12 +22,13 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
     useState<boolean>(false);
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const address = useAddress();
 
   const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
 
-  const { mutateAsync, isSuccess, isLoading } = useContractWrite(
+  const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
     contract,
     "unstake"
   );
@@ -52,6 +52,12 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
   }, [getUserStakingData, address]);
 
   useEffect(() => {
+    if (isError) {
+      setErrorMessage(true);
+    }
+  }, [isError]);
+
+  useEffect(() => {
     if (getStakingData && address) {
       setStakedTrotelCoins(getStakingData[0].toString());
     } else {
@@ -59,7 +65,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
     }
   }, [getStakingData, address]);
 
-  const claim = () => {
+  const claim = async () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
       setNoStakedMessage(true);
       return;
@@ -70,7 +76,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
       return;
     }
 
-    mutateAsync({ args: [] });
+    await mutateAsync({ args: [] });
   };
 
   useEffect(() => {
@@ -81,9 +87,8 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <Web3Button
-        contractAddress={trotelCoinStakingV1}
-        action={() => claim()}
+      <button
+        onClick={() => claim()}
         className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
         style={{}}
       >
@@ -94,7 +99,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
         ) : (
           <>{lang === "en" ? "Claim" : "Réclamer"}</>
         )}
-      </Web3Button>
+      </button>
       <Success
         show={claimMessage}
         lang={lang}
@@ -126,6 +131,17 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
           lang === "en"
             ? "You have no staked TrotelCoins"
             : "Tu n'as pas de TrotelCoins en staking"
+        }
+      />
+      <Fail
+        show={errorMessage}
+        onClose={() => setErrorMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "There was an error claiming your rewards"
+            : "Il y a eu une erreur en réclamant tes récompenses"
         }
       />
     </>

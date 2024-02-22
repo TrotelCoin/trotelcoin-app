@@ -4,7 +4,7 @@
 
 :root {
   --text-white: rgb(243 244 246);
-  --bg-black: #0f172a;
+  --bg-gray-900: #0f172a;
   --text-black: rgb(17 24 39);
   --progress-end: 100%;
 }

@@ -29,7 +29,7 @@ const Wallet = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       {address && isLoggedIn ? (
         <button
           onClick={handleDisconnect}
-          className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+          className="text-sm font-semibold rounded-full px-6 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
           style={{ minWidth: "0px" }}
         >
           {typeof dict?.header !== "string" && <>{dict?.header.disconnect}</>}
@@ -42,7 +42,7 @@ const Wallet = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           modalSize={"wide"}
           modalTitleIconUrl={""}
           btnTitle={lang === "en" ? "Sign in" : "Se connecter"}
-          className="text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+          className="text-sm font-semibold rounded-full px-6 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
           style={{ minWidth: "0px" }}
         />
       )}

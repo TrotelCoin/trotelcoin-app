@@ -45,13 +45,13 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                 leaderboard.map((entry, index) => (
                   <li key={index}>
                     <div
-                      className={`mt-2 bg-gray-50 flex items-center justify-between ${
+                      className={`mt-2 bg-gray-100 flex items-center justify-between ${
                         index < 3
                           ? "rainbow-border"
                           : "border-gray-900/20 dark:border-gray-100/20"
-                      } border backdrop-blur-xl text-center rounded-full p-4 dark:bg-gray-900 text-gray-900 dark:text-gray-100`}
+                      } border backdrop-blur-xl text-center rounded-full p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
                     >
-                      <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-200 dark:bg-gray-800">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-300 dark:bg-gray-700">
                         {index + 1}
                       </div>
                       <div className="hidden md:block">

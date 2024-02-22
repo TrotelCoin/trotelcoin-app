@@ -1,69 +1,59 @@
 import { Lang } from "@/types/types";
 import React from "react";
 
-const Period = ({
+const Token = ({
   lang,
-  stakingPeriod,
-  setStakingPeriod,
+  token,
+  setToken,
 }: {
   lang: Lang;
-  stakingPeriod: number;
-  setStakingPeriod: any;
+  token: string;
+  setToken: any;
 }) => {
   return (
     <>
       <ul className="flex flex-wrap gap-2">
         <li>
           <button
-            onClick={() => setStakingPeriod(30)}
+            onClick={() => setToken("MATIC")}
             className={`${
-              stakingPeriod === 30
+              token === "MATIC"
                 ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
                 : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
             } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
           >
-            {lang === "en" ? "30 days" : "30 jours"}
+            MATIC
           </button>
         </li>
         <li>
           <button
-            onClick={() => setStakingPeriod(91)}
+            onClick={() => setToken("TROTEL")}
             className={`${
-              stakingPeriod === 91
+              token === "TROTEL"
                 ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
                 : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
             } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
           >
-            {lang === "en" ? "3 months" : "3 mois"}
+            TROTEL
           </button>
         </li>
+        {/*
         <li>
           <button
-            onClick={() => setStakingPeriod(182)}
+            onClick={() => setToken("USDC")}
             className={`${
-              stakingPeriod === 182
+              token === "USDC"
                 ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
                 : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
             } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
           >
-            {lang === "en" ? "6 months" : "6 mois"}
+            USDC
           </button>
         </li>
-        <li>
-          <button
-            onClick={() => setStakingPeriod(365)}
-            className={`${
-              stakingPeriod === 365
-                ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-                : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
-            } inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
-          >
-            {lang === "en" ? "1 year" : "1 an"}
-          </button>
-        </li>
+        */}
       </ul>
     </>
   );
 };
 
-export default Period;
+export default Token;

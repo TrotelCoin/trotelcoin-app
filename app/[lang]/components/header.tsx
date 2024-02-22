@@ -75,7 +75,7 @@ const Header = ({
   ];
 
   return (
-    <header className="bg-white dark:bg-black">
+    <header className="bg-white dark:bg-gray-900">
       {/* Navigation */}
       <nav
         className="mx-auto flex max-w-8xl items-center justify-between gap-x-8 md:gap-x-16 p-6 lg:px-8"
@@ -108,14 +108,14 @@ const Header = ({
 
         {/* Desktop navigation links */}
         <div
-          className={`hidden lg:flex backdrop-blur-xl items-center bg-black dark:bg-white py-2 px-3 rounded-full lg:gap-x-8`}
+          className={`hidden lg:flex backdrop-blur-xl items-center bg-gray-900 dark:bg-white py-2 px-3 rounded-full lg:gap-x-8`}
         >
           {navigation.map((item, index) => {
             const defaultClasses =
-              "text-gray-100 dark:text-gray-900 text-sm font-semibold hover:bg-white dark:hover:bg-black hover:text-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+              "text-gray-100 dark:text-gray-900 text-sm font-semibold hover:bg-white dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
 
             const dynamicClasses =
-              "bg-white dark:bg-black text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-black dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+              "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
 
             return (
               <Link
@@ -140,7 +140,7 @@ const Header = ({
             <StreakCount dict={dict as DictType} lang={lang} />
             <Wallet dict={dict as DictType} lang={lang} />
           </div>
-          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-900/20 dark:bg-gray-100/40" />
+          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
           <div className="items-center flex gap-2">
             <LanguageSelector router={router} lang={lang} />
             <ThemeSwitcher />
@@ -154,7 +154,7 @@ const Header = ({
               <LifeCount dict={dict as DictType} lang={lang} life={life} />
               <StreakCount dict={dict as DictType} lang={lang} />
             </div>
-            <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-900/20 dark:bg-gray-100/40" />
+            <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
             <div className="flex gap-2 items-center">
               {/*<AudioComponent />*/}
               <LanguageSelector router={router} lang={lang} />
@@ -179,7 +179,7 @@ const Header = ({
         onClose={setMobileMenuOpen}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
               <Link href={`/${lang}/home`}>
@@ -214,7 +214,7 @@ const Header = ({
                     onClick={() => {
                       closeMenu();
                     }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-100/80 dark:hover:bg-black/80"
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
                   >
                     <>{item.name}</>
                   </Link>

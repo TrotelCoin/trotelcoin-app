@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-export const version: string = "0.9.2";
+export const version: string = "1.0.0";
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -45,7 +45,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-800/10 transition-opacity" />
+          <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-700/10 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
@@ -59,9 +59,9 @@ const Changelogs = ({ lang }: { lang: string }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 bg-white dark:bg-gray-900 text-left transition-all my-8 w-full max-w-2xl p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 bg-white dark:bg-gray-800 text-left transition-all my-8 w-full max-w-2xl p-6">
                 <button
-                  className="absolute top-4 right-4 p-1 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-full"
+                  className="absolute top-4 right-4 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full"
                   onClick={hide}
                 >
                   <svg
@@ -105,18 +105,18 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- We added a leaderboard on a specific page"
-                        : "- On a ajouté un classement sur une page spécifique"}
+                        ? "- You can stake your TROTEL now"
+                        : "- Tu peux staker tes TROTEL maintenant"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- We added lives depending on your quizzes answers"
-                        : "- On a ajouté des vies en fonction de tes réponses aux quiz"}
+                        ? "- You can claim your TROTEL now"
+                        : "- Tu peux récupérer tes TROTEL maintenant"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- You can stake your TrotelCoins now"
-                        : "- Tu peux staker tes TrotelCoins maintenant"}
+                        ? "- You can send your TROTEL and MATIC now"
+                        : "- Tu peux envoyer tes TROTEL et MATIC maintenant"}
                     </p>
                   </div>
                   <div className="mt-8">
@@ -125,8 +125,8 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- We will be having a lot of events on our Discord"
-                        : "- On va organiser beaucoup d'événements sur notre Discord"}
+                        ? "- We organize daily quizzes on the Discord"
+                        : "- On organise des quiz quotidiens sur le Discord"}
                     </p>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
@@ -142,8 +142,8 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     </h2>
                     <p className="text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
-                        ? "- You'll be able to claim your TrotelCoins from a dashboard"
-                        : "- Vous pourrez réclamer vos TrotelCoins depuis un dashboard"}
+                        ? "- Some secrets..."
+                        : "- Quelques secrets..."}
                     </p>
                   </div>
                 </div>

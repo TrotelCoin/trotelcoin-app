@@ -36,7 +36,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   return (
     <>
       <div
-        className={`col-span-2 md:col-span-4 bg-gray-50 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 text-center rounded-lg p-8 dark:bg-gray-900 text-gray-900 dark:text-gray-100 ${
+        className={`col-span-2 md:col-span-4 bg-gray-100 flex items-center border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 text-center rounded-lg p-8 dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
           alreadyAnsweredSatisfaction &&
           "hidden animate__animated animate__fadeOut"
         }`}
@@ -54,8 +54,8 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                   onClick={() => setSelectedNumber(number)}
                   className={`m-1 w-10 h-10 rounded-lg ${
                     selectedNumber === number
-                      ? "bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-gray-100 dark:text-gray-900"
-                      : "bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100"
+                      ? "bg-gray-900 hover:bg-gray-700 dark:bg-white dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                      : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-100 text-gray-900 dark:text-gray-100"
                   } cursor-pointer text-xl flex items-center justify-center`}
                 >
                   {number}
@@ -66,7 +66,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           <div className="w-1/2 mx-auto">
             <button
               onClick={() => satisfactionResult(selectedNumber as number)}
-              className="mt-2 text-sm font-semibold rounded-full px-6 py-2 bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+              className="mt-2 text-sm font-semibold rounded-full px-6 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
             >
               {lang === "en" ? <>Submit</> : <>Envoyer</>}
             </button>
