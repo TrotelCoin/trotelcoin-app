@@ -1,18 +1,30 @@
-import trotelCoinLearningABI from "@/abi/trotelCoinLearning";
-import { trotelCoinLearningAddress } from "@/data/web3/addresses";
+"use client";
+
+import { trotelCoinAddress } from "@/data/web3/addresses";
 import { DictType } from "@/types/types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
+import { useToken } from "wagmi";
 
 const TrotelCoinsDistributed = ({ dict }: { dict: DictType }) => {
-  const { data: trotelCoinsDistributed } = useContractRead({
+  const [trotelCoinsDistributed, setTrotelCoinsDistributed] = useState<
+    number | null
+  >(null);
+
+  const { data } = useToken({
     chainId: polygon.id,
-    abi: trotelCoinLearningABI,
-    address: trotelCoinLearningAddress,
-    functionName: "totalRewards",
-    watch: true,
+
+    address: trotelCoinAddress,
   });
+
+  useEffect(() => {
+    if (data) {
+      const totalSupply = parseFloat(data.totalSupply.formatted);
+      const initialSupply = 100000000;
+
+      setTrotelCoinsDistributed(totalSupply - initialSupply);
+    }
+  }, [data]);
 
   return (
     <>
@@ -22,13 +34,7 @@ const TrotelCoinsDistributed = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {trotelCoinsDistributed ? (
             <>
-              {Math.floor(
-                parseFloat(
-                  (parseFloat(trotelCoinsDistributed as string) / 1e18).toFixed(
-                    0
-                  )
-                )
-              )}{" "}
+              {Math.floor(trotelCoinsDistributed)}{" "}
               <span className="hidden md:inline">💸</span>
             </>
           ) : (
