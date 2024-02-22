@@ -1,10 +1,11 @@
+"use client";
+
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { Web3Button, useContract, useContractWrite } from "@thirdweb-dev/react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
 import Fail from "@/app/[lang]/components/fail";
-import { Address } from "viem";
 import { parseEther } from "viem";
 import "animate.css";
 import Success from "@/app/[lang]/components/success";
@@ -21,7 +22,7 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   );
 
   const approve = (amount: number) => {
-    if (!Boolean(amount) || amount <= 0) {
+    if (!amount || amount <= 0) {
       setAmountMessage(true);
       return;
     }
@@ -29,7 +30,7 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
     const approveAmount = parseEther(amount.toString());
 
     mutateAsync({
-      args: [trotelCoinStakingV1 as Address, approveAmount],
+      args: [trotelCoinStakingV1, approveAmount],
     });
   };
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import Period from "@/app/[lang]/wallet/components/period";
@@ -61,7 +63,7 @@ const Staking = ({ lang }: { lang: Lang }) => {
             {lang === "en" ? <>Earn TrotelCoins</> : <>Gagne des TrotelCoins</>}
           </span>
           <div>
-            <span className="text-4xl text-green-500 dark:text-green-300">
+            <span className="text-4xl font-bold text-green-500 dark:text-green-300">
               {APY}%{" "}
               <span className="text-base text-gray-700 dark:text-gray-300">
                 APR

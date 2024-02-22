@@ -16,8 +16,6 @@ import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import Changelogs from "@/app/[lang]/components/changelogs";
 import { useAddress, useUser } from "@thirdweb-dev/react";
 import LifeContext from "@/app/[lang]/lifeProvider";
-import { supabase } from "@/lib/supabase/db";
-import { Address } from "viem";
 
 export const metadata = {
   title: "TrotelCoin App",

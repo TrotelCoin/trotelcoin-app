@@ -1,3 +1,5 @@
+"use client";
+
 import { Lang } from "@/types/types";
 import { useTokenBalance, useContract } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";

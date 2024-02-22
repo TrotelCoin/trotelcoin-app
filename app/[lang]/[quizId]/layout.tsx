@@ -20,8 +20,7 @@ import CoursesSatisfaction from "@/app/[lang]/[quizId]/components/coursesSatisfa
 import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
 import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
 import CurrentCourse from "@/app/[lang]/[quizId]/components/currentCourse";
-import { getTierByQuizId } from "@/utils/getByquizId";
-import { getAvailabilityByQuizId } from "@/utils/getByquizId";
+import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
 
 const CoursePage = ({
   params: { lang, quizId },

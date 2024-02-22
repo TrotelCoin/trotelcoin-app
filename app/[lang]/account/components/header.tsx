@@ -1,8 +1,6 @@
 import { DictType, Lang } from "@/types/types";
-import { shortenAddress } from "@thirdweb-dev/react";
-import { useEffect, useState } from "react";
-import { Address, Log } from "viem";
-import { useAddress } from "@thirdweb-dev/react";
+import { shortenAddress, useAddress } from "@thirdweb-dev/react";
+import { Address } from "viem";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {
