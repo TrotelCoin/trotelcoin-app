@@ -144,7 +144,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
           <div className="flex justify-between">
             <span>{lang === "en" ? "Your address" : "Ton addresse"}</span>
             <div
-              className="cursor-pointer"
+              className="cursor-pointer hover:text-green-500 dark:hover:text-green-300"
               onClick={() => {
                 if (address) {
                   navigator.clipboard.writeText(address);
