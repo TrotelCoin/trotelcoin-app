@@ -72,17 +72,23 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         const lastUpdated = new Date(streakCountdown);
         const now = new Date();
         const difference = now.getTime() - lastUpdated.getTime();
-        const cooldown = 86400000 - difference;
-        const cooldownString = new Date(cooldown).toISOString();
-        const time = cooldownString.split("T")[1].split(".")[0];
-        setStreakCooldown(time);
+        if (difference > 86400000) {
+          setStreakCooldown(
+            lang === "en" ? "Increase your streak" : "Augmente ta série"
+          );
+        } else {
+          const cooldown = 86400000 - difference;
+          const cooldownString = new Date(cooldown).toISOString();
+          const time = cooldownString.split("T")[1].split(".")[0];
+          setStreakCooldown(time);
+        }
       } else {
         setStreakCooldown("00:00:00");
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [streakCountdown]);
+  }, [streakCountdown, lang]);
 
   return (
     <>
