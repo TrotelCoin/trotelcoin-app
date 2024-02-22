@@ -7,7 +7,7 @@ import { Lang } from "@/types/types";
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
+      <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100 whitespace-normal break-words">
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
           Terms of Service
         </h1>

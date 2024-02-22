@@ -1,5 +1,5 @@
 import { DictType, Lang } from "@/types/types";
-import { shortenAddress, useAddress } from "@thirdweb-dev/react";
+import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
@@ -14,6 +14,7 @@ import Rank from "@/app/[lang]/account/components/rank";
 import Balance from "@/app/[lang]/account/components/balance";
 import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/numberOfQuizzesAnswered";
 import TotalRewardsPending from "@/app/[lang]/account/components/totalRewardsPending";
+import shortenAddress from "@/utils/shortenAddress";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   const address = useAddress();
