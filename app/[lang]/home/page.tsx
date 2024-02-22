@@ -11,42 +11,15 @@ import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
-import { Lessons, Lesson, Lang, DictType } from "@/types/types";
+import { Lessons, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
 import Form from "@/app/[lang]/home/components/form";
-
-function filterByCategory(lesson: Lessons, searchTerm: any) {
-  return lesson.category.toLowerCase().includes(searchTerm);
-}
-
-function filterByTitleOrDescription(
-  course: Lesson,
-  searchTerm: string,
-  lang: Lang
-) {
-  switch (lang) {
-    case "en":
-      return (
-        course.title.en.toLowerCase().includes(searchTerm) ||
-        course.description.en.toLowerCase().includes(searchTerm)
-      );
-    case "fr":
-      return (
-        course.title.fr.toLowerCase().includes(searchTerm) ||
-        course.description.fr.toLowerCase().includes(searchTerm)
-      );
-    default:
-      return (
-        course.title.en.toLowerCase().includes(searchTerm) ||
-        course.description.en.toLowerCase().includes(searchTerm)
-      );
-  }
-}
-
-function lessonsLength(lessons: Lessons[]) {
-  return lessons.flatMap((lesson) => lesson.courses).length;
-}
+import {
+  filterByCategory,
+  filterByTitleOrDescription,
+  lessonsLength,
+} from "@/utils/courses";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState("");
