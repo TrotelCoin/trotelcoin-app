@@ -5,10 +5,10 @@ import React, { useState, useEffect } from "react";
 import Token from "@/app/[lang]/wallet/components/sendAndReceive/token";
 import TokenAmount from "@/app/[lang]/wallet/components/sendAndReceive/tokenAmount";
 import SendButton from "@/app/[lang]/wallet/components/sendAndReceive/sendButton";
-import { useBalance } from "wagmi";
+import { useBalance, useEnsName } from "wagmi";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address, isAddress } from "viem";
-import { polygon } from "viem/chains";
+import { mainnet, polygon } from "viem/chains";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import ReceiverInput from "@/app/[lang]/wallet/components/sendAndReceive/receiverInput";
 import Success from "@/app/[lang]/components/modals/success";
@@ -28,8 +28,22 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
   >(null);
   const [addressCopied, setAddressCopied] = useState<boolean>(false);
   const [addressDisplay, setAddressDisplay] = useState<Address | null>(null);
+  const [ensName, setEnsName] = useState<string | null>(null);
 
   const address = useAddress();
+
+  const { data: ens } = useEnsName({
+    address: address as Address,
+    chainId: mainnet.id,
+  });
+
+  useEffect(() => {
+    if (ens) {
+      setEnsName(ens);
+    } else {
+      setEnsName(null);
+    }
+  }, [ens]);
 
   const { data: matic } = useBalance({
     address: address as Address,
@@ -144,15 +158,19 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
           <div className="flex justify-between">
             <span>{lang === "en" ? "Your address" : "Ton addresse"}</span>
             <div className="flex items-center gap-1">
-              {addressDisplay
-                ? shortenAddress(addressDisplay)
-                : lang === "en"
-                ? "Not connected"
-                : "Non connecté"}{" "}
+              {ensName ??
+                (addressDisplay
+                  ? shortenAddress(addressDisplay)
+                  : lang === "en"
+                  ? "Not connected"
+                  : "Non connecté")}{" "}
               <span
                 className="cursor-pointer hover:text-blue-500 dark:hover:text-blue-300"
                 onClick={() => {
-                  if (address) {
+                  if (ensName) {
+                    navigator.clipboard.writeText(ensName);
+                    setAddressCopied(true);
+                  } else if (address) {
                     navigator.clipboard.writeText(address);
                     setAddressCopied(true);
                   }

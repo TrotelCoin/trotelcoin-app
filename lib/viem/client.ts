@@ -1,7 +1,5 @@
-import { createPublicClient, http, createWalletClient, Address } from "viem";
-import { polygon } from "viem/chains";
-import { ethers } from "ethers";
-import { config } from "dotenv";
+import { createPublicClient, http, createWalletClient } from "viem";
+import { mainnet, polygon } from "viem/chains";
 
 export const publicClient = createPublicClient({
   chain: polygon,
@@ -10,5 +8,10 @@ export const publicClient = createPublicClient({
 
 export const walletClient = createWalletClient({
   chain: polygon,
+  transport: http(),
+});
+
+export const ensClient = createPublicClient({
+  chain: mainnet,
   transport: http(),
 });
