@@ -22,7 +22,12 @@ const AvailableToClaim = ({ lang }: { lang: Lang }) => {
         }
       );
       const data = await result.json();
-      setAvailableToClaim(data);
+      console.log(data);
+      if (data) {
+        setAvailableToClaim(data);
+      } else {
+        setAvailableToClaim(0);
+      }
     };
 
     if (address) {
@@ -41,7 +46,9 @@ const AvailableToClaim = ({ lang }: { lang: Lang }) => {
       <div className="flex justify-between">
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
-          {parseFloat(availableToClaim?.toFixed(2) as string) ?? 0}{" "}
+          {availableToClaim && typeof availableToClaim === "number"
+            ? parseFloat(availableToClaim.toFixed(2))
+            : 0}{" "}
           <span className="font-semibold">TROTEL</span>
         </div>
       </div>
