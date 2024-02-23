@@ -93,7 +93,7 @@ const StakingButton = ({
         stakingDuration = 7862400;
         break;
       case 182:
-        stakingDuration = 16588800;
+        stakingDuration = 15724800;
         break;
       case 365:
         stakingDuration = 31536000;
