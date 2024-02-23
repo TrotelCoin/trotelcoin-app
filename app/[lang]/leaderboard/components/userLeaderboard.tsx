@@ -17,14 +17,15 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
 
   const address = useAddress();
 
-  const result = useEnsName({
+  const { data: result } = useEnsName({
     address: address as Address,
     chainId: mainnet.id,
+    enabled: Boolean(address),
   });
 
   useEffect(() => {
     if (result) {
-      setEnsName(result.data as string);
+      setEnsName(result as string);
     } else {
       setEnsName(null);
     }
