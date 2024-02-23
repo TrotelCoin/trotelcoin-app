@@ -67,28 +67,32 @@ const SendButton = ({
       return;
     }
 
-    if (token === "MATIC") {
-      await mutateAsyncMatic({
-        to: receiverAddress,
-        amount: amount,
-      });
-    } else if (token === "TROTEL") {
-      const trotelAmount = BigNumber.from(
-        parseEther(amount.toString()).toString()
-      );
-      await mutateAsyncTrotel({
-        args: [receiverAddress, trotelAmount],
-      });
-    } else if (token === "USDC") {
-      const usdcAmount = BigNumber.from(
-        parseEther(amount.toString()).toString()
-      );
-      await mutateAsyncUsdc({
-        args: [receiverAddress, usdcAmount],
-      });
-    } else {
-      setNoTokenMessage(true);
-      return;
+    try {
+      if (token === "MATIC") {
+        await mutateAsyncMatic({
+          to: receiverAddress,
+          amount: amount,
+        });
+      } else if (token === "TROTEL") {
+        const trotelAmount = BigNumber.from(
+          parseEther(amount.toString()).toString()
+        );
+        await mutateAsyncTrotel({
+          args: [receiverAddress, trotelAmount],
+        });
+      } else if (token === "USDC") {
+        const usdcAmount = BigNumber.from(
+          parseEther(amount.toString()).toString()
+        );
+        await mutateAsyncUsdc({
+          args: [receiverAddress, usdcAmount],
+        });
+      } else {
+        setNoTokenMessage(true);
+        return;
+      }
+    } catch (error) {
+      console.error(error);
     }
 
     setIsLoading(false);

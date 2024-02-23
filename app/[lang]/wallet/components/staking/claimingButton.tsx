@@ -76,7 +76,11 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
       return;
     }
 
-    await mutateAsync({ args: [] });
+    try {
+      await mutateAsync({ args: [] });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

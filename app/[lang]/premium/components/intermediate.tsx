@@ -192,9 +192,15 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               )}
               {isEligible && !isClaimed && (
                 <button
-                  onClick={async () =>
-                    await mutateAsync({ args: [address as Address] })
-                  }
+                  onClick={async () => {
+                    try {
+                      await mutateAsync({ args: [address as Address] });
+                    } catch (error) {
+                      console.error(error);
+                      setErrorMessage(true);
+                      return;
+                    }
+                  }}
                   className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
