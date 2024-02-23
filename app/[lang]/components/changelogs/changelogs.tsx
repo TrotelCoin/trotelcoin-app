@@ -97,7 +97,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     Changelogs
                   </Dialog.Title>
                   <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                    February 19, 2024 - v{version}
+                    {date} - v{version}
                   </p>
                   <div className="mt-8">
                     <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
