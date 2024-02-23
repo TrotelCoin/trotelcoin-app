@@ -25,7 +25,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     if (result) {
-      setEnsName(result as string);
+      setEnsName(result);
     } else {
       setEnsName(null);
     }

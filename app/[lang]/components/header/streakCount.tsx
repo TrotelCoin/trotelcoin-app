@@ -125,7 +125,11 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               </p>
               {streakCooldown && (
                 <p>
-                  {lang === "en" ? "Reset in:" : "Réinitialisation dans:"}{" "}
+                  {streakCooldown !==
+                    ("Increase your streak" || "Augmente ta série") &&
+                    (lang === "en"
+                      ? "Reset in:"
+                      : "Réinitialisation dans:")}{" "}
                   {streakCooldown}
                 </p>
               )}
