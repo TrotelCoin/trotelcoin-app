@@ -91,6 +91,7 @@
     "web3": "^4.1.2"
   },
   "devDependencies": {
+    "@capacitor/cli": "^5.7.0",
     "@types/js-cookie": "^3.0.6",
     "@types/react": "18.2.22",
     "@types/react-google-recaptcha": "^2.1.7",
