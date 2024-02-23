@@ -9,6 +9,7 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
 import Success from "@/app/[lang]/components/modals/success";
+import { BigNumber } from "ethers";
 
 const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   const [amountMessage, setAmountMessage] = useState<boolean>(false);
@@ -28,7 +29,9 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
       return;
     }
 
-    const approveAmount = parseEther(amount.toString());
+    const approveAmount = BigNumber.from(
+      parseEther(amount.toString()).toString()
+    );
 
     try {
       await mutateAsync({
