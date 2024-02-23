@@ -30,9 +30,13 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
 
     const approveAmount = parseEther(amount.toString());
 
-    await mutateAsync({
-      args: [trotelCoinStakingV1, approveAmount],
-    });
+    try {
+      await mutateAsync({
+        args: [trotelCoinStakingV1, approveAmount],
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

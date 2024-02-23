@@ -103,9 +103,13 @@ const StakingButton = ({
 
     const stakingAmount = parseEther(amount.toString());
 
-    await mutateAsync({
-      args: [stakingAmount, stakingDuration],
-    });
+    try {
+      await mutateAsync({
+        args: [stakingAmount, stakingDuration],
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

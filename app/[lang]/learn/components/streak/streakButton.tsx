@@ -49,7 +49,7 @@ const StreakButton = ({
         }}
       >
         <span className="text-2xl md:text-4xl text-center mx-auto">
-          {!disabled ? "🔥" : "⏳"}
+          {!address ? "❌" : !disabled ? "🔥" : "⏳"}
         </span>
       </button>
     </>
