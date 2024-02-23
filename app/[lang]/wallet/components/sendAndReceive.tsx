@@ -35,6 +35,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
   const { data: ens } = useEnsName({
     address: address as Address,
     chainId: mainnet.id,
+    enabled: Boolean(address),
   });
 
   useEffect(() => {
