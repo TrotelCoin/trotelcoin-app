@@ -3,7 +3,7 @@
 import { Lang } from "@/types/types";
 import {
   useAddress,
-  useBalance,
+  useTokenBalance,
   useContract,
   useContractRead,
 } from "@thirdweb-dev/react";
@@ -20,13 +20,19 @@ const StakingData = ({ lang }: { lang: Lang }) => {
 
   const address = useAddress();
 
-  const { data: balance } = useBalance(trotelCoinAddress);
+  const { contract } = useContract(trotelCoinAddress, "token");
+  const { data: balance } = useTokenBalance(contract, address as Address);
 
   useEffect(() => {
     if (balance && address) {
-      setAvailableTrotelCoins(
-        parseFloat(parseFloat(balance.displayValue).toFixed(2))
+      const availableBalance = parseFloat(
+        parseFloat(balance.displayValue).toFixed(2)
       );
+      if (availableBalance > 0) {
+        setAvailableTrotelCoins(availableBalance);
+      } else {
+        setAvailableTrotelCoins(0);
+      }
     } else {
       setAvailableTrotelCoins(0);
     }
