@@ -3,7 +3,17 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
+const formatDate = (date: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
+};
+
 export const version: string = "1.1.1";
+export const date: string = formatDate(new Date().toISOString());
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
