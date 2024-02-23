@@ -72,10 +72,17 @@ const RewardsButton = ({
         const gasAmount: string = "0.02";
 
         // make transaction to pay central wallet
-        await mutateAsync({
-          to: centralWalletAddress,
-          amount: gasAmount,
-        });
+        try {
+          await mutateAsync({
+            to: centralWalletAddress,
+            amount: gasAmount,
+          });
+        } catch (error) {
+          console.error(error);
+          setErrorMessage(true);
+          setIsLoading(false);
+          return;
+        }
 
         setAvailableToClaim(0);
 
