@@ -3,7 +3,17 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
+const formatDate = (date: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
+};
+
 export const version: string = "1.1.1";
+export const date: string = formatDate(new Date().toISOString());
 
 const Changelogs = ({ lang }: { lang: string }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
@@ -87,7 +97,7 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     Changelogs
                   </Dialog.Title>
                   <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                    February 19, 2024 - v{version}
+                    {date} - v{version}
                   </p>
                   <div className="mt-8">
                     <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
