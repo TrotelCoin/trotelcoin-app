@@ -15,7 +15,7 @@ const TotalStaked = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     if (balance) {
-      setTotalStaked(parseFloat(parseFloat(balance.displayValue).toFixed(2)));
+      setTotalStaked(parseFloat(parseFloat(balance.displayValue).toFixed(0)));
     }
   }, [balance]);
 

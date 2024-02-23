@@ -153,7 +153,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
           <div className="flex justify-between">
             <span>{lang === "en" ? "Balance" : "Solde"}</span>
             <div>
-              {balance?.toFixed(2) ?? 0}{" "}
+              {balance?.toFixed(0) ?? 0}{" "}
               <span className="font-semibold">{token ?? "TROTEL"}</span>
             </div>
           </div>

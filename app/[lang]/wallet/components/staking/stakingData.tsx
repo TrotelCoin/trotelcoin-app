@@ -26,7 +26,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     if (balance && address) {
       const availableBalance = parseFloat(
-        parseFloat(balance.displayValue).toFixed(2)
+        parseFloat(balance.displayValue).toFixed(0)
       );
       if (availableBalance > 0) {
         setAvailableTrotelCoins(availableBalance);
