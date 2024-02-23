@@ -14,6 +14,7 @@ import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, parseEther } from "viem";
 import "animate.css";
+import { BigNumber } from "ethers";
 
 const StakingButton = ({
   lang,
@@ -101,7 +102,9 @@ const StakingButton = ({
         stakingDuration = 0;
     }
 
-    const stakingAmount = parseEther(amount.toString());
+    const stakingAmount = BigNumber.from(
+      parseEther(amount.toString()).toString()
+    );
 
     try {
       await mutateAsync({
