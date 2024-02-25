@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       { success: "Satisfaction recorded." },
-      { status: 200 }
+      { status: 200, headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
     console.error(error);

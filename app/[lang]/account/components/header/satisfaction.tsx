@@ -12,6 +12,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       });

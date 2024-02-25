@@ -20,6 +20,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       }).then((response) => response.json());

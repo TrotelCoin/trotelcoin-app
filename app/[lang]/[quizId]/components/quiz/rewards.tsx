@@ -45,6 +45,7 @@ const Rewards = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
           cache: "no-store",
         }
@@ -59,6 +60,8 @@ const Rewards = ({
       console.error("Error:", error);
       setClaimingError(true);
     }
+
+    setClaimingLoading(false);
   };
 
   useEffect(() => {
@@ -67,7 +70,10 @@ const Rewards = ({
         `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
         {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
           cache: "no-store",
         }
       )
@@ -86,6 +92,10 @@ const Rewards = ({
 
     if (address && quizId) {
       fetchAlreadyAnsweredQuiz();
+
+      const interval = setInterval(fetchAlreadyAnsweredQuiz, 10000);
+
+      return () => clearInterval(interval);
       console.log(hasAlreadyAnswered);
     } else {
       setHasAlreadyAnswered(false);

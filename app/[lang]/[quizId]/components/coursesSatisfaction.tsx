@@ -27,6 +27,7 @@ const CoursesSatisfaction = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
           cache: "no-store",
         }
@@ -50,6 +51,7 @@ const CoursesSatisfaction = ({
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
           cache: "no-store",
         }

@@ -16,6 +16,7 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-store",
       },
       cache: "no-store",
     });
@@ -29,6 +30,7 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       })

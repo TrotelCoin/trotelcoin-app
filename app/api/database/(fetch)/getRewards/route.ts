@@ -47,7 +47,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
     // calculate rewards
     const calculatedRewards = calculateRewards(remainingRewards);
 
-    return NextResponse.json(calculatedRewards, { status: 200 });
+    return NextResponse.json(calculatedRewards, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

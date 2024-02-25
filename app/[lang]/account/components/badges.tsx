@@ -87,6 +87,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
           cache: "no-store",
         }
@@ -115,6 +116,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
           cache: "no-store",
         }

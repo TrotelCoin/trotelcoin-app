@@ -17,6 +17,7 @@ const Claim = ({ lang }: { lang: Lang }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       });
@@ -27,6 +28,10 @@ const Claim = ({ lang }: { lang: Lang }) => {
     };
 
     fetchCentralWalletAddress();
+
+    const interval = setInterval(fetchCentralWalletAddress, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -16,7 +16,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     if (result[0] && "count" in result[0]) {
-      return NextResponse.json(result[0].count, { status: 200 });
+      return NextResponse.json(result[0].count, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     } else {
       return NextResponse.json(
         { error: "Something went wrong." },

@@ -24,7 +24,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     // return courses
     if (courses) {
-      return NextResponse.json(courses, { status: 200 });
+      return NextResponse.json(courses, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     } else {
       return NextResponse.json(
         { error: "Something went wrong." },

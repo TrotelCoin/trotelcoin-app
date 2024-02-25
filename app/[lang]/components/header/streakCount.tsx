@@ -20,6 +20,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       })
@@ -47,7 +48,10 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         `/api/database/streak?wallet=${address as Address}`,
         {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
           cache: "no-store",
         }
       );

@@ -15,5 +15,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
   return NextResponse.json(result[0].max_streak, {
     status: 200,
+    headers: { "Cache-Control": "no-store" },
   });
 }

@@ -13,6 +13,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET",
       "Access-Control-Allow-Headers": "Content-Type",
+      "Cache-Control": "no-store",
     },
   });
 }
