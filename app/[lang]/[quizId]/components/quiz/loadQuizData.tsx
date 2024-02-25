@@ -13,7 +13,7 @@ export const loadQuizData = async (
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Cache-Control": "no-store
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       }
