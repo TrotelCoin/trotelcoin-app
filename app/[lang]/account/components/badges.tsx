@@ -36,7 +36,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     if (balance) {
       setTrotelCoinBalance(parseFloat(balance.data?.formatted as string));
     } else {
-      setTrotelCoinBalance(0);
+      setTrotelCoinBalance(null);
     }
   }, [balance]);
 
@@ -104,7 +104,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
       return () => clearInterval(interval);
     } else {
-      setMaxStreak(0);
+      setMaxStreak(null);
     }
   }, [address]);
 
@@ -132,7 +132,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
       return () => clearInterval(interval);
     } else {
-      setQuizzesAnswered(0);
+      setQuizzesAnswered(null);
     }
   }, [address]);
 
