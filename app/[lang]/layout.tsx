@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
     images: [
       {
-        url: "https://app.trotelcoin.com/assets/logo/trotelcoin.png",
+        url: "/assets/banner/trotelcoin-banner.png",
         width: 800,
         height: 600,
         alt: "TrotelCoin App",
@@ -62,7 +62,7 @@ export const jsonLd = {
   "@context": "https://app.trotelcoin.com/",
   "@type": "Product",
   name: "TrotelCoin",
-  image: "/assets/logo/trotelcoin.png",
+  image: "/assets/banner/trotelcoin-banner.png",
   description:
     "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
 };
