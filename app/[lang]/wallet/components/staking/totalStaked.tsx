@@ -4,7 +4,6 @@ import { Lang } from "@/types/types";
 import { useTokenBalance, useContract } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import { Address } from "viem";
 
 const TotalStaked = ({ lang }: { lang: Lang }) => {
   const [totalStaked, setTotalStaked] = useState<number>(0);
