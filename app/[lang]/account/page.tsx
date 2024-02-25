@@ -51,7 +51,7 @@ export default function Account({
           <>
             <HeaderSection dict={dict} lang={lang} />
             <LevelSection dict={dict} />
-            <BadgesSection dict={dict} />
+            <BadgesSection dict={dict as DictType} lang={lang} />
           </>
         ) : (
           <>
