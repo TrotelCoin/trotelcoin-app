@@ -58,7 +58,7 @@ const TotalRewards = ({ dict }: { dict: DictType }) => {
             <>
               <span className="font-semibold">
                 {tokensEarned ? (
-                  <span>{Math.floor(tokensEarned)}</span>
+                  <span>{Math.floor(tokensEarned).toLocaleString("en-US")}</span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0

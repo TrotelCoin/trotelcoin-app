@@ -43,7 +43,7 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {numberOfQuizzesAnswered ? (
             <>
-              {Math.floor(numberOfQuizzesAnswered)}{" "}
+              {Math.floor(numberOfQuizzesAnswered).toLocaleString("en-US")}{" "}
               <span className="hidden md:inline">📚</span>
             </>
           ) : (

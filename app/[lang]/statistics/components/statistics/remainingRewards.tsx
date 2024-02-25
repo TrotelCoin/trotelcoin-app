@@ -37,7 +37,7 @@ const RemainingRewards = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {remainingRewards ? (
             <>
-              {Math.floor(remainingRewards)}{" "}
+              {Math.floor(remainingRewards).toLocaleString("en-US")}{" "}
               <span className="hidden md:inline">⏳</span>
             </>
           ) : (

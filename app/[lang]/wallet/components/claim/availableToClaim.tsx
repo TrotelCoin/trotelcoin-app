@@ -48,8 +48,8 @@ const AvailableToClaim = ({ lang }: { lang: Lang }) => {
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
           {availableToClaim && typeof availableToClaim === "number"
-            ? parseFloat(availableToClaim.toFixed(2))
-            : 0}{" "}
+            ? availableToClaim.toFixed(2).toLocaleString()
+            : "0"}{" "}
           <span className="font-semibold">TROTEL</span>
         </div>
       </div>
