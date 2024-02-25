@@ -96,7 +96,6 @@ const Rewards = ({
       const interval = setInterval(fetchAlreadyAnsweredQuiz, 10000);
 
       return () => clearInterval(interval);
-      console.log(hasAlreadyAnswered);
     } else {
       setHasAlreadyAnswered(false);
     }
