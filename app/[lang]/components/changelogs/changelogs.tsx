@@ -12,7 +12,7 @@ const formatDate = (date: string) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-export const version: string = "1.1.1";
+export const version: string = "1.0.9";
 export const date: string = formatDate(new Date().toISOString());
 
 const Changelogs = ({ lang }: { lang: string }) => {
@@ -132,6 +132,11 @@ const Changelogs = ({ lang }: { lang: string }) => {
                       {lang === "en"
                         ? "- We support ENS now"
                         : "- On supporte ENS maintenant"}
+                    </p>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en"
+                        ? "- We are adding badges"
+                        : "- On ajoute des badges"}
                     </p>
                   </div>
                   <div className="mt-8">
