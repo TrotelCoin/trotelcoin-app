@@ -18,6 +18,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     );
     return NextResponse.json(total_rewards_pending_sum, {
       status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
   }
 }

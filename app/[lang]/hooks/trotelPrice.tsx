@@ -15,6 +15,7 @@ const TrotelPrice = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
         });
         const data = await response.json();

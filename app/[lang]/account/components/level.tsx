@@ -58,6 +58,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       })

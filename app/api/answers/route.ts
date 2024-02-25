@@ -32,5 +32,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ result: "Language not found" }, { status: 404 });
   }
 
-  return NextResponse.json(answersInLanguage, { status: 200 });
+  return NextResponse.json(answersInLanguage, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

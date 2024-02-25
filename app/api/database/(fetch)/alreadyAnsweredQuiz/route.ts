@@ -42,6 +42,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(answeredValue, {
       status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
     console.error(error);

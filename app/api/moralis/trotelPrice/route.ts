@@ -19,7 +19,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const tokenPrice = response.raw.usdPrice;
 
-    return NextResponse.json(tokenPrice, { status: 200 });
+    return NextResponse.json(tokenPrice, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   } catch (error) {
     return NextResponse.json(
       { error: "Error fetching token price" },

@@ -20,6 +20,7 @@ const StreakButton = ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Cache-Control": "no-store",
       },
       cache: "no-store",
     });

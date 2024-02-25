@@ -96,7 +96,10 @@ const LifeCount = ({
         `/api/database/resetLifeCount?wallet=${address as Address}`,
         {
           method: "GET",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
           cache: "no-store",
         }
       );

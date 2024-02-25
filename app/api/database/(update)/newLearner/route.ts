@@ -44,13 +44,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       return NextResponse.json(
         { success: "New learner added." },
-        { status: 200 }
+        { status: 200, headers: { "Cache-Control": "no-store" } }
       );
     }
 
     return NextResponse.json(
       { success: "Learner already exists." },
-      { status: 200 }
+      { status: 200, headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
     console.error(error);

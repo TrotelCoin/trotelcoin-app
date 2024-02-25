@@ -36,6 +36,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (result[0] && "remaining_rewards" in result[0]) {
       return NextResponse.json(result[0].remaining_rewards, {
         status: 200,
+        headers: { "Cache-Control": "no-store" },
       });
     } else {
       return NextResponse.json(

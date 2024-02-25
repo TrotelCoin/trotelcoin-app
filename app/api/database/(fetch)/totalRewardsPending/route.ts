@@ -20,6 +20,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   } else if (result[0] && "total_rewards_pending" in result[0]) {
     return NextResponse.json(result[0].total_rewards_pending, {
       status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
   } else {
     return NextResponse.json(

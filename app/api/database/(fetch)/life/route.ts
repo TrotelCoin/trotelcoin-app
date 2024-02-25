@@ -40,7 +40,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
         );
       }
 
-      return NextResponse.json(3, { status: 200 });
+      return NextResponse.json(3, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     } else {
       life = result[0].life;
     }
@@ -65,7 +68,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
       }
     }
 
-    return NextResponse.json(result[0].life, { status: 200 });
+    return NextResponse.json(result[0].life, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

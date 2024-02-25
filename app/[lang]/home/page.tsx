@@ -89,6 +89,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Cache-Control": "no-store",
           },
           cache: "no-store",
         }

@@ -20,8 +20,6 @@ import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
 import LifeProvider from "@/app/[lang]/lifeProvider";
 
-export const revalidate = 10; // revalidate every 10 seconds
-
 export const metadata: Metadata = {
   title: "TrotelCoin App",
   description:

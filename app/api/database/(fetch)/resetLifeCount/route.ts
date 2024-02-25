@@ -22,7 +22,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (response.data.length > 0) {
       const lastResetAt = response.data[0].last_reset_at;
-      return NextResponse.json(lastResetAt, { status: 200 });
+      return NextResponse.json(lastResetAt, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     } else {
       return NextResponse.json(
         { error: "User doesn't exists." },

@@ -57,6 +57,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(result[0].life - 1, {
       status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
     console.error(error);

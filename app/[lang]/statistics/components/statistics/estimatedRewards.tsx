@@ -10,6 +10,7 @@ const EstimatedRewards = ({ dict }: { dict: DictType }) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "Cache-Control": "no-store",
         },
         cache: "no-store",
       });
