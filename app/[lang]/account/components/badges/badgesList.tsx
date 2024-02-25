@@ -12,10 +12,13 @@ const BadgesList = ({
 }) => {
   return (
     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
-      {badges.map(
-        (badge, index) =>
-          badge &&
-          badge.condition && (
+      {badges &&
+        badges.map((badge, index) => {
+          if (!badge || !badge.condition) {
+            return null;
+          }
+
+          return (
             <div
               key={index}
               className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/20 dark:border-gray-100/20`}
@@ -44,8 +47,8 @@ const BadgesList = ({
                 </span>
               </div>
             </div>
-          )
-      )}
+          );
+        })}
     </div>
   );
 };

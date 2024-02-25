@@ -113,7 +113,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       const result = await fetch(
         `/api/database/numberOfQuizzesAnswered?wallet=${address}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             "Cache-Control": "no-store",
@@ -147,13 +147,13 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       id: 2,
       name: lang === "en" ? "Intermediate" : "Intermédiaire",
       image: "🙈",
-      condition: intermediateBalance > 0,
+      condition: intermediateBalance && intermediateBalance > 0,
     },
     {
       id: 3,
       name: lang === "en" ? "Expert" : "Expert",
       image: "🦊",
-      condition: expertBalance > 0,
+      condition: expertBalance && expertBalance > 0,
     },
     {
       id: 4,
