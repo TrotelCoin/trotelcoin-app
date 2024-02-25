@@ -46,7 +46,9 @@ const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
             <>
               <span className="font-semibold">
                 {totalRewardsPending ? (
-                  <span>{Math.floor(totalRewardsPending)}</span>
+                  <span>
+                    {Math.floor(totalRewardsPending).toLocaleString("en-US")}
+                  </span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0

@@ -39,7 +39,8 @@ const NumberOfLearners = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {numberOfLearners ? (
             <>
-              {numberOfLearners} <span className="hidden md:inline">👨‍💻</span>
+              {numberOfLearners.toLocaleString("en-US")}{" "}
+              <span className="hidden md:inline">👨‍💻</span>
             </>
           ) : (
             <span className="animate__animated animate__flash animate__slower animate__infinite">

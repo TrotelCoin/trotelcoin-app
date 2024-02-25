@@ -25,7 +25,8 @@ const TotalStaked = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Total locked" : "Total verrouillé"}</span>
           <div>
-            {totalStaked} <span className="font-semibold">TROTEL</span>
+            {totalStaked.toLocaleString("en-US")}{" "}
+            <span className="font-semibold">TROTEL</span>
           </div>
         </div>
       </div>

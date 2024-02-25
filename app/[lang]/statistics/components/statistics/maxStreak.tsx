@@ -37,7 +37,8 @@ const MaxStreak = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {maxStreak ? (
             <>
-              {maxStreak} <span className="hidden md:inline">🔥</span>
+              {maxStreak.toLocaleString("en-US")}{" "}
+              <span className="hidden md:inline">🔥</span>
             </>
           ) : (
             <span className="animate__animated animate__flash animate__slower animate__infinite">

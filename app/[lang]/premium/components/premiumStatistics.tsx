@@ -39,7 +39,7 @@ const PremiumStatistics = ({ dict }: { dict: DictType }) => {
       <div className="overflow-hidden grid grid-cols-1 md:grid-cols-3 mt-4 text-gray-900 dark:text-gray-100 items-center text-center md:divide-x md:divide-y-0 divide-x-0 divide-y divide-gray-900/20 dark:divide-gray-100/20 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-900/20 dark:border-gray-100/20 blackdrop-blur-xl">
         <div className="items-center flex flex-col py-6">
           <span className="text-2xl md:text-4xl font-semibold">
-            {parseFloat(early as string)}
+            {parseFloat(early as string).toLocaleString("en-US")}
           </span>
           <span>
             {typeof dict?.premium !== "string" && <>{dict?.premium.early}</>}
@@ -47,7 +47,7 @@ const PremiumStatistics = ({ dict }: { dict: DictType }) => {
         </div>
         <div className="items-center flex flex-col py-6">
           <span className="text-2xl md:text-4xl font-semibold">
-            {parseFloat(intermediate as string)}
+            {parseFloat(intermediate as string).toLocaleString("en-US")}
           </span>
           <span>
             {typeof dict?.premium !== "string" && (
@@ -57,7 +57,7 @@ const PremiumStatistics = ({ dict }: { dict: DictType }) => {
         </div>
         <div className="items-center flex flex-col py-6">
           <span className="text-2xl md:text-4xl font-semibold">
-            {parseFloat(expert as string)}
+            {parseFloat(expert as string).toLocaleString("en-US")}
           </span>
           <span>
             {typeof dict?.premium !== "string" && <>{dict?.premium.expert}</>}

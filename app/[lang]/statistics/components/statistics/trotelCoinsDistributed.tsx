@@ -34,7 +34,7 @@ const TrotelCoinsDistributed = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {trotelCoinsDistributed ? (
             <>
-              {Math.floor(trotelCoinsDistributed)}{" "}
+              {Math.floor(trotelCoinsDistributed).toLocaleString("en-US")}{" "}
               <span className="hidden md:inline">💸</span>
             </>
           ) : (

@@ -37,8 +37,9 @@ const EstimatedRewards = ({ dict }: { dict: DictType }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {remainingRewards ? (
             <>
-              {Math.floor(remainingRewards / 10)} {"< 🧠 <"}
-              {Math.floor(remainingRewards / 4)}
+              {Math.floor(remainingRewards / 10).toLocaleString("en-US")}{" "}
+              {"< 🧠 <"}
+              {Math.floor(remainingRewards / 4).toLocaleString("en-US")}
             </>
           ) : (
             <span className="animate__animated animate__flash animate__slower animate__infinite">
