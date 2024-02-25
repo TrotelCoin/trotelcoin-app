@@ -41,7 +41,7 @@ const Streak = ({ dict }: { dict: DictType }) => {
     } else {
       setStreak(0);
       setCooldown("00:00:00");
-      setDisabled(false);
+      setDisabled(true);
     }
   }, [address, streak, maxStreak, disabled]);
 
