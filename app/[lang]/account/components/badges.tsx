@@ -18,7 +18,9 @@ import { useEffect, useState } from "react";
 const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [maxStreak, setMaxStreak] = useState<number | null>(null);
   const [quizzesAnswered, setQuizzesAnswered] = useState<number | null>(null);
-  const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(null);
+  const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
+    null
+  );
 
   const address = useAddress();
 
@@ -27,7 +29,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     address: address as Address,
     enabled: Boolean(address),
     watch: true,
-    token: trotelCoinAddress
+    token: trotelCoinAddress,
   });
 
   useEffect(() => {
@@ -162,8 +164,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "500 quizzes answered" : "500 quiz répondus",
       image: "🌴",
       condition: quizzesAnswered && quizzesAnswered >= 500,
-    
-    }
+    },
     {
       id: 6,
       name: lang === "en" ? "1000 quizzes answered" : "1000 quiz répondus",
