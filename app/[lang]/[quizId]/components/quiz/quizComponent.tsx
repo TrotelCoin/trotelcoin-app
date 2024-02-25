@@ -33,7 +33,7 @@ const QuizComponent = ({
   const [questions, setQuestions] = useState<any>(null);
   const [shuffled, setShuffled] = useState<boolean>(false);
 
-  const { updateLife } = useContext(LifeContext);
+  const { updateLife, life } = useContext(LifeContext);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -184,8 +184,8 @@ const QuizComponent = ({
         <div
           className={`mt-6 animate__animated animate__fadeIn ${
             isCorrect
-              ? "text-green-600 dark:text-green-200"
-              : "text-red-600 dark:text-red-200"
+              ? "text-green-500 dark:text-green-300"
+              : "text-red-500 dark:text-red-300"
           }`}
         >
           {isCorrect
@@ -193,6 +193,15 @@ const QuizComponent = ({
             : `${
                 dict && typeof dict.quiz !== "string" && dict?.quiz.incorrect
               } ${wrongAnswers.join(", ")}`}
+          {!isCorrect && life >= 0 && life <= 3 && (
+            <span className="text-red-500 dark:text-red-300">
+              {lang === "en" ? (
+                <>You have {life} left.</>
+              ) : (
+                <>Il te reste {life} vies restantes.</>
+              )}
+            </span>
+          )}
         </div>
       )}
     </>

@@ -37,13 +37,13 @@ const TrotelPriceChange = () => {
             setSign("");
           } else if (priceChange < 0) {
             setContainerClass(
-              "inline-flex items-center rounded-lg bg-red-50 dark:bg-red-200/10 px-2 py-1 text-xs font-medium text-red-600 dark:text-red-200 ring-1 ring-inset ring-red-500/20 dark:ring-red-200/40"
+              "inline-flex items-center rounded-lg bg-red-50 dark:bg-red-300/10 px-2 py-1 text-xs font-medium text-red-500 dark:text-red-300 ring-1 ring-inset ring-red-500/20 dark:ring-red-300/40"
             );
             setLoadingClass("");
             setSign("");
           } else if (priceChange > 0) {
             setContainerClass(
-              "inline-flex items-center rounded-lg bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-600 dark:text-green-200 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40"
+              "inline-flex items-center rounded-lg bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-500 dark:text-green-300 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40"
             );
             setLoadingClass("");
             setSign("+");

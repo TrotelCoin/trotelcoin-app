@@ -51,13 +51,13 @@ const renderCourses = (
     ((tier === "Intermediate" || tier === "Intermédiaire") &&
       intermediateBalance > 0)
       ? "rainbow-border"
-      : "active:border-blue-600 border border-gray-900/20 dark:border-gray-100/20 hover:border-gray-900/50 dark:hover:border-gray-100/50";
+      : "active:border-blue-500 border border-gray-900/20 dark:border-gray-100/20 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
   const statusClass =
     status[quizId - 1] === "Not started"
       ? "bg-gray-700 dark:bg-gray-300 text-gray-100 dark:text-gray-900"
       : status[quizId - 1] === "Finished"
-      ? "bg-green-600 dark:bg-green-200 text-gray-100 dark:text-gray-900"
+      ? "bg-green-500 dark:bg-green-300 text-gray-100 dark:text-gray-900"
       : "";
 
   return (
@@ -100,12 +100,12 @@ const renderCourses = (
                 </div>
               )}
               {(tier === "Intermediate" || tier === "Intermédiaire") && (
-                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-500 dark:bg-blue-300 text-gray-100 dark:text-gray-900">
                   {tier} 🙈
                 </div>
               )}
               {tier === "Expert" && (
-                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-600 dark:bg-red-200 text-gray-100 dark:text-gray-900">
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-red-500 dark:bg-red-300 text-gray-100 dark:text-gray-900">
                   {tier} 🦊
                 </div>
               )}
@@ -135,7 +135,7 @@ const renderCourses = (
                 </div>
               )}
               {course.sponsored && (
-                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-600 dark:bg-blue-200 text-gray-100 dark:text-gray-900">
+                <div className="inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium bg-blue-500 dark:bg-blue-300 text-gray-100 dark:text-gray-900">
                   {typeof dict?.lesson !== "string" && (
                     <>{dict?.lesson.sponsored} 📚</>
                   )}

@@ -93,7 +93,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             {<TrotelPrice />}
           </p>
           <div className="hidden md:block">{<TrotelPriceChange />}</div>
-          <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-200/10 px-2 py-1 text-xs font-medium text-blue-600 dark:text-blue-200 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-200/30">
+          <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-300/10 px-2 py-1 text-xs font-medium text-blue-500 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/30">
             <span className="animate__animated animate__flash animate__slower animate__infinite">
               {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
             </span>

@@ -16,7 +16,7 @@ const CoursePage = () => {
         Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis
         diam.
       </p>
-      <figure className="mt-10 border-l border-blue-600 dark:border-blue-200 pl-9">
+      <figure className="mt-10 border-l border-blue-500 dark:border-blue-300 pl-9">
         <blockquote className="font-semibold text-gray-900 dark:text-gray-100">
           <p>
             “Vel ultricies morbi odio facilisi ultrices accumsan donec lacus
