@@ -2,24 +2,20 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { usePathname } from "next/navigation";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
+import { useRouter } from "next/navigation";
 
 interface Language {
   code: string;
   label: string;
 }
 
-const LanguageSelector = ({
-  router,
-  lang,
-}: {
-  router: AppRouterInstance;
-  lang: Lang;
-}) => {
+const LanguageSelector = ({ lang }: { lang: Lang }) => {
   const [dict, setDict] = useState<DictType | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchDictionary = async () => {

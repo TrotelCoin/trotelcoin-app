@@ -3,7 +3,7 @@
 // Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,27 +11,21 @@ import TrotelPrice from "@/app/[lang]/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/[lang]/hooks/trotelPriceChange";
 import ThemeSwitcher from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
 import LifeCount from "@/app/[lang]/components/header/lifeCount";
 import StreakCount from "@/app/[lang]/components/header/streakCount";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import LifeContext from "@/app/[lang]/lifeContext";
 
 // Define the Header component
-const Header = ({
-  router,
-  lang,
-  life,
-}: {
-  router: AppRouterInstance;
-  lang: Lang;
-  life: number;
-}) => {
+const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
 
   const pathname = usePathname();
+
+  const { life } = useContext(LifeContext);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -142,7 +136,7 @@ const Header = ({
           </div>
           <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
           <div className="items-center flex gap-2">
-            <LanguageSelector router={router} lang={lang} />
+            <LanguageSelector lang={lang} />
             <ThemeSwitcher />
           </div>
         </div>
@@ -157,7 +151,7 @@ const Header = ({
             <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
             <div className="flex gap-2 items-center">
               {/*<AudioComponent />*/}
-              <LanguageSelector router={router} lang={lang} />
+              <LanguageSelector lang={lang} />
               <ThemeSwitcher />
             </div>
           </div>

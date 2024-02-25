@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
