@@ -239,7 +239,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     },
     {
       id: 18,
-      name: lang === "en" ? "1 million TrotelCoins" : "1 million TrotelCoins",
+      name: lang === "en" ? "1M TrotelCoins" : "1M TrotelCoins",
       image: "🏦",
       condition: trotelCoinBalance && trotelCoinBalance >= 1000000,
     },
