@@ -16,45 +16,6 @@ import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import Changelogs from "@/app/[lang]/components/changelogs/changelogs";
 import { useAddress, useUser } from "@thirdweb-dev/react";
 import LifeContext from "@/app/[lang]/lifeProvider";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "TrotelCoin App",
-  description:
-    "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
-  generator: "Next.js",
-  manifest: "/manifest.json",
-  appleWebApp: true,
-  keywords:
-    "trotelcoin, learn, earn, crypto, bitcoin, ethereum, trotelcoin app, trotelcoin.com, trotelcoin app, trotelcoin app",
-  themeColor: "#fff",
-  authors: [{ name: "TrotelCoin" }],
-  viewport: "width=device-width, initial-scale=1",
-  robots: "index, follow",
-  openGraph: {
-    title: "TrotelCoin App",
-    type: "website",
-    locale: "en_US",
-    url: "https://app.trotelcoin.com",
-    siteName: "TrotelCoin App",
-    description:
-      "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
-    images: [
-      {
-        url: "https://app.trotelcoin.com/assets/logo/trotelcoin.png",
-        width: 800,
-        height: 600,
-        alt: "TrotelCoin App",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary",
-    site: "@trotelcoin",
-    creator: "@trotelcoin",
-    title: "TrotelCoin App",
-  },
-};
 
 export const jsonLd = {
   "@context": "https://app.trotelcoin.com/",
@@ -124,36 +85,14 @@ const MainComponent = ({
 
   return (
     <>
-      <html lang={lang}>
-        <head>
-          <link
-            rel="apple-touch-icon"
-            href="/assets/logo/trotelcoin.png"
-            as="image"
-          />
-          <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
-          <Script strategy="lazyOnload">
-            {`
-            (function(h,o,t,j,a,r){
-              h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-              h._hjSettings={hjid:3685770,hjsv:6};
-              a=o.getElementsByTagName('head')[0];
-              r=o.createElement('script');r.async=1;
-              r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-              a.appendChild(r);
-            })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-          `}
-          </Script>
-        </head>
-
-        <body
-          className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
-        >
-          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-            <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-          ) : null}
-          <div className="hidden lg:block">
-            {/*<AnimatedCursor
+      <body
+        className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
+      >
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+          <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        ) : null}
+        <div className="hidden lg:block">
+          {/*<AnimatedCursor
               color="59, 130, 246"
               innerSize={24}
               innerScale={0.5}
@@ -161,40 +100,39 @@ const MainComponent = ({
               outerScale={2}
               showSystemCursor={false}
             />*/}
-          </div>
-          <NextTopLoader
-            color="#eab308"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={5}
-            crawl={true}
-            showSpinner={false}
-            easing="ease"
-            speed={200}
-            shadow="0 0 10px #F5AD3B,0 0 5px #F5AD3B"
-          />
-          <Suspense fallback={<Loading />}>
-            <DictionaryProvider lang={lang}>
-              <Banner lang={lang} />
-              <Changelogs lang={lang} />
-              <Header router={router} lang={lang} life={life} />
-              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
-                <LifeContext.Provider value={contextValue}>
-                  {children}
-                </LifeContext.Provider>
-              </main>
-              <Footer lang={lang} />
-              <Events lang={lang} />
-            </DictionaryProvider>
-          </Suspense>
-          <Analytics />
-          <SpeedInsights />
-        </body>
-        <Script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        </div>
+        <NextTopLoader
+          color="#eab308"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={5}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #F5AD3B,0 0 5px #F5AD3B"
         />
-      </html>
+        <Suspense fallback={<Loading />}>
+          <DictionaryProvider lang={lang}>
+            <Banner lang={lang} />
+            <Changelogs lang={lang} />
+            <Header router={router} lang={lang} life={life} />
+            <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
+              <LifeContext.Provider value={contextValue}>
+                {children}
+              </LifeContext.Provider>
+            </main>
+            <Footer lang={lang} />
+            <Events lang={lang} />
+          </DictionaryProvider>
+        </Suspense>
+        <Analytics />
+        <SpeedInsights />
+      </body>
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </>
   );
 };
