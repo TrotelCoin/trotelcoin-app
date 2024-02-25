@@ -21,7 +21,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "TrotelCoin App",
   description:
-    "We're building TrotelCoin - the best app to learn & earn crypto.",
+    "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
   generator: "Next.js",
   manifest: "/manifest.json",
   appleWebApp: true,
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     url: "https://app.trotelcoin.com",
     siteName: "TrotelCoin App",
     description:
-      "We're building TrotelCoin - the best app to learn & earn crypto.",
+      "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
     images: [
       {
         url: "https://app.trotelcoin.com/assets/logo/trotelcoin.png",
@@ -62,7 +62,7 @@ export const jsonLd = {
   name: "TrotelCoin",
   image: "/assets/logo/trotelcoin.png",
   description:
-    "We're building TrotelCoin - the best app to learn & earn crypto",
+    "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
 };
 
 const MainComponent = ({
