@@ -14,6 +14,7 @@ const BadgesList = ({
     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
       {badges.map(
         (badge, index) =>
+          badge &&
           badge.condition && (
             <div
               key={index}
@@ -32,7 +33,7 @@ const BadgesList = ({
                     isNotPremium && "blur hover:blur-none duration-500"
                   }`}
                 >
-                  {!isNotPremium ? (
+                  {!isNotPremium && badge.name ? (
                     <>{badge.name}</>
                   ) : typeof dict?.account !== "string" &&
                     typeof dict?.account.notPremium === "string" ? (
