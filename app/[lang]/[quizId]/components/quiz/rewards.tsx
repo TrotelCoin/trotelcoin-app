@@ -148,7 +148,7 @@ const Rewards = ({
       )}
       {claimingError && (
         <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 animate__animated animate__FadeIn">
-          <h2 className="text-red-600 dark:text-red-200">
+          <h2 className="text-red-500 dark:text-red-300">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimingError}</>}
           </h2>
         </div>
