@@ -250,11 +250,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
         Badges
       </h2>
-      <BadgesList
-        badges={badges}
-        isNotPremium={isNotPremium}
-        dict={dict as DictType}
-      />
+      <BadgesList badges={badges} isNotPremium={isNotPremium} dict={dict} />
     </>
   );
 };

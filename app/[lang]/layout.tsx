@@ -1,14 +1,24 @@
-// Import necessary modules and components
-import React from "react";
+import React, { Suspense } from "react";
 import SessionProviderComponent from "@/app/[lang]/sessionProvider";
 import Wagmi from "@/app/[lang]/wagmi";
 import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
-import RouterComponent from "@/app/[lang]/routerComponent";
 import ThirdWebProvider from "@/app/[lang]/ThirdWebProvider";
 import { Lang } from "@/types/types";
 import type { Metadata } from "next";
 import Script from "next/script";
+import { poppins } from "@/lib/fonts/poppins";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import NextTopLoader from "nextjs-toploader";
+import Banner from "@/app/[lang]/components/banner/banner";
+import Changelogs from "@/app/[lang]/components/changelogs/changelogs";
+import Footer from "@/app/[lang]/components/footer";
+import Header from "@/app/[lang]/components/header";
+import Loading from "@/app/[lang]/components/loading";
+import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
+import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
+import LifeProvider from "@/app/[lang]/lifeProvider";
 
 export const revalidate = 10; // revalidate every 10 seconds
 
@@ -21,9 +31,7 @@ export const metadata: Metadata = {
   appleWebApp: true,
   keywords:
     "trotelcoin, learn, earn, crypto, bitcoin, ethereum, trotelcoin app, trotelcoin.com, trotelcoin app, trotelcoin app",
-  themeColor: "#fff",
   authors: [{ name: "TrotelCoin" }],
-  viewport: "width=device-width, initial-scale=1",
   robots: "index, follow",
   openGraph: {
     title: "TrotelCoin App",
@@ -50,6 +58,15 @@ export const metadata: Metadata = {
   },
 };
 
+export const jsonLd = {
+  "@context": "https://app.trotelcoin.com/",
+  "@type": "Product",
+  name: "TrotelCoin",
+  image: "/assets/logo/trotelcoin.png",
+  description:
+    "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
+};
+
 export default function Layout({
   session,
   children,
@@ -65,17 +82,16 @@ export default function Layout({
       <Wagmi>
         <ThirdWebProvider lang={lang}>
           <SessionProviderComponent session={session}>
-            <RouterComponent lang={lang}>
-              <html lang={lang}>
-                <head>
-                  <link
-                    rel="apple-touch-icon"
-                    href="/assets/logo/trotelcoin.png"
-                    as="image"
-                  />
-                  <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
-                  <Script strategy="lazyOnload">
-                    {`
+            <html lang={lang}>
+              <head>
+                <link
+                  rel="apple-touch-icon"
+                  href="/assets/logo/trotelcoin.png"
+                  as="image"
+                />
+                <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
+                <Script strategy="lazyOnload">
+                  {`
             (function(h,o,t,j,a,r){
               h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
               h._hjSettings={hjid:3685770,hjsv:6};
@@ -85,11 +101,48 @@ export default function Layout({
               a.appendChild(r);
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
           `}
-                  </Script>
-                </head>
-                {children}
-              </html>
-            </RouterComponent>
+                </Script>
+              </head>
+              <body
+                className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
+              >
+                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+                  <GoogleAnalytics
+                    ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+                  />
+                ) : null}
+                <NextTopLoader
+                  color="#eab308"
+                  initialPosition={0.08}
+                  crawlSpeed={200}
+                  height={5}
+                  crawl={true}
+                  showSpinner={false}
+                  easing="ease"
+                  speed={200}
+                  shadow="0 0 10px #F5AD3B,0 0 5px #F5AD3B"
+                />
+                <Suspense fallback={<Loading />}>
+                  <DictionaryProvider lang={lang}>
+                    <LifeProvider>
+                      <Banner lang={lang} />
+                      <Changelogs lang={lang} />
+                      <Header lang={lang} />
+                      <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
+                        {children}
+                      </main>
+                      <Footer lang={lang} />
+                    </LifeProvider>
+                  </DictionaryProvider>
+                </Suspense>
+                <Analytics />
+                <SpeedInsights />
+              </body>
+              <Script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+              />
+            </html>
           </SessionProviderComponent>
         </ThirdWebProvider>
       </Wagmi>
