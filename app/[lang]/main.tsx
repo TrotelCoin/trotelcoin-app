@@ -16,26 +16,53 @@ import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import Changelogs from "@/app/[lang]/components/changelogs/changelogs";
 import { useAddress, useUser } from "@thirdweb-dev/react";
 import LifeContext from "@/app/[lang]/lifeProvider";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "TrotelCoin App",
-  description: "Learn & earn crypto.",
+  description:
+    "We're building TrotelCoin - the best app to learn & earn crypto.",
   generator: "Next.js",
   manifest: "/manifest.json",
-  keywords: "trotelcoin, learn, earn, crypto, bitcoin, ethereum",
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", content: "#000" },
-    { media: "(prefers-color-scheme: light)", content: "#fff" },
-  ],
-  authors: "TrotelCoin",
+  appleWebApp: true,
+  keywords:
+    "trotelcoin, learn, earn, crypto, bitcoin, ethereum, trotelcoin app, trotelcoin.com, trotelcoin app, trotelcoin app",
+  themeColor: "#fff",
+  authors: [{ name: "TrotelCoin" }],
   viewport: "width=device-width, initial-scale=1",
-  icons: [
-    {
-      href: "/assets/logo/trotelcoin.png",
-      sizes: "any",
-      type: "image/png",
-    },
-  ],
+  robots: "index, follow",
+  openGraph: {
+    title: "TrotelCoin App",
+    type: "website",
+    locale: "en_US",
+    url: "https://app.trotelcoin.com",
+    siteName: "TrotelCoin App",
+    description:
+      "We're building TrotelCoin - the best app to learn & earn crypto.",
+    images: [
+      {
+        url: "https://app.trotelcoin.com/assets/logo/trotelcoin.png",
+        width: 800,
+        height: 600,
+        alt: "TrotelCoin App",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    site: "@trotelcoin",
+    creator: "@trotelcoin",
+    title: "TrotelCoin App",
+  },
+};
+
+export const jsonLd = {
+  "@context": "https://app.trotelcoin.com/",
+  "@type": "Product",
+  name: "TrotelCoin",
+  image: "/assets/logo/trotelcoin.png",
+  description:
+    "We're building TrotelCoin - the best app to learn & earn crypto",
 };
 
 const MainComponent = ({
@@ -99,51 +126,12 @@ const MainComponent = ({
     <>
       <html lang={lang}>
         <head>
-          <title>{metadata.title}</title>
-          {/* Set metadata for SEO */}
-          <meta name="description" content={metadata.description} />
-          <meta property="og:title" content={metadata.title} />
-          <meta property="og:description" content={metadata.description} />
-          <meta
-            name="keywords"
-            content="trotelcoin, learn, earn, crypto, bitcoin, ethereum"
-          />
-          <meta
-            property="og:image"
-            content="/assets/banner/trotelcoin-banner.png"
-          />
-          <meta
-            property="twitter:image"
-            content="/assets/banner/trotelcoin-banner.png"
-          ></meta>
-          <meta
-            property="twitter:card"
-            content="/assets/banner/trotelcoin-banner.png"
-          ></meta>
-          <meta property="twitter:title" content={metadata.title}></meta>
-          <meta
-            property="twitter:description"
-            content={metadata.description}
-          ></meta>
-          <meta property="og:url" content="https://app.trotelcoin.com" />
-          <meta charSet="UTF-8"></meta>
-          <meta name="theme-color" content="#fff" />
-          <meta name="apple-mobile-web-app-capable" content="yes"></meta>
-          <link rel="icon" href="/favicon.ico" sizes="any" />
-          <link rel="manifest" href="/manifest.json" as="manifest" />
           <link
             rel="apple-touch-icon"
             href="/assets/logo/trotelcoin.png"
             as="image"
           />
           <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
-          {/* Define Apple splash screen images for different devices */}
-          <link
-            href="/pwa-splash/iphone5_splash.png"
-            media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
-            rel="apple-touch-startup-image"
-            as="image"
-          />
           <Script strategy="lazyOnload">
             {`
             (function(h,o,t,j,a,r){
@@ -202,6 +190,10 @@ const MainComponent = ({
           <Analytics />
           <SpeedInsights />
         </body>
+        <Script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </html>
     </>
   );
