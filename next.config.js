@@ -10,7 +10,7 @@ module.exports = withPWA({
   swcMinify: true,
   logging: {
     fetches: {
-      fullUrl: true,
+      fullUrl: process.env.NODE_ENV !== "production",
     },
   },
   async redirects() {
