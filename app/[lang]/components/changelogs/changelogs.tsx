@@ -17,14 +17,12 @@ const version = "1.1.1";
 
 interface ChangelogItem {
   title: string;
-  content: string[];
-  isNew?: boolean;
+  content: { text: string; isNew?: boolean | undefined }[];
 }
 
 const ChangelogSection = ({
   title,
   content,
-  isNew,
   lang,
 }: ChangelogItem & { lang: Lang }) => (
   <div className="mt-8">
@@ -33,8 +31,8 @@ const ChangelogSection = ({
     </h2>
     {content.map((item, index) => (
       <div key={index} className="flex gap-2 items-center">
-        <p className="text-sm text-gray-700 dark:text-gray-300">{item}</p>
-        {isNew && (
+        <p className="text-sm text-gray-700 dark:text-gray-300">{item.text}</p>
+        {item && item.isNew && (
           <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             {lang === "en" ? "New" : "Nouveau"}
           </span>
@@ -72,51 +70,89 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
     {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
-        lang === "en"
-          ? "- Create your first wallet is available"
-          : "- Crée ton premier portefeuille est disponible",
+        {
+          text:
+            lang === "en"
+              ? "- Create your first wallet is available"
+              : "- Crée ton premier portefeuille est disponible",
+          isNew: true,
+        },
       ],
-      isNew: true,
     },
     {
       title: lang === "en" ? "Features 👨‍💻" : "Fonctionnalités 👨‍💻",
       content: [
-        lang === "en"
-          ? "- You can stake your TROTEL now"
-          : "- Tu peux staker tes TROTEL maintenant",
-        lang === "en"
-          ? "- You can claim your TROTEL now"
-          : "- Tu peux récupérer tes TROTEL maintenant",
-        lang === "en"
-          ? "- You can send your TROTEL and MATIC now"
-          : "- Tu peux envoyer tes TROTEL et MATIC maintenant",
-        lang === "en" ? "- We support ENS now" : "- On supporte ENS maintenant",
-        lang === "en" ? "- We are adding badges" : "- On ajoute des badges",
-        lang === "en"
-          ? "- We added mobile footer for better navigation"
-          : "- On a ajouté un footer mobile pour une meilleure navigation",
+        {
+          text:
+            lang === "en"
+              ? "- You can stake your TROTEL now"
+              : "- Tu peux staker tes TROTEL maintenant",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- You can claim your TROTEL now"
+              : "- Tu peux récupérer tes TROTEL maintenant",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- You can send your TROTEL and MATIC now"
+              : "- Tu peux envoyer tes TROTEL et MATIC maintenant",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We support ENS now"
+              : "- On supporte ENS maintenant",
+        },
+        {
+          text:
+            lang === "en" ? "- We are adding badges" : "- On ajoute des badges",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We added mobile footer for better navigation"
+              : "- On a ajouté un footer mobile pour une meilleure navigation",
+          isNew: true,
+        },
       ],
-      isNew: false,
     },
     {
       title: lang === "en" ? "Community 🦊" : "Communauté 🦊",
       content: [
-        lang === "en"
-          ? "- We organize daily quizzes on the Discord"
-          : "- On organise des quiz quotidiens sur le Discord",
-        lang === "en"
-          ? "- We reached $31k of market cap"
-          : "- On a atteint 31k$ de capitalisation",
+        {
+          text:
+            lang === "en"
+              ? "- We organize daily quizzes on the Discord"
+              : "- On organise des quiz quotidiens sur le Discord",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We reached $31k of market cap"
+              : "- On a atteint 31k$ de capitalisation",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We listed on dApps platforms"
+              : "- On a listé sur des plateformes de dApps",
+          isNew: true,
+        },
       ],
-      isNew: false,
     },
     {
       title:
         lang === "en"
           ? "What about next updates? 🙈"
           : "Et les prochaines mises à jour? 🙈",
-      content: [lang === "en" ? "- Some secrets..." : "- Quelques secrets..."],
-      isNew: false,
+      content: [
+        {
+          text: lang === "en" ? "- Some secrets..." : "- Quelques secrets...",
+        },
+      ],
     },
   ];
 
