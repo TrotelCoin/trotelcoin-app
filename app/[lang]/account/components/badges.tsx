@@ -156,7 +156,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
   useEffect(() => {
     if (getStakingData && address) {
-      const balance = parseFloat(getStakingData[0].toString());
+      const balance = parseFloat(getStakingData[0].toString()) * 1e-18;
       const duration = parseFloat(getStakingData[2].toString());
       setStakedTrotelCoins(balance);
       setDuration(duration);
