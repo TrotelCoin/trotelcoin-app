@@ -1,9 +1,10 @@
 "use client";
 
+import { Lang } from "@/types/types";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-const formatDate = (date: string) => {
+const formatDate = (date: any) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -12,10 +13,36 @@ const formatDate = (date: string) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-export const version: string = "1.0.9";
-export const date: string = formatDate(new Date().toISOString());
+const version = "1.1.1";
 
-const Changelogs = ({ lang }: { lang: string }) => {
+interface ChangelogItem {
+  title: string;
+  content: { text: string; isNew?: boolean | undefined }[];
+}
+
+const ChangelogSection = ({
+  title,
+  content,
+  lang,
+}: ChangelogItem & { lang: Lang }) => (
+  <div className="mt-8">
+    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+      {title}
+    </h2>
+    {content.map((item, index) => (
+      <div key={index} className="flex gap-2 items-center">
+        <p className="text-sm text-gray-700 dark:text-gray-300">{item.text}</p>
+        {item && item.isNew && (
+          <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
+            {lang === "en" ? "New" : "Nouveau"}
+          </span>
+        )}
+      </div>
+    ))}
+  </div>
+);
+
+const Changelogs = ({ lang }: { lang: Lang }) => {
   const [changeLogsVisible, setChangeLogsVisible] = React.useState(true);
 
   React.useEffect(() => {
@@ -38,6 +65,96 @@ const Changelogs = ({ lang }: { lang: string }) => {
   };
 
   if (!changeLogsVisible) return null;
+
+  const changelogSections: ChangelogItem[] = [
+    {
+      title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
+      content: [
+        {
+          text:
+            lang === "en"
+              ? "- Create your first wallet is available"
+              : "- Crée ton premier portefeuille est disponible",
+          isNew: true,
+        },
+      ],
+    },
+    {
+      title: lang === "en" ? "Features 👨‍💻" : "Fonctionnalités 👨‍💻",
+      content: [
+        {
+          text:
+            lang === "en"
+              ? "- You can stake your TROTEL now"
+              : "- Tu peux staker tes TROTEL maintenant",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- You can claim your TROTEL now"
+              : "- Tu peux récupérer tes TROTEL maintenant",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- You can send your TROTEL and MATIC now"
+              : "- Tu peux envoyer tes TROTEL et MATIC maintenant",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We support ENS now"
+              : "- On supporte ENS maintenant",
+        },
+        {
+          text:
+            lang === "en" ? "- We are adding badges" : "- On ajoute des badges",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We added mobile footer for better navigation"
+              : "- On a ajouté un footer mobile pour une meilleure navigation",
+          isNew: true,
+        },
+      ],
+    },
+    {
+      title: lang === "en" ? "Community 🦊" : "Communauté 🦊",
+      content: [
+        {
+          text:
+            lang === "en"
+              ? "- We organize daily quizzes on the Discord"
+              : "- On organise des quiz quotidiens sur le Discord",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We reached $31k of market cap"
+              : "- On a atteint 31k$ de capitalisation",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We listed on dApps platforms"
+              : "- On a listé sur des plateformes de dApps",
+          isNew: true,
+        },
+      ],
+    },
+    {
+      title:
+        lang === "en"
+          ? "What about next updates? 🙈"
+          : "Et les prochaines mises à jour? 🙈",
+      content: [
+        {
+          text: lang === "en" ? "- Some secrets..." : "- Quelques secrets...",
+        },
+      ],
+    },
+  ];
 
   return (
     <Transition.Root show={changeLogsVisible} as={Fragment}>
@@ -97,75 +214,11 @@ const Changelogs = ({ lang }: { lang: string }) => {
                     Changelogs
                   </Dialog.Title>
                   <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
-                    {date} - v{version}
+                    {formatDate(new Date())} - v{version}
                   </p>
-                  <div className="mt-8">
-                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                      {lang === "en" ? "New courses 📚" : "Nouveaux cours 📚"}
-                    </h2>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- Create your first wallet is available"
-                        : "- Crée ton premier portefeuille est disponible"}
-                    </p>
-                  </div>
-                  <div className="mt-8">
-                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                      {lang === "en" ? "Features 👨‍💻" : "Fonctionnalités 👨‍💻"}
-                    </h2>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- You can stake your TROTEL now"
-                        : "- Tu peux staker tes TROTEL maintenant"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- You can claim your TROTEL now"
-                        : "- Tu peux récupérer tes TROTEL maintenant"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- You can send your TROTEL and MATIC now"
-                        : "- Tu peux envoyer tes TROTEL et MATIC maintenant"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- We support ENS now"
-                        : "- On supporte ENS maintenant"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- We are adding badges"
-                        : "- On ajoute des badges"}
-                    </p>
-                  </div>
-                  <div className="mt-8">
-                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                      {lang === "en" ? "Community 🦊" : "Communauté 🦊"}
-                    </h2>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- We organize daily quizzes on the Discord"
-                        : "- On organise des quiz quotidiens sur le Discord"}
-                    </p>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- We reached $31k of market cap"
-                        : "- On a atteint 31k$ de capitalisation"}
-                    </p>
-                  </div>
-                  <div className="mt-8">
-                    <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">
-                      {lang === "en"
-                        ? "What about next updates? 🙈"
-                        : "Et les prochaines mises à jour? 🙈"}
-                    </h2>
-                    <p className="text-sm text-gray-700 dark:text-gray-300">
-                      {lang === "en"
-                        ? "- Some secrets..."
-                        : "- Quelques secrets..."}
-                    </p>
-                  </div>
+                  {changelogSections.map((section, index) => (
+                    <ChangelogSection key={index} {...section} lang={lang} />
+                  ))}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
