@@ -19,6 +19,7 @@ import Loading from "@/app/[lang]/components/loading";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
 import LifeProvider from "@/app/[lang]/lifeProvider";
+import MobileFooter from "@/app/[lang]/components/mobileFooter";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -130,6 +131,7 @@ export default function Layout({
                         {children}
                       </main>
                       <Footer lang={lang} />
+                      <MobileFooter lang={lang} />
                     </LifeProvider>
                   </DictionaryProvider>
                 </Suspense>
