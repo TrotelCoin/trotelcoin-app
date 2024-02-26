@@ -2,97 +2,36 @@ import { DictType, Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Address } from "viem";
+import StreakContext from "@/app/[lang]/streakContext";
 
 const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
-  const [streak, setStreak] = useState<number | null>(null);
   const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
-
-  const [streakCountdown, setStreakCountdown] = useState<string | null>(null);
   const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 
   const address = useAddress();
 
-  useEffect(() => {
-    const fetchUserStreak = async () => {
-      await fetch(`/api/database/streak?wallet=${address as Address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setStreak(data.currentStreak);
-        });
-    };
-
-    if (address) {
-      fetchUserStreak();
-
-      const interval = setInterval(fetchUserStreak, 10000);
-
-      return () => clearInterval(interval);
-    } else {
-      setStreak(0);
-      setStreakCountdown(null);
-    }
-  }, [address, streak]);
+  const { streak, disabled, lastUpdatedStreak, cooldown } =
+    useContext(StreakContext);
 
   useEffect(() => {
-    const fetchResetStreakCountdown = async () => {
-      const result = await fetch(
-        `/api/database/streak?wallet=${address as Address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setStreakCountdown(data.lastUpdated);
-    };
-
-    if (address) {
-      fetchResetStreakCountdown();
-
-      const interval = setInterval(fetchResetStreakCountdown, 1000);
-
-      return () => clearInterval(interval);
-    } else {
-      setStreakCountdown(null);
-    }
-  }, [address]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (streakCountdown) {
-        const lastUpdated = new Date(streakCountdown);
-        const now = new Date();
-        const difference = now.getTime() - lastUpdated.getTime();
-        if (difference > 86400000) {
-          setStreakCooldown(
-            lang === "en" ? "Increase your streak" : "Augmente ta série"
-          );
-        } else {
-          const cooldown = 86400000 - difference;
-          const cooldownString = new Date(cooldown).toISOString();
-          const time = cooldownString.split("T")[1].split(".")[0];
-          setStreakCooldown(time);
-        }
+    if (lastUpdatedStreak && disabled) {
+      const lastUpdated = new Date(lastUpdatedStreak);
+      const now = new Date();
+      const difference = now.getTime() - lastUpdated.getTime();
+      if (difference > 86400000) {
+        setStreakCooldown("Increase your streak");
       } else {
-        setStreakCooldown("00:00:00");
+        const cooldown = 86400000 - difference;
+        const cooldownString = new Date(cooldown).toISOString();
+        const time = cooldownString.split("T")[1].split(".")[0];
+        setStreakCooldown(time);
       }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [streakCountdown]);
+    } else {
+      setStreakCooldown("00:00:00");
+    }
+  }, [lastUpdatedStreak, disabled]);
 
   return (
     <>
@@ -106,7 +45,11 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         ) : (
           <span className="font-semibold">0</span>
         )}{" "}
-        🔥
+        {!address
+          ? "❌"
+          : streakCooldown === "Increase your streak"
+          ? "🔥"
+          : "⏳"}
         <Transition
           as={Fragment}
           show={isHoveringStreak}
@@ -127,14 +70,14 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                   <>{dict?.header.streakMessage}</>
                 )}
               </p>
-              {streakCooldown && (
+              {streakCooldown && cooldown && (
                 <p>
                   {streakCooldown !==
                     ("Increase your streak" || "Augmente ta série") &&
                     (lang === "en"
                       ? "Reset in:"
                       : "Réinitialisation dans:")}{" "}
-                  {streakCooldown}
+                  {cooldown}
                 </p>
               )}
               <Link href={`/${lang}/learn`}>
