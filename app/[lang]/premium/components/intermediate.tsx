@@ -225,7 +225,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="Tu n'es pas éligible"
-          message={`Tu as besoin de ${holdingRequirements} TrotelCoins pour réclamer ce NFT.`}
+          message={`Tu as besoin de ${holdingRequirements.toLocaleString(
+            "en-US"
+          )} TrotelCoins pour réclamer ce NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
@@ -233,7 +235,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="You're not eligible"
-          message={`You need ${holdingRequirements} TrotelCoin to claim the NFT.`}
+          message={`You need ${holdingRequirements.toLocaleString(
+            "en-US"
+          )} TrotelCoin to claim the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
