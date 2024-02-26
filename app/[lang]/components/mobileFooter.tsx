@@ -178,14 +178,15 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
           <div className="flex justify-between items-center text-gray-900 dark:text-gray-100">
             {navigation.map((item: any, index: number) => (
               <div className="flex flex-col gap-1 items-center">
-                <span>
-                  {pathname === item.href ? (
-                    <span>{item.iconSolid}</span>
-                  ) : (
-                    <span>{item.iconOutline}</span>
-                  )}
-                </span>
                 <Link key={index} href={item.href} className="text-xs">
+                  <span>
+                    {pathname === item.href ? (
+                      <span>{item.iconSolid}</span>
+                    ) : (
+                      <span>{item.iconOutline}</span>
+                    )}
+                  </span>
+
                   {item.name}
                 </Link>
               </div>
