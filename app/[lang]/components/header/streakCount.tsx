@@ -48,6 +48,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         {!address
           ? "❌"
           : streakCooldown === "Increase your streak" ||
+            streakCooldown === "Augmente ta série" ||
             streakCooldown === "00:00:00" ||
             cooldown === "00:00:00"
           ? "🔥"
