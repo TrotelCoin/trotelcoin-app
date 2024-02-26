@@ -29,7 +29,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
 
   const navigation = [
     {
-      name: "Home",
+      name: lang === "en" ? "Home" : "Accueil",
       href: `/${lang}/home`,
       id: 1,
       iconOutline: (
@@ -61,7 +61,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       ),
     },
     {
-      name: "Learn",
+      name: lang === "en" ? "Learn" : "Apprendre",
       href: `/${lang}/learn`,
       id: 2,
       iconOutline: (
@@ -94,7 +94,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       ),
     },
     {
-      name: "Wallet",
+      name: lang === "en" ? "Wallet" : "Portefeuille",
       href: `/${lang}/wallet`,
       id: 3,
       iconOutline: (
@@ -125,7 +125,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       ),
     },
     {
-      name: "Account",
+      name: lang === "en" ? "Account" : "Compte",
       href: `/${lang}/account`,
       id: 4,
       iconOutline: (
