@@ -97,24 +97,21 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- You can send your TROTEL and MATIC now"
-              : "- Tu peux envoyer tes TROTEL et MATIC maintenant",
+              ? "- We are added badges"
+              : "- On a ajouté des badges",
         },
         {
           text:
             lang === "en"
-              ? "- We support ENS now"
-              : "- On supporte ENS maintenant",
-        },
-        {
-          text:
-            lang === "en" ? "- We are adding badges" : "- On ajoute des badges",
+              ? "- We added mobile navigation"
+              : "- On a ajouté une navigation mobile",
+          isNew: true,
         },
         {
           text:
             lang === "en"
-              ? "- We added mobile footer for better navigation"
-              : "- On a ajouté un footer mobile pour une meilleure navigation",
+              ? "- We improved streak UI"
+              : "- On a amélioré l'UI de la série",
           isNew: true,
         },
       ],
