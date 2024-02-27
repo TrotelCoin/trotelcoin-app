@@ -19,36 +19,11 @@ import shortenAddress from "@/utils/shortenAddress";
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   const address = useAddress();
 
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
   const { data: ensName } = useEnsName({
     address: address as Address,
     enabled: Boolean(address),
     chainId: mainnet.id,
   });
-
-  const intermediateBalance: number = parseFloat(intermediate as string);
-  const expertBalance: number = parseFloat(expert as string);
-
-  const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
   return (
     <>

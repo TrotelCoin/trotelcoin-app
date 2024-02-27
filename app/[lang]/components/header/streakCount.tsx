@@ -2,7 +2,7 @@ import { DictType, Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import StreakContext from "@/app/[lang]/streakContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { Address } from "viem";
 import "animate.css";
 

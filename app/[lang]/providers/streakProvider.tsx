@@ -2,7 +2,7 @@
 
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useState, useEffect, useMemo } from "react";
-import StreakContext from "@/app/[lang]/streakContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 import type { ReactNode } from "react";
 import { Address } from "viem";
 

@@ -2,7 +2,7 @@
 
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useState, useEffect, useMemo } from "react";
-import LifeContext from "@/app/[lang]/lifeContext";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import type { ReactNode } from "react";
 
 const LifeProvider = ({ children }: { children: ReactNode }) => {

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
-import StreakContext from "@/app/[lang]/streakContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 
 const StreakButton = ({ disabled }: { disabled: boolean }) => {
   const address = useAddress();

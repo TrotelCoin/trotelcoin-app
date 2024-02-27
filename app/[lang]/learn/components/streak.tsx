@@ -1,11 +1,11 @@
 import { DictType } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import StreakButton from "@/app/[lang]/learn/components/streak/streakButton";
 import StreakCount from "@/app/[lang]/learn/components/streak/streakCount";
 import MaxStreakCount from "@/app/[lang]/learn/components/streak/maxStreakCount";
 import StreakCooldown from "@/app/[lang]/learn/components/streak/streakCooldown";
-import StreakContext from "@/app/[lang]/streakContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 
 const Streak = ({ dict }: { dict: DictType }) => {
   const address = useAddress();

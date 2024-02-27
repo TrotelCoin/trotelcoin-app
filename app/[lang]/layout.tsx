@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import SessionProviderComponent from "@/app/[lang]/sessionProvider";
+import SessionProviderComponent from "@/app/[lang]/providers/sessionProvider";
 import Wagmi from "@/app/[lang]/wagmi";
 import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
-import ThirdWebProvider from "@/app/[lang]/ThirdWebProvider";
+import ThirdWebProvider from "@/app/[lang]/providers/ThirdWebProvider";
 import { Lang } from "@/types/types";
 import type { Metadata } from "next";
 import Script from "next/script";
@@ -18,9 +18,10 @@ import Header from "@/app/[lang]/components/header";
 import Loading from "@/app/[lang]/components/loading";
 import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
 import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
-import LifeProvider from "@/app/[lang]/lifeProvider";
+import LifeProvider from "@/app/[lang]/providers/lifeProvider";
 import MobileFooter from "@/app/[lang]/components/mobileFooter";
-import StreakProvider from "@/app/[lang]/streakProvider";
+import StreakProvider from "@/app/[lang]/providers/streakProvider";
+import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -126,14 +127,16 @@ export default function Layout({
                   <DictionaryProvider lang={lang}>
                     <LifeProvider>
                       <StreakProvider>
-                        <Banner lang={lang} />
-                        <Changelogs lang={lang} />
-                        <Header lang={lang} />
-                        <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
-                          {children}
-                        </main>
-                        <Footer lang={lang} />
-                        <MobileFooter lang={lang} />
+                        <PremiumProvider>
+                          <Banner lang={lang} />
+                          <Changelogs lang={lang} />
+                          <Header lang={lang} />
+                          <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-6xl my-10">
+                            {children}
+                          </main>
+                          <Footer lang={lang} />
+                          <MobileFooter lang={lang} />
+                        </PremiumProvider>
                       </StreakProvider>
                     </LifeProvider>
                   </DictionaryProvider>

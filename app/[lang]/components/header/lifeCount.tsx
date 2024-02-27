@@ -12,7 +12,7 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
-import LifeContext from "@/app/[lang]/lifeContext";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
 
 const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);

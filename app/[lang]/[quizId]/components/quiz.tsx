@@ -5,7 +5,7 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
 import { useContractRead, Address } from "wagmi";
-import LifeContext from "@/app/[lang]/lifeContext";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import {

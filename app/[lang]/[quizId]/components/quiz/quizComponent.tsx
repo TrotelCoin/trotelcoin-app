@@ -2,7 +2,7 @@ import { DictType, Lang, Question } from "@/types/types";
 import React, { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Confetti from "react-dom-confetti";
-import LifeContext from "@/app/[lang]/lifeContext";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData";
 import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";

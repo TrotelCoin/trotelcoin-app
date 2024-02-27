@@ -2,7 +2,7 @@
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,7 +15,6 @@ import { Lang, DictType } from "@/types/types";
 import LifeCount from "@/app/[lang]/components/header/lifeCount";
 import StreakCount from "@/app/[lang]/components/header/streakCount";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import LifeContext from "@/app/[lang]/lifeContext";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
