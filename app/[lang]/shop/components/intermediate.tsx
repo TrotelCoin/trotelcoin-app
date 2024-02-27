@@ -134,7 +134,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         glareEnable={true}
         tiltMaxAngleX={5}
         tiltMaxAngleY={5}
-        glareMaxOpacity={0.45}
+        glareMaxOpacity={0.15}
         perspective={800}
       >
         <div
