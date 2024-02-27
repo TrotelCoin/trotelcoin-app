@@ -109,10 +109,6 @@ const LifeCount = ({
 
     if (address) {
       fetchResetLifeCountdown();
-
-      const interval = setInterval(fetchResetLifeCountdown, 1000);
-
-      return () => clearInterval(interval);
     } else {
       setResetLifeCountdown(null);
     }

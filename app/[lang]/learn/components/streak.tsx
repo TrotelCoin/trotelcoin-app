@@ -33,10 +33,6 @@ const Streak = ({ dict }: { dict: DictType }) => {
 
     if (address) {
       fetchMaxStreak();
-
-      const interval = setInterval(fetchMaxStreak, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setMaxStreak(0);
     }

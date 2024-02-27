@@ -42,10 +42,6 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
 
     if (address && user) {
       fetchUserLife();
-
-      const interval = setInterval(fetchUserLife, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setLife(3);
     }

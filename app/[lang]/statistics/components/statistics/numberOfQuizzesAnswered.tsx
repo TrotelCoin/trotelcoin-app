@@ -28,10 +28,6 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
     };
 
     fetchNumberOfQuizzesAnswered();
-
-    const interval = setInterval(fetchNumberOfQuizzesAnswered, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

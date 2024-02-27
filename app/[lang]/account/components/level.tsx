@@ -70,10 +70,6 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
 
     if (address) {
       fetchNumberOfQuizzesAnswered();
-
-      const interval = setInterval(fetchNumberOfQuizzesAnswered, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setNumberOfQuizzesAnswered(0);
     }

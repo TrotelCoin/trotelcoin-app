@@ -33,10 +33,6 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
 
     if (address) {
       fetchStreak();
-
-      const interval = setInterval(fetchStreak, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setStreak(0);
       setCooldown("00:00:00");

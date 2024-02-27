@@ -28,10 +28,6 @@ const Claim = ({ lang }: { lang: Lang }) => {
     };
 
     fetchCentralWalletAddress();
-
-    const interval = setInterval(fetchCentralWalletAddress, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (
