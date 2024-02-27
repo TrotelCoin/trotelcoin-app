@@ -153,10 +153,10 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               For that you need to go to the NFTs claim page by clicking on the
               following link:{" "}
               <Link
-                href={`/${lang}/premium`}
+                href={`/${lang}/shop`}
                 className="text-blue-500 dark:text-blue-300"
               >
-                app.trotelcoin.com/premium
+                app.trotelcoin.com/shop
               </Link>
               .
               <br />
@@ -217,10 +217,10 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Pour cela, vous devez vous rendre sur la page de récupération des
               NFTs en cliquant sur le lien suivant :{" "}
               <Link
-                href={`/${lang}/premium`}
+                href={`/${lang}/shop`}
                 className="text-blue-500 dark:text-blue-300"
               >
-                app.trotelcoin.com/premium
+                app.trotelcoin.com/shop
               </Link>
               .
               <br />

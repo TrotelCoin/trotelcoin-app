@@ -23,7 +23,7 @@ export default function sitemap({
       priority: 0.5,
     },
     {
-      url: `https://app.trotelcoin.com/${lang}/premium`,
+      url: `https://app.trotelcoin.com/${lang}/shop`,
       lastModified: new Date(),
       priority: 0.7,
     },

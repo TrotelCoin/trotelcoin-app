@@ -69,9 +69,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
                 </div>
               </div>
               <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                {typeof dict?.premium !== "string" && (
-                  <>{dict?.premium.claimed}</>
-                )}
+                {typeof dict?.shop !== "string" && <>{dict?.shop.claimed}</>}
               </button>
             </div>
           </div>
