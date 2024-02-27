@@ -105,10 +105,6 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
     if (address) {
       fetchMaxStreak();
-
-      const interval = setInterval(fetchMaxStreak, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setMaxStreak(null);
     }
@@ -133,10 +129,6 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
     if (address) {
       fetchQuizzesAnswered();
-
-      const interval = setInterval(fetchQuizzesAnswered, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setQuizzesAnswered(null);
     }

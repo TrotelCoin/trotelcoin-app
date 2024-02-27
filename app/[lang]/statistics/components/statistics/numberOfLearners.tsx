@@ -25,10 +25,6 @@ const NumberOfLearners = ({ dict }: { dict: DictType }) => {
     };
 
     fetchNumberOfLearners();
-
-    const interval = setInterval(fetchNumberOfLearners, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

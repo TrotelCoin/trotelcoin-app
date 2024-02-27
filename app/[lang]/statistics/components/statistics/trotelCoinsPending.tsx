@@ -25,10 +25,6 @@ const TrotelCoinsPending = ({ dict }: { dict: DictType }) => {
     };
 
     fetchTrotelCoinsPending();
-
-    const interval = setInterval(fetchTrotelCoinsPending, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

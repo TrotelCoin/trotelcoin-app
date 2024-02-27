@@ -51,10 +51,6 @@ const RewardsButton = ({
 
     if (address) {
       fetchAvailableToClaim();
-
-      const interval = setInterval(fetchAvailableToClaim, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setAvailableToClaim(0);
     }

@@ -115,10 +115,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
     if (address) {
       fetchCoursesCompleted();
-
-      const interval = setInterval(fetchCoursesCompleted, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setStatus(new Array(lessonsLength(lessons)).fill("Not started"));
     }

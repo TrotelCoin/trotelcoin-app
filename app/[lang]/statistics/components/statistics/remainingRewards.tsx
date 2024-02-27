@@ -23,10 +23,6 @@ const RemainingRewards = ({ dict }: { dict: DictType }) => {
     };
 
     fetchRemainingRewards();
-
-    const interval = setInterval(fetchRemainingRewards, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

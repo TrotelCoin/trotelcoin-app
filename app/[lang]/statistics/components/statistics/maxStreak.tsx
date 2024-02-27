@@ -23,10 +23,6 @@ const MaxStreak = ({ dict }: { dict: DictType }) => {
     };
 
     fetchMaxStreak();
-
-    const interval = setInterval(fetchMaxStreak, 10000);
-
-    return () => clearInterval(interval);
   }, []);
 
   return (

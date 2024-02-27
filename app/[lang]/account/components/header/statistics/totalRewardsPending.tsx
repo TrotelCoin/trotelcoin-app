@@ -27,10 +27,6 @@ const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
 
     if (address) {
       fetchRewardsPending();
-
-      const interval = setInterval(fetchRewardsPending, 10000);
-
-      return () => clearInterval(interval);
     } else {
       setTotalRewardsPending(0);
     }
