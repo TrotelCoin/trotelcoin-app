@@ -19,7 +19,7 @@ const Statistics = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <TheAlgorithm dict={dict as DictType} />
+      <TheAlgorithm dict={dict as DictType} lang={lang} />
     </>
   );
 };

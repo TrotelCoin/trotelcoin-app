@@ -1,9 +1,10 @@
 import { DictType, Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
-import Link from "next/link";
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import StreakContext from "@/app/[lang]/streakContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
+import { Address } from "viem";
+import "animate.css";
 
 const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
@@ -11,7 +12,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
   const address = useAddress();
 
-  const { streak, disabled, lastUpdatedStreak, cooldown } =
+  const { streak, disabled, lastUpdatedStreak, cooldown, updateStreak } =
     useContext(StreakContext);
 
   useEffect(() => {
@@ -82,13 +83,27 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                   {cooldown}
                 </p>
               )}
-              <Link href={`/${lang}/learn`}>
-                <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                  {typeof dict?.header !== "string" && (
-                    <>{dict?.header.streakButton}</>
-                  )}
-                </button>
-              </Link>
+              <button
+                onClick={() => updateStreak(address as Address)}
+                disabled={disabled}
+                className={`${
+                  !disabled
+                    ? "bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 text-gray-100 dark:text-gray-900"
+                    : "bg-gray-500 text-gray-100"
+                } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2  rounded-lg font-semibold ${
+                  disabled && "cursor-not-allowed"
+                }`}
+              >
+                {disabled ? (
+                  <>{lang === "en" ? "Wait tomorrow" : "Attendez demain"}</>
+                ) : (
+                  <>
+                    {typeof dict?.header !== "string" && (
+                      <>{dict?.header.streakButton}</>
+                    )}
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </Transition>

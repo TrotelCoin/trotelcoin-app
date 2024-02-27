@@ -12,7 +12,6 @@ import {
   phantomWallet,
   trustWallet,
   zerionWallet,
-  smartWallet,
   en,
   embeddedWallet,
 } from "@thirdweb-dev/react";

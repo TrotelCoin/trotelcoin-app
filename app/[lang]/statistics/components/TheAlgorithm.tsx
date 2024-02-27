@@ -1,4 +1,4 @@
-import { DictType } from "@/types/types";
+import { DictType, Lang } from "@/types/types";
 import React from "react";
 import TrotelCoinsDistributed from "@/app/[lang]/statistics/components/statistics/trotelCoinsDistributed";
 import TrotelCoinsPending from "@/app/[lang]/statistics/components/statistics/trotelCoinsPending";
@@ -7,8 +7,11 @@ import RemainingRewards from "@/app/[lang]/statistics/components/statistics/rema
 import EstimatedRewards from "@/app/[lang]/statistics/components/statistics/estimatedRewards";
 import MaxStreak from "@/app/[lang]/statistics/components/statistics/maxStreak";
 import NumberOfLearners from "@/app/[lang]/statistics/components/statistics/numberOfLearners";
+import Expert from "@/app/[lang]/statistics/components/statistics/expert";
+import Intermediate from "@/app/[lang]/statistics/components/statistics/intermediate";
+import Early from "@/app/[lang]/statistics/components/statistics/early";
 
-const TheAlgorithm = ({ dict }: { dict: DictType }) => {
+const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   return (
     <>
       <div>
@@ -29,6 +32,12 @@ const TheAlgorithm = ({ dict }: { dict: DictType }) => {
           <MaxStreak dict={dict} />
 
           <NumberOfLearners dict={dict} />
+
+          <Early dict={dict} lang={lang} />
+
+          <Intermediate dict={dict} lang={lang} />
+
+          <Expert dict={dict} lang={lang} />
         </div>
       </div>
     </>

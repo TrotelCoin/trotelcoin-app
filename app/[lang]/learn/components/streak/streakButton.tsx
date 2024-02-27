@@ -1,39 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 
-const StreakButton = ({
-  disabled,
-  setStreak,
-  setMaxStreak,
-  streak,
-}: {
-  disabled: boolean;
-  setStreak: React.Dispatch<React.SetStateAction<number>>;
-  setMaxStreak: React.Dispatch<React.SetStateAction<number>>;
-  streak: number;
-}) => {
+const StreakButton = ({ disabled }: { disabled: boolean }) => {
   const address = useAddress();
 
-  const updateStreak = async (address: Address) => {
-    const result = await fetch(`/api/database/updateStreak?wallet=${address}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
-      cache: "no-store",
-    });
-    // if success from response is true, then setStreak to streak + 1
-    const data = await result.json();
-    if (data.success === "Streak updated.") {
-      setStreak((streak: number) => streak + 1);
-      setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
-    } else {
-      setStreak(0);
-      setMaxStreak(0);
-    }
-  };
+  const { updateStreak } = useContext(StreakContext);
 
   return (
     <>

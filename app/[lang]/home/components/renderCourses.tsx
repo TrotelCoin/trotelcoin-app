@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const renderCourses = (
   course: Lesson,
-  intermediateBalance: number,
-  expertBalance: number,
+  isIntermediate: boolean,
+  isExpert: boolean,
   lang: Lang,
   quizId: number,
   status: string[],
@@ -36,20 +36,14 @@ const renderCourses = (
       description = course.description.en;
   }
 
-  const isIntermediate =
-    (tier === "Intermediate" || tier === "Intermédiaire") &&
-    intermediateBalance > 0;
-  const isExpert = tier === "Expert" && expertBalance > 0 && address;
-
   const courseLink =
     isIntermediate || isExpert || tier === "Beginner" || tier === "Débutant"
       ? `/${lang}/${quizId}${course.href}`
       : `/${lang}/not-premium`;
 
   const borderClass =
-    (tier === "Expert" && expertBalance > 0) ||
-    ((tier === "Intermediate" || tier === "Intermédiaire") &&
-      intermediateBalance > 0)
+    (tier === "Expert" && isExpert) ||
+    ((tier === "Intermediate" || tier === "Intermédiaire") && isIntermediate)
       ? "rainbow-border"
       : "active:border-blue-500 border border-gray-900/20 dark:border-gray-100/20 hover:border-gray-900/50 dark:hover:border-gray-100/50";
 
@@ -69,7 +63,6 @@ const renderCourses = (
           tiltMaxAngleY={5}
           glareMaxOpacity={0.45}
           perspective={800}
-          scale={1.05}
         >
           {/*<Image
               height={400}
@@ -89,7 +82,7 @@ const renderCourses = (
               </div>
             </div>
             <div>
-              <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
+              <div className={`text-gray-600 dark:text-gray-400 text-xs`}>
                 {description}
               </div>
             </div>

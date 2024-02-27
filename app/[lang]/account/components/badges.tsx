@@ -1,21 +1,13 @@
-import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinAddress,
-  trotelCoinEarlyAddress,
-  trotelCoinExpertAddress,
-  trotelCoinIntermediateAddress,
-  trotelCoinStakingV1,
-} from "@/data/web3/addresses";
+import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useContractRead, useBalance } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import PremiumContext from "../../contexts/premiumContext";
 
 const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [maxStreak, setMaxStreak] = useState<number | null>(null);
@@ -46,44 +38,8 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     }
   }, [balance]);
 
-  const { data: earlyBalance } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinEarlyABI,
-    address: trotelCoinEarlyAddress,
-    functionName: "balanceOf",
-    args: [address],
-    enabled: Boolean(address),
-    account: address as Address,
-    watch: true,
-  });
-
-  const early = parseFloat(earlyBalance as string) > 0;
-
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  const intermediateBalance: number = parseFloat(intermediate as string);
-  const expertBalance: number = parseFloat(expert as string);
-
-  const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
+  const { isEarly, intermediateBalance, expertBalance } =
+    useContext(PremiumContext);
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
@@ -181,7 +137,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       id: 4,
       name: typeof dict?.badges !== "string" && dict?.badges.early,
       image: "🤫",
-      condition: early,
+      condition: isEarly,
     },
     {
       id: 5,
@@ -331,7 +287,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
         Badges
       </h2>
-      <BadgesList badges={badges} isNotPremium={isNotPremium} dict={dict} />
+      <BadgesList badges={badges} dict={dict} />
     </>
   );
 };

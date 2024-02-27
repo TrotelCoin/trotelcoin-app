@@ -2,10 +2,11 @@ import { DictType, Lang, Question } from "@/types/types";
 import React, { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Confetti from "react-dom-confetti";
-import LifeContext from "@/app/[lang]/lifeContext";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData";
 import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const debug = process.env.NODE_ENV === "development";
 
@@ -38,6 +39,7 @@ const QuizComponent = ({
   );
 
   const { updateLife, life } = useContext(LifeContext);
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -81,7 +83,9 @@ const QuizComponent = ({
       setIsCorrect(false);
       setShowConfetti(false);
       setAudio(false);
-      updateLife();
+      if (!isIntermediate && !isExpert && life > 0) {
+        updateLife();
+      }
     }
     setWrongAnswers(newWrongAnswers);
     setShowMessage(true);
@@ -215,7 +219,7 @@ const QuizComponent = ({
               <Confetti active={showConfetti} />
             </button>
           ) : (
-            <span className="text-sm px-6 py-2 font-semibold text-gray-700 dark:text-gray-300">
+            <span className="text-sm px-6 py-2 font-semibold text-gray-600 dark:text-gray-400">
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
             </span>
           )

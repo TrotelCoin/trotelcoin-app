@@ -1,16 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
-import { Address, useContractRead } from "wagmi";
-import { polygon } from "wagmi/chains";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import { Address } from "wagmi";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
-import {
-  trotelCoinIntermediateAddress,
-  trotelCoinExpertAddress,
-} from "@/data/web3/addresses";
 import { Lessons, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress } from "@thirdweb-dev/react";
@@ -20,6 +13,7 @@ import {
   filterByTitleOrDescription,
   lessonsLength,
 } from "@/utils/courses";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,29 +47,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const address = useAddress();
 
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    address: trotelCoinIntermediateAddress,
-    abi: trotelCoinIntermediateABI,
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    functionName: "balanceOf",
-    watch: true,
-  });
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    address: trotelCoinExpertAddress,
-    abi: trotelCoinExpertABI,
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    functionName: "balanceOf",
-    watch: true,
-  });
-
-  const intermediateBalance = parseFloat(intermediate as string);
-  const expertBalance = parseFloat(expert as string);
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   useEffect(() => {
     const fetchCoursesCompleted = async () => {
@@ -140,8 +112,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   .map((course, index) =>
                     renderCourses(
                       course,
-                      intermediateBalance,
-                      expertBalance,
+                      isIntermediate,
+                      isExpert,
                       lang,
                       course.quizId,
                       status,

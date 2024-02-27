@@ -1,5 +1,6 @@
 import React from "react";
 import type { Dispatch } from "react";
+import { Address } from "viem";
 
 const StreakContext = React.createContext({
   streak: 0 as number,
@@ -10,6 +11,9 @@ const StreakContext = React.createContext({
   setLastUpdatedStreak: {} as Dispatch<React.SetStateAction<string>>,
   cooldown: "00:00:00" as string,
   setCooldown: {} as Dispatch<React.SetStateAction<string>>,
+  updateStreak: {} as (address: Address) => void,
+  maxStreak: 0 as number,
+  setMaxStreak: {} as Dispatch<React.SetStateAction<number>>,
 });
 
 export default StreakContext;

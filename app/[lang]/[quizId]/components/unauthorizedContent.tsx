@@ -18,7 +18,7 @@ const UnauthorizedContent = ({
               <>{dict?.lesson.notAvailable}</>
             )}
           </h1>
-          <p className="mt-6 text-base leading-7 text-gray-700 dark:text-gray-300">
+          <p className="mt-6 text-base leading-7 text-gray-600 dark:text-gray-400">
             {typeof dict?.lesson !== "string" && (
               <>{dict?.lesson.notAvailableMessage}</>
             )}

@@ -1,14 +1,7 @@
 import { DictType, Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinIntermediateAddress,
-  trotelCoinExpertAddress,
-} from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
-import { useEnsName, mainnet, useContractRead } from "wagmi";
+import { useEnsName, mainnet } from "wagmi";
 import Satisfaction from "@/app/[lang]/account/components/header/satisfaction";
 import Rank from "@/app/[lang]/account/components/header/rank";
 import Balance from "@/app/[lang]/account/components/header/statistics/balance";
@@ -19,36 +12,11 @@ import shortenAddress from "@/utils/shortenAddress";
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   const address = useAddress();
 
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
   const { data: ensName } = useEnsName({
     address: address as Address,
     enabled: Boolean(address),
     chainId: mainnet.id,
   });
-
-  const intermediateBalance: number = parseFloat(intermediate as string);
-  const expertBalance: number = parseFloat(expert as string);
-
-  const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
 
   return (
     <>
@@ -66,12 +34,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
       <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
         <Satisfaction dict={dict as DictType} lang={lang} />
 
-        <Rank
-          dict={dict as DictType}
-          isNotPremium={isNotPremium}
-          intermediateBalance={intermediateBalance}
-          expertBalance={expertBalance}
-        />
+        <Rank dict={dict as DictType} />
 
         <Balance dict={dict as DictType} />
 
