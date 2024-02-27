@@ -6,6 +6,12 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 
+const defaultClasses =
+  "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-1 px-3 rounded-full";
+
+const dynamicClasses =
+  "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+
 const MobileFooter = ({ lang }: { lang: Lang }) => {
   const [scrolling, setScrolling] = useState<boolean>(false);
 
@@ -61,7 +67,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       ),
     },
     {
-      name: lang === "en" ? "Learn" : "Apprendre",
+      name: lang === "en" ? "Learn" : "Cours",
       href: `/${lang}/learn`,
       id: 2,
       iconOutline: (
@@ -94,7 +100,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       ),
     },
     {
-      name: lang === "en" ? "Wallet" : "Portefeuille",
+      name: lang === "en" ? "Wallet" : "Wallet",
       href: `/${lang}/wallet`,
       id: 3,
       iconOutline: (
@@ -140,41 +146,6 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-          />
-        </svg>
-      ),
-      iconSolid: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="w-5 h-5"
-        >
-          <path
-            fillRule="evenodd"
-            d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: lang === "en" ? "Account" : "Compte",
-      href: `/${lang}/account`,
-      id: 5,
-      iconOutline: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-5 h-5"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
             d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
           />
         </svg>
@@ -206,25 +177,20 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
         leave="transition-opacity duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
+        className="flex justify-center mx-auto"
       >
         <div
-          className={`md:hidden fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-gray-800 pt-3 pb-7 px-6 shadow-xl border-t border-gray-900/10 dark:border-gray-100/10`}
+          className={`md:hidden fixed rounded-full backdrop-blur-xl bottom-0 mb-8 w-11/12 mx-auto bg-gray-800 dark:bg-gray-100 px-3 py-2 shadow-lg`}
         >
-          <div className="flex justify-between items-center text-gray-900 dark:text-gray-100">
+          <div className="flex flex-wrap justify-between items-center text-gray-900 dark:text-gray-100">
             {navigation.map((item: MobileFooterItem, index: number) => (
               <Link
                 key={index}
                 href={item.href}
-                className="flex flex-col gap-1 items-center text-xs"
+                className={`flex items-center text-xs ${
+                  pathname === item.href ? dynamicClasses : defaultClasses
+                }`}
               >
-                <span>
-                  {pathname === item.href ? (
-                    <span>{item.iconSolid}</span>
-                  ) : (
-                    <span>{item.iconOutline}</span>
-                  )}
-                </span>
-
                 {item.name}
               </Link>
             ))}
