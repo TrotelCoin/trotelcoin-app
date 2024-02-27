@@ -1,25 +1,26 @@
 import quizzes from "@/data/quizzes/quizData";
 import { NextRequest, NextResponse } from "next/server";
+import { Question, Quiz } from "@/types/types";
 
-const getQuestionsByLanguage = (quiz: any, lang: string) => {
+const getQuestionsByLanguage = (quiz: Quiz, lang: string) => {
   switch (lang) {
     case "en":
-      return quiz.questions.map((q: any) => ({
+      return quiz.questions.map((q: Question) => ({
         questionId: q.questionId,
-        question: q.question.en,
-        options: q.options.en,
+        question: q.question,
+        options: q.options,
       }));
     case "fr":
-      return quiz.questions.map((q: any) => ({
+      return quiz.questions.map((q: Question) => ({
         questionId: q.questionId,
-        question: q.question.fr,
-        options: q.options.fr,
+        question: q.question,
+        options: q.options,
       }));
     default:
-      return quiz.questions.map((q: any) => ({
+      return quiz.questions.map((q: Question) => ({
         questionId: q.questionId,
-        question: q.question.en,
-        options: q.options.en,
+        question: q.question,
+        options: q.options,
       }));
   }
 };

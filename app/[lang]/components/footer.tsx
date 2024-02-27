@@ -3,7 +3,7 @@
 import { JSX, SVGProps, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { DictType, Lang } from "@/types/types";
+import { DictType, FooterItem, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 
 const discordIcon = (
@@ -157,7 +157,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           className="-mb-6 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
-          {displayedItems.map((item: any, index: number) => (
+          {displayedItems.map((item: FooterItem, index: number) => (
             <div key={index} className="pb-6 flex items-center">
               {item.display && (
                 <Link
@@ -165,7 +165,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                   target={item.anotherWindow ? "_blank" : "_self"}
                   className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
                 >
-                  {item.name}
+                  {item.name as string}
                 </Link>
               )}
               {item.anotherWindow && (

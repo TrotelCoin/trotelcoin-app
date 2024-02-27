@@ -3,7 +3,6 @@ import { Transition } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import Link from "next/link";
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Address } from "viem";
 import StreakContext from "@/app/[lang]/streakContext";
 
 const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {

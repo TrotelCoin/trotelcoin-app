@@ -1,11 +1,6 @@
-import { Lang } from "@/types/types";
+import { Lang, Question } from "@/types/types";
 
-export const loadQuizData = async (
-  quizId: number,
-  setQuestions: Function,
-  setCorrectAnswers: Function,
-  lang: Lang
-) => {
+export const loadQuizData = async (quizId: number, lang: Lang) => {
   try {
     const quizResponse = await fetch(
       `/api/quizzes?lang=${lang}&quizId=${quizId}`,
@@ -31,11 +26,10 @@ export const loadQuizData = async (
     );
 
     if (quizResponse.ok && answersResponse.ok) {
-      const quizData = await quizResponse.json();
-      const answersData = await answersResponse.json();
+      const quizData: Question = await quizResponse.json();
+      const answersData: string[] = await answersResponse.json();
 
-      setQuestions(quizData);
-      setCorrectAnswers(answersData);
+      return JSON.stringify({ quiz: quizData, answers: answersData });
     } else {
       console.error("Failed to fetch quiz data or answers data");
     }

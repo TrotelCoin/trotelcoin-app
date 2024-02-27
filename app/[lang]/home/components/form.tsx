@@ -6,7 +6,7 @@ const Form = ({
   handleSearch,
 }: {
   dict: DictType;
-  handleSearch: any;
+  handleSearch: (e: { target: { value: string } }) => void;
 }) => {
   return (
     <>

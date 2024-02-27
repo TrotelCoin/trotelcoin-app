@@ -1,6 +1,6 @@
 import { Lessons, Lesson, Lang } from "@/types/types";
 
-export function filterByCategory(lesson: Lessons, searchTerm: any) {
+export function filterByCategory(lesson: Lessons, searchTerm: string) {
   return lesson.category.toLowerCase().includes(searchTerm);
 }
 

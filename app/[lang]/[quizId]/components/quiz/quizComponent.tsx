@@ -1,10 +1,11 @@
-import { DictType, Lang } from "@/types/types";
+import { DictType, Lang, Question } from "@/types/types";
 import React, { useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Confetti from "react-dom-confetti";
 import LifeContext from "@/app/[lang]/lifeContext";
 import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData";
 import shuffleArray from "@/utils/shuffleArray";
+import "animate.css";
 
 const debug = process.env.NODE_ENV === "development";
 
@@ -19,8 +20,8 @@ const QuizComponent = ({
   dict: DictType;
   lang: Lang;
   isCorrect: boolean;
-  setIsCorrect: any;
-  setAudio: any;
+  setIsCorrect: (value: boolean) => void;
+  setAudio: (value: boolean) => void;
   quizId: number;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
@@ -30,8 +31,11 @@ const QuizComponent = ({
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
-  const [questions, setQuestions] = useState<any>(null);
+  const [questions, setQuestions] = useState<Question[] | null>(null);
   const [shuffled, setShuffled] = useState<boolean>(false);
+  const [shuffledQuestions, setShuffledQuestions] = useState<Question[] | null>(
+    null
+  );
 
   const { updateLife, life } = useContext(LifeContext);
 
@@ -46,9 +50,11 @@ const QuizComponent = ({
   };
 
   const goToNext = () => {
-    setCurrentQuestion((prev) =>
-      prev < questions.length - 1 ? prev + 1 : prev
-    );
+    if (questions) {
+      setCurrentQuestion((prev) =>
+        prev < questions.length - 1 ? prev + 1 : prev
+      );
+    }
   };
 
   const handleCaptchaVerify = () => {
@@ -82,58 +88,95 @@ const QuizComponent = ({
   };
 
   useEffect(() => {
-    loadQuizData(quizId, setQuestions, setCorrectAnswers, lang);
-  }, []);
+    if (quizId && lang) {
+      loadQuizData(quizId, lang)
+        .then((result) => {
+          const { quiz, answers } = JSON.parse(result as string);
+          setQuestions(quiz);
+          setCorrectAnswers(answers);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [quizId, lang]);
 
   useEffect(() => {
     if (!shuffled && questions) {
       const shuffledQuestions = questions.map(
-        (question: any, index: number) => ({
+        (question: Question, index: number) => ({
           ...question,
           originalIndex: index,
         })
       );
 
-      shuffledQuestions.forEach((question: any) => {
-        question.options = shuffleArray(question.options);
+      shuffledQuestions.forEach((question) => {
+        if (lang && question.options) {
+          if (lang === "en") {
+            question.options.en = shuffleArray(question.options.en);
+          } else {
+            question.options.fr = shuffleArray(question.options.fr);
+          }
+        }
       });
 
-      setQuestions(shuffledQuestions);
+      setShuffledQuestions(shuffledQuestions);
       setShuffled(true);
     }
-  }, [questions, shuffled]);
+  }, [questions, shuffled, lang]);
 
   return (
     <>
-      {questions && questions[currentQuestion] && (
+      {shuffledQuestions && shuffledQuestions[currentQuestion] && (
         <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
-          <span>{questions[currentQuestion].question}</span>
           <span>
-            {currentQuestion + 1}/{questions.length}
+            {lang === "en"
+              ? shuffledQuestions[currentQuestion].question.en
+              : shuffledQuestions[currentQuestion].question.fr}
+          </span>
+          <span>
+            {currentQuestion + 1}/{shuffledQuestions.length}
           </span>
         </h3>
       )}
-      {questions && questions[currentQuestion] ? (
+      {shuffledQuestions &&
+      shuffledQuestions[currentQuestion] &&
+      shuffledQuestions[currentQuestion].options ? (
         <ul className="mt-3 py-6 space-y-4">
-          {questions[currentQuestion].options.map(
-            (option: string, index: number) => (
-              <li key={index} className="items-center">
-                <div
-                  className={`cursor-pointer px-4 py-2 rounded-lg ${
-                    answers[currentQuestion] === option
-                      ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
-                      : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
-                  }`}
-                  onClick={() => handleAnswer(option)}
-                >
-                  {option}
-                </div>
-              </li>
-            )
-          )}
+          {lang === "en"
+            ? shuffledQuestions[currentQuestion].options.en.map(
+                (option: string, index: number) => (
+                  <li key={index} className="items-center">
+                    <div
+                      className={`cursor-pointer px-4 py-2 rounded-lg ${
+                        answers[currentQuestion] === option
+                          ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                          : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                      }`}
+                      onClick={() => handleAnswer(option)}
+                    >
+                      {option}
+                    </div>
+                  </li>
+                )
+              )
+            : shuffledQuestions[currentQuestion].options.fr.map(
+                (option: string, index: number) => (
+                  <li key={index} className="items-center">
+                    <div
+                      className={`cursor-pointer px-4 py-2 rounded-lg ${
+                        answers[currentQuestion] === option
+                          ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                          : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                      }`}
+                      onClick={() => handleAnswer(option)}
+                    >
+                      {option}
+                    </div>
+                  </li>
+                )
+              )}
         </ul>
       ) : (
-        <span className="font-semibold mt-3 py-6 text-gray-900 dark:text-gray-100">
+        <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
           {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
         </span>
       )}
@@ -182,7 +225,7 @@ const QuizComponent = ({
       </div>
       {showMessage && (
         <div
-          className={`mt-6 animate__animated animate__fadeIn ${
+          className={`mt-6 flex flex-col gap-2 animate__animated animate__fadeIn ${
             isCorrect
               ? "text-green-500 dark:text-green-300"
               : "text-red-500 dark:text-red-300"
@@ -192,7 +235,7 @@ const QuizComponent = ({
             ? `${dict && typeof dict.quiz !== "string" && dict?.quiz.correct}`
             : `${
                 dict && typeof dict.quiz !== "string" && dict?.quiz.incorrect
-              } ${wrongAnswers.join(", ")}`}
+              } ${wrongAnswers.join(", ")}.`}
           {!isCorrect && life >= 0 && life <= 3 && (
             <span className="text-red-500 dark:text-red-300">
               {lang === "en" ? (

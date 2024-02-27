@@ -1,4 +1,4 @@
-import { DictType } from "@/types/types";
+import { DictType, Badge } from "@/types/types";
 import React from "react";
 
 const BadgesList = ({
@@ -6,7 +6,7 @@ const BadgesList = ({
   isNotPremium,
   dict,
 }: {
-  badges: Array<any>;
+  badges: Badge[];
   isNotPremium: boolean;
   dict: DictType;
 }) => {

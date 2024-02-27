@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang, LeaderboardItem } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
@@ -6,7 +6,9 @@ import shortenAddress from "@/utils/shortenAddress";
 import { fetchEnsName, mainnet } from "@wagmi/core";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
-  const [leaderboard, setLeaderboard] = useState<Array<any> | null>(null);
+  const [leaderboard, setLeaderboard] = useState<LeaderboardItem[] | null>(
+    null
+  );
 
   const [isLoadingLeaderboard, setIsLoadingLeaderboard] =
     useState<boolean>(true);
@@ -46,8 +48,8 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
       return result ?? address;
     };
 
-    const fetchLeaderboard = async (leaderboard: any) => {
-      const promises = leaderboard.map(async (entry: any) => {
+    const fetchLeaderboard = async (leaderboard: LeaderboardItem[]) => {
+      const promises = leaderboard.map(async (entry: LeaderboardItem) => {
         if (entry.wallet && isAddress(entry.wallet)) {
           entry.wallet = await fetchEns(entry.wallet);
         }

@@ -1,25 +1,16 @@
-// Define an interface for an Article object
-export interface Article {
-  id: number; // Unique identifier for the article
-  title: string; // Title of the article
-  category: string; // Category or topic of the article
-  image: string; // URL of an associated image for the article
-  date: string; // Publication date of the article
-  author: string; // Name of the author of the article
-  body: () => JSX.Element; // Function returning JSX representing the article's content
-}
+import { Address } from "viem";
 
 export interface Modals {
-  title: string; // Title of the message
-  show: boolean; // Indicates whether the dialog should be displayed
-  message: string; // The success message to display
-  onClose: () => void; // A function to handle the dialog close action
+  title: string;
+  show: boolean;
+  message: string;
+  onClose: () => void;
   lang: string;
 }
 
 export interface Token {
-  symbol: string; // Token symbol (e.g., "TROTEL")
-  address: `0x${string}`; // Token address (e.g., "0xf04ab1a43cba1474160b7b8409387853d7be02d5")
+  symbol: string;
+  address: Address;
 }
 
 export interface Module {
@@ -33,7 +24,6 @@ export interface Module {
   submodules: Submodule[];
 }
 
-// Define the Submodule interface
 export interface Submodule {
   id: number;
   href: string;
@@ -41,17 +31,6 @@ export interface Submodule {
   status: "Not started" | "Finished" | "Ongoing";
   environment: "Not started" | "Finished" | "Ongoing";
   description: string;
-}
-
-// Define the props for the ArticleReader component
-export interface ArticleReaderProps {
-  article: Article; // An article object to display
-  onClose: () => void; // A function to close the article reader
-}
-
-export interface ArticleCardProps {
-  article: Article; // An article object to display
-  onOpen: (article: Article) => void; // A function to open the selected article
 }
 
 export interface BalanceData {
@@ -62,10 +41,17 @@ export interface BalanceData {
   isLoading: boolean;
 }
 
-export interface Languages {
+export type Lang = "en" | "fr";
+
+export type LanguageOptions = {
+  en: string[];
+  fr: string[];
+};
+
+export type LanguageStrings = {
   en: string;
   fr: string;
-}
+};
 
 export interface Tier {
   en: "Beginner" | "Intermediate" | "Expert";
@@ -73,11 +59,11 @@ export interface Tier {
 }
 
 export interface Lesson {
-  title: Languages;
-  description: Languages;
-  one: Languages;
-  two: Languages;
-  three: Languages;
+  title: LanguageStrings;
+  description: LanguageStrings;
+  one: LanguageStrings;
+  two: LanguageStrings;
+  three: LanguageStrings;
   href: string;
   tier: Tier;
   sponsored: boolean;
@@ -92,18 +78,75 @@ export interface Lessons {
 }
 
 export interface Course {
-  title: Languages;
-  one: Languages;
-  two: Languages;
-  three: Languages;
+  title: LanguageStrings;
+  one: LanguageStrings;
+  two: LanguageStrings;
+  three: LanguageStrings;
 }
 
 export interface Answers {
   [key: number]: string;
 }
 
-export type Lang = "en" | "fr";
-
 export type DictType = {
   [key: string]: string | DictType;
+};
+
+export type Question = {
+  questionId: number;
+  question: LanguageStrings;
+  options: LanguageOptions;
+};
+
+export type Quiz = {
+  quizId: number;
+  title: string;
+  questions: {
+    questionId: number;
+    question: LanguageStrings;
+    options: LanguageOptions;
+  }[];
+};
+
+export type QuizAnswer = {
+  quizId: number;
+  correctAnswers: {
+    en: string[];
+    fr: string[];
+  };
+};
+
+export type Badge = {
+  id: number;
+  name: string | false | DictType;
+  image: string;
+  condition: boolean | 0 | null;
+};
+
+export type FooterItem = {
+  name: string | false | DictType | undefined;
+  href: string;
+  display: boolean;
+  id: number;
+  anotherWindow: boolean;
+};
+
+export type MobileFooterItem = {
+  name: string;
+  href: string;
+  id: number;
+  iconOutline: React.JSX.Element;
+  iconSolid: React.JSX.Element;
+};
+
+export type LeaderboardItem = {
+  name: string;
+  href: string;
+  id: number;
+  wallet: string;
+  ens: string;
+  number_of_quizzes_answered: number;
+  current_streak: number;
+  iconOutline: React.JSX.Element;
+  iconSolid: React.JSX.Element;
 };

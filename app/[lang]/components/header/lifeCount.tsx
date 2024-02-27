@@ -8,30 +8,20 @@ import { DictType, Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import Link from "next/link";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
+import LifeContext from "@/app/[lang]/lifeContext";
 
-const LifeCount = ({
-  dict,
-  lang,
-  life,
-}: {
-  dict: DictType;
-  lang: Lang;
-  life: number;
-}) => {
+const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
-  const [cooldown, setCooldown] = useState<string | null>(null);
   const [isIntermediateBalance, setIsIntermediateBalance] =
     useState<boolean>(false);
   const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
-  const [resetLifeCountdown, setResetLifeCountdown] = useState<string | null>(
-    null
-  );
 
   const address = useAddress();
+  const { life, lifeCooldown } = useContext(LifeContext);
 
   const { data: intermediate } = useContractRead({
     chainId: polygon.id,
@@ -68,52 +58,6 @@ const LifeCount = ({
     }
   }, [intermediate, expert]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (resetLifeCountdown) {
-        const lastUpdated = new Date(resetLifeCountdown);
-        const now = new Date();
-        const difference = now.getTime() - lastUpdated.getTime();
-        if (difference > 86400000) {
-          setCooldown("00:00:00");
-        } else {
-          const cooldown = 86400000 - difference;
-          const cooldownString = new Date(cooldown).toISOString();
-          const time = cooldownString.split("T")[1].split(".")[0];
-          setCooldown(time);
-        }
-      } else {
-        setCooldown("00:00:00");
-      }
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [resetLifeCountdown]);
-
-  useEffect(() => {
-    const fetchResetLifeCountdown = async () => {
-      const result = await fetch(
-        `/api/database/resetLifeCount?wallet=${address as Address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setResetLifeCountdown(data);
-    };
-
-    if (address) {
-      fetchResetLifeCountdown();
-    } else {
-      setResetLifeCountdown(null);
-    }
-  }, [address]);
-
   return (
     <>
       <div
@@ -149,10 +93,10 @@ const LifeCount = ({
                   <>{dict?.header.lifeMessage}</>
                 )}
               </p>
-              {cooldown && (
+              {lifeCooldown && (
                 <p>
                   {lang === "en" ? "Reset in:" : "Réinitialisation dans:"}{" "}
-                  {cooldown}
+                  {lifeCooldown}
                 </p>
               )}
               <Link href={`/${lang}/premium`}>
