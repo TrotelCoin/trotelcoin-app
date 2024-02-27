@@ -17,7 +17,7 @@ const Streak = ({ dict }: { dict: DictType }) => {
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
         {typeof dict?.learn !== "string" && <>{dict?.learn.streak}</>}
       </h2>
-      <p className="text-gray-600 dark:text-gray-400">
+      <p className="text-gray-700 dark:text-gray-300">
         {address &&
           (disabled
             ? typeof dict?.learn !== "string" && (

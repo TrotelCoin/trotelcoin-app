@@ -12,7 +12,7 @@ const CurrentCourse = ({
       <div className="bg-gray-100 my-10 border backdrop-blur-xl border-gray-900/20 dark:border-gray-100/20 rounded-lg px-10 py-2 dark:bg-gray-800">
         <ul
           role="list"
-          className="max-w-xl space-y-8 text-gray-600 dark:text-gray-400"
+          className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
         >
           <div className="grid grid-cols-1 divide-y divide-gray-900/20 dark:divide-gray-100/20">
             <div className="py-4">

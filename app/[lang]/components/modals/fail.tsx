@@ -48,7 +48,7 @@ const Fail: React.FC<Modals> = ({ title, show, message, onClose }) => {
                       {title}
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-500 dark:text-gray-300">
                         {message}
                       </p>
                     </div>
