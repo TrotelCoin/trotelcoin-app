@@ -69,11 +69,11 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
     <>
       <React.Suspense fallback={null}>
         <ul className="mt-4">
-          <div
-            className={`bg-gray-100 flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 flex items-center justify-between backdrop-blur-xl text-center rounded-2xl dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
-          >
-            {!isLoadingLeaderboard ? (
-              <>
+          {!isLoadingLeaderboard ? (
+            <>
+              <div
+                className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-900/10 dark:border-gray-100/10 flex flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 items-center justify-between backdrop-blur-xl text-center rounded-2xl`}
+              >
                 {leaderboard &&
                   Array.isArray(leaderboard) &&
                   leaderboard.map((entry, index) => (
@@ -107,15 +107,15 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                       </div>
                     </li>
                   ))}
-              </>
-            ) : (
-              <>
-                <p className="mt-2 text-gray-700 dark:text-gray-300 animate__animated animate__slower animate__flash animate__infinite">
-                  {lang === "en" ? <>Loading...</> : <>Chargement...</>}
-                </p>
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="mt-2 text-gray-700 dark:text-gray-300 animate__animated animate__slower animate__flash animate__infinite">
+                {lang === "en" ? <>Loading...</> : <>Chargement...</>}
+              </p>
+            </>
+          )}
         </ul>
       </React.Suspense>
     </>
