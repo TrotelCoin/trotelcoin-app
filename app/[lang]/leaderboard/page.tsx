@@ -9,7 +9,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
-        Your ranking
+        {lang === "en" ? "Your ranking" : "Votre classement"}
       </h2>
       <UserLeaderboard lang={lang} />
       <h2 className="mt-6 font-semibold text-gray-900 dark:text-gray-100 text-xl">
