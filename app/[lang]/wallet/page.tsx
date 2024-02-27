@@ -23,7 +23,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
     <>
       <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
+          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
             {lang === "en" ? <>Wallet</> : <>Portefeuille</>}
           </h2>
           <Claim lang={lang} />
@@ -31,7 +31,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
 
         <div>
-          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl mt-10">
+          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
             {lang === "en" ? <>Staking</> : <>Staking</>}
           </h2>
           <Staking lang={lang} />

@@ -31,7 +31,6 @@ const Beginner = ({ lang }: { lang: Lang }) => {
         tiltMaxAngleY={5}
         glareMaxOpacity={0.45}
         perspective={800}
-        scale={1.05}
       >
         <div
           className={`overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
@@ -47,7 +46,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
                 <div className="flex flex-col gap-2 my-4">
                   {Object.values(advantages).map((advantage, index) => (
                     <div key={index} className="flex gap-1">
-                      <div className="text-gray-700 flex items-center dark:text-gray-300">
+                      <div className="text-gray-600 flex items-center dark:text-gray-400">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

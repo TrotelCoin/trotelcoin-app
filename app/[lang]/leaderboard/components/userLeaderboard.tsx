@@ -72,7 +72,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
       <React.Suspense fallback={null}>
         {isLoadingUserLeaderboard ? (
           <>
-            <p className="mt-2 text-gray-700 dark:text-gray-300 animate__animated animate__slower animate__flash animate__infinite">
+            <p className="mt-2 text-gray-600 dark:text-gray-400 animate__animated animate__slower animate__flash animate__infinite">
               {lang === "en" ? <>Loading...</> : <>Chargement...</>}
             </p>
           </>
@@ -116,7 +116,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
               </>
             ) : (
               <>
-                <p className="mt-2 text-gray-700 dark:text-gray-300">
+                <p className="mt-2 text-gray-600 dark:text-gray-400">
                   {lang === "en" ? (
                     <>Connect your wallet</>
                   ) : (

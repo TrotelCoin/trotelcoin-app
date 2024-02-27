@@ -215,7 +215,7 @@ const QuizComponent = ({
               <Confetti active={showConfetti} />
             </button>
           ) : (
-            <span className="text-sm px-6 py-2 font-semibold text-gray-700 dark:text-gray-300">
+            <span className="text-sm px-6 py-2 font-semibold text-gray-600 dark:text-gray-400">
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
             </span>
           )

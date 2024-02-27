@@ -112,7 +112,7 @@ export default function Layout({
                   />
                 ) : null}
                 <NextTopLoader
-                  color="#eab308"
+                  color="#3b82f6"
                   initialPosition={0.08}
                   crawlSpeed={200}
                   height={5}
@@ -120,7 +120,7 @@ export default function Layout({
                   showSpinner={false}
                   easing="ease"
                   speed={200}
-                  shadow="0 0 10px #F5AD3B,0 0 5px #F5AD3B"
+                  shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
                 />
                 <Suspense fallback={<Loading />}>
                   <DictionaryProvider lang={lang}>

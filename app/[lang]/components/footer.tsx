@@ -163,7 +163,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                 <Link
                   href={item.href}
                   target={item.anotherWindow ? "_blank" : "_self"}
-                  className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
+                  className="text-sm leading-6 text-gray-600 dark:text-gray-400 hover:text-gray-900 hover:dark:text-gray-100"
                 >
                   {item.name as string}
                 </Link>
@@ -205,7 +205,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                 key={index}
                 href={item.href}
                 target="_blank"
-                className="hidden sm:block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                className="hidden sm:block text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />
