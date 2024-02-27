@@ -42,7 +42,7 @@ const PremiumStatistics = ({ dict }: { dict: DictType }) => {
             {parseFloat(early as string).toLocaleString("en-US")}
           </span>
           <span>
-            {typeof dict?.premium !== "string" && <>{dict?.premium.early}</>}
+            {typeof dict?.shop !== "string" && <>{dict?.shop.early}</>}
           </span>
         </div>
         <div className="items-center flex flex-col py-6">
@@ -50,9 +50,7 @@ const PremiumStatistics = ({ dict }: { dict: DictType }) => {
             {parseFloat(intermediate as string).toLocaleString("en-US")}
           </span>
           <span>
-            {typeof dict?.premium !== "string" && (
-              <>{dict?.premium.intermediate}</>
-            )}
+            {typeof dict?.shop !== "string" && <>{dict?.shop.intermediate}</>}
           </span>
         </div>
         <div className="items-center flex flex-col py-6">
@@ -60,7 +58,7 @@ const PremiumStatistics = ({ dict }: { dict: DictType }) => {
             {parseFloat(expert as string).toLocaleString("en-US")}
           </span>
           <span>
-            {typeof dict?.premium !== "string" && <>{dict?.premium.expert}</>}
+            {typeof dict?.shop !== "string" && <>{dict?.shop.expert}</>}
           </span>
         </div>
       </div>

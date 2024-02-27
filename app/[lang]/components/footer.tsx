@@ -80,8 +80,8 @@ export default function Footer({ lang }: { lang: Lang }) {
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.premium,
-        href: `/${lang}/premium`,
+        name: typeof dict?.footer !== "string" && dict?.footer.shop,
+        href: `/${lang}/shop`,
         display: false,
         id: 5,
         anotherWindow: false,

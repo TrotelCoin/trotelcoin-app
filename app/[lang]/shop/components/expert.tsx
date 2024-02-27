@@ -1,29 +1,24 @@
 "use client";
 
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useEffect, useState } from "react";
 import { useBalance, useContractRead, Address } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "../../components/modals/success";
+import Success from "@/app/[lang]/components/modals/success";
 import {
   trotelCoinAddress,
-  trotelCoinIntermediateAddress,
+  trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import {
-  useAddress,
-  useUser,
-  useContractWrite,
-  useContract,
-} from "@thirdweb-dev/react";
+import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 
-const holdingRequirements: number = 10000;
+const holdingRequirements: number = 50000;
 
-const Intermediate = ({ lang }: { lang: Lang }) => {
+const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
   const [isEligibleMessage, setIsEligibleMessage] = useState<boolean>(false);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
@@ -45,37 +40,33 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [lang]);
 
   const advantages = {
-    1: typeof dict?.intermediate !== "string" && dict?.intermediate.advantage1,
-    2: typeof dict?.intermediate !== "string" && dict?.intermediate.advantage2,
+    1: typeof dict?.expert !== "string" && dict?.expert.advantage1,
+    2: typeof dict?.expert !== "string" && dict?.expert.advantage2,
   };
 
   const address = useAddress();
-  const { user, isLoggedIn, isLoading } = useUser();
   const { contract } = useContract(
-    trotelCoinIntermediateAddress,
-    trotelCoinIntermediateABI
+    trotelCoinExpertAddress,
+    trotelCoinExpertABI
   );
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
-    enabled: Boolean(address),
     watch: true,
   });
-  const {
-    mutateAsync,
-    isLoading: isLoadingWrite,
-    isSuccess,
-    isError,
-  } = useContractWrite(contract, "mint");
+  const { mutateAsync, isSuccess, isError } = useContractWrite(
+    contract,
+    "mint"
+  );
   const { data: claimed } = useContractRead({
-    address: trotelCoinIntermediateAddress,
-    abi: trotelCoinIntermediateABI,
-    enabled: Boolean(address),
+    address: trotelCoinExpertAddress,
+    abi: trotelCoinExpertABI,
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],
     account: address as Address,
+    enabled: Boolean(address),
   });
 
   useEffect(() => {
@@ -89,7 +80,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isLoggedIn) {
+    if (address) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
@@ -107,8 +98,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       setIsClaimed(true);
       setIsClaimedMessage(true);
 
-      const postClaimIntermediate = async () => {
-        fetch(`/api/database/claimIntermediate?wallet=${address}`, {
+      const postClaimExpert = async () => {
+        fetch(`/api/database/claimExpert?wallet=${address}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -118,9 +109,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         });
       };
 
-      postClaimIntermediate();
+      postClaimExpert();
     }
-  }, [isSuccess, address, setIsClaimed, setIsClaimedMessage]);
+  }, [isSuccess, address, setIsClaimedMessage, setIsClaimed]);
 
   useEffect(() => {
     if (isError) {
@@ -152,7 +143,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   isClaimed && "rainbow-text"
                 }`}
               >
-                🙈 {lang === "en" ? "Intermediate" : "Intermédiaire"}
+                🦊 {lang === "en" ? "Expert" : "Expert"}
               </div>
             </div>
             <div className="flex flex-col gap-5">
@@ -186,8 +177,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   onClick={checkEligibility}
                   className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
                 >
-                  {typeof dict?.premium !== "string" && (
-                    <>{dict?.premium.eligibility}</>
+                  {typeof dict?.shop !== "string" && (
+                    <>{dict?.shop.eligibility}</>
                   )}
                 </button>
               )}
@@ -205,16 +196,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
                   style={{}}
                 >
-                  {typeof dict?.premium !== "string" && (
-                    <>{dict?.premium.claim}</>
-                  )}
+                  {typeof dict?.shop !== "string" && <>{dict?.shop.claim}</>}
                 </button>
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
-                  {typeof dict?.premium !== "string" && (
-                    <>{dict?.premium.claimed}</>
-                  )}
+                  {typeof dict?.shop !== "string" && <>{dict?.shop.claimed}</>}
                 </button>
               )}
             </div>
@@ -263,10 +250,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       />
       <Fail
         show={errorMessage}
-        lang={lang}
         onClose={() => setErrorMessage(false)}
+        lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
-        message={lang === "en" ? "An error occured" : "Une erreur a survenue"}
+        message={lang === "en" ? "An error occured" : "Une erreur est survenue"}
       />
       <Success
         show={isEligibleMessageSuccess}
@@ -291,16 +278,16 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         show={isClaimedMessage}
         title={
           typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedIntermediateNFT !== "string" &&
-          dict?.modals.claimedIntermediateNFT.title === "string"
-            ? dict?.modals.claimedIntermediateNFT.title
+          typeof dict?.modals.claimedExpertNFT !== "string" &&
+          dict?.modals.claimedExpertNFT.title === "string"
+            ? dict?.modals.claimedExpertNFT.title
             : ""
         }
         message={
           typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedIntermediateNFT !== "string" &&
-          typeof dict?.modals.claimedIntermediateNFT.message === "string"
-            ? dict?.modals.claimedIntermediateNFT.message
+          typeof dict?.modals.claimedExpertNFT !== "string" &&
+          typeof dict?.modals.claimedExpertNFT.message === "string"
+            ? dict?.modals.claimedExpertNFT.message
             : ""
         }
         onClose={() => setIsClaimedMessage(false)}
@@ -310,4 +297,4 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   );
 };
 
-export default Intermediate;
+export default Expert;

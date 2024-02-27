@@ -53,8 +53,8 @@ const Header = ({ lang }: { lang: Lang }) => {
       id: 3,
     },
     {
-      name: typeof dict?.header !== "string" && dict?.header.premium,
-      href: "/premium",
+      name: typeof dict?.header !== "string" && dict?.header.shop,
+      href: "/shop",
       id: 4,
     },
     {

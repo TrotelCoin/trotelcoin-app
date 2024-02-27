@@ -13,7 +13,7 @@
     "learn": "Learn",
     "community": "Community",
     "account": "Account",
-    "premium": "Premium",
+    "shop": "Shop",
     "version": "beta version",
     "disconnect": "Sign out",
     "lifeMessage": "Your life count",
@@ -43,12 +43,12 @@
     "pricing": "Pricing",
     "business": "Business",
     "documentation": "Documentation",
-    "premium": "Become premium",
+    "shop": "Shop",
     "terms": "Terms of service",
     "privacy": "Privacy policy",
     "leaderboard": "Leaderboard"
   },
-  "premium": {
+  "shop": {
     "claimNFTs": "Claim your NFTs",
     "statistics": "Statistics",
     "eligibility": "Check your eligibility",
