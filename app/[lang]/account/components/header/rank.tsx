@@ -1,17 +1,11 @@
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { DictType } from "@/types/types";
-import React from "react";
+import React, { useContext } from "react";
 
-const Rank = ({
-  dict,
-  isNotPremium,
-  intermediateBalance,
-  expertBalance,
-}: {
-  dict: DictType;
-  isNotPremium: boolean;
-  intermediateBalance: number;
-  expertBalance: number;
-}) => {
+const Rank = ({ dict }: { dict: DictType }) => {
+  const { isNotPremium, intermediateBalance, expertBalance } =
+    useContext(PremiumContext);
+
   return (
     <>
       <div

@@ -56,17 +56,31 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
   const expertBalance: number = parseFloat(expert as string);
 
   const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
+  const isPremium = !isNotPremium;
+
+  const isExpert = expertBalance > 0;
+  const isIntermediate = intermediateBalance > 0;
 
   const contextValue = useMemo(
     () => ({
-      isPremium: !isNotPremium,
+      isPremium,
       intermediateBalance,
       expertBalance,
       isEarly,
       earlyBalance,
       isNotPremium,
+      isIntermediate,
+      isExpert,
     }),
-    [isNotPremium, intermediateBalance, expertBalance, isEarly, earlyBalance]
+    [
+      isNotPremium,
+      intermediateBalance,
+      expertBalance,
+      isEarly,
+      earlyBalance,
+      isExpert,
+      isIntermediate,
+    ]
   );
 
   return (

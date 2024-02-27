@@ -1,62 +1,15 @@
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinIntermediateAddress,
-  trotelCoinExpertAddress,
-} from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
-import { useAddress } from "@thirdweb-dev/react";
 import Link from "next/link";
-import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Address } from "viem";
-import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
+import React, { Fragment, useContext, useState } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
-  const [isIntermediateBalance, setIsIntermediateBalance] =
-    useState<boolean>(false);
-  const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
 
-  const address = useAddress();
   const { life, lifeCooldown } = useContext(LifeContext);
-
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  useEffect(() => {
-    const intermediateBalance: number = parseFloat(intermediate as string);
-    const expertBalance: number = parseFloat(expert as string);
-
-    if (intermediateBalance > 0) {
-      setIsIntermediateBalance(true);
-    }
-
-    if (expertBalance > 0) {
-      setIsExpertBalance(true);
-    }
-  }, [intermediate, expert]);
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   return (
     <>
@@ -65,7 +18,7 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         onMouseEnter={() => setIsHoveringLife(true)}
         onMouseLeave={() => setIsHoveringLife(false)}
       >
-        {isExpertBalance || isIntermediateBalance ? (
+        {isExpert || isIntermediate ? (
           <span className="font-semibold text-2xl">&infin;</span>
         ) : life ? (
           <>{life}</>

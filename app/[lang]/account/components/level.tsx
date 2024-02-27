@@ -1,16 +1,8 @@
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinIntermediateAddress,
-  trotelCoinExpertAddress,
-} from "@/data/web3/addresses";
 import { DictType } from "@/types/types";
 import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useAddress } from "@thirdweb-dev/react";
-import { useEffect, useState } from "react";
-import { Address } from "viem";
-import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
+import { useContext, useEffect, useState } from "react";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 interface LevelSectionProps {
   dict: DictType | null;
@@ -26,31 +18,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
 
   const address = useAddress();
 
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  const intermediateBalance: number = parseFloat(intermediate as string);
-  const expertBalance: number = parseFloat(expert as string);
-
-  const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
+  const { isNotPremium } = useContext(PremiumContext);
 
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {

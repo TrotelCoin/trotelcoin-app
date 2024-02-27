@@ -3,18 +3,11 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { DictType, Lang } from "@/types/types";
-import { useAddress, useUser } from "@thirdweb-dev/react";
-import { useContractRead, Address } from "wagmi";
+import { useUser } from "@thirdweb-dev/react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinIntermediateAddress,
-  trotelCoinExpertAddress,
-} from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
 import Rewards from "@/app/[lang]/[quizId]/components/quiz/rewards";
 import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 interface QuizProps {
   quizId: number;
@@ -26,9 +19,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [audio, setAudio] = useState<boolean>(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [dict, setDict] = useState<DictType | null>(null);
-  const [isIntermediateBalance, setIsIntermediateBalance] =
-    useState<boolean>(false);
-  const [isExpertBalance, setIsExpertBalance] = useState<boolean>(false);
 
   const { life } = useContext(LifeContext);
 
@@ -41,7 +31,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     fetchDictionary();
   }, [lang]);
 
-  const address = useAddress();
   const { isLoggedIn } = useUser();
 
   useEffect(() => {
@@ -50,42 +39,9 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     }
   }, [audio]);
 
-  const { data: intermediate } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
 
-  const { data: expert } = useContractRead({
-    chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
-    args: [address as Address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
-  });
-
-  useEffect(() => {
-    const intermediateBalance: number = parseFloat(intermediate as string);
-    const expertBalance: number = parseFloat(expert as string);
-
-    if (intermediateBalance > 0) {
-      setIsIntermediateBalance(true);
-    }
-
-    if (expertBalance > 0) {
-      setIsExpertBalance(true);
-    }
-  }, [intermediate, expert]);
-
-  if (life === 0 && !isIntermediateBalance && !isExpertBalance) {
+  if (life === 0 && !isIntermediate && !isExpert) {
     return (
       <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
         <p className="text-red-500 dark:text-red-300">

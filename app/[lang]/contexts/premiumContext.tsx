@@ -7,6 +7,8 @@ const PremiumContext = React.createContext({
   earlyBalance: 0 as number,
   isEarly: false as boolean,
   isNotPremium: true as boolean,
+  isIntermediate: false as boolean,
+  isExpert: false as boolean,
 });
 
 export default PremiumContext;

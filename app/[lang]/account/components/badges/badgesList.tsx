@@ -1,15 +1,10 @@
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { DictType, Badge } from "@/types/types";
-import React from "react";
+import React, { useContext } from "react";
 
-const BadgesList = ({
-  badges,
-  isNotPremium,
-  dict,
-}: {
-  badges: Badge[];
-  isNotPremium: boolean;
-  dict: DictType;
-}) => {
+const BadgesList = ({ badges, dict }: { badges: Badge[]; dict: DictType }) => {
+  const { isNotPremium } = useContext(PremiumContext);
+
   return (
     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
       {badges &&

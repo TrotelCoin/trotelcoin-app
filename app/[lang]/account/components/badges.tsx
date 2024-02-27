@@ -1,13 +1,4 @@
-import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import {
-  trotelCoinAddress,
-  trotelCoinEarlyAddress,
-  trotelCoinExpertAddress,
-  trotelCoinIntermediateAddress,
-  trotelCoinStakingV1,
-} from "@/data/web3/addresses";
+import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { DictType, Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
@@ -47,7 +38,8 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     }
   }, [balance]);
 
-  const { isPremium, intermediate, expert, early } = useContext(PremiumContext);
+  const { isEarly, intermediateBalance, expertBalance } =
+    useContext(PremiumContext);
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
@@ -145,7 +137,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       id: 4,
       name: typeof dict?.badges !== "string" && dict?.badges.early,
       image: "🤫",
-      condition: early,
+      condition: isEarly,
     },
     {
       id: 5,
@@ -295,7 +287,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
         Badges
       </h2>
-      <BadgesList badges={badges} isNotPremium={isNotPremium} dict={dict} />
+      <BadgesList badges={badges} dict={dict} />
     </>
   );
 };
