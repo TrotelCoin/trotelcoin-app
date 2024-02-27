@@ -73,7 +73,7 @@ const CoursesSatisfaction = ({
   return (
     <>
       {(address as Address) && !alreadyAnsweredSatisfaction && (
-        <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10 flex flex-col">
+        <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 flex flex-col">
           <div className="flex items-center">
             {!alreadyAnsweredSatisfaction && (
               <>

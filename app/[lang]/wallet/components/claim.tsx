@@ -32,26 +32,24 @@ const Claim = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="mt-4 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/20 dark:divide-gray-100/20 border-gray-900/20 dark:border-gray-100/20 rounded-lg py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="flex flex-col flex-wrap gap-4 px-4">
-          <span className="font-bold text-xl">
-            {lang === "en" ? <>Claim</> : <>Récupérer</>}
-          </span>
+      <div className="mt-4 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <span className="font-bold text-xl px-4">
+          {lang === "en" ? <>Claim</> : <>Récupérer</>}
+        </span>
 
-          <div className="flex flex-col gap-2">
-            <div>
-              <AvailableToClaim lang={lang} />
-            </div>
-            <div>
-              <Balance lang={lang} />
-            </div>
+        <div className="flex flex-col gap-2 pt-4 px-4">
+          <div>
+            <AvailableToClaim lang={lang} />
           </div>
           <div>
-            <RewardsButton
-              centralWalletAddress={centralWalletAddress as Address}
-              lang={lang}
-            />
+            <Balance lang={lang} />
           </div>
+        </div>
+        <div className="pt-4 px-4">
+          <RewardsButton
+            centralWalletAddress={centralWalletAddress as Address}
+            lang={lang}
+          />
         </div>
       </div>
     </>

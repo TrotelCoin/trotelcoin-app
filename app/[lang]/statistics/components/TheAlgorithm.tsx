@@ -16,7 +16,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     <>
       <div>
         <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
-          {typeof dict?.algorithm !== "string" && <>{dict?.algorithm.title}</>}
+          {lang === "en" ? "Statistics" : "Statistiques"}
         </h2>
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
           <TrotelCoinsDistributed dict={dict} />

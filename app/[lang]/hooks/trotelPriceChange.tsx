@@ -31,26 +31,26 @@ const TrotelPriceChange = () => {
 
           if (priceChange === 0) {
             setContainerClass(
-              "inline-flex items-center rounded-lg bg-gray-100 dark:bg-gray-300/10 px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
+              "inline-flex items-center rounded-xl bg-gray-100 dark:bg-gray-300/10 px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
             );
             setLoadingClass("");
             setSign("");
           } else if (priceChange < 0) {
             setContainerClass(
-              "inline-flex items-center rounded-lg bg-red-50 dark:bg-red-300/10 px-2 py-1 text-xs font-medium text-red-500 dark:text-red-300 ring-1 ring-inset ring-red-500/20 dark:ring-red-300/40"
+              "inline-flex items-center rounded-xl bg-red-50 dark:bg-red-300/10 px-2 py-1 text-xs font-medium text-red-500 dark:text-red-300 ring-1 ring-inset ring-red-500/20 dark:ring-red-300/40"
             );
             setLoadingClass("");
             setSign("");
           } else if (priceChange > 0) {
             setContainerClass(
-              "inline-flex items-center rounded-lg bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-500 dark:text-green-300 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40"
+              "inline-flex items-center rounded-xl bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-500 dark:text-green-300 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40"
             );
             setLoadingClass("");
             setSign("+");
           } else {
             setTokenPriceChange(0);
             setContainerClass(
-              "inline-flex items-center rounded-lg bg-gray-100 dark:bg-gray-300/10 px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
+              "inline-flex items-center rounded-xl bg-gray-100 dark:bg-gray-300/10 px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
             );
             setLoadingClass(
               "animate__animated animate__flash animate__slower animate__infinite"

@@ -21,7 +21,7 @@ const Form = ({
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-14 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/20 rounded-full bg-gray-100 dark:bg-gray-800 dark:border-gray-100/20 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+            className="block w-full p-4 pl-14 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-100 dark:bg-gray-800 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
             placeholder={
               typeof dict?.home !== "string" &&
               typeof dict?.home.search === "string"

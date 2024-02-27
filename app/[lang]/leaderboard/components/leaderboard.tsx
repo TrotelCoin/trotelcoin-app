@@ -71,16 +71,15 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
         <ul className="mt-4">
           {!isLoadingLeaderboard ? (
             <>
-              {leaderboard &&
-                Array.isArray(leaderboard) &&
-                leaderboard.map((entry, index) => (
-                  <li key={index}>
-                    <div
-                      className={`mt-2 bg-gray-100 flex items-center justify-between ${
-                        index < 3
-                          ? "rainbow-border"
-                          : "border-gray-900/20 dark:border-gray-100/20"
-                      } border backdrop-blur-xl text-center rounded-full p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+              <div
+                className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-900/10 dark:border-gray-100/10 flex flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 items-center justify-between backdrop-blur-xl text-center rounded-2xl`}
+              >
+                {leaderboard &&
+                  Array.isArray(leaderboard) &&
+                  leaderboard.map((entry, index) => (
+                    <li
+                      key={index}
+                      className="w-full flex items-center justify-between gap-4 py-4 px-6"
                     >
                       <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-300 dark:bg-gray-700">
                         {index + 1}
@@ -106,9 +105,9 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                           🔥
                         </span>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))}
+              </div>
             </>
           ) : (
             <>

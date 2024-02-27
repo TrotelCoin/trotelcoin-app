@@ -75,7 +75,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             className="absolute flex justify-center bg-white dark:bg-gray-800 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
             style={{ width: "300px" }}
           >
-            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/20 p-4 rounded-xl">
+            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/10 p-4 rounded-xl">
               <p className="font-semibold">
                 {typeof dict?.header !== "string" && (
                   <>{dict?.header.streakMessage}</>
@@ -95,7 +95,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                   !disabled
                     ? "bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 text-gray-100 dark:text-gray-900"
                     : "bg-gray-500 text-gray-100"
-                } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2  rounded-lg font-semibold ${
+                } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2  rounded-xl font-semibold ${
                   disabled && "cursor-not-allowed"
                 }`}
               >
