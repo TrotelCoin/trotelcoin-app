@@ -24,7 +24,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex justify-center -mt-10">
+      <div className="mx-auto flex justify-center items-center -mt-10">
         <div className="flex items-center text-sm justify-between gap-4 text-gray-900 dark:text-gray-100">
           <button
             onClick={() => setComponent("claim")}
@@ -59,7 +59,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
       </div>
       {component && (
-        <div className="mx-auto flex max-w-md mt-4">
+        <div className="mx-auto max-w-md mt-8">
           {component === "claim" && <Claim lang={lang} />}
           {component === "send" && <Send lang={lang} />}
           {component === "staking" && <Staking lang={lang} />}

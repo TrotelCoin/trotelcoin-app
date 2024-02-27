@@ -29,10 +29,10 @@ const Wallet = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       {address && isLoggedIn ? (
         <button
           onClick={handleDisconnect}
-          className="text-sm font-semibold rounded-full px-6 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
+          className="text-sm font-semibold rounded-full px-4 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
           style={{ minWidth: "0px" }}
         >
-          {typeof dict?.header !== "string" && <>{dict?.header.disconnect}</>}
+          {lang === "en" ? "Sign out" : "Déconnexion"}
         </button>
       ) : (
         <ConnectWallet
@@ -41,8 +41,8 @@ const Wallet = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           switchToActiveChain={true}
           modalSize={"wide"}
           modalTitleIconUrl={""}
-          btnTitle={lang === "en" ? "Sign in" : "Se connecter"}
-          className="text-sm font-semibold rounded-full px-6 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
+          btnTitle={lang === "en" ? "Sign in" : "Connexion"}
+          className="text-sm font-semibold rounded-full px-4 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
           style={{ minWidth: "0px" }}
         />
       )}

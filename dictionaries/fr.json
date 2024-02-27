@@ -59,16 +59,16 @@
     "expert": "Expert"
   },
   "beginner": {
-    "advantage1": "Des cours gratuits",
+    "advantage1": "Cours gratuits",
     "advantage2": "Récompenses en crypto"
   },
   "intermediate": {
     "advantage1": "Des cours avancés",
-    "advantage2": "Fonctionnalités de gamification"
+    "advantage2": "Gamification"
   },
   "expert": {
-    "advantage1": "Accès aux fonctionnalités beta",
-    "advantage2": "Une communauté crypto"
+    "advantage1": "Fonctionnalités beta",
+    "advantage2": "Communauté crypto"
   },
   "modals": {
     "connectWallet": {

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 const TrotelPriceChange = () => {
   const [tokenPriceChange, setTokenPriceChange] = useState<number>(0);
   const [containerClass, setContainerClass] = useState<string>(
-    "inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-300/10 px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
+    "inline-flex items-center rounded-xl bg-gray-100 dark:bg-gray-300/10 px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-200 ring-1 ring-inset ring-gray-500/20 dark:ring-gray-200/40"
   );
   const [sign, setSign] = useState<string>("");
   const [error, setError] = useState<string>("");
