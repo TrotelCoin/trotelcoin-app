@@ -5,18 +5,7 @@ import React, { useEffect, useState } from "react";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 
 // Define a functional component called ComingSoon
-const ComingSoon = ({ lang }: { lang: Lang }) => {
-  const [dict, setDict] = useState<DictType | null>(null);
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
+const ComingSoon = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
   return (
     <>
       {/* Container for the "Coming Soon" message */}

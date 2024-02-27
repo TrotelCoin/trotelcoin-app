@@ -16,9 +16,9 @@
     "shop": "Shop",
     "version": "beta version",
     "disconnect": "Sign out",
-    "lifeMessage": "Your life count",
-    "streakMessage": "Your streak count",
-    "lifeButton": "Get unlimited lives",
+    "lifeMessage": "Cooldown",
+    "streakMessage": "Cooldown",
+    "lifeButton": "Unlimited lives",
     "streakButton": "Do your streak",
     "wallet": "Wallet"
   },

@@ -16,9 +16,9 @@
     "shop": "Boutique",
     "version": "version beta",
     "disconnect": "Se déconnecter",
-    "lifeMessage": "Vos vies actuelles",
-    "streakMessage": "Votre série actuelle",
-    "lifeButton": "Obtenez des vies illimitées",
+    "lifeMessage": "Temps restant",
+    "streakMessage": "Temps restant",
+    "lifeButton": "Vies illimitées",
     "streakButton": "Augmentez votre série",
     "wallet": "Portefeuille"
   },

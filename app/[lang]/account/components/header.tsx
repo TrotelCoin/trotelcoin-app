@@ -8,6 +8,7 @@ import Balance from "@/app/[lang]/account/components/header/statistics/balance";
 import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/statistics/numberOfQuizzesAnswered";
 import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
 import shortenAddress from "@/utils/shortenAddress";
+import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   const address = useAddress();
@@ -31,7 +32,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
         </span>{" "}
         👋
       </h2>
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
         <Satisfaction dict={dict as DictType} lang={lang} />
 
         <Rank dict={dict as DictType} />
@@ -41,6 +42,8 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
         <NumberOfQuizzesAnswered dict={dict as DictType} />
 
         <TotalRewardsPending dict={dict as DictType} />
+
+        <MaxStreak lang={lang} />
       </div>
     </>
   );

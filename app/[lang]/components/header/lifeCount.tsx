@@ -41,17 +41,12 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             style={{ width: "300px" }}
           >
             <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/20 p-4 rounded-xl">
-              <p>
+              <p className="font-semibold">
                 {typeof dict?.header !== "string" && (
                   <>{dict?.header.lifeMessage}</>
                 )}
               </p>
-              {lifeCooldown && (
-                <p>
-                  {lang === "en" ? "Reset in:" : "Réinitialisation dans:"}{" "}
-                  {lifeCooldown}
-                </p>
-              )}
+              {lifeCooldown && <p>{lifeCooldown} ⏳</p>}
               <Link href={`/${lang}/shop`}>
                 <button className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
                   {typeof dict?.header !== "string" && (
