@@ -152,7 +152,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   isClaimed && "rainbow-text"
                 }`}
               >
-                🙈 Intermediate
+                🙈 {lang === "en" ? "Intermediate" : "Intermédiaire"}
               </div>
             </div>
             <div className="flex flex-col gap-5">

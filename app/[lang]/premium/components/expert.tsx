@@ -143,7 +143,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                   isClaimed && "rainbow-text"
                 }`}
               >
-                🦊 Expert
+                🦊 {lang === "en" ? "Expert" : "Expert"}
               </div>
             </div>
             <div className="flex flex-col gap-5">
