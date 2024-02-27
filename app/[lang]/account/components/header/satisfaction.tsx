@@ -37,7 +37,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   return (
     <>
       <div
-        className={`col-span-2 md:col-span-4 bg-gray-100 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-lg p-8 dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
+        className={`col-span-2 md:col-span-4 bg-gray-100 flex items-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-8 dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
           alreadyAnsweredSatisfaction &&
           "hidden animate__animated animate__fadeOut"
         }`}
@@ -53,7 +53,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               <div key={index}>
                 <div
                   onClick={() => setSelectedNumber(number)}
-                  className={`m-1 w-10 h-10 rounded-lg ${
+                  className={`m-1 w-10 h-10 rounded-xl ${
                     selectedNumber === number
                       ? "bg-gray-900 hover:bg-gray-700 dark:bg-white dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
                       : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-100 text-gray-900 dark:text-gray-100"

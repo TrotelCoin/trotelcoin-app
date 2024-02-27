@@ -88,7 +88,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             {<TrotelPrice />}
           </p>
           <div className="hidden md:block">{<TrotelPriceChange />}</div>
-          <span className="hidden xl:inline-flex items-center rounded-lg bg-blue-50 dark:bg-blue-300/10 px-2 py-1 text-xs font-medium text-blue-500 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/30">
+          <span className="hidden xl:inline-flex items-center rounded-xl bg-blue-50 dark:bg-blue-300/10 px-2 py-1 text-xs font-medium text-blue-500 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/30">
             <span className="animate__animated animate__flash animate__slower animate__infinite">
               {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
             </span>
@@ -101,7 +101,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         >
           {navigation.map((item, index) => {
             const defaultClasses =
-              "text-gray-100 dark:text-gray-900 text-sm font-semibold hover:bg-white dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+              "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-1 px-3 rounded-full";
 
             const dynamicClasses =
               "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
@@ -152,7 +152,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           </div>
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
+            className="-m-2.5 inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 dark:text-gray-100"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -185,7 +185,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               <Wallet dict={dict as DictType} lang={lang} />
               <button
                 type="button"
-                className="-m-2.5 rounded-lg p-2.5 text-gray-900 dark:text-gray-100"
+                className="-m-2.5 rounded-xl p-2.5 text-gray-900 dark:text-gray-100"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -203,7 +203,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                     onClick={() => {
                       closeMenu();
                     }}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
+                    className="-mx-3 block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
                   >
                     <>{item.name}</>
                   </Link>

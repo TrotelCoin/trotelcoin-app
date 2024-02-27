@@ -5,10 +5,13 @@ import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
-import SendAndReceive from "@/app/[lang]/wallet/components/sendAndReceive";
+import Send from "@/app/[lang]/wallet/components/send";
+
+type ActiveComponent = "claim" | "staking" | "send";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
+  const [component, setComponent] = useState<ActiveComponent>("claim");
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -21,22 +24,47 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
-            {lang === "en" ? <>Wallet</> : <>Portefeuille</>}
-          </h2>
-          <Claim lang={lang} />
-          <SendAndReceive lang={lang} />
-        </div>
-
-        <div>
-          <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
+      <div className="mx-auto flex justify-center -mt-10">
+        <div className="flex items-center text-sm justify-between gap-4 text-gray-900 dark:text-gray-100">
+          <button
+            onClick={() => setComponent("claim")}
+            className={`px-4 py-2 rounded-full ${
+              component === "claim"
+                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
+                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+            }`}
+          >
+            {lang === "en" ? <>Claim</> : <>Portefeuille</>}
+          </button>
+          <button
+            onClick={() => setComponent("send")}
+            className={`px-4 py-2 rounded-full ${
+              component === "send"
+                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
+                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+            }`}
+          >
+            {lang === "en" ? <>Send</> : <>Envoyer</>}
+          </button>
+          <button
+            onClick={() => setComponent("staking")}
+            className={`px-4 py-2 rounded-full ${
+              component === "staking"
+                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
+                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+            }`}
+          >
             {lang === "en" ? <>Staking</> : <>Staking</>}
-          </h2>
-          <Staking lang={lang} />
+          </button>
         </div>
       </div>
+      {component && (
+        <div className="mx-auto flex max-w-md mt-4">
+          {component === "claim" && <Claim lang={lang} />}
+          {component === "send" && <Send lang={lang} />}
+          {component === "staking" && <Staking lang={lang} />}
+        </div>
+      )}
     </>
   );
 };

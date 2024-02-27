@@ -138,7 +138,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         perspective={800}
       >
         <div
-          className={`overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 ${
+          className={`overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 ${
             isClaimed
               ? "rainbow-border"
               : "border border-gray-900/10 dark:border-gray-100/10"
@@ -183,7 +183,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               {!isClaimed && !isEligible && (
                 <button
                   onClick={checkEligibility}
-                  className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold"
+                  className="bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold"
                 >
                   {typeof dict?.shop !== "string" && (
                     <>{dict?.shop.eligibility}</>
@@ -201,14 +201,14 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                       return;
                     }
                   }}
-                  className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-lg !font-semibold"
+                  className="!bg-blue-500 hover:!bg-blue-400 dark:!bg-blue-300 dark:hover:!bg-blue-400 focus:!border-blue-500 dark:focus:!border-blue-300 !text-sm !px-6 !py-2 !text-gray-100 dark:!text-gray-900 !rounded-xl !font-semibold"
                   style={{}}
                 >
                   {typeof dict?.shop !== "string" && <>{dict?.shop.claim}</>}
                 </button>
               )}
               {isClaimed && (
-                <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-lg font-semibold">
+                <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
                   {typeof dict?.shop !== "string" && <>{dict?.shop.claimed}</>}
                 </button>
               )}

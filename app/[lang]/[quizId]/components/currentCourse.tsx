@@ -9,7 +9,7 @@ const CurrentCourse = ({
 }) => {
   return (
     <>
-      <div className="bg-gray-100 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-lg px-10 py-2 dark:bg-gray-800">
+      <div className="bg-gray-100 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-10 py-2 dark:bg-gray-800">
         <ul
           role="list"
           className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
