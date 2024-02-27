@@ -16,14 +16,14 @@
     "premium": "Premium",
     "version": "version beta",
     "disconnect": "Se déconnecter",
-    "lifeMessage": "Tes vies actuelles",
-    "streakMessage": "Ta série actuelle",
+    "lifeMessage": "Vos vies actuelles",
+    "streakMessage": "Votre série actuelle",
     "lifeButton": "Obtiens vies illimitées",
-    "streakButton": "Augmente ta série",
+    "streakButton": "Augmentez votre série",
     "wallet": "Portefeuille"
   },
   "home": {
-    "search": "Que veux-tu apprendre ?"
+    "search": "Que voulez-vous apprendre ?"
   },
   "wallet": {
     "connect": "Se connecter",
@@ -49,9 +49,9 @@
     "leaderboard": "Classement"
   },
   "premium": {
-    "claimNFTs": "Obtiens tes NFTs",
+    "claimNFTs": "Obtenez vos NFTs",
     "statistics": "Statistiques",
-    "eligibility": "Vérifie ton éligibilité",
+    "eligibility": "Vérifiez votre éligibilité",
     "claim": "Obtenir",
     "claimed": "Déjà obtenu",
     "early": "Accès anticipé",
@@ -72,24 +72,24 @@
   },
   "modals": {
     "connectWallet": {
-      "title": "Connecte toi",
-      "message": "Tu dois te connecter."
+      "title": "Connectez-vous",
+      "message": "Vous devez vous connecter."
     },
     "eligible": {
-      "title": "Tu es éligible",
-      "message": "Tu es éligible pour obtenir ton NFT."
+      "title": "Vous êtes éligible",
+      "message": "Vous êtes éligible pour obtenir votre NFT."
     },
     "claimedIntermediateNFT": {
-      "title": "Tu as obtenu ton NFT",
-      "message": "Tu es maintenant un utilisateur Intermédiaire."
+      "title": "Vous avez obtenu votre NFT",
+      "message": "Vous êtes maintenant un utilisateur Intermédiaire."
     },
     "claimedExpertNFT": {
-      "title": "Tu as obtenu ton NFT",
-      "message": "Tu es maintenant un utilisateur Expert."
+      "title": "Vous avez obtenu votre NFT",
+      "message": "Vous êtes maintenant un utilisateur Expert."
     },
     "claimedTrotelCoin": {
       "title": "Félicitations",
-      "message": "Tu as obtenu tes TrotelCoins."
+      "message": "Vous avez obtenu vos TrotelCoins."
     }
   },
   "account": {
@@ -99,10 +99,10 @@
     "totalRewards": "Récompenses totales",
     "quizzesAnswered": "Quiz répondus",
     "level": "Niveau",
-    "youAreLevel": "Tu es au niveau",
+    "youAreLevel": "Vous êtes au niveau",
     "trotelCoinsLeft": "quiz restants",
     "rewardsPending": "Récompenses en attente",
-    "satisfaction": "Tu recommenderais TrotelCoin à un ami ?",
+    "satisfaction": "Recommanderiez-vous TrotelCoin à un ami ?",
     "badges": {
       "beginner": "Débutant"
     },
@@ -118,18 +118,18 @@
     "notAvailable": "Pas encore disponible",
     "sponsored": "Sponsorisé",
     "newCourse": "Nouveau cours",
-    "notAvailableMessage": "Cette leçon n'est pas encore disponible. Reviens plus tard.",
+    "notAvailableMessage": "Cette leçon n'est pas encore disponible. Revenez plus tard.",
     "goBackHome": "Retourner à l'accueil",
     "course": "Cours",
-    "goingToLearn": "Que vas-tu apprendre?",
-    "satisfaction": "Tu as aimé ce cours ?",
-    "satisfactionMessage": "Merci d'avoir donné ton avis sur ce cours.",
-    "errorMessage": "Une erreur est survenue. Réessaye plus tard.",
+    "goingToLearn": "Qu'allez-vous apprendre?",
+    "satisfaction": "Vous avez aimé ce cours ?",
+    "satisfactionMessage": "Merci d'avoir donné votre avis sur ce cours.",
+    "errorMessage": "Une erreur est survenue. Réessayez plus tard.",
     "disclaimer": "Aucun de nos cours ne constitue un conseil financier. Nous ne sommes pas responsables de vos pertes financières. Veuillez effectuer vos propres recherches."
   },
   "notPremium": {
-    "title": "Tu n'es pas premium",
-    "message": "Connecte toi ou deviens un utilisateur premium pour accéder à ce cours."
+    "title": "Vous n'êtes pas premium",
+    "message": "Connectez-vous ou devenez un utilisateur premium pour accéder à ce cours."
   },
   "quiz": {
     "loading": "Quiz en cours de chargement...",
@@ -137,15 +137,15 @@
     "next": "Suivant",
     "submit": "Soumettre",
     "captcha": "Captcha manquant",
-    "claimRewards": "Obtiens tes récompenses",
-    "youWillGet": "Tu vas obtenir",
-    "receiveCrypto": "Obtiens tes récompenses",
-    "correct": "Félicitations. Tu as répondu correctement à toutes les questions.",
-    "incorrect": "Oups. Tu as répondu incorrectement aux questions suivantes :",
-    "alreadyClaimed": "Tu as déjà obtenu tes récompenses pour ce quiz.",
-    "connectWallet": "Connecte toi pour obtenir tes récompenses.",
-    "claimingError": "Une erreur est survenue. Réessaye plus tard.",
-    "life": "Tu ne peux pas faire le quiz, car tu n'as plus de vie restante. Reviens demain ou achète des vies."
+    "claimRewards": "Obtenez vos récompenses",
+    "youWillGet": "Vous allez obtenir",
+    "receiveCrypto": "Obtenez vos récompenses",
+    "correct": "Félicitations. Vous avez répondu correctement à toutes les questions.",
+    "incorrect": "Oups. Vous avez répondu incorrectement aux questions suivantes :",
+    "alreadyClaimed": "Vous avez déjà obtenu vos récompenses pour ce quiz.",
+    "connectWallet": "Connectez-vous pour obtenir vos récompenses.",
+    "claimingError": "Une erreur est survenue. Réessayez plus tard.",
+    "life": "Vous ne pouvez pas faire le quiz, car vous n'avez plus de vie restante. Revevez demain ou achetez des vies."
   },
   "events": {
     "claimed": "a obtenu"
@@ -165,8 +165,8 @@
     "trainingCenter": "Centre de formation",
     "streak": "Streak",
     "cooldown": "Temps restant",
-    "streakDisabled": "Reviens demain pour augmenter ta série. Attention à ne pas perdre ta série !",
-    "streakEnabled": "Clique sur la flame pour augmenter ta série.",
+    "streakDisabled": "Revenez demain pour augmenter votre série. Attention à ne pas perdre votre série !",
+    "streakEnabled": "Cliquez sur la flame pour augmenter votre série.",
     "maxStreak": "Plus grosse série"
   },
   "privacyPolicy": {

@@ -74,7 +74,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text:
             lang === "en"
               ? "- Create your first wallet is available"
-              : "- Crée ton premier portefeuille est disponible",
+              : "- Crée t premier portefeuille est disponible",
           isNew: true,
         },
       ],
@@ -86,19 +86,17 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text:
             lang === "en"
               ? "- You can stake your TROTEL now"
-              : "- Tu peux staker tes TROTEL maintenant",
+              : "- Vous pouvez staker vos TROTEL maintenant",
         },
         {
           text:
             lang === "en"
               ? "- You can claim your TROTEL now"
-              : "- Tu peux récupérer tes TROTEL maintenant",
+              : "- Vous pouvez récupérer vos TROTEL maintenant",
         },
         {
           text:
-            lang === "en"
-              ? "- We are added badges"
-              : "- On a ajouté des badges",
+            lang === "en" ? "- We added badges" : "- On a ajouté des badges",
         },
         {
           text:

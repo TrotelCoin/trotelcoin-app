@@ -48,7 +48,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         {!address
           ? "❌"
           : streakCooldown === "Increase your streak" ||
-            streakCooldown === "Augmente ta série" ||
+            streakCooldown === "Augmentez votre série" ||
             streakCooldown === "00:00:00" ||
             cooldown === "00:00:00"
           ? "🔥"
@@ -76,7 +76,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               {streakCooldown && cooldown && (
                 <p>
                   {streakCooldown !==
-                    ("Increase your streak" || "Augmente ta série") &&
+                    ("Increase your streak" || "Augmentez votre série") &&
                     (lang === "en"
                       ? "Reset in:"
                       : "Réinitialisation dans:")}{" "}

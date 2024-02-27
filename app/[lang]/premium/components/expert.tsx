@@ -215,8 +215,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
       {lang === "fr" ? (
         <Fail
           show={isEligibleMessage}
-          title="Tu n'es pas éligible"
-          message={`Tu as besoin de ${holdingRequirements.toLocaleString(
+          title="Vous n'êtes pas éligible"
+          message={`Vous avez besoin de ${holdingRequirements.toLocaleString(
             "en-US"
           )} TrotelCoins pour réclamer ce NFT.`}
           onClose={() => setIsEligibleMessage(false)}

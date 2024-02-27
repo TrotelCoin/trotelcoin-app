@@ -181,7 +181,7 @@ const quizzes = [
         questionId: 3,
         question: {
           en: "What do you need to claim the NFTs?",
-          fr: "De quoi as-tu besoin pour réclamer les NFTs?",
+          fr: "De quoi avez-vous besoin pour réclamer les NFTs?",
         },
         options: {
           en: [
@@ -202,7 +202,7 @@ const quizzes = [
         questionId: 4,
         question: {
           en: "Where can you stay updated about the NFTs?",
-          fr: "Où peux-tu rester informé sur les NFTs?",
+          fr: "Où pouvez-vous rester informé sur les NFTs?",
         },
         options: {
           en: [
@@ -223,7 +223,7 @@ const quizzes = [
         questionId: 5,
         question: {
           en: "What action do you need to take to claim the NFTs?",
-          fr: "Quelle action dois-tu prendre pour réclamer les NFTs?",
+          fr: "Quelle action devez-vous prendre pour réclamer les NFTs?",
         },
         options: {
           en: [
@@ -281,10 +281,10 @@ const quizzes = [
             "To store your personal data",
           ],
           fr: [
-            "Pour stocker tes cryptomonnaies",
-            "Pour stocker ton argent fiat",
-            "Pour stocker tes œuvres d'art",
-            "Pour stocker tes données personnelles",
+            "Pour stocker vos cryptomonnaies",
+            "Pour stocker votre argent fiat",
+            "Pour stocker vos œuvres d'art",
+            "Pour stocker vos données personnelles",
           ],
         },
       },
@@ -355,7 +355,7 @@ const quizzes = [
         questionId: 5,
         question: {
           en: "Which activity is NOT a part of managing cryptocurrencies in your wallet?",
-          fr: "Quelle activité ne fait PAS partie de la gestion des cryptomonnaies dans ton portefeuille?",
+          fr: "Quelle activité ne fait PAS partie de la gestion des cryptomonnaies dans votre portefeuille?",
         },
         options: {
           en: [
@@ -376,7 +376,7 @@ const quizzes = [
         questionId: 6,
         question: {
           en: "Why is it essential to back up your wallet's private key or seed phrase?",
-          fr: "Pourquoi est-il essentiel de sauvegarder la phrase de récupération de ton portefeuille?",
+          fr: "Pourquoi est-il essentiel de sauvegarder la phrase de récupération de votre portefeuille?",
         },
         options: {
           en: [
@@ -385,9 +385,9 @@ const quizzes = [
             "There's no need to back up your wallet",
           ],
           fr: [
-            "Pour récupérer ton portefeuille s'il est perdu ou volé",
-            "Pour le partager avec tes amis et ta famille",
-            "Il n'est pas nécessaire de sauvegarder ton portefeuille",
+            "Pour récupérer votre portefeuille s'il est perdu ou volé",
+            "Pour le partager avec vos amis et votre famille",
+            "Il n'est pas nécessaire de sauvegarder votre portefeuille",
           ],
         },
       },

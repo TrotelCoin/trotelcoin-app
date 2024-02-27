@@ -133,7 +133,7 @@ const SendButton = ({
         message={
           lang === "en"
             ? "Your transaction was successful"
-            : "Ta transaction a été un succès"
+            : "Votre transaction a été un succès"
         }
       />
       <Fail
@@ -144,7 +144,7 @@ const SendButton = ({
         message={
           lang === "en"
             ? "Your balance is not enough"
-            : "Ton solde n'est pas suffisant"
+            : "Votre solde n'est pas suffisant"
         }
       />
       <Fail
@@ -155,7 +155,7 @@ const SendButton = ({
         message={
           lang === "en"
             ? "You can't send this token"
-            : "Tu ne peux pas envoyer ce token"
+            : "Vous ne pouvez pas envoyer ce token"
         }
       />
       <Fail
@@ -164,7 +164,9 @@ const SendButton = ({
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
-          lang === "en" ? "Your transaction failed" : "Ta transaction a échoué"
+          lang === "en"
+            ? "Your transaction failed"
+            : "Votre transaction a échoué"
         }
       />
     </>

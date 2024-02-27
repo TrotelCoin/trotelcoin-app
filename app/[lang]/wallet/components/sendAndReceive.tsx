@@ -161,7 +161,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
             </div>
           </div>
           <div className="flex justify-between">
-            <span>{lang === "en" ? "Your address" : "Ton addresse"}</span>
+            <span>{lang === "en" ? "Your address" : "Votre addresse"}</span>
             <div className="flex items-center gap-1">
               {ensName ??
                 (addressDisplay
@@ -238,7 +238,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en"
             ? "Your address has been copied to the clipboard"
-            : "Ton adresse a été copiée dans le presse-papiers"
+            : "Votre adresse a été copiée dans le presse-papiers"
         }
       />
     </>

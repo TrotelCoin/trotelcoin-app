@@ -644,7 +644,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? (
             <>Understand how to use your wallet</>
           ) : (
-            <>Comprendre comment utiliser ton portefeuille</>
+            <>Comprendre comment utiliser votre portefeuille</>
           )}
         </h1>
         <p className="mt-6 font-light">
