@@ -115,6 +115,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               : "- On a amélioré l'UI de la série",
           isNew: true,
         },
+        {
+          text:
+            lang === "en"
+              ? "- We moved the streak to the profile and header"
+              : "- On a déplacé la série dans le profil et le header",
+          isNew: true,
+        },
       ],
     },
     {
