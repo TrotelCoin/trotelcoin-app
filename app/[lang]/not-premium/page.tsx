@@ -30,7 +30,7 @@ export default function NotPremium({
               <>{dict?.notPremium.title}</>
             )}
           </h1>
-          <p className="mt-6 text-base leading-7 text-gray-600 dark:text-gray-400">
+          <p className="mt-6 text-base leading-7 text-gray-700 dark:text-gray-300">
             {typeof dict?.notPremium !== "string" && (
               <>{dict?.notPremium.message}</>
             )}

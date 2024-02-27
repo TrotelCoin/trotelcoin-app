@@ -31,7 +31,7 @@ const ChangelogSection = ({
     </h2>
     {content.map((item, index) => (
       <div key={index} className="flex gap-2 items-center">
-        <p className="text-sm text-gray-600 dark:text-gray-400">{item.text}</p>
+        <p className="text-sm text-gray-700 dark:text-gray-300">{item.text}</p>
         {item && item?.isNew && (
           <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             {lang === "en" ? "New" : "Nouveau"}
@@ -113,6 +113,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We improved streak UI"
               : "- On a amélioré l'UI de la série",
+          isNew: true,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We moved the streak to the profile and header"
+              : "- On a déplacé la série dans le profil et le header",
           isNew: true,
         },
       ],
@@ -214,7 +221,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
                   >
                     Changelogs
                   </Dialog.Title>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">
                     {formatDate(new Date())} - v{version}
                   </p>
                   {changelogSections.map((section, index) => (

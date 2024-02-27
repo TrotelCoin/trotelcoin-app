@@ -150,7 +150,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 <div className="flex flex-col gap-2 my-4">
                   {Object.values(advantages).map((advantage, index) => (
                     <div key={index} className="flex gap-1">
-                      <div className="text-gray-600 flex items-center dark:text-gray-400">
+                      <div className="text-gray-700 flex items-center dark:text-gray-300">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

@@ -12,8 +12,16 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
   const address = useAddress();
 
-  const { streak, disabled, lastUpdatedStreak, cooldown, updateStreak } =
-    useContext(StreakContext);
+  const {
+    streak,
+    disabled,
+    lastUpdatedStreak,
+    cooldown,
+    updateStreak,
+    maxStreak,
+  } = useContext(StreakContext);
+
+  console.log(maxStreak);
 
   useEffect(() => {
     if (lastUpdatedStreak && disabled) {
@@ -68,7 +76,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             style={{ width: "300px" }}
           >
             <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/20 p-4 rounded-xl">
-              <p>
+              <p className="font-semibold">
                 {typeof dict?.header !== "string" && (
                   <>{dict?.header.streakMessage}</>
                 )}
@@ -76,11 +84,8 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               {streakCooldown && cooldown && (
                 <p>
                   {streakCooldown !==
-                    ("Increase your streak" || "Augmentez votre série") &&
-                    (lang === "en"
-                      ? "Reset in:"
-                      : "Réinitialisation dans:")}{" "}
-                  {cooldown}
+                    ("Increase your streak" || "Augmentez votre série")}
+                  {cooldown} ⏳
                 </p>
               )}
               <button
@@ -95,7 +100,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                 }`}
               >
                 {disabled ? (
-                  <>{lang === "en" ? "Wait tomorrow" : "Attendez demain"}</>
+                  <>{lang === "en" ? "Come back tomorrow" : "Revenez demain"}</>
                 ) : (
                   <>
                     {typeof dict?.header !== "string" && (
