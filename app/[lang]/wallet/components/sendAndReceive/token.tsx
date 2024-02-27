@@ -8,7 +8,7 @@ const Token = ({
 }: {
   lang: Lang;
   token: string;
-  setToken: any;
+  setToken: (token: string) => void;
 }) => {
   return (
     <>

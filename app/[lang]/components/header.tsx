@@ -1,6 +1,5 @@
 "use client";
 
-// Import necessary libraries and components
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog } from "@headlessui/react";
 import React, { useContext, useEffect, useState } from "react";
@@ -18,14 +17,11 @@ import StreakCount from "@/app/[lang]/components/header/streakCount";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import LifeContext from "@/app/[lang]/lifeContext";
 
-// Define the Header component
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dict, setDict] = useState<DictType | null>(null);
 
   const pathname = usePathname();
-
-  const { life } = useContext(LifeContext);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -130,7 +126,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
           <div className="items-center flex gap-x-4">
-            <LifeCount dict={dict as DictType} lang={lang} life={life} />
+            <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
             <Wallet dict={dict as DictType} lang={lang} />
           </div>
@@ -145,7 +141,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
             <div className="flex gap-2 items-center">
-              <LifeCount dict={dict as DictType} lang={lang} life={life} />
+              <LifeCount dict={dict as DictType} lang={lang} />
               <StreakCount dict={dict as DictType} lang={lang} />
             </div>
             <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />

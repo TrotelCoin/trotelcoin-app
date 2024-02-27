@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import answers from "@/data/quizzes/quizAnswers";
+import { QuizAnswer } from "@/types/types";
 
-const getAnswersByLanguage = (quiz: any, lang: string) => {
+const getAnswersByLanguage = (quiz: QuizAnswer, lang: string) => {
   switch (lang) {
     case "en":
       return quiz.correctAnswers.en;

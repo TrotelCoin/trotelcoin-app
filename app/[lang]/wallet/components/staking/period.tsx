@@ -8,7 +8,7 @@ const Period = ({
 }: {
   lang: Lang;
   stakingPeriod: number;
-  setStakingPeriod: any;
+  setStakingPeriod: (stakingPeriod: number) => void;
 }) => {
   return (
     <>

@@ -9,8 +9,8 @@ const StreakButton = ({
   streak,
 }: {
   disabled: boolean;
-  setStreak: any;
-  setMaxStreak: any;
+  setStreak: React.Dispatch<React.SetStateAction<number>>;
+  setMaxStreak: React.Dispatch<React.SetStateAction<number>>;
   streak: number;
 }) => {
   const address = useAddress();

@@ -39,7 +39,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center gap-1">
               <div className={`font-semibold rainbow-text text-2xl`}>
-                🐣 Beginner
+                🐣 {lang === "en" ? "Beginner" : "Débutant"}
               </div>
             </div>
             <div className="flex flex-col gap-5">

@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import { Lang, MobileFooterItem } from "@/types/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -176,7 +176,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
           className={`md:hidden fixed bottom-0 left-0 w-full bg-gray-100 dark:bg-gray-800 pt-4 pb-6 px-10 shadow-xl border-t border-gray-900/20 dark:border-gray-100/20`}
         >
           <div className="flex justify-between items-center text-gray-900 dark:text-gray-100">
-            {navigation.map((item: any, index: number) => (
+            {navigation.map((item: MobileFooterItem, index: number) => (
               <Link
                 key={index}
                 href={item.href}

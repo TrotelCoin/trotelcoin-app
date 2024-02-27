@@ -77,10 +77,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const intermediateBalance = parseFloat(intermediate as string);
   const expertBalance = parseFloat(expert as string);
 
-  // status = status.map((_, index) =>
-  //   QuizStatus({ index, address: address as Address })
-  //);
-
   useEffect(() => {
     const fetchCoursesCompleted = async () => {
       const response = await fetch(

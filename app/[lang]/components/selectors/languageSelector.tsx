@@ -2,10 +2,9 @@
 
 import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import { useRouter } from "next/navigation";
 
 interface Language {
   code: string;

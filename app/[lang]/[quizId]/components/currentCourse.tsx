@@ -1,12 +1,11 @@
-import { Lang } from "@/types/types";
+import { Lang, Course } from "@/types/types";
 import React from "react";
-
 const CurrentCourse = ({
   lang,
   currentCourse,
 }: {
   lang: Lang;
-  currentCourse: any;
+  currentCourse: Course;
 }) => {
   return (
     <>

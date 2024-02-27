@@ -44,7 +44,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // remove 1 life from the user
     const { error: updateError } = await supabase
       .from("life")
-      .update({ life: result[0].life - 1 })
+      .update({
+        life: result[0].life - 1,
+        last_reset_at: new Date().toISOString(),
+      })
       .eq("wallet", wallet as Address);
 
     if (updateError) {

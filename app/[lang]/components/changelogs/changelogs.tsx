@@ -4,7 +4,7 @@ import { Lang } from "@/types/types";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 
-const formatDate = (date: any) => {
+const formatDate = (date: Date) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -17,7 +17,7 @@ const version = "1.1.1";
 
 interface ChangelogItem {
   title: string;
-  content: { text: string; isNew?: boolean | undefined }[];
+  content: { text: string; isNew: boolean | undefined }[];
 }
 
 const ChangelogSection = ({
@@ -32,7 +32,7 @@ const ChangelogSection = ({
     {content.map((item, index) => (
       <div key={index} className="flex gap-2 items-center">
         <p className="text-sm text-gray-700 dark:text-gray-300">{item.text}</p>
-        {item && item.isNew && (
+        {item && item?.isNew && (
           <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/30">
             {lang === "en" ? "New" : "Nouveau"}
           </span>
@@ -87,16 +87,19 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- You can stake your TROTEL now"
               : "- Vous pouvez staker vos TROTEL maintenant",
+          isNew: false,
         },
         {
           text:
             lang === "en"
               ? "- You can claim your TROTEL now"
               : "- Vous pouvez récupérer vos TROTEL maintenant",
+          isNew: false,
         },
         {
           text:
             lang === "en" ? "- We added badges" : "- On a ajouté des badges",
+          isNew: false,
         },
         {
           text:
@@ -122,12 +125,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We organize daily quizzes on the Discord"
               : "- On organise des quiz quotidiens sur le Discord",
+          isNew: false,
         },
         {
           text:
             lang === "en"
               ? "- We reached $31k of market cap"
               : "- On a atteint 31k$ de capitalisation",
+          isNew: false,
         },
         {
           text:
@@ -146,6 +151,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       content: [
         {
           text: lang === "en" ? "- Some secrets..." : "- Quelques secrets...",
+          isNew: false,
         },
       ],
     },
