@@ -112,7 +112,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en"
             ? "You have claimed your rewards"
-            : "Tu as réclamé tes récompenses"
+            : "Vous avez réclamé vos récompenses"
         }
       />
       <Fail
@@ -123,7 +123,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en"
             ? "You can't claim your rewards yet"
-            : "Tu ne peux pas encore réclamer tes récompenses"
+            : "Vous ne pouvez pas encore réclamer vos récompenses"
         }
       />
       <Fail
@@ -134,7 +134,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en"
             ? "You have no staked TrotelCoins"
-            : "Tu n'as pas de TrotelCoins en staking"
+            : "Vous n'avez pas de TrotelCoins en staking"
         }
       />
       <Fail
@@ -145,7 +145,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en"
             ? "There was an error claiming your rewards"
-            : "Il y a eu une erreur en réclamant tes récompenses"
+            : "Il y a eu une erreur en réclamant vos récompenses"
         }
       />
     </>

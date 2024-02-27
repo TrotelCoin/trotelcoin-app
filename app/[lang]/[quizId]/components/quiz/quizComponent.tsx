@@ -198,7 +198,7 @@ const QuizComponent = ({
               {lang === "en" ? (
                 <>You have {life} left.</>
               ) : (
-                <>Il te reste {life} vies restantes.</>
+                <>Il vous reste {life} vies restantes.</>
               )}
             </span>
           )}

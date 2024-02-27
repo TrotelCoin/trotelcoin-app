@@ -144,7 +144,7 @@ const StakingButton = ({
         message={
           lang === "en"
             ? "You have staked your TrotelCoins"
-            : "Tu as staké tes TrotelCoins"
+            : "Vous avez staké vos TrotelCoins"
         }
       />
       <Fail
@@ -155,7 +155,7 @@ const StakingButton = ({
         message={
           lang === "en"
             ? "You need to select a staking period"
-            : "Tu dois sélectionner une période de staking"
+            : "Vous devez sélectionner une période de staking"
         }
       />
       <Fail
@@ -177,7 +177,7 @@ const StakingButton = ({
         message={
           lang === "en"
             ? "You are already staking TrotelCoins"
-            : "Tu stakes déjà des TrotelCoins"
+            : "Vous stakez déjà des TrotelCoins"
         }
       />
       <Fail
@@ -186,7 +186,9 @@ const StakingButton = ({
         onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
-          lang === "en" ? "Your transaction failed" : "Ta transaction a échoué"
+          lang === "en"
+            ? "Your transaction failed"
+            : "Votre transaction a échoué"
         }
       />
     </>

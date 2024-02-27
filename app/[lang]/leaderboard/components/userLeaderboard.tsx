@@ -97,14 +97,14 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                         : ensName ??
                           (lang === "en"
                             ? "Connect your wallet"
-                            : "Connecte ton portefeuille")}
+                            : "Connectez votre portefeuille")}
                     </div>
                     <div className="block md:hidden">
                       {address
                         ? shortenAddress(address as Address)
                         : lang === "en"
                         ? "Connect your wallet"
-                        : "Connecte ton portefeuille"}
+                        : "Connectez votre portefeuille"}
                     </div>
 
                     <div className="flex items-center gap-2 text-lg">
@@ -120,7 +120,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                   {lang === "en" ? (
                     <>Connect your wallet</>
                   ) : (
-                    <>Connecte ton portefeuille</>
+                    <>Connectez votre portefeuille</>
                   )}
                 </p>
               </>

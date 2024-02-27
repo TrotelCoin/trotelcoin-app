@@ -33,18 +33,19 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : (
           <>
-            Dans ce cours, tu peux apprendre comment récupérer tes NFTs
-            TrotelCoin. Les 2 NFTs que tu peux récupérer sont les suivants :
+            Dans ce cours, vous pourrez apprendre comment récupérer vos NFTs
+            TrotelCoin. Les 2 NFTs que vous pouvez récupérer sont les suivants :
             Intermediate 🙈 et Expert 🦊
             <br />
             <br />
             Il ne s'agit pas vraiment de comprendre ce que sont les NFTs dans ce
-            cours mais plutôt de te montrer comment les récupérer. Un cours
+            cours mais plutôt de vous montrer comment les récupérer. Un cours
             dédié sur les NFTs sera disponible.
             <br />
             <br />
-            Nous supposons que tu as déjà un portefeuille crypto et que tu as
-            déjà le nombre de TrotelCoins nécessaires pour récupérer ces NFTs.
+            Nous supposons que vous avez déjà un portefeuille crypto et que vous
+            avez déjà le nombre de TrotelCoins nécessaires pour récupérer ces
+            NFTs.
           </>
         )}
       </p>
@@ -95,7 +96,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </>
           ) : (
             <>
-              Ces NFTs te permette d'accéder à des cours plus avancés et à
+              Ces NFTs vous permettent d'accéder à des cours plus avancés et à
               d'autres fonctionnalités.
               <br />
               <br />
@@ -104,9 +105,9 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               <br />
               De plus, des fonctionnalités de gamification supplémentaires ne
-              sont disponibles que si tu détiens les NFTs. Par exemple, les
-              badges que tu peux gagner en terminant des cours, en augmentant
-              tes séries, etc.
+              sont disponibles que si vous détenez les NFTs. Par exemple, les
+              badges que vous pouvez gagner en terminant des cours, en
+              augmentant vos séries, etc.
               <Image
                 className="my-4"
                 width={1400}
@@ -120,8 +121,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               <br />
               Pour être au courant des nouvelles fonctionnalités et avantages
-              des NFTs, tu peux regarder la documentation. Pour cela, clique sur
-              ce lien :{" "}
+              des NFTs, vous pouvez regarder la documentation. Pour cela,
+              cliquez sur ce lien :{" "}
               <Link
                 href="https://docs.trotelcoin.com/overview/tokenomics"
                 className="text-blue-500 dark:text-blue-300"
@@ -213,8 +214,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               comment récupérer ces NFTs.
               <br />
               <br />
-              Pour cela, tu dois te rendre sur la page de récupération des NFTs
-              en cliquant sur le lien suivant :{" "}
+              Pour cela, vous devez vous rendre sur la page de récupération des
+              NFTs en cliquant sur le lien suivant :{" "}
               <Link
                 href={`/${lang}/premium`}
                 className="text-blue-500 dark:text-blue-300"
@@ -224,18 +225,18 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               .
               <br />
               <br />
-              Une fois cela fait, connecte ton portefeuille crypto et
-              authentifie-toi. Tu dois détenir le nombre de TrotelCoins requis
-              sur le portefeuille connecté.
+              Une fois cela fait, connectez votre portefeuille crypto et
+              authentifiez-vous. Vous devez détenir le nombre de TrotelCoins
+              requis sur le portefeuille connecté.
               <br />
               <br />
-              Si tu es connecté avec ton adresse mail ou tes réseaux sociaux, tu
-              dois simplement récupérer l'adresse du portefeuille crypto associé
-              à ton compte.
+              Si vous êtes connecté avec votre adresse mail ou vos réseaux
+              sociaux, vous devez simplement récupérer l'adresse du portefeuille
+              crypto associé à votre compte.
               <br />
               <br />
-              En l'occurence, ton adresse est la suivante, clique dessus pour la
-              copier :{" "}
+              En l'occurence, votre adresse est la suivante, cliquez dessus pour
+              la copier :{" "}
               <span
                 className="font-semibold cursor-pointer"
                 onClick={() => {
@@ -245,7 +246,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   }
                 }}
               >
-                {address ?? "Connecte ton portefeuille"}
+                {address ?? "Connectez votre portefeuille"}
               </span>
               .
               {isCopied && (
@@ -259,13 +260,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   <br />
                 </>
               )}
-              Ensuite, sur la page de récupération des NFTs, il ne te reste plus
-              qu'à vérifier si tu as le nombre de TrotelCoins requis et à
-              cliquer sur le bouton pour récupérer tes NFTs.
+              Ensuite, sur la page de récupération des NFTs, il ne vous reste
+              plus qu'à vérifier si vous avez le nombre de TrotelCoins requis et
+              à cliquer sur le bouton pour récupérer vos NFTs.
               <br />
               <br />
-              Si tout se passe bien, tu devrais voir apparaître des contours
-              arc-en-ciel autour de tes NFTs.
+              Si tout se passe bien, vous devriez voir apparaître des contours
+              arc-en-ciel autour de vos NFTs.
               <Image
                 className="my-4"
                 width={1400}
@@ -273,7 +274,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 src="/assets/courses/2/claim.png"
                 alt="Claim"
               />
-              Félicitations, tu as récupéré tes NFTs avec succès !
+              Félicitations, vous avez récupéré vos NFTs avec succès !
             </>
           )}
         </p>

@@ -77,7 +77,7 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
         message={
           lang === "en"
             ? "You approved the amount"
-            : "Tu as approuvé le montant"
+            : "Vous avez approuvé le montant"
         }
       />
       <Fail

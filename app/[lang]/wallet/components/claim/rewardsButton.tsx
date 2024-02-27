@@ -149,7 +149,7 @@ const RewardsButton = ({
         message={
           lang === "en"
             ? "You got your TrotelCoins"
-            : "Tu as obtenu tes TrotelCoins"
+            : "Vous avez obtenu vos TrotelCoins"
         }
       />
       <Fail
@@ -160,7 +160,7 @@ const RewardsButton = ({
         message={
           lang === "en"
             ? "You have nothing to claim"
-            : "Tu n'as rien à récupérer"
+            : "Vous n'avez rien à récupérer"
         }
       />
       <Fail
@@ -171,7 +171,7 @@ const RewardsButton = ({
         message={
           lang === "en"
             ? "There was an error claiming your rewards"
-            : "Il y a eu une erreur en récupérant tes récompenses"
+            : "Il y a eu une erreur en récupérant vos récompenses"
         }
       />
       <Fail
@@ -182,7 +182,7 @@ const RewardsButton = ({
         message={
           lang === "en"
             ? "You didn't connect your wallet"
-            : "Tu n'as pas connecté ton portefeuille"
+            : "Vous n'avez pas connecté votre portefeuille"
         }
       />
     </>
