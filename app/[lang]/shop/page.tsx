@@ -22,9 +22,6 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="flex flex-col mx-auto">
-        <h2 className="text-xl text-gray-900 dark:text-gray-100 font-semibold">
-          {typeof dict?.shop !== "string" && <>{dict?.shop.claimNFTs}</>}
-        </h2>
         <div className="grid grid-cols-1 mt-4 md:grid-cols-3 gap-4">
           <Beginner lang={lang} />
           <Intermediate lang={lang} />

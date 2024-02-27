@@ -40,7 +40,7 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             className="absolute flex justify-center bg-white dark:bg-gray-800 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
             style={{ width: "300px" }}
           >
-            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/20 dark:border-gray-100/20 p-4 rounded-xl">
+            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/10 p-4 rounded-xl">
               <p className="font-semibold">
                 {typeof dict?.header !== "string" && (
                   <>{dict?.header.lifeMessage}</>

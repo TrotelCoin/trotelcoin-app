@@ -43,7 +43,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   if (life === 0 && !isIntermediate && !isExpert) {
     return (
-      <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+      <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10">
         <p className="text-red-500 dark:text-red-300">
           {typeof dict?.quiz !== "string" && <>{dict?.quiz.life}</>}
         </p>
@@ -63,7 +63,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
       {isLoggedIn && (
         <>
-          <div className="mt-10 mx-auto border-t border-gray-900/20 dark:border-gray-100/20 pt-10">
+          <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10">
             <QuizComponent
               dict={dict as DictType}
               lang={lang}

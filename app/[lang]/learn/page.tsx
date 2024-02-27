@@ -20,9 +20,6 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto">
-        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
-          {lang === "en" ? <>The future</> : <>Le futur</>}
-        </h2>
         <ComingSoon lang={lang} dict={dict as DictType} />
       </div>
     </>

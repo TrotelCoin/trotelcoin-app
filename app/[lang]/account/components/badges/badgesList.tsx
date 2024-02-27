@@ -16,7 +16,7 @@ const BadgesList = ({ badges, dict }: { badges: Badge[]; dict: DictType }) => {
           return (
             <div
               key={index}
-              className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/20 dark:border-gray-100/20`}
+              className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-lg py-10 px-2 text-center border border-gray-900/10 dark:border-gray-100/10`}
             >
               <div className="flex flex-col gap-2 text-center items-center">
                 <span
