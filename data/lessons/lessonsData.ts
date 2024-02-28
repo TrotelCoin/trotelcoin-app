@@ -38,7 +38,7 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Claim your NFT",
-          fr: "Récupérez vos NFT",
+          fr: "Réclamez vos NFT",
         },
         description: {
           en: "Learn how to claim your TrotelCoin's NFT",

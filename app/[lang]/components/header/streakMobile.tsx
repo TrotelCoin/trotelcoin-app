@@ -17,7 +17,7 @@ const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
           <h3>Streak</h3>
           <div className="flex gap-2 items-center">
             <span>{cooldown}</span>
-            <span>|</span>
+            <div className="border-r border-gray-900/10 dark:border-gray-100/10 h-6" />
             <span>{streak} 🔥</span>
           </div>
         </div>
@@ -31,9 +31,9 @@ const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
             }}
             className={`w-full ${
               !disabled && address
-                ? "bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 text-gray-100 dark:text-gray-900"
+                ? "bg-blue-500 hover:bg-blue-400 text-gray-100"
                 : "bg-gray-500 text-gray-100"
-            } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2  rounded-xl font-semibold ${
+            } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2  rounded-xl font-semibold ${
               (disabled || !address) && "cursor-not-allowed"
             }`}
           >
