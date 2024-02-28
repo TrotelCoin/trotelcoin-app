@@ -123,7 +123,6 @@ const Header = ({ lang }: { lang: Lang }) => {
           <div className="items-center flex gap-x-4">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
-            <Wallet dict={dict as DictType} lang={lang} />
           </div>
           <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
           <div className="items-center flex gap-2">
@@ -148,6 +147,13 @@ const Header = ({ lang }: { lang: Lang }) => {
             </Link>
             <LanguageSelector lang={lang} />
             <ThemeSwitcher />
+            <button
+              type="button"
+              className="flex items-center justify-center rounded-full p-2 text-gray-900 dark:text-gray-100"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Bars3Icon className="h-5 w-5" aria-hidden="true" />
+            </button>
           </div>
         </div>
 
@@ -169,7 +175,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             className="-m-2.5 inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 dark:text-gray-100"
             onClick={() => setMobileMenuOpen(true)}
           >
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            <Bars3Icon className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
       </nav>
@@ -177,7 +183,7 @@ const Header = ({ lang }: { lang: Lang }) => {
       {/* Mobile menu */}
       <Dialog
         as="div"
-        className="lg:hidden"
+        className=""
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       >
@@ -218,7 +224,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                     key={index}
                     href={`/${lang}${item.href}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="-mx-3 block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
+                    className="-mx-3 lg:hidden block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
                   >
                     <>{item.name}</>
                   </Link>
@@ -226,7 +232,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4" />
+          <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4 lg:hidden" />
           <div className="flex flex-col gap-4">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
             <StreakMobile lang={lang} dict={dict as DictType} />
