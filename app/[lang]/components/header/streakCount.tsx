@@ -93,9 +93,9 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                 disabled={disabled}
                 className={`${
                   !disabled
-                    ? "bg-blue-500 hover:bg-blue-400 dark:bg-blue-300 dark:hover:bg-blue-400 text-gray-100 dark:text-gray-900"
+                    ? "bg-blue-500 hover:bg-blue-400 text-gray-100"
                     : "bg-gray-500 text-gray-100"
-                } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2  rounded-xl font-semibold ${
+                } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2  rounded-xl font-semibold ${
                   disabled && "cursor-not-allowed"
                 }`}
               >

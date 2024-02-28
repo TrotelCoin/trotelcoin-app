@@ -86,9 +86,6 @@ const Header = ({ lang }: { lang: Lang }) => {
             {<TrotelPrice />}
           </p>
           <div className="hidden md:block">{<TrotelPriceChange />}</div>
-          <span className="hidden xl:inline-flex items-center rounded-xl bg-blue-50 dark:bg-blue-300/10 px-2 py-1 text-xs font-medium text-blue-500 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/30">
-            {typeof dict?.header !== "string" && <>{dict?.header.version}</>}
-          </span>
         </div>
 
         {/* Desktop navigation links */}
