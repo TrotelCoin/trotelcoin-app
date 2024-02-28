@@ -88,7 +88,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                         : "border-gray-900/10 dark:border-gray-100/10"
                     } border backdrop-blur-xl text-center rounded-2xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
                   >
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-900 dark:text-gray-100 bg-gray-300 dark:bg-gray-700">
+                    <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-gray-500">
                       {position ?? 0}
                     </div>
                     <div className="hidden md:block">

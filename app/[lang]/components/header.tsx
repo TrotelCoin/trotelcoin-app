@@ -16,8 +16,9 @@ import LifeCount from "@/app/[lang]/components/header/lifeCount";
 import StreakCount from "@/app/[lang]/components/header/streakCount";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import StreakMobile from "@/app/[lang]/components/header/streakMobile";
-import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
+import ShopMobile from "@/app/[lang]/components/header/shopMobile";
 import AccountMobile from "@/app/[lang]/components/header/accountMobile";
+import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -129,21 +130,16 @@ const Header = ({ lang }: { lang: Lang }) => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
+                viewBox="0 0 20 20"
+                fill="currentColor"
                 className="w-5 h-5"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                />
+                <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
               </svg>
             </Link>
             <LanguageSelector lang={lang} />
             <ThemeSwitcher />
+            <Wallet lang={lang} dict={dict as DictType} />
             <button
               type="button"
               className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -217,28 +213,11 @@ const Header = ({ lang }: { lang: Lang }) => {
               </button>
             </div>
           </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6">
-              <div className="space-y-2 py-6">
-                {/* Mobile navigation links */}
-                {navigation.map((item, index) => (
-                  <Link
-                    key={index}
-                    href={`/${lang}${item.href}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="-mx-3 lg:hidden block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
-                  >
-                    <>{item.name}</>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4 lg:hidden" />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mt-4">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
             <StreakMobile lang={lang} dict={dict as DictType} />
-            <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
+            <LifeMobile lang={lang} dict={dict as DictType} />
+            <ShopMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
         </div>
       </Transition>
