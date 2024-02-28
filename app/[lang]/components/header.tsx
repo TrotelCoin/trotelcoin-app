@@ -238,11 +238,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4" />
           <div className="flex flex-col gap-4">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
-            <StreakMobile
-              lang={lang}
-              setMobileMenuOpen={setMobileMenuOpen}
-              dict={dict as DictType}
-            />
+            <StreakMobile lang={lang} dict={dict as DictType} />
             <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
         </Dialog.Panel>
