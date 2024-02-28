@@ -8,7 +8,7 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
 
-  const { life, lifeCooldown } = useContext(LifeContext);
+  const { life } = useContext(LifeContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   return (
@@ -42,11 +42,8 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           >
             <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/10 p-4 rounded-xl">
               <p className="font-semibold">
-                {typeof dict?.header !== "string" && (
-                  <>{dict?.header.lifeMessage}</>
-                )}
+                {lang === "en" ? "Your lives" : "Vos vies"}
               </p>
-              {lifeCooldown && <p>{lifeCooldown}</p>}
               <Link href={`/${lang}/shop`}>
                 <button className="bg-blue-500 hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold">
                   {typeof dict?.header !== "string" && (

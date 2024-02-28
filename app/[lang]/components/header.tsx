@@ -1,7 +1,6 @@
 "use client";
 
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -71,7 +70,7 @@ const Header = ({ lang }: { lang: Lang }) => {
       >
         {/* Left section with logo, Trotel price, and version */}
         <div className="flex lg:flex-1 items-center gap-x-4">
-          <div className="-m-1.5 p-1.5">
+          <div className="p-1">
             <Link href={`/${lang}/home`}>
               <Image
                 className="h-12 w-auto"
@@ -118,11 +117,11 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-x-4">
+          <div className="items-center flex gap-x-4 md:hidden">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
-          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
+          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40 md:hidden" />
           <div className="items-center flex gap-2">
             <Link
               href={`/${lang}/account`}
@@ -139,21 +138,34 @@ const Header = ({ lang }: { lang: Lang }) => {
             </Link>
             <LanguageSelector lang={lang} />
             <ThemeSwitcher />
-            <Wallet lang={lang} dict={dict as DictType} />
             <button
               type="button"
               className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
               onClick={() => setMobileMenuOpen(true)}
             >
-              <Bars3Icon className="h-5 w-5" aria-hidden="true" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-5 h-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </button>
+            <div className="p-2">
+              <Wallet lang={lang} dict={dict as DictType} />
+            </div>
           </div>
         </div>
 
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center p-2">
               <LifeCount dict={dict as DictType} lang={lang} />
               <StreakCount dict={dict as DictType} lang={lang} />
             </div>
@@ -161,15 +173,26 @@ const Header = ({ lang }: { lang: Lang }) => {
             <div className="flex gap-2 items-center">
               <LanguageSelector lang={lang} />
               <ThemeSwitcher />
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-xl p-2 text-gray-900 dark:text-gray-100"
+                onClick={() => setMobileMenuOpen(true)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
             </div>
           </div>
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 dark:text-gray-100"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <Bars3Icon className="h-5 w-5" aria-hidden="true" />
-          </button>
         </div>
       </nav>
 
@@ -179,9 +202,9 @@ const Header = ({ lang }: { lang: Lang }) => {
         className={`${mobileMenuOpen ? "" : "pointer-events-none"} z-50`}
       >
         <div className="fixed inset-0 z-10" />
-        <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
           <div className="flex items-center gap-x-6">
-            <div className="-m-1.5 p-1.5">
+            <div className="p-1">
               <Link
                 href={`/${lang}/home`}
                 onClick={() => setMobileMenuOpen(false)}
@@ -196,27 +219,47 @@ const Header = ({ lang }: { lang: Lang }) => {
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
-              <Wallet dict={dict as DictType} lang={lang} />
+              <div className="lg:hidden">
+                <Wallet dict={dict as DictType} lang={lang} />
+              </div>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
                 className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
-                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
               </button>
               <button
                 type="button"
-                className="-m-2.5 rounded-xl p-2.5 text-gray-900 dark:text-gray-100 lg:hidden"
+                className="rounded-xl p-2 text-gray-900 dark:text-gray-100 lg:hidden"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
               </button>
             </div>
           </div>
-          <div className="flex flex-col gap-4 mt-4">
+          <div className="flex flex-col gap-4 mt-10">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
             <StreakMobile lang={lang} dict={dict as DictType} />
-            <LifeMobile lang={lang} dict={dict as DictType} />
+            <LifeMobile
+              lang={lang}
+              dict={dict as DictType}
+              setMobileMenuOpen={setMobileMenuOpen}
+            />
             <ShopMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
         </div>

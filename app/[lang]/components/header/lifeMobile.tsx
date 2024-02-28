@@ -4,7 +4,15 @@ import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Link from "next/link";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
-const LifeMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
+const LifeMobile = ({
+  lang,
+  dict,
+  setMobileMenuOpen,
+}: {
+  lang: Lang;
+  dict: DictType;
+  setMobileMenuOpen: (open: boolean) => void;
+}) => {
   const { life, lifeCooldown } = useContext(LifeContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
@@ -26,7 +34,11 @@ const LifeMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
           </div>
         </div>
         <div className="flex justify-center items-center gap-4 p-4">
-          <Link href={`/${lang}/shop`} className="w-full">
+          <Link
+            href={`/${lang}/shop`}
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full"
+          >
             <button
               className={`w-full bg-blue-500 hover:bg-blue-400 text-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 rounded-xl font-semibold`}
             >
