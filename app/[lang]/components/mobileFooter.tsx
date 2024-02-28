@@ -7,10 +7,10 @@ import React, { useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 
 const defaultClasses =
-  "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-1 px-3 rounded-full";
+  "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-2 px-3 rounded-full";
 
 const dynamicClasses =
-  "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+  "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-2 px-3 hover:shadow-lg rounded-full";
 
 const MobileFooter = ({ lang }: { lang: Lang }) => {
   const [scrolling, setScrolling] = useState<boolean>(false);
@@ -180,7 +180,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
         className="flex justify-center mx-auto"
       >
         <div
-          className={`md:hidden fixed rounded-full backdrop-blur-xl bottom-0 mb-8 w-11/12 mx-auto bg-gray-800 dark:bg-gray-100 px-3 py-2 shadow-lg`}
+          className={`md:hidden fixed rounded-full backdrop-blur-xl bottom-0 mb-8 w-11/12 mx-auto bg-gray-800 dark:bg-gray-100 p-2 shadow-lg`}
         >
           <div className="flex flex-wrap justify-between items-center text-gray-900 dark:text-gray-100">
             {navigation.map((item: MobileFooterItem, index: number) => (

@@ -8,7 +8,7 @@ import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
 
-type ActiveComponent = "ranks" | "shop";
+type ActiveComponent = "ranks" | "shop" | "inventory";
 
 const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
@@ -47,6 +47,16 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
           >
             {lang === "en" ? <>Shop</> : <>Boutique</>}
           </button>
+          <button
+            onClick={() => setComponent("inventory")}
+            className={`px-4 py-2 rounded-full ${
+              component === "inventory"
+                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
+                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+            }`}
+          >
+            {lang === "en" ? <>Inventory</> : <>Inventaire</>}
+          </button>
         </div>
       </div>
       {component && (
@@ -59,6 +69,9 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </div>
           )}
           {component === "shop" && (
+            <ComingSoon lang={lang} dict={dict as DictType} />
+          )}
+          {component === "inventory" && (
             <ComingSoon lang={lang} dict={dict as DictType} />
           )}
         </div>

@@ -15,6 +15,9 @@ import { Lang, DictType } from "@/types/types";
 import LifeCount from "@/app/[lang]/components/header/lifeCount";
 import StreakCount from "@/app/[lang]/components/header/streakCount";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import StreakMobile from "@/app/[lang]/components/header/streakMobile";
+import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
+import AccountMobile from "@/app/[lang]/components/header/accountMobile";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -92,14 +95,14 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Desktop navigation links */}
         <div
-          className={`hidden lg:flex backdrop-blur-xl items-center bg-gray-900 dark:bg-white py-2 px-3 rounded-full lg:gap-x-8`}
+          className={`hidden lg:flex backdrop-blur-xl items-center bg-gray-900 dark:bg-white p-2 rounded-full lg:gap-x-8`}
         >
           {navigation.map((item, index) => {
             const defaultClasses =
-              "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-1 px-3 rounded-full";
+              "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-2 px-3 rounded-full";
 
             const dynamicClasses =
-              "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-3 hover:shadow-lg rounded-full";
+              "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-2 px-3 hover:shadow-lg rounded-full";
 
             return (
               <Link
@@ -178,13 +181,16 @@ const Header = ({ lang }: { lang: Lang }) => {
         as="div"
         className="lg:hidden"
         open={mobileMenuOpen}
-        onClose={setMobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
       >
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
-              <Link href={`/${lang}/home`}>
+              <Link
+                href={`/${lang}/home`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 <Image
                   className="h-12 w-auto"
                   width={128}
@@ -197,7 +203,8 @@ const Header = ({ lang }: { lang: Lang }) => {
             <div className="flex flex-1 items-center justify-end gap-x-4">
               <Link
                 href={`/${lang}/account`}
-                className="p-2 rounded-full font-semibold bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 text-sm rounded-full font-semibold bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
               >
                 {lang === "en" ? <>Account</> : <>Compte</>}
               </Link>
@@ -219,9 +226,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                   <Link
                     key={index}
                     href={`/${lang}${item.href}`}
-                    onClick={() => {
-                      closeMenu();
-                    }}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="-mx-3 block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
                   >
                     <>{item.name}</>
@@ -229,6 +234,16 @@ const Header = ({ lang }: { lang: Lang }) => {
                 ))}
               </div>
             </div>
+          </div>
+          <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4" />
+          <div className="flex flex-col gap-4">
+            <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
+            <StreakMobile
+              lang={lang}
+              setMobileMenuOpen={setMobileMenuOpen}
+              dict={dict as DictType}
+            />
+            <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
         </Dialog.Panel>
       </Dialog>
