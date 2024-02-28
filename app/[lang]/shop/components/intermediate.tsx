@@ -50,7 +50,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const address = useAddress();
-  const { user, isLoggedIn, isLoading } = useUser();
+  const { isLoggedIn } = useUser();
   const { contract } = useContract(
     trotelCoinIntermediateAddress,
     trotelCoinIntermediateABI
