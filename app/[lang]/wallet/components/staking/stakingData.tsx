@@ -12,11 +12,17 @@ import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 
+const staking =
+  "inline-flex items-center rounded-xl bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-500 dark:text-green-300 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40";
+const notStaking =
+  "inline-flex items-center rounded-xl bg-red-50 dark:bg-red-300/10 px-2 py-1 text-xs font-medium text-red-500 dark:text-red-300 ring-1 ring-inset ring-red-500/20 dark:ring-red-300/40";
+
 const StakingData = ({ lang }: { lang: Lang }) => {
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
   const [earnedTrotelCoins, setEarnedTrotelCoins] = useState<number>(0);
   const [availableTrotelCoins, setAvailableTrotelCoins] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [isStaking, setIsStaking] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -84,6 +90,18 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     }
   }, [getStakingData, address]);
 
+  useEffect(() => {
+    if (getUserStakingData && getStakingData) {
+      if (getUserStakingData[0].toString() > 0) {
+        setIsStaking(true);
+      } else {
+        setIsStaking(false);
+      }
+    } else {
+      setIsStaking(false);
+    }
+  }, [getUserStakingData, getStakingData]);
+
   return (
     <>
       <div className="flex flex-col flex-wrap gap-2">
@@ -116,6 +134,14 @@ const StakingData = ({ lang }: { lang: Lang }) => {
             {timeLeft.toLocaleString("en-US")}{" "}
             <span className="font-semibold">
               {lang === "en" ? "seconds" : "secondes"}
+            </span>
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <span>{lang === "en" ? "Status" : "Statut"}</span>
+          <div>
+            <span className={`${isStaking ? staking : notStaking}`}>
+              {isStaking ? "Staking" : "Not staking"}
             </span>
           </div>
         </div>
