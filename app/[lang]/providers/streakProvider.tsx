@@ -47,7 +47,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (lastUpdatedStreak && disabled) {
+      if (lastUpdatedStreak && disabled && address) {
         const lastUpdated = new Date(lastUpdatedStreak);
         const now = new Date();
         const difference = now.getTime() - lastUpdated.getTime();
@@ -65,7 +65,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [lastUpdatedStreak, disabled]);
+  }, [lastUpdatedStreak, disabled, address]);
 
   useEffect(() => {
     const fetchMaxStreak = async () => {

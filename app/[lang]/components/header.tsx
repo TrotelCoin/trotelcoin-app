@@ -99,10 +99,10 @@ const Header = ({ lang }: { lang: Lang }) => {
         >
           {navigation.map((item, index) => {
             const defaultClasses =
-              "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-2 px-3 rounded-full";
+              "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-2 px-4 rounded-full";
 
             const dynamicClasses =
-              "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-2 px-3 hover:shadow-lg rounded-full";
+              "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-2 px-4 hover:shadow-lg rounded-full";
 
             return (
               <Link
@@ -201,13 +201,6 @@ const Header = ({ lang }: { lang: Lang }) => {
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
-              <Link
-                href={`/${lang}/account`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-sm rounded-full font-semibold bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
-              >
-                {lang === "en" ? <>Account</> : <>Compte</>}
-              </Link>
               <Wallet dict={dict as DictType} lang={lang} />
               <button
                 type="button"
@@ -238,11 +231,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4" />
           <div className="flex flex-col gap-4">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
-            <StreakMobile
-              lang={lang}
-              setMobileMenuOpen={setMobileMenuOpen}
-              dict={dict as DictType}
-            />
+            <StreakMobile lang={lang} dict={dict as DictType} />
             <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
         </Dialog.Panel>
