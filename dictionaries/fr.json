@@ -115,10 +115,10 @@
     "early": "Accès anticipé"
   },
   "lesson": {
-    "notAvailable": "Pas encore disponible",
+    "notAvailable": "Pas disponible",
     "sponsored": "Sponsorisé",
-    "newCourse": "Nouveau cours",
-    "notAvailableMessage": "Cette leçon n'est pas encore disponible. Revenez plus tard.",
+    "newCourse": "Nouveau",
+    "notAvailableMessage": "Cette leçon n'est Pas disponible. Revenez plus tard.",
     "goBackHome": "Retourner à l'accueil",
     "course": "Cours",
     "goingToLearn": "Qu'allez-vous apprendre?",

@@ -13,7 +13,8 @@ const renderCourses = (
   status: string[],
   address: Address | null,
   dict: DictType | null,
-  index: number
+  index: number,
+  category: string
 ) => {
   let tier = "";
   let title = "";
@@ -23,17 +24,14 @@ const renderCourses = (
     case "en":
       tier = course.tier.en;
       title = course.title.en;
-      description = course.description.en;
       break;
     case "fr":
       tier = course.tier.fr;
       title = course.title.fr;
-      description = course.description.fr;
       break;
     default:
       tier = course.tier.en;
       title = course.title.en;
-      description = course.description.en;
   }
 
   const courseLink =
@@ -49,7 +47,7 @@ const renderCourses = (
 
   const statusClass =
     status[quizId - 1] === "Not started"
-      ? "bg-gray-500 text-gray-100"
+      ? "bg-gray-500 text-gray-100 hidden"
       : status[quizId - 1] === "Finished"
       ? "bg-green-400 text-gray-100"
       : "";
@@ -82,7 +80,7 @@ const renderCourses = (
           </div>
           <div>
             <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
-              {description}
+              {category}
             </div>
           </div>
           <div className="flex flex-wrap mt-4 gap-2 items-center">

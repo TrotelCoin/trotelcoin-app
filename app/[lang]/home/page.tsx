@@ -97,7 +97,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           {filteredLessons.map((lesson, index) => (
             <div className="my-10" key={index}>
               <div className="flex justify-between items-center">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100 mt-1">
                   {lesson.category}
                 </h2>
                 <Link
@@ -129,7 +129,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       status,
                       address as Address,
                       dict,
-                      index
+                      index,
+                      lesson.category
                     )
                   )}
               </div>

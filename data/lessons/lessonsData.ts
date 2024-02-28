@@ -9,10 +9,6 @@ const lessons: Lessons[] = [
           en: "Introduction to TrotelCoin",
           fr: "Introduction à TrotelCoin",
         },
-        description: {
-          en: "Discover what's TrotelCoin",
-          fr: "Découvrez TrotelCoin",
-        },
         href: "/trotelcoin/introduction-to-trotelcoin",
         tier: {
           en: "Beginner",
@@ -37,12 +33,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Claim your NFT",
-          fr: "Réclamez vos NFT",
-        },
-        description: {
-          en: "Learn how to claim your TrotelCoin's NFT",
-          fr: "Apprenez comment réclamer vos NFTs TrotelCoin",
+          en: "Claim your NFTs",
+          fr: "Réclamez vos NFTs",
         },
         one: {
           en: "Understand the process of claiming TrotelCoin's NFTs.",
@@ -73,12 +65,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "Create your first wallet",
-          fr: "Créez votre premier portefeuille",
-        },
-        description: {
-          en: "Learn how to create your first crypto wallet",
-          fr: "Apprenez à créer votre premier portefeuille crypto",
+          en: "Your first wallet",
+          fr: "Votre premier wallet",
         },
         one: {
           en: "Learn about the different types of wallets and their use cases.",
@@ -105,11 +93,7 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Secure your wallet",
-          fr: "Sécurisez votre portefeuille",
-        },
-        description: {
-          en: "Discover how to secure your wallet",
-          fr: "Découvrez comment sécuriser votre portefeuille",
+          fr: "Sécurisez votre wallet",
         },
         one: {
           en: "Understand the importance of securing your wallet.",
@@ -135,12 +119,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Sign in with your wallet",
-          fr: "Connectez vous avec votre portefeuille",
-        },
-        description: {
-          en: "Discover methods to sign in with your wallet securely",
-          fr: "Découvrez des méthodes pour vous connecter avec votre portefeuille en toute sécurité",
+          en: "Sign in on the web3",
+          fr: "Connectez-vous sur le web3",
         },
         one: {
           en: "Understand the advantages of signing in with your wallet.",
@@ -166,12 +146,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Make your first transaction",
-          fr: "Effectuez votre première transaction",
-        },
-        description: {
-          en: "Learn how to make your first crypto transaction",
-          fr: "Apprenez comment effectuer votre première transaction crypto",
+          en: "Your first transaction",
+          fr: "Votre première transaction",
         },
         one: {
           en: "Learn to make your first transaction.",
@@ -202,12 +178,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "What is a blockchain?",
-          fr: "Qu'est-ce qu'une blockchain?",
-        },
-        description: {
-          en: "Understand the concepts of a blockchain",
-          fr: "Comprenez les concepts d'une blockchain",
+          en: "Introduction to blockchains",
+          fr: "Introduction aux blockchains",
         },
         one: {
           en: "Understand the basics of blockchain technology.",
@@ -233,12 +205,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Consensus mechanisms",
-          fr: "Mécanismes de consensus",
-        },
-        description: {
-          en: "Explore the various consensus mechanisms",
-          fr: "Explorez les différents mécanismes de consensus",
+          en: "The consensus mechanisms",
+          fr: "Les mécanismes de consensus",
         },
         one: {
           en: "Understand the importance of consensus mechanisms.",
@@ -272,10 +240,6 @@ const lessons: Lessons[] = [
           en: "Introduction to Bitcoin",
           fr: "Introduction à Bitcoin",
         },
-        description: {
-          en: "Explore the basics and core principles of Bitcoin",
-          fr: "Explorez les bases et les principes fondamentaux de Bitcoin",
-        },
         one: {
           en: "Understand the basics of Bitcoin.",
           fr: "Comprenez les bases de Bitcoin.",
@@ -302,10 +266,6 @@ const lessons: Lessons[] = [
         title: {
           en: "The history of Bitcoin",
           fr: "L'histoire de Bitcoin",
-        },
-        description: {
-          en: "Dive into the historical evolution of Bitcoin",
-          fr: "Plongez dans l'évolution historique de Bitcoin",
         },
         one: {
           en: "Dive into the history of Bitcoin.",
@@ -339,10 +299,6 @@ const lessons: Lessons[] = [
           en: "Introduction to Ethereum",
           fr: "Introduction à Ethereum",
         },
-        description: {
-          en: "Explore the basics and core principles of the Ethereum blockchain",
-          fr: "Explorez les bases et les principes fondamentaux de la blockchain Ethereum",
-        },
         one: {
           en: "Understand the basics of Ethereum.",
           fr: "Comprenez les bases d'Ethereum.",
@@ -367,12 +323,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Understand the layers 2",
-          fr: "Comprendrez les couches de niveau 2",
-        },
-        description: {
-          en: "Understand why L2 are essential for Ethereum",
-          fr: "Comprenez pourquoi les L2 sont essentiels pour Ethereum",
+          en: "The layers 2",
+          fr: "Les layers 2",
         },
         one: {
           en: "Understand the different layers of Ethereum.",
@@ -398,12 +350,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Smart contracts",
-          fr: "Contrats intelligents",
-        },
-        description: {
-          en: "Discover smart contracts and their applications",
-          fr: "Découvrez les contrats intelligents et leurs applications",
+          en: "The smart contracts",
+          fr: "Les contrats intelligents",
         },
         one: {
           en: "Understand the basics of smart contracts.",
@@ -429,12 +377,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Ethereum Virtual Machine",
-          fr: "Machine virtuelle Ethereum",
-        },
-        description: {
-          en: "Learn what's Ethereum's virtual machine",
-          fr: "Apprenez ce qu'est la machine virtuelle Ethereum",
+          en: "The Ethereum Virtual Machine",
+          fr: "La machine virtuelle d'Ethereum",
         },
         one: {
           en: "Understand the basics of the Ethereum Virtual Machine.",
@@ -465,12 +409,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "What are DAOs?",
-          fr: "Qu'est-ce que les DAO?",
-        },
-        description: {
-          en: "Discover the concept of Decentralized Autonomous Organizations",
-          fr: "Découvrez le concept d'organisations autonomes décentralisées",
+          en: "Introduction to DAOs",
+          fr: "Introduction aux DAOs",
         },
         one: {
           en: "Understand the basics of DAOs.",

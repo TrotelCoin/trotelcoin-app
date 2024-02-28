@@ -84,7 +84,7 @@ const Page = ({
         {filteredLessons.map((lesson: Lessons, index: number) => (
           <div className="mb-10" key={index}>
             <div className="flex justify-between items-center">
-              <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+              <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100 mt-1">
                 {lesson.category}
               </h2>
             </div>
@@ -101,7 +101,8 @@ const Page = ({
                     status,
                     address as Address,
                     dict,
-                    index
+                    index,
+                    lesson.category
                   )
                 )}
             </div>

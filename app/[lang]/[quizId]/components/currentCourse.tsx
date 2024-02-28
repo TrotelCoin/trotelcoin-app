@@ -9,13 +9,13 @@ const CurrentCourse = ({
 }) => {
   return (
     <>
-      <div className="bg-gray-100 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl px-10 py-2 dark:bg-gray-800">
+      <div className="bg-gray-100 my-10 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl dark:bg-gray-800">
         <ul
           role="list"
-          className="max-w-xl space-y-8 text-gray-700 dark:text-gray-300"
+          className="space-y-8 text-gray-700 dark:text-gray-300"
         >
           <div className="grid grid-cols-1 divide-y divide-gray-900/10 dark:divide-gray-100/10">
-            <div className="py-4">
+            <div className="py-4 px-10">
               <li className="flex gap-x-3">
                 <span className="text-gray-900 dark:text-gray-100">
                   {lang == "en" && <>{currentCourse?.one.en}</>}
@@ -23,7 +23,7 @@ const CurrentCourse = ({
                 </span>
               </li>
             </div>
-            <div className="py-4">
+            <div className="py-4 px-10">
               <li className="flex gap-x-3">
                 <span className="text-gray-900 dark:text-gray-100">
                   {lang == "en" && <>{currentCourse?.two.en}</>}
@@ -31,7 +31,7 @@ const CurrentCourse = ({
                 </span>
               </li>
             </div>
-            <div className="py-4">
+            <div className="py-4 px-10">
               <li className="flex gap-x-3">
                 <span className="text-gray-900 dark:text-gray-100">
                   {lang == "en" && <>{currentCourse?.three.en}</>}
