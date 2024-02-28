@@ -13,17 +13,14 @@ export function filterByTitleOrDescription(
     case "en":
       return (
         course.title.en.toLowerCase().includes(searchTerm) ||
-        course.description.en.toLowerCase().includes(searchTerm)
       );
     case "fr":
       return (
         course.title.fr.toLowerCase().includes(searchTerm) ||
-        course.description.fr.toLowerCase().includes(searchTerm)
       );
     default:
       return (
         course.title.en.toLowerCase().includes(searchTerm) ||
-        course.description.en.toLowerCase().includes(searchTerm)
       );
   }
 }
