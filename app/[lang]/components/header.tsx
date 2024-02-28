@@ -201,13 +201,6 @@ const Header = ({ lang }: { lang: Lang }) => {
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
-              <Link
-                href={`/${lang}/account`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 text-sm rounded-full font-semibold bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
-              >
-                {lang === "en" ? <>Account</> : <>Compte</>}
-              </Link>
               <Wallet dict={dict as DictType} lang={lang} />
               <button
                 type="button"
