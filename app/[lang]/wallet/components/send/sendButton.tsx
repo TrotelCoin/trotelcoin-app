@@ -21,12 +21,14 @@ const SendButton = ({
   balance,
   amount,
   receiverAddress,
+  setMissingFieldsError,
 }: {
   lang: Lang;
   token: string;
   balance: number;
   amount: number | undefined;
   receiverAddress: Address;
+  setMissingFieldsError: (value: boolean) => void;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [balanceError, setBalanceError] = useState<boolean>(false);
@@ -62,8 +64,8 @@ const SendButton = ({
   const send = async (amount: number) => {
     setIsLoading(true);
 
-    if (!amount) {
-      setErrorMessage(true);
+    if (!amount || !receiverAddress) {
+      setMissingFieldsError(true);
       setIsLoading(false);
       return;
     }

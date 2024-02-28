@@ -13,6 +13,7 @@ import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import ReceiverInput from "@/app/[lang]/wallet/components/send/receiverInput";
 import Success from "@/app/[lang]/components/modals/success";
 import shortenAddress from "@/utils/shortenAddress";
+import Fail from "@/app/[lang]/components/modals/fail";
 
 const SendAndReceive = ({ lang }: { lang: Lang }) => {
   const [token, setToken] = useState<string>("MATIC");
@@ -29,6 +30,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
   const [addressCopied, setAddressCopied] = useState<boolean>(false);
   const [addressDisplay, setAddressDisplay] = useState<Address | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
+  const [missingFieldsError, setMissingFieldsError] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -207,6 +209,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
             balance={balance as number}
             amount={amount}
             receiverAddress={receiverAddress as Address}
+            setMissingFieldsError={setMissingFieldsError}
           />
         </div>
       </div>
@@ -220,6 +223,17 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
           lang === "en"
             ? "Your address has been copied to the clipboard"
             : "Votre adresse a été copiée dans le presse-papiers"
+        }
+      />
+      <Fail
+        lang={lang}
+        show={missingFieldsError}
+        onClose={() => setMissingFieldsError(false)}
+        title={lang === "en" ? "Missing fields" : "Champs manquants"}
+        message={
+          lang === "en"
+            ? "Please fill in all the fields"
+            : "Veuillez remplir tous les champs"
         }
       />
     </>

@@ -14,6 +14,7 @@ import {
   lessonsLength,
 } from "@/utils/courses";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import Link from "next/link";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -95,20 +96,29 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
         <div className="flex flex-col">
           {filteredLessons.map((lesson, index) => (
             <div className="my-10" key={index}>
-              <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                {lesson.category}
-              </h2>
-              <div className="mt-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className="flex justify-between items-center">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                  {lesson.category}
+                </h2>
+                <Link
+                  href={`/${lang}/category/${lesson.category.toLowerCase()}`}
+                >
+                  <button className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
+                    {lang === "en" ? "View all" : "Voir tout"}
+                  </button>
+                </Link>
+              </div>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {lesson.courses
-                  .slice()
                   .sort((a, b) => {
                     const tierOrder = {
-                      Beginner: 0,
+                      Beginner: 2,
                       Intermediate: 1,
-                      Expert: 2,
+                      Expert: 0,
                     };
                     return tierOrder[a.tier.en] - tierOrder[b.tier.en];
                   })
+                  .slice(0, 3)
                   .map((course, index) =>
                     renderCourses(
                       course,
