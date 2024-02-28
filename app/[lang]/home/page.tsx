@@ -52,7 +52,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   useEffect(() => {
     const fetchCoursesCompleted = async () => {
       const response = await fetch(
-        `/api/database/coursesCompleted?wallet=${address}`,
+        `/api/database/getUserCoursesCompleted?wallet=${address}`,
         {
           method: "GET",
           headers: {

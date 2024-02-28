@@ -6,7 +6,7 @@ const RemainingRewards = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchRemainingRewards = async () => {
-      const response = await fetch("/api/database/remainingRewards", {
+      const response = await fetch("/api/database/getRemainingRewards", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

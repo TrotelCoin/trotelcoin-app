@@ -11,7 +11,7 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {
-      await fetch(`/api/database/numberOfQuizzesAnswered?wallet=${address}`, {
+      await fetch(`/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

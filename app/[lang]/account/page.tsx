@@ -30,7 +30,7 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = async () => {
-      await fetch(`/api/database/newLearner?wallet=${address}`, {
+      await fetch(`/api/database/postNewLearner?wallet=${address}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

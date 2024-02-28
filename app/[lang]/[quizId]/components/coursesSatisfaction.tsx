@@ -22,7 +22,7 @@ const CoursesSatisfaction = ({
   const postSatisfaction = async (rating: number) => {
     if (rating) {
       const postSatisfaction = await fetch(
-        `/api/database/coursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`,
+        `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`,
         {
           method: "POST",
           headers: {
@@ -46,7 +46,7 @@ const CoursesSatisfaction = ({
   useEffect(() => {
     const fetchCoursesSatisfactionAnswered = async () => {
       const response = await fetch(
-        `/api/database/coursesSatisfactionAnswered?wallet=${address}&quizId=${quizId}`,
+        `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`,
         {
           method: "GET",
           headers: {

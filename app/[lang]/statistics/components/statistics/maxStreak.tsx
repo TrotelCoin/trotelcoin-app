@@ -6,7 +6,7 @@ const MaxStreak = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
-      const response = await fetch("/api/database/totalMaxStreak", {
+      const response = await fetch("/api/database/getTotalMaxStreak", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

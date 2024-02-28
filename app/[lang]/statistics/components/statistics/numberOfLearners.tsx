@@ -8,7 +8,7 @@ const NumberOfLearners = ({ dict }: { dict: DictType }) => {
     // finding number of learners by taking max id in the table "learners"
 
     const fetchNumberOfLearners = async () => {
-      const response = await fetch("/api/database/numberOfLearners", {
+      const response = await fetch("/api/database/getTotalNumberOfLearners", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

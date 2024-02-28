@@ -18,7 +18,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       setIsLoadingLeaderboard(true);
-      const leaderboard = await fetch(`/api/database/leaderboard`, {
+      const leaderboard = await fetch(`/api/database/getLeaderboard`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

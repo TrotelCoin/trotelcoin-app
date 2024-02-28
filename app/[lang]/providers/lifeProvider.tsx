@@ -13,7 +13,7 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
   const address = useAddress();
 
   const updateLife = async () => {
-    await fetch(`/api/database/updateLife?wallet=${address}`, {
+    await fetch(`/api/database/postUpdateLife?wallet=${address}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const fetchUserLife = async () => {
-      await fetch(`/api/database/life?wallet=${address}`, {
+      await fetch(`/api/database/getUserLife?wallet=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchLifeCooldown = async () => {
       const result = await fetch(
-        `/api/database/resetLifeCount?wallet=${address}`,
+        `/api/database/getUserLifeLastReset?wallet=${address}`,
         {
           method: "GET",
           headers: {

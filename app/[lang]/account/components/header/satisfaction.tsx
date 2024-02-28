@@ -8,7 +8,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
   const satisfactionResult = async (number: number) => {
     if (number) {
-      await fetch(`/api/database/satisfactionHandler?number=${number}`, {
+      await fetch(`/api/database/postUserSatisfaction?number=${number}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

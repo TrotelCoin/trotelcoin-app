@@ -17,14 +17,17 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const fetchStreak = async () => {
-      const result = await fetch(`/api/database/streak?wallet=${address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
+      const result = await fetch(
+        `/api/database/getUserStreak?wallet=${address}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        }
+      );
       const data = await result.json();
       if (Number(data.currentStreak)) {
         setStreak(data.currentStreak);
@@ -67,7 +70,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchMaxStreak = async () => {
       const result = await fetch(
-        `/api/database/userMaxStreak?wallet=${address}`,
+        `/api/database/getUserMaxStreak?wallet=${address}`,
         {
           method: "GET",
           headers: {
@@ -89,14 +92,17 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
   }, [address, maxStreak]);
 
   const updateStreak = async (address: Address) => {
-    const result = await fetch(`/api/database/updateStreak?wallet=${address}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
-      cache: "no-store",
-    });
+    const result = await fetch(
+      `/api/database/postUpdateStreak?wallet=${address}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+        cache: "no-store",
+      }
+    );
     // if success from response is true, then setStreak to streak + 1
     const data = await result.json();
     if (data.success === "Streak updated.") {

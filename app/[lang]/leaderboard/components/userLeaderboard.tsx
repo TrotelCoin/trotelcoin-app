@@ -35,7 +35,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
     const fetchUserLeaderboard = async () => {
       setIsLoadingUserLeaderboard(true);
       const userLeaderboard = await fetch(
-        `/api/database/userLeaderboard?wallet=${address as Address}`,
+        `/api/database/getUserLeaderboard?wallet=${address as Address}`,
         {
           method: "GET",
           headers: {
