@@ -121,7 +121,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
-          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40 md:hidden" />
+          <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40 md:hidden" />
           <div className="items-center flex gap-2">
             <Link
               href={`/${lang}/account`}

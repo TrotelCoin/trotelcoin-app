@@ -16,7 +16,7 @@ import Changelogs from "@/app/[lang]/components/changelogs/changelogs";
 import Footer from "@/app/[lang]/components/footer";
 import Header from "@/app/[lang]/components/header";
 import Loading from "@/app/[lang]/components/loading";
-import { DictionaryProvider } from "@/app/[lang]/dictionnaryProvider";
+import { DictionaryProvider } from "@/app/[lang]/providers/dictionnaryProvider";
 import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
 import LifeProvider from "@/app/[lang]/providers/lifeProvider";
 import MobileFooter from "@/app/[lang]/components/mobileFooter";
