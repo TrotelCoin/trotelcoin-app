@@ -25,7 +25,7 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         ) : (
           <span className="font-semibold">0</span>
         )}{" "}
-        💙
+        <span className="text-sm">💙</span>
         <Transition
           as={Fragment}
           show={isHoveringLife}
@@ -46,7 +46,7 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                   <>{dict?.header.lifeMessage}</>
                 )}
               </p>
-              {lifeCooldown && <p>{lifeCooldown} ⏳</p>}
+              {lifeCooldown && <p>{lifeCooldown}</p>}
               <Link href={`/${lang}/shop`}>
                 <button className="bg-blue-500 hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold">
                   {typeof dict?.header !== "string" && (

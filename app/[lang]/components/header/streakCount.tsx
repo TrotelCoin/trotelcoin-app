@@ -53,14 +53,16 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         ) : (
           <span className="font-semibold">0</span>
         )}{" "}
-        {!address
-          ? "❌"
-          : streakCooldown === "Increase your streak" ||
-            streakCooldown === "Augmentez votre série" ||
-            streakCooldown === "00:00:00" ||
-            cooldown === "00:00:00"
-          ? "🔥"
-          : "⏳"}
+        <span className="text-sm">
+          {!address
+            ? "❌"
+            : streakCooldown === "Increase your streak" ||
+              streakCooldown === "Augmentez votre série" ||
+              streakCooldown === "00:00:00" ||
+              cooldown === "00:00:00"
+            ? "🔥"
+            : "⏳"}
+        </span>
         <Transition
           as={Fragment}
           show={isHoveringStreak}
@@ -85,7 +87,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                 <p>
                   {streakCooldown !==
                     ("Increase your streak" || "Augmentez votre série")}
-                  {cooldown} ⏳
+                  {cooldown}
                 </p>
               )}
               <button
