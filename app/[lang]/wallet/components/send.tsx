@@ -115,7 +115,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
       if (!isAddress(receiverAddress)) {
         setReceiverAddressError(
           lang === "en"
-            ? "The addressis not valid"
+            ? "The address is not valid"
             : "L'adresse n'est pas valide"
         );
       } else {
@@ -205,7 +205,7 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
             lang={lang}
             token={token}
             balance={balance as number}
-            amount={amount as number}
+            amount={amount}
             receiverAddress={receiverAddress as Address}
           />
         </div>

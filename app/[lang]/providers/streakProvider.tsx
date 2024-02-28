@@ -53,6 +53,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
         const difference = now.getTime() - lastUpdated.getTime();
         if (difference > 86400000) {
           setCooldown("00:00:00");
+          setDisabled(false);
         } else {
           const cooldown = 86400000 - difference;
           const cooldownString = new Date(cooldown).toISOString();

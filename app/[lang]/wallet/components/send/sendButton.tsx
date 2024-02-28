@@ -25,7 +25,7 @@ const SendButton = ({
   lang: Lang;
   token: string;
   balance: number;
-  amount: number;
+  amount: number | undefined;
   receiverAddress: Address;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -61,6 +61,13 @@ const SendButton = ({
 
   const send = async (amount: number) => {
     setIsLoading(true);
+
+    if (!amount) {
+      setErrorMessage(true);
+      setIsLoading(false);
+      return;
+    }
+
     if (balance < amount) {
       setBalanceError(true);
       setIsLoading(false);
@@ -114,7 +121,7 @@ const SendButton = ({
   return (
     <>
       <button
-        onClick={() => send(amount)}
+        onClick={() => send(amount as number)}
         className="w-full bg-blue-500 hover:bg-blue-400 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold"
       >
         {isLoading ? (
