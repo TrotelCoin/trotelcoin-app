@@ -1,0 +1,178 @@
+{
+  "tier": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "expert": "Expert"
+  },
+  "banner": {
+    "message": "TrotelCoin is in beta version.",
+    "button": "Read the whitepaper"
+  },
+  "header": {
+    "home": "Home",
+    "learn": "Learn",
+    "community": "Community",
+    "account": "Account",
+    "shop": "Shop",
+    "version": "beta version",
+    "disconnect": "Sign out",
+    "lifeMessage": "Cooldown",
+    "streakMessage": "Cooldown",
+    "lifeButton": "Get unlimited lives",
+    "streakButton": "Increase your streak",
+    "wallet": "Wallet"
+  },
+  "home": {
+    "search": "What do you wanna learn?"
+  },
+  "wallet": {
+    "connect": "Sign in",
+    "connecting": "Connecting...",
+    "signin": "Sign in",
+    "disconnect": "Disconnect"
+  },
+  "language": {
+    "language": "Language"
+  },
+  "comingSoon": {
+    "comingSoon": "Coming soon..."
+  },
+  "footer": {
+    "about": "About",
+    "statistics": "Statistics",
+    "pricing": "Pricing",
+    "business": "Business",
+    "documentation": "Documentation",
+    "shop": "Shop",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "leaderboard": "Leaderboard"
+  },
+  "shop": {
+    "claimNFTs": "Claim your NFTs",
+    "statistics": "Statistics",
+    "eligibility": "Check your eligibility",
+    "claim": "Claim",
+    "claimed": "Already claimed",
+    "early": "Early access",
+    "intermediate": "Intermediate",
+    "expert": "Expert"
+  },
+  "beginner": {
+    "advantage1": "Free courses",
+    "advantage2": "Crypto rewards"
+  },
+  "intermediate": {
+    "advantage1": "Advanced courses",
+    "advantage2": "Gamification features"
+  },
+  "expert": {
+    "advantage1": "Beta features",
+    "advantage2": "Crypto community"
+  },
+  "modals": {
+    "connectWallet": {
+      "title": "Sign in",
+      "message": "You need to sign in."
+    },
+    "eligible": {
+      "title": "You are eligible!",
+      "message": "You are eligible to claim your NFT."
+    },
+    "claimedIntermediateNFT": {
+      "title": "You claimed your NFT",
+      "message": "You are now an Intermediate user."
+    },
+    "claimedExpertNFT": {
+      "title": "You claimed your NFT",
+      "message": "You are now an Expert user."
+    },
+    "claimedTrotelCoin": {
+      "title": "Congratulations",
+      "message": "You claimed your TrotelCoins."
+    }
+  },
+  "account": {
+    "hello": "Hello",
+    "rank": "Rank",
+    "balance": "Balance",
+    "totalRewards": "Total rewards",
+    "quizzesAnswered": "Quizzes answered",
+    "level": "Level",
+    "youAreLevel": "You are level",
+    "trotelCoinsLeft": "quizzes left",
+    "rewardsPending": "Pendings rewards",
+    "satisfaction": "Would you recommend TrotelCoin to a friend?",
+    "badges": {
+      "beginner": "Beginner"
+    },
+    "notPremium": "Not premium"
+  },
+  "badges": {
+    "beginner": "Beginner",
+    "tenQuizzes": "10 quizzes answered",
+    "hundredTrotelCoins": "100 TrotelCoins earned",
+    "early": "Early access"
+  },
+  "lesson": {
+    "notAvailable": "Not available",
+    "sponsored": "Sponsored",
+    "newCourse": "New course",
+    "notAvailableMessage": "This lesson is not available yet. Please come back later.",
+    "goBackHome": "Go back home",
+    "course": "Course",
+    "goingToLearn": "What you are going to learn?",
+    "satisfaction": "Rate this course",
+    "satisfactionMessage": "Thank you for rating this course.",
+    "errorMessage": "An error occured. Please try again later.",
+    "disclaimer": "None of our courses are financial advice. We are not responsible for any financial loss. Please do your own research."
+  },
+  "notPremium": {
+    "title": "You are not premium",
+    "message": "Sign in or become a premium user to access this course."
+  },
+  "quiz": {
+    "loading": "Loading quiz...",
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "Submit",
+    "captcha": "Missing captcha",
+    "claimRewards": "Claim rewards",
+    "youWillGet": "Claim your rewards.",
+    "receiveCrypto": "Receive rewards",
+    "correct": "Congratulations. You answered all answers correctly.",
+    "incorrect": "Oups. You answered incorrectly to the following questions :",
+    "alreadyClaimed": "You already claimed this quiz.",
+    "connectWallet": "Sign in to claim your rewards.",
+    "claimingError": "An error occured. Please try again later.",
+    "life": "You can't take the quiz because you don't have life left. Comeback tomorrow or buy some lives."
+  },
+  "events": {
+    "claimed": "claimed"
+  },
+  "algorithm": {
+    "title": "The algorithm",
+    "remainingTokens": "Rewards",
+    "remainingCycle": "Current cycle",
+    "learners": "Number of learners",
+    "trotelCoinsDistributed": "TrotelCoins distributed",
+    "trotelCoinsPending": "TrotelCoins pending",
+    "numberOfQuizzesAnswered": "Quizzes answered",
+    "maxStreak": "Biggest streak",
+    "numberOfLearners": "Learners"
+  },
+  "learn": {
+    "trainingCenter": "Training center",
+    "streak": "Streak",
+    "cooldown": "Cooldown",
+    "streakDisabled": "Come back tomorrow to increase your streak. Don't lose your streak!",
+    "streakEnabled": "Click on the flame to increase your streak.",
+    "maxStreak": "Max streak"
+  },
+  "privacyPolicy": {
+    "title": "Privacy policy"
+  },
+  "termsOfService": {
+    "title": "Terms of service"
+  }
+}
