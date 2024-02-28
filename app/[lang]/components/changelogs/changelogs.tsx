@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.2.3";
+const version = "1.3.2";
 
 interface ChangelogItem {
   title: string;
@@ -120,6 +120,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We moved the streak to the profile and header"
               : "- On a déplacé la série dans le profil et le header",
+          isNew: true,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We improved badges"
+              : "- On a amélioré les badges",
           isNew: true,
         },
       ],
