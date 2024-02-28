@@ -91,7 +91,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   }, [getStakingData, address]);
 
   useEffect(() => {
-    if (getUserStakingData && getStakingData) {
+    if (getUserStakingData) {
       if (getUserStakingData[0].toString() > 0) {
         setIsStaking(true);
       } else {
@@ -100,7 +100,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     } else {
       setIsStaking(false);
     }
-  }, [getUserStakingData, getStakingData]);
+  }, [getUserStakingData]);
 
   return (
     <>

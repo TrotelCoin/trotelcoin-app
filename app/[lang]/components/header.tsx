@@ -1,7 +1,7 @@
 "use client";
 
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -123,7 +123,6 @@ const Header = ({ lang }: { lang: Lang }) => {
           <div className="items-center flex gap-x-4">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
-            <Wallet dict={dict as DictType} lang={lang} />
           </div>
           <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
           <div className="items-center flex gap-2">
@@ -148,6 +147,13 @@ const Header = ({ lang }: { lang: Lang }) => {
             </Link>
             <LanguageSelector lang={lang} />
             <ThemeSwitcher />
+            <button
+              type="button"
+              className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Bars3Icon className="h-5 w-5" aria-hidden="true" />
+            </button>
           </div>
         </div>
 
@@ -169,20 +175,18 @@ const Header = ({ lang }: { lang: Lang }) => {
             className="-m-2.5 inline-flex items-center justify-center rounded-xl p-2.5 text-gray-900 dark:text-gray-100"
             onClick={() => setMobileMenuOpen(true)}
           >
-            <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            <Bars3Icon className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
       </nav>
 
       {/* Mobile menu */}
-      <Dialog
-        as="div"
-        className="lg:hidden"
-        open={mobileMenuOpen}
-        onClose={() => setMobileMenuOpen(false)}
+      <Transition
+        show={mobileMenuOpen}
+        className={`${mobileMenuOpen ? "" : "pointer-events-none"} z-50`}
       >
         <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+        <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
             <div className="-m-1.5 p-1.5">
               <Link
@@ -202,10 +206,17 @@ const Header = ({ lang }: { lang: Lang }) => {
               <Wallet dict={dict as DictType} lang={lang} />
               <button
                 type="button"
-                className="-m-2.5 rounded-xl p-2.5 text-gray-900 dark:text-gray-100"
+                onClick={() => setMobileMenuOpen(false)}
+                className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+              >
+                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                className="-m-2.5 rounded-xl p-2.5 text-gray-900 dark:text-gray-100 lg:hidden"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                <XMarkIcon className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
           </div>
@@ -218,7 +229,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                     key={index}
                     href={`/${lang}${item.href}`}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="-mx-3 block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
+                    className="-mx-3 lg:hidden block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-gray-100 hover:bg-gray-200/80 dark:hover:bg-gray-900/80"
                   >
                     <>{item.name}</>
                   </Link>
@@ -226,14 +237,14 @@ const Header = ({ lang }: { lang: Lang }) => {
               </div>
             </div>
           </div>
-          <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4" />
+          <div className="border-t border-gray-900/10 dark:border-gray-100/10 my-4 lg:hidden" />
           <div className="flex flex-col gap-4">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
             <StreakMobile lang={lang} dict={dict as DictType} />
             <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
-        </Dialog.Panel>
-      </Dialog>
+        </div>
+      </Transition>
     </header>
   );
 };
