@@ -117,11 +117,11 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-x-4">
+          <div className="items-center flex gap-x-4 md:hidden">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
-          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
+          <div className="flex justify-center items-center mx-4 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40 md:hidden" />
           <div className="items-center flex gap-2">
             <Link
               href={`/${lang}/account`}
@@ -138,7 +138,6 @@ const Header = ({ lang }: { lang: Lang }) => {
             </Link>
             <LanguageSelector lang={lang} />
             <ThemeSwitcher />
-            <Wallet lang={lang} dict={dict as DictType} />
             <button
               type="button"
               className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -157,6 +156,9 @@ const Header = ({ lang }: { lang: Lang }) => {
                 />
               </svg>
             </button>
+            <div className="p-2">
+              <Wallet lang={lang} dict={dict as DictType} />
+            </div>
           </div>
         </div>
 
@@ -217,7 +219,9 @@ const Header = ({ lang }: { lang: Lang }) => {
               </Link>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
-              <Wallet dict={dict as DictType} lang={lang} />
+              <div className="lg:hidden">
+                <Wallet dict={dict as DictType} lang={lang} />
+              </div>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
