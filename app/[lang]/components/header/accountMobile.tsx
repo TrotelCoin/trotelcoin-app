@@ -1,6 +1,14 @@
 import { Lang } from "@/types/types";
+import { useAddress, useUser } from "@thirdweb-dev/react";
 import Link from "next/link";
 import React from "react";
+
+const connectedClass =
+  "inline-flex items-center rounded-xl bg-green-50 dark:bg-green-300/10 px-2 py-1 text-xs font-medium text-green-500 dark:text-green-300 ring-1 ring-inset ring-green-500/20 dark:ring-green-300/40";
+const walletClass =
+  "inline-flex items-center rounded-xl bg-blue-50 dark:bg-blue-300/10 px-2 py-1 text-xs font-medium text-blue-500 dark:text-blue-300 ring-1 ring-inset ring-blue-500/20 dark:ring-blue-300/40";
+const disconnectedClass =
+  "inline-flex items-center rounded-xl bg-red-50 dark:bg-red-300/10 px-2 py-1 text-xs font-medium text-red-500 dark:text-red-300 ring-1 ring-inset ring-red-500/20 dark:ring-red-300/40";
 
 const AccountMobile = ({
   lang,
@@ -9,12 +17,38 @@ const AccountMobile = ({
   lang: Lang;
   setMobileMenuOpen: (open: boolean) => void;
 }) => {
+  const address = useAddress();
+  const { isLoggedIn } = useUser();
+
   return (
     <>
       <Link href={`/${lang}/account`} onClick={() => setMobileMenuOpen(false)}>
         <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
           <div className="flex gap-2 items-center justify-between p-4">
-            <h3>Account</h3>
+            <div className="flex gap-2 items-center">
+              <h3>Account</h3>
+              <span
+                className={`${
+                  address
+                    ? isLoggedIn
+                      ? connectedClass
+                      : walletClass
+                    : disconnectedClass
+                }`}
+              >
+                {address
+                  ? isLoggedIn
+                    ? lang === "en"
+                      ? "Logged in"
+                      : "Connecté"
+                    : lang === "en"
+                    ? "Only wallet"
+                    : "Portefeuille seulement"
+                  : lang === "en"
+                  ? "Logged out"
+                  : "Déconnecté"}
+              </span>
+            </div>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
