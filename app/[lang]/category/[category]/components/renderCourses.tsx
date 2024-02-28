@@ -18,7 +18,6 @@ const renderCourses = (
 ) => {
   let tier = "";
   let title = "";
-  let description = "";
 
   switch (lang) {
     case "en":
