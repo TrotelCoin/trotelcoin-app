@@ -6,10 +6,44 @@ import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
 import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";
+import { useAddress } from "@thirdweb-dev/react";
+import Status from "@/app/[lang]/wallet/components/claim/status";
 
 const Claim = ({ lang }: { lang: Lang }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
+  const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
+
+  const address = useAddress();
+
+  useEffect(() => {
+    const fetchAvailableToClaim = async () => {
+      const result = await fetch(
+        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        }
+      );
+      const data = await result.json();
+      console.log(data);
+      if (data) {
+        setAvailableToClaim(data);
+      } else {
+        setAvailableToClaim(0);
+      }
+    };
+
+    if (address) {
+      fetchAvailableToClaim();
+    } else {
+      setAvailableToClaim(0);
+    }
+  }, [availableToClaim, address]);
 
   useEffect(() => {
     const fetchCentralWalletAddress = async () => {
@@ -39,10 +73,16 @@ const Claim = ({ lang }: { lang: Lang }) => {
 
         <div className="flex flex-col gap-2 pt-4 px-4">
           <div>
-            <AvailableToClaim lang={lang} />
+            <AvailableToClaim
+              lang={lang}
+              availableToClaim={availableToClaim as number}
+            />
           </div>
           <div>
             <Balance lang={lang} />
+          </div>
+          <div>
+            <Status lang={lang} availableToClaim={availableToClaim as number} />
           </div>
         </div>
         <div className="pt-4 px-4">
