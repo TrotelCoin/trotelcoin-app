@@ -79,17 +79,8 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           >
             <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/10 p-4 rounded-xl">
               <p className="font-semibold">
-                {typeof dict?.header !== "string" && (
-                  <>{dict?.header.streakMessage}</>
-                )}
+                {lang === "en" ? "Your streak" : "Votre série"}
               </p>
-              {streakCooldown && cooldown && (
-                <p>
-                  {streakCooldown !==
-                    ("Increase your streak" || "Augmentez votre série")}
-                  {cooldown}
-                </p>
-              )}
               <button
                 onClick={() => updateStreak(address as Address)}
                 disabled={disabled}
