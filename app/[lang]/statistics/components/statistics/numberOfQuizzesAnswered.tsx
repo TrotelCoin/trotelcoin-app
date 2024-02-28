@@ -9,7 +9,7 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {
       const response = await fetch(
-        "/api/database/totalNumberOfQuizzesAnswered",
+        "/api/database/getTotalNumberOfQuizzesAnswered",
         {
           method: "GET",
           headers: {

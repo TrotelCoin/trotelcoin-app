@@ -8,7 +8,7 @@ const TrotelCoinsPending = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchTrotelCoinsPending = async () => {
-      const response = await fetch("/api/database/trotelCoinsPending", {
+      const response = await fetch("/api/database/getTotalTrotelCoinsPending", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

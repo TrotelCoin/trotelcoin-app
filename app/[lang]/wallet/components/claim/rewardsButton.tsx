@@ -35,7 +35,7 @@ const RewardsButton = ({
   useEffect(() => {
     const fetchAvailableToClaim = async () => {
       const result = await fetch(
-        `/api/database/totalRewardsPending?wallet=${address}`,
+        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
         {
           method: "GET",
           headers: {
@@ -97,7 +97,7 @@ const RewardsButton = ({
 
         // reset database pending rewards
         const reset = await fetch(
-          `/api/database/resetRewardsPending?wallet=${address}`,
+          `/api/database/postResetRewardsPending?wallet=${address}`,
           {
             method: "POST",
             headers: {

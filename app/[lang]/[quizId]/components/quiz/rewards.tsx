@@ -40,7 +40,7 @@ const Rewards = ({
     try {
       // update database rewards by calling api and if success
       const responseUpdate = await fetch(
-        `/api/database/updateRewards?wallet=${address}&quizId=${quizId}`,
+        `/api/database/postUpdateRewards?wallet=${address}&quizId=${quizId}`,
         {
           method: "POST",
           headers: {
@@ -67,7 +67,7 @@ const Rewards = ({
   useEffect(() => {
     const fetchAlreadyAnsweredQuiz = async () => {
       await fetch(
-        `/api/database/alreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
+        `/api/database/getUserAlreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
         {
           method: "GET",
           headers: {

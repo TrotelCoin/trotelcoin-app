@@ -7,10 +7,10 @@ import { useContractRead, useBalance } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 import { useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
-import PremiumContext from "../../contexts/premiumContext";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 
 const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
-  const [maxStreak, setMaxStreak] = useState<number | null>(null);
   const [quizzesAnswered, setQuizzesAnswered] = useState<number | null>(null);
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
     null
@@ -41,35 +41,12 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const { isEarly, intermediateBalance, expertBalance } =
     useContext(PremiumContext);
 
-  useEffect(() => {
-    const fetchMaxStreak = async () => {
-      const result = await fetch(
-        `/api/database/userMaxStreak?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-
-      const data = await result.json();
-      setMaxStreak(data);
-    };
-
-    if (address) {
-      fetchMaxStreak();
-    } else {
-      setMaxStreak(null);
-    }
-  }, [address]);
+  const { maxStreak } = useContext(StreakContext);
 
   useEffect(() => {
     const fetchQuizzesAnswered = async () => {
       const result = await fetch(
-        `/api/database/numberOfQuizzesAnswered?wallet=${address}`,
+        `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`,
         {
           method: "GET",
           headers: {

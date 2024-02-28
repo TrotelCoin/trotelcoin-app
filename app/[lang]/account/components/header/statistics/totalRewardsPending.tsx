@@ -11,7 +11,7 @@ const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchRewardsPending = async () => {
-      await fetch(`/api/database/totalRewardsPending?wallet=${address}`, {
+      await fetch(`/api/database/getUserTotalRewardsPending?wallet=${address}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

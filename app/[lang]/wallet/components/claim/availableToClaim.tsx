@@ -12,7 +12,7 @@ const AvailableToClaim = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     const fetchAvailableToClaim = async () => {
       const result = await fetch(
-        `/api/database/totalRewardsPending?wallet=${address}`,
+        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
         {
           method: "GET",
           headers: {
