@@ -1,36 +1,11 @@
+import UserContext from "@/app/[lang]/contexts/userContext";
 import { DictType } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
-  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
-    number | null
-  >(null);
-
-  const address = useAddress();
-
-  useEffect(() => {
-    const fetchNumberOfQuizzesAnswered = async () => {
-      await fetch(`/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
-        .then((response) => response?.json())
-        .then((data) => {
-          setNumberOfQuizzesAnswered(data);
-        });
-    };
-
-    if (address) {
-      fetchNumberOfQuizzesAnswered();
-    } else {
-      setNumberOfQuizzesAnswered(0);
-    }
-  }, [address]);
+  const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
+    useContext(UserContext);
 
   return (
     <>

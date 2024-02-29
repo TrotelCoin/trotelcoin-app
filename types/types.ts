@@ -149,3 +149,8 @@ export type LeaderboardItem = {
   iconOutline: React.JSX.Element;
   iconSolid: React.JSX.Element;
 };
+
+export type Courses = {
+  quiz_id: any;
+  answered: any;
+}[];

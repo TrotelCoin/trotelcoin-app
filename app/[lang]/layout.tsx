@@ -22,6 +22,7 @@ import LifeProvider from "@/app/[lang]/providers/lifeProvider";
 import MobileFooter from "@/app/[lang]/components/mobileFooter";
 import StreakProvider from "@/app/[lang]/providers/streakProvider";
 import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
+import UserProvider from "@/app/[lang]/providers/userProvider";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -125,20 +126,22 @@ export default function Layout({
                 />
                 <Suspense fallback={<Loading lang={lang} />}>
                   <DictionaryProvider lang={lang}>
-                    <LifeProvider>
-                      <StreakProvider>
-                        <PremiumProvider>
-                          <Banner lang={lang} />
-                          <Changelogs lang={lang} />
-                          <Header lang={lang} />
-                          <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
-                            {children}
-                          </main>
-                          <Footer lang={lang} />
-                          <MobileFooter lang={lang} />
-                        </PremiumProvider>
-                      </StreakProvider>
-                    </LifeProvider>
+                    <UserProvider>
+                      <LifeProvider>
+                        <StreakProvider>
+                          <PremiumProvider>
+                            <Banner lang={lang} />
+                            <Changelogs lang={lang} />
+                            <Header lang={lang} />
+                            <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                              {children}
+                            </main>
+                            <Footer lang={lang} />
+                            <MobileFooter lang={lang} />
+                          </PremiumProvider>
+                        </StreakProvider>
+                      </LifeProvider>
+                    </UserProvider>
                   </DictionaryProvider>
                 </Suspense>
                 <Analytics />

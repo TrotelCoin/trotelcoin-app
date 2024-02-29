@@ -2,6 +2,7 @@ import { Lang } from "@/types/types";
 import { Transition, Dialog } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { Fragment, useEffect, useState } from "react";
+import "animate.css";
 
 const NameModal = ({
   lang,
@@ -11,12 +12,13 @@ const NameModal = ({
   nameModal,
 }: {
   lang: Lang;
-  name: string;
-  setName: (name: string) => void;
+  name: string | null;
+  setName: (name: string | null) => void;
   setNameModal: (nameModal: boolean) => void;
   nameModal: boolean;
 }) => {
   const [nameError, setNameError] = useState<string | null>(null);
+  const [nameIsLoading, setNameIsLoading] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -43,6 +45,7 @@ const NameModal = ({
   }, [name]);
 
   const postName = async (name: string) => {
+    setNameIsLoading(true);
     if (name === "") {
       setNameError(lang === "en" ? "Name is required." : "Le nom est requis.");
     }
@@ -56,7 +59,7 @@ const NameModal = ({
     if (nameError === null) {
       try {
         await fetch(
-          `/api/database/postUserName?name=${name}&wallet=${address}`,
+          `/api/database/postUsername?name=${name}&wallet=${address}`,
           {
             method: "POST",
             headers: {
@@ -67,8 +70,10 @@ const NameModal = ({
           }
         );
         setNameModal(false);
-        setName(name);
+        setName(null);
         setNameError(null);
+        setNameIsLoading(false);
+        localStorage.setItem("username", name);
       } catch (error) {
         setNameError(
           lang === "en"
@@ -76,12 +81,17 @@ const NameModal = ({
             : "Quelque chose a mal tourné."
         );
         console.error(error);
+        setNameModal(false);
+        setName(null);
+        setNameError(null);
+        setNameIsLoading(false);
         return;
       }
     } else {
       setNameError(
         lang === "en" ? "Name is not valid." : "Le nom n'est pas valide."
       );
+      setNameIsLoading(false);
     }
   };
 
@@ -133,7 +143,7 @@ const NameModal = ({
                   <div className="mt-5 sm:mt-6">
                     <input
                       type="text"
-                      value={name}
+                      value={name as string}
                       onChange={(e) => setName(e.target.value)}
                       className="w-full rounded-xl border-gray-900/10 dark:border-gray-100/10 shadow-sm focus:ring-1 focus:ring-blue-500"
                     />
@@ -145,15 +155,27 @@ const NameModal = ({
                   <div className="mt-5 sm:mt-6 flex items-center justify-center gap-4">
                     <button
                       type="button"
-                      onClick={() => postName(name)}
-                      className="w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
+                      onClick={() => postName(name as string)}
+                      className={`w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100 ${
+                        nameIsLoading &&
+                        "animate__animated animate__flash animate__infinite animate__slower"
+                      }`}
                     >
-                      {lang === "en" ? "Save" : "Sauvegarder"}
+                      {lang === "en"
+                        ? nameIsLoading
+                          ? "Loading..."
+                          : "Save"
+                        : nameIsLoading
+                        ? "Chargement..."
+                        : "Sauvegarder"}
                     </button>
                     <button
                       type="button"
                       className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
-                      onClick={() => setNameModal(false)}
+                      onClick={() => {
+                        setName(null);
+                        setNameModal(false);
+                      }}
                     >
                       {lang === "en" ? "Close" : "Fermer"}
                     </button>

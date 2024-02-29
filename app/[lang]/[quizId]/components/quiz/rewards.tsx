@@ -2,9 +2,10 @@
 
 import { DictType, Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const Rewards = ({
   lang,
