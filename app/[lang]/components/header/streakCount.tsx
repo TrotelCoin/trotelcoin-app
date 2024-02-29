@@ -47,9 +47,9 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         onMouseLeave={() => setIsHoveringStreak(false)}
       >
         {streak ? (
-          <span className="font-semibold">{streak}</span>
+          <span className="font-semibold text-sm">{streak}</span>
         ) : (
-          <span className="font-semibold">0</span>
+          <span className="font-semibold text-sm">0</span>
         )}{" "}
         <span className="text-sm">
           {!address
