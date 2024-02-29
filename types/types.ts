@@ -115,13 +115,6 @@ export type QuizAnswer = {
   };
 };
 
-export type Badge = {
-  id: number;
-  name: string | false | DictType;
-  image: string;
-  condition: boolean | 0 | null;
-};
-
 export type FooterItem = {
   name: string | false | DictType | undefined;
   href: string;
@@ -155,49 +148,11 @@ export type Courses = {
   answered: any;
 }[];
 
-export type Badges = {
-  ranks: (
-    | {
-        id: number;
-        name: string | false | DictType;
-        image: string;
-        condition: boolean;
-      }
-    | {
-        id: number;
-        name: string;
-        image: string;
-        condition: boolean | 0;
-      }
-  )[];
-  quizzes: {
-    id: number;
-    name: string | DictType;
-    image: string;
-    condition: boolean | 0;
-  }[];
-  streaks: {
-    id: number;
-    name: string | DictType;
-    image: string;
-    condition: boolean | 0;
-  }[];
-  trotelCoins: {
-    id: number;
-    name: string | DictType;
-    image: string;
-    condition: boolean | 0;
-  }[];
-  staking: {
-    id: number;
-    name: string | DictType;
-    image: string;
-    condition: boolean | 0;
-  }[];
-  timeStaked: {
-    id: number;
-    name: string | DictType;
-    image: string;
-    condition: boolean | 0;
-  }[];
+export type Badge = {
+  id: number;
+  name: string;
+  image: string;
+  condition: boolean | null;
 };
+
+export type Badges = Badge[];

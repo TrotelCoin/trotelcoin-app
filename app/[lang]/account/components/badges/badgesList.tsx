@@ -1,14 +1,14 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { DictType, Badge } from "@/types/types";
+import { DictType, Badges, Badge } from "@/types/types";
 import React, { useContext } from "react";
 
-const BadgesList = ({ badges, dict }: { badges: Badge[]; dict: DictType }) => {
+const BadgesList = ({ badges, dict }: { badges: Badges; dict: DictType }) => {
   const { isNotPremium } = useContext(PremiumContext);
 
   return (
     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
       {badges &&
-        badges.map((badge, index) => {
+        badges.map((badge: Badge, index: number) => {
           if (!badge || !badge.condition) {
             return null;
           }
