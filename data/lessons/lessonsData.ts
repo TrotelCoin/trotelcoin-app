@@ -119,8 +119,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Web3 sign in",
-          fr: "Connexion Web3",
+          en: "Web3 authentication",
+          fr: "Authentification Web3",
         },
         one: {
           en: "Understand the advantages of signing in with your wallet.",
