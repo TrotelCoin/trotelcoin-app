@@ -5,10 +5,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { Modals } from "@/types/types";
 
-const Fail: React.FC<Modals> = ({ title, show, message, onClose }) => {
+const Fail: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog as="div" className="fixed inset-0 flex z-50 items-center justify-center h-screen m-auto" onClose={onClose}>
+      <Dialog
+        as="div"
+        className="fixed inset-0 flex z-50 items-center justify-center h-screen m-auto"
+        onClose={onClose}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -60,7 +64,7 @@ const Fail: React.FC<Modals> = ({ title, show, message, onClose }) => {
                     className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
                     onClick={onClose}
                   >
-                    Close
+                    {lang === "en" ? "Close" : "Fermer"}
                   </button>
                 </div>
               </Dialog.Panel>

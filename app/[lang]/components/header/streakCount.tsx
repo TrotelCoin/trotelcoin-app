@@ -21,8 +21,6 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     maxStreak,
   } = useContext(StreakContext);
 
-  console.log(maxStreak);
-
   useEffect(() => {
     if (lastUpdatedStreak && disabled) {
       const lastUpdated = new Date(lastUpdatedStreak);

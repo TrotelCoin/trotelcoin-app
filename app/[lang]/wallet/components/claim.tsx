@@ -30,7 +30,6 @@ const Claim = ({ lang }: { lang: Lang }) => {
         }
       );
       const data = await result.json();
-      console.log(data);
       if (data) {
         setAvailableToClaim(data);
       } else {

@@ -5,7 +5,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import React, { Fragment } from "react";
 import { Modals } from "@/types/types";
 
-const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
+const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog
@@ -64,7 +64,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose }) => {
                     className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
                     onClick={onClose}
                   >
-                    Close
+                    {lang === "en" ? "Close" : "Fermer"}
                   </button>
                 </div>
               </Dialog.Panel>
