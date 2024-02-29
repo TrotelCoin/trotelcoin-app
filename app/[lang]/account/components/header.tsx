@@ -9,7 +9,7 @@ import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/stat
 import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
 import shortenAddress from "@/utils/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import NameModal from "@/app/[lang]/account/components/header/nameModal";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
@@ -33,6 +33,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
 
     if (address) {
       fetchUsername();
+      localStorage.setItem("username", name as string);
     }
   }, [address]);
 
@@ -45,8 +46,8 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
             onClick={() => setNameModal(true)}
             className={`font-bold hover:text-blue-500 cursor-pointer`}
           >
-            {name ? (
-              <>{name}</>
+            {localStorage.getItem("username") ? (
+              <>{localStorage.getItem("username")}</>
             ) : ensName ? (
               <>{ensName}</>
             ) : (
@@ -72,7 +73,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
       </div>
       <NameModal
         lang={lang}
-        name={name as string}
+        name={name}
         setName={setName}
         nameModal={nameModal}
         setNameModal={setNameModal}
