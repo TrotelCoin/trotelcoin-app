@@ -9,33 +9,21 @@ import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/stat
 import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
 import shortenAddress from "@/utils/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
-import { use, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import NameModal from "@/app/[lang]/account/components/header/nameModal";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   const [nameModal, setNameModal] = useState<boolean>(false);
-  const [name, setName] = useState<string | null>(null);
 
   const address = useAddress();
+  const { username: name, setUsername: setName } = useContext(UserContext);
 
   const { data: ensName } = useEnsName({
     address: address as Address,
     enabled: Boolean(address),
     chainId: mainnet.id,
   });
-
-  useEffect(() => {
-    const fetchUsername = async () => {
-      const res = await fetch(`/api/database/getUserName?wallet=${address}`);
-      const data = await res.json();
-      setName(data);
-    };
-
-    if (address) {
-      fetchUsername();
-      localStorage.setItem("username", name as string);
-    }
-  }, [address]);
 
   return (
     <>

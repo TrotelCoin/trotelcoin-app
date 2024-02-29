@@ -3,6 +3,7 @@ import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useAddress } from "@thirdweb-dev/react";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 interface LevelSectionProps {
   dict: DictType | null;
@@ -10,38 +11,14 @@ interface LevelSectionProps {
 
 const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
   const [width, setWidth] = useState<number>(0);
-  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] =
-    useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [userLevel, setUserLevel] = useState<number | null>(1);
   const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(1);
 
   const address = useAddress();
 
   const { isNotPremium } = useContext(PremiumContext);
-
-  useEffect(() => {
-    const fetchNumberOfQuizzesAnswered = async () => {
-      await fetch(`/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
-        .then((response) => response?.json())
-        .then((data) => {
-          setNumberOfQuizzesAnswered(data);
-        });
-    };
-
-    if (address) {
-      fetchNumberOfQuizzesAnswered();
-    } else {
-      setNumberOfQuizzesAnswered(0);
-    }
-  }, [address]);
+  const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
+    useContext(UserContext);
 
   useEffect(() => {
     if (numberOfQuizzesAnswered) {

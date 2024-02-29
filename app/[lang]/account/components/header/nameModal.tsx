@@ -59,7 +59,7 @@ const NameModal = ({
     if (nameError === null) {
       try {
         await fetch(
-          `/api/database/postUserName?name=${name}&wallet=${address}`,
+          `/api/database/postUsername?name=${name}&wallet=${address}`,
           {
             method: "POST",
             headers: {

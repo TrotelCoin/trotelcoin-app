@@ -9,9 +9,9 @@ import { useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
-  const [quizzesAnswered, setQuizzesAnswered] = useState<number | null>(null);
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
     null
   );
@@ -42,30 +42,8 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     useContext(PremiumContext);
 
   const { maxStreak } = useContext(StreakContext);
-
-  useEffect(() => {
-    const fetchQuizzesAnswered = async () => {
-      const result = await fetch(
-        `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setQuizzesAnswered(data);
-    };
-
-    if (address) {
-      fetchQuizzesAnswered();
-    } else {
-      setQuizzesAnswered(null);
-    }
-  }, [address]);
+  const { userNumberOfQuizzesAnswered: quizzesAnswered } =
+    useContext(UserContext);
 
   const { data: getStakingDataNoTyped } = useContractRead({
     address: trotelCoinStakingV1,
