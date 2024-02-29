@@ -156,3 +156,11 @@ export type Badge = {
 };
 
 export type Badges = Badge[];
+
+export type BadgesNames =
+  | "ranks"
+  | "quizzes"
+  | "streaks"
+  | "trotelCoins"
+  | "staking"
+  | "timeStaked";
