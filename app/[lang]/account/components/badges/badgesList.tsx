@@ -1,47 +1,98 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { DictType, Badges, Badge } from "@/types/types";
+import { DictType, Badges, Badge, Lang } from "@/types/types";
 import React, { useContext } from "react";
+import Tilt from "react-parallax-tilt";
 
-const BadgesList = ({ badges, dict }: { badges: Badges; dict: DictType }) => {
+const BadgesList = ({
+  badges,
+  dict,
+  lang,
+}: {
+  badges: Badges;
+  dict: DictType;
+  lang: Lang;
+}) => {
   const { isNotPremium } = useContext(PremiumContext);
 
   return (
-    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
       {badges &&
         badges.map((badge: Badge, index: number) => {
           return (
-            <div
+            <Tilt
               key={index}
-              className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-xl py-10 px-2 text-center ${
-                badge.condition
-                  ? "rainbow-border"
-                  : "border border-gray-900/10 dark:border-gray-100/10"
-              }`}
+              glareEnable={true}
+              tiltMaxAngleX={5}
+              tiltMaxAngleY={5}
+              glareMaxOpacity={0.15}
+              perspective={800}
             >
-              <div className="flex flex-col gap-2 text-center items-center">
-                <span
-                  className={`text-gray-900 dark:text-gray-100 text-4xl ${
-                    isNotPremium && "blur hover:blur-none duration-500"
-                  }`}
-                >
-                  {!isNotPremium && badge.image}
-                </span>
-                <span
-                  className={`text-sm ${
-                    isNotPremium && "blur hover:blur-none duration-500"
-                  }`}
-                >
-                  {!isNotPremium && badge.name ? (
-                    <>{badge.name}</>
-                  ) : typeof dict?.account !== "string" &&
-                    typeof dict?.account.notPremium === "string" ? (
-                    <>{dict?.account.notPremium}</>
-                  ) : (
-                    <>Loading...</>
-                  )}
-                </span>
+              <div
+                className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-xl py-10 px-2 text-center ${
+                  badge.condition
+                    ? "rainbow-border"
+                    : "border border-gray-900/10 dark:border-gray-100/10"
+                }`}
+              >
+                <div className="flex gap-4 text-center items-center px-4">
+                  <span
+                    className={`text-gray-900 dark:text-gray-100 text-4xl ${
+                      isNotPremium && "blur hover:blur-none duration-500"
+                    }`}
+                  >
+                    {!isNotPremium && badge.image}
+                  </span>
+                  <div className="flex flex-col justify-center items-start gap-2 w-full">
+                    <span
+                      className={`font-semibold ${
+                        isNotPremium && "blur hover:blur-none duration-500"
+                      }`}
+                    >
+                      {!isNotPremium && badge.name ? (
+                        <>{badge.name}</>
+                      ) : typeof dict?.account !== "string" &&
+                        typeof dict?.account.notPremium === "string" ? (
+                        <>{dict?.account.notPremium}</>
+                      ) : (
+                        <>{lang === "en" ? "Loading..." : "Chargement..."}</>
+                      )}
+                    </span>
+                    <div className="flex gap-2 justify-start items-center w-full">
+                      <div
+                        className={`overflow-hidden w-full h-2 text-xs bg-gray-400 flex rounded-full ${
+                          isNotPremium && "mt-4"
+                        }`}
+                      >
+                        <div
+                          style={{
+                            width: isNotPremium
+                              ? "0%"
+                              : `${Math.min(
+                                  (badge.progress / badge.maxProgress) * 100,
+                                  100
+                                )}%`,
+                            transition: "width 0.7s ease-in",
+                          }}
+                          className="rounded-full h-2 bg-blue-500"
+                        />
+                      </div>
+                      <span
+                        className={`text-xs ${
+                          isNotPremium && "blur hover:blur-none duration-500"
+                        }`}
+                      >
+                        {!isNotPremium &&
+                          Math.min(
+                            (badge.progress / badge.maxProgress) * 100,
+                            100
+                          ).toFixed(0)}
+                        %
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </Tilt>
           );
         })}
     </div>

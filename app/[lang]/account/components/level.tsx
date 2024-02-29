@@ -97,10 +97,10 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
           <div
             style={{
               width: isNotPremium ? "0%" : `${width}%`,
-              transition: "width 1s ease-in",
+              transition: "width 0.7s ease-in",
             }}
             className="rounded-full h-2 bg-blue-500"
-          ></div>
+          />
         </div>
       </div>
     </>

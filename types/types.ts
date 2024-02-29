@@ -153,6 +153,8 @@ export type Badge = {
   name: string;
   image: string;
   condition: boolean | null;
+  progress: number;
+  maxProgress: number;
 };
 
 export type Badges = Badge[];
