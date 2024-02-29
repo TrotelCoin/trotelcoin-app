@@ -117,7 +117,7 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-4 p-2">
+          <div className="items-center flex gap-2 p-2">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
@@ -152,7 +152,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
-            <div className="flex gap-4 items-center p-2">
+            <div className="flex gap-2 items-center p-2">
               <LifeCount dict={dict as DictType} lang={lang} />
               <StreakCount dict={dict as DictType} lang={lang} />
             </div>
