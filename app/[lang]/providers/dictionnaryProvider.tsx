@@ -30,7 +30,7 @@ export const DictionaryProvider = ({
   }, [lang]);
 
   if (dict === null) {
-    return <Loading />;
+    return <Loading lang={lang} />;
   }
 
   return (
