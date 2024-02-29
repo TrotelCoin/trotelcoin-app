@@ -117,11 +117,11 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-x-4 md:hidden">
+          <div className="items-center flex gap-x-4">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
-          <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40 md:hidden" />
+          <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
           <div className="items-center flex gap-2">
             <Link
               href={`/${lang}/account`}
