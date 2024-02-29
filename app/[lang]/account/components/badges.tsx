@@ -368,19 +368,6 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         </button>
         <button
           onClick={() => {
-            setBadges(badgesStakingDuration);
-            setBadgesName("stakingDuration");
-          }}
-          className={`${
-            badgesName === "stakingDuration"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
-          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
-        >
-          {lang === "en" ? "Staking duration" : "Durée de staking"}
-        </button>
-        <button
-          onClick={() => {
             setBadges(badgesTrotelCoins);
             setBadgesName("trotelCoins");
           }}
@@ -391,6 +378,19 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Balance" : "Solde"}
+        </button>
+        <button
+          onClick={() => {
+            setBadges(badgesStakingDuration);
+            setBadgesName("stakingDuration");
+          }}
+          className={`${
+            badgesName === "stakingDuration"
+              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+              : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+        >
+          {lang === "en" ? "Staking duration" : "Durée de staking"}
         </button>
       </div>
       <BadgesList badges={badges} dict={dict} lang={lang} />
