@@ -123,7 +123,7 @@ export default function Layout({
                   speed={200}
                   shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
                 />
-                <Suspense fallback={<Loading />}>
+                <Suspense fallback={<Loading lang={lang} />}>
                   <DictionaryProvider lang={lang}>
                     <LifeProvider>
                       <StreakProvider>
