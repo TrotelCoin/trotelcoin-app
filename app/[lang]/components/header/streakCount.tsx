@@ -93,7 +93,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                 }`}
               >
                 {disabled ? (
-                  <>{lang === "en" ? "Come back tomorrow" : "Revenez demain"}</>
+                  <>{cooldown}</>
                 ) : (
                   <>
                     {typeof dict?.header !== "string" && (
