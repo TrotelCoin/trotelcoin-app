@@ -21,9 +21,9 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         {isExpert || isIntermediate ? (
           <span className="font-semibold text-2xl">&infin;</span>
         ) : life ? (
-          <>{life}</>
+          <span className="font-semibold text-sm">{life}</span>
         ) : (
-          <span className="font-semibold">0</span>
+          <span className="font-semibold text-sm">0</span>
         )}{" "}
         <span className="text-sm">💙</span>
         <Transition
