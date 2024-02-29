@@ -4,7 +4,7 @@ import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
@@ -16,7 +16,7 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const { contract } = useContract(trotelCoinAddress, trotelCoinABI);
+  const { contract } = useContract(trotelCoinAddress, trotelCoinV1ABI);
 
   const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
     contract,
