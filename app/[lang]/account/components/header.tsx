@@ -34,7 +34,9 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
             onClick={() => setNameModal(true)}
             className={`font-bold hover:text-blue-500 cursor-pointer`}
           >
-            {localStorage.getItem("username") ? (
+            {localStorage.getItem("username") ||
+            localStorage.getItem("username") !== "null" ||
+            localStorage.getItem("username") !== "" ? (
               <>{localStorage.getItem("username")}</>
             ) : ensName ? (
               <>{ensName}</>
