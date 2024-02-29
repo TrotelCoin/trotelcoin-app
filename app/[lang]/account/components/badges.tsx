@@ -110,7 +110,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "10 quizzes answered" : "10 quiz répondus",
       image: "🌱",
       condition: quizzesAnswered ? quizzesAnswered >= 10 : null,
-      progress: quizzesAnswered ? quizzesAnswered : 0,
+      progress: quizzesAnswered ?? 0,
       maxProgress: 10,
     },
     {
@@ -118,7 +118,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "50 quizzes answered" : "50 quiz répondus",
       image: "🍄",
       condition: quizzesAnswered ? quizzesAnswered >= 50 : null,
-      progress: quizzesAnswered ? quizzesAnswered : 0,
+      progress: quizzesAnswered ?? 0,
       maxProgress: 50,
     },
     {
@@ -126,7 +126,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "100 quizzes answered" : "100 quiz répondus",
       image: "🌳",
       condition: quizzesAnswered ? quizzesAnswered >= 100 : null,
-      progress: quizzesAnswered ? quizzesAnswered : 0,
+      progress: quizzesAnswered ?? 0,
       maxProgress: 100,
     },
     {
@@ -134,7 +134,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "500 quizzes answered" : "500 quiz répondus",
       image: "🌴",
       condition: quizzesAnswered ? quizzesAnswered >= 500 : null,
-      progress: quizzesAnswered ? quizzesAnswered : 0,
+      progress: quizzesAnswered ?? 0,
       maxProgress: 500,
     },
     {
@@ -142,7 +142,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1000 quizzes answered" : "1000 quiz répondus",
       image: "🌴",
       condition: quizzesAnswered ? quizzesAnswered >= 1000 : null,
-      progress: quizzesAnswered ? quizzesAnswered : 0,
+      progress: quizzesAnswered ?? 0,
       maxProgress: 1000,
     },
   ];
@@ -153,7 +153,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "7 days of streaks" : "7 jours de série",
       image: "🔥",
       condition: maxStreak ? maxStreak >= 7 : null,
-      progress: maxStreak ? maxStreak : 0,
+      progress: maxStreak ?? 0,
       maxProgress: 7,
     },
     {
@@ -161,7 +161,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "30 days of streaks" : "30 jours de série",
       image: "🔥",
       condition: maxStreak ? maxStreak >= 30 : null,
-      progress: maxStreak ? maxStreak : 0,
+      progress: maxStreak ?? 0,
       maxProgress: 30,
     },
     {
@@ -169,7 +169,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "90 days of streaks" : "90 jours de série",
       image: "🔥",
       condition: maxStreak ? maxStreak >= 60 : null,
-      progress: maxStreak ? maxStreak : 0,
+      progress: maxStreak ?? 0,
       maxProgress: 60,
     },
     {
@@ -177,7 +177,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1 year of streaks" : "1 an de série",
       image: "🦄",
       condition: maxStreak ? maxStreak >= 365 : null,
-      progress: maxStreak ? maxStreak : 0,
+      progress: maxStreak ?? 0,
       maxProgress: 365,
     },
   ];
@@ -188,7 +188,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "100 TrotelCoins" : "100 TrotelCoins",
       image: "🤑",
       condition: trotelCoinBalance ? trotelCoinBalance >= 100 : null,
-      progress: trotelCoinBalance ? trotelCoinBalance : 0,
+      progress: trotelCoinBalance ?? 0,
       maxProgress: 100,
     },
     {
@@ -196,7 +196,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1k TrotelCoins" : "1k TrotelCoins",
       image: "💸",
       condition: trotelCoinBalance ? trotelCoinBalance >= 1000 : null,
-      progress: trotelCoinBalance ? trotelCoinBalance : 0,
+      progress: trotelCoinBalance ?? 0,
       maxProgress: 1000,
     },
     {
@@ -204,7 +204,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "10k TrotelCoins" : "10k TrotelCoins",
       image: "💳",
       condition: trotelCoinBalance ? trotelCoinBalance >= 10000 : null,
-      progress: trotelCoinBalance ? trotelCoinBalance : 0,
+      progress: trotelCoinBalance ?? 0,
       maxProgress: 10000,
     },
     {
@@ -212,7 +212,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "100k TrotelCoins" : "100k TrotelCoins",
       image: "💰",
       condition: trotelCoinBalance ? trotelCoinBalance >= 100000 : null,
-      progress: trotelCoinBalance ? trotelCoinBalance : 0,
+      progress: trotelCoinBalance ?? 0,
       maxProgress: 100000,
     },
     {
@@ -220,7 +220,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1M TrotelCoins" : "1M TrotelCoins",
       image: "🏦",
       condition: trotelCoinBalance ? trotelCoinBalance >= 1000000 : null,
-      progress: trotelCoinBalance ? trotelCoinBalance : 0,
+      progress: trotelCoinBalance ?? 0,
       maxProgress: 1000000,
     },
   ];
@@ -232,7 +232,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         lang === "en" ? "100 locked TrotelCoins" : "100 TrotelCoins bloqués",
       image: "🦀",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 100 : null,
-      progress: stakedTrotelCoins ? stakedTrotelCoins : 0,
+      progress: stakedTrotelCoins ?? 0,
       maxProgress: 100,
     },
     {
@@ -240,7 +240,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1k locked TrotelCoins" : "1k TrotelCoins bloqués",
       image: "🐠",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 1000 : null,
-      progress: stakedTrotelCoins ? stakedTrotelCoins : 0,
+      progress: stakedTrotelCoins ?? 0,
       maxProgress: 1000,
     },
     {
@@ -249,7 +249,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         lang === "en" ? "10k locked TrotelCoins" : "10k TrotelCoins bloqués",
       image: "🐬",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 10000 : null,
-      progress: stakedTrotelCoins ? stakedTrotelCoins : 0,
+      progress: stakedTrotelCoins ?? 0,
       maxProgress: 10000,
     },
     {
@@ -258,7 +258,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         lang === "en" ? "100k locked TrotelCoins" : "100k TrotelCoins bloqués",
       image: "🦈",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 100000 : null,
-      progress: stakedTrotelCoins ? stakedTrotelCoins : 0,
+      progress: stakedTrotelCoins ?? 0,
       maxProgress: 100000,
     },
     {
@@ -266,7 +266,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1M locked TrotelCoins" : "1M TrotelCoins bloqués",
       image: "🐳",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 1000000 : null,
-      progress: stakedTrotelCoins ? stakedTrotelCoins : 0,
+      progress: stakedTrotelCoins ?? 0,
       maxProgress: 1000000,
     },
   ];
@@ -277,7 +277,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "30 days locked" : "30 jours bloqués",
       image: "😪",
       condition: duration ? duration >= 2592000 : null,
-      progress: duration ? duration : 0,
+      progress: duration ?? 0,
       maxProgress: 2592000,
     },
     {
@@ -285,7 +285,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "3 months locked" : "3 mois bloqués",
       image: "😴",
       condition: duration ? duration >= 7862400 : null,
-      progress: duration ? duration : 0,
+      progress: duration ?? 0,
       maxProgress: 7862400,
     },
     {
@@ -293,7 +293,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "6 months locked" : "6 mois bloqués",
       image: "⌛️",
       condition: duration ? duration >= 15724800 : null,
-      progress: duration ? duration : 0,
+      progress: duration ?? 0,
       maxProgress: 15724800,
     },
     {
@@ -301,7 +301,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       name: lang === "en" ? "1 year locked" : "1 an bloqué",
       image: "⏳",
       condition: duration ? duration >= 31536000 : null,
-      progress: duration ? duration : 0,
+      progress: duration ?? 0,
       maxProgress: 31536000,
     },
   ];

@@ -117,7 +117,7 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-4 p-2">
+          <div className="items-center flex gap-2 p-2">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
@@ -152,25 +152,12 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
-            <div className="flex gap-4 items-center p-2">
+            <div className="flex gap-2 items-center p-2">
               <LifeCount dict={dict as DictType} lang={lang} />
               <StreakCount dict={dict as DictType} lang={lang} />
             </div>
             <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
             <div className="flex items-center">
-              <Link
-                href={`/${lang}/account`}
-                className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
-                </svg>
-              </Link>
               <LanguageSelector lang={lang} />
               <ThemeSwitcher />
               <button
