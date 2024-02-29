@@ -9,8 +9,13 @@ import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/stat
 import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
 import shortenAddress from "@/utils/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
+import { useEffect, useState } from "react";
+import NameModal from "@/app/[lang]/account/components/header/nameModal";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
+  const [nameModal, setNameModal] = useState<boolean>(false);
+  const [name, setName] = useState<string | null>(null);
+
   const address = useAddress();
 
   const { data: ensName } = useEnsName({
@@ -19,19 +24,39 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
     chainId: mainnet.id,
   });
 
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const res = await fetch(`/api/database/getUserName?wallet=${address}`);
+      const data = await res.json();
+      setName(data);
+    };
+
+    if (address) {
+      fetchUsername();
+    }
+  }, [address]);
+
   return (
     <>
-      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
-        {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
-        <span className={`font-bold`}>
-          {ensName && ensName !== null ? (
-            <>{ensName}</>
-          ) : (
-            <>{shortenAddress(address as Address)}</>
-          )}
-        </span>{" "}
-        👋
-      </h2>
+      <div className="flex justify-between items-center">
+        <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
+          {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
+          <span
+            onClick={() => setNameModal(true)}
+            className={`font-bold hover:text-blue-500 cursor-pointer`}
+          >
+            {name ? (
+              <>{name}</>
+            ) : ensName ? (
+              <>{ensName}</>
+            ) : (
+              <>{shortenAddress(address as Address)}</>
+            )}
+          </span>{" "}
+          👋
+        </h2>
+      </div>
+
       <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
         <Satisfaction dict={dict as DictType} lang={lang} />
 
@@ -45,6 +70,13 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
 
         <MaxStreak lang={lang} />
       </div>
+      <NameModal
+        lang={lang}
+        name={name as string}
+        setName={setName}
+        nameModal={nameModal}
+        setNameModal={setNameModal}
+      />
     </>
   );
 };
