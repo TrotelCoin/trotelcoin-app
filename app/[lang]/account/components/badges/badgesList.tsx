@@ -6,7 +6,7 @@ const BadgesList = ({ badges, dict }: { badges: Badges; dict: DictType }) => {
   const { isNotPremium } = useContext(PremiumContext);
 
   return (
-    <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 mx-auto">
       {badges &&
         badges.map((badge: Badge, index: number) => {
           return (
