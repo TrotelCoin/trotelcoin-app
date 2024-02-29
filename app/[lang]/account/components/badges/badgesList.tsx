@@ -9,10 +9,6 @@ const BadgesList = ({ badges, dict }: { badges: Badges; dict: DictType }) => {
     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
       {badges &&
         badges.map((badge: Badge, index: number) => {
-          if (!badge || !badge.condition) {
-            return null;
-          }
-
           return (
             <div
               key={index}
