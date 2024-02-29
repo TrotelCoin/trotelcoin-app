@@ -165,4 +165,5 @@ export type BadgesNames =
   | "streaks"
   | "trotelCoins"
   | "staking"
-  | "timeStaked";
+  | "timeStaked"
+  | "stakingDuration";

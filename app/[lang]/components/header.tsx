@@ -65,7 +65,7 @@ const Header = ({ lang }: { lang: Lang }) => {
     <header className="bg-white dark:bg-gray-900">
       {/* Navigation */}
       <nav
-        className="mx-auto flex max-w-8xl items-center justify-between gap-x-8 md:gap-x-16 p-6 lg:px-8"
+        className="mx-auto flex max-w-8xl items-center justify-between md:gap-x-16 p-6 lg:px-8"
         aria-label="Global"
       >
         {/* Left section with logo, Trotel price, and version */}
@@ -77,7 +77,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                 width={128}
                 height={128}
                 src="/assets/logo/trotelcoin-white.png"
-                alt={""}
+                alt={"Logo"}
               ></Image>
             </Link>
           </div>
@@ -117,12 +117,12 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-x-4">
+          <div className="items-center flex gap-4 p-2">
             <LifeCount dict={dict as DictType} lang={lang} />
             <StreakCount dict={dict as DictType} lang={lang} />
           </div>
           <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
-          <div className="items-center flex gap-2">
+          <div className="items-center flex">
             <Link
               href={`/${lang}/account`}
               className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -165,12 +165,12 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
-            <div className="flex gap-2 items-center p-2">
+            <div className="flex gap-4 items-center p-2">
               <LifeCount dict={dict as DictType} lang={lang} />
               <StreakCount dict={dict as DictType} lang={lang} />
             </div>
             <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center">
               <Link
                 href={`/${lang}/account`}
                 className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -218,18 +218,9 @@ const Header = ({ lang }: { lang: Lang }) => {
         <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
           <div className="flex items-center gap-x-6">
             <div className="p-1">
-              <Link
-                href={`/${lang}/home`}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Image
-                  className="h-12 w-auto"
-                  width={128}
-                  height={128}
-                  src="/assets/logo/trotelcoin-white.png"
-                  alt={""}
-                ></Image>
-              </Link>
+              <h2 className="font-bold text-gray-900 dark:text-gray-100 text-2xl">
+                Menu
+              </h2>
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
               <div className="lg:hidden">

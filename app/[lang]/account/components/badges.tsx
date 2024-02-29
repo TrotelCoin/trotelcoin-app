@@ -269,8 +269,11 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       progress: stakedTrotelCoins ? stakedTrotelCoins : 0,
       maxProgress: 1000000,
     },
+  ];
+
+  const badgesStakingDuration: Badges = [
     {
-      id: 6,
+      id: 1,
       name: lang === "en" ? "30 days locked" : "30 jours bloqués",
       image: "😪",
       condition: duration ? duration >= 2592000 : null,
@@ -278,7 +281,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       maxProgress: 2592000,
     },
     {
-      id: 7,
+      id: 2,
       name: lang === "en" ? "3 months locked" : "3 mois bloqués",
       image: "😴",
       condition: duration ? duration >= 7862400 : null,
@@ -286,7 +289,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       maxProgress: 7862400,
     },
     {
-      id: 8,
+      id: 3,
       name: lang === "en" ? "6 months locked" : "6 mois bloqués",
       image: "⌛️",
       condition: duration ? duration >= 15724800 : null,
@@ -294,7 +297,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       maxProgress: 15724800,
     },
     {
-      id: 9,
+      id: 4,
       name: lang === "en" ? "1 year locked" : "1 an bloqué",
       image: "⏳",
       condition: duration ? duration >= 31536000 : null,
@@ -365,6 +368,19 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         </button>
         <button
           onClick={() => {
+            setBadges(badgesStakingDuration);
+            setBadgesName("stakingDuration");
+          }}
+          className={`${
+            badgesName === "stakingDuration"
+              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+              : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+        >
+          {lang === "en" ? "Staking duration" : "Durée de staking"}
+        </button>
+        <button
+          onClick={() => {
             setBadges(badgesTrotelCoins);
             setBadgesName("trotelCoins");
           }}
@@ -374,7 +390,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
-          {lang === "en" ? "TrotelCoins" : "TrotelCoins"}
+          {lang === "en" ? "Balance" : "Solde"}
         </button>
       </div>
       <BadgesList badges={badges} dict={dict} lang={lang} />
