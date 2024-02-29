@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.3.2";
+const version = "1.4.5";
 
 interface ChangelogItem {
   title: string;
@@ -125,8 +125,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We improved badges"
-              : "- On a amélioré les badges",
+              ? "- We show badges progression"
+              : "- On montre la progression des badges",
           isNew: true,
         },
       ],

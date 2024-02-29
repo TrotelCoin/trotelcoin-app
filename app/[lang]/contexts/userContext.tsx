@@ -5,6 +5,7 @@ const UserContext = React.createContext({
   userNumberOfQuizzesAnswered: 0 as number,
   username: "" as string | null,
   setUsername: (username: string | null) => {},
+  isUsernameLoading: false as boolean,
 });
 
 export default UserContext;

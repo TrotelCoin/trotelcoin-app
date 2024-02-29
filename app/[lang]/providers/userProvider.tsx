@@ -10,6 +10,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userNumberOfQuizzesAnswered, setUserNumberOfQuizzesAnswered] =
     useState<number>(0);
   const [username, setUsername] = useState<string | null>(null);
+  const [isUsernameLoading, setIsUsernameLoading] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -72,11 +73,13 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       );
       const data = await result.json();
       setUsername(data);
-      localStorage.setItem("username", username as string);
+      localStorage.setItem("username", data as string);
     };
 
     if (address) {
+      setIsUsernameLoading(true);
       fetchUsername();
+      setIsUsernameLoading(false);
     }
   }, [address]);
 
@@ -86,8 +89,15 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       userNumberOfQuizzesAnswered,
       username,
       setUsername,
+      isUsernameLoading,
     }),
-    [userTotalRewards, userNumberOfQuizzesAnswered, username, setUsername]
+    [
+      userTotalRewards,
+      userNumberOfQuizzesAnswered,
+      username,
+      setUsername,
+      isUsernameLoading,
+    ]
   );
 
   return (

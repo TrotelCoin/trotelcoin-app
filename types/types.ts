@@ -115,13 +115,6 @@ export type QuizAnswer = {
   };
 };
 
-export type Badge = {
-  id: number;
-  name: string | false | DictType;
-  image: string;
-  condition: boolean | 0 | null;
-};
-
 export type FooterItem = {
   name: string | false | DictType | undefined;
   href: string;
@@ -154,3 +147,22 @@ export type Courses = {
   quiz_id: any;
   answered: any;
 }[];
+
+export type Badge = {
+  id: number;
+  name: string;
+  image: string;
+  condition: boolean | null;
+  progress: number;
+  maxProgress: number;
+};
+
+export type Badges = Badge[];
+
+export type BadgesNames =
+  | "ranks"
+  | "quizzes"
+  | "streaks"
+  | "trotelCoins"
+  | "staking"
+  | "timeStaked";

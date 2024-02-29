@@ -12,12 +12,17 @@ import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStre
 import { useContext, useState } from "react";
 import NameModal from "@/app/[lang]/account/components/header/nameModal";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import "animate.css";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
   const [nameModal, setNameModal] = useState<boolean>(false);
 
   const address = useAddress();
-  const { username: name, setUsername: setName } = useContext(UserContext);
+  const {
+    username: name,
+    setUsername: setName,
+    isUsernameLoading,
+  } = useContext(UserContext);
 
   const { data: ensName } = useEnsName({
     address: address as Address,
@@ -34,7 +39,11 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
             onClick={() => setNameModal(true)}
             className={`font-bold hover:text-blue-500 cursor-pointer`}
           >
-            {localStorage.getItem("username") ? (
+            {isUsernameLoading ? (
+              <div className="animate__animated animate__flash animate__slower animate__infinite">
+                {lang === "en" ? "Loading..." : "Chargement..."}
+              </div>
+            ) : localStorage.getItem("username") ? (
               <>{localStorage.getItem("username")}</>
             ) : ensName ? (
               <>{ensName}</>

@@ -23,7 +23,7 @@ const AccountMobile = ({
   return (
     <>
       <Link href={`/${lang}/account`} onClick={() => setMobileMenuOpen(false)}>
-        <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
+        <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 active:border-blue-500 dark:active:border-blue-500 bg-gray-100 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
           <div className="flex gap-2 items-center justify-between p-4">
             <div className="flex gap-2 items-center">
               <h3>{lang === "en" ? "Your account" : "Votre compte"}</h3>
