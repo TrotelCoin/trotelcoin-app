@@ -74,11 +74,25 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
       {component && (
         <div className="mx-auto max-w-md mt-8">
           {component === "claim" && (
-            <Claim lang={lang} chainError={chainError} />
+            <Claim
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
           )}
-          {component === "send" && <Send lang={lang} chainError={chainError} />}
+          {component === "send" && (
+            <Send
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
+          )}
           {component === "staking" && (
-            <Staking lang={lang} chainError={chainError} />
+            <Staking
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
           )}
         </div>
       )}

@@ -12,6 +12,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
   const [lastUpdatedStreak, setLastUpdatedStreak] = useState<string>("");
   const [cooldown, setCooldown] = useState<string>("00:00:00");
   const [maxStreak, setMaxStreak] = useState<number>(0);
+  const [isStreakLoading, setIsStreakLoading] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -93,6 +94,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
   }, [address, maxStreak]);
 
   const updateStreak = async (address: Address) => {
+    setIsStreakLoading(true);
     const result = await fetch(
       `/api/database/postUpdateStreak?wallet=${address}`,
       {
@@ -109,9 +111,12 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     if (data.success === "Streak updated.") {
       setStreak((streak: number) => streak + 1);
       setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
+      setLastUpdatedStreak(new Date().toISOString());
+      setIsStreakLoading(false);
     } else {
       setStreak(0);
       setMaxStreak(0);
+      setIsStreakLoading(false);
     }
   };
 
@@ -128,6 +133,8 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
       updateStreak,
       maxStreak,
       setMaxStreak,
+      isStreakLoading,
+      setIsStreakLoading,
     }),
     [
       streak,
@@ -141,6 +148,8 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
       updateStreak,
       maxStreak,
       setMaxStreak,
+      isStreakLoading,
+      setIsStreakLoading,
     ]
   );
 

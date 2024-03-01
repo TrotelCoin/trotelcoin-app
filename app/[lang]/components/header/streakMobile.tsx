@@ -3,11 +3,12 @@ import React, { useContext } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
+import "animate.css";
 
 const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
   const address = useAddress();
 
-  const { streak, disabled, updateStreak, cooldown } =
+  const { streak, disabled, updateStreak, cooldown, isStreakLoading } =
     useContext(StreakContext);
 
   return (
@@ -37,7 +38,11 @@ const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
               (disabled || !address) && "cursor-not-allowed"
             }`}
           >
-            {!address ? (
+            {isStreakLoading ? (
+              <span className="animate__animated animate__flash animate__infinite animate__slower">
+                {lang === "en" ? "Loading..." : "Chargement..."}
+              </span>
+            ) : !address ? (
               <>
                 {lang === "en" ? "Please, log in" : "Veuillez vous connecter"}
               </>

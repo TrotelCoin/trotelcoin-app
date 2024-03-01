@@ -7,7 +7,6 @@ import {
   useContract,
   useContractWrite,
   useContractRead,
-  Chain,
   useSwitchChain,
 } from "@thirdweb-dev/react";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
