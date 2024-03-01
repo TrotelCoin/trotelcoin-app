@@ -174,10 +174,7 @@ const SendAndReceive = ({
             <span>{lang === "en" ? "Your address" : "Votre addresse"}</span>
             <span
               onClick={() => {
-                if (ensName) {
-                  navigator.clipboard.writeText(ensName);
-                  setAddressCopied(true);
-                } else if (address) {
+                if (address) {
                   navigator.clipboard.writeText(address);
                   setAddressCopied(true);
                 }
