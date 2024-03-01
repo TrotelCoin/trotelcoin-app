@@ -29,9 +29,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export const swiper = new Swiper(".swiper", {
-  modules: [Navigation, Pagination],
-});
+let swiper;
+
+if (typeof document !== "undefined") {
+  swiper = new Swiper(".swiper", {
+    modules: [Navigation, Pagination],
+  });
+}
+
+export { swiper };
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
