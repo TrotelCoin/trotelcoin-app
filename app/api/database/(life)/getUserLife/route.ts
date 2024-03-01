@@ -17,55 +17,42 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(3, { status: 500 });
     }
 
-    if (result.length === 0) {
-      const { error: insertError } = await supabase.from("life").insert([
-        {
-          wallet: wallet as Address,
-          life: 3,
-          last_reset_at: new Date().toISOString(),
-        },
-      ]);
-
-      if (insertError) {
-        console.error(insertError);
-        return NextResponse.json(
-          { error: "Something went wrong." },
-          { status: 500 }
-        );
-      }
-
-      return NextResponse.json(3, {
-        status: 200,
-        headers: { "Cache-Control": "no-store" },
-      });
-    } else {
+    if (result.length > 0) {
       life = result[0].life;
-    }
 
-    // if last_reset_at is more than 1 day old and life < 3, reset life
-    if (life < 3) {
-      const { error: updateError } = await supabase
-        .from("life")
-        .update({ life: 3 })
-        .lte(
-          "last_reset_at",
-          new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-        )
-        .eq("wallet", wallet as Address);
+      // if last_reset_at is more than 1 day old and life < 3, reset life
+      if (life < 3) {
+        const { error: updateError } = await supabase
+          .from("life")
+          .update({ life: 3 })
+          .lte(
+            "last_reset_at",
+            new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+          )
+          .eq("wallet", wallet as Address);
 
-      if (updateError) {
-        console.error(updateError);
-        return NextResponse.json(
-          { error: "Something went wrong." },
-          { status: 500 }
-        );
+        if (updateError) {
+          console.error(updateError);
+          return NextResponse.json(3, { status: 500 });
+        }
       }
+    } else {
+      try {
+        const { error } = await supabase.from("life").insert({ wallet, life });
+
+        if (error) {
+          console.error(error);
+          return NextResponse.json(3, { status: 500 });
+        }
+      } catch (error) {
+        console.error(error);
+        return NextResponse.json(3, { status: 500 });
+      }
+
+      return NextResponse.json(3, { status: 200 });
     }
 
     return NextResponse.json(result[0].life, {
@@ -74,9 +61,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(3, { status: 500 });
   }
 }

@@ -14,10 +14,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
 
     if (result[0] && "number_of_quizzes_answered" in result[0]) {
@@ -26,16 +23,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
         headers: { "Cache-Control": "no-store" },
       });
     } else {
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(0, { status: 500 });
   }
 }

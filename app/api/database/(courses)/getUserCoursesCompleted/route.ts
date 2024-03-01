@@ -16,10 +16,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json([], { status: 500 });
     }
 
     // return courses
@@ -29,18 +26,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
         headers: { "Cache-Control": "no-store" },
       });
     } else {
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        {
-          status: 500,
-        }
-      );
+      return NextResponse.json([], {
+        status: 500,
+      });
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json([], { status: 500 });
   }
 }

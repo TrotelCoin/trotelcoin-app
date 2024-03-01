@@ -11,17 +11,23 @@ const TotalRewards = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchRewardsPending = async () => {
-      await fetch(`/api/database/getUserTotalRewardsPending?wallet=${address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
+      await fetch(
+        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        }
+      )
         .then((response) => response?.json())
         .then((data) => {
           setTotalRewardsPending(data);
+        })
+        .catch((err: string) => {
+          console.error(err);
         });
     };
 
@@ -54,7 +60,9 @@ const TotalRewards = ({ dict }: { dict: DictType }) => {
             <>
               <span className="font-semibold">
                 {tokensEarned ? (
-                  <span>{Math.floor(tokensEarned).toLocaleString("en-US")}</span>
+                  <span>
+                    {Math.floor(tokensEarned).toLocaleString("en-US")}
+                  </span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">
                     0

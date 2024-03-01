@@ -13,19 +13,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return new NextResponse(
-        JSON.stringify({ error: "Something went wrong." }),
-        {
-          status: 500,
-        }
-      );
+      return NextResponse.json(wallet, {
+        status: 500,
+      });
     }
 
     return new NextResponse(JSON.stringify(result[0].username), {
       status: 200,
     });
   } catch (error) {
-    return new NextResponse(JSON.stringify(error), {
+    return NextResponse.json(wallet, {
       status: 500,
     });
   }

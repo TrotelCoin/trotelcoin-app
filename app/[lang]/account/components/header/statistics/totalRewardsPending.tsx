@@ -11,17 +11,23 @@ const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchRewardsPending = async () => {
-      await fetch(`/api/database/getUserTotalRewardsPending?wallet=${address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
+      await fetch(
+        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        }
+      )
         .then((response) => response?.json())
         .then((data) => {
           setTotalRewardsPending(data);
+        })
+        .catch((error) => {
+          console.error(error);
         });
     };
 

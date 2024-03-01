@@ -8,19 +8,23 @@ const NumberOfLearners = ({ dict }: { dict: DictType }) => {
     // finding number of learners by taking max id in the table "learners"
 
     const fetchNumberOfLearners = async () => {
-      const response = await fetch("/api/database/getTotalNumberOfLearners", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
-      const numberOfLearners = await response?.json();
-      if (numberOfLearners) {
-        setNumberOfLearners(numberOfLearners);
-      } else {
-        setNumberOfLearners(0);
+      try {
+        const response = await fetch("/api/database/getTotalNumberOfLearners", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        });
+        const numberOfLearners = await response?.json();
+        if (numberOfLearners) {
+          setNumberOfLearners(numberOfLearners);
+        } else {
+          setNumberOfLearners(0);
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 

@@ -13,14 +13,18 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
   const address = useAddress();
 
   const updateLife = async () => {
-    await fetch(`/api/database/postUpdateLife?wallet=${address}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
-      cache: "no-store",
-    });
+    try {
+      await fetch(`/api/database/postUpdateLife?wallet=${address}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-store",
+        },
+        cache: "no-store",
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     setLife(life - 1);
   };

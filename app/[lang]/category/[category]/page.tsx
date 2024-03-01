@@ -41,34 +41,39 @@ const Page = ({
 
   useEffect(() => {
     const fetchCoursesCompleted = async () => {
-      const response = await fetch(
-        `/api/database/getUserCoursesCompleted?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const result = await response.json();
+      try {
+        const response = await fetch(
+          `/api/database/getUserCoursesCompleted?wallet=${address}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
 
-      result?.map((course: { quiz_id: number; answered: boolean }) => {
-        if (course.answered) {
-          setStatus((prev) => {
-            const newState = [...prev];
-            newState[course.quiz_id - 1] = "Finished";
-            return newState;
-          });
-        } else {
-          setStatus((prev) => {
-            const newState = [...prev];
-            newState[course.quiz_id - 1] = "Not started";
-            return newState;
-          });
-        }
-      });
+        const result = await response.json();
+
+        result?.map((course: { quiz_id: number; answered: boolean }) => {
+          if (course.answered) {
+            setStatus((prev) => {
+              const newState = [...prev];
+              newState[course.quiz_id - 1] = "Finished";
+              return newState;
+            });
+          } else {
+            setStatus((prev) => {
+              const newState = [...prev];
+              newState[course.quiz_id - 1] = "Not started";
+              return newState;
+            });
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (address) {

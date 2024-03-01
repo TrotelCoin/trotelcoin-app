@@ -108,14 +108,18 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       setIsClaimedMessage(true);
 
       const postClaimIntermediate = async () => {
-        fetch(`/api/database/claimIntermediate?wallet=${address}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        });
+        try {
+          await fetch(`/api/database/claimIntermediate?wallet=${address}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          });
+        } catch (error) {
+          console.error(error);
+        }
       };
 
       postClaimIntermediate();

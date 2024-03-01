@@ -4,9 +4,12 @@ import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
+import { Address } from "viem";
+import shortenAddress from "@/utils/shortenAddress";
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [userTotalRewards, setUserTotalRewards] = useState<number>(0);
+  const [userTotalRewardsPending, setUserTotalRewardsPending] =
+    useState<number>(0);
   const [userNumberOfQuizzesAnswered, setUserNumberOfQuizzesAnswered] =
     useState<number>(0);
   const [username, setUsername] = useState<string | null>(null);
@@ -16,19 +19,23 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const fetchUserTotalRewards = async () => {
-      const result = await fetch(
-        `/api/database/getUserTotalRewards?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setUserTotalRewards(data);
+      try {
+        const result = await fetch(
+          `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const data = await result.json();
+        setUserTotalRewardsPending(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (address) {
@@ -72,8 +79,15 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
         }
       );
       const data = await result.json();
-      setUsername(data);
-      localStorage.setItem("username", data as string);
+      if (data === null) {
+        setUsername(shortenAddress(address as Address));
+        localStorage.setItem("username", shortenAddress(address as Address));
+        return;
+      } else {
+        setUsername(data);
+        localStorage.setItem("username", data as string);
+        return;
+      }
     };
 
     if (address) {
@@ -85,14 +99,14 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const contextValue = useMemo(
     () => ({
-      userTotalRewards,
+      userTotalRewardsPending,
       userNumberOfQuizzesAnswered,
       username,
       setUsername,
       isUsernameLoading,
     }),
     [
-      userTotalRewards,
+      userTotalRewardsPending,
       userNumberOfQuizzesAnswered,
       username,
       setUsername,

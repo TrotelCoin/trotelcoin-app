@@ -6,19 +6,23 @@ const EstimatedRewards = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchRemainingRewards = async () => {
-      const response = await fetch("/api/database/getRemainingRewards", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
-      const remainingRewards = await response?.json();
-      if (remainingRewards) {
-        setRemainingRewards(remainingRewards);
-      } else {
-        setRemainingRewards(0);
+      try {
+        const response = await fetch("/api/database/getRemainingRewards", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        });
+        const remainingRewards = await response?.json();
+        if (remainingRewards) {
+          setRemainingRewards(remainingRewards);
+        } else {
+          setRemainingRewards(0);
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 

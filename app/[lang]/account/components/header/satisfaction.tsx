@@ -8,17 +8,21 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
   const satisfactionResult = async (number: number) => {
     if (number) {
-      await fetch(`/api/database/postUserSatisfaction?number=${number}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
+      try {
+        await fetch(`/api/database/postUserSatisfaction?number=${number}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        });
 
-      localStorage.setItem("satisfactionAnswered", "true");
-      setAlreadyAnsweredSatisfaction(true);
+        localStorage.setItem("satisfactionAnswered", "true");
+        setAlreadyAnsweredSatisfaction(true);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       setAlreadyAnsweredSatisfaction(false);
     }

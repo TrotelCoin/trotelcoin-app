@@ -99,14 +99,18 @@ const Expert = ({ lang }: { lang: Lang }) => {
       setIsClaimedMessage(true);
 
       const postClaimExpert = async () => {
-        fetch(`/api/database/claimExpert?wallet=${address}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        });
+        try {
+          await fetch(`/api/database/claimExpert?wallet=${address}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          });
+        } catch (error) {
+          console.error(error);
+        }
       };
 
       postClaimExpert();

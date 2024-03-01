@@ -6,19 +6,23 @@ const MaxStreak = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchMaxStreak = async () => {
-      const response = await fetch("/api/database/getTotalMaxStreak", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
-      const maxStreak = await response?.json();
-      if (maxStreak) {
-        setMaxStreak(maxStreak);
-      } else {
-        setMaxStreak(0);
+      try {
+        const response = await fetch("/api/database/getTotalMaxStreak", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        });
+        const maxStreak = await response?.json();
+        if (maxStreak) {
+          setMaxStreak(maxStreak);
+        } else {
+          setMaxStreak(0);
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 

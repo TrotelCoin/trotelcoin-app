@@ -8,22 +8,26 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchNumberOfQuizzesAnswered = async () => {
-      const response = await fetch(
-        "/api/database/getTotalNumberOfQuizzesAnswered",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
+      try {
+        const response = await fetch(
+          "/api/database/getTotalNumberOfQuizzesAnswered",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const numberOfQuizzesAnswered = await response?.json();
+        if (numberOfQuizzesAnswered) {
+          setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
+        } else {
+          setNumberOfQuizzesAnswered(0);
         }
-      );
-      const numberOfQuizzesAnswered = await response?.json();
-      if (numberOfQuizzesAnswered) {
-        setNumberOfQuizzesAnswered(numberOfQuizzesAnswered);
-      } else {
-        setNumberOfQuizzesAnswered(0);
+      } catch (error) {
+        console.error(error);
       }
     };
 

@@ -18,33 +18,44 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const fetchStreak = async () => {
-      const result = await fetch(
-        `/api/database/getUserStreak?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
+      try {
+        const result = await fetch(
+          `/api/database/getUserStreak?wallet=${address}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const data = await result.json();
+        if (Number(data.currentStreak)) {
+          setStreak(data.currentStreak);
+        } else {
+          setStreak(0);
         }
-      );
-      const data = await result.json();
-      if (Number(data.currentStreak)) {
-        setStreak(data.currentStreak);
+        setLastUpdatedStreak(data.lastUpdated);
+        setDisabled(data.disabled);
+      } catch (error) {
+        console.error(error);
+        setStreak(0);
+        setMaxStreak(0);
+        setCooldown("00:00:00");
+        setDisabled(true);
       }
-      setLastUpdatedStreak(data.lastUpdated);
-      setDisabled(data.disabled);
     };
 
     if (address) {
       fetchStreak();
     } else {
       setStreak(0);
+      setMaxStreak(0);
       setCooldown("00:00:00");
       setDisabled(true);
     }
-  }, [address, streak, disabled]);
+  }, [address]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -91,7 +102,7 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setMaxStreak(0);
     }
-  }, [address, maxStreak]);
+  }, [address]);
 
   const updateStreak = async (address: Address) => {
     setIsStreakLoading(true);
@@ -111,10 +122,14 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     if (data.success === "Streak updated.") {
       setStreak((streak: number) => streak + 1);
       setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
+      setLastUpdatedStreak(new Date().toISOString());
+      setDisabled(true);
       setIsStreakLoading(false);
     } else {
       setStreak(0);
       setMaxStreak(0);
+      setDisabled(false);
+      setCooldown("00:00:00");
       setIsStreakLoading(false);
     }
   };

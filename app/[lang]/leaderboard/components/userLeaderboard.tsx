@@ -44,7 +44,11 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
           },
           cache: "no-store",
         }
-      ).then((response) => response.json());
+      )
+        .then((response) => response.json())
+        .catch((error) => {
+          console.error(error);
+        });
 
       if (userLeaderboard) {
         setPosition(userLeaderboard.position);

@@ -131,7 +131,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       lang,
                       course.quizId,
                       status,
-                      address as Address,
                       dict,
                       index,
                       lesson.category

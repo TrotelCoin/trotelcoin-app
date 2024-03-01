@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (leaderboardError) {
       console.error(leaderboardError);
       return NextResponse.json(
-        { error: "Something went wrong." },
+        { position: 0, numberOfQuizzesAnswered: 0, streak: 0 },
         { status: 500 }
       );
     }
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (streakError) {
       console.error(streakError);
       return NextResponse.json(
-        { error: "Something went wrong." },
+        { position: 0, numberOfQuizzesAnswered: 0, streak: 0 },
         { status: 500 }
       );
     }
@@ -66,7 +66,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: "Something went wrong." },
+      { position: 0, numberOfQuizzesAnswered: 0, streak: 0 },
       { status: 500 }
     );
   }

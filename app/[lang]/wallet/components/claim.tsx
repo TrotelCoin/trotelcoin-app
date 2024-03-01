@@ -26,22 +26,26 @@ const Claim = ({
 
   useEffect(() => {
     const fetchAvailableToClaim = async () => {
-      const result = await fetch(
-        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
+      try {
+        const result = await fetch(
+          `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const data = await result.json();
+        if (data) {
+          setAvailableToClaim(data);
+        } else {
+          setAvailableToClaim(0);
         }
-      );
-      const data = await result.json();
-      if (data) {
-        setAvailableToClaim(data);
-      } else {
-        setAvailableToClaim(0);
+      } catch (error) {
+        console.error(error);
       }
     };
 
@@ -54,18 +58,22 @@ const Claim = ({
 
   useEffect(() => {
     const fetchCentralWalletAddress = async () => {
-      const response = await fetch("/api/getCentralWalletAddress", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
+      try {
+        const response = await fetch("/api/getCentralWalletAddress", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      setCentralWalletAddress(data);
+        setCentralWalletAddress(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchCentralWalletAddress();

@@ -7,6 +7,28 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const wallet = searchParams.get("wallet");
 
   try {
+    // get streak information for the specified wallet
+    const { data: result, error } = await supabase
+      .from("streak")
+      .select("*")
+      .eq("wallet", wallet as Address);
+
+    if (error) {
+      console.error(error);
+      return NextResponse.json(
+        {
+          currentStreak: 0,
+          lastUpdated: new Date().toISOString(),
+          disabled: false,
+        },
+        { status: 500 }
+      );
+    }
+
+    const currentStreak = result[0]?.current_streak;
+    let lastUpdated = result[0]?.last_streak_at;
+    let disabled = false;
+
     // update streaks where last_streak_at is more than 2 days old
     const { error: updateError } = await supabase
       .from("streak")
@@ -20,28 +42,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (updateError) {
       console.error(updateError);
       return NextResponse.json(
-        { error: "Something went wrong." },
+        {
+          currentStreak: 0,
+          lastUpdated: new Date().toISOString(),
+          disabled: false,
+        },
         { status: 500 }
       );
     }
-
-    // get streak information for the specified wallet
-    const { data: result, error } = await supabase
-      .from("streak")
-      .select("*")
-      .eq("wallet", wallet as Address);
-
-    if (error) {
-      console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
-    }
-
-    const currentStreak = result[0]?.current_streak;
-    let lastUpdated = result[0]?.last_streak_at;
-    let disabled = false;
 
     // check if one day hasn't passed since the last streak
     if (lastUpdated) {
@@ -57,7 +65,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
       if (oneDayError) {
         console.error(oneDayError);
         return NextResponse.json(
-          { error: "Something went wrong." },
+          {
+            currentStreak: 0,
+            lastUpdated: new Date().toISOString(),
+            disabled: false,
+          },
           { status: 500 }
         );
       }
@@ -79,7 +91,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { error: "Something went wrong." },
+      {
+        currentStreak: 0,
+        lastUpdated: new Date().toISOString(),
+        disabled: false,
+      },
       { status: 500 }
     );
   }

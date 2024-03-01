@@ -44,19 +44,23 @@ const RewardsButton = ({
 
   useEffect(() => {
     const fetchAvailableToClaim = async () => {
-      const result = await fetch(
-        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setAvailableToClaim(data);
+      try {
+        const result = await fetch(
+          `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const data = await result.json();
+        setAvailableToClaim(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (address) {
@@ -94,34 +98,47 @@ const RewardsButton = ({
         setAvailableToClaim(0);
 
         // make minting transaction
-        await fetch(
-          `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            cache: "no-store",
-          }
-        );
+        try {
+          await fetch(
+            `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              cache: "no-store",
+            }
+          );
+        } catch (error) {
+          console.error(error);
+          setErrorMessage(true);
+          setIsLoading(false);
+          return;
+        }
 
         // reset database pending rewards
-        const reset = await fetch(
-          `/api/database/postResetRewardsPending?wallet=${address}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
+        try {
+          const reset = await fetch(
+            `/api/database/postResetRewardsPending?wallet=${address}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-store",
+              },
+              cache: "no-store",
+            }
+          );
+          const data = await reset.json();
+
+          if (!data.success) {
+            setErrorMessage(true);
+            return;
           }
-        );
-
-        const data = await reset.json();
-
-        if (!data.success) {
+        } catch (error) {
+          console.error(error);
           setErrorMessage(true);
+          setIsLoading(false);
           return;
         }
 
