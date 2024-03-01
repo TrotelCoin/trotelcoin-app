@@ -195,8 +195,8 @@ const StakingButton = ({
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en"
-            ? "Your transaction failed"
-            : "Votre transaction a échoué"
+            ? "Your transaction failed, make sure you approved first"
+            : "Votre transaction a échoué, assurez-vous d'avoir approuvé d'abord"
         }
       />
       <Fail

@@ -155,8 +155,8 @@ const ClaimingButton = ({
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en"
-            ? "There was an error claiming your rewards"
-            : "Il y a eu une erreur en réclamant vos récompenses"
+            ? "There was an error claiming your rewards, you should have at least 0.02 MATIC"
+            : "Il y a eu une erreur en réclamant vos récompenses, vous devez avoir au moins 0.02 MATIC"
         }
       />
       <Fail
