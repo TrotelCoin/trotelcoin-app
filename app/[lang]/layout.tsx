@@ -25,6 +25,9 @@ import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 import UserProvider from "@/app/[lang]/providers/userProvider";
 import "swiper/css";
 import "animate.css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
