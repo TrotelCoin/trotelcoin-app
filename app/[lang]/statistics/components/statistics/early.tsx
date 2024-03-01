@@ -23,11 +23,11 @@ const Early = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           {early ? (
             <>
               {parseFloat(early.toString())}{" "}
-              <span className="hidden md:inline">🦊</span>
+              <span className="hidden md:inline">🤫</span>
             </>
           ) : (
             <span className="animate__animated animate__flash animate__slower animate__infinite">
-              0 <span className="hidden md:inline">🦊</span>
+              0 <span className="hidden md:inline">🤫</span>
             </span>
           )}
         </span>
