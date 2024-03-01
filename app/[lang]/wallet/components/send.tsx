@@ -15,7 +15,15 @@ import Success from "@/app/[lang]/components/modals/success";
 import shortenAddress from "@/utils/shortenAddress";
 import Fail from "@/app/[lang]/components/modals/fail";
 
-const SendAndReceive = ({ lang }: { lang: Lang }) => {
+const SendAndReceive = ({
+  lang,
+  chainError,
+  setChainError,
+}: {
+  lang: Lang;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [token, setToken] = useState<string>("MATIC");
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [amountError, setAmountError] = useState<string | null>(null);
@@ -210,6 +218,8 @@ const SendAndReceive = ({ lang }: { lang: Lang }) => {
             amount={amount}
             receiverAddress={receiverAddress as Address}
             setMissingFieldsError={setMissingFieldsError}
+            chainError={chainError}
+            setChainError={setChainError}
           />
         </div>
       </div>

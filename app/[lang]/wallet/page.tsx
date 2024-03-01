@@ -6,12 +6,25 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
 import Send from "@/app/[lang]/wallet/components/send";
+import { useChain } from "@thirdweb-dev/react";
+import { polygon } from "viem/chains";
 
 type ActiveComponent = "claim" | "staking" | "send";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [dict, setDict] = useState<DictType | null>(null);
   const [component, setComponent] = useState<ActiveComponent>("claim");
+  const [chainError, setChainError] = useState<boolean>(false);
+
+  const chain = useChain();
+
+  useEffect(() => {
+    if (chain && chain.chainId === polygon.id) {
+      setChainError(false);
+    } else {
+      setChainError(true);
+    }
+  }, [chain]);
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -60,9 +73,27 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
       </div>
       {component && (
         <div className="mx-auto max-w-md mt-8">
-          {component === "claim" && <Claim lang={lang} />}
-          {component === "send" && <Send lang={lang} />}
-          {component === "staking" && <Staking lang={lang} />}
+          {component === "claim" && (
+            <Claim
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
+          )}
+          {component === "send" && (
+            <Send
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
+          )}
+          {component === "staking" && (
+            <Staking
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
+          )}
         </div>
       )}
     </>

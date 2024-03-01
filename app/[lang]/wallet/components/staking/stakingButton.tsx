@@ -7,6 +7,7 @@ import {
   useContract,
   useContractWrite,
   useContractRead,
+  useSwitchChain,
 } from "@thirdweb-dev/react";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
@@ -15,15 +16,20 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, parseEther } from "viem";
 import "animate.css";
 import { BigNumber } from "ethers";
+import { polygon } from "wagmi/chains";
 
 const StakingButton = ({
   lang,
   stakingPeriod,
   amount,
+  chainError,
+  setChainError,
 }: {
   lang: Lang;
   stakingPeriod: number;
   amount: number;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [stakeMessage, setStakeMessage] = useState<boolean>(false);
   const [stakingPeriodMessage, setStakingPeriodMessage] =
@@ -37,6 +43,8 @@ const StakingButton = ({
   const address = useAddress();
 
   const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
+
+  const switchChain = useSwitchChain();
 
   const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
     contract,
@@ -189,6 +197,20 @@ const StakingButton = ({
           lang === "en"
             ? "Your transaction failed"
             : "Votre transaction a échoué"
+        }
+      />
+      <Fail
+        show={chainError && Boolean(address)}
+        lang={lang}
+        onClose={() => {
+          switchChain(polygon.id);
+          setChainError(false);
+        }}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "You are on the wrong network"
+            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>

@@ -1,19 +1,28 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import { useAddress, useTransferNativeToken } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useSwitchChain,
+  useTransferNativeToken,
+} from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
+import { polygon } from "viem/chains";
 
 const RewardsButton = ({
   lang,
   centralWalletAddress,
+  chainError,
+  setChainError,
 }: {
   lang: Lang;
   centralWalletAddress: Address;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number>(0);
@@ -25,6 +34,7 @@ const RewardsButton = ({
 
   const address = useAddress();
   const { mutateAsync, isError } = useTransferNativeToken();
+  const switchChain = useSwitchChain();
 
   useEffect(() => {
     if (isError) {
@@ -183,6 +193,20 @@ const RewardsButton = ({
           lang === "en"
             ? "You didn't connect your wallet"
             : "Vous n'avez pas connecté votre portefeuille"
+        }
+      />
+      <Fail
+        show={chainError && Boolean(address)}
+        onClose={() => {
+          switchChain(polygon.id);
+          setChainError(false);
+        }}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "You are on the wrong network"
+            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>

@@ -18,7 +18,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     lastUpdatedStreak,
     cooldown,
     updateStreak,
-    maxStreak,
+    isStreakLoading,
   } = useContext(StreakContext);
 
   useEffect(() => {
@@ -90,7 +90,11 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                   disabled && "cursor-not-allowed"
                 }`}
               >
-                {disabled ? (
+                {isStreakLoading ? (
+                  <span className="animate__animated animate__flash animate__slower animate__infinite">
+                    {lang === "en" ? "Loading..." : "Chargement..."}
+                  </span>
+                ) : disabled ? (
                   <>{cooldown}</>
                 ) : (
                   <>
