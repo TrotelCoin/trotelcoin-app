@@ -110,13 +110,17 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               </div>
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {lesson.courses
-                  .sort((a, b) => {
+                  .toSorted((a, b) => {
                     const tierOrder = {
                       Beginner: 2,
                       Intermediate: 1,
                       Expert: 0,
                     };
                     return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                  })
+                  .filter((course) => {
+                    const lowerCaseTitle = course.title[lang].toLowerCase();
+                    return lowerCaseTitle.includes(searchTerm);
                   })
                   .slice(0, 3)
                   .map((course, index) =>
