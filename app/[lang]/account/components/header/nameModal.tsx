@@ -28,12 +28,6 @@ const NameModal = ({
         setNameError(
           lang === "en" ? "Name is too long" : "Le nom est trop long"
         );
-      } else if (name.includes(" ")) {
-        setNameError(
-          lang === "en"
-            ? "Name cannot contain spaces"
-            : "Le nom ne peut pas contenir d'espaces"
-        );
       } else if (name.length < 3) {
         setNameError(
           lang === "en" ? "Name is too short." : "Le nom est trop court."
