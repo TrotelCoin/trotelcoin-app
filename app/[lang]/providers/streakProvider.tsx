@@ -111,7 +111,6 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     if (data.success === "Streak updated.") {
       setStreak((streak: number) => streak + 1);
       setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
-      setLastUpdatedStreak(new Date().toISOString());
       setIsStreakLoading(false);
     } else {
       setStreak(0);
