@@ -10,7 +10,15 @@ import ClaimingButton from "@/app/[lang]/wallet/components/staking/claimingButto
 import ApproveButton from "@/app/[lang]/wallet/components/staking/approveButton";
 import TotalStaked from "@/app/[lang]/wallet/components/staking/totalStaked";
 
-const Staking = ({ lang }: { lang: Lang }) => {
+const Staking = ({
+  lang,
+  chainError,
+  setChainError,
+}: {
+  lang: Lang;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -94,14 +102,25 @@ const Staking = ({ lang }: { lang: Lang }) => {
         </div>
         <div className="pt-4 px-4">
           <div className="grid grid-cols-2 gap-4">
-            <ApproveButton lang={lang} amount={amount as number} />
+            <ApproveButton
+              lang={lang}
+              amount={amount as number}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
             <StakingButton
               lang={lang}
               stakingPeriod={stakingPeriod}
               amount={amount as number}
+              chainError={chainError}
+              setChainError={setChainError}
             />
 
-            <ClaimingButton lang={lang} />
+            <ClaimingButton
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+            />
           </div>
         </div>
       </div>

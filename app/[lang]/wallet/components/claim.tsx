@@ -9,7 +9,15 @@ import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
 import Status from "@/app/[lang]/wallet/components/claim/status";
 
-const Claim = ({ lang }: { lang: Lang }) => {
+const Claim = ({
+  lang,
+  chainError,
+  setChainError,
+}: {
+  lang: Lang;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
@@ -88,6 +96,8 @@ const Claim = ({ lang }: { lang: Lang }) => {
           <RewardsButton
             centralWalletAddress={centralWalletAddress as Address}
             lang={lang}
+            chainError={chainError}
+            setChainError={setChainError}
           />
         </div>
       </div>

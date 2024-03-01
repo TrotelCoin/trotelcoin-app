@@ -7,6 +7,7 @@ import {
   useContract,
   useContractWrite,
   useContractRead,
+  useSwitchChain,
 } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
@@ -14,8 +15,17 @@ import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";
+import { polygon } from "viem/chains";
 
-const ClaimingButton = ({ lang }: { lang: Lang }) => {
+const ClaimingButton = ({
+  lang,
+  chainError,
+  setChainError,
+}: {
+  lang: Lang;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [claimMessage, setClaimMessage] = useState<boolean>(false);
   const [noStakedMessage, setNoStakedMessage] = useState<boolean>(false);
   const [timeNotFinishedMessage, setTimeNotFinishedMessage] =
@@ -25,6 +35,7 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const address = useAddress();
+  const switchChain = useSwitchChain();
 
   const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
 
@@ -146,6 +157,20 @@ const ClaimingButton = ({ lang }: { lang: Lang }) => {
           lang === "en"
             ? "There was an error claiming your rewards"
             : "Il y a eu une erreur en réclamant vos récompenses"
+        }
+      />
+      <Fail
+        show={chainError && Boolean(address)}
+        onClose={() => {
+          switchChain(polygon.id);
+          setChainError(false);
+        }}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "You are on the wrong network"
+            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>

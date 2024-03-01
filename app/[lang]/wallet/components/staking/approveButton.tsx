@@ -2,7 +2,12 @@
 
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useContract,
+  useContractWrite,
+  useSwitchChain,
+} from "@thirdweb-dev/react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -10,13 +15,27 @@ import { parseEther } from "viem";
 import "animate.css";
 import Success from "@/app/[lang]/components/modals/success";
 import { BigNumber } from "ethers";
+import { polygon } from "viem/chains";
 
-const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
+const ApproveButton = ({
+  lang,
+  amount,
+  chainError,
+  setChainError,
+}: {
+  lang: Lang;
+  amount: number;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [amountMessage, setAmountMessage] = useState<boolean>(false);
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const { contract } = useContract(trotelCoinAddress, trotelCoinV1ABI);
+
+  const switchChain = useSwitchChain();
+  const address = useAddress();
 
   const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
     contract,
@@ -98,6 +117,20 @@ const ApproveButton = ({ lang, amount }: { lang: Lang; amount: number }) => {
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
+        }
+      />
+      <Fail
+        show={chainError && Boolean(address)}
+        onClose={() => {
+          switchChain(polygon.id);
+          setChainError(false);
+        }}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "You are on the wrong network"
+            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>

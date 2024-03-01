@@ -8,12 +8,15 @@ import {
   useTransferNativeToken,
   useContractWrite,
   useContract,
+  useSwitchChain,
+  useAddress,
 } from "@thirdweb-dev/react";
 import { Address, parseEther } from "viem";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import usdcABI from "@/abi/usdc";
 import { BigNumber } from "ethers";
+import { polygon } from "viem/chains";
 
 const SendButton = ({
   lang,
@@ -22,6 +25,8 @@ const SendButton = ({
   amount,
   receiverAddress,
   setMissingFieldsError,
+  chainError,
+  setChainError,
 }: {
   lang: Lang;
   token: string;
@@ -29,12 +34,17 @@ const SendButton = ({
   amount: number | undefined;
   receiverAddress: Address;
   setMissingFieldsError: (value: boolean) => void;
+  chainError: boolean;
+  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [balanceError, setBalanceError] = useState<boolean>(false);
   const [noTokenMessage, setNoTokenMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+
+  const switchChain = useSwitchChain();
+  const address = useAddress();
 
   const { contract: trotelContract } = useContract(
     trotelCoinAddress,
@@ -176,6 +186,20 @@ const SendButton = ({
           lang === "en"
             ? "Your transaction failed"
             : "Votre transaction a échoué"
+        }
+      />
+      <Fail
+        show={chainError && Boolean(address)}
+        onClose={() => {
+          switchChain(polygon.id);
+          setChainError(false);
+        }}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "You are on the wrong network"
+            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>
