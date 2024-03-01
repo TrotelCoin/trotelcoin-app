@@ -110,7 +110,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               </div>
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {lesson.courses
-                  .toSorted((a, b) => {
+                  .sort((a, b) => {
                     const tierOrder = {
                       Beginner: 2,
                       Intermediate: 1,
