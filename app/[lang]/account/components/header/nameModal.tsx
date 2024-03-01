@@ -155,6 +155,16 @@ const NameModal = ({
                   <div className="mt-5 sm:mt-6 flex items-center justify-center gap-4">
                     <button
                       type="button"
+                      className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
+                      onClick={() => {
+                        setName(null);
+                        setNameModal(false);
+                      }}
+                    >
+                      {lang === "en" ? "Close" : "Fermer"}
+                    </button>
+                    <button
+                      type="button"
                       onClick={() => postName(name as string)}
                       className={`w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100 ${
                         nameIsLoading &&
@@ -168,16 +178,6 @@ const NameModal = ({
                         : nameIsLoading
                         ? "Chargement..."
                         : "Sauvegarder"}
-                    </button>
-                    <button
-                      type="button"
-                      className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
-                      onClick={() => {
-                        setName(null);
-                        setNameModal(false);
-                      }}
-                    >
-                      {lang === "en" ? "Close" : "Fermer"}
                     </button>
                   </div>
                 </Dialog.Panel>

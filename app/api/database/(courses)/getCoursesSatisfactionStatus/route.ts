@@ -16,10 +16,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json({ answered: false }, { status: 500 });
     }
 
     if (data.length > 0) {
@@ -38,9 +35,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json({ answered: false }, { status: 500 });
   }
 }

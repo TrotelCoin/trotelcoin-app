@@ -16,18 +16,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (error) {
       console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(false, { status: 500 });
     }
 
     if (!Array.isArray(result)) {
-      console.error("Result is not an array.");
-      return NextResponse.json(
-        { error: "Invalid result format." },
-        { status: 500 }
-      );
+      return NextResponse.json(false, { status: 500 });
     }
 
     const matchingResult = result.find(
@@ -46,9 +39,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(false, { status: 500 });
   }
 }

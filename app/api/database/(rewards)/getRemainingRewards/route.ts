@@ -15,10 +15,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (updateError) {
       console.error(updateError);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
 
     const { data: result, error: selectError } = await supabase
@@ -27,10 +24,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (selectError) {
       console.error(selectError);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
 
     if (result[0] && "remaining_rewards" in result[0]) {
@@ -39,16 +33,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
         headers: { "Cache-Control": "no-store" },
       });
     } else {
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(0, { status: 500 });
   }
 }

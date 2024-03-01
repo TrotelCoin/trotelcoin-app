@@ -11,10 +11,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (selectError) {
       console.error(selectError);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
 
     const remainingRewards = result[0]?.remaining_rewards;
@@ -38,10 +35,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (updateError) {
       console.error(updateError);
-      return NextResponse.json(
-        { error: "Something went wrong during the upsert operation." },
-        { status: 500 }
-      );
+      return NextResponse.json(0, { status: 500 });
     }
 
     // calculate rewards
@@ -53,9 +47,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(0, { status: 500 });
   }
 }

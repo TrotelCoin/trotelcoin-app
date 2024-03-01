@@ -7,10 +7,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     .select("number_of_quizzes_answered");
 
   if (error) {
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(0, { status: 500 });
   } else {
     const result: number = data.reduce(
       (acc, curr) => acc + curr.number_of_quizzes_answered,

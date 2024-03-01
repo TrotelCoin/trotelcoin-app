@@ -30,14 +30,18 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = async () => {
-      await fetch(`/api/database/postNewLearner?wallet=${address}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
+      try {
+        await fetch(`/api/database/postNewLearner?wallet=${address}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        });
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     if (address) {

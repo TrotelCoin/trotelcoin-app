@@ -21,19 +21,20 @@ const CoursesSatisfaction = ({
 
   const postSatisfaction = async (rating: number) => {
     if (rating) {
-      const postSatisfaction = await fetch(
-        `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-
-      if (postSatisfaction.status !== 200) {
+      try {
+        await fetch(
+          `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+      } catch (error) {
+        console.error(error);
         setErrorMessage(true);
         return;
       }
@@ -45,21 +46,27 @@ const CoursesSatisfaction = ({
 
   useEffect(() => {
     const fetchCoursesSatisfactionAnswered = async () => {
-      const response = await fetch(
-        `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
+      try {
+        const response = await fetch(
+          `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const data = await response.json();
+        const { answered } = data;
+        if (answered !== false) {
+          setAlreadyAnsweredSatisfaction(true);
         }
-      );
-      const data = await response.json();
-      const { answered } = data;
-      if (answered !== false) {
-        setAlreadyAnsweredSatisfaction(true);
+      } catch (error) {
+        console.error(error);
+        setErrorMessage(true);
+        return;
       }
     };
 

@@ -1,6 +1,4 @@
 import { Lesson, Lang, DictType } from "@/types/types";
-
-import { Address } from "viem";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";
 
@@ -11,14 +9,12 @@ const renderCourses = (
   lang: Lang,
   quizId: number,
   status: string[],
-  address: Address | null,
   dict: DictType | null,
   index: number,
   category: string
 ) => {
   let tier = "";
   let title = "";
-  let description = "";
 
   switch (lang) {
     case "en":

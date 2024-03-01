@@ -18,21 +18,27 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       setIsLoadingLeaderboard(true);
-      const leaderboard = await fetch(`/api/database/getLeaderboard`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      }).then((response) => response.json());
 
-      if (leaderboard) {
-        setLeaderboard(leaderboard.updatedLeaderboard);
-      } else {
-        setLeaderboard(null);
+      try {
+        const leaderboard = await fetch(`/api/database/getLeaderboard`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Cache-Control": "no-store",
+          },
+          cache: "no-store",
+        }).then((response) => response.json());
+
+        if (leaderboard) {
+          setLeaderboard(leaderboard.updatedLeaderboard);
+        } else {
+          setLeaderboard(null);
+        }
+        setIsLoadingLeaderboard(false);
+      } catch (error) {
+        console.error(error);
+        setIsLoadingLeaderboard(false);
       }
-      setIsLoadingLeaderboard(false);
     };
 
     fetchLeaderboard();

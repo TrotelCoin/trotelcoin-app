@@ -13,21 +13,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
     .eq("wallet", wallet as Address);
 
   if (error) {
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(0, { status: 500 });
   } else if (result[0] && "total_rewards_pending" in result[0]) {
     return NextResponse.json(result[0].total_rewards_pending, {
       status: 200,
       headers: { "Cache-Control": "no-store" },
     });
   } else {
-    return NextResponse.json(
-      { error: "No data found." },
-      {
-        status: 404,
-      }
-    );
+    return NextResponse.json(0, {
+      status: 404,
+    });
   }
 }

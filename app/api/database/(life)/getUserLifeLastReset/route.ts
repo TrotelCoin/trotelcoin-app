@@ -14,10 +14,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     if (response.error) {
       console.error(response.error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
+      return NextResponse.json(new Date().toISOString(), { status: 500 });
     }
 
     if (response.data.length > 0) {
@@ -27,16 +24,19 @@ export async function GET(req: NextRequest, res: NextResponse) {
         headers: { "Cache-Control": "no-store" },
       });
     } else {
-      return NextResponse.json(
-        { error: "User doesn't exists." },
-        { status: 404 }
-      );
+      try {
+        await supabase
+          .from("life")
+          .insert({ wallet: wallet as string, life: 3 });
+      } catch (error) {
+        console.error(error);
+        return NextResponse.json(new Date().toISOString(), { status: 500 });
+      }
+
+      return NextResponse.json(new Date().toISOString(), { status: 200 });
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
+    return NextResponse.json(new Date().toISOString(), { status: 500 });
   }
 }

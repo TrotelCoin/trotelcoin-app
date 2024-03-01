@@ -8,19 +8,26 @@ const TrotelCoinsPending = ({ dict }: { dict: DictType }) => {
 
   useEffect(() => {
     const fetchTrotelCoinsPending = async () => {
-      const response = await fetch("/api/database/getTotalTrotelCoinsPending", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      });
-      const trotelCoinsPending = await response?.json();
-      if (trotelCoinsPending) {
-        setTrotelCoinsPending(trotelCoinsPending);
-      } else {
-        setTrotelCoinsPending(0);
+      try {
+        const response = await fetch(
+          "/api/database/getTotalTrotelCoinsPending",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Cache-Control": "no-store",
+            },
+            cache: "no-store",
+          }
+        );
+        const trotelCoinsPending = await response?.json();
+        if (trotelCoinsPending) {
+          setTrotelCoinsPending(trotelCoinsPending);
+        } else {
+          setTrotelCoinsPending(0);
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 
