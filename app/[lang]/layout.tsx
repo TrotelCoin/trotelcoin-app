@@ -23,21 +23,8 @@ import MobileFooter from "@/app/[lang]/components/mobileFooter";
 import StreakProvider from "@/app/[lang]/providers/streakProvider";
 import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 import UserProvider from "@/app/[lang]/providers/userProvider";
-import Swiper from "swiper";
-import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-let swiper;
-
-if (typeof document !== "undefined") {
-  swiper = new Swiper(".swiper", {
-    modules: [Navigation, Pagination],
-  });
-}
-
-export { swiper };
+import "animate.css";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
