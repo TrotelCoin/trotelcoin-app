@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       return NextResponse.json(0, { status: 500 });
     }
 
-    if (result[0] && "number_of_quizzes_answered" in result[0]) {
+    if (result.length > 0) {
       return NextResponse.json(result[0].number_of_quizzes_answered, {
         status: 200,
         headers: { "Cache-Control": "no-store" },
