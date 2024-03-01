@@ -28,12 +28,6 @@ const NameModal = ({
         setNameError(
           lang === "en" ? "Name is too long" : "Le nom est trop long"
         );
-      } else if (name.includes(" ")) {
-        setNameError(
-          lang === "en"
-            ? "Name cannot contain spaces"
-            : "Le nom ne peut pas contenir d'espaces"
-        );
       } else if (name.length < 3) {
         setNameError(
           lang === "en" ? "Name is too short." : "Le nom est trop court."
@@ -166,18 +160,23 @@ const NameModal = ({
                     <button
                       type="button"
                       onClick={() => postName(name as string)}
-                      className={`w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100 ${
-                        nameIsLoading &&
-                        "animate__animated animate__flash animate__infinite animate__slower"
-                      }`}
+                      className={`w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100
+                        `}
                     >
-                      {lang === "en"
-                        ? nameIsLoading
-                          ? "Loading..."
-                          : "Save"
-                        : nameIsLoading
-                        ? "Chargement..."
-                        : "Sauvegarder"}
+                      <span
+                        className={`${
+                          nameIsLoading &&
+                          "animate__animated animate__flash animate__infinite animate__slower"
+                        }`}
+                      >
+                        {lang === "en"
+                          ? nameIsLoading
+                            ? "Loading..."
+                            : "Save"
+                          : nameIsLoading
+                          ? "Chargement..."
+                          : "Sauvegarder"}
+                      </span>
                     </button>
                   </div>
                 </Dialog.Panel>
