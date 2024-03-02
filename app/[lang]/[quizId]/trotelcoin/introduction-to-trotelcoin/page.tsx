@@ -126,7 +126,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 height={600}
                 src="/assets/courses/1/web2-web3.png"
                 alt="Web2 x Web3"
-              ></Image>
+              />
               That's why we're here to provide you with education, ensuring you
               can navigate safely in this new world.
               <br />
@@ -159,7 +159,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 height={600}
                 src="/assets/courses/1/web2-web3.png"
                 alt="Web2 x Web3"
-              ></Image>
+              />
               C'est pourquoi nous sommes là pour vous former afin que vous
               puissiez naviguer en toute sécurité dans ce nouveau monde.
             </>
@@ -397,7 +397,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           height={600}
           src="/assets/courses/1/tokenomics.png"
           alt="tokenomics"
-        ></Image>
+        />
         <h2 className="mt-6 text-xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? <>Definition</> : <>Définition</>}
         </h2>
@@ -564,7 +564,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           height={480}
           alt="algorithm simulation"
           className="mt-6"
-        ></Image>
+        />
         <p className="mt-6 font-light">
           {lang === "en" ? (
             <>
@@ -634,7 +634,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 height={600}
                 src="/assets/courses/1/liquidity.png"
                 alt="Liquidity"
-              ></Image>
+              />
               But to make it simple, this action makes it easier for users to
               trade TROTEL smoothly while keeping things stable.
               <br />
@@ -677,7 +677,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 height={600}
                 src="/assets/courses/1/liquidity.png"
                 alt="Liquidity"
-              ></Image>
+              />
               Mais pour simplifier, cette action permet aux utilisateurs
               d'échanger plus facilement des TROTEL tout en maintenant la
               stabilité.

@@ -37,20 +37,22 @@ const Vocabulary = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
                 <span className="text-xs text-gray-900 dark:text-gray-100">
                   {lang === "en" ? item.en.definition : item.fr.definition}
                 </span>
-                <Image
-                  src="/assets/logo/trotelcoin.png"
-                  alt="Logo"
-                  width={32}
-                  height={32}
-                  className="left-0 bottom-0 absolute block dark:hidden"
-                />
-                <Image
-                  src="/assets/logo/trotelcoin-white.png"
-                  alt="Logo"
-                  width={32}
-                  height={32}
-                  className="left-0 bottom-0 absolute hidden dark:block"
-                />
+                <div className="m-2 left-0 bottom-0 absolute">
+                  <Image
+                    src="/assets/logo/trotelcoin-white.png"
+                    alt="Logo"
+                    width={32}
+                    height={32}
+                    className="block dark:hidden"
+                  />
+                  <Image
+                    src="/assets/logo/trotelcoin.png"
+                    alt="Logo"
+                    width={32}
+                    height={32}
+                    className="hidden dark:block"
+                  />
+                </div>
               </div>
             </SwiperSlide>
           ))}

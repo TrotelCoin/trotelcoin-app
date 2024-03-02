@@ -195,9 +195,16 @@ export default function Footer({ lang }: { lang: Lang }) {
               width={128}
               height={128}
               alt="TrotelCoin Logo"
-              className="block sm:hidden h-12 w-auto"
+              className="block dark:hidden sm:hidden h-12 w-auto"
               src="/assets/logo/trotelcoin-white.png"
-            ></Image>
+            />
+            <Image
+              width={128}
+              height={128}
+              alt="TrotelCoin Logo"
+              className="hidden dark:block dark:sm:hidden sm:hidden h-12 w-auto"
+              src="/assets/logo/trotelcoin.png"
+            />
           </Link>
           <div className="flex justify-center space-x-10">
             {navigation.social.map((item, index) => (
