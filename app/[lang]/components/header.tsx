@@ -73,12 +73,19 @@ const Header = ({ lang }: { lang: Lang }) => {
           <div className="p-1">
             <Link href={`/${lang}/home`}>
               <Image
-                className="h-12 w-auto"
+                className="block dark:hidden h-12 w-auto"
                 width={128}
                 height={128}
                 src="/assets/logo/trotelcoin-white.png"
-                alt={"Logo"}
-              ></Image>
+                alt="TrotelCoin Logo"
+              />
+              <Image
+                width={128}
+                height={128}
+                alt="TrotelCoin Logo"
+                className="hidden dark:block h-12 w-auto"
+                src="/assets/logo/trotelcoin.png"
+              />
             </Link>
           </div>
 
