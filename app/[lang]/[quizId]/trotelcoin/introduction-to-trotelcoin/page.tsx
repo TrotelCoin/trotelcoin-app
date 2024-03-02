@@ -634,7 +634,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 height={600}
                 src="/assets/courses/1/liquidity.png"
                 alt="Liquidity"
-              ></>
+              />
               But to make it simple, this action makes it easier for users to
               trade TROTEL smoothly while keeping things stable.
               <br />
