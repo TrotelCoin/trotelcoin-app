@@ -7,6 +7,8 @@
   --bg-gray-900: #0f172a;
   --text-black: rgb(17 24 39);
   --progress-end: 100%;
+  --bg-gray-800: #1f2937;
+  --bg-gray-100: #f3f4f6;
 }
 
 @media (prefers-color-scheme: dark) {
