@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.4.5";
+const version = "1.5.6";
 
 interface ChangelogItem {
   title: string;
@@ -73,8 +73,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Create your first wallet is available"
-              : "- Crée t premier portefeuille est disponible",
+              ? "- Stake your TrotelCoins will be available soon..."
+              : "- Stakez vos TrotelCoins sera bientôt disponible...",
           isNew: true,
         },
       ],
@@ -85,48 +85,15 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- You can stake your TROTEL now"
-              : "- Vous pouvez staker vos TROTEL maintenant",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- You can claim your TROTEL now"
-              : "- Vous pouvez récupérer vos TROTEL maintenant",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en" ? "- We added badges" : "- On a ajouté des badges",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- We added mobile navigation"
-              : "- On a ajouté une navigation mobile",
-          isNew: true,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- We improved streak UI"
-              : "- On a amélioré l'UI de la série",
-          isNew: true,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- We moved the streak to the profile and header"
-              : "- On a déplacé la série dans le profil et le header",
-          isNew: true,
-        },
-        {
-          text:
-            lang === "en"
               ? "- We show badges progression"
               : "- On montre la progression des badges",
+          isNew: true,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We added a vocabulary section in Learn"
+              : "- On a ajouté une section vocabulaire dans Apprendre",
           isNew: true,
         },
       ],
@@ -137,22 +104,15 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We organize daily quizzes on the Discord"
-              : "- On organise des quiz quotidiens sur le Discord",
-          isNew: false,
+              ? "- We reached $38k of market cap"
+              : "- On a atteint 38k$ de capitalisation",
+          isNew: true,
         },
         {
           text:
             lang === "en"
-              ? "- We reached $31k of market cap"
-              : "- On a atteint 31k$ de capitalisation",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- We listed on dApps platforms"
-              : "- On a listé sur des plateformes de dApps",
+              ? "- We listed on ProductHunt"
+              : "- On a listé sur ProductHunt",
           isNew: true,
         },
       ],
