@@ -60,6 +60,7 @@ export interface Tier {
 
 export interface Lesson {
   title: LanguageStrings;
+  description: LanguageStrings;
   one: LanguageStrings;
   two: LanguageStrings;
   three: LanguageStrings;
@@ -167,3 +168,14 @@ export type BadgesNames =
   | "staking"
   | "timeStaked"
   | "stakingDuration";
+
+export type Vocabulary = {
+  en: {
+    word: string;
+    definition: string;
+  };
+  fr: {
+    word: string;
+    definition: string;
+  };
+}[];

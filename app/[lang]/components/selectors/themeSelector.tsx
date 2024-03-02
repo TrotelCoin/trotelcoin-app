@@ -5,7 +5,9 @@ import { useEffect, useState, createContext, useContext } from "react";
 export const ThemeContext = createContext(true);
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
+  const isLightTheme = theme;
+  return isLightTheme;
 }
 
 const ThemeSwitcher = () => {
@@ -14,9 +16,11 @@ const ThemeSwitcher = () => {
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
       setTheme("dark");
     } else {
       document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
       setTheme("light");
     }
   }, []);

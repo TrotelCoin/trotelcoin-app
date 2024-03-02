@@ -2,7 +2,6 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
-import { Address } from "wagmi";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import { Lessons, Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
