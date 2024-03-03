@@ -58,6 +58,11 @@ const NameModal = ({
     if (nameError === null) {
       await axios
         .post(`/api/database/postUsername?name=${name}&wallet=${address}`)
+        .then((response) => {
+          localStorage.setItem("username", name);
+          setNameIsLoading(false);
+          setNameModal(false);
+        })
         .catch((error) => {
           console.error(error);
           setNameError(
@@ -70,8 +75,6 @@ const NameModal = ({
           setNameError(null);
           setNameIsLoading(false);
         });
-
-      localStorage.setItem("username", name);
     } else {
       setNameError(
         lang === "en" ? "Name is not valid." : "Le nom n'est pas valide."
