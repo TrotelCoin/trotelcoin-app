@@ -21,11 +21,13 @@ const RewardsButton = ({
   centralWalletAddress,
   chainError,
   setChainError,
+  setClaimed,
 }: {
   lang: Lang;
   centralWalletAddress: Address;
   chainError: boolean;
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+  setClaimed: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number>(0);
@@ -105,7 +107,6 @@ const RewardsButton = ({
           if (!response.data.success) {
             setErrorMessage(true);
             setIsLoading(false);
-            return;
           }
         })
         .catch((error) => {
@@ -116,6 +117,7 @@ const RewardsButton = ({
 
       setSuccessMessage(true);
       setIsLoading(false);
+      setClaimed(true);
     } else {
       setNothingToClaimMessage(true);
       setIsLoading(false);
