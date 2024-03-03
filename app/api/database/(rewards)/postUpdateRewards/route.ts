@@ -218,11 +218,28 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // update remaining rewards
     const { error: updateAlgorithmError } = await supabase
       .from("algorithm")
-      .update({ remaining_rewards: remainingRewardsValue - rewards / 50 })
+      .update({
+        remaining_rewards: remainingRewardsValue - rewards / 50,
+      })
       .eq("id", 1);
 
     if (updateAlgorithmError) {
       console.error(updateAlgorithmError);
+      return NextResponse.json(
+        { error: "Something went wrong." },
+        { status: 500 }
+      );
+    }
+
+    const { error: updateAlgorithmDateError } = await supabase
+      .from("algorithm")
+      .update({
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", 1);
+
+    if (updateAlgorithmDateError) {
+      console.error(updateAlgorithmDateError);
       return NextResponse.json(
         { error: "Something went wrong." },
         { status: 500 }
