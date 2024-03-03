@@ -393,6 +393,112 @@ const quizzes = [
       },
     ],
   },
+  {
+    quizId: 16,
+    title: "Stake your TrotelCoins",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the purpose of TrotelCoin's staking?",
+          fr: "Quel est le but du staking de TrotelCoin?",
+        },
+        options: {
+          en: [
+            "To earn rewards and secure the community",
+            "To secure the network",
+            "To lose your voting power",
+            "Because it's fun",
+          ],
+          fr: [
+            "Pour gagner des récompenses et sécuriser la communauté",
+            "Pour sécuriser le réseau",
+            "Pour perdre votre pouvoir de vote",
+            "Parce que c'est amusant",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How many TrotelCoins can I stake?",
+          fr: "Combien de TrotelCoins puis-je stocker?",
+        },
+        options: {
+          en: ["As many as you want", "A fixed amount", "Only 1", "None"],
+          fr: [
+            "Autant que vous voulez",
+            "Un montant fixe",
+            "Seulement 1",
+            "Aucun",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "How long can I stake my TrotelCoins?",
+          fr: "Combien de temps puis-je stocker mes TrotelCoins?",
+        },
+        options: {
+          en: [
+            "30 days, 3 months, 6 months, 1 year",
+            "30 days, 6 months, 1 year",
+            "30 days, 1 year",
+            "How long I want",
+          ],
+          fr: [
+            "30 jours, 3 mois, 6 mois, 1 an",
+            "30 jours, 6 mois, 1 an",
+            "30 jours, 1 an",
+            "Aussi longtemps que je veux",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "How can I stake my TrotelCoins?",
+          fr: "Comment puis-je staker mes TrotelCoins?",
+        },
+        options: {
+          en: [
+            "In the Wallet page",
+            "In your wallet",
+            "In the staking pool",
+            "In the TrotelCoin Discord",
+          ],
+          fr: [
+            "Dans la page Wallet",
+            "Dans votre portefeuille",
+            "Dans la pool de staking",
+            "Dans le Discord de TrotelCoin",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "When can I unstake my TrotelCoins?",
+          fr: "Quand puis-je retirer mes TrotelCoins?",
+        },
+        options: {
+          en: [
+            "After the staking period",
+            "Whenever I want",
+            "After 1 year",
+            "Never",
+          ],
+          fr: [
+            "Après la période de staking",
+            "Quand je veux",
+            "Après 1 an",
+            "Jamais",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

@@ -73,8 +73,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Stake your TrotelCoins will be available soon..."
-              : "- Stakez vos TrotelCoins sera bientôt disponible...",
+              ? "- Stake your TrotelCoins is available !"
+              : "- Stakez vos TrotelCoins est disponible !",
           isNew: true,
         },
       ],
