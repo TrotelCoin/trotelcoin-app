@@ -218,7 +218,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // update remaining rewards
     const { error: updateAlgorithmError } = await supabase
       .from("algorithm")
-      .update({ remaining_rewards: remainingRewardsValue - rewards / 50 })
+      .update({
+        remaining_rewards: remainingRewardsValue - rewards / 50,
+        updated_at: new Date().toISOString(),
+      })
       .eq("id", 1);
 
     if (updateAlgorithmError) {
