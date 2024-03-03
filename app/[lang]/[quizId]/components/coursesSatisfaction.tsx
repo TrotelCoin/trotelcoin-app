@@ -2,6 +2,9 @@ import { DictType } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { Address } from "viem";
+import useSWR from "swr";
+import axios from "axios";
+import { fetcher } from "@/lib/axios/fetcher";
 
 const CoursesSatisfaction = ({
   dict,
@@ -14,75 +17,43 @@ const CoursesSatisfaction = ({
     useState<boolean>(false);
   const [rating, setRating] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
-  const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
-    useState<boolean>(false);
 
   const address = useAddress();
 
-  const postSatisfaction = async (rating: number) => {
+  const postSatisfaction = (rating: number) => {
     if (rating) {
-      try {
-        await fetch(
-          `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-      } catch (error) {
-        console.error(error);
-        setErrorMessage(true);
-        return;
-      }
+      axios
+        .post(
+          `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
+        )
+        .catch((error) => {
+          console.error(error);
+          setErrorMessage(true);
+        });
     }
 
     setSatisfactionMessage(true);
-    setAlreadyAnsweredSatisfaction(true);
   };
 
-  useEffect(() => {
-    const fetchCoursesSatisfactionAnswered = async () => {
-      try {
-        const response = await fetch(
-          `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        const data = await response.json();
-        const { answered } = data;
-        if (answered !== false) {
-          setAlreadyAnsweredSatisfaction(true);
-        }
-      } catch (error) {
-        console.error(error);
-        setErrorMessage(true);
-        return;
-      }
-    };
+  const { data: coursesSatisfactionAnswered, error } = useSWR(
+    address && quizId
+      ? `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`
+      : null,
+    fetcher
+  );
 
-    if (address && quizId) {
-      fetchCoursesSatisfactionAnswered();
-    } else {
-      setAlreadyAnsweredSatisfaction(false);
+  useEffect(() => {
+    if (error) {
+      setErrorMessage(true);
     }
-  }, [address, quizId]);
+  }, [error]);
 
   return (
     <>
-      {(address as Address) && !alreadyAnsweredSatisfaction && (
+      {(address as Address) && !coursesSatisfactionAnswered?.answered && (
         <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 flex flex-col">
           <div className="flex items-center">
-            {!alreadyAnsweredSatisfaction && (
+            {!coursesSatisfactionAnswered?.answered && (
               <>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                   {typeof dict?.lesson !== "string" && (

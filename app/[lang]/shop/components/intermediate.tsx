@@ -20,6 +20,7 @@ import {
   useContract,
 } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
+import axios from "axios";
 
 const holdingRequirements: number = 10000;
 
@@ -108,18 +109,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       setIsClaimedMessage(true);
 
       const postClaimIntermediate = async () => {
-        try {
-          await fetch(`/api/database/claimIntermediate?wallet=${address}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
+        await axios
+          .post(`/api/database/claimIntermediate?wallet=${address}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
           });
-        } catch (error) {
-          console.error(error);
-        }
       };
 
       postClaimIntermediate();

@@ -3,6 +3,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { Fragment, useEffect, useState } from "react";
 import "animate.css";
+import axios from "axios";
 
 const NameModal = ({
   lang,
@@ -40,7 +41,7 @@ const NameModal = ({
 
   const postName = async (name: string) => {
     setNameIsLoading(true);
-    if (name === "" || name.length < 1) {
+    if (!name) {
       setNameError(lang === "en" ? "Name is required." : "Le nom est requis.");
       setNameIsLoading(false);
       return;
@@ -55,36 +56,22 @@ const NameModal = ({
     }
 
     if (nameError === null) {
-      try {
-        await fetch(
-          `/api/database/postUsername?name=${name}&wallet=${address}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        setNameModal(false);
-        setName(null);
-        setNameError(null);
-        setNameIsLoading(false);
-        localStorage.setItem("username", name);
-      } catch (error) {
-        setNameError(
-          lang === "en"
-            ? "Something went wrong."
-            : "Quelque chose a mal tourné."
-        );
-        console.error(error);
-        setNameModal(false);
-        setName(null);
-        setNameError(null);
-        setNameIsLoading(false);
-        return;
-      }
+      await axios
+        .post(`/api/database/postUsername?name=${name}&wallet=${address}`)
+        .catch((error) => {
+          console.error(error);
+          setNameError(
+            lang === "en"
+              ? "Something went wrong."
+              : "Quelque chose a mal tourné."
+          );
+          setNameModal(false);
+          setName(null);
+          setNameError(null);
+          setNameIsLoading(false);
+        });
+
+      localStorage.setItem("username", name);
     } else {
       setNameError(
         lang === "en" ? "Name is not valid." : "Le nom n'est pas valide."

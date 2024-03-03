@@ -2,10 +2,12 @@
 
 import { DictType, Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
-import UserContext from "@/app/[lang]/contexts/userContext";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
+import axios from "axios";
 
 const Rewards = ({
   lang,
@@ -25,7 +27,6 @@ const Rewards = ({
     useState<boolean>(false);
   const [claimedRewardsMessage, setClaimedRewardsMessage] =
     useState<boolean>(false);
-  const [hasAlreadyAnswered, setHasAlreadyAnswered] = useState<boolean>(false);
 
   const address = useAddress();
   const { isLoggedIn } = useUser();
@@ -38,65 +39,31 @@ const Rewards = ({
 
     setClaimingLoading(true);
 
-    try {
-      // update database rewards by calling api and if success
-      const responseUpdate = await fetch(
-        `/api/database/postUpdateRewards?wallet=${address}&quizId=${quizId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const dataUpdate = await responseUpdate.json();
-      setClaimingLoading(false);
-      if (dataUpdate.success) {
-        setClaimedRewards(true);
-        setClaimedRewardsMessage(true);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setClaimingError(true);
+    // update database rewards by calling api and if success
+    const responseUpdate = await axios
+      .post(
+        `/api/database/postUpdateRewards?wallet=${address}&quizId=${quizId}`
+      )
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        setClaimingError(true);
+      });
+
+    if (responseUpdate.success) {
+      setClaimedRewards(true);
+      setClaimedRewardsMessage(true);
     }
 
     setClaimingLoading(false);
   };
 
-  useEffect(() => {
-    const fetchAlreadyAnsweredQuiz = async () => {
-      await fetch(
-        `/api/database/getUserAlreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data === true) {
-            setHasAlreadyAnswered(true);
-          } else {
-            setHasAlreadyAnswered(false);
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    };
-
-    if (address && quizId) {
-      fetchAlreadyAnsweredQuiz();
-    } else {
-      setHasAlreadyAnswered(false);
-    }
-  }, [address, quizId]);
+  const { data: hasAlreadyAnswered } = useSWR(
+    address && quizId
+      ? `/api/database/getUserAlreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`
+      : null,
+    fetcher
+  );
 
   return (
     <>

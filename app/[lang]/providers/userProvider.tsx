@@ -6,6 +6,8 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
 import { Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [userTotalRewardsPending, setUserTotalRewardsPending] =
@@ -17,85 +19,50 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const address = useAddress();
 
-  useEffect(() => {
-    const fetchUserTotalRewards = async () => {
-      try {
-        const result = await fetch(
-          `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        const data = await result.json();
-        setUserTotalRewardsPending(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    if (address) {
-      fetchUserTotalRewards();
-    }
-  }, [address]);
+  const { data: userTotalRewardsPendingData } = useSWR(
+    address
+      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
+      : null,
+    fetcher
+  );
 
   useEffect(() => {
-    const fetchUserNumberOfQuizzesAnswered = async () => {
-      const result = await fetch(
-        `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setUserNumberOfQuizzesAnswered(data);
-    };
-
-    if (address) {
-      fetchUserNumberOfQuizzesAnswered();
+    if (userTotalRewardsPendingData) {
+      setUserTotalRewardsPending(userTotalRewardsPendingData);
+    } else {
+      setUserTotalRewardsPending(0);
     }
-  }, [address]);
+  }, [userTotalRewardsPendingData]);
+
+  const { data: userNumberOfQuizzesAnsweredData } = useSWR(
+    address
+      ? `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`
+      : null,
+    fetcher
+  );
 
   useEffect(() => {
-    const fetchUsername = async () => {
-      const result = await fetch(
-        `/api/database/getUsername?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      if (data === null) {
-        setUsername(shortenAddress(address as Address));
-        localStorage.setItem("username", shortenAddress(address as Address));
-        return;
-      } else {
-        setUsername(data);
-        localStorage.setItem("username", data as string);
-        return;
-      }
-    };
-
-    if (address) {
-      setIsUsernameLoading(true);
-      fetchUsername();
-      setIsUsernameLoading(false);
+    if (userNumberOfQuizzesAnsweredData) {
+      setUserNumberOfQuizzesAnswered(userNumberOfQuizzesAnsweredData);
+    } else {
+      setUserNumberOfQuizzesAnswered(0);
     }
-  }, [address]);
+  }, [userNumberOfQuizzesAnsweredData]);
+
+  const { data: usernameData } = useSWR(
+    address ? `/api/database/getUsername?wallet=${address}` : null,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (usernameData === null) {
+      setUsername(shortenAddress(address as Address));
+      localStorage.setItem("username", shortenAddress(address as Address));
+    } else {
+      setUsername(usernameData);
+      localStorage.setItem("username", usernameData as string);
+    }
+  }, [usernameData]);
 
   const contextValue = useMemo(
     () => ({

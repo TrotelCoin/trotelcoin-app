@@ -1,43 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const TrotelPrice = () => {
-  const [tokenPrice, setTokenPrice] = useState<number>(0);
-  const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchTokenPrice = async () => {
-      try {
-        const response = await fetch("/api/moralis/trotelPrice", {
-          cache: "no-store",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-        });
-        const data = await response.json();
-        if (!data) {
-          setTokenPrice(0);
-        } else {
-          setTokenPrice(data);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        setError("Error fetching token price.");
-        setTokenPrice(0);
-        console.error("Error fetching token price:", error);
-      }
-    };
-
-    fetchTokenPrice();
-  }, []);
-
-  useEffect(() => {
-    error ? setTokenPrice(0) : null;
-  }, [error]);
+  const { data, isLoading } = useSWR("/api/moralis/trotelPrice", fetcher);
 
   return (
     <span
@@ -46,7 +14,7 @@ const TrotelPrice = () => {
         "animate__animated animate__flash animate__slower animate__infinite"
       }`}
     >
-      ${typeof tokenPrice === "number" ? tokenPrice.toFixed(5) : "0.00000"}
+      ${data ? data.toFixed(5) : "0.00000"}
     </span>
   );
 };

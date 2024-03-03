@@ -14,6 +14,8 @@ import {
 } from "@/utils/courses";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -45,44 +47,28 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
+  const { data: lessonsCompleted } = useSWR(
+    address ? `/api/database/getUserCoursesCompleted?wallet=${address}` : null,
+    fetcher
+  );
+
   useEffect(() => {
-    const fetchCoursesCompleted = async () => {
-      const response = await fetch(
-        `/api/database/getUserCoursesCompleted?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const result = await response.json();
-
-      result?.map((course: { quiz_id: number; answered: boolean }) => {
-        if (course.answered) {
-          setStatus((prev) => {
-            const newState = [...prev];
-            newState[course.quiz_id - 1] = "Finished";
-            return newState;
-          });
-        } else {
-          setStatus((prev) => {
-            const newState = [...prev];
-            newState[course.quiz_id - 1] = "Not started";
-            return newState;
-          });
-        }
-      });
-    };
-
-    if (address) {
-      fetchCoursesCompleted();
-    } else {
-      setStatus(new Array(lessonsLength(lessons)).fill("Not started"));
-    }
-  }, [address]);
+    lessonsCompleted?.map((course: { quiz_id: number; answered: boolean }) => {
+      if (course.answered) {
+        setStatus((prev) => {
+          const newState = [...prev];
+          newState[course.quiz_id - 1] = "Finished";
+          return newState;
+        });
+      } else {
+        setStatus((prev) => {
+          const newState = [...prev];
+          newState[course.quiz_id - 1] = "Not started";
+          return newState;
+        });
+      }
+    });
+  }, [address, lessonsCompleted]);
 
   return (
     <>

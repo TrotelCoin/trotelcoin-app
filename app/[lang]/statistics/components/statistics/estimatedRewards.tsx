@@ -1,33 +1,13 @@
 import { DictType } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const EstimatedRewards = ({ dict }: { dict: DictType }) => {
-  const [remainingRewards, setRemainingRewards] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchRemainingRewards = async () => {
-      try {
-        const response = await fetch("/api/database/getRemainingRewards", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        });
-        const remainingRewards = await response?.json();
-        if (remainingRewards) {
-          setRemainingRewards(remainingRewards);
-        } else {
-          setRemainingRewards(0);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchRemainingRewards();
-  }, []);
+  const { data: remainingRewards } = useSWR(
+    "/api/database/getRemainingRewards",
+    fetcher
+  );
 
   return (
     <>

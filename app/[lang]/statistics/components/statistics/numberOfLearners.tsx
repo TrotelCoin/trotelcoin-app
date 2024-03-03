@@ -1,35 +1,13 @@
 import { DictType } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const NumberOfLearners = ({ dict }: { dict: DictType }) => {
-  const [numberOfLearners, setNumberOfLearners] = useState<number | null>(null);
-
-  useEffect(() => {
-    // finding number of learners by taking max id in the table "learners"
-
-    const fetchNumberOfLearners = async () => {
-      try {
-        const response = await fetch("/api/database/getTotalNumberOfLearners", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        });
-        const numberOfLearners = await response?.json();
-        if (numberOfLearners) {
-          setNumberOfLearners(numberOfLearners);
-        } else {
-          setNumberOfLearners(0);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchNumberOfLearners();
-  }, []);
+  const { data: numberOfLearners } = useSWR(
+    "/api/database/getTotalNumberOfLearners",
+    fetcher
+  );
 
   return (
     <>

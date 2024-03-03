@@ -1,45 +1,24 @@
 import { DictType } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "@/lib/axios/fetcher";
 
 const TotalRewards = ({ dict }: { dict: DictType }) => {
   const [tokensEarned, setTokensEarned] = useState<number>(0);
-  const [totalRewardsPending, setTotalRewardsPending] = useState<number>(0);
   const [totalRewards, setTotalRewards] = useState<number | null>(null);
 
   const address = useAddress();
 
-  useEffect(() => {
-    const fetchRewardsPending = async () => {
-      await fetch(
-        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      )
-        .then((response) => response?.json())
-        .then((data) => {
-          setTotalRewardsPending(data);
-        })
-        .catch((err: string) => {
-          console.error(err);
-        });
-    };
-
-    if (address) {
-      fetchRewardsPending();
-    } else {
-      setTotalRewardsPending(0);
-    }
-  }, [address]);
+  const { data: totalRewardsPending } = useSWR(
+    address
+      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
+      : null,
+    fetcher
+  );
 
   useEffect(() => {
-    if (totalRewards && totalRewardsPending) {
+    if (totalRewards && Boolean(totalRewardsPending)) {
       setTokensEarned(totalRewards + totalRewardsPending);
     } else if (totalRewards) {
       setTokensEarned(totalRewards);

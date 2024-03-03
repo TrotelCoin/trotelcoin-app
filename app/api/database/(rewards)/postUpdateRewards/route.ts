@@ -97,7 +97,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    // fetch remaining rewards
+    // get remaining rewards
     const { data: algorithmData, error: algorithmError } = await supabase
       .from("algorithm")
       .select("remaining_rewards");

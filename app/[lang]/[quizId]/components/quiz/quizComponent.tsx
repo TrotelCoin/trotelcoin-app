@@ -92,14 +92,17 @@ const QuizComponent = ({
   };
 
   useEffect(() => {
+    const fetchQuizData = async () => {
+      const result = await loadQuizData(quizId, lang);
+
+      const { quiz, answers } = JSON.parse(result);
+
+      setQuestions(quiz);
+      setCorrectAnswers(answers);
+    };
+
     if (quizId && lang) {
-      loadQuizData(quizId, lang)
-        .then((result) => {
-          const { quiz, answers } = JSON.parse(result as string);
-          setQuestions(quiz);
-          setCorrectAnswers(answers);
-        })
-        .catch((error) => console.error(error));
+      fetchQuizData();
     }
   }, [quizId, lang]);
 

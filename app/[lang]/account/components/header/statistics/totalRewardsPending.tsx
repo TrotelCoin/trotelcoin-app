@@ -1,42 +1,16 @@
 import { DictType } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
-  const [totalRewardsPending, setTotalRewardsPending] = useState<number | null>(
-    null
-  );
-
   const address = useAddress();
 
-  useEffect(() => {
-    const fetchRewardsPending = async () => {
-      await fetch(
-        `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      )
-        .then((response) => response?.json())
-        .then((data) => {
-          setTotalRewardsPending(data);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-
-    if (address) {
-      fetchRewardsPending();
-    } else {
-      setTotalRewardsPending(0);
-    }
-  }, [address]);
+  const { data: totalRewardsPending } = useSWR(
+    `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+    fetcher
+  );
 
   return (
     <>
@@ -49,7 +23,8 @@ const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
               <span className="font-semibold">
                 {totalRewardsPending ? (
                   <span>
-                    {Math.floor(totalRewardsPending).toLocaleString("en-US")}
+                    {Math.floor(totalRewardsPending)?.toLocaleString("en-US") ??
+                      0}
                   </span>
                 ) : (
                   <span className="animate__animated animate__flash animate__slower animate__infinite">

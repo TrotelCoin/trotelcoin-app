@@ -1,4 +1,5 @@
 import { DictType, Lang } from "@/types/types";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
@@ -8,21 +9,14 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
 
   const satisfactionResult = async (number: number) => {
     if (number) {
-      try {
-        await fetch(`/api/database/postUserSatisfaction?number=${number}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
+      await axios
+        .post(`/api/database/postUserSatisfaction?number=${number}`)
+        .catch((error) => {
+          console.error(error);
         });
 
-        localStorage.setItem("satisfactionAnswered", "true");
-        setAlreadyAnsweredSatisfaction(true);
-      } catch (error) {
-        console.error(error);
-      }
+      localStorage.setItem("satisfactionAnswered", "true");
+      setAlreadyAnsweredSatisfaction(true);
     } else {
       setAlreadyAnsweredSatisfaction(false);
     }

@@ -8,6 +8,8 @@ import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
 import Status from "@/app/[lang]/wallet/components/claim/status";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const Claim = ({
   lang,
@@ -24,60 +26,31 @@ const Claim = ({
 
   const address = useAddress();
 
-  useEffect(() => {
-    const fetchAvailableToClaim = async () => {
-      try {
-        const result = await fetch(
-          `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        const data = await result.json();
-        if (data) {
-          setAvailableToClaim(data);
-        } else {
-          setAvailableToClaim(0);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { data: userTotalRewardsPendingData } = useSWR(
+    address
+      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
+      : null,
+    fetcher
+  );
 
-    if (address) {
-      fetchAvailableToClaim();
+  useEffect(() => {
+    if (userTotalRewardsPendingData) {
+      setAvailableToClaim(userTotalRewardsPendingData);
     } else {
       setAvailableToClaim(0);
     }
-  }, [availableToClaim, address]);
+  }, [userTotalRewardsPendingData]);
+
+  const { data: centralWalletAddressData } = useSWR(
+    "/api/getCentralWalletAddress",
+    fetcher
+  );
 
   useEffect(() => {
-    const fetchCentralWalletAddress = async () => {
-      try {
-        const response = await fetch("/api/getCentralWalletAddress", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        });
-
-        const data = await response.json();
-
-        setCentralWalletAddress(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchCentralWalletAddress();
-  }, []);
+    if (centralWalletAddressData) {
+      setCentralWalletAddress(centralWalletAddressData);
+    }
+  }, [centralWalletAddressData]);
 
   return (
     <>

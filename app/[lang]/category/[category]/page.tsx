@@ -1,7 +1,8 @@
 "use client";
 
 import { DictType, Lang, Lessons } from "@/types/types";
-import Link from "next/link";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import renderCourses from "@/app/[lang]/category/[category]/components/renderCourses";
@@ -39,49 +40,28 @@ const Page = ({
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
+  const { data: lessonsCompleted } = useSWR(
+    address ? `/api/database/getUserCoursesCompleted?wallet=${address}` : null,
+    fetcher
+  );
+
   useEffect(() => {
-    const fetchCoursesCompleted = async () => {
-      try {
-        const response = await fetch(
-          `/api/database/getUserCoursesCompleted?wallet=${address}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-
-        const result = await response.json();
-
-        result?.map((course: { quiz_id: number; answered: boolean }) => {
-          if (course.answered) {
-            setStatus((prev) => {
-              const newState = [...prev];
-              newState[course.quiz_id - 1] = "Finished";
-              return newState;
-            });
-          } else {
-            setStatus((prev) => {
-              const newState = [...prev];
-              newState[course.quiz_id - 1] = "Not started";
-              return newState;
-            });
-          }
+    lessonsCompleted?.map((course: { quiz_id: number; answered: boolean }) => {
+      if (course.answered) {
+        setStatus((prev) => {
+          const newState = [...prev];
+          newState[course.quiz_id - 1] = "Finished";
+          return newState;
         });
-      } catch (error) {
-        console.error(error);
+      } else {
+        setStatus((prev) => {
+          const newState = [...prev];
+          newState[course.quiz_id - 1] = "Not started";
+          return newState;
+        });
       }
-    };
-
-    if (address) {
-      fetchCoursesCompleted();
-    } else {
-      setStatus(new Array(lessonsLength(lessons)).fill("Not started"));
-    }
-  }, [address]);
+    });
+  }, [address, lessonsCompleted]);
 
   return (
     <>
