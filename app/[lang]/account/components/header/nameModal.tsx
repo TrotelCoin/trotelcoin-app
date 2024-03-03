@@ -40,14 +40,18 @@ const NameModal = ({
 
   const postName = async (name: string) => {
     setNameIsLoading(true);
-    if (name === "") {
+    if (name === "" || name.length < 1) {
       setNameError(lang === "en" ? "Name is required." : "Le nom est requis.");
+      setNameIsLoading(false);
+      return;
     }
 
     if (!address) {
       setNameError(
         lang === "en" ? "Something went wrong." : "Une erreur est survenue."
       );
+      setNameIsLoading(false);
+      return;
     }
 
     if (nameError === null) {
