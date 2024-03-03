@@ -66,6 +66,37 @@ const lessons: Lessons[] = [
         quizId: 2,
         available: true,
       },
+      {
+        title: {
+          en: "Stake your TrotelCoins",
+          fr: "Stakez vos TrotelCoins",
+        },
+        description: {
+          en: "Learn how to stake your TrotelCoins to earn more.",
+          fr: "Apprenez comment stakez vos TrotelCoins pour gagner plus.",
+        },
+        one: {
+          en: "Understand what is TrotelCoin's staking.",
+          fr: "Comprenez ce que le staking de TrotelCoin.",
+        },
+        two: {
+          en: "Be aware that staking TrotelCoins increase your voting power.",
+          fr: "Sachez que le fait de staker des TrotelCoins augmente votre pouvoir de vote.",
+        },
+        three: {
+          en: "Understand how staking TrotelCoins benefits to the ecosystem.",
+          fr: "Comprenez comment le staking de TrotelCoins profite à l'écosystème.",
+        },
+        href: "/trotelcoin/stake-your-trotelcoins",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 16,
+        available: true,
+      },
     ],
   },
   {
