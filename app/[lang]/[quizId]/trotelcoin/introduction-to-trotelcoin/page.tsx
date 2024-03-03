@@ -446,7 +446,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 Polygon explorer
               </Link>
@@ -462,7 +462,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <Link
                 href="https://vote.trotelcoin.com"
                 target="_blank"
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 vote.trotelcoin.com
               </Link>
@@ -476,7 +476,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <Link
                 href="https://polygonscan.com/token/0x85057d5a8d063f9075ba963101d76352051675e5"
                 target="_blank"
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 explorateur Polygon
               </Link>
@@ -490,7 +490,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <Link
                 href="https://vote.trotelcoin.com"
                 target="_blank"
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 vote.trotelcoin.com
               </Link>

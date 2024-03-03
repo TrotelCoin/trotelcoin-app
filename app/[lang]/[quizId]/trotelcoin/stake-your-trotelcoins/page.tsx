@@ -256,7 +256,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               Ensuite, vous pouvez staker vos TrotelCoins. Pour ce faire, vous
               devez vous rendre sur la page{" "}
-              <Link href={`/${lang}/wallet?category=staking`}>Wallet</Link> dans la section
+              <Link className="text-blue-500 hover:text-blue-400" href={`/${lang}/wallet?category=staking`}>Wallet</Link> dans la section
               staking.
               <Image
                 className="my-4"

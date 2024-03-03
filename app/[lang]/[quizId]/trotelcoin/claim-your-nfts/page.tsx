@@ -88,7 +88,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               look at the documentation. For that, click on this link:{" "}
               <Link
                 href="https://docs.trotelcoin.com/overview/tokenomics"
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 docs.trotelcoin.com/overview/tokenomics
               </Link>
@@ -125,7 +125,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               cliquez sur ce lien :{" "}
               <Link
                 href="https://docs.trotelcoin.com/overview/tokenomics"
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 docs.trotelcoin.com/overview/tokenomics
               </Link>
@@ -154,7 +154,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               following link:{" "}
               <Link
                 href={`/${lang}/shop?category=ranks`}
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 app.trotelcoin.com/shop
               </Link>
@@ -186,12 +186,14 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </span>
               .
               {isCopied && (
-                <p className="mt-2 text-green-500 dark:text-green-300">
-                  Address has been copied.
-                </p>
+                <p className="my-2 text-green-500">Address has been copied.</p>
               )}
-              <br />
-              <br />
+              {!isCopied && (
+                <>
+                  <br />
+                  <br />
+                </>
+              )}
               Then, on the NFTs claim page, you just have to check if you have
               the required number of TrotelCoins and click on the button to
               claim your NFTs.
@@ -218,7 +220,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               NFTs en cliquant sur le lien suivant :{" "}
               <Link
                 href={`/${lang}/shop?category=ranks`}
-                className="text-blue-500 dark:text-blue-300"
+                className="text-blue-500 hover:text-blue-400"
               >
                 app.trotelcoin.com/shop
               </Link>
