@@ -17,7 +17,7 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { usePathname } from "next/navigation";
 import Success from "@/app/[lang]/components/modals/success";
 import CountUp from "react-countup";
-import axios from "axios";
+import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
 const CoursePage = ({
@@ -48,23 +48,16 @@ const CoursePage = ({
     fetchDictionary();
   }, [lang]);
 
-  const fetcherNumberOfAnswers = (url: string) => {
-    axios
-      .get(`/api/database/getCourseNumberOfAnswers?quizId=${quizId}`)
-      .then((response) => response.data)
-      .catch((error) => console.error(error));
-  };
-
   const { data: numberOfAnswers } = useSWR(
-    `/api/database/getCourseNumberOfAnswers?quizId=${quizId}`,
-    fetcherNumberOfAnswers
+    quizId ? `/api/database/getCourseNumberOfAnswers?quizId=${quizId}` : null,
+    fetcher
   );
 
   useEffect(() => {
     if (numberOfAnswers) {
       setAnswered(numberOfAnswers);
     }
-  }, []);
+  }, [numberOfAnswers]);
 
   const foundTier = getTierByQuizId(quizId, lessons);
   const foundAvailability = getAvailabilityByQuizId(quizId, lessons);
