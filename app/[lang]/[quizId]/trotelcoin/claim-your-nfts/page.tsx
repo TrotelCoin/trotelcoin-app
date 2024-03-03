@@ -88,7 +88,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               look at the documentation. For that, click on this link:{" "}
               <Link
                 href="https://docs.trotelcoin.com/overview/tokenomics"
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
               >
                 docs.trotelcoin.com/overview/tokenomics
               </Link>
@@ -125,7 +125,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               cliquez sur ce lien :{" "}
               <Link
                 href="https://docs.trotelcoin.com/overview/tokenomics"
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
               >
                 docs.trotelcoin.com/overview/tokenomics
               </Link>
@@ -154,7 +154,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               following link:{" "}
               <Link
                 href={`/${lang}/shop?category=ranks`}
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
               >
                 app.trotelcoin.com/shop
               </Link>
@@ -220,7 +220,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               NFTs en cliquant sur le lien suivant :{" "}
               <Link
                 href={`/${lang}/shop?category=ranks`}
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
               >
                 app.trotelcoin.com/shop
               </Link>

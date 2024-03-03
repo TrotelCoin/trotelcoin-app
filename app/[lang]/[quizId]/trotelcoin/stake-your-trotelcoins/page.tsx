@@ -193,8 +193,14 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               <br />
               Then, you can stake your TrotelCoins. To do that, you need to go
-              to the <Link href={`/${lang}/wallet?category=staking`}>Wallet</Link> page in the
-              staking section.
+              to the{" "}
+              <Link
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
+                href={`/${lang}/wallet?category=staking`}
+              >
+                Wallet
+              </Link>{" "}
+              page in the staking section.
               <Image
                 className="my-4"
                 width={1400}
@@ -245,7 +251,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               More informations about gas fees in another course but in the
               meantime you can learn it in the vocabulary section in the{" "}
-              <Link href={`/${lang}/learn?category=vocabulary`}>Learn</Link> page.
+              <Link
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
+                href={`/${lang}/learn?category=vocabulary`}
+              >
+                Learn
+              </Link>{" "}
+              page.
             </>
           ) : (
             <>
@@ -256,8 +268,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               Ensuite, vous pouvez staker vos TrotelCoins. Pour ce faire, vous
               devez vous rendre sur la page{" "}
-              <Link className="text-blue-500 hover:text-blue-400" href={`/${lang}/wallet?category=staking`}>Wallet</Link> dans la section
-              staking.
+              <Link
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
+                href={`/${lang}/wallet?category=staking`}
+              >
+                Wallet
+              </Link>{" "}
+              dans la section staking.
               <Image
                 className="my-4"
                 width={1400}
@@ -310,7 +327,14 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <br />
               Plus d'informations sur les frais de gaz dans un autre cours mais
               en attendant vous pouvez l'apprendre dans la section vocabulaire
-              dans la page <Link href={`/${lang}/learn?category=vocabulary`}>Learn</Link>.
+              dans la page{" "}
+              <Link
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
+                href={`/${lang}/learn?category=vocabulary`}
+              >
+                Learn
+              </Link>
+              .
             </>
           )}
         </p>
