@@ -55,14 +55,19 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    if (usernameData === null) {
+    if (
+      (!usernameData ||
+        usernameData === "undefined" ||
+        usernameData === null) &&
+      address
+    ) {
       setUsername(shortenAddress(address as Address));
       localStorage.setItem("username", shortenAddress(address as Address));
     } else {
-      setUsername(usernameData);
+      setUsername(usernameData as string);
       localStorage.setItem("username", usernameData as string);
     }
-  }, [usernameData]);
+  }, [usernameData, address]);
 
   const contextValue = useMemo(
     () => ({
