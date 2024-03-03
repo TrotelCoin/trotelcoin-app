@@ -3,17 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const { data: result, error } = await supabase
+    const { count, error } = await supabase
       .from("learners")
-      .select("count");
+      .select("*", { count: "exact", head: true });
 
     if (error) {
       console.error(error);
       return NextResponse.json(0, { status: 500 });
     }
 
-    if (result[0] && "count" in result[0]) {
-      return NextResponse.json(result[0].count, {
+    if (count) {
+      return NextResponse.json(count, {
         status: 200,
         headers: { "Cache-Control": "no-store" },
       });
