@@ -3,10 +3,10 @@ import React from "react";
 
 const Form = ({
   dict,
-  handleSearch,
+  setSearchTerm,
 }: {
   dict: DictType;
-  handleSearch: (e: { target: { value: string } }) => void;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   return (
     <>
@@ -28,7 +28,7 @@ const Form = ({
                 ? dict?.home.search
                 : "What do you want to learn?"
             }
-            onChange={handleSearch}
+            onChange={(e) => setSearchTerm(e.target.value)}
             style={{ appearance: "none" }}
           />
         </div>

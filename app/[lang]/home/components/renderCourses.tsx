@@ -1,7 +1,6 @@
 import { Lesson, Lang, DictType } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";
-import { useState } from "react";
 
 const renderCourses = (
   course: Lesson,
@@ -14,8 +13,6 @@ const renderCourses = (
   index: number,
   category: string
 ) => {
-  const [isHovering, setIsHovering] = useState(false);
-
   let tier = "";
   let title = "";
   let description = "";

@@ -12,6 +12,7 @@ import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStre
 import { useContext, useState } from "react";
 import NameModal from "@/app/[lang]/account/components/header/nameModal";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import Tilt from "react-parallax-tilt";
 import "animate.css";
 
 const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
@@ -60,13 +61,45 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
 
         <Rank dict={dict as DictType} />
 
-        <Balance dict={dict as DictType} />
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.15}
+          perspective={800}
+        >
+          <Balance dict={dict as DictType} />
+        </Tilt>
 
-        <NumberOfQuizzesAnswered dict={dict as DictType} />
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.15}
+          perspective={800}
+        >
+          <NumberOfQuizzesAnswered dict={dict as DictType} />
+        </Tilt>
 
-        <TotalRewardsPending dict={dict as DictType} />
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.15}
+          perspective={800}
+        >
+          <TotalRewardsPending dict={dict as DictType} />
+        </Tilt>
 
-        <MaxStreak lang={lang} />
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.15}
+          perspective={800}
+        >
+          <MaxStreak lang={lang} />
+        </Tilt>
       </div>
       <NameModal
         lang={lang}
