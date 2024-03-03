@@ -23,6 +23,7 @@ const Claim = ({
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
+  const [claimed, setClaimed] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -64,6 +65,7 @@ const Claim = ({
             <AvailableToClaim
               lang={lang}
               availableToClaim={availableToClaim as number}
+              claimed={claimed as boolean}
             />
           </div>
           <div>
@@ -79,6 +81,7 @@ const Claim = ({
             lang={lang}
             chainError={chainError}
             setChainError={setChainError}
+            setClaimed={setClaimed}
           />
         </div>
       </div>

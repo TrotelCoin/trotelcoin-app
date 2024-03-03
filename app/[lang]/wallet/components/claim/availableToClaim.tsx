@@ -1,22 +1,23 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const AvailableToClaim = ({
   lang,
   availableToClaim,
+  claimed,
 }: {
   lang: Lang;
   availableToClaim: number;
+  claimed: boolean;
 }) => {
   return (
     <>
       <div className="flex justify-between">
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
-          {availableToClaim && typeof availableToClaim === "number"
+          {availableToClaim && !claimed && typeof availableToClaim === "number"
             ? availableToClaim.toFixed(2).toLocaleString()
             : "0"}{" "}
           <span className="font-semibold">TROTEL</span>
