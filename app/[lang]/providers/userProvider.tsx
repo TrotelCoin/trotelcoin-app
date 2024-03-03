@@ -61,14 +61,27 @@ const UserProvider = ({
     fetcher
   );
 
+  const nameError = (name: string) => {
+    if (name) {
+      if (name.length > 25) {
+        return true;
+      } else if (name.length < 3) {
+        return true;
+      } else if (
+        name === null ||
+        name === "null" ||
+        name === "undefined" ||
+        name === ""
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
   useEffect(() => {
-    if (
-      (!usernameData ||
-        usernameData === "undefined" ||
-        usernameData === null ||
-        errorName) &&
-      address
-    ) {
+    if ((!usernameData || nameError(usernameData)) && address) {
       setUsername(shortenAddress(address as Address));
       localStorage.setItem("username", shortenAddress(address as Address));
     } else if (usernameData) {
