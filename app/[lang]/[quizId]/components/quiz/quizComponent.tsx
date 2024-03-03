@@ -240,15 +240,19 @@ const QuizComponent = ({
             : `${
                 dict && typeof dict.quiz !== "string" && dict?.quiz.incorrect
               } ${wrongAnswers.join(", ")}.`}
-          {!isCorrect && life >= 0 && life <= 3 && (
-            <span className="text-red-500 dark:text-red-300">
-              {lang === "en" ? (
-                <>You have {life} left.</>
-              ) : (
-                <>Il vous reste {life} vies restantes.</>
-              )}
-            </span>
-          )}
+          {!isCorrect &&
+            life >= 0 &&
+            life <= 3 &&
+            !isIntermediate &&
+            !isExpert && (
+              <span className="text-red-500 dark:text-red-300">
+                {lang === "en" ? (
+                  <>You have {life} lives left.</>
+                ) : (
+                  <>Il vous reste {life} vies restantes.</>
+                )}
+              </span>
+            )}
         </div>
       )}
     </>

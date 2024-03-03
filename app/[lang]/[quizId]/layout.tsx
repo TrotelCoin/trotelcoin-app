@@ -167,7 +167,7 @@ const CoursePage = ({
           show={copied}
           onClose={() => setCopied(false)}
           lang={lang}
-          title={lang === "en" ? "Share" : "Partage"}
+          title={lang === "en" ? "Share" : "Partagez"}
           message={
             lang === "en"
               ? "The address has been copied, you can now share the URL."
