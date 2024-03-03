@@ -8,10 +8,14 @@ import Staking from "@/app/[lang]/wallet/components/staking";
 import Send from "@/app/[lang]/wallet/components/send";
 import { useChain } from "@thirdweb-dev/react";
 import { polygon } from "viem/chains";
+import { useSearchParams } from "next/navigation";
 
 type ActiveComponent = "claim" | "staking" | "send";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
+  const searchParams = useSearchParams();
+  const category = searchParams?.get("category");
+
   const [dict, setDict] = useState<DictType | null>(null);
   const [component, setComponent] = useState<ActiveComponent>("claim");
   const [chainError, setChainError] = useState<boolean>(false);
@@ -34,6 +38,14 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     fetchDictionary();
   }, [lang]);
+
+  useEffect(() => {
+    if (category) {
+      setComponent(category as ActiveComponent);
+    } else {
+      setComponent("claim");
+    }
+  }, [category]);
 
   return (
     <>

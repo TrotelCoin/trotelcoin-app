@@ -35,7 +35,7 @@ const LifeMobile = ({
         </div>
         <div className="flex justify-center items-center gap-4 p-4">
           <Link
-            href={`/${lang}/shop`}
+            href={`/${lang}/shop?category=ranks`}
             onClick={() => setMobileMenuOpen(false)}
             className="w-full"
           >

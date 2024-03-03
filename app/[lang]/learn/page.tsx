@@ -5,10 +5,16 @@ import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
 import { Lang, DictType } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import Vocabulary from "@/app/[lang]/learn/components/vocabulary";
+import { useSearchParams } from "next/navigation";
+
+type ActiveComponent = "learn" | "vocabulary";
 
 const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
+  const searchParams = useSearchParams();
+  const category = searchParams?.get("category");
+
   const [dict, setDict] = useState<DictType | null>(null);
-  const [component, setComponent] = useState<"learn" | "vocabulary">("learn");
+  const [component, setComponent] = useState<ActiveComponent>("learn");
 
   useEffect(() => {
     const fetchDictionary = async () => {
@@ -18,6 +24,16 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     fetchDictionary();
   }, [lang]);
+
+  useEffect(() => {
+    if (category) {
+      setComponent(category as ActiveComponent);
+    } else {
+      setComponent("learn");
+    }
+  }, [category]);
+
+  if (!dict) return null;
 
   return (
     <>
