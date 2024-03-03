@@ -10,6 +10,7 @@ import NumberOfLearners from "@/app/[lang]/statistics/components/statistics/numb
 import Expert from "@/app/[lang]/statistics/components/statistics/expert";
 import Intermediate from "@/app/[lang]/statistics/components/statistics/intermediate";
 import Early from "@/app/[lang]/statistics/components/statistics/early";
+import Tilt from "react-parallax-tilt";
 
 const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   return (
@@ -19,25 +20,105 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           {lang === "en" ? "Statistics" : "Statistiques"}
         </h2>
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
-          <TrotelCoinsDistributed dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <TrotelCoinsDistributed dict={dict} />
+          </Tilt>
 
-          <TrotelCoinsPending dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <TrotelCoinsPending dict={dict} />
+          </Tilt>
 
-          <NumberOfQuizzesAnswered dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <NumberOfQuizzesAnswered dict={dict} />
+          </Tilt>
 
-          <RemainingRewards dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <RemainingRewards dict={dict} />
+          </Tilt>
 
-          <EstimatedRewards dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <EstimatedRewards dict={dict} />
+          </Tilt>
 
-          <MaxStreak dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <MaxStreak dict={dict} />
+          </Tilt>
 
-          <NumberOfLearners dict={dict} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <NumberOfLearners dict={dict} />
+          </Tilt>
 
-          <Early dict={dict} lang={lang} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <Early dict={dict} lang={lang} />
+          </Tilt>
 
-          <Intermediate dict={dict} lang={lang} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <Intermediate dict={dict} lang={lang} />
+          </Tilt>
 
-          <Expert dict={dict} lang={lang} />
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <Expert dict={dict} lang={lang} />
+          </Tilt>
         </div>
       </div>
     </>
