@@ -16,7 +16,7 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState<string>("");
   const [dict, setDict] = useState<DictType | null>(null);
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
@@ -30,10 +30,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
     fetchDictionary();
   }, [lang]);
-
-  const handleSearch = (e: { target: { value: string } }) => {
-    setSearchTerm(e.target.value.toLowerCase());
-  };
 
   const filterLessons = (lesson: Lessons) => {
     const categoryMatch = filterByCategory(lesson, searchTerm);
@@ -91,7 +87,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   return (
     <>
       <>
-        <Form dict={dict as DictType} handleSearch={handleSearch} />
+        <Form dict={dict as DictType} setSearchTerm={setSearchTerm} />
         <div className="flex flex-col">
           {filteredLessons.map((lesson, index) => (
             <div className="my-10" key={index}>

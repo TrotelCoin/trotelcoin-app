@@ -65,12 +65,10 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       </div>
       {component === "learn" && (
         <div className="mt-8">
-          <ComingSoon lang={lang} dict={dict as DictType} />
+          <ComingSoon lang={lang} dict={dict} />
         </div>
       )}
-      {component === "vocabulary" && (
-        <Vocabulary lang={lang} dict={dict as DictType} />
-      )}
+      {component === "vocabulary" && <Vocabulary lang={lang} dict={dict} />}
     </>
   );
 };
