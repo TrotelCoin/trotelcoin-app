@@ -22,7 +22,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (data.length > 0) {
       return NextResponse.json(
         { answered: "You have already answered this." },
-        { status: 200, headers: { "Cache-Control": "no-store" } }
+        { status: 200 }
       );
     } else {
       return NextResponse.json(
