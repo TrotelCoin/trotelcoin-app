@@ -8,8 +8,15 @@ import { Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+import { Lang } from "@/types/types";
 
-const UserProvider = ({ children }: { children: ReactNode }) => {
+const UserProvider = ({
+  children,
+  lang,
+}: {
+  children: ReactNode;
+  lang: Lang;
+}) => {
   const [userTotalRewardsPending, setUserTotalRewardsPending] =
     useState<number>(0);
   const [userNumberOfQuizzesAnswered, setUserNumberOfQuizzesAnswered] =
@@ -49,23 +56,40 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userNumberOfQuizzesAnsweredData]);
 
-  const { data: usernameData } = useSWR(
+  const { data: usernameData, error: errorName } = useSWR(
     address ? `/api/database/getUsername?wallet=${address}` : null,
     fetcher
   );
 
+  const nameError = (name: string) => {
+    if (name) {
+      if (name.length > 25) {
+        return true;
+      } else if (name.length < 3) {
+        return true;
+      } else if (
+        name === null ||
+        name === "null" ||
+        name === "undefined" ||
+        name === ""
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
   useEffect(() => {
-    if (
-      (!usernameData ||
-        usernameData === "undefined" ||
-        usernameData === null) &&
-      address
-    ) {
+    if ((!usernameData || nameError(usernameData)) && address) {
       setUsername(shortenAddress(address as Address));
       localStorage.setItem("username", shortenAddress(address as Address));
-    } else {
+    } else if (usernameData) {
       setUsername(usernameData as string);
       localStorage.setItem("username", usernameData as string);
+    } else {
+      setUsername(lang === "en" ? "Guest" : "Invité");
+      localStorage.removeItem("username");
     }
   }, [usernameData, address]);
 

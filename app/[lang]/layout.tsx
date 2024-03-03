@@ -131,7 +131,7 @@ export default function Layout({
                 />
                 <Suspense fallback={<Loading lang={lang} />}>
                   <DictionaryProvider lang={lang}>
-                    <UserProvider>
+                    <UserProvider lang={lang}>
                       <LifeProvider>
                         <StreakProvider>
                           <PremiumProvider>
