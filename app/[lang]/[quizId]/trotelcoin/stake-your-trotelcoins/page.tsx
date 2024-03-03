@@ -195,7 +195,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Then, you can stake your TrotelCoins. To do that, you need to go
               to the{" "}
               <Link
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
                 href={`/${lang}/wallet?category=staking`}
               >
                 Wallet
@@ -252,7 +252,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               More informations about gas fees in another course but in the
               meantime you can learn it in the vocabulary section in the{" "}
               <Link
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
                 href={`/${lang}/learn?category=vocabulary`}
               >
                 Learn
@@ -269,7 +269,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Ensuite, vous pouvez staker vos TrotelCoins. Pour ce faire, vous
               devez vous rendre sur la page{" "}
               <Link
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
                 href={`/${lang}/wallet?category=staking`}
               >
                 Wallet
@@ -329,7 +329,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               en attendant vous pouvez l'apprendre dans la section vocabulaire
               dans la page{" "}
               <Link
-                className="text-blue-500 hover:text-blue-400"
+                className="text-blue-500 hover:text-blue-400 dark:text-blue-300"
                 href={`/${lang}/learn?category=vocabulary`}
               >
                 Learn
