@@ -8,6 +8,7 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 import LevelSection from "@/app/[lang]/account/components/level";
 import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";
+import axios from "axios";
 
 export default function Account({
   params: { lang },
@@ -30,18 +31,11 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = async () => {
-      try {
-        await fetch(`/api/database/postNewLearner?wallet=${address}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
+      await axios
+        .post(`/api/database/postNewLearner?wallet=${address}`)
+        .catch((error) => {
+          console.error(error);
         });
-      } catch (error) {
-        console.error(error);
-      }
     };
 
     if (address) {

@@ -12,6 +12,9 @@ import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
 import { polygon } from "viem/chains";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
+import axios from "axios";
 
 const RewardsButton = ({
   lang,
@@ -42,115 +45,80 @@ const RewardsButton = ({
     }
   }, [isError]);
 
-  useEffect(() => {
-    const fetchAvailableToClaim = async () => {
-      try {
-        const result = await fetch(
-          `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        const data = await result.json();
-        setAvailableToClaim(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { data: userTotalRewardsPendingData } = useSWR(
+    address
+      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
+      : null,
+    fetcher
+  );
 
-    if (address) {
-      fetchAvailableToClaim();
+  useEffect(() => {
+    if (userTotalRewardsPendingData) {
+      setAvailableToClaim(userTotalRewardsPendingData);
     } else {
       setAvailableToClaim(0);
     }
-  }, [availableToClaim, address]);
+  }, [userTotalRewardsPendingData]);
 
   const fetchRewards = async () => {
     setIsLoading(true);
-    try {
-      if (!address) {
-        setNoAddressMessage(true);
+
+    if (!address) {
+      setNoAddressMessage(true);
+      setIsLoading(false);
+      return;
+    }
+
+    if (availableToClaim && availableToClaim > 0) {
+      const gasAmount: string = "0.02";
+
+      // make transaction to pay central wallet
+      try {
+        await mutateAsync({
+          to: centralWalletAddress,
+          amount: gasAmount,
+        });
+      } catch (error) {
+        console.error(error);
+        setErrorMessage(true);
         setIsLoading(false);
         return;
       }
 
-      if (availableToClaim && availableToClaim > 0) {
-        const gasAmount: string = "0.02";
+      setAvailableToClaim(0);
 
-        // make transaction to pay central wallet
-        try {
-          await mutateAsync({
-            to: centralWalletAddress,
-            amount: gasAmount,
-          });
-        } catch (error) {
+      // make minting transaction
+      await axios
+        .post(
+          `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
+        )
+        .catch((error) => {
           console.error(error);
           setErrorMessage(true);
           setIsLoading(false);
-          return;
-        }
+        });
 
-        setAvailableToClaim(0);
-
-        // make minting transaction
-        try {
-          await fetch(
-            `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              cache: "no-store",
-            }
-          );
-        } catch (error) {
-          console.error(error);
-          setErrorMessage(true);
-          setIsLoading(false);
-          return;
-        }
-
-        // reset database pending rewards
-        try {
-          const reset = await fetch(
-            `/api/database/postResetRewardsPending?wallet=${address}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Cache-Control": "no-store",
-              },
-              cache: "no-store",
-            }
-          );
-          const data = await reset.json();
-
-          if (!data.success) {
+      // reset database pending rewards
+      await axios
+        .post(`/api/database/postResetRewardsPending?wallet=${address}`)
+        .then((response) => {
+          if (!response.data.success) {
             setErrorMessage(true);
+            setIsLoading(false);
             return;
           }
-        } catch (error) {
+        })
+        .catch((error) => {
           console.error(error);
           setErrorMessage(true);
           setIsLoading(false);
-          return;
-        }
+        });
 
-        setSuccessMessage(true);
-        setIsLoading(false);
-      } else {
-        setNothingToClaimMessage(true);
-        setIsLoading(false);
-      }
-    } catch (error) {
+      setSuccessMessage(true);
       setIsLoading(false);
-      return;
+    } else {
+      setNothingToClaimMessage(true);
+      setIsLoading(false);
     }
   };
 

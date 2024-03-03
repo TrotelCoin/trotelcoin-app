@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { mainnet, useEnsName } from "wagmi";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);
@@ -11,11 +13,16 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
     number | null
   >(null);
   const [streak, setStreak] = useState<number | null>(null);
-  const [isLoadingUserLeaderboard, setIsLoadingUserLeaderboard] =
-    useState<boolean>(true);
   const [ensName, setEnsName] = useState<string | null>(null);
 
   const address = useAddress();
+
+  const { data: userLeaderboard, isLoading: isLoadingUserLeaderboard } = useSWR(
+    address
+      ? `/api/database/getUserLeaderboard?wallet=${address as Address}`
+      : null,
+    fetcher
+  );
 
   const { data: result } = useEnsName({
     address: address as Address,
@@ -32,44 +39,16 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   }, [result]);
 
   useEffect(() => {
-    const fetchUserLeaderboard = async () => {
-      setIsLoadingUserLeaderboard(true);
-      const userLeaderboard = await fetch(
-        `/api/database/getUserLeaderboard?wallet=${address as Address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      )
-        .then((response) => response.json())
-        .catch((error) => {
-          console.error(error);
-        });
-
-      if (userLeaderboard) {
-        setPosition(userLeaderboard.position);
-        setNumberOfQuizzesAnswered(userLeaderboard.numberOfQuizzesAnswered);
-        setStreak(userLeaderboard.streak);
-      } else {
-        setPosition(null);
-        setNumberOfQuizzesAnswered(null);
-        setStreak(null);
-      }
-      setIsLoadingUserLeaderboard(false);
-    };
-
-    if (address) {
-      fetchUserLeaderboard();
+    if (userLeaderboard) {
+      setPosition(userLeaderboard.position);
+      setNumberOfQuizzesAnswered(userLeaderboard.numberOfQuizzesAnswered);
+      setStreak(userLeaderboard.streak);
     } else {
       setPosition(null);
       setNumberOfQuizzesAnswered(null);
       setStreak(null);
     }
-  }, [address]);
+  }, [address, userLeaderboard]);
 
   return (
     <>

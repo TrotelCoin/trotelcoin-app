@@ -17,6 +17,8 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { usePathname } from "next/navigation";
 import Success from "@/app/[lang]/components/modals/success";
 import CountUp from "react-countup";
+import axios from "axios";
+import useSWR from "swr";
 
 const CoursePage = ({
   params: { lang, quizId },
@@ -46,26 +48,22 @@ const CoursePage = ({
     fetchDictionary();
   }, [lang]);
 
-  useEffect(() => {
-    const fetchNumberOfAnswers = async () => {
-      await fetch(`/api/database/getCourseNumberOfAnswers?quizId=${quizId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setAnswered(data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    };
+  const fetcherNumberOfAnswers = (url: string) => {
+    axios
+      .get(`/api/database/getCourseNumberOfAnswers?quizId=${quizId}`)
+      .then((response) => response.data)
+      .catch((error) => console.error(error));
+  };
 
-    fetchNumberOfAnswers();
+  const { data: numberOfAnswers } = useSWR(
+    `/api/database/getCourseNumberOfAnswers?quizId=${quizId}`,
+    fetcherNumberOfAnswers
+  );
+
+  useEffect(() => {
+    if (numberOfAnswers) {
+      setAnswered(numberOfAnswers);
+    }
   }, []);
 
   const foundTier = getTierByQuizId(quizId, lessons);

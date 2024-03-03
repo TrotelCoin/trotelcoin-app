@@ -1,38 +1,13 @@
 import { DictType } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const TrotelCoinsPending = ({ dict }: { dict: DictType }) => {
-  const [trotelCoinsPending, setTrotelCoinsPending] = useState<number | null>(
-    null
+  const { data: trotelCoinsPending } = useSWR(
+    "/api/database/getTotalTrotelCoinsPending",
+    fetcher
   );
-
-  useEffect(() => {
-    const fetchTrotelCoinsPending = async () => {
-      try {
-        const response = await fetch(
-          "/api/database/getTotalTrotelCoinsPending",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        const trotelCoinsPending = await response?.json();
-        if (trotelCoinsPending) {
-          setTrotelCoinsPending(trotelCoinsPending);
-        } else {
-          setTrotelCoinsPending(0);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchTrotelCoinsPending();
-  }, []);
 
   return (
     <>

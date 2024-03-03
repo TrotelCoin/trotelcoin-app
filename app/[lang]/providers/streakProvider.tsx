@@ -5,6 +5,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import type { ReactNode } from "react";
 import { Address } from "viem";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
+import axios from "axios";
 
 const StreakProvider = ({ children }: { children: ReactNode }) => {
   const [streak, setStreak] = useState<number>(0);
@@ -16,46 +19,23 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
 
   const address = useAddress();
 
-  useEffect(() => {
-    const fetchStreak = async () => {
-      try {
-        const result = await fetch(
-          `/api/database/getUserStreak?wallet=${address}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
-          }
-        );
-        const data = await result.json();
-        if (Number(data.currentStreak)) {
-          setStreak(data.currentStreak);
-        } else {
-          setStreak(0);
-        }
-        setLastUpdatedStreak(data.lastUpdated);
-        setDisabled(data.disabled);
-      } catch (error) {
-        console.error(error);
-        setStreak(0);
-        setMaxStreak(0);
-        setCooldown("00:00:00");
-        setDisabled(true);
-      }
-    };
+  const { data: userStreak } = useSWR(
+    address ? `/api/database/getUserStreak?wallet=${address}` : null,
+    fetcher
+  );
 
-    if (address) {
-      fetchStreak();
+  useEffect(() => {
+    if (userStreak) {
+      setStreak(userStreak.currentStreak);
+      setLastUpdatedStreak(userStreak.lastUpdated);
+      setDisabled(userStreak.disabled);
     } else {
       setStreak(0);
       setMaxStreak(0);
       setCooldown("00:00:00");
       setDisabled(true);
     }
-  }, [address]);
+  }, [userStreak]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -80,58 +60,38 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     return () => clearInterval(interval);
   }, [lastUpdatedStreak, disabled, address]);
 
-  useEffect(() => {
-    const fetchMaxStreak = async () => {
-      const result = await fetch(
-        `/api/database/getUserMaxStreak?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const data = await result.json();
-      setMaxStreak(data);
-    };
+  const { data: userMaxStreak } = useSWR(
+    address ? `/api/database/getUserMaxStreak?wallet=${address}` : null,
+    fetcher
+  );
 
-    if (address) {
-      fetchMaxStreak();
+  useEffect(() => {
+    if (userMaxStreak) {
+      setMaxStreak(userMaxStreak);
     } else {
       setMaxStreak(0);
     }
-  }, [address]);
+  }, [userMaxStreak]);
 
   const updateStreak = async (address: Address) => {
     setIsStreakLoading(true);
-    const result = await fetch(
-      `/api/database/postUpdateStreak?wallet=${address}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      }
-    );
-    // if success from response is true, then setStreak to streak + 1
-    const data = await result.json();
-    if (data.success === "Streak updated.") {
-      setStreak((streak: number) => streak + 1);
-      setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
-      setLastUpdatedStreak(new Date().toISOString());
-      setDisabled(true);
-      setIsStreakLoading(false);
-    } else {
-      setStreak(0);
-      setMaxStreak(0);
-      setDisabled(false);
-      setCooldown("00:00:00");
-      setIsStreakLoading(false);
-    }
+    await axios
+      .post(`/api/database/postUpdateStreak?wallet=${address}`)
+      .then((response) => {
+        setStreak((streak: number) => streak + 1);
+        setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
+        setLastUpdatedStreak(new Date().toISOString());
+        setDisabled(true);
+        setIsStreakLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setStreak(0);
+        setMaxStreak(0);
+        setDisabled(false);
+        setCooldown("00:00:00");
+        setIsStreakLoading(false);
+      });
   };
 
   const contextValue = useMemo(

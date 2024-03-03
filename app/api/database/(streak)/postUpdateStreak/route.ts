@@ -105,7 +105,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    // fetch the current streak
+    // get the current streak
     const { data: currentStreak, error: currentStreakError } = await supabase
       .from("streak")
       .select("current_streak")

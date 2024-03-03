@@ -1,48 +1,26 @@
 import { Lang, LeaderboardItem } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { fetchEnsName, mainnet } from "@wagmi/core";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
   const [leaderboard, setLeaderboard] = useState<LeaderboardItem[] | null>(
     null
   );
 
-  const [isLoadingLeaderboard, setIsLoadingLeaderboard] =
-    useState<boolean>(true);
-
-  const address = useAddress();
+  const { data: leaderboardData, isLoading: isLoadingLeaderboard } = useSWR(
+    `/api/database/getLeaderboard`,
+    fetcher
+  );
 
   useEffect(() => {
-    const fetchLeaderboard = async () => {
-      setIsLoadingLeaderboard(true);
-
-      try {
-        const leaderboard = await fetch(`/api/database/getLeaderboard`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }).then((response) => response.json());
-
-        if (leaderboard) {
-          setLeaderboard(leaderboard.updatedLeaderboard);
-        } else {
-          setLeaderboard(null);
-        }
-        setIsLoadingLeaderboard(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoadingLeaderboard(false);
-      }
-    };
-
-    fetchLeaderboard();
-  }, [address]);
+    if (leaderboardData) {
+      setLeaderboard(leaderboardData.updatedLeaderboard);
+    }
+  }, [leaderboardData]);
 
   useEffect(() => {
     const fetchEns = async (address: Address) => {

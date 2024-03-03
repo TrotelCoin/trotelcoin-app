@@ -15,6 +15,7 @@ import { DictType, Lang } from "@/types/types";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
+import axios from "axios";
 
 const holdingRequirements: number = 50000;
 
@@ -99,18 +100,12 @@ const Expert = ({ lang }: { lang: Lang }) => {
       setIsClaimedMessage(true);
 
       const postClaimExpert = async () => {
-        try {
-          await fetch(`/api/database/claimExpert?wallet=${address}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Cache-Control": "no-store",
-            },
-            cache: "no-store",
+        await axios
+          .post(`/api/database/claimExpert?wallet=${address}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
           });
-        } catch (error) {
-          console.error(error);
-        }
       };
 
       postClaimExpert();

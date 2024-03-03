@@ -1,33 +1,13 @@
 import { DictType } from "@/types/types";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const MaxStreak = ({ dict }: { dict: DictType }) => {
-  const [maxStreak, setMaxStreak] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchMaxStreak = async () => {
-      try {
-        const response = await fetch("/api/database/getTotalMaxStreak", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        });
-        const maxStreak = await response?.json();
-        if (maxStreak) {
-          setMaxStreak(maxStreak);
-        } else {
-          setMaxStreak(0);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchMaxStreak();
-  }, []);
+  const { data: maxStreak } = useSWR(
+    "/api/database/getTotalMaxStreak",
+    fetcher
+  );
 
   return (
     <>

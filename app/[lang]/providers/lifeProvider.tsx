@@ -4,6 +4,9 @@ import { useAddress } from "@thirdweb-dev/react";
 import React, { useState, useEffect, useMemo } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import type { ReactNode } from "react";
+import axios from "axios";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 
 const LifeProvider = ({ children }: { children: ReactNode }) => {
   const [life, setLife] = useState<number>(0);
@@ -13,68 +16,40 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
   const address = useAddress();
 
   const updateLife = async () => {
-    try {
-      await fetch(`/api/database/postUpdateLife?wallet=${address}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
+    await axios
+      .post(`/api/database/postUpdateLife?wallet=${address}`)
+      .catch((error) => {
+        console.error(error);
       });
-    } catch (error) {
-      console.error(error);
-    }
 
     setLife(life - 1);
   };
 
-  useEffect(() => {
-    const fetchUserLife = async () => {
-      await fetch(`/api/database/getUserLife?wallet=${address}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-        cache: "no-store",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setLife(data);
-        });
-    };
+  const { data: lifeData } = useSWR(
+    address ? `/api/database/getUserLife?wallet=${address}` : null,
+    fetcher
+  );
 
-    if (address) {
-      fetchUserLife();
+  useEffect(() => {
+    if (lifeData) {
+      setLife(lifeData);
     } else {
       setLife(3);
     }
-  }, [address]);
+  }, [lifeData]);
+
+  const { data: lifeLastReset } = useSWR(
+    address ? `/api/database/getUserLifeLastReset?wallet=${address}` : null,
+    fetcher
+  );
 
   useEffect(() => {
-    const fetchLifeCooldown = async () => {
-      const result = await fetch(
-        `/api/database/getUserLifeLastReset?wallet=${address}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-          },
-          cache: "no-store",
-        }
-      );
-      const lastReset = await result.json();
-      setLastReset(lastReset);
-    };
-
-    if (address) {
-      fetchLifeCooldown();
+    if (lifeLastReset) {
+      setLastReset(lifeLastReset);
     } else {
       setLifeCooldown("00:00:00");
     }
-  }, [address]);
+  }, [lifeLastReset]);
 
   useEffect(() => {
     const interval = setInterval(() => {
