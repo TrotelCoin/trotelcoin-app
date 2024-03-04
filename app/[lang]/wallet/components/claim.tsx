@@ -8,6 +8,7 @@ import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";
 import { useAddress } from "@thirdweb-dev/react";
 import Status from "@/app/[lang]/wallet/components/claim/status";
+import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
@@ -70,6 +71,9 @@ const Claim = ({
           </div>
           <div>
             <Balance lang={lang} />
+          </div>
+          <div>
+            <AddToken lang={lang} />
           </div>
           <div>
             <Status lang={lang} availableToClaim={availableToClaim as number} />
