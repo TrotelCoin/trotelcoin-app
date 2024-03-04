@@ -16,11 +16,6 @@ import {
   embeddedWallet,
 } from "@thirdweb-dev/react";
 import { Lang } from "@/types/types";
-import { ethers } from "ethers";
-
-export const signer = new ethers.providers.Web3Provider(
-  window.ethereum
-).getSigner();
 
 export default function ThirdWebProvider({
   children,
