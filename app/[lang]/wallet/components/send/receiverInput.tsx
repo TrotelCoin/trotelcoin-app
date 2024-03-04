@@ -21,7 +21,7 @@ const ReceiverInput = ({
         value={receiverAddress}
         onChange={(e) => setReceiverAddress(e.target.value as Address)}
         placeholder={lang === "en" ? "Receiver" : "Destinataire"}
-      ></input>
+      />
       {receiverAddressError && (
         <div className="mt-2">
           <span className="text-red-500 dark:text-red-300">

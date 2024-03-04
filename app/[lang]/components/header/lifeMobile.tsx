@@ -40,7 +40,7 @@ const LifeMobile = ({
             className="w-full"
           >
             <button
-              className={`w-full bg-blue-500 hover:bg-blue-400 text-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 rounded-xl font-semibold`}
+              className={`w-full bg-blue-500 hover:bg-blue-400 text-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2 rounded-xl font-semibold`}
             >
               {lang === "en"
                 ? "Get unlimited lives"

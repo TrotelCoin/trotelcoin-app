@@ -104,7 +104,7 @@ const ClaimingButton = ({
     <>
       <button
         onClick={() => claim()}
-        className="!bg-blue-500 hover:!bg-blue-400 focus:!border-blue-500 !text-sm !px-6 !py-2 !text-gray-100 !rounded-xl !font-semibold"
+        className="!bg-blue-500 hover:!bg-blue-400 focus-visible:!outline-blue-500 dark:focus-visible:!outline-blue-300 !text-sm !px-6 !py-2 !text-gray-100 !rounded-xl !font-semibold"
         style={{}}
       >
         {isLoading ? (

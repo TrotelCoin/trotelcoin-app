@@ -39,6 +39,7 @@ const SendAndReceive = ({
   const [addressDisplay, setAddressDisplay] = useState<Address | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
   const [missingFieldsError, setMissingFieldsError] = useState<boolean>(false);
+  const [handles, setHandles] = useState<string | null>(null);
 
   const address = useAddress();
 
