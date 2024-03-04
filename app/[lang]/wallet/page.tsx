@@ -90,7 +90,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
             }`}
           >
-            {lang === "en" ? <>Staking</> : <>Staking</>}
+            {lang === "en" ? <>Stake</> : <>Stake</>}
           </button>
         </div>
       </div>
