@@ -1,0 +1,106 @@
+"use client";
+
+import { useAddress } from "@thirdweb-dev/react";
+import React, { useState, useEffect, useMemo } from "react";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
+import type { ReactNode } from "react";
+import axios from "axios";
+import { fetcher } from "@/lib/axios/fetcher";
+import useSWR from "swr";
+
+const LifeProvider = ({ children }: { children: ReactNode }) => {
+  const [life, setLife] = useState<number>(0);
+  const [lifeCooldown, setLifeCooldown] = useState<string>("00:00:00");
+  const [lastReset, setLastReset] = useState<string>("");
+
+  const address = useAddress();
+
+  const updateLife = async () => {
+    await axios
+      .post(`/api/database/postUpdateLife?wallet=${address}`)
+      .catch((error) => {
+        console.error(error);
+      });
+
+    setLife(life - 1);
+  };
+
+  const { data: lifeData } = useSWR(
+    address ? `/api/database/getUserLife?wallet=${address}` : null,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (lifeData) {
+      setLife(lifeData);
+    } else {
+      setLife(3);
+    }
+  }, [lifeData]);
+
+  const { data: lifeLastReset } = useSWR(
+    address ? `/api/database/getUserLifeLastReset?wallet=${address}` : null,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (lifeLastReset) {
+      setLastReset(lifeLastReset);
+    } else {
+      setLifeCooldown("00:00:00");
+    }
+  }, [lifeLastReset]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (lastReset) {
+        const lastUpdated = new Date(lastReset);
+        const now = new Date();
+        const difference = now.getTime() - lastUpdated.getTime();
+        if (difference > 86400000) {
+          setLifeCooldown("00:00:00");
+        } else {
+          const cooldown = 86400000 - difference;
+          const cooldownString = new Date(cooldown).toISOString();
+          const time = cooldownString.split("T")[1].split(".")[0];
+          setLifeCooldown(time);
+        }
+      } else {
+        setLifeCooldown("00:00:00");
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [lastReset]);
+
+  const contextValue = useMemo(
+    () => ({
+      updateLife,
+      life,
+      setLife,
+      lifeCooldown,
+      setLifeCooldown,
+      lastReset,
+      setLastReset,
+    }),
+    [
+      updateLife,
+      life,
+      setLife,
+      lifeCooldown,
+      setLifeCooldown,
+      lastReset,
+      setLastReset,
+    ]
+  );
+
+  return (
+    <>
+      <LifeContext.Provider value={contextValue}>
+        {children}
+      </LifeContext.Provider>
+    </>
+  );
+};
+
+export default LifeProvider;
