@@ -75,53 +75,57 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
       <>
         <Form dict={dict as DictType} setSearchTerm={setSearchTerm} />
         <div className="flex flex-col">
-          {filteredLessons.map((lesson, index) => (
-            <div className="my-10" key={index}>
-              <div className="flex justify-between items-center">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100 mt-1">
-                  {lesson.category}
-                </h2>
-                <Link
-                  href={`/${lang}/category/${lesson.category.toLowerCase()}`}
-                >
-                  <button className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
-                    {lang === "en" ? "View all" : "Voir tout"}
-                  </button>
-                </Link>
+          {filteredLessons
+            .filter((lesson) =>
+              lesson.courses.some((course) => course.available)
+            )
+            .map((lesson, index) => (
+              <div className="my-10" key={index}>
+                <div className="flex justify-between items-center">
+                  <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100 mt-1">
+                    {lesson.category}
+                  </h2>
+                  <Link
+                    href={`/${lang}/category/${lesson.category.toLowerCase()}`}
+                  >
+                    <button className="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
+                      {lang === "en" ? "View all" : "Voir tout"}
+                    </button>
+                  </Link>
+                </div>
+                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {lesson.courses
+                    .sort((a, b) => {
+                      const tierOrder = {
+                        Beginner: 2,
+                        Intermediate: 1,
+                        Expert: 0,
+                      };
+                      return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                    })
+                    .filter((course) => {
+                      const lowerCaseTitle = course.title[lang].toLowerCase();
+                      return (
+                        lowerCaseTitle.includes(searchTerm) && course.available
+                      );
+                    })
+                    .slice(0, 3)
+                    .map((course, index) =>
+                      renderCourses(
+                        course,
+                        isIntermediate,
+                        isExpert,
+                        lang,
+                        course.quizId,
+                        status,
+                        dict,
+                        index,
+                        lesson.category
+                      )
+                    )}
+                </div>
               </div>
-              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {lesson.courses
-                  .sort((a, b) => {
-                    const tierOrder = {
-                      Beginner: 2,
-                      Intermediate: 1,
-                      Expert: 0,
-                    };
-                    return tierOrder[a.tier.en] - tierOrder[b.tier.en];
-                  })
-                  .filter((course) => {
-                    const lowerCaseTitle = course.title[lang].toLowerCase();
-                    return (
-                      lowerCaseTitle.includes(searchTerm) && course.available
-                    );
-                  })
-                  .slice(0, 3)
-                  .map((course, index) =>
-                    renderCourses(
-                      course,
-                      isIntermediate,
-                      isExpert,
-                      lang,
-                      course.quizId,
-                      status,
-                      dict,
-                      index,
-                      lesson.category
-                    )
-                  )}
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </>
     </>
