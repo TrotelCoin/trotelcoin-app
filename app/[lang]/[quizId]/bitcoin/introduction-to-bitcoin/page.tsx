@@ -239,6 +239,11 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               brief overview of how Bitcoin works.
               <br />
               <br />
+              Bitcoin was created by an unknown person or group of people using
+              the name Satoshi Nakamoto. It was released as open-source software
+              in 2009.
+              <br />
+              <br />
               Bitcoin is a decentralized digital currency. It is not controlled
               by any government or financial institution as we've seen it
               before. It is a peer-to-peer network.
@@ -285,6 +290,11 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               Nous avons consacré un cours sur l'histoire de Bitcoin. Voici un
               bref aperçu de son fonctionnement.
+              <br />
+              <br />
+              Bitcoin a été créé par une personne inconnue ou un groupe de
+              personnes utilisant le nom de Satoshi Nakamoto. Il a été publié
+              comme logiciel open-source en 2009.
               <br />
               <br />
               Bitcoin est une monnaie numérique décentralisée. Elle n'est pas
