@@ -486,8 +486,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               The process of adding new blocks to the blockchain is called
               mining because it is similar to the process of mining for gold or
               other precious metals.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/9/gold-and-bitcoin.png"
+                alt="Gold and Bitcoin"
+              />
               The network consensus is the process of agreeing on which
               transactions are valid and which are not. The network consensus is
               achieved through a process called proof-of-work.
@@ -530,8 +535,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Le processus d'ajout de nouveaux blocs à la blockchain s'appelle
               le minage car il est similaire au processus d'extraction de l'or
               ou d'autres métaux précieux.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/9/gold-and-bitcoin.png"
+                alt="Gold and Bitcoin"
+              />
               Le consensus du réseau est le processus d'accord sur les
               transactions valides et celles qui ne le sont pas. Le consensus du
               réseau est obtenu grâce à un processus appelé preuve de travail.
