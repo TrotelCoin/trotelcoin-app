@@ -169,95 +169,6 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
       <div className="mt-16 mx-auto">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          {lang === "en" ? <>Our mission</> : <>Notre mission</>}
-        </h1>
-        <p className="mt-6 font-light">
-          {lang === "en" ? (
-            <>
-              Our mission is to empower individuals with the knowledge and tools
-              to navigate in the world of Web3.
-              <br />
-              <br />
-              We understand that the crypto space can seem mysterious, which is
-              why we provide a comprehensive educational platform.
-              <br />
-              <br />
-              Our goal is to simplify complex concepts and offer practical
-              examples, allowing individuals to understand deeply what are
-              transactions, decentralized finance (DeFi), and more.
-              <br />
-              <br />
-              By democratizing access to the DeFi and fostering a vibrant
-              community, TrotelCoin aims to drive widespread adoption of Web3
-              technologies.
-            </>
-          ) : (
-            <>
-              Notre mission est de donner aux individus les connaissances et les
-              outils nécessaires pour naviguer dans le monde du Web3.
-              <br />
-              <br />
-              Nous comprenons que l'espace crypto peut sembler mystérieux, c'est
-              pourquoi nous avons crée cette plate-forme éducative complète.
-              <br />
-              <br />
-              Notre objectif est de simplifier les concepts complexes et
-              d'offrir des exemples pratiques, permettant aux individus de
-              comprendre profondément ce que sont les transactions, la finance
-              décentralisée (DeFi), et plus encore.
-              <br />
-              <br />
-              En démocratisant l'accès à la finance décentralisée et en
-              encourageant une communauté dynamique, TrotelCoin vise à favoriser
-              l'adoption généralisée des technologies Web3.
-            </>
-          )}
-        </p>
-      </div>
-
-      <div className="mt-16 mx-auto">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          {lang === "en" ? <>Our vision</> : <>Notre vision</>}
-        </h1>
-        <p className="mt-6 font-light">
-          {lang === "en" ? (
-            <>
-              Our vision is to create a world where individuals have the
-              knowledge to fully understand the potential of Web3.
-              <br />
-              <br />
-              We envision a future where people from everywhere can confidently
-              navigate the crypto ecosystem, make informed transactions, and
-              actively participate in the decentralized financial revolution.
-              <br />
-              <br />
-              By giving individuals the necessary skills and creating a
-              supportive community, TrotelCoin aims to be a catalyst for the
-              mass adoption of Web3 technologies.
-            </>
-          ) : (
-            <>
-              Notre vision est de créer un monde où les individus ont les
-              connaissances nécessaires pour comprendre pleinement le potentiel
-              du Web3.
-              <br />
-              <br />
-              Nous envisageons un avenir où les gens de partout peuvent naviguer
-              en toute confiance dans l'écosystème crypto, faire des
-              transactions éclairées, et participer activement à la révolution
-              financière décentralisée.
-              <br />
-              <br />
-              En donnant aux individus les compétences nécessaires et en créant
-              une communauté de soutien, TrotelCoin vise à être un catalyseur
-              pour l'adoption massive des technologies Web3.
-            </>
-          )}
-        </p>
-      </div>
-
-      <div className="mt-16 mx-auto">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
           {lang === "en" ? (
             <>What&apos;s TrotelCoin?</>
           ) : (
@@ -529,7 +440,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           ) : (
             <>
               Initialement, l'offre totale de jetons TrotelCoin était fixée à
-              100 000 000.
+              100,000,000.
               <br />
               <br />
               La moitié de ces jetons est stockée en toute sécurité dans la pool

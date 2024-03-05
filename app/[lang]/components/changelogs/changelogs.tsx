@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.5.6";
+const version = "1.5.8";
 
 interface ChangelogItem {
   title: string;
@@ -75,6 +75,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Stake your TrotelCoins is available !"
               : "- Stakez vos TrotelCoins est disponible !",
+          isNew: false,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Introduction to Bitcoin is available !"
+              : "- Introduction à Bitcoin est disponible !",
           isNew: true,
         },
       ],
@@ -87,14 +94,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We show badges progression"
               : "- On montre la progression des badges",
-          isNew: true,
+          isNew: false,
         },
         {
           text:
             lang === "en"
               ? "- We added a vocabulary section in Learn"
               : "- On a ajouté une section vocabulaire dans Apprendre",
-          isNew: true,
+          isNew: false,
         },
       ],
     },
@@ -104,8 +111,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We reached $38k of market cap"
-              : "- On a atteint 38k$ de capitalisation",
+              ? "- We reached $40k of market cap"
+              : "- On a atteint 40k$ de capitalisation",
           isNew: true,
         },
         {
@@ -113,7 +120,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We listed on ProductHunt"
               : "- On a listé sur ProductHunt",
-          isNew: true,
+          isNew: false,
         },
       ],
     },

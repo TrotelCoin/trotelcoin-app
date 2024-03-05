@@ -107,7 +107,7 @@ const CoursePage = ({
               <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
               <p className="text-base leading-7 text-gray-700 dark:text-gray-300">
                 <CountUp start={0} duration={2} end={answered} />{" "}
-                {lang === "en" ? "people did it" : "personnes l'on fait"}
+                {lang === "en" ? "people answered" : "personnes ont répondu"}
               </p>
             </div>
             <button
