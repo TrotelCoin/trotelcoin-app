@@ -486,13 +486,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               The process of adding new blocks to the blockchain is called
               mining because it is similar to the process of mining for gold or
               other precious metals.
-              <Image
-                className="my-4"
-                width={1400}
-                height={600}
-                src="/assets/courses/9/gold-and-bitcoin.png"
-                alt="Gold and Bitcoin"
-              />
+              <br />
+              <br />
               The network consensus is the process of agreeing on which
               transactions are valid and which are not. The network consensus is
               achieved through a process called proof-of-work.
@@ -535,13 +530,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Le processus d'ajout de nouveaux blocs à la blockchain s'appelle
               le minage car il est similaire au processus d'extraction de l'or
               ou d'autres métaux précieux.
-              <Image
-                className="my-4"
-                width={1400}
-                height={600}
-                src="/assets/courses/9/gold-and-bitcoin.png"
-                alt="Gold and Bitcoin"
-              />
+              <br />
+              <br />
               Le consensus du réseau est le processus d'accord sur les
               transactions valides et celles qui ne le sont pas. Le consensus du
               réseau est obtenu grâce à un processus appelé preuve de travail.
@@ -757,8 +747,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               digital currency that has been used as a store of value for a
               decade. It is a digital object that has value in itself as well as
               value in its use as money.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/9/gold-and-bitcoin.png"
+                alt="Gold and Bitcoin"
+              />
               Both gold and Bitcoin are scarce. There is a limited amount of
               gold and Bitcoin. This makes them valuable. This is different from
               traditional fiat currencies that can be printed as much as the
@@ -811,8 +806,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               valeur depuis des milliers d'années. Il a une valeur intrinsèque.
               C'est un objet physique qui a une valeur en lui-même ainsi qu'une
               valeur dans son utilisation comme monnaie.
-              <br />
-              <br />
+              <Image
+                className="my-4"
+                width={1400}
+                height={600}
+                src="/assets/courses/9/gold-and-bitcoin.png"
+                alt="Gold and Bitcoin"
+              />
               Bitcoin est souvent appelé or numérique. C'est une monnaie
               numérique décentralisée qui a été utilisée comme réserve de valeur
               depuis une décennie. C'est un objet numérique qui a une valeur en
