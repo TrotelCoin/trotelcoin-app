@@ -394,6 +394,144 @@ const quizzes = [
     ],
   },
   {
+    quizId: 9,
+    title: "Introduction to Bitcoin",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "Who created Bitcoin?",
+          fr: "Qui a créé Bitcoin?",
+        },
+        options: {
+          en: [
+            "Satoshi Nakamoto",
+            "Vitalik Buterin",
+            "Charlie Lee",
+            "Roger Ver",
+          ],
+          fr: [
+            "Satoshi Nakamoto",
+            "Vitalik Buterin",
+            "Charlie Lee",
+            "Roger Ver",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is the maximum supply of Bitcoin?",
+          fr: "Quelle est l'offre maximale de Bitcoin?",
+        },
+        options: {
+          en: ["21 million", "42 million", "84 million", "100 million"],
+          fr: ["21 millions", "42 millions", "84 millions", "100 millions"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is the issue with traditional currencies?",
+          fr: "Quel est le problème avec les monnaies traditionnelles?",
+        },
+        options: {
+          en: ["Inflation", "Deflation", "No issue", "They are not digital"],
+          fr: [
+            "L'inflation",
+            "La déflation",
+            "Pas de problème",
+            "Elles ne sont pas digitales",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Why Bitcoin is similar to gold?",
+          fr: "Pourquoi Bitcoin est similaire à l'or?",
+        },
+        options: {
+          en: [
+            "It's a store of value",
+            "It's a medium of exchange",
+            "It's a unit of account",
+            "It's a standard of deferred payment",
+          ],
+          fr: [
+            "C'est un réserve de valeur",
+            "C'est un moyen d'échange",
+            "C'est une unité de compte",
+            "C'est un standard de paiement différé",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Why cryptography is important in Bitcoin?",
+          fr: "Pourquoi la cryptographie est importante dans Bitcoin?",
+        },
+        options: {
+          en: [
+            "To secure transactions",
+            "To secure the network",
+            "To secure the wallet",
+            "To secure the blockchain",
+          ],
+          fr: [
+            "Pour sécuriser les transactions",
+            "Pour sécuriser le réseau",
+            "Pour sécuriser le portefeuille",
+            "Pour sécuriser la blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "Why Bitcoin uses blockchain technology?",
+          fr: "Pourquoi Bitcoin utilise la technologie blockchain?",
+        },
+        options: {
+          en: [
+            "Transparency, decentralization and security",
+            "Speed and scalability",
+            "Low fees",
+            "It's the only technology available",
+          ],
+          fr: [
+            "Transparence, décentralisation et sécurité",
+            "Vitesse et scalabilité",
+            "Frais bas",
+            "C'est la seule technologie disponible",
+          ],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "Why Bitcoin encounters political issues?",
+          fr: "Pourquoi Bitcoin rencontre des problèmes politiques?",
+        },
+        option: {
+          en: [
+            "Government sees it as a threat",
+            "Government sees it as an opportunity",
+            "Government doesn't care",
+            "It uses the same technology as the government",
+          ],
+          fr: [
+            "Le gouvernement le voit comme une menace",
+            "Le gouvernement le voit comme une opportunité",
+            "Le gouvernement s'en fiche",
+            "Il utilise la même technologie que le gouvernement",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 16,
     title: "Stake your TrotelCoins",
     questions: [
