@@ -101,7 +101,9 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   })
                   .filter((course) => {
                     const lowerCaseTitle = course.title[lang].toLowerCase();
-                    return lowerCaseTitle.includes(searchTerm);
+                    return (
+                      lowerCaseTitle.includes(searchTerm) && course.available
+                    );
                   })
                   .slice(0, 3)
                   .map((course, index) =>
