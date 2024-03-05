@@ -514,7 +514,7 @@ const quizzes = [
           en: "Why Bitcoin encounters political issues?",
           fr: "Pourquoi Bitcoin rencontre des problèmes politiques?",
         },
-        option: {
+        options: {
           en: [
             "Government sees it as a threat",
             "Government sees it as an opportunity",
