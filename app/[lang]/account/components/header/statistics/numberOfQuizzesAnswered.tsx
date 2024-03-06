@@ -1,7 +1,6 @@
 import UserContext from "@/app/[lang]/contexts/userContext";
 import { DictType } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 
 const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
   const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
