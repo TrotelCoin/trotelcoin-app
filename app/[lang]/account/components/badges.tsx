@@ -170,7 +170,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
       image: "🔥",
       condition: maxStreak ? maxStreak >= 60 : null,
       progress: maxStreak ?? 0,
-      maxProgress: 60,
+      maxProgress: 90,
     },
     {
       id: 4,
