@@ -439,6 +439,132 @@ const quizzes = [
           ],
         },
       },
+      {
+        questionId: 3,
+        question: {
+          en: "What means 'immutable' in the context of blockchain?",
+          fr: "Que signifie 'immuable' dans le contexte de la blockchain?",
+        },
+        options: {
+          en: [
+            "Once a block is added, it cannot be altered",
+            "Once a block is added, it can be altered",
+            "Once a block is added, it can be deleted",
+            "Once a block is added, it can be duplicated",
+          ],
+          fr: [
+            "Une fois qu'un bloc est ajouté, il ne peut pas être modifié",
+            "Une fois qu'un bloc est ajouté, il peut être modifié",
+            "Une fois qu'un bloc est ajouté, il peut être supprimé",
+            "Une fois qu'un bloc est ajouté, il peut être dupliqué",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Why is Blockchain decentralized?",
+          fr: "Pourquoi la Blockchain est décentralisée?",
+        },
+        options: {
+          en: [
+            "It's maintained by a network of computers",
+            "It's maintained by a single computer",
+            "It's maintained by a single entity",
+            "It's maintained by a single user",
+          ],
+          fr: [
+            "Elle est maintenue par un réseau d'ordinateurs",
+            "Elle est maintenue par un seul ordinateur",
+            "Elle est maintenue par une seule entité",
+            "Elle est maintenue par un seul utilisateur",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Why blockchain is transparent?",
+          fr: "Pourquoi la blockchain est transparente?",
+        },
+        options: {
+          en: [
+            "All transactions are publicly available",
+            "All transactions are private",
+            "All transactions are secret",
+            "All transactions are encrypted and kept secret",
+          ],
+          fr: [
+            "Toutes les transactions sont publiquement disponibles",
+            "Toutes les transactions sont privées",
+            "Toutes les transactions sont secrètes",
+            "Toutes les transactions sont chiffrées et gardées secrètes",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "Why blockchain is secure?",
+          fr: "Pourquoi la blockchain est sécurisée?",
+        },
+        options: {
+          en: [
+            "It uses cryptographic techniques to secure transactions",
+            "It uses a single technique to secure transactions",
+            "It is not secure",
+            "It uses a single technique to secure the wallet",
+          ],
+          fr: [
+            "Elle utilise des techniques cryptographiques pour sécuriser les transactions",
+            "Elle utilise une seule technique pour sécuriser les transactions",
+            "Elle n'est pas sécurisée",
+            "Elle utilise une seule technique pour sécuriser le portefeuille",
+          ],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "What are the consensus mechanisms?",
+          fr: "Quels sont les mécanismes de consensus?",
+        },
+        options: {
+          en: [
+            "A way to consider a transaction as legitimate and add them to the block",
+            "A written proposal to add a transaction to the block",
+            "It's a term used to describe the block",
+            "It's a term used to describe the transaction",
+          ],
+          fr: [
+            "Une manière de considérer une transaction comme légitime et de les ajouter au bloc",
+            "Une proposition écrite pour ajouter une transaction au bloc",
+            "C'est un terme utilisé pour décrire le bloc",
+            "C'est un terme utilisé pour décrire la transaction",
+          ],
+        },
+      },
+      {
+        questionId: 8,
+        question: {
+          en: "What are cryptocurrencies?",
+          fr: "Qu'est-ce que sont les cryptomonnaies?",
+        },
+        options: {
+          en: [
+            "Digital or virtual currencies that use cryptography for security and operate on a blockchain",
+            "Digital or virtual currencies that use cryptography for security and operate on a single computer",
+            "Digital or virtual currencies that use cryptography for security and operate on a single entity",
+            "Digital or virtual currencies that use cryptography for security and operate on a single user",
+          ],
+          fr: [
+            "Des monnaies numériques ou virtuelles qui utilisent la cryptographie pour la sécurité et fonctionnent sur une blockchain",
+            "Des monnaies numériques ou virtuelles qui utilisent la cryptographie pour la sécurité et fonctionnent sur un seul ordinateur",
+            "Des monnaies numériques ou virtuelles qui utilisent la cryptographie pour la sécurité et fonctionnent sur une seule entité",
+            "Des monnaies numériques ou virtuelles qui utilisent la cryptographie pour la sécurité et fonctionnent sur un seul utilisateur",
+          ],
+        },
+      },
     ],
   },
   {
