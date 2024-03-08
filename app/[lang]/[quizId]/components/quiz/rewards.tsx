@@ -2,7 +2,7 @@
 
 import { DictType, Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -13,12 +13,12 @@ const Rewards = ({
   lang,
   dict,
   quizId,
-  isCorrect,
+  isTotallyCorrect,
 }: {
   lang: Lang;
   dict: DictType;
   quizId: number;
-  isCorrect: boolean;
+  isTotallyCorrect: boolean;
 }) => {
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [claimingError, setClaimingError] = useState<boolean>(false);
@@ -65,15 +65,23 @@ const Rewards = ({
     fetcher
   );
 
+  useEffect(() => {
+    if (claimingError) {
+      setTimeout(() => {
+        setClaimingError(false);
+      }, 5000);
+    }
+  }, [claimingError]);
+
   return (
     <>
-      {isCorrect &&
+      {isTotallyCorrect &&
         !hasAlreadyAnswered &&
         address &&
         isLoggedIn &&
         !claimedRewards &&
         !claimingLoading && (
-          <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+          <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
             </h3>
@@ -90,28 +98,28 @@ const Rewards = ({
           </div>
         )}
       {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
-        <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
           </h2>
         </div>
       )}
-      {claimingLoading && (
-        <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+      {claimingLoading && !claimingError && (
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en" ? "Loading..." : "Chargement..."}
           </h2>
         </div>
       )}
       {(hasAlreadyAnswered || claimedRewards) && (
-        <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
           </h2>
         </div>
       )}
       {claimingError && (
-        <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-red-500 dark:text-red-300">
             {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimingError}</>}
           </h2>

@@ -394,6 +394,54 @@ const quizzes = [
     ],
   },
   {
+    quizId: 7,
+    title: "Introduction to blockchains",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is a blockchain?",
+          fr: "Qu'est-ce qu'une blockchain?",
+        },
+        options: {
+          en: [
+            "A distributed ledger used to record transactions across multiple computers",
+            "A centralized ledger used to record transactions across multiple computers",
+            "A distributed ledger used to record transactions across a single computer",
+            "A centralized ledger used to record transactions across a single computer",
+          ],
+          fr: [
+            "Un registre distribué utilisé pour enregistrer des transactions sur plusieurs ordinateurs",
+            "Un registre centralisé utilisé pour enregistrer des transactions sur plusieurs ordinateurs",
+            "Un registre distribué utilisé pour enregistrer des transactions sur un seul ordinateur",
+            "Un registre centralisé utilisé pour enregistrer des transactions sur un seul ordinateur",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is a block?",
+          fr: "Qu'est-ce qu'un bloc?",
+        },
+        options: {
+          en: [
+            "A collection of transactions",
+            "A collection of computers",
+            "A collection of users",
+            "A collection of data",
+          ],
+          fr: [
+            "Une collection de transactions",
+            "Une collection d'ordinateurs",
+            "Une collection d'utilisateurs",
+            "Une collection de données",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 9,
     title: "Introduction to Bitcoin",
     questions: [

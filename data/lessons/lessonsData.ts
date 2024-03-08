@@ -260,7 +260,7 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 7,
-        available: false,
+        available: true,
       },
       {
         title: {

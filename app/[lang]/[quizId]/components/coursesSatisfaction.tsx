@@ -51,7 +51,7 @@ const CoursesSatisfaction = ({
   return (
     <>
       {(address as Address) && !coursesSatisfactionAnswered?.answered && (
-        <div className="mt-10 mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 flex flex-col">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 flex flex-col">
           <div className="flex items-center">
             {!coursesSatisfactionAnswered?.answered && (
               <>

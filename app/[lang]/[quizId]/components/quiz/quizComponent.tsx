@@ -1,5 +1,5 @@
 import { DictType, Lang, Question } from "@/types/types";
-import React, { useContext, useEffect, useState } from "react";
+import React, { SetStateAction, useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Confetti from "react-dom-confetti";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
@@ -7,28 +7,26 @@ import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData
 import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import { useUser } from "@thirdweb-dev/react";
 
 const debug = process.env.NODE_ENV === "development";
 
 const QuizComponent = ({
   dict,
   lang,
-  isCorrect,
-  setIsCorrect,
+  setIsTotallyCorrect,
   setAudio,
   quizId,
 }: {
   dict: DictType;
   lang: Lang;
-  isCorrect: boolean;
-  setIsCorrect: (value: boolean) => void;
+  setIsTotallyCorrect: React.Dispatch<SetStateAction<boolean>>;
   setAudio: (value: boolean) => void;
   quizId: number;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
-  const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -37,58 +35,50 @@ const QuizComponent = ({
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[] | null>(
     null
   );
+  const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
   const { updateLife, life } = useContext(LifeContext);
+  const { isLoggedIn } = useUser();
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
-  };
 
-  const goToPrevious = () => {
-    setCurrentQuestion((prev) => (prev > 0 ? prev - 1 : prev));
-  };
-
-  const goToNext = () => {
-    if (questions) {
-      setCurrentQuestion((prev) =>
-        prev < questions.length - 1 ? prev + 1 : prev
-      );
-    }
-  };
-
-  const handleCaptchaVerify = () => {
-    setIsCaptchaVerified(true);
-  };
-
-  const handleSubmit = () => {
-    let correctCount = 0;
-    let newWrongAnswers: number[] = [];
-
-    for (let i = 0; i < correctAnswers.length; i++) {
-      if (correctAnswers[i] === answers[i]) {
-        correctCount++;
-      } else {
-        newWrongAnswers.push(i + 1);
-      }
+    if (!isCaptchaVerified && !debug) {
+      setCaptchaMessage(true);
+      return;
     }
 
-    if (correctCount === correctAnswers.length) {
+    if (correctAnswers[currentQuestion] === answer) {
       setIsCorrect(true);
       setShowConfetti(true);
+      setShowMessage(true);
       setAudio(true);
+      if (questions) {
+        setCurrentQuestion((prev) =>
+          prev < questions.length - 1 ? prev + 1 : prev
+        );
+        if (currentQuestion === questions.length - 1) {
+          setIsTotallyCorrect(true);
+        }
+      }
     } else {
       setIsCorrect(false);
       setShowConfetti(false);
+      setShowMessage(true);
       setAudio(false);
       if (!isIntermediate && !isExpert && life > 0) {
         updateLife();
       }
     }
-    setWrongAnswers(newWrongAnswers);
-    setShowMessage(true);
+  };
+
+  const handleCaptchaVerify = () => {
+    setIsCaptchaVerified(true);
+    setCaptchaMessage(false);
   };
 
   useEffect(() => {
@@ -132,22 +122,24 @@ const QuizComponent = ({
 
   return (
     <>
-      {shuffledQuestions && shuffledQuestions[currentQuestion] && (
-        <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
-          <span>
-            {lang === "en"
-              ? shuffledQuestions[currentQuestion].question.en
-              : shuffledQuestions[currentQuestion].question.fr}
-          </span>
-          <span>
-            {currentQuestion + 1}/{shuffledQuestions.length}
-          </span>
-        </h3>
-      )}
+      {shuffledQuestions &&
+        shuffledQuestions[currentQuestion] &&
+        isLoggedIn && (
+          <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
+            <span>
+              {lang === "en"
+                ? shuffledQuestions[currentQuestion].question.en
+                : shuffledQuestions[currentQuestion].question.fr}
+            </span>
+            <span>
+              {currentQuestion + 1}/{shuffledQuestions.length}
+            </span>
+          </h3>
+        )}
       {shuffledQuestions &&
       shuffledQuestions[currentQuestion] &&
       shuffledQuestions[currentQuestion].options ? (
-        <ul className="mt-3 py-6 space-y-4">
+        <ul className="mt-3 pt-6 space-y-4">
           {lang === "en"
             ? shuffledQuestions[currentQuestion].options.en.map(
                 (option: string, index: number) => (
@@ -177,6 +169,7 @@ const QuizComponent = ({
                       onClick={() => handleAnswer(option)}
                     >
                       {option}
+                      <Confetti active={showConfetti} />
                     </div>
                   </li>
                 )
@@ -188,74 +181,40 @@ const QuizComponent = ({
         </span>
       )}
       {!isCorrect && questions && (
-        <ReCAPTCHA
-          sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string}
-          onChange={handleCaptchaVerify}
-        />
+        <div className="mt-6">
+          <ReCAPTCHA
+            sitekey={
+              process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
+            }
+            onChange={handleCaptchaVerify}
+          />
+        </div>
       )}
-      <div className="mt-6 flex justify-between items-center">
-        <button
-          className={`${
-            currentQuestion !== 0
-              ? "cursor-pointer"
-              : "disabled cursor-not-allowed"
-          } bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold`}
-          onClick={goToPrevious}
-        >
-          {typeof dict?.quiz !== "string" && <>{dict?.quiz.previous}</>}
-        </button>
-        {questions && currentQuestion < questions.length - 1 && (
-          <button
-            className="cursor-pointer bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
-            onClick={goToNext}
-          >
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.next}</>}
-          </button>
-        )}
-        {questions && currentQuestion === questions.length - 1 ? (
-          isCaptchaVerified || debug ? (
-            <button
-              onClick={handleSubmit}
-              className="cursor-pointer bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
-            >
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.submit}</>}
-              <Confetti active={showConfetti} />
-            </button>
-          ) : (
-            <span className="text-sm px-6 py-2 font-semibold text-gray-700 dark:text-gray-300">
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.captcha}</>}
-            </span>
-          )
-        ) : (
-          <></>
-        )}
-      </div>
-      {showMessage && (
+      {captchaMessage && (
         <div
-          className={`mt-6 flex flex-col gap-2 animate__animated animate__fadeIn ${
-            isCorrect
-              ? "text-green-500 dark:text-green-300"
-              : "text-red-500 dark:text-red-300"
-          }`}
+          className={`${
+            captchaMessage && "hidden"
+          } mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-red-500 dark:text-red-300`}
         >
-          {isCorrect
-            ? `${dict && typeof dict.quiz !== "string" && dict?.quiz.correct}`
-            : `${
-                dict && typeof dict.quiz !== "string" && dict?.quiz.incorrect
-              } ${wrongAnswers.join(", ")}.`}
-          {!isCorrect &&
-            life >= 0 &&
-            life <= 3 &&
-            !isIntermediate &&
-            !isExpert && (
-              <span className="text-red-500 dark:text-red-300">
-                {lang === "en" ? (
-                  <>You have {life} lives left.</>
-                ) : (
-                  <>Il vous reste {life} vies restantes.</>
-                )}
-              </span>
-            )}
+          {lang === "en"
+            ? "You didn't do the captcha."
+            : "Vous n'avez pas fait le captcha."}
+        </div>
+      )}
+      {showMessage && !isCorrect && (
+        <div
+          className={`mt-4 flex flex-col gap-2 animate__animated animate__fadeIn text-red-500 dark:text-red-300`}
+        >
+          <>{dict && typeof dict.quiz !== "string" && dict?.quiz.incorrect}</>
+          {life >= 0 && life <= 3 && !isIntermediate && !isExpert && (
+            <span className="text-red-500 dark:text-red-300">
+              {lang === "en" ? (
+                <>You have {life} lives left.</>
+              ) : (
+                <>Il vous reste {life} vies restantes.</>
+              )}
+            </span>
+          )}
         </div>
       )}
     </>
