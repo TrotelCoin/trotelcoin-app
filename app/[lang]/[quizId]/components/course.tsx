@@ -36,6 +36,8 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
     } else {
       setShowConfetti(true);
       setFullScreen(false);
+      setCurrentCardIndex(0);
+      setWidth(0);
       setIsCourseFinished(true);
     }
   };
@@ -59,6 +61,9 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   useEffect(() => {
     if (fullscreen) {
       setShowConfetti(false);
+    } else {
+      setCurrentCardIndex(0);
+      setWidth(0);
     }
   }, [fullscreen]);
 
