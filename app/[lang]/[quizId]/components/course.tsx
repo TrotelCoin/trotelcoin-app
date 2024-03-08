@@ -106,8 +106,11 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               </svg>
             </button>
           </div>
-          <div className="my-32 flex justify-center max-w-xl mx-auto items-center text-center">
-            <div className="mx-8">
+          <div
+            className="flex justify-center items-center mx-8"
+            style={{ height: "calc(100vh - 170px)" }}
+          >
+            <div className="max-w-xl mx-auto text-center">
               {lang === "en" ? (
                 <Card
                   title={cards.en[currentCardIndex].title}
