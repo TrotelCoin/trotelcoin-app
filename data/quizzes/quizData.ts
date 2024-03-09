@@ -549,7 +549,7 @@ const quizzes = [
           en: [
             "A digital currency used to secure transactions and operate on a blockchain",
             "A volatile currency",
-            "A currenncy used for illegal activities",
+            "A currency used for illegal activities",
             "A currency to speculate on the market",
           ],
           fr: [
