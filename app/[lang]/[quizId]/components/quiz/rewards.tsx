@@ -8,6 +8,7 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
+import "animate.css";
 
 const Rewards = ({
   lang,
@@ -106,9 +107,9 @@ const Rewards = ({
       )}
       {claimingLoading && !claimingError && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
-          <h2 className="text-gray-900 dark:text-gray-100">
+          <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
             {lang === "en" ? "Loading..." : "Chargement..."}
-          </h2>
+          </span>
         </div>
       )}
       {(hasAlreadyAnswered || claimedRewards) && (
