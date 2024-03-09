@@ -1,7 +1,7 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import React from "react";
+import React, { useState } from "react";
 
 const GetStarted = ({
   lang,
