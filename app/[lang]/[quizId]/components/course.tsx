@@ -142,7 +142,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                 className={`flex text-sm font-semibold justify-center rounded-full backdrop-blur-xl px-6 py-2 ${
                   currentCardIndex < cards.en.length - 1
                     ? "bg-blue-500 hover:bg-blue-400 text-gray-100"
-                    : "bg-gray-900 dark:bg-gray-100 text-gray-100 dark:text-gray-900"
+                    : "bg-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
                 }`}
               >
                 {currentCardIndex < cards.en.length - 1
