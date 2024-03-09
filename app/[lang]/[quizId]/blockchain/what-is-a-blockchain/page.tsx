@@ -11,7 +11,7 @@ const cards = {
     },
     {
       title: "Block",
-      text: "A block is a collection of transactions. Each block contains a list of transactions, a timestamp, and a reference to the previous block. Once a block is added to the blockchain, it cannot be altered.",
+      text: "A block is a collection of transactions. Each block contains a list of transactions, a timestamp, and a reference to the previous block.",
     },
     {
       title: "Immutable",
@@ -31,7 +31,7 @@ const cards = {
     },
     {
       title: "Consensus Mechanisms",
-      text: "Consensus mechanisms are the protocols that consider a transaction as legitimate and add them to the block. The most common consensus mechanisms are Proof of Work (PoW) and Proof of Stake (PoS).",
+      text: "Consensus mechanisms are the protocols that consider a transaction as legitimate and add them to the block. The most common consensus mechanisms are Proof of Work and Proof of Stake.",
     },
     {
       title: "Cryptocurrencies",

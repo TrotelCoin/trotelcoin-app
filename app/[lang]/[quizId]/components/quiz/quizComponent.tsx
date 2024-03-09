@@ -15,13 +15,11 @@ const QuizComponent = ({
   dict,
   lang,
   setIsTotallyCorrect,
-  setAudio,
   quizId,
 }: {
   dict: DictType;
   lang: Lang;
   setIsTotallyCorrect: React.Dispatch<SetStateAction<boolean>>;
-  setAudio: (value: boolean) => void;
   quizId: number;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
@@ -56,7 +54,6 @@ const QuizComponent = ({
       setIsCorrect(true);
       setShowConfetti(true);
       setShowMessage(true);
-      setAudio(true);
       if (questions) {
         setCurrentQuestion((prev) =>
           prev < questions.length - 1 ? prev + 1 : prev
@@ -69,7 +66,6 @@ const QuizComponent = ({
       setIsCorrect(false);
       setShowConfetti(false);
       setShowMessage(true);
-      setAudio(false);
       if (!isIntermediate && !isExpert && life > 0) {
         updateLife();
       }

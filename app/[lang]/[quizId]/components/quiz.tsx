@@ -16,8 +16,6 @@ interface QuizProps {
 
 const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
-  const [audio, setAudio] = useState<boolean>(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
   const [dict, setDict] = useState<DictType | null>(null);
 
   const { life } = useContext(LifeContext);
@@ -34,12 +32,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   const { isLoggedIn } = useUser();
 
-  useEffect(() => {
-    if (audio) {
-      audioRef.current?.play();
-    }
-  }, [audio]);
-
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   if (life === 0 && !isIntermediate && !isExpert) {
@@ -54,12 +46,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   return (
     <>
-      <audio
-        ref={audioRef}
-        src="/audio/correct-answer.mp3"
-        className="hidden"
-      ></audio>
-
       {/* QuizComponent */}
 
       {isLoggedIn && address && (
@@ -69,7 +55,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               dict={dict as DictType}
               lang={lang}
               setIsTotallyCorrect={setIsTotallyCorrect}
-              setAudio={setAudio}
               quizId={quizId}
             />
           </div>
