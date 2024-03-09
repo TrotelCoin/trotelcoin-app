@@ -9,14 +9,14 @@ import {
 } from "@/app/[lang]/[quizId]/layout";
 import Confetti from "react-dom-confetti";
 
-type Cards = {
+export type Cards = {
   en: {
     title: string;
-    text: string;
+    text: string | JSX.Element;
   }[];
   fr: {
     title: string;
-    text: string;
+    text: string | JSX.Element;
   }[];
 };
 

@@ -316,16 +316,11 @@ const quizzes = [
           fr: "Quel type de portefeuille fournit un stockage hors ligne?",
         },
         options: {
-          en: [
-            "Hardware wallet",
-            "Software wallet",
-            "Web wallet",
-            "Mobile wallet",
-          ],
+          en: ["Cold wallet", "Hot wallet", "Software wallet", "Mobile wallet"],
           fr: [
-            "Portefeuille matériel",
+            "Portefeuille froid",
+            "Portefeuille chaud",
             "Portefeuille logiciel",
-            "Portefeuille web",
             "Portefeuille mobile",
           ],
         },
@@ -374,27 +369,6 @@ const quizzes = [
       },
       {
         questionId: 5,
-        question: {
-          en: "Which activity is NOT a part of managing cryptocurrencies in your wallet?",
-          fr: "Quelle activité ne fait PAS partie de la gestion des cryptomonnaies dans votre portefeuille?",
-        },
-        options: {
-          en: [
-            "Mining new cryptocurrencies",
-            "Staking cryptocurrences",
-            "Make some trading",
-            "Lend cryptocurrencies",
-          ],
-          fr: [
-            "Miner des nouvelles crypto",
-            "Staker des cryptos",
-            "Faire du trading",
-            "Prêter des cryptos",
-          ],
-        },
-      },
-      {
-        questionId: 6,
         question: {
           en: "Why is it essential to back up your wallet's private key or seed phrase?",
           fr: "Pourquoi est-il essentiel de sauvegarder la phrase de récupération de votre portefeuille?",
