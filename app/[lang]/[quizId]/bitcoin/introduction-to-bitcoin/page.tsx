@@ -2,7 +2,6 @@
 
 import { Lang } from "@/types/types";
 import Course from "@/app/[lang]/[quizId]/components/course";
-import Link from "next/link";
 
 const cards = {
   en: [
