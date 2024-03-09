@@ -97,7 +97,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           </div>
           <div
             className="flex justify-center items-center mx-8"
-            style={{ height: "calc(100vh - 170px)" }}
+            style={{ height: "calc(100vh - 185px)" }}
           >
             <div className="max-w-xl mx-auto text-center">
               {lang === "en" ? (
@@ -113,7 +113,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               )}
             </div>
           </div>
-          <div className="fixed bottom-0 left-0 right-0 p-6 border-t border-gray-900/10 dark:border-gray-100/10">
+          <div className="fixed bottom-0 left-0 right-0 px-6 py-6 pb-10 md:p-6 border-t border-gray-900/10 dark:border-gray-100/10">
             <div className="flex justify-between items-center mx-auto">
               <button
                 onClick={() => handlePrevious()}
