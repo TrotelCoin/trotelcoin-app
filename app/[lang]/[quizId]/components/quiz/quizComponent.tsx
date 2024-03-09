@@ -46,6 +46,7 @@ const QuizComponent = ({
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
+    setShowConfetti(false);
 
     if (!isCaptchaVerified && !debug) {
       setCaptchaMessage(true);
@@ -157,7 +158,7 @@ const QuizComponent = ({
               )
             : shuffledQuestions[currentQuestion].options.fr.map(
                 (option: string, index: number) => (
-                  <li key={index} className="items-center">
+                  <li key={index} className="items-center flex justify-center">
                     <div
                       className={`cursor-pointer px-4 py-2 rounded-xl ${
                         answers[currentQuestion] === option
@@ -167,8 +168,8 @@ const QuizComponent = ({
                       onClick={() => handleAnswer(option)}
                     >
                       {option}
-                      <Confetti active={showConfetti} />
                     </div>
+                    <Confetti active={showConfetti} />
                   </li>
                 )
               )}
