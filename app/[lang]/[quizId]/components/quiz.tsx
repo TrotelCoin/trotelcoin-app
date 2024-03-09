@@ -54,6 +54,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
             <QuizComponent
               dict={dict as DictType}
               lang={lang}
+              isTotallyCorrect={isTotallyCorrect}
               setIsTotallyCorrect={setIsTotallyCorrect}
               quizId={quizId}
             />

@@ -14,11 +14,13 @@ const debug = process.env.NODE_ENV === "development";
 const QuizComponent = ({
   dict,
   lang,
+  isTotallyCorrect,
   setIsTotallyCorrect,
   quizId,
 }: {
   dict: DictType;
   lang: Lang;
+  isTotallyCorrect: boolean;
   setIsTotallyCorrect: React.Dispatch<SetStateAction<boolean>>;
   quizId: number;
 }) => {
@@ -176,7 +178,7 @@ const QuizComponent = ({
           {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
         </span>
       )}
-      {!isCorrect && questions && (
+      {!isTotallyCorrect && questions && (
         <div className="mt-6">
           <ReCAPTCHA
             sitekey={
@@ -189,12 +191,21 @@ const QuizComponent = ({
       {captchaMessage && (
         <div
           className={`${
-            captchaMessage && "hidden"
+            !captchaMessage && "hidden"
           } mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-red-500 dark:text-red-300`}
         >
           {lang === "en"
             ? "You didn't do the captcha."
             : "Vous n'avez pas fait le captcha."}
+        </div>
+      )}
+      {isTotallyCorrect && isCorrect && (
+        <div
+          className={`mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-green-500 dark:text-green-300`}
+        >
+          {lang === "en"
+            ? "You got all the questions right!"
+            : "Vous avez toutes les questions correctes!"}
         </div>
       )}
       {showMessage && !isCorrect && (
