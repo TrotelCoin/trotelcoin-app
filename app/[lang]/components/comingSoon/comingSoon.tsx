@@ -1,8 +1,7 @@
 "use client";
 
 import { DictType, Lang } from "@/types/types";
-import React, { useEffect, useState } from "react";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import React from "react";
 
 // Define a functional component called ComingSoon
 const ComingSoon = ({ lang, dict }: { lang: Lang; dict: DictType }) => {

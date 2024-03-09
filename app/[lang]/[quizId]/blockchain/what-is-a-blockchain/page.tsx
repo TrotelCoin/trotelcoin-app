@@ -1,65 +1,91 @@
 "use client";
 
-import React from "react";
+import { Lang } from "@/types/types";
+import Course from "@/app/[lang]/[quizId]/components/course";
 
-const CoursePage = () => {
+const cards = {
+  en: [
+    {
+      title: "What is a blockchain?",
+      text: "Blockchain is a distributed ledger used to record transactions across multiple computers. Each transaction is recorded in a block, which is then linked to the previous block, creating a chain of blocks.",
+    },
+    {
+      title: "Block",
+      text: "A block is a collection of transactions. Each block contains a list of transactions, a timestamp, and a reference to the previous block.",
+    },
+    {
+      title: "Immutable",
+      text: "The blockchain is immutable, meaning that once a block is added to the blockchain, it cannot be altered. This makes the blockchain secure and tamper-resistant.",
+    },
+    {
+      title: "Decentralized",
+      text: "The blockchain is decentralized, meaning that it is not controlled by any single entity. Instead, it is maintained by a network of computers, making it secure and resistant to censorship.",
+    },
+    {
+      title: "Transparent",
+      text: "The blockchain is transparent, meaning that all transactions are publicly available. This transparency helps to prevent fraud and corruption.",
+    },
+    {
+      title: "Secure",
+      text: "The blockchain uses cryptographic techniques to secure transactions and prevent unauthorized access. This makes the blockchain secure and resistant to hacking.",
+    },
+    {
+      title: "Consensus Mechanisms",
+      text: "Consensus mechanisms are the protocols that consider a transaction as legitimate and add them to the block. The most common consensus mechanisms are Proof of Work and Proof of Stake.",
+    },
+    {
+      title: "Cryptocurrencies",
+      text: "Blockchain technology is the foundation of cryptocurrencies. Cryptocurrencies are digital or virtual currencies that use cryptography for security and operate on a blockchain.",
+    },
+    {
+      title: "Use cases",
+      text: "Blockchain technology has a wide range of use cases, including supply chain management, voting systems, identity verification, and more.",
+    },
+  ],
+  fr: [
+    {
+      title: "Qu'est-ce qu'une blockchain ?",
+      text: "La blockchain est un registre distribué utilisé pour enregistrer des transactions sur plusieurs ordinateurs. Chaque transaction est enregistrée dans un bloc, qui est ensuite lié au bloc précédent, créant ainsi une chaîne de blocs.",
+    },
+    {
+      title: "Bloc",
+      text: "Un bloc est une collection de transactions. Chaque bloc contient une liste de transactions, une horodatage et une référence au bloc précédent. Une fois qu'un bloc est ajouté à la blockchain, il ne peut pas être modifié.",
+    },
+    {
+      title: "Immuable",
+      text: "La blockchain est immuable, ce qui signifie qu'une fois qu'un bloc est ajouté à la blockchain, il ne peut pas être modifié. Cela rend la blockchain sécurisée et résistante à la falsification.",
+    },
+    {
+      title: "Décentralisé",
+      text: "La blockchain est décentralisée, ce qui signifie qu'elle n'est pas contrôlée par une seule entité. Au lieu de cela, elle est entretenue par un réseau d'ordinateurs, ce qui la rend sécurisée et résistante à la censure.",
+    },
+    {
+      title: "Transparent",
+      text: "La blockchain est transparente, ce qui signifie que toutes les transactions sont publiquement disponibles. Cette transparence contribue à prévenir la fraude et la corruption.",
+    },
+    {
+      title: "Sécurisé",
+      text: "La blockchain utilise des techniques cryptographiques pour sécuriser les transactions et empêcher l'accès non autorisé. Cela rend la blockchain sécurisée et résistante au piratage.",
+    },
+    {
+      title: "Mécanismes de consensus",
+      text: "Les mécanismes de consensus sont les protocoles qui considèrent une transaction comme légitime et les ajoutent au bloc. Les mécanismes de consensus les plus courants sont la preuve de travail (PoW) et la preuve d'enjeu (PoS).",
+    },
+    {
+      title: "Cryptomonnaies",
+      text: "La technologie blockchain est la base des cryptomonnaies. Les cryptomonnaies sont des monnaies numériques ou virtuelles qui utilisent la cryptographie pour la sécurité et fonctionnent sur une blockchain.",
+    },
+    {
+      title: "Cas d'utilisation",
+      text: "La technologie blockchain a une large gamme de cas d'utilisation, y compris la gestion de la chaîne d'approvisionnement, les systèmes de vote, la vérification d'identité, et plus encore.",
+    },
+  ],
+};
+
+const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-        Install your first wallet
-      </h2>
-      <p className="mt-6">
-        Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in.
-        Convallis arcu ipsum urna nibh. Pharetra, euismod vitae interdum mauris
-        enim, consequat vulputate nibh. Maecenas pellentesque id sed tellus
-        mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi.
-        Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis
-        diam.
-      </p>
-      <figure className="mt-10 border-l border-blue-500 dark:border-blue-300 pl-9">
-        <blockquote className="font-semibold text-gray-900 dark:text-gray-100">
-          <p>
-            “Vel ultricies morbi odio facilisi ultrices accumsan donec lacus
-            purus. Lectus nibh ullamcorper ac dictum justo in euismod. Risus
-            aenean ut elit massa. In amet aliquet eget cras. Sem volutpat enim
-            tristique.”
-          </p>
-        </blockquote>
-        <figcaption className="mt-6 flex gap-x-4">
-          <div className="text-sm leading-6">
-            <strong className="font-semibold text-gray-900 dark:text-gray-100">
-              Alexandre Trotel
-            </strong>{" "}
-            – CEO & Founder
-          </div>
-        </figcaption>
-      </figure>
-      <p className="mt-10">
-        Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
-        Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent
-        donec est. Odio penatibus risus viverra tellus varius sit neque erat
-        velit.
-      </p>
-
-      <div className="mt-16 mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          Configure your wallet
-        </h2>
-        <p className="mt-6">
-          Purus morbi dignissim senectus mattis adipiscing. Amet, massa quam
-          varius orci dapibus volutpat cras. In amet eu ridiculus leo sodales
-          cursus tristique. Tincidunt sed tempus ut viverra ridiculus non
-          molestie. Gravida quis fringilla amet eget dui tempor dignissim.
-          Facilisis auctor venenatis varius nunc, congue erat ac. Cras fermentum
-          convallis quam.
-        </p>
-        <p className="mt-8">
-          Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus
-          enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor
-          praesent donec est. Odio penatibus risus viverra tellus varius sit
-          neque erat velit.
-        </p>
-      </div>
+      <Course cards={cards} lang={lang} />
     </>
   );
 };

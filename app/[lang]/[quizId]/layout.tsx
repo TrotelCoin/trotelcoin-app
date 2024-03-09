@@ -2,7 +2,7 @@
 
 import "animate.css";
 import { Course, DictType, Lang } from "@/types/types";
-import React, { useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import Quiz from "@/app/[lang]/[quizId]/components/quiz";
 import { useAddress } from "@thirdweb-dev/react";
@@ -11,7 +11,6 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 import CoursesSatisfaction from "@/app/[lang]/[quizId]/components/coursesSatisfaction";
 import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
 import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
-import CurrentCourse from "@/app/[lang]/[quizId]/components/currentCourse";
 import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { usePathname } from "next/navigation";
@@ -19,6 +18,15 @@ import Success from "@/app/[lang]/components/modals/success";
 import CountUp from "react-countup";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+
+export type CourseFinishedContextType = {
+  isCourseFinished: boolean;
+  setIsCourseFinished: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const CourseFinishedContext = createContext<CourseFinishedContextType | null>(
+  null
+);
 
 const CoursePage = ({
   params: { lang, quizId },
@@ -30,6 +38,7 @@ const CoursePage = ({
   const [dict, setDict] = useState<DictType | null>(null);
   const [answered, setAnswered] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
+  const [isCourseFinished, setIsCourseFinished] = useState<boolean>(false);
 
   const pathname = usePathname();
   const origin =
@@ -127,32 +136,35 @@ const CoursePage = ({
               </svg>
             </button>
           </div>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+          <h1 className="my-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
             {title}
           </h1>
-          <p className="mt-2 text-gray-900 dark:text-gray-100">
-            {typeof dict?.lesson !== "string" && (
-              <>{dict?.lesson.goingToLearn}</>
-            )}
-          </p>
-
-          {/* Current course */}
-          <CurrentCourse lang={lang} currentCourse={currentCourse} />
 
           {/* Disclaimer */}
-          <Disclaimer dict={dict as DictType} />
+          <div className="mt-4">
+            <Disclaimer dict={dict as DictType} />
+          </div>
 
           {/* Course */}
-          <div className="whitespace-normal break-words">{children}</div>
+          <div className="flex justify-start">
+            <CourseFinishedContext.Provider
+              value={{ isCourseFinished, setIsCourseFinished }}
+            >
+              {children}
+            </CourseFinishedContext.Provider>
+          </div>
 
-          {/* Satisfaction */}
-          <CoursesSatisfaction dict={dict as DictType} quizId={quizId} />
+          {isCourseFinished && (
+            <>
+              <div className="mt-10">
+                <CoursesSatisfaction dict={dict as DictType} quizId={quizId} />
 
-          {/* Quizz */}
-          <Quiz quizId={quizId} lang={lang} />
+                <Quiz quizId={quizId} lang={lang} />
 
-          {/* Go Home */}
-          <GoHomeButton lang={lang} />
+                <GoHomeButton lang={lang} />
+              </div>
+            </>
+          )}
         </div>
         <Success
           show={copied}
@@ -182,6 +194,12 @@ const CoursePage = ({
         : renderCourseContent(children)}
     </>
   );
+};
+
+export const useCourseFinished = () => {
+  const context = useContext(CourseFinishedContext);
+
+  return context;
 };
 
 export default CoursePage;

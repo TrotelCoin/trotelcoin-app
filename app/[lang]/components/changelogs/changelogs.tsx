@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.5.8";
+const version = "1.6.3";
 
 interface ChangelogItem {
   title: string;
@@ -82,6 +82,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Introduction to Bitcoin is available !"
               : "- Introduction à Bitcoin est disponible !",
+          isNew: false,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Introduction to blockchains is available !"
+              : "- Introduction aux blockchains est disponible !",
           isNew: true,
         },
       ],
@@ -103,6 +110,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               : "- On a ajouté une section vocabulaire dans Apprendre",
           isNew: false,
         },
+        {
+          text:
+            lang === "en"
+              ? "- We completely changed courses"
+              : "- On a complètement changé les cours",
+          isNew: true,
+        },
       ],
     },
     {
@@ -113,7 +127,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We reached $40k of market cap"
               : "- On a atteint 40k$ de capitalisation",
-          isNew: true,
+          isNew: false,
         },
         {
           text:

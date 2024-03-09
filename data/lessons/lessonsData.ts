@@ -258,9 +258,9 @@ const lessons: Lessons[] = [
           fr: "Débutant",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 7,
-        available: false,
+        available: true,
       },
       {
         title: {
@@ -325,7 +325,7 @@ const lessons: Lessons[] = [
           fr: "Débutant",
         },
         sponsored: false,
-        new: true,
+        new: false,
         quizId: 9,
         available: true,
       },

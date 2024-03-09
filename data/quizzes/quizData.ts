@@ -6,126 +6,168 @@ const quizzes = [
       {
         questionId: 1,
         question: {
-          en: "What is the mission of TrotelCoin?",
-          fr: "Quelle est la mission de TrotelCoin?",
+          en: "What topics are covered by TrotelCoin?",
+          fr: "Quels sujets sont couverts par TrotelCoin?",
         },
         options: {
           en: [
-            "Facilitate crypto education",
-            "Build an empowered web3 community",
-            "Maximize profits for TrotelCoin's holders",
-            "TrotelCoin lacks a defined mission or vision",
+            "Web3, Crypto, DeFi, and Blockchain",
+            "Tech, Science, and History",
+            "Math, Physics, and Chemistry",
+            "TrotelCoin has no defined topics",
           ],
           fr: [
-            "Faciliter l'éducation sur la crypto",
-            "Créer une communauté web3",
-            "Maximiser les profits pour les détenteurs du TrotelCoin",
-            "TrotelCoin n'a pas de mission ou de vision définie",
+            "Web3, Crypto, DeFi, et Blockchain",
+            "Tech, Science, et Histoire",
+            "Math, Physique, et Chimie",
+            "TrotelCoin n'a pas de sujets définis",
           ],
         },
       },
       {
         questionId: 2,
         question: {
-          en: "How is the TrotelCoin token distributed annually?",
-          fr: "Comment est distribué le TrotelCoin annuellement?",
+          en: "Why is it important to learn about Web3?",
+          fr: "Pourquoi est-il important d'apprendre sur le Web3?",
         },
         options: {
           en: [
-            "Based on the number of quizzes completed",
-            "Randomly",
-            "Fixed amount per user",
-            "None of the above",
+            "To take control over your data and promote transparency",
+            "To allow the government control your data",
+            "To become rich with cryptocurrencies",
+            "It's not important to learn about Web3",
           ],
           fr: [
-            "En fonction du nombre de quiz complétés",
-            "Aléatoirement",
-            "Montant fixe par utilisateur",
-            "Aucune des réponses ci-dessus",
+            "Pour prendre le contrôle sur vos données et promouvoir la transparence",
+            "Pour faire en sorte que le gouvernement contrôle vos données",
+            "Pour devenir riche avec les cryptomonnaies",
+            "Il n'est pas important d'apprendre le Web3",
           ],
         },
       },
       {
         questionId: 3,
         question: {
-          en: "What is the purpose of contributing to the Uniswap liquidity pool?",
-          fr: "Quel est le but de contribuer à la pool de liquidité Uniswap?",
+          en: "What's TrotelCoin?",
+          fr: "Qu'est-ce que TrotelCoin?",
         },
         options: {
           en: [
-            "To improve liquidity and generate fees",
-            "Only to stabilize token value",
-            "Only to earn comissions",
-            "No risk, only benefits the project",
+            "An educational platform for exploring Web3 and cryptocurrencies",
+            "A platform for buying and selling cryptocurrencies",
+            "A platform for playing games",
+            "A platform to trade NFTs",
           ],
           fr: [
-            "Améliorer la liquidité et générer des frais",
-            "Uniquement pour stabiliser la valeur du token",
-            "Uniquement pour gagner des commissions",
-            "Aucun risque, seulement des avantages pour le projet",
+            "Une plateforme éducative pour explorer le Web3 et les cryptomonnaies",
+            "Une plateforme pour acheter et vendre des cryptomonnaies",
+            "Une plateforme pour jouer à des jeux",
+            "Une plateforme pour échanger des NFTs",
           ],
         },
       },
       {
         questionId: 4,
         question: {
-          en: "What is the impact of token burning?",
-          fr: "Quel est l'impact du burning?",
+          en: "Do I need a crypto wallet to learn?",
+          fr: "Ai-je besoin d'un portefeuille de cryptomonnaie pour apprendre?",
         },
         options: {
           en: [
-            "Stabilizes TrotelCoin value by preserving supply",
-            "No impact on stability but increases the overall token supply",
-            "Destabilizes the token by reducing its overall supply",
-            "Doesn't affect TrotelCoin's stability or value",
+            "No, learning is free without earning TrotelCoins",
+            "Yes, you need a crypto wallet to learn",
+            "You need to give us Bitcoin to access the platform",
+            "Yes, you need a bank account to learn",
           ],
           fr: [
-            "Stabilise la valeur de TrotelCoin en préservant l'offre",
-            "Aucun impact sur la stabilité mais augmente l'offre globale",
-            "Déstabilise le token en réduisant son offre globale",
-            "N'affecte pas la stabilité ou la valeur de TrotelCoin",
+            "Non, l'apprentissage est gratuit sans gagner de TrotelCoins",
+            "Oui, vous avez besoin d'un portefeuille de cryptomonnaie pour apprendre",
+            "Vous devez nous donner du Bitcoin pour accéder à la plateforme",
+            "Oui, vous avez besoin d'un compte bancaire pour apprendre",
           ],
         },
       },
       {
         questionId: 5,
         question: {
-          en: "What are the anti-fraud measures in place?",
-          fr: "Quelles sont les mesures anti-fraude en place?",
+          en: "Is TrotelCoin a token?",
+          fr: "TrotelCoin est-il un token?",
         },
         options: {
           en: [
-            "Quiz can be answered once and there's a captcha",
-            "No measures and participants can submit the quiz multiple times",
-            "Worldcoin ID is the only anti-fraud measure in place",
-            "Measures are not necessary and limit participant engagement",
+            "Yes, TrotelCoin has its own token, TROTEL used for governance and rewards",
+            "No, TrotelCoin is only the name of the app",
+            "TrotelCoin plans to create a token",
+            "TrotelCoin uses Bitcoin",
           ],
           fr: [
-            "Le quiz ne peut être répondu qu'une seule fois et il y a un captcha",
-            "Pas de mesure et les participants peuvent soumettre le quiz plusieurs fois",
-            "Worldcoin ID est la seule mesure anti-fraude en place",
-            "Les mesures sont inutiles et entravent l'engagement des learners",
+            "Oui, TrotelCoin a son propre token, TROTEL utilisé pour la gouvernance et les récompenses",
+            "Non, TrotelCoin est seulement le nom de l'application",
+            "TrotelCoin prévoit de créer un token",
+            "TrotelCoin utilise Bitcoin",
           ],
         },
       },
       {
         questionId: 6,
         question: {
-          en: "What is the purpose of the TrotelCoin token?",
-          fr: "Quel est le but du TrotelCoin?",
+          en: "How are TrotelCoins rewarded?",
+          fr: "Comment sont récompensés les TrotelCoins?",
         },
         options: {
           en: [
-            "Incentivizes progress and permit governance",
-            "No utility in education and serves only as a digital asset",
-            "Utility is only about governance",
-            "Utility is solely determined by market trends",
+            "The more tokens left, the more rewards you may get",
+            "You need to buy TrotelCoins to get rewards",
+            "You need to complete a survey giving all your data to get rewards",
+            "TrotelCoins are not rewarded",
           ],
           fr: [
-            "Incite les progrès et permet la gouvernance",
-            "Aucune utilité dans l'éducation et ne sert que de bien numérique",
-            "L'utilité est uniquement liée à la gouvernance",
-            "L'utilité est uniquement déterminée par les tendances du marché",
+            "Plus il reste de tokens, plus vous pouvez obtenir de récompenses",
+            "Vous devez acheter des TrotelCoins pour obtenir des récompenses",
+            "Vous devez compléter un sondage donnant toutes vos données pour obtenir des récompenses",
+            "Les TrotelCoins ne sont pas récompensés",
+          ],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "What's the purpose of liquidity?",
+          fr: "Quel est le but de la liquidité?",
+        },
+        options: {
+          en: [
+            "It helps making trading smoother while rewarding you",
+            "It's like donating your money for the project",
+            "You can never get back your cryptocurrencies when adding liquidity",
+            "It's only available on Uniswap",
+          ],
+          fr: [
+            "Cela aide à rendre le trading plus fluide tout en vous récompensant",
+            "C'est comme faire un don pour le projet",
+            "Vous ne pouvez jamais récupérer vos cryptomonnaies lorsque vous ajoutez de la liquidité",
+            "C'est seulement disponible sur Uniswap",
+          ],
+        },
+      },
+      {
+        questionId: 8,
+        question: {
+          en: "What's token burning?",
+          fr: "C'est quoi le burning de tokens?",
+        },
+        options: {
+          en: [
+            "It increases the token's value by reducing the supply",
+            "It's burning the physical version of the token",
+            "It is a bad thing for the project",
+            "It is only to make the community happy",
+          ],
+          fr: [
+            "Cela augmente la valeur du token en réduisant l'offre",
+            "Il s'agit de brûler la version physique du token",
+            "C'est une mauvaise chose pour le projet",
+            "Cela sert juste à rendre la communauté heureuse",
           ],
         },
       },
@@ -201,27 +243,6 @@ const quizzes = [
       {
         questionId: 4,
         question: {
-          en: "Where can you stay updated about the NFTs?",
-          fr: "Où pouvez-vous rester informé sur les NFTs?",
-        },
-        options: {
-          en: [
-            "On the TrotelCoin documentation mainly",
-            "On the TrotelCoin Discord only",
-            "On the TrotelCoin Twitter only",
-            "There's no place to stay updated about the NFTs",
-          ],
-          fr: [
-            "Sur le site web de TrotelCoin principalement",
-            "Sur le Discord de TrotelCoin seulement",
-            "Sur le Twitter de TrotelCoin seulement",
-            "Il n'y a pas d'endroit pour rester informé sur les NFTs",
-          ],
-        },
-      },
-      {
-        questionId: 5,
-        question: {
           en: "What action do you need to take to claim the NFTs?",
           fr: "Quelle action devez-vous prendre pour réclamer les NFTs?",
         },
@@ -241,7 +262,7 @@ const quizzes = [
         },
       },
       {
-        questionId: 6,
+        questionId: 5,
         question: {
           en: "What's the last step to confirm the NFTs claim?",
           fr: "Quelle est la dernière étape pour confirmer la réclamation des NFTs?",
@@ -295,16 +316,11 @@ const quizzes = [
           fr: "Quel type de portefeuille fournit un stockage hors ligne?",
         },
         options: {
-          en: [
-            "Hardware wallet",
-            "Software wallet",
-            "Web wallet",
-            "Mobile wallet",
-          ],
+          en: ["Cold wallet", "Hot wallet", "Software wallet", "Mobile wallet"],
           fr: [
-            "Portefeuille matériel",
+            "Portefeuille froid",
+            "Portefeuille chaud",
             "Portefeuille logiciel",
-            "Portefeuille web",
             "Portefeuille mobile",
           ],
         },
@@ -354,27 +370,6 @@ const quizzes = [
       {
         questionId: 5,
         question: {
-          en: "Which activity is NOT a part of managing cryptocurrencies in your wallet?",
-          fr: "Quelle activité ne fait PAS partie de la gestion des cryptomonnaies dans votre portefeuille?",
-        },
-        options: {
-          en: [
-            "Mining new cryptocurrencies",
-            "Staking cryptocurrences",
-            "Make some trading",
-            "Lend cryptocurrencies",
-          ],
-          fr: [
-            "Miner des nouvelles crypto",
-            "Staker des cryptos",
-            "Faire du trading",
-            "Prêter des cryptos",
-          ],
-        },
-      },
-      {
-        questionId: 6,
-        question: {
           en: "Why is it essential to back up your wallet's private key or seed phrase?",
           fr: "Pourquoi est-il essentiel de sauvegarder la phrase de récupération de votre portefeuille?",
         },
@@ -388,6 +383,180 @@ const quizzes = [
             "Pour récupérer votre portefeuille s'il est perdu ou volé",
             "Pour le partager avec vos amis et votre famille",
             "Il n'est pas nécessaire de sauvegarder votre portefeuille",
+          ],
+        },
+      },
+    ],
+  },
+  {
+    quizId: 7,
+    title: "Introduction to blockchains",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is a blockchain?",
+          fr: "Qu'est-ce qu'une blockchain?",
+        },
+        options: {
+          en: [
+            "A decentralized ledger that stores a chain of blocks",
+            "A type of cryptocurrency",
+            "A programming language used to create smart contracts",
+            "A digital wallet for storing Bitcoin",
+          ],
+          fr: [
+            "Un registre décentralisé qui stocke une chaîne de blocs",
+            "Un type de cryptomonnaie",
+            "Un langage de programmation utilisé pour créer des smart contracts",
+            "Un portefeuille numérique pour stocker du Bitcoin",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is a block?",
+          fr: "Qu'est-ce qu'un bloc?",
+        },
+        options: {
+          en: [
+            "A collection of transactions",
+            "A collection of computers",
+            "A collection of users",
+            "A collection of cryptocurrencies",
+          ],
+          fr: [
+            "Une collection de transactions",
+            "Une collection d'ordinateurs",
+            "Une collection d'utilisateurs",
+            "Une collection de cryptomonnaies",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What means 'immutable' in the context of blockchain?",
+          fr: "Que signifie 'immuable' dans le contexte de la blockchain?",
+        },
+        options: {
+          en: [
+            "Once a block is added, it cannot be altered",
+            "Once a block is added, it can be altered",
+            "Once a block is added, it can be deleted",
+            "Once a block is added, it can be duplicated",
+          ],
+          fr: [
+            "Une fois qu'un bloc est ajouté, il ne peut pas être modifié",
+            "Une fois qu'un bloc est ajouté, il peut être modifié",
+            "Une fois qu'un bloc est ajouté, il peut être supprimé",
+            "Une fois qu'un bloc est ajouté, il peut être dupliqué",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Why is Blockchain decentralization important?",
+          fr: "Pourquoi la décentralisation de la blockchain est-elle importante?",
+        },
+        options: {
+          en: [
+            "To make the blockchain secure and censorship-resistant",
+            "To make transactions faster",
+            "To allow governments to control the blockchain",
+            "To simplify the consensus mechanism",
+          ],
+          fr: [
+            "Pour rendre la blockchain sécurisée et résistante à la censure",
+            "Pour rendre les transactions plus rapides",
+            "Pour permettre aux gouvernements de contrôler la blockchain",
+            "Pour simplifier le mécanisme de consensus",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Why blockchain is transparent?",
+          fr: "Pourquoi la blockchain est transparente?",
+        },
+        options: {
+          en: [
+            "Everyone can verify the state of the blockchain",
+            "Only validators can verify the state of the blockchain",
+            "It's not transparent",
+            "It's transparent only for the developers",
+          ],
+          fr: [
+            "Tout le monde peut vérifier l'état de la blockchain",
+            "Seuls les validateurs peuvent vérifier l'état de la blockchain",
+            "Elle n'est pas transparente",
+            "Elle est transparente uniquement pour les développeurs",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "Why blockchain is secure?",
+          fr: "Pourquoi la blockchain est sécurisée?",
+        },
+        options: {
+          en: [
+            "It uses cryptographic techniques to secure transactions",
+            "It relies on trust to secure transactions",
+            "It is not secure",
+            "Only the wallet is secured",
+          ],
+          fr: [
+            "Elle utilise des techniques cryptographiques pour sécuriser les transactions",
+            "Elle repose sur la confiance pour sécuriser les transactions",
+            "Elle n'est pas sécurisée",
+            "Seul le portefeuille est sécurisé",
+          ],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "What are the consensus mechanisms?",
+          fr: "Quels sont les mécanismes de consensus?",
+        },
+        options: {
+          en: [
+            "A way to consider a transaction as legitimate and add them to the block",
+            "A way to make the government control the blockchain",
+            "It's a term used to describe the block",
+            "It's a term used to describe the transaction",
+          ],
+          fr: [
+            "Une manière de considérer une transaction comme légitime et de les ajouter au bloc",
+            "Une manière de faire en sorte que le gouvernement contrôle la blockchain",
+            "C'est un terme utilisé pour décrire le bloc",
+            "C'est un terme utilisé pour décrire la transaction",
+          ],
+        },
+      },
+      {
+        questionId: 8,
+        question: {
+          en: "What are cryptocurrencies?",
+          fr: "Qu'est-ce que sont les cryptomonnaies?",
+        },
+        options: {
+          en: [
+            "A digital currency used to secure transactions and operate on a blockchain",
+            "A volatile currency",
+            "A currenncy used for illegal activities",
+            "A currency to speculate on the market",
+          ],
+          fr: [
+            "Une monnaie numérique utilisée pour sécuriser les transactions et opérer sur une blockchain",
+            "Une monnaie volatile",
+            "Une monnaie utilisée pour des activités illégales",
+            "Une monnaie pour spéculer sur le marché",
           ],
         },
       },
