@@ -194,7 +194,7 @@ const QuizComponent = ({
           </span>
         </>
       )}
-      {!isTotallyCorrect && questions && (
+      {!isTotallyCorrect && !isCaptchaVerified && questions && (
         <div className="mt-6">
           <ReCAPTCHA
             sitekey={
