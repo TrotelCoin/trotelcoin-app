@@ -121,63 +121,78 @@ const QuizComponent = ({
 
   return (
     <>
-      {shuffledQuestions &&
-        shuffledQuestions[currentQuestion] &&
-        isLoggedIn && (
-          <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
-            <span>
+      {isCaptchaVerified || debug ? (
+        <>
+          {shuffledQuestions &&
+            shuffledQuestions[currentQuestion] &&
+            isLoggedIn && (
+              <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
+                <span>
+                  {lang === "en"
+                    ? shuffledQuestions[currentQuestion].question.en
+                    : shuffledQuestions[currentQuestion].question.fr}
+                </span>
+                <span>
+                  {currentQuestion + 1}/{shuffledQuestions.length}
+                </span>
+              </h3>
+            )}
+          {shuffledQuestions &&
+          shuffledQuestions[currentQuestion] &&
+          shuffledQuestions[currentQuestion].options ? (
+            <ul className="mt-3 pt-6 space-y-4">
               {lang === "en"
-                ? shuffledQuestions[currentQuestion].question.en
-                : shuffledQuestions[currentQuestion].question.fr}
+                ? shuffledQuestions[currentQuestion].options.en.map(
+                    (option: string, index: number) => (
+                      <li key={index} className="items-center">
+                        <div
+                          className={`cursor-pointer px-4 py-2 rounded-xl ${
+                            answers[currentQuestion] === option
+                              ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                              : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                          }`}
+                          onClick={() => handleAnswer(option)}
+                        >
+                          {option}
+                        </div>
+                      </li>
+                    )
+                  )
+                : shuffledQuestions[currentQuestion].options.fr.map(
+                    (option: string, index: number) => (
+                      <li
+                        key={index}
+                        className="items-center flex justify-center"
+                      >
+                        <div
+                          className={`cursor-pointer px-4 py-2 rounded-xl ${
+                            answers[currentQuestion] === option
+                              ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                              : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                          }`}
+                          onClick={() => handleAnswer(option)}
+                        >
+                          {option}
+                        </div>
+                        <Confetti active={showConfetti} />
+                      </li>
+                    )
+                  )}
+            </ul>
+          ) : (
+            <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
+              {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
             </span>
-            <span>
-              {currentQuestion + 1}/{shuffledQuestions.length}
-            </span>
-          </h3>
-        )}
-      {shuffledQuestions &&
-      shuffledQuestions[currentQuestion] &&
-      shuffledQuestions[currentQuestion].options ? (
-        <ul className="mt-3 pt-6 space-y-4">
-          {lang === "en"
-            ? shuffledQuestions[currentQuestion].options.en.map(
-                (option: string, index: number) => (
-                  <li key={index} className="items-center">
-                    <div
-                      className={`cursor-pointer px-4 py-2 rounded-xl ${
-                        answers[currentQuestion] === option
-                          ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
-                          : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
-                      }`}
-                      onClick={() => handleAnswer(option)}
-                    >
-                      {option}
-                    </div>
-                  </li>
-                )
-              )
-            : shuffledQuestions[currentQuestion].options.fr.map(
-                (option: string, index: number) => (
-                  <li key={index} className="items-center flex justify-center">
-                    <div
-                      className={`cursor-pointer px-4 py-2 rounded-xl ${
-                        answers[currentQuestion] === option
-                          ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
-                          : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
-                      }`}
-                      onClick={() => handleAnswer(option)}
-                    >
-                      {option}
-                    </div>
-                    <Confetti active={showConfetti} />
-                  </li>
-                )
-              )}
-        </ul>
+          )}
+        </>
       ) : (
-        <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
-          {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
-        </span>
+        <>
+          <span className="text-red-500 dark:text-red-300">
+            {lang === "en"
+              ? "Complete the captcha first."
+              : "Complètez le captcha d'abord."}
+          </span>
+        </>
       )}
       {!isTotallyCorrect && questions && (
         <div className="mt-6">
