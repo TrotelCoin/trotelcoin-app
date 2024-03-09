@@ -7,7 +7,6 @@ import {
   useCourseFinished,
   CourseFinishedContextType,
 } from "@/app/[lang]/[quizId]/layout";
-import Confetti from "react-dom-confetti";
 
 export type Cards = {
   en: {
@@ -24,8 +23,6 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
-  const [showConfetti, setShowConfetti] = useState<boolean>(false);
-
   const courseFinishedContext = useCourseFinished();
   const { setIsCourseFinished } =
     courseFinishedContext as CourseFinishedContextType;
@@ -34,7 +31,6 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
     if (currentCardIndex < cards.en.length - 1) {
       setCurrentCardIndex(currentCardIndex + 1);
     } else {
-      setShowConfetti(true);
       setFullScreen(false);
       setCurrentCardIndex(0);
       setWidth(0);
@@ -45,7 +41,6 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const handlePrevious = () => {
     if (currentCardIndex > 0) {
       setCurrentCardIndex(currentCardIndex - 1);
-      setShowConfetti(false);
     }
   };
 
@@ -59,9 +54,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   }, [currentCardIndex]);
 
   useEffect(() => {
-    if (fullscreen) {
-      setShowConfetti(false);
-    } else {
+    if (!fullscreen) {
       setCurrentCardIndex(0);
       setWidth(0);
     }
@@ -71,16 +64,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
     <>
       <GetStarted lang={lang} setFullScreen={setFullScreen} />
 
-      <Transition
-        as={Fragment}
-        show={fullscreen}
-        enter="transition-opacity duration-1000"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-300"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-      >
+      <Transition as={Fragment} show={fullscreen}>
         <Dialog
           as="div"
           className="z-50 fixed top-0 left-0 w-full h-screen bg-white dark:bg-gray-900"
@@ -91,7 +75,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               <div
                 style={{
                   width: `${width}%`,
-                  transition: "width 0.1s ease-in",
+                  transition: "width 0.2s ease-in",
                 }}
                 className="rounded-full h-2 bg-blue-500"
               />
@@ -150,9 +134,8 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                     ? "Next"
                     : "Suivant"
                   : lang === "en"
-                  ? "Take the quiz"
+                  ? "Do the quiz"
                   : "Faire le quiz"}
-                <Confetti active={showConfetti} />
               </button>
             </div>
           </div>

@@ -8,6 +8,7 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
+import Confetti from "react-dom-confetti";
 import "animate.css";
 
 const Rewards = ({
@@ -41,20 +42,18 @@ const Rewards = ({
     setClaimingLoading(true);
 
     // update database rewards by calling api and if success
-    const responseUpdate = await axios
+    await axios
       .post(
         `/api/database/postUpdateRewards?wallet=${address}&quizId=${quizId}`
       )
-      .then((response) => response.data)
+      .then(() => {
+        setClaimedRewards(true);
+        setClaimedRewardsMessage(true);
+      })
       .catch((error) => {
         console.error(error);
         setClaimingError(true);
       });
-
-    if (responseUpdate.success) {
-      setClaimedRewards(true);
-      setClaimedRewardsMessage(true);
-    }
 
     setClaimingLoading(false);
   };
@@ -94,6 +93,7 @@ const Rewards = ({
                 {typeof dict?.quiz !== "string" && (
                   <>{dict?.quiz.receiveCrypto}</>
                 )}
+                <Confetti active={claimedRewards} />
               </button>
             </div>
           </div>
