@@ -13,6 +13,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .eq("wallet", wallet);
     return new NextResponse(JSON.stringify(name), {
       status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
     return new NextResponse(JSON.stringify(error), {

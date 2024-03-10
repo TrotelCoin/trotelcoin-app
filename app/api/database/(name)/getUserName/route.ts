@@ -20,6 +20,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return new NextResponse(JSON.stringify(result[0].username), {
       status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
     return NextResponse.json(wallet, {

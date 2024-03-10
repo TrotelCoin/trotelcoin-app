@@ -38,7 +38,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
         );
       }
 
-      return NextResponse.json(2, { status: 200 });
+      return NextResponse.json(2, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     }
 
     // remove 1 life from the user
