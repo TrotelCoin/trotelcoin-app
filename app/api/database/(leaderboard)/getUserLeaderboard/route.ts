@@ -61,7 +61,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         numberOfQuizzesAnswered: numberOfQuizzesAnswered,
         streak: streak.length > 0 ? streak[0].current_streak : 0,
       },
-      { status: 200 }
+      { status: 200, headers: { "Cache-Control": "no-store" } }
     );
   } catch (error) {
     console.error(error);

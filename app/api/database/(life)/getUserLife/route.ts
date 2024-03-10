@@ -52,7 +52,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
         return NextResponse.json(3, { status: 500 });
       }
 
-      return NextResponse.json(3, { status: 200 });
+      return NextResponse.json(3, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     }
 
     return NextResponse.json(result[0].life, {
