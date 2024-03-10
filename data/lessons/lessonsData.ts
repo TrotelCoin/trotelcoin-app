@@ -527,6 +527,42 @@ const lessons: Lessons[] = [
       },
     ],
   },
+  {
+    category: "Stablecoins",
+    courses: [
+      {
+        title: {
+          en: "Introduction to stablecoins",
+          fr: "Introduction aux stablecoins",
+        },
+        description: {
+          en: "Learn about the basics of stablecoins.",
+          fr: "Apprenez les bases des stablecoins.",
+        },
+        one: {
+          en: "Understand the basics of stablecoins.",
+          fr: "Comprenez les bases des stablecoins.",
+        },
+        two: {
+          en: "Learn about the different types of stablecoins.",
+          fr: "Découvrez les différents types de stablecoins.",
+        },
+        three: {
+          en: "Explore use cases of stablecoins.",
+          fr: "Explorez des cas d'utilisation de stablecoins.",
+        },
+        href: "/stablecoins/introduction-to-stablecoins",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 17,
+        available: true,
+      },
+    ],
+  },
 ];
 
 export default lessons;
