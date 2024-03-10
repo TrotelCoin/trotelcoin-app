@@ -73,22 +73,15 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Stake your TrotelCoins is available !"
-              : "- Stakez vos TrotelCoins est disponible !",
-          isNew: false,
+              ? "- Introduction to blockchains"
+              : "- Introduction aux blockchains",
+          isNew: true,
         },
         {
           text:
             lang === "en"
-              ? "- Introduction to Bitcoin is available !"
-              : "- Introduction à Bitcoin est disponible !",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Introduction to blockchains is available !"
-              : "- Introduction aux blockchains est disponible !",
+              ? "- Introduction to stablecoins"
+              : "- Introduction aux stablecoins",
           isNew: true,
         },
       ],
@@ -96,20 +89,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
     {
       title: lang === "en" ? "Features 👨‍💻" : "Fonctionnalités 👨‍💻",
       content: [
-        {
-          text:
-            lang === "en"
-              ? "- We show badges progression"
-              : "- On montre la progression des badges",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- We added a vocabulary section in Learn"
-              : "- On a ajouté une section vocabulaire dans Apprendre",
-          isNew: false,
-        },
         {
           text:
             lang === "en"
@@ -122,13 +101,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
     {
       title: lang === "en" ? "Community 🦊" : "Communauté 🦊",
       content: [
-        {
-          text:
-            lang === "en"
-              ? "- We reached $40k of market cap"
-              : "- On a atteint 40k$ de capitalisation",
-          isNew: false,
-        },
         {
           text:
             lang === "en"
