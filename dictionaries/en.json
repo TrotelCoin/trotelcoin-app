@@ -142,7 +142,7 @@
     "receiveCrypto": "Receive rewards",
     "correct": "Congratulations. You answered correctly.",
     "incorrect": "Oups. You answered incorrectly. Try again!",
-    "alreadyClaimed": "You already claimed this quiz.",
+    "alreadyClaimed": "You have already claimed this quiz.",
     "connectWallet": "Sign in to claim your rewards.",
     "claimingError": "An error occured. Please try again later.",
     "life": "You can't take the quiz because you don't have life left. Comeback tomorrow or buy some lives."

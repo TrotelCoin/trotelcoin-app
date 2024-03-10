@@ -92,8 +92,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We completely changed courses"
-              : "- On a complètement changé les cours",
+              ? "- Courses are funnier"
+              : "- Les cours sont plus amusants",
           isNew: true,
         },
       ],
