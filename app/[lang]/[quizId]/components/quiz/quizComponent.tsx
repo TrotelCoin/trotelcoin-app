@@ -162,7 +162,7 @@ const QuizComponent = ({
                     (option: string, index: number) => (
                       <li
                         key={index}
-                        className="items-center flex justify-center"
+                        className="items-center"
                       >
                         <div
                           className={`cursor-pointer px-4 py-2 rounded-xl ${

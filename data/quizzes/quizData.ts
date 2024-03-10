@@ -806,6 +806,107 @@ const quizzes = [
       },
     ],
   },
+  {
+    quizId: 17,
+    title: "Introduction to stablecoins",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the primary purpose of stablecoins?",
+          fr: "Quel est le but principal des stablecoins?",
+        },
+        options: {
+          en: [
+            "To minimize volatility",
+            "To maximize volatility",
+            "To maximize the price",
+            "To replicate fiat currencies",
+          ],
+          fr: [
+            "Minimiser la volatilité",
+            "Maximiser la volatilité",
+            "Maximiser le prix",
+            "Répliquer les monnaies fiat",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What are the three main types of stablecoins?",
+          fr: "Quels sont les trois principaux types de stablecoins?",
+        },
+        options: {
+          en: [
+            "Centralized, decentralized, algorithmic",
+            "Fiat, Gold, and Silver-backed",
+            "Bitcoin, Ethereum, and Ripple",
+            "Stable, Unstable, and Volatile",
+          ],
+          fr: [
+            "Centralisé, décentralisé, algorithmique",
+            "Adossé à des monnaies fiat, de l'or, et de l'argent",
+            "Bitcoin, Ethereum, et Ripple",
+            "Stable, Instable, et Volatile",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "Why are stablecoins important?",
+          fr: "Pourquoi les stablecoins sont-ils importants?",
+        },
+        options: {
+          en: [
+            "To provide a way using crypto without volatility",
+            "To increase exposure to crypto volatility",
+            "To replace fiat currencies",
+            "To eliminate the need for cryptocurrencies",
+          ],
+          fr: [
+            "Pour fournir un moyen d'utiliser la cryptomonnaie sans volatilité",
+            "Pour augmenter l'exposition à la volatilité des cryptomonnaies",
+            "Pour remplacer les monnaies fiat",
+            "Pour éliminer le besoin de cryptomonnaies",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is a risk of stablecoins?",
+          fr: "Quel est un risque des stablecoins?",
+        },
+        options: {
+          en: ["Collateralization risk", "There's no risk"],
+          fr: ["Risque de garantie", "Il n'y a pas de risque"],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What are some practical uses of stablecoins mentioned?",
+          fr: "Quelles sont quelques utilisations pratiques des stablecoins mentionnées?",
+        },
+        options: {
+          en: [
+            "Remittances, trading, and store of value",
+            "Voting and gaming",
+            "Real estate and art",
+            "Social media engagement and music",
+          ],
+          fr: [
+            "Transferts d'argent, trading, et réserve de valeur",
+            "Vote et jeux",
+            "Immobilier et art",
+            "Engagement sur les réseaux sociaux et musique",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
