@@ -1,4 +1,6 @@
-const quizzes = [
+import { QuizData } from "@/types/types";
+
+const quizzes: QuizData = [
   {
     quizId: 1,
     title: "Introduction to TrotelCoin", // not used (to make things simpler)
@@ -695,6 +697,129 @@ const quizzes = [
             "Le gouvernement le voit comme une opportunité",
             "Le gouvernement s'en fiche",
             "Il utilise la même technologie que le gouvernement",
+          ],
+        },
+      },
+    ],
+  },
+  {
+    quizId: 10,
+    title: "History of Bitcoin",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "When was the domain name bitcoin.org registered?",
+          fr: "Quand le nom de domaine bitcoin.org a-t-il été enregistré?",
+        },
+        options: {
+          en: [
+            "18th August 2008",
+            "31st October 2008",
+            "9th January 2009",
+            "3rd January 2009",
+          ],
+          fr: [
+            "18 août 2008",
+            "31 octobre 2008",
+            "9 janvier 2009",
+            "3 janvier 2009",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Who published the Bitcoin Whitepaper?",
+          fr: "Qui a publié le livre blanc sur le Bitcoin?",
+        },
+        options: {
+          en: ["Satoshi Nakamoto", "Wei Dai", "Nick Szabo", "Hal Finney"],
+          fr: ["Satoshi Nakamoto", "Wei Dai", "Nick Szabo", "Hal Finney"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "When was the Genesis Block mined?",
+          fr: "Quand le bloc Genesis a-t-il été extrait?",
+        },
+        options: {
+          en: [
+            "3rd January 2009",
+            "31st October 2008",
+            "9th January 2009",
+            "18th August 2008",
+          ],
+          fr: [
+            "3 janvier 2009",
+            "31 octobre 2008",
+            "9 janvier 2009",
+            "18 août 2008",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Who was the first person to receive a Bitcoin transaction?",
+          fr: "Qui a été la première personne à recevoir une transaction Bitcoin?",
+        },
+        options: {
+          en: ["Hal Finney", "Satoshi Nakamoto", "Wei Dai", "Nick Szabo"],
+          fr: ["Hal Finney", "Satoshi Nakamoto", "Wei Dai", "Nick Szabo"],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What major event is associated with May 22 in the Bitcoin history?",
+          fr: "Quel événement majeur est associé au 22 mai dans l'histoire du Bitcoin?",
+        },
+        options: {
+          en: [
+            "Bitcoin Pizza Day",
+            "Genesis Block Mined",
+            "Bitcoin Software Announced",
+            "The Silk Road Launch",
+          ],
+          fr: [
+            "Journée de la pizza Bitcoin",
+            "Extraction du bloc Genesis",
+            "Annonce du logiciel Bitcoin",
+            "Lancement de la Route de la soie",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "When did Mt. Gox suspend trading and file for bankruptcy?",
+          fr: "Quand Mt. Gox a-t-il suspendu les échanges et déposé son bilan?",
+        },
+        options: {
+          en: ["February 2014", "July 2010", "October 2013", "May 22, 2010"],
+          fr: ["Février 2014", "Juillet 2010", "Octobre 2013", "22 mai 2010"],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "What is the Lightning Network?",
+          fr: "Qu'est-ce que le Lightning Network?",
+        },
+        options: {
+          en: [
+            "A second layer to bitcoin's blockchain for micropayments",
+            "A new Bitcoin exchange platform",
+            "A protocol for Bitcoin mining",
+            "A decentralized cryptocurrency",
+          ],
+          fr: [
+            "Une seconde couche de la blockchain de Bitcoin pour les micropaiements",
+            "Une nouvelle plateforme d'échange de Bitcoin",
+            "Un protocole pour le minage de Bitcoin",
+            "Une cryptomonnaie décentralisée",
           ],
         },
       },
