@@ -96,6 +96,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               : "- Les cours sont plus amusants",
           isNew: true,
         },
+        {
+          text: lang === "en" ? "- Showing slides number" : "- Affichage du numéro de diapositive",
+          isNew: true,
+        },
       ],
     },
     {
