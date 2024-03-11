@@ -4,11 +4,9 @@ import "animate.css";
 import { Course, DictType, Lang } from "@/types/types";
 import React, { useEffect, useState, useContext } from "react";
 import lessons from "@/data/lessons/lessonsData";
-import Quiz from "@/app/[lang]/[quizId]/components/quiz";
+import CourseFinished from "@/app/[lang]/[quizId]/components/courseFinished";
 import { useAddress } from "@thirdweb-dev/react";
-import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
 import { getDictionary } from "@/app/[lang]/dictionaries";
-import CoursesSatisfaction from "@/app/[lang]/[quizId]/components/coursesSatisfaction";
 import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
 import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
 import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
@@ -87,7 +85,6 @@ const CoursePage = ({
   const address = useAddress();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
-  const { isCourseFinished } = useContext(CourseFinishedContext);
 
   const renderUnauthorizedContent = () => {
     return (
@@ -100,61 +97,58 @@ const CoursePage = ({
   const renderCourseContent = (children: React.ReactNode) => {
     return (
       <>
-        <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <p className="text-base font-semibold leading-7 text-blue-500 dark:text-blue-300">
-                {typeof dict?.lesson !== "string" && <>{dict?.lesson.course}</>}
-              </p>
-              <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
-              <p className="text-base leading-7 text-gray-700 dark:text-gray-300">
-                <CountUp start={0} duration={2} end={answered} />{" "}
-                {lang === "en" ? "people answered" : "personnes ont répondu"}
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(URL);
-                setCopied(true);
-              }}
-              className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-5 h-5"
-              >
-                <path d="M13 4.5a2.5 2.5 0 1 1 .702 1.737L6.97 9.604a2.518 2.518 0 0 1 0 .792l6.733 3.367a2.5 2.5 0 1 1-.671 1.341l-6.733-3.367a2.5 2.5 0 1 1 0-3.475l6.733-3.366A2.52 2.52 0 0 1 13 4.5Z" />
-              </svg>
-            </button>
-          </div>
-          <h1 className="my-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-            {title}
-          </h1>
-
-          {/* Disclaimer */}
-          <div className="mt-4">
-            <Disclaimer dict={dict as DictType} />
-          </div>
-
-          {/* Course */}
-          <div className="flex justify-start">
-            <CourseFinishedProvider>{children}</CourseFinishedProvider>
-          </div>
-
-          {isCourseFinished && (
-            <>
-              <div className="mt-10">
-                <CoursesSatisfaction dict={dict as DictType} quizId={quizId} />
-
-                <Quiz quizId={quizId} lang={lang} />
-
-                <GoHomeButton lang={lang} />
+        <CourseFinishedProvider>
+          <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <p className="text-base font-semibold leading-7 text-blue-500 dark:text-blue-300">
+                  {typeof dict?.lesson !== "string" && (
+                    <>{dict?.lesson.course}</>
+                  )}
+                </p>
+                <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
+                <p className="text-base leading-7 text-gray-700 dark:text-gray-300">
+                  <CountUp start={0} duration={2} end={answered} />{" "}
+                  {lang === "en" ? "people answered" : "personnes ont répondu"}
+                </p>
               </div>
-            </>
-          )}
-        </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(URL);
+                  setCopied(true);
+                }}
+                className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path d="M13 4.5a2.5 2.5 0 1 1 .702 1.737L6.97 9.604a2.518 2.518 0 0 1 0 .792l6.733 3.367a2.5 2.5 0 1 1-.671 1.341l-6.733-3.367a2.5 2.5 0 1 1 0-3.475l6.733-3.366A2.52 2.52 0 0 1 13 4.5Z" />
+                </svg>
+              </button>
+            </div>
+            <h1 className="my-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+              {title}
+            </h1>
+
+            {/* Disclaimer */}
+            <div className="mt-4">
+              <Disclaimer dict={dict as DictType} />
+            </div>
+
+            {/* Course */}
+            <div className="flex justify-start">{children}</div>
+
+            <CourseFinished
+              lang={lang}
+              dict={dict as DictType}
+              quizId={quizId}
+            />
+          </div>
+        </CourseFinishedProvider>
+
         <Success
           show={copied}
           onClose={() => setCopied(false)}
