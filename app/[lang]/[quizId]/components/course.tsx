@@ -1,32 +1,16 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Lang } from "@/types/types";
+import React, { Fragment, useContext, useEffect, useState } from "react";
+import { Lang, Cards } from "@/types/types";
 import GetStarted from "@/app/[lang]/[quizId]/components/getStarted";
 import Card from "@/app/[lang]/[quizId]/components/card";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  useCourseFinished,
-  CourseFinishedContextType,
-} from "@/app/[lang]/[quizId]/layout";
 import BlueButton from "@/app/[lang]/components/blueButton";
-
-export type Cards = {
-  en: {
-    title: string;
-    text: string | JSX.Element;
-  }[];
-  fr: {
-    title: string;
-    text: string | JSX.Element;
-  }[];
-};
+import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
 
 const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
-  const courseFinishedContext = useCourseFinished();
-  const { setIsCourseFinished } =
-    courseFinishedContext as CourseFinishedContextType;
+  const { setIsCourseFinished } = useContext(CourseFinishedContext);
 
   const handleNext = () => {
     if (currentCardIndex < cards.en.length - 1) {
