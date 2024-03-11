@@ -96,11 +96,6 @@ const CoursePage = ({
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
-  const coursesProvider = React.useMemo(
-    () => ({ isCourseFinished, setIsCourseFinished }),
-    [isCourseFinished, setIsCourseFinished]
-  );
-
   const renderUnauthorizedContent = () => {
     return (
       <>
@@ -152,7 +147,9 @@ const CoursePage = ({
 
           {/* Course */}
           <div className="flex justify-start">
-            <CourseFinishedContext.Provider value={coursesProvider}>
+            <CourseFinishedContext.Provider
+              value={{ isCourseFinished, setIsCourseFinished }}
+            >
               {children}
             </CourseFinishedContext.Provider>
           </div>
