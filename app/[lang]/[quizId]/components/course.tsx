@@ -71,7 +71,11 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           onClose={() => setFullScreen(false)}
         >
           <div className="flex justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
-            <div className="overflow-hidden w-full h-2 text-xs bg-gray-400 flex rounded-full">
+            <span className="text-gray-900 dark:text-gray-100 flex w-12 justify-center items-center">
+              {currentCardIndex + 1}/{cards.en.length}
+            </span>
+
+            <div className="overflow-hidden w-1/2 h-2 text-xs bg-gray-400 flex rounded-full">
               <div
                 style={{
                   width: `${width}%`,
