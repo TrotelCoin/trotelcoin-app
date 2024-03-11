@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
+import BlueButton from "@/app/[lang]/components/blueButton";
 import "animate.css";
 
 const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
@@ -23,39 +24,23 @@ const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
           </div>
         </div>
         <div className="flex justify-center items-center gap-4 p-4">
-          <button
-            disabled={disabled}
+          <BlueButton
+            isFull={true}
+            text={
+              disabled
+                ? lang === "en"
+                  ? "Comeback tomorrow"
+                  : "Revenez demain"
+                : lang === "en"
+                ? "Increase your streak"
+                : "Augmentez votre série"
+            }
             onClick={() => {
-              if (address) {
-                updateStreak(address as Address);
-              }
+              () => updateStreak(address as Address);
             }}
-            className={`w-full ${
-              !disabled && address
-                ? "bg-blue-500 hover:bg-blue-400 text-gray-100"
-                : "bg-gray-500 text-gray-100"
-            } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2  rounded-xl font-semibold ${
-              (disabled || !address) && "cursor-not-allowed"
-            }`}
-          >
-            {isStreakLoading ? (
-              <span className="animate__animated animate__flash animate__infinite animate__slower">
-                {lang === "en" ? "Loading..." : "Chargement..."}
-              </span>
-            ) : !address ? (
-              <>
-                {lang === "en" ? "Please, log in" : "Veuillez vous connecter"}
-              </>
-            ) : disabled ? (
-              <>{lang === "en" ? "Come back tomorrow" : "Revenez demain"}</>
-            ) : (
-              <>
-                {typeof dict?.header !== "string" && (
-                  <>{dict?.header.streakButton}</>
-                )}
-              </>
-            )}
-          </button>
+            disabled={disabled}
+            isLoading={isStreakLoading}
+          />
         </div>
       </div>
     </>

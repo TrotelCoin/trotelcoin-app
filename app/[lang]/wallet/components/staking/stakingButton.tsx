@@ -17,6 +17,7 @@ import { Address, parseEther } from "viem";
 import "animate.css";
 import { BigNumber } from "ethers";
 import { polygon } from "wagmi/chains";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const StakingButton = ({
   lang,
@@ -39,6 +40,7 @@ const StakingButton = ({
   const [alreadyStakingMessage, setAlreadyStakingMessage] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [notConnected, setNotConnected] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -76,6 +78,11 @@ const StakingButton = ({
   }, [getStakingData, address]);
 
   const stake = async (amount: number, stakingPeriod: number) => {
+    if (!address) {
+      setNotConnected(true);
+      return;
+    }
+
     if (stakingPeriod <= 0) {
       setStakingPeriodMessage(true);
       return;
@@ -131,19 +138,11 @@ const StakingButton = ({
 
   return (
     <>
-      <button
+      <BlueButton
         onClick={() => stake(amount, stakingPeriod)}
-        className="!bg-blue-500 hover:!bg-blue-400 focus-visible:!outline-blue-500 dark:focus-visible:!outline-blue-300 !text-sm !px-6 !py-2 !text-gray-100 !rounded-xl !font-semibold"
-        style={{}}
-      >
-        {isLoading ? (
-          <span className="animate__animated animate__slower animate__flash animate__infinite">
-            {lang === "en" ? "Loading..." : "Chargement..."}
-          </span>
-        ) : (
-          <>{lang === "en" ? "Lock" : "Bloquer"}</>
-        )}
-      </button>
+        text={lang === "en" ? "Stake" : "Staker"}
+        isLoading={isLoading}
+      />
       <Success
         show={stakeMessage}
         lang={lang}
@@ -211,6 +210,15 @@ const StakingButton = ({
           lang === "en"
             ? "You are on the wrong network"
             : "Vous êtes sur le mauvais réseau"
+        }
+      />
+      <Fail
+        show={notConnected}
+        lang={lang}
+        onClose={() => setNotConnected(false)}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en" ? "You are not connected" : "Vous n'êtes pas connecté"
         }
       />
     </>

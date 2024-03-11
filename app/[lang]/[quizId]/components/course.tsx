@@ -7,6 +7,7 @@ import {
   useCourseFinished,
   CourseFinishedContextType,
 } from "@/app/[lang]/[quizId]/layout";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 export type Cards = {
   en: {
@@ -119,28 +120,22 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           </div>
           <div className="fixed bottom-0 left-0 right-0 px-6 py-6 pb-10 md:p-6 border-t border-gray-900/10 dark:border-gray-100/10">
             <div className="flex justify-between items-center mx-auto">
-              <button
+              <BlueButton
                 onClick={() => handlePrevious()}
-                className="flex text-sm font-semibold justify-center rounded-full text-gray-100 backdrop-blur-xl px-6 py-2 bg-blue-500 hover:bg-blue-400"
-              >
-                {lang === "en" ? "Previous" : "Précédent"}
-              </button>
-              <button
-                onClick={() => handleNext()}
-                className={`flex text-sm font-semibold justify-center rounded-full backdrop-blur-xl px-6 py-2 ${
-                  currentCardIndex < cards.en.length - 1
-                    ? "bg-blue-500 hover:bg-blue-400 text-gray-100"
-                    : "bg-gray-900 hover:bg-gray-800 dark:bg-gray-100 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
-                }`}
-              >
-                {currentCardIndex < cards.en.length - 1
-                  ? lang === "en"
-                    ? "Next"
-                    : "Suivant"
-                  : lang === "en"
-                  ? "Do the quiz"
-                  : "Faire le quiz"}
-              </button>
+                text={lang === "en" ? "Previous" : "Précédent"}
+              />
+              {currentCardIndex < cards.en.length - 1 && (
+                <BlueButton
+                  onClick={() => handleNext()}
+                  text={lang === "en" ? "Next" : "Suivant"}
+                />
+              )}
+              {currentCardIndex === cards.en.length - 1 && (
+                <BlueButton
+                  onClick={() => setFullScreen(false)}
+                  text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
+                />
+              )}
             </div>
           </div>
         </Dialog>

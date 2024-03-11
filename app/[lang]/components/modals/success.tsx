@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import React, { Fragment } from "react";
 import { Modals } from "@/types/types";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
   return (
@@ -59,13 +60,11 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
+                  <BlueButton
                     onClick={onClose}
-                  >
-                    {lang === "en" ? "Close" : "Fermer"}
-                  </button>
+                    isFull={true}
+                    text={lang === "en" ? "Close" : "Fermer"}
+                  />
                 </div>
               </Dialog.Panel>
             </Transition.Child>

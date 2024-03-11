@@ -6,7 +6,7 @@ import { useBalance, useContractRead, Address } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "../../components/modals/success";
+import Success from "@/app/[lang]/components/modals/success";
 import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
@@ -21,6 +21,7 @@ import {
 } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const holdingRequirements: number = 10000;
 
@@ -180,31 +181,34 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </div>
               </div>
               {!isClaimed && !isEligible && (
-                <button
-                  onClick={checkEligibility}
-                  className="bg-blue-500 hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold"
-                >
-                  {typeof dict?.shop !== "string" && (
-                    <>{dict?.shop.eligibility}</>
-                  )}
-                </button>
+                <>
+                  <BlueButton
+                    onClick={checkEligibility}
+                    text={
+                      lang === "en"
+                        ? "Check eligibility"
+                        : "Vérifier l'éligibilité"
+                    }
+                  />
+                </>
               )}
               {isEligible && !isClaimed && (
-                <button
-                  onClick={async () => {
-                    try {
-                      await mutateAsync({ args: [address as Address] });
-                    } catch (error) {
-                      console.error(error);
-                      setErrorMessage(true);
-                      return;
+                <>
+                  <BlueButton
+                    onClick={async () => {
+                      try {
+                        await mutateAsync({ args: [address as Address] });
+                      } catch (error) {
+                        console.error(error);
+                        setErrorMessage(true);
+                        return;
+                      }
+                    }}
+                    text={
+                      lang === "en" ? "Claim your NFT" : "Réclamez votre NFT"
                     }
-                  }}
-                  className="!bg-blue-500 hover:!bg-blue-400 focus:!border-blue-500 !text-sm !px-6 !py-2 !text-gray-100 !rounded-xl !font-semibold"
-                  style={{}}
-                >
-                  {typeof dict?.shop !== "string" && <>{dict?.shop.claim}</>}
-                </button>
+                  />
+                </>
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">

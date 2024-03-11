@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Link from "next/link";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const LifeMobile = ({
   lang,
@@ -34,18 +35,16 @@ const LifeMobile = ({
           </div>
         </div>
         <div className="flex justify-center items-center gap-4 p-4">
-          <Link
-            href={`/${lang}/shop?category=ranks`}
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full"
-          >
-            <button
-              className={`w-full bg-blue-500 hover:bg-blue-400 text-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2 rounded-xl font-semibold`}
-            >
-              {lang === "en"
-                ? "Get unlimited lives"
-                : "Obtenez des vies illimitées"}
-            </button>
+          <Link href={`/${lang}/shop?category=ranks`} className="w-full">
+            <BlueButton
+              isFull={true}
+              onClick={() => setMobileMenuOpen(false)}
+              text={
+                lang === "en"
+                  ? "Get unlimited lives"
+                  : "Obtenez vies illimitées"
+              }
+            />
           </Link>
         </div>
       </div>

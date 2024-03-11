@@ -4,6 +4,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { Address } from "viem";
+import BlueButton from "@/app/[lang]/components/blueButton";
 import "animate.css";
 
 const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
@@ -47,11 +48,11 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         onMouseLeave={() => setIsHoveringStreak(false)}
       >
         {streak ? (
-          <span className="font-semibold text-sm">{streak}</span>
+          <span className="font-semibold">{streak}</span>
         ) : (
-          <span className="font-semibold text-sm">0</span>
+          <span className="font-semibold">0</span>
         )}{" "}
-        <span className="text-sm">
+        <span>
           {!address
             ? "❌"
             : streakCooldown === "Increase your streak" ||
@@ -79,31 +80,22 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               <p className="font-semibold">
                 {lang === "en" ? "Your streak" : "Votre série"}
               </p>
-              <button
-                onClick={() => updateStreak(address as Address)}
+              <BlueButton
+                text={
+                  disabled
+                    ? lang === "en"
+                      ? "Comeback tomorrow"
+                      : "Revenez demain"
+                    : lang === "en"
+                    ? "Increase your streak"
+                    : "Augmentez votre série"
+                }
+                onClick={() => {
+                  () => updateStreak(address as Address);
+                }}
                 disabled={disabled}
-                className={`${
-                  !disabled
-                    ? "bg-blue-500 hover:bg-blue-400 text-gray-100"
-                    : "bg-gray-500 text-gray-100"
-                } hover:border-gray-900/50 dark:hover:border-gray-100/50 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2  rounded-xl font-semibold ${
-                  disabled && "cursor-not-allowed"
-                }`}
-              >
-                {isStreakLoading ? (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    {lang === "en" ? "Loading..." : "Chargement..."}
-                  </span>
-                ) : disabled ? (
-                  <>{cooldown}</>
-                ) : (
-                  <>
-                    {typeof dict?.header !== "string" && (
-                      <>{dict?.header.streakButton}</>
-                    )}
-                  </>
-                )}
-              </button>
+                isLoading={isStreakLoading}
+              />
             </div>
           </div>
         </Transition>
