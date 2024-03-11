@@ -68,7 +68,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="origin-top-right rounded-xl absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-800 ring-1 ring-gray-900/10 dark:ring-gray-100/10 focus:outline-none">
+        <Menu.Items className="origin-top-right rounded-xl absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 focus:outline-none">
           <div className="p-2">
             {languages.map((language, index) => (
               <Menu.Item key={index}>

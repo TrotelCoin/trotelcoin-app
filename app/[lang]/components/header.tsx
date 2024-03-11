@@ -11,13 +11,12 @@ import ThemeSwitcher from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
-import LifeCount from "@/app/[lang]/components/header/lifeCount";
-import StreakCount from "@/app/[lang]/components/header/streakCount";
-import Wallet from "@/app/[lang]/components/header/wallet";
+import { useDisconnect, useAddress, useUser } from "@thirdweb-dev/react";
 import StreakMobile from "@/app/[lang]/components/header/streakMobile";
 import ShopMobile from "@/app/[lang]/components/header/shopMobile";
 import AccountMobile from "@/app/[lang]/components/header/accountMobile";
 import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,9 +33,14 @@ const Header = ({ lang }: { lang: Lang }) => {
     fetchDictionary();
   }, [lang]);
 
-  const closeMenu = () => {
-    setMobileMenuOpen(false);
+  const disconnect = useDisconnect();
+
+  const handleDisconnect = async () => {
+    await disconnect();
   };
+
+  const { isLoggedIn } = useUser();
+  const address = useAddress();
 
   const navigation = [
     {
@@ -124,67 +128,38 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-2 p-2">
-            <LifeCount dict={dict as DictType} lang={lang} />
-            <StreakCount dict={dict as DictType} lang={lang} />
-          </div>
-          <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
-          <div className="items-center flex">
-            <LanguageSelector lang={lang} />
-            <ThemeSwitcher />
-            <button
-              type="button"
-              className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-5 h-5"
+          <div className="items-center flex gap-4">
+            {isLoggedIn && address && (
+              <button
+                onClick={() => handleDisconnect()}
+                className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </button>
-            <div className="p-2">
-              <Wallet lang={lang} />
-            </div>
+                {lang === "en" ? "Disconnect" : "Se déconnecter"}
+              </button>
+            )}
+            <BlueButton
+              onClick={() => setMobileMenuOpen(true)}
+              text={lang === "en" ? "Menu" : "Menu"}
+            />
           </div>
         </div>
 
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
-            <div className="flex gap-2 items-center p-2">
-              <LifeCount dict={dict as DictType} lang={lang} />
-              <StreakCount dict={dict as DictType} lang={lang} />
-            </div>
-            <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
-            <div className="flex items-center">
-              <LanguageSelector lang={lang} />
-              <ThemeSwitcher />
-              <button
-                type="button"
-                className="inline-flex items-center justify-center rounded-xl p-2 text-gray-900 dark:text-gray-100"
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="w-5 h-5"
+            <div className="flex items-center gap-4">
+              {isLoggedIn && address && (
+                <button
+                  onClick={() => handleDisconnect()}
+                  className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M2 4.75A.75.75 0 0 1 2.75 4h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 4.75ZM2 10a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75A.75.75 0 0 1 2 10Zm0 5.25a.75.75 0 0 1 .75-.75h14.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </button>
+                  {lang === "en" ? "Disconnect" : "Se déconnecter"}
+                </button>
+              )}
+              <BlueButton
+                onClick={() => setMobileMenuOpen(true)}
+                text={lang === "en" ? "Menu" : "Menu"}
+              />
             </div>
           </div>
         </div>
@@ -203,10 +178,10 @@ const Header = ({ lang }: { lang: Lang }) => {
                 Menu
               </h2>
             </div>
-            <div className="flex flex-1 items-center justify-end gap-x-4">
-              <div className="lg:hidden">
-                <Wallet lang={lang} />
-              </div>
+            <div className="flex flex-1 items-center justify-end gap-1">
+              <LanguageSelector lang={lang} />
+              <ThemeSwitcher />
+
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
