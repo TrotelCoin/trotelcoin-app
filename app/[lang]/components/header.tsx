@@ -151,7 +151,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               </svg>
             </button>
             <div className="p-2">
-              <Wallet lang={lang} dict={dict as DictType} />
+              <Wallet lang={lang} />
             </div>
           </div>
         </div>
@@ -205,7 +205,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
             <div className="flex flex-1 items-center justify-end gap-x-4">
               <div className="lg:hidden">
-                <Wallet dict={dict as DictType} lang={lang} />
+                <Wallet lang={lang} />
               </div>
               <button
                 type="button"
