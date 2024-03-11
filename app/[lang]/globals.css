@@ -135,3 +135,12 @@ a:hover {
   background-size: 200% 100%;
   animation: changeGradient 3s linear infinite;
 }
+
+.connectWallet {
+  border-bottom-width: 4px !important;
+  border-color: #1d4ed8 !important;
+}
+
+.connectWallet:active {
+  border: none !important;
+}

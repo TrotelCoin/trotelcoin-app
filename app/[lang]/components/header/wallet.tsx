@@ -42,7 +42,11 @@ const Wallet = ({ lang }: { lang: Lang }) => {
           modalSize={"wide"}
           modalTitleIconUrl={""}
           btnTitle={lang === "en" ? "Connect wallet" : "Se connecter"}
-          className="!min-w-0 !border-b-4 !w-full active:!border-none active:!mt-1 !text-sm !font-semibold !justify-center !rounded-xl !text-gray-100 !backdrop-blur-xl !px-6 !py-2 !bg-blue-500 hover:!bg-blue-500/80 !border-blue-700"
+          className="connectWallet !min-w-0 !border-b-4 !w-full active:!border-none active:!mt-1 !text-sm !font-semibold !justify-center !rounded-xl !text-gray-100 !backdrop-blur-xl !px-6 !py-2 !bg-blue-500 hover:!bg-blue-500/80 !border-blue-700"
+          style={{
+            borderBottomWidth: "4px",
+            borderColor: "#1d4ed8",
+          }}
         />
       )}
     </>
