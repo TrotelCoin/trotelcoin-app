@@ -179,3 +179,19 @@ export type Vocabulary = {
     definition: string;
   };
 }[];
+
+export type QuizData = {
+  quizId: number;
+  title: string;
+  questions: {
+    questionId: number;
+    question: {
+      en: string;
+      fr: string;
+    };
+    options: {
+      en: string[];
+      fr: string[];
+    };
+  }[];
+}[];
