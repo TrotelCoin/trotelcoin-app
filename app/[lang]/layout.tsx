@@ -23,6 +23,7 @@ import MobileFooter from "@/app/[lang]/components/mobileFooter";
 import StreakProvider from "@/app/[lang]/providers/streakProvider";
 import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 import UserProvider from "@/app/[lang]/providers/userProvider";
+import ThemeProvider from "@/app/[lang]/providers/themeProvider";
 import "swiper/css";
 import "animate.css";
 import "swiper/css/navigation";
@@ -110,48 +111,50 @@ export default function Layout({
           `}
                 </Script>
               </head>
-              <body
-                className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
-              >
-                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-                  <GoogleAnalytics
-                    ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+              <ThemeProvider>
+                <body
+                  className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
+                >
+                  {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+                    <GoogleAnalytics
+                      ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
+                    />
+                  ) : null}
+                  <NextTopLoader
+                    color="#3b82f6"
+                    initialPosition={0.08}
+                    crawlSpeed={200}
+                    height={5}
+                    crawl={true}
+                    showSpinner={false}
+                    easing="ease"
+                    speed={200}
+                    shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
                   />
-                ) : null}
-                <NextTopLoader
-                  color="#3b82f6"
-                  initialPosition={0.08}
-                  crawlSpeed={200}
-                  height={5}
-                  crawl={true}
-                  showSpinner={false}
-                  easing="ease"
-                  speed={200}
-                  shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-                />
-                <Suspense fallback={<Loading lang={lang} />}>
-                  <DictionaryProvider lang={lang}>
-                    <UserProvider lang={lang}>
-                      <LifeProvider>
-                        <StreakProvider>
-                          <PremiumProvider>
-                            <Banner lang={lang} />
-                            <Changelogs lang={lang} />
-                            <Header lang={lang} />
-                            <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
-                              {children}
-                            </main>
-                            <Footer lang={lang} />
-                            <MobileFooter lang={lang} />
-                          </PremiumProvider>
-                        </StreakProvider>
-                      </LifeProvider>
-                    </UserProvider>
-                  </DictionaryProvider>
-                </Suspense>
-                <Analytics />
-                <SpeedInsights />
-              </body>
+                  <Suspense fallback={<Loading lang={lang} />}>
+                    <DictionaryProvider lang={lang}>
+                      <UserProvider lang={lang}>
+                        <LifeProvider>
+                          <StreakProvider>
+                            <PremiumProvider>
+                              <Banner lang={lang} />
+                              <Changelogs lang={lang} />
+                              <Header lang={lang} />
+                              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                                {children}
+                              </main>
+                              <Footer lang={lang} />
+                              <MobileFooter lang={lang} />
+                            </PremiumProvider>
+                          </StreakProvider>
+                        </LifeProvider>
+                      </UserProvider>
+                    </DictionaryProvider>
+                  </Suspense>
+                  <Analytics />
+                  <SpeedInsights />
+                </body>
+              </ThemeProvider>
               <Script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
