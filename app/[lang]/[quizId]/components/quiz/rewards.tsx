@@ -93,7 +93,9 @@ const Rewards = ({
                 {typeof dict?.quiz !== "string" && (
                   <>{dict?.quiz.receiveCrypto}</>
                 )}
-                <Confetti active={claimedRewards} />
+                <div className="flex justify-center items-center mx-auto">
+                  <Confetti active={claimedRewards} />
+                </div>
               </button>
             </div>
           </div>
