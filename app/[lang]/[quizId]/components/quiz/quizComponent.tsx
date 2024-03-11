@@ -160,10 +160,7 @@ const QuizComponent = ({
                   )
                 : shuffledQuestions[currentQuestion].options.fr.map(
                     (option: string, index: number) => (
-                      <li
-                        key={index}
-                        className="items-center"
-                      >
+                      <li key={index} className="items-center">
                         <div
                           className={`cursor-pointer px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
@@ -174,7 +171,9 @@ const QuizComponent = ({
                         >
                           {option}
                         </div>
-                        <Confetti active={showConfetti} />
+                        <div className="flex justify-center items-center mx-auto">
+                          <Confetti active={showConfetti} />
+                        </div>
                       </li>
                     )
                   )}
