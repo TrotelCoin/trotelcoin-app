@@ -2,7 +2,7 @@
 
 import "animate.css";
 import { Course, DictType, Lang } from "@/types/types";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import Quiz from "@/app/[lang]/[quizId]/components/quiz";
 import { useAddress } from "@thirdweb-dev/react";
@@ -17,16 +17,9 @@ import { usePathname } from "next/navigation";
 import Success from "@/app/[lang]/components/modals/success";
 import CountUp from "react-countup";
 import { fetcher } from "@/lib/axios/fetcher";
+import CourseFinishedProvider from "@/app/[lang]/providers/courseFinishedProvider";
 import useSWR from "swr";
-
-export type CourseFinishedContextType = {
-  isCourseFinished: boolean;
-  setIsCourseFinished: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const CourseFinishedContext = createContext<CourseFinishedContextType | null>(
-  null
-);
+import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
 
 const CoursePage = ({
   params: { lang, quizId },
@@ -38,7 +31,6 @@ const CoursePage = ({
   const [dict, setDict] = useState<DictType | null>(null);
   const [answered, setAnswered] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
-  const [isCourseFinished, setIsCourseFinished] = useState<boolean>(false);
 
   const pathname = usePathname();
   const origin =
@@ -95,6 +87,7 @@ const CoursePage = ({
   const address = useAddress();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
+  const { isCourseFinished } = useContext(CourseFinishedContext);
 
   const renderUnauthorizedContent = () => {
     return (
@@ -147,11 +140,7 @@ const CoursePage = ({
 
           {/* Course */}
           <div className="flex justify-start">
-            <CourseFinishedContext.Provider
-              value={{ isCourseFinished, setIsCourseFinished }}
-            >
-              {children}
-            </CourseFinishedContext.Provider>
+            <CourseFinishedProvider>{children}</CourseFinishedProvider>
           </div>
 
           {isCourseFinished && (
