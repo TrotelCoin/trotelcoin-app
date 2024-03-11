@@ -1,7 +1,8 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import React, { useState } from "react";
+import React from "react";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const GetStarted = ({
   lang,
@@ -12,12 +13,10 @@ const GetStarted = ({
 }) => {
   return (
     <>
-      <button
+      <BlueButton
+        text={lang === "en" ? "Launch the course" : "Lancer le cours"}
         onClick={() => setFullScreen(true)}
-        className="flex text-sm font-semibold justify-center rounded-full text-gray-100 backdrop-blur-xl px-6 py-2 bg-blue-500 hover:bg-blue-400"
-      >
-        {lang === "en" ? "Launch the course" : "Lancer le cours"}
-      </button>
+      />
     </>
   );
 };

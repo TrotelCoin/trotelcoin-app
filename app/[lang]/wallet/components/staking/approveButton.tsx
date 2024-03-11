@@ -16,6 +16,7 @@ import "animate.css";
 import Success from "@/app/[lang]/components/modals/success";
 import { BigNumber } from "ethers";
 import { polygon } from "viem/chains";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const ApproveButton = ({
   lang,
@@ -75,19 +76,12 @@ const ApproveButton = ({
 
   return (
     <>
-      <button
+      <BlueButton
         onClick={() => approve(amount)}
-        className="!bg-blue-500 hover:!bg-blue-400 focus-visible:!outline-blue-500 dark:focus-visible:!outline-blue-300 !text-sm !px-6 !py-2 !text-gray-100 !rounded-xl !font-semibold"
-        style={{}}
-      >
-        {isLoading ? (
-          <span className="animate__animated animate__slower animate__flash animate__infinite">
-            {lang === "en" ? "Loading..." : "Chargement..."}
-          </span>
-        ) : (
-          <>{lang === "en" ? "Approve" : "Approuver"}</>
-        )}
-      </button>
+        text={lang === "en" ? "Approve" : "Approuver"}
+        isLoading={isLoading}
+      />
+
       <Success
         show={approveMessage}
         onClose={() => setApproveMessage(false)}

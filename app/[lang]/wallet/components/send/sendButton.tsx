@@ -17,6 +17,7 @@ import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import usdcABI from "@/abi/usdc";
 import { BigNumber } from "ethers";
 import { polygon } from "viem/chains";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const SendButton = ({
   lang,
@@ -132,18 +133,13 @@ const SendButton = ({
 
   return (
     <>
-      <button
+      <BlueButton
         onClick={() => send(amount as number)}
-        className="w-full bg-blue-500 hover:bg-blue-400 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold"
-      >
-        {isLoading ? (
-          <span className="animate__animated animate__slower animate__flash animate__infinite">
-            {lang === "en" ? "Loading..." : "Chargement..."}
-          </span>
-        ) : (
-          <>{lang === "en" ? "Send" : "Envoyer"}</>
-        )}
-      </button>
+        isLoading={isLoading}
+        text={lang === "en" ? "Send" : "Envoyer"}
+        isFull={true}
+      />
+
       <Success
         show={successMessage}
         lang={lang}

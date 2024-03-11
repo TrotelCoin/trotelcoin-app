@@ -1,3 +1,4 @@
+import BlueButton from "@/app/[lang]/components/blueButton";
 import { DictType, Lang } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -6,8 +7,10 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+  const [isResultLoading, setIsResultLoading] = useState<boolean>(false);
 
   const satisfactionResult = async (number: number) => {
+    setIsResultLoading(true);
     if (number) {
       await axios
         .post(`/api/database/postUserSatisfaction?number=${number}`)
@@ -20,6 +23,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
     } else {
       setAlreadyAnsweredSatisfaction(false);
     }
+    setIsResultLoading(false);
   };
 
   useEffect(() => {
@@ -62,13 +66,12 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               </div>
             ))}
           </div>
-          <div className="w-1/2 mx-auto">
-            <button
+          <div className="mx-auto mt-2">
+            <BlueButton
               onClick={() => satisfactionResult(selectedNumber as number)}
-              className="mt-2 text-sm font-semibold rounded-full px-6 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
-            >
-              {lang === "en" ? <>Submit</> : <>Envoyer</>}
-            </button>
+              isLoading={isResultLoading}
+              text={lang === "en" ? "Submit" : "Envoyer"}
+            />
           </div>
         </div>
       </div>

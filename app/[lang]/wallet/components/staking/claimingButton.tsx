@@ -16,6 +16,7 @@ import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";
 import { polygon } from "viem/chains";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const ClaimingButton = ({
   lang,
@@ -102,19 +103,12 @@ const ClaimingButton = ({
 
   return (
     <>
-      <button
+      <BlueButton
         onClick={() => claim()}
-        className="!bg-blue-500 hover:!bg-blue-400 focus-visible:!outline-blue-500 dark:focus-visible:!outline-blue-300 !text-sm !px-6 !py-2 !text-gray-100 !rounded-xl !font-semibold"
-        style={{}}
-      >
-        {isLoading ? (
-          <span className="animate__animated animate__slower animate__flash animate__infinite">
-            {lang === "en" ? "Loading..." : "Chargement..."}
-          </span>
-        ) : (
-          <>{lang === "en" ? "Claim" : "Réclamer"}</>
-        )}
-      </button>
+        isLoading={isLoading}
+        text={lang === "en" ? "Claim" : "Réclamer"}
+      />
+
       <Success
         show={claimMessage}
         lang={lang}

@@ -4,6 +4,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import React, { Fragment, useEffect, useState } from "react";
 import "animate.css";
 import axios from "axios";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const NameModal = ({
   lang,
@@ -141,37 +142,21 @@ const NameModal = ({
                   </div>
 
                   <div className="mt-5 sm:mt-6 flex items-center justify-center gap-4">
-                    <button
-                      type="button"
-                      className="inline-flex w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100"
+                    <BlueButton
                       onClick={() => {
                         setName(null);
                         setNameModal(false);
                       }}
-                    >
-                      {lang === "en" ? "Close" : "Fermer"}
-                    </button>
-                    <button
-                      type="button"
+                      isFull={true}
+                      text={lang === "en" ? "Close" : "Fermer"}
+                    />
+
+                    <BlueButton
                       onClick={() => postName(name as string)}
-                      className={`w-full justify-center rounded-full bg-blue-500 hover:bg-blue-400 px-3 py-2 text-sm font-semibold text-gray-100
-                        `}
-                    >
-                      <span
-                        className={`${
-                          nameIsLoading &&
-                          "animate__animated animate__flash animate__infinite animate__slower"
-                        }`}
-                      >
-                        {lang === "en"
-                          ? nameIsLoading
-                            ? "Loading..."
-                            : "Save"
-                          : nameIsLoading
-                          ? "Chargement..."
-                          : "Sauvegarder"}
-                      </span>
-                    </button>
+                      isFull={true}
+                      text={lang === "en" ? "Save" : "Sauvegarder"}
+                      isLoading={nameIsLoading}
+                    />
                   </div>
                 </Dialog.Panel>
               </Transition.Child>

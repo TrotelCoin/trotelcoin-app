@@ -7,6 +7,7 @@ import { EffectCards } from "swiper/modules";
 import { vocabulary } from "@/data/vocabulary/vocabulary";
 import Image from "next/image";
 import getRandomVocabulary from "@/utils/vocabulary";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const Vocabulary = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
   const [randomVocabulary, setRandomVocabulary] = useState(
@@ -59,12 +60,10 @@ const Vocabulary = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
         </Swiper>
 
         <div className="flex justify-center items-center mt-16">
-          <button
+          <BlueButton
+            text={lang === "en" ? "Shuffe" : "Mélanger"}
             onClick={() => setRandomVocabulary(getRandomVocabulary(vocabulary))}
-            className="text-sm font-semibold rounded-full px-4 py-2 bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 text-gray-100 dark:text-gray-900"
-          >
-            {lang === "en" ? "Shuffle" : "Mélanger"}
-          </button>
+          />
         </div>
       </div>
     </>

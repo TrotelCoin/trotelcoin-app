@@ -15,6 +15,7 @@ import { polygon } from "viem/chains";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const RewardsButton = ({
   lang,
@@ -126,18 +127,13 @@ const RewardsButton = ({
 
   return (
     <>
-      <button
+      <BlueButton
         onClick={() => fetchRewards()}
-        className="w-full bg-blue-500 hover:bg-blue-400 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold"
-      >
-        {isLoading ? (
-          <span className="animate__animated animate__slower animate__flash animate__infinite">
-            {lang === "en" ? "Loading..." : "Chargement..."}
-          </span>
-        ) : (
-          <>{lang === "en" ? "Claim" : "Réclamer"}</>
-        )}
-      </button>
+        isLoading={isLoading}
+        isFull={true}
+        text={lang === "en" ? "Claim" : "Réclamer"}
+      />
+
       <Success
         show={successMessage}
         onClose={() => setSuccessMessage(false)}

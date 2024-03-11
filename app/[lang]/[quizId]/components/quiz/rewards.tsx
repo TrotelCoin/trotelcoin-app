@@ -8,8 +8,8 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
-import Confetti from "react-dom-confetti";
 import "animate.css";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const Rewards = ({
   lang,
@@ -86,17 +86,12 @@ const Rewards = ({
               {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
             </h3>
             <div className="mt-6 items-center">
-              <button
+              <BlueButton
                 onClick={handleClaimRewards}
-                className="bg-gray-900 dark:bg-white hover:bg-gray-700 dark:hover:bg-gray-300 px-6 py-2 text-sm text-gray-100 dark:text-gray-900 dark:hover:text-gray-900 hover:text-gray-100 rounded-full font-semibold"
-              >
-                {typeof dict?.quiz !== "string" && (
-                  <>{dict?.quiz.receiveCrypto}</>
-                )}
-                <div className="flex justify-center items-center mx-auto">
-                  <Confetti active={claimedRewards} />
-                </div>
-              </button>
+                text={
+                  lang === "en" ? "Claim rewards" : "Réclamez vos récompenses"
+                }
+              />
             </div>
           </div>
         )}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { Fragment, useContext, useState } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import BlueButton from "@/app/[lang]/components/blueButton";
 
 const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
   const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
@@ -21,11 +22,11 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         {isExpert || isIntermediate ? (
           <span className="font-semibold text-2xl">&infin;</span>
         ) : life ? (
-          <span className="font-semibold text-sm">{life}</span>
+          <span className="font-semibold">{life}</span>
         ) : (
-          <span className="font-semibold text-sm">0</span>
+          <span className="font-semibold">0</span>
         )}{" "}
-        <span className="text-sm">💙</span>
+        <span>💙</span>
         <Transition
           as={Fragment}
           show={isHoveringLife}
@@ -45,11 +46,14 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                 {lang === "en" ? "Your lives" : "Vos vies"}
               </p>
               <Link href={`/${lang}/shop?category=ranks`}>
-                <button className="bg-blue-500 hover:bg-blue-400 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus-visible:outline-blue-500 dark:focus-visible:outline-blue-300 text-sm px-6 py-2 text-gray-100 rounded-xl font-semibold">
-                  {typeof dict?.header !== "string" && (
-                    <>{dict?.header.lifeButton}</>
-                  )}
-                </button>
+                <BlueButton
+                  onClick={() => setIsHoveringLife(false)}
+                  text={
+                    lang === "en"
+                      ? "Get unlimited lives"
+                      : "Obtenez vies illimitées"
+                  }
+                />
               </Link>
             </div>
           </div>
