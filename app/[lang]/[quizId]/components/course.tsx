@@ -13,14 +13,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
 
   const handleNext = () => {
-    if (currentCardIndex < cards.en.length - 1) {
-      setCurrentCardIndex(currentCardIndex + 1);
-    } else {
-      setFullScreen(false);
-      setCurrentCardIndex(0);
-      setWidth(0);
-      setIsCourseFinished(true);
-    }
+    setCurrentCardIndex(currentCardIndex + 1);
   };
 
   const handlePrevious = () => {
@@ -116,7 +109,12 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               )}
               {currentCardIndex === cards.en.length - 1 && (
                 <BlueButton
-                  onClick={() => setFullScreen(false)}
+                  onClick={() => {
+                    setFullScreen(false);
+                    setCurrentCardIndex(0);
+                    setWidth(0);
+                    setIsCourseFinished(true);
+                  }}
                   text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
                 />
               )}
