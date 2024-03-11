@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (verification.length > 0) {
       return NextResponse.json(
         { answered: "You have already answered this." },
-        { status: 200, headers: { "Cache-Control": "no-store" } }
+        { status: 200 }
       );
     }
 
