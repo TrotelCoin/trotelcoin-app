@@ -1,12 +1,14 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 
-const Disclaimer = ({ dict }: { dict: DictType }) => {
+const Disclaimer = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <p className="mb-10 text-sm text-gray-900 dark:text-gray-100 font-light">
         <span className="font-semibold">Disclaimer: </span>
-        {typeof dict?.lesson !== "string" && <>{dict?.lesson.disclaimer}</>}
+        {lang === "en"
+          ? "None of our courses are financial advice. We are not responsible for any financial loss. Please do your own research."
+          : "Aucun de nos cours n'est un conseil financier. Nous ne sommes pas responsables de toute perte financière. Veuillez faire vos propres recherches."}
       </p>
     </>
   );

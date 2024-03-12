@@ -1,8 +1,8 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React, { useContext } from "react";
 
-const Rank = ({ dict }: { dict: DictType }) => {
+const Rank = ({ lang }: { lang: Lang }) => {
   const { isNotPremium, intermediateBalance, expertBalance } =
     useContext(PremiumContext);
 
@@ -20,24 +20,12 @@ const Rank = ({ dict }: { dict: DictType }) => {
             }`}
           >
             {intermediateBalance > 0 && expertBalance <= 0 && (
-              <>
-                {typeof dict?.tier !== "string" && (
-                  <>{dict?.tier.intermediate}</>
-                )}
-              </>
+              <>{lang === "en" ? "Intermediate" : "Intermédiaire"}</>
             )}
-            {expertBalance > 0 && (
-              <>{typeof dict?.tier !== "string" && <>{dict?.tier.expert}</>}</>
-            )}
-            {isNotPremium && (
-              <>
-                {typeof dict?.tier !== "string" && <>{dict?.tier.beginner}</>}
-              </>
-            )}
+            {expertBalance > 0 && <>{lang === "en" ? "Expert" : "Expert"}</>}
+            {isNotPremium && <>{lang === "en" ? "Beginner" : "Débutant"}</>}
           </span>{" "}
-          <span>
-            {typeof dict?.account !== "string" && <>{dict?.account.rank}</>}
-          </span>
+          <span>{lang === "en" ? "Rank" : "Rang"}</span>
         </div>
       </div>
     </>

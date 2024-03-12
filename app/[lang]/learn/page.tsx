@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
-import { Lang, DictType } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import Vocabulary from "@/app/[lang]/learn/components/vocabulary";
 import { useSearchParams } from "next/navigation";
 
@@ -13,17 +12,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const searchParams = useSearchParams();
   const category = searchParams?.get("category");
 
-  const [dict, setDict] = useState<DictType | null>(null);
   const [component, setComponent] = useState<ActiveComponent>("learn");
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   useEffect(() => {
     if (category) {
@@ -32,8 +21,6 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setComponent("learn");
     }
   }, [category]);
-
-  if (!dict) return null;
 
   return (
     <>
@@ -65,10 +52,10 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
       </div>
       {component === "learn" && (
         <div className="mt-8">
-          <ComingSoon lang={lang} dict={dict} />
+          <ComingSoon lang={lang} />
         </div>
       )}
-      {component === "vocabulary" && <Vocabulary lang={lang} dict={dict} />}
+      {component === "vocabulary" && <Vocabulary lang={lang} />}
     </>
   );
 };

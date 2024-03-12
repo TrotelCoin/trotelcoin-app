@@ -1,6 +1,6 @@
 "use client";
 
-import { DictType, Lang, Lessons } from "@/types/types";
+import { Lang, Lessons } from "@/types/types";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
@@ -10,7 +10,6 @@ import lessons from "@/data/lessons/lessonsData";
 import { lessonsLength } from "@/utils/courses";
 import { useAddress } from "@thirdweb-dev/react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { getDictionary } from "@/app/[lang]/dictionaries";
 import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
 
 const Page = ({
@@ -18,19 +17,9 @@ const Page = ({
 }: {
   params: { lang: Lang; category: string };
 }) => {
-  const [dict, setDict] = useState<DictType | null>(null);
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   const filteredLessons = lessons.filter(
     (lesson) => lesson.category.toLowerCase() === category.toLowerCase()
@@ -86,7 +75,6 @@ const Page = ({
                     course.quizId,
                     status,
                     address as Address,
-                    dict,
                     index,
                     lesson.category
                   )

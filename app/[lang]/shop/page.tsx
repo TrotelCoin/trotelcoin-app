@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import Intermediate from "@/app/[lang]/shop/components/intermediate";
 import Expert from "@/app/[lang]/shop/components/expert";
 import Beginner from "@/app/[lang]/shop/components/beginner";
-import { DictType, Lang } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
 import { useSearchParams } from "next/navigation";
 
@@ -15,17 +14,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const searchParams = useSearchParams();
   const category = searchParams?.get("category");
 
-  const [dict, setDict] = useState<DictType | null>(null);
   const [component, setComponent] = useState<ActiveComponent>("ranks");
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   useEffect(() => {
     if (category) {
@@ -80,12 +69,8 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <Expert lang={lang} />
             </div>
           )}
-          {component === "shop" && (
-            <ComingSoon lang={lang} dict={dict as DictType} />
-          )}
-          {component === "inventory" && (
-            <ComingSoon lang={lang} dict={dict as DictType} />
-          )}
+          {component === "shop" && <ComingSoon lang={lang} />}
+          {component === "inventory" && <ComingSoon lang={lang} />}
         </div>
       )}
     </>

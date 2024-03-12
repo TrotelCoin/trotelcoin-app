@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { useEnsName, mainnet } from "wagmi";
@@ -15,7 +15,7 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import Tilt from "react-parallax-tilt";
 import "animate.css";
 
-const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
+const Header = ({ lang }: { lang: Lang }) => {
   const [nameModal, setNameModal] = useState<boolean>(false);
 
   const address = useAddress();
@@ -35,7 +35,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
     <>
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
-          {typeof dict?.account !== "string" && <>{dict?.account.hello}</>},{" "}
+          {lang === "en" ? "Hello" : "Bonjour"},{" "}
           <span
             onClick={() => setNameModal(true)}
             className={`font-bold hover:text-blue-500 cursor-pointer`}
@@ -57,9 +57,9 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
       </div>
 
       <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
-        <Satisfaction dict={dict as DictType} lang={lang} />
+        <Satisfaction lang={lang} />
 
-        <Rank dict={dict as DictType} />
+        <Rank lang={lang} />
 
         <Tilt
           glareEnable={true}
@@ -68,7 +68,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
           glareMaxOpacity={0.15}
           perspective={800}
         >
-          <Balance dict={dict as DictType} />
+          <Balance lang={lang} />
         </Tilt>
 
         <Tilt
@@ -78,7 +78,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
           glareMaxOpacity={0.15}
           perspective={800}
         >
-          <NumberOfQuizzesAnswered dict={dict as DictType} />
+          <NumberOfQuizzesAnswered lang={lang} />
         </Tilt>
 
         <Tilt
@@ -88,7 +88,7 @@ const Header = ({ dict, lang }: { dict: DictType | null; lang: Lang }) => {
           glareMaxOpacity={0.15}
           perspective={800}
         >
-          <TotalRewardsPending dict={dict as DictType} />
+          <TotalRewardsPending lang={lang} />
         </Tilt>
 
         <Tilt

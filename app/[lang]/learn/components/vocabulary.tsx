@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -9,7 +9,7 @@ import Image from "next/image";
 import getRandomVocabulary from "@/utils/vocabulary";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
-const Vocabulary = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
+const Vocabulary = ({ lang }: { lang: Lang }) => {
   const [randomVocabulary, setRandomVocabulary] = useState(
     getRandomVocabulary(vocabulary)
   );

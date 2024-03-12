@@ -1,11 +1,11 @@
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import { trotelCoinExpertAddress } from "@/data/web3/addresses";
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
 
-const Expert = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const Expert = ({ lang }: { lang: Lang }) => {
   const { data: expert } = useContractRead({
     chainId: polygon.id,
     address: trotelCoinExpertAddress,

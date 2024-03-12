@@ -1,6 +1,6 @@
 "use client";
 
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
@@ -11,15 +11,14 @@ import axios from "axios";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
 const Rewards = ({
   lang,
-  dict,
   quizId,
   isTotallyCorrect,
 }: {
   lang: Lang;
-  dict: DictType;
   quizId: number;
   isTotallyCorrect: boolean;
 }) => {
@@ -94,7 +93,9 @@ const Rewards = ({
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.youWillGet}</>}
+              {lang === "en"
+                ? "Claim your rewards."
+                : "Récupérez vos récompenses."}
             </h3>
             <div className="mt-6 items-center">
               <BlueButton
@@ -110,8 +111,11 @@ const Rewards = ({
       {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.connectWallet}</>}
+            {lang === "en"
+              ? "Sign in to claim rewards."
+              : "Connectez-vous pour réclamer vos récompenses."}
           </h2>
+          <Wallet lang={lang} />
         </div>
       )}
       {claimingLoading && !claimingError && (
@@ -124,50 +128,36 @@ const Rewards = ({
       {(hasAlreadyAnswered || claimedRewards) && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.alreadyClaimed}</>}
+            {lang === "en"
+              ? "You have already claimed your rewards."
+              : "Vous avez déjà réclamé vos récompenses."}
           </h2>
         </div>
       )}
       {claimingError && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-red-500 dark:text-red-300">
-            {typeof dict?.quiz !== "string" && <>{dict?.quiz.claimingError}</>}
+            {lang === "en"
+              ? "An error occured while claiming your rewards."
+              : "Une erreur est survenue lors de la réclamation de vos récompenses."}
           </h2>
         </div>
       )}
       <Fail
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.connectWallet !== "string" &&
-          dict?.modals.connectWallet.title === "string"
-            ? dict?.modals.connectWallet.title
-            : ""
-        }
+        title={lang === "en" ? "Sign in" : "Connectez-vous"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.connectWallet !== "string" &&
-          typeof dict?.modals.connectWallet.message === "string"
-            ? dict?.modals.connectWallet.message
-            : ""
+          lang === "en" ? "You need to sign in." : "Vous devez vous connecter."
         }
         show={isLearnerDisconnected}
         onClose={() => setIsLearnerDisconnected(false)}
         lang={lang}
       />
       <Success
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedTrotelCoin !== "string" &&
-          dict?.modals.claimedTrotelCoin.title === "string"
-            ? dict?.modals.claimedTrotelCoin.title
-            : ""
-        }
+        title={lang === "en" ? "Claimed rewards" : "Récompenses réclamées"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedTrotelCoin !== "string" &&
-          typeof dict?.modals.claimedTrotelCoin.message === "string"
-            ? dict?.modals.claimedTrotelCoin.message
-            : ""
+          lang === "en"
+            ? "You have successfully claimed your rewards."
+            : "Vous avez réclamé vos récompenses avec succès."
         }
         show={claimedRewardsMessage}
         onClose={() => setClaimedRewardsMessage(false)}

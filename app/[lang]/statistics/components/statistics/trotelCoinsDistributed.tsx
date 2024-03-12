@@ -1,12 +1,12 @@
 "use client";
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { useToken } from "wagmi";
 
-const TrotelCoinsDistributed = ({ dict }: { dict: DictType }) => {
+const TrotelCoinsDistributed = ({ lang }: { lang: Lang }) => {
   const [trotelCoinsDistributed, setTrotelCoinsDistributed] = useState<
     number | null
   >(null);
@@ -45,9 +45,7 @@ const TrotelCoinsDistributed = ({ dict }: { dict: DictType }) => {
         </span>
 
         <span>
-          {typeof dict?.algorithm !== "string" && (
-            <>{dict?.algorithm.trotelCoinsDistributed}</>
-          )}
+          {lang === "en" ? "distributed TrotelCoins" : "TrotelCoins distribués"}
         </span>
       </div>
     </>

@@ -1,8 +1,8 @@
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React, { useContext } from "react";
 
-const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
+const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
   const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
     useContext(UserContext);
 
@@ -25,11 +25,7 @@ const NumberOfQuizzesAnswered = ({ dict }: { dict: DictType }) => {
               </span>
             </>
           </span>
-          <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.quizzesAnswered}</>
-            )}
-          </span>
+          <span>{lang === "en" ? "Quizzes answered" : "Quiz répondus"}</span>
         </div>
       </div>
     </>

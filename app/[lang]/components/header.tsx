@@ -9,8 +9,7 @@ import TrotelPrice from "@/app/[lang]/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/[lang]/hooks/trotelPriceChange";
 import ThemeSwitcher from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
-import { getDictionary } from "@/app/[lang]/dictionaries";
-import { Lang, DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import StreakMobile from "@/app/[lang]/components/header/streakMobile";
 import ShopMobile from "@/app/[lang]/components/header/shopMobile";
 import AccountMobile from "@/app/[lang]/components/header/accountMobile";
@@ -21,37 +20,27 @@ import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dict, setDict] = useState<DictType | null>(null);
 
   const pathname = usePathname();
 
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
   const navigation = [
     {
-      name: typeof dict?.header !== "string" && dict?.header.home,
+      name: lang === "en" ? "Home" : "Accueil",
       href: "/home",
       id: 1,
     },
     {
-      name: typeof dict?.header !== "string" && dict?.header.learn,
+      name: lang === "en" ? "Learn" : "Apprendre",
       href: "/learn",
       id: 2,
     },
     {
-      name: typeof dict?.header !== "string" && dict?.header.wallet,
+      name: lang === "en" ? "Wallet" : "Portefeuille",
       href: "/wallet",
       id: 3,
     },
     {
-      name: typeof dict?.header !== "string" && dict?.header.shop,
+      name: lang === "en" ? "Shop" : "Boutique",
       href: "/shop",
       id: 4,
     },
@@ -175,12 +164,8 @@ const Header = ({ lang }: { lang: Lang }) => {
           </div>
           <div className="flex flex-col gap-4 mt-10">
             <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
-            <StreakMobile lang={lang} dict={dict as DictType} />
-            <LifeMobile
-              lang={lang}
-              dict={dict as DictType}
-              setMobileMenuOpen={setMobileMenuOpen}
-            />
+            <StreakMobile lang={lang} />
+            <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
             <ShopMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
           </div>
         </div>

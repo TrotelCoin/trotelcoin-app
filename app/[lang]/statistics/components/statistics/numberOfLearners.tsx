@@ -1,9 +1,9 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
-const NumberOfLearners = ({ dict }: { dict: DictType }) => {
+const NumberOfLearners = ({ lang }: { lang: Lang }) => {
   const { data: numberOfLearners } = useSWR(
     "/api/database/getTotalNumberOfLearners",
     fetcher
@@ -27,11 +27,7 @@ const NumberOfLearners = ({ dict }: { dict: DictType }) => {
           )}
         </span>
 
-        <span>
-          {typeof dict?.algorithm !== "string" && (
-            <>{dict?.algorithm.numberOfLearners}</>
-          )}
-        </span>
+        <span>{lang === "en" ? "Learners" : "Apprenants"}</span>
       </div>
     </>
   );

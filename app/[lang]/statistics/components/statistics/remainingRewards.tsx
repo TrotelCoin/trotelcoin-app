@@ -1,9 +1,9 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 
-const RemainingRewards = ({ dict }: { dict: DictType }) => {
+const RemainingRewards = ({ lang }: { lang: Lang }) => {
   const { data: remainingRewards } = useSWR(
     "/api/database/getRemainingRewards",
     fetcher
@@ -27,11 +27,7 @@ const RemainingRewards = ({ dict }: { dict: DictType }) => {
           )}
         </span>
 
-        <span>
-          {typeof dict?.algorithm !== "string" && (
-            <>{dict?.algorithm.remainingCycle}</>
-          )}
-        </span>
+        <span>{lang === "en" ? "Current cycle" : "Cycle en cours"}</span>
       </div>
     </>
   );
