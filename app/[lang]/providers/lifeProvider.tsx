@@ -1,19 +1,30 @@
 "use client";
 
 import { useAddress } from "@thirdweb-dev/react";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import type { ReactNode } from "react";
 import axios from "axios";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+import Success from "@/app/[lang]/components/modals/success";
+import { Lang } from "@/types/types";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
-const LifeProvider = ({ children }: { children: ReactNode }) => {
+const LifeProvider = ({
+  children,
+  lang,
+}: {
+  children: ReactNode;
+  lang: Lang;
+}) => {
   const [life, setLife] = useState<number>(0);
   const [lifeCooldown, setLifeCooldown] = useState<string>("00:00:00");
   const [lastReset, setLastReset] = useState<string>("");
+  const [lifeResetMessage, setLifeResetMessage] = useState<boolean>(false);
 
   const address = useAddress();
+  const { isNotPremium } = useContext(PremiumContext);
 
   const updateLife = async () => {
     await axios
@@ -37,6 +48,12 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
       setLife(3);
     }
   }, [lifeData]);
+
+  useEffect(() => {
+    if (life === 3 && isNotPremium) {
+      setLifeResetMessage(true);
+    }
+  }, [life]);
 
   const { data: lifeLastReset } = useSWR(
     address ? `/api/database/getUserLifeLastReset?wallet=${address}` : null,
@@ -99,6 +116,17 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
       <LifeContext.Provider value={contextValue}>
         {children}
       </LifeContext.Provider>
+      <Success
+        title={lang === "en" ? "Your lives" : "Vos vies"}
+        show={lifeResetMessage}
+        onClose={() => setLifeResetMessage(false)}
+        message={
+          lang === "en"
+            ? "You have all your lives!"
+            : "Vous avez toutes vos vies!"
+        }
+        lang={lang}
+      />
     </>
   );
 };

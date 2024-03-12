@@ -8,14 +8,23 @@ import { Address } from "viem";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
+import { Lang } from "@/types/types";
+import Success from "@/app/[lang]/components/modals/success";
 
-const StreakProvider = ({ children }: { children: ReactNode }) => {
+const StreakProvider = ({
+  children,
+  lang,
+}: {
+  children: ReactNode;
+  lang: Lang;
+}) => {
   const [streak, setStreak] = useState<number>(0);
-  const [disabled, setDisabled] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
   const [lastUpdatedStreak, setLastUpdatedStreak] = useState<string>("");
   const [cooldown, setCooldown] = useState<string>("00:00:00");
   const [maxStreak, setMaxStreak] = useState<number>(0);
   const [isStreakLoading, setIsStreakLoading] = useState<boolean>(false);
+  const [streakResetMessage, setStreakResetMessage] = useState<boolean>(false);
 
   const address = useAddress();
 
@@ -73,11 +82,17 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userMaxStreak]);
 
+  useEffect(() => {
+    if (!disabled) {
+      setStreakResetMessage(true);
+    }
+  }, [disabled]);
+
   const updateStreak = async (address: Address) => {
     setIsStreakLoading(true);
     await axios
       .post(`/api/database/postUpdateStreak?wallet=${address}`)
-      .then((response) => {
+      .then(() => {
         setStreak((streak: number) => streak + 1);
         setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
         setLastUpdatedStreak(new Date().toISOString());
@@ -132,6 +147,17 @@ const StreakProvider = ({ children }: { children: ReactNode }) => {
       <StreakContext.Provider value={contextValue}>
         {children}
       </StreakContext.Provider>
+      <Success
+        title={lang === "en" ? "Your streak" : "Votre série"}
+        show={streakResetMessage}
+        onClose={() => setStreakResetMessage(false)}
+        message={
+          lang === "en"
+            ? "You can do your streak!"
+            : "Vous pouvez faire vos flammes!"
+        }
+        lang={lang}
+      />
     </>
   );
 };
