@@ -17,6 +17,7 @@ import ShopMobile from "@/app/[lang]/components/header/shopMobile";
 import AccountMobile from "@/app/[lang]/components/header/accountMobile";
 import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -179,6 +180,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               </h2>
             </div>
             <div className="flex flex-1 items-center justify-end gap-1">
+              <AudioSelector />
               <LanguageSelector lang={lang} />
               <ThemeSwitcher />
 

@@ -1,16 +1,37 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import { Lang, Cards } from "@/types/types";
 import GetStarted from "@/app/[lang]/[quizId]/components/getStarted";
 import Card from "@/app/[lang]/[quizId]/components/card";
 import { Dialog, Transition } from "@headlessui/react";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
+import AudioContext from "@/app/[lang]/contexts/audioContext";
+import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
+import ThemeSelector from "@/app/[lang]/components/selectors/themeSelector";
+import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
 
 const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
+
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
+  const { audioEnabled } = useContext(AudioContext);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const playAudio = () => {
+    if (audioEnabled && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
 
   const handleNext = () => {
     setCurrentCardIndex(currentCardIndex + 1);
@@ -40,6 +61,8 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
 
   return (
     <>
+      <audio ref={audioRef} src="/audio/sounds/course-finished.wav" />
+
       <GetStarted lang={lang} setFullScreen={setFullScreen} />
 
       <Transition as={Fragment} show={fullscreen}>
@@ -48,7 +71,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           className="z-50 fixed top-0 left-0 w-full h-screen bg-white dark:bg-gray-900"
           onClose={() => setFullScreen(false)}
         >
-          <div className="flex justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
+          <div className="flex flex-1 justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
             <span className="text-gray-900 dark:text-gray-100 flex w-12 justify-center items-center">
               {currentCardIndex + 1}/{cards.en.length}
             </span>
@@ -63,19 +86,26 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               />
             </div>
 
-            <button
-              onClick={() => setFullScreen(false)}
-              className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="w-5 h-5"
+            <div className="flex">
+              <AudioSelector />
+              <div className="hidden md:block">
+                <LanguageSelector lang={lang} />
+                <ThemeSelector />
+              </div>
+              <button
+                onClick={() => setFullScreen(false)}
+                className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
-                <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
+              </button>
+            </div>
           </div>
           <div
             className="flex justify-center items-center mx-8"
@@ -114,6 +144,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                     setCurrentCardIndex(0);
                     setWidth(0);
                     setIsCourseFinished(true);
+                    playAudio();
                   }}
                   text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
                 />

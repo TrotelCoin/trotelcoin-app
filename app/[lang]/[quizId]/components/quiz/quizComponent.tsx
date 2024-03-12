@@ -1,5 +1,11 @@
 import { DictType, Lang, Question } from "@/types/types";
-import React, { SetStateAction, useContext, useEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Confetti from "react-dom-confetti";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
@@ -8,8 +14,9 @@ import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { useUser } from "@thirdweb-dev/react";
+import AudioContext from "@/app/[lang]/contexts/audioContext";
 
-const debug = process.env.NODE_ENV === "development";
+const debug = process.env.NODE_ENV !== "production";
 
 const QuizComponent = ({
   dict,
@@ -37,10 +44,17 @@ const QuizComponent = ({
   );
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [optionClass, setOptionClass] = useState<string>(
+    "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+  );
 
   const { updateLife, life } = useContext(LifeContext);
   const { isLoggedIn } = useUser();
   const { isIntermediate, isExpert } = useContext(PremiumContext);
+  const { audioEnabled } = useContext(AudioContext);
+
+  const audioRefGood = useRef<HTMLAudioElement>(null);
+  const audioRefBad = useRef<HTMLAudioElement>(null);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -54,24 +68,44 @@ const QuizComponent = ({
     }
 
     if (correctAnswers[currentQuestion] === answer) {
+      setOptionClass(
+        "bg-green-500 hover:bg-green-500 text-gray-100 hover:text-gray-100"
+      );
       setIsCorrect(true);
       setShowConfetti(true);
       setShowMessage(true);
       if (questions) {
-        setCurrentQuestion((prev) =>
-          prev < questions.length - 1 ? prev + 1 : prev
-        );
+        if (audioEnabled && audioRefGood.current) {
+          audioRefGood.current.play();
+        }
+        setTimeout(() => {
+          setCurrentQuestion((prev) =>
+            prev < questions.length - 1 ? prev + 1 : prev
+          );
+        }, 2000);
         if (currentQuestion === questions.length - 1) {
           setIsTotallyCorrect(true);
         }
       }
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
     } else {
+      setOptionClass(
+        "bg-red-500 hover:bg-red-500 text-gray-100 hover:text-gray-100"
+      );
       setIsCorrect(false);
       setShowConfetti(false);
       setShowMessage(true);
       if (!isIntermediate && !isExpert && life > 0) {
         updateLife();
       }
+      if (audioEnabled && audioRefBad.current) {
+        audioRefBad.current.play();
+      }
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
     }
   };
 
@@ -121,6 +155,8 @@ const QuizComponent = ({
 
   return (
     <>
+      <audio ref={audioRefGood} src="/audio/sounds/good-answer.wav" />
+      <audio ref={audioRefBad} src="/audio/sounds/bad-answer.wav" />
       {isCaptchaVerified || debug ? (
         <>
           {shuffledQuestions &&
@@ -148,7 +184,7 @@ const QuizComponent = ({
                         <div
                           className={`cursor-pointer px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
-                              ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                              ? optionClass
                               : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
@@ -164,7 +200,7 @@ const QuizComponent = ({
                         <div
                           className={`cursor-pointer px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
-                              ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                              ? optionClass
                               : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}

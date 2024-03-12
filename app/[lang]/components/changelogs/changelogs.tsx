@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.6.3";
+const version = "1.6.7";
 
 interface ChangelogItem {
   title: string;
@@ -97,7 +97,17 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           isNew: true,
         },
         {
-          text: lang === "en" ? "- Showing slides number" : "- Affichage du numéro de diapositive",
+          text:
+            lang === "en"
+              ? "- There are now sounds"
+              : "- Il y a maintenant des sons",
+          isNew: true,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Showing slides number"
+              : "- Affichage du numéro de diapositive",
           isNew: true,
         },
       ],
