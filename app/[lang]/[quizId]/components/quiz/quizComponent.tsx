@@ -249,7 +249,7 @@ const QuizComponent = ({
         >
           {lang === "en"
             ? "Oups. You answered incorrectly. Try again!"
-            : "Mince. Tu as répondu incorrectement. Essaye encore !"}
+            : "Mince. Vous avez répondu incorrectement. Essayez encore !"}
           {life >= 0 && life <= 3 && !isIntermediate && !isExpert && (
             <span className="text-red-500 dark:text-red-300">
               {lang === "en" ? (
