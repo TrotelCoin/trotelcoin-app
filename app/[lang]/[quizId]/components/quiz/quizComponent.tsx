@@ -44,6 +44,9 @@ const QuizComponent = ({
   );
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [optionClass, setOptionClass] = useState<string>(
+    "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+  );
 
   const { updateLife, life } = useContext(LifeContext);
   const { isLoggedIn } = useUser();
@@ -65,6 +68,9 @@ const QuizComponent = ({
     }
 
     if (correctAnswers[currentQuestion] === answer) {
+      setOptionClass(
+        "bg-green-500 hover:bg-green-500 text-gray-100 hover:text-gray-100"
+      );
       setIsCorrect(true);
       setShowConfetti(true);
       setShowMessage(true);
@@ -81,7 +87,13 @@ const QuizComponent = ({
           setIsTotallyCorrect(true);
         }
       }
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
     } else {
+      setOptionClass(
+        "bg-red-500 hover:bg-red-500 text-gray-100 hover:text-gray-100"
+      );
       setIsCorrect(false);
       setShowConfetti(false);
       setShowMessage(true);
@@ -91,6 +103,9 @@ const QuizComponent = ({
       if (audioEnabled && audioRefBad.current) {
         audioRefBad.current.play();
       }
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
     }
   };
 
@@ -169,7 +184,7 @@ const QuizComponent = ({
                         <div
                           className={`cursor-pointer px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
-                              ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                              ? optionClass
                               : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
@@ -185,7 +200,7 @@ const QuizComponent = ({
                         <div
                           className={`cursor-pointer px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
-                              ? "bg-blue-500 text-gray-100 hover:bg-blue-500 hover:text-gray-100"
+                              ? optionClass
                               : "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
