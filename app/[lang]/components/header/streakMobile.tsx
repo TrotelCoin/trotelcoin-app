@@ -35,9 +35,7 @@ const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
                 ? "Increase your streak"
                 : "Augmentez votre série"
             }
-            onClick={() => {
-              () => updateStreak(address as Address);
-            }}
+            onClick={() => updateStreak(address as Address)}
             disabled={disabled}
             isLoading={isStreakLoading}
           />
