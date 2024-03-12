@@ -8,8 +8,8 @@ const quizzes: QuizData = [
       {
         questionId: 1,
         question: {
-          en: "What topics are covered by TrotelCoin?",
-          fr: "Quels sujets sont couverts par TrotelCoin?",
+          en: "What can you learn with TrotelCoin?",
+          fr: "Que pouvez-vous apprendre avec TrotelCoin?",
         },
         options: {
           en: [
@@ -30,19 +30,19 @@ const quizzes: QuizData = [
         questionId: 2,
         question: {
           en: "Why is it important to learn about Web3?",
-          fr: "Pourquoi est-il important d'apprendre sur le Web3?",
+          fr: "Pourquoi est-il important d'apprendre le Web3?",
         },
         options: {
           en: [
-            "To take control over your data and promote transparency",
-            "To allow the government control your data",
-            "To become rich with cryptocurrencies",
+            "To take control over your data and money",
+            "To allow the government to control your data",
+            "To become rich because of cryptocurrencies",
             "It's not important to learn about Web3",
           ],
           fr: [
-            "Pour prendre le contrôle sur vos données et promouvoir la transparence",
+            "Pour reprendre le contrôle sur vos données et votre argent",
             "Pour faire en sorte que le gouvernement contrôle vos données",
-            "Pour devenir riche avec les cryptomonnaies",
+            "Pour devenir riche grâce aux cryptomonnaies",
             "Il n'est pas important d'apprendre le Web3",
           ],
         },
@@ -55,36 +55,36 @@ const quizzes: QuizData = [
         },
         options: {
           en: [
-            "An educational platform for exploring Web3 and cryptocurrencies",
-            "A platform for buying and selling cryptocurrencies",
-            "A platform for playing games",
-            "A platform to trade NFTs",
+            "An educational app for exploring Web3",
+            "An app for buying and selling cryptocurrencies",
+            "An app for playing games",
+            "An app to trade NFTs",
           ],
           fr: [
-            "Une plateforme éducative pour explorer le Web3 et les cryptomonnaies",
-            "Une plateforme pour acheter et vendre des cryptomonnaies",
-            "Une plateforme pour jouer à des jeux",
-            "Une plateforme pour échanger des NFTs",
+            "Une app éducative pour explorer le Web3",
+            "Une app pour acheter et vendre des cryptomonnaies",
+            "Une app pour jouer à des jeux",
+            "Une app pour échanger des NFTs",
           ],
         },
       },
       {
         questionId: 4,
         question: {
-          en: "Do I need a crypto wallet to learn?",
-          fr: "Ai-je besoin d'un portefeuille de cryptomonnaie pour apprendre?",
+          en: "Do I need a crypto wallet to get started?",
+          fr: "Avez-vous besoin d'un portefeuille crypto pour commencer?",
         },
         options: {
           en: [
-            "No, learning is free without earning TrotelCoins",
+            "No, learning is free",
             "Yes, you need a crypto wallet to learn",
-            "You need to give us Bitcoin to access the platform",
+            "You need to give us Bitcoin to access the app",
             "Yes, you need a bank account to learn",
           ],
           fr: [
-            "Non, l'apprentissage est gratuit sans gagner de TrotelCoins",
+            "Non, l'apprentissage est gratuit",
             "Oui, vous avez besoin d'un portefeuille de cryptomonnaie pour apprendre",
-            "Vous devez nous donner du Bitcoin pour accéder à la plateforme",
+            "Vous devez nous donner du Bitcoin pour accéder à l'app'",
             "Oui, vous avez besoin d'un compte bancaire pour apprendre",
           ],
         },
@@ -97,13 +97,13 @@ const quizzes: QuizData = [
         },
         options: {
           en: [
-            "Yes, TrotelCoin has its own token, TROTEL used for governance and rewards",
+            "TROTEL is used for governance and rewards",
             "No, TrotelCoin is only the name of the app",
             "TrotelCoin plans to create a token",
             "TrotelCoin uses Bitcoin",
           ],
           fr: [
-            "Oui, TrotelCoin a son propre token, TROTEL utilisé pour la gouvernance et les récompenses",
+            "Le TROTEL est utilisé pour la gouvernance et les récompenses",
             "Non, TrotelCoin est seulement le nom de l'application",
             "TrotelCoin prévoit de créer un token",
             "TrotelCoin utilise Bitcoin",
@@ -113,21 +113,21 @@ const quizzes: QuizData = [
       {
         questionId: 6,
         question: {
-          en: "How are TrotelCoins rewarded?",
-          fr: "Comment sont récompensés les TrotelCoins?",
+          en: "How are TrotelCoins distributed?",
+          fr: "Comment sont distribués les TrotelCoins?",
         },
         options: {
           en: [
-            "The more tokens left, the more rewards you may get",
+            "The more tokens left in a cycle, the more rewards you may get",
             "You need to buy TrotelCoins to get rewards",
             "You need to complete a survey giving all your data to get rewards",
-            "TrotelCoins are not rewarded",
+            "TrotelCoins are not distributed",
           ],
           fr: [
-            "Plus il reste de tokens, plus vous pouvez obtenir de récompenses",
+            "Plus il reste de tokens dans un cycle, plus vous pouvez obtenir de récompenses",
             "Vous devez acheter des TrotelCoins pour obtenir des récompenses",
             "Vous devez compléter un sondage donnant toutes vos données pour obtenir des récompenses",
-            "Les TrotelCoins ne sont pas récompensés",
+            "Les TrotelCoins ne sont pas distribués",
           ],
         },
       },
@@ -187,16 +187,16 @@ const quizzes: QuizData = [
         },
         options: {
           en: [
-            "Intermediate 🙈 et Expert 🦊",
-            "Basic 🐦 et Advanced 🚀",
-            "Starter 🌱 et Pro 🌟",
-            "Novice 🐣 et Master 🧙‍♂️",
+            "Intermediate and Expert",
+            "Basic and Advanced",
+            "Starter and Pro",
+            "Novice and Master",
           ],
           fr: [
-            "Intermediate 🙈 et Expert 🦊",
-            "Basic 🐦 et Advanced 🚀",
-            "Starter 🌱 et Pro 🌟",
-            "Novice 🐣 et Master 🧙‍♂️",
+            "Intermédiaire et Expert",
+            "Basique et Advancé",
+            "Starter et Pro",
+            "Novice et Maître",
           ],
         },
       },
@@ -208,16 +208,16 @@ const quizzes: QuizData = [
         },
         options: {
           en: [
-            "They are used to reward learners and provide access to exclusive content",
+            "Rewarding learners and providing access to exclusive content",
             "There are digital collectibles",
             "They are used for financial transactions",
-            "They are used to vote on governance proposals",
+            "They are solely used to vote on governance proposals",
           ],
           fr: [
-            "Ils sont utilisés pour récompenser les apprenants et fournir un accès à du contenu exclusif",
+            "Récompenser les apprenants et fournir un accès à du contenu exclusif",
             "Ce sont des objets de collection numériques",
             "Ils sont utilisés pour des transactions financières",
-            "Ils sont utilisés pour voter sur des propositions de gouvernance",
+            "Ils sont seulement utilisés pour voter sur des propositions de gouvernance",
           ],
         },
       },
@@ -231,40 +231,19 @@ const quizzes: QuizData = [
           en: [
             "A certain amount of TrotelCoin",
             "A fast internet connection",
-            "An account on TrotelCoin without any TrotelCoin",
+            "Only an account on TrotelCoin",
             "A certain amount of Bitcoin",
           ],
           fr: [
             "Un certain montant de TrotelCoin",
             "Une connexion internet rapide",
-            "Un compte sur TrotelCoin sans aucun TrotelCoin",
+            "Seulement un compte sur TrotelCoin",
             "Un certain montant de Bitcoin",
           ],
         },
       },
       {
         questionId: 4,
-        question: {
-          en: "What action do you need to take to claim the NFTs?",
-          fr: "Quelle action devez-vous prendre pour réclamer les NFTs?",
-        },
-        options: {
-          en: [
-            "Click on the claim button",
-            "Complete a transaction",
-            "Complete a form",
-            "Complete a survey",
-          ],
-          fr: [
-            "Cliquer sur le bouton de réclamation",
-            "Compléter une transaction",
-            "Compléter un formulaire",
-            "Compléter un sondage",
-          ],
-        },
-      },
-      {
-        questionId: 5,
         question: {
           en: "What's the last step to confirm the NFTs claim?",
           fr: "Quelle est la dernière étape pour confirmer la réclamation des NFTs?",
@@ -460,8 +439,8 @@ const quizzes: QuizData = [
       {
         questionId: 4,
         question: {
-          en: "Why is Blockchain decentralization important?",
-          fr: "Pourquoi la décentralisation de la blockchain est-elle importante?",
+          en: "Why is Blockchain needs to be decentralized?",
+          fr: "Pourquoi la blockchain doit être décentralisée?",
         },
         options: {
           en: [
@@ -482,7 +461,7 @@ const quizzes: QuizData = [
         questionId: 5,
         question: {
           en: "Why blockchain is transparent?",
-          fr: "Pourquoi la blockchain est transparente?",
+          fr: "Pourquoi la blockchain est-elle transparente?",
         },
         options: {
           en: [
@@ -502,60 +481,18 @@ const quizzes: QuizData = [
       {
         questionId: 6,
         question: {
-          en: "Why blockchain is secure?",
-          fr: "Pourquoi la blockchain est sécurisée?",
-        },
-        options: {
-          en: [
-            "It uses cryptographic techniques to secure transactions",
-            "It relies on trust to secure transactions",
-            "It is not secure",
-            "Only the wallet is secured",
-          ],
-          fr: [
-            "Elle utilise des techniques cryptographiques pour sécuriser les transactions",
-            "Elle repose sur la confiance pour sécuriser les transactions",
-            "Elle n'est pas sécurisée",
-            "Seul le portefeuille est sécurisé",
-          ],
-        },
-      },
-      {
-        questionId: 7,
-        question: {
-          en: "What are the consensus mechanisms?",
-          fr: "Quels sont les mécanismes de consensus?",
-        },
-        options: {
-          en: [
-            "A way to consider a transaction as legitimate and add them to the block",
-            "A way to make the government control the blockchain",
-            "It's a term used to describe the block",
-            "It's a term used to describe the transaction",
-          ],
-          fr: [
-            "Une manière de considérer une transaction comme légitime et de les ajouter au bloc",
-            "Une manière de faire en sorte que le gouvernement contrôle la blockchain",
-            "C'est un terme utilisé pour décrire le bloc",
-            "C'est un terme utilisé pour décrire la transaction",
-          ],
-        },
-      },
-      {
-        questionId: 8,
-        question: {
           en: "What are cryptocurrencies?",
           fr: "Qu'est-ce que sont les cryptomonnaies?",
         },
         options: {
           en: [
-            "A digital currency used to secure transactions and operate on a blockchain",
+            "A digital currency used to secure transactions",
             "A volatile currency",
             "A currency used for illegal activities",
             "A currency to speculate on the market",
           ],
           fr: [
-            "Une monnaie numérique utilisée pour sécuriser les transactions et opérer sur une blockchain",
+            "Une monnaie numérique utilisée pour sécuriser les transactions",
             "Une monnaie volatile",
             "Une monnaie utilisée pour des activités illégales",
             "Une monnaie pour spéculer sur le marché",
@@ -640,27 +577,6 @@ const quizzes: QuizData = [
       {
         questionId: 5,
         question: {
-          en: "Why cryptography is important in Bitcoin?",
-          fr: "Pourquoi la cryptographie est importante dans Bitcoin?",
-        },
-        options: {
-          en: [
-            "To secure transactions",
-            "To secure the network",
-            "To secure the wallet",
-            "To secure the blockchain",
-          ],
-          fr: [
-            "Pour sécuriser les transactions",
-            "Pour sécuriser le réseau",
-            "Pour sécuriser le portefeuille",
-            "Pour sécuriser la blockchain",
-          ],
-        },
-      },
-      {
-        questionId: 6,
-        question: {
           en: "Why Bitcoin uses blockchain technology?",
           fr: "Pourquoi Bitcoin utilise la technologie blockchain?",
         },
@@ -680,7 +596,7 @@ const quizzes: QuizData = [
         },
       },
       {
-        questionId: 7,
+        questionId: 6,
         question: {
           en: "Why Bitcoin encounters political issues?",
           fr: "Pourquoi Bitcoin rencontre des problèmes politiques?",
@@ -709,27 +625,6 @@ const quizzes: QuizData = [
       {
         questionId: 1,
         question: {
-          en: "When was the domain name bitcoin.org registered?",
-          fr: "Quand le nom de domaine bitcoin.org a-t-il été enregistré?",
-        },
-        options: {
-          en: [
-            "18th August 2008",
-            "31st October 2008",
-            "9th January 2009",
-            "3rd January 2009",
-          ],
-          fr: [
-            "18 août 2008",
-            "31 octobre 2008",
-            "9 janvier 2009",
-            "3 janvier 2009",
-          ],
-        },
-      },
-      {
-        questionId: 2,
-        question: {
           en: "Who published the Bitcoin Whitepaper?",
           fr: "Qui a publié le livre blanc sur le Bitcoin?",
         },
@@ -739,31 +634,31 @@ const quizzes: QuizData = [
         },
       },
       {
-        questionId: 3,
+        questionId: 2,
         question: {
-          en: "When was the Genesis Block mined?",
-          fr: "Quand le bloc Genesis a-t-il été extrait?",
+          en: "What is the Genesis Block?",
+          fr: "Qu'est-ce que le bloc Genesis?",
         },
         options: {
           en: [
-            "3rd January 2009",
-            "31st October 2008",
-            "9th January 2009",
-            "18th August 2008",
+            "The first block of the Bitcoin blockchain",
+            "The last block of the Bitcoin blockchain",
+            "The only transaction block",
+            "Each block sent by Satoshi Nakamoto",
           ],
           fr: [
-            "3 janvier 2009",
-            "31 octobre 2008",
-            "9 janvier 2009",
-            "18 août 2008",
+            "Le premier bloc de la blockchain Bitcoin",
+            "Le dernier bloc de la blockchain Bitcoin",
+            "Le seul bloc de transaction",
+            "Chaque bloc envoyé par Satoshi Nakamoto",
           ],
         },
       },
       {
-        questionId: 4,
+        questionId: 3,
         question: {
-          en: "Who was the first person to receive a Bitcoin transaction?",
-          fr: "Qui a été la première personne à recevoir une transaction Bitcoin?",
+          en: "Who was the first to receive Bitcoins?",
+          fr: "Qui a été le premier à recevoir des Bitcoins?",
         },
         options: {
           en: ["Hal Finney", "Satoshi Nakamoto", "Wei Dai", "Nick Szabo"],
@@ -771,10 +666,10 @@ const quizzes: QuizData = [
         },
       },
       {
-        questionId: 5,
+        questionId: 4,
         question: {
-          en: "What major event is associated with May 22 in the Bitcoin history?",
-          fr: "Quel événement majeur est associé au 22 mai dans l'histoire du Bitcoin?",
+          en: "What happened on May 22, 2010?",
+          fr: "Qu'est-il arrivé le 22 mai 2010?",
         },
         options: {
           en: [
@@ -792,18 +687,7 @@ const quizzes: QuizData = [
         },
       },
       {
-        questionId: 6,
-        question: {
-          en: "When did Mt. Gox suspend trading and file for bankruptcy?",
-          fr: "Quand Mt. Gox a-t-il suspendu les échanges et déposé son bilan?",
-        },
-        options: {
-          en: ["February 2014", "July 2010", "October 2013", "May 22, 2010"],
-          fr: ["Février 2014", "Juillet 2010", "Octobre 2013", "22 mai 2010"],
-        },
-      },
-      {
-        questionId: 7,
+        questionId: 5,
         question: {
           en: "What is the Lightning Network?",
           fr: "Qu'est-ce que le Lightning Network?",
@@ -832,7 +716,7 @@ const quizzes: QuizData = [
       {
         questionId: 1,
         question: {
-          en: "What is the purpose of TrotelCoin's staking?",
+          en: "What is the purpose of staking TrotelCoin?",
           fr: "Quel est le but du staking de TrotelCoin?",
         },
         options: {
@@ -854,7 +738,7 @@ const quizzes: QuizData = [
         questionId: 2,
         question: {
           en: "How many TrotelCoins can I stake?",
-          fr: "Combien de TrotelCoins puis-je stocker?",
+          fr: "Combien de TrotelCoins puis-je miser?",
         },
         options: {
           en: ["As many as you want", "A fixed amount", "Only 1", "None"],
@@ -870,7 +754,7 @@ const quizzes: QuizData = [
         questionId: 3,
         question: {
           en: "How long can I stake my TrotelCoins?",
-          fr: "Combien de temps puis-je stocker mes TrotelCoins?",
+          fr: "Combien de temps puis-je miser mes TrotelCoins?",
         },
         options: {
           en: [
@@ -891,7 +775,7 @@ const quizzes: QuizData = [
         questionId: 4,
         question: {
           en: "How can I stake my TrotelCoins?",
-          fr: "Comment puis-je staker mes TrotelCoins?",
+          fr: "Comment puis-je miser mes TrotelCoins?",
         },
         options: {
           en: [
@@ -1012,8 +896,8 @@ const quizzes: QuizData = [
       {
         questionId: 5,
         question: {
-          en: "What are some practical uses of stablecoins mentioned?",
-          fr: "Quelles sont quelques utilisations pratiques des stablecoins mentionnées?",
+          en: "What are some uses of stablecoins mentioned?",
+          fr: "Quelles sont quelques utilisations des stablecoins mentionnées?",
         },
         options: {
           en: [

@@ -27,7 +27,7 @@ const cards = {
     },
     {
       title: "How to stake?",
-      text: "Go to the Wallet page in the staking section, choose the amount how you want and period to stake. The longer you stake, the more you earn.",
+      text: "Go to the Wallet page in the staking section, choose the amount you want to stake and the period. The longer you stake, the more you earn.",
     },
     {
       title: "Staking data",
