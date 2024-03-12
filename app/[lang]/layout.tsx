@@ -131,12 +131,13 @@ export default function Layout({
                     speed={200}
                     shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
                   />
-                  <Suspense fallback={<Loading lang={lang} />}>
-                    <UserProvider lang={lang}>
+
+                  <UserProvider lang={lang}>
+                    <PremiumProvider>
                       <LifeProvider>
                         <StreakProvider>
-                          <PremiumProvider>
-                            <AudioProvider>
+                          <AudioProvider>
+                            <Suspense fallback={<Loading lang={lang} />}>
                               <Banner lang={lang} />
                               <Changelogs lang={lang} />
                               <Header lang={lang} />
@@ -145,12 +146,13 @@ export default function Layout({
                               </main>
                               <Footer lang={lang} />
                               <MobileFooter lang={lang} />
-                            </AudioProvider>
-                          </PremiumProvider>
+                            </Suspense>
+                          </AudioProvider>
                         </StreakProvider>
                       </LifeProvider>
-                    </UserProvider>
-                  </Suspense>
+                    </PremiumProvider>
+                  </UserProvider>
+
                   <Analytics />
                   <SpeedInsights />
                 </body>
