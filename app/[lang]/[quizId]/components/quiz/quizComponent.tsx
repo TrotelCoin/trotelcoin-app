@@ -87,9 +87,6 @@ const QuizComponent = ({
           setIsTotallyCorrect(true);
         }
       }
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 5000);
     } else {
       setOptionClass(
         "bg-red-500 hover:bg-red-500 text-gray-100 hover:text-gray-100"
@@ -103,11 +100,16 @@ const QuizComponent = ({
       if (audioEnabled && audioRefBad.current) {
         audioRefBad.current.play();
       }
+    }
+  };
+
+  useEffect(() => {
+    if (showMessage) {
       setTimeout(() => {
         setShowMessage(false);
       }, 5000);
     }
-  };
+  }, [showMessage]);
 
   const handleCaptchaVerify = () => {
     setIsCaptchaVerified(true);
