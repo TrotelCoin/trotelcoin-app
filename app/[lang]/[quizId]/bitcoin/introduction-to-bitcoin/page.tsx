@@ -10,12 +10,16 @@ const cards = {
       text: "Money is a medium of exchange that is widely accepted in transactions. It can be in the form of coins, banknotes, or digital currency. Currency is a system of money in general use in a particular country. It can be in the form of coins, banknotes, or digital currency.",
     },
     {
+      title: "The three functions of money",
+      text: "Money has three main functions: a medium of exchange, a unit of account, and a store of value.",
+    },
+    {
       title: "More about money",
-      text: "Money has three main functions: a medium of exchange, a unit of account, and a store of value. A medium of exchange is something that buyers give to sellers in exchange for goods and services. A unit of account is a standard unit in which prices can be quoted and debts can be recorded. A store of value is something that holds its value over time.",
+      text: " A medium of exchange is something that buyers give to sellers in exchange for goods and services. A unit of account is a standard unit in which prices can be quoted and debts can be recorded. A store of value is something that holds its value over time.",
     },
     {
       title: "Fiat currency",
-      text: "Fiat currency is a type of currency that is issued by a government and is not backed by a physical commodity, such as gold or silver. The value of fiat currency is derived from the relationship between supply and demand rather than the value of the material that the money is made of.",
+      text: "Fiat currency is a type of currency that is issued by a government and is not backed by a physical commodity, such as gold or silver. The value of fiat currency is derived from the relationship between supply and demand.",
     },
     {
       title: "Commodity money",
@@ -47,7 +51,7 @@ const cards = {
     },
     {
       title: "Technology behind Bitcoin",
-      text: "Bitcoin operates on a decentralized network based on blockchain technology. A blockchain is a distributed ledger that records all transactions across multiple computers. Each transaction is recorded in a block, which is then linked to the previous block, creating a chain of blocks.",
+      text: "Bitcoin operates on a blockchain which is a distributed ledger that records all transactions across multiple computers. Each transaction is recorded in a block, which is then linked to the previous block, creating a chain of blocks.",
     },
     {
       title: "Transactions on the Bitcoin network",
@@ -71,7 +75,7 @@ const cards = {
     },
     {
       title: "Bitcoin mining",
-      text: "Bitcoin mining is the process of adding transaction records to Bitcoin's public ledger of past transactions or blockchain. This uses a proof-of-work system, which is a consensus mechanism that requires network nodes to solve complex mathematical problems to verify transactions.",
+      text: "Bitcoin mining is the process of adding transaction records to the blockchain. This uses a proof-of-work system, which is a consensus mechanism that requires network nodes to solve complex mathematical problems to verify transactions.",
     },
     {
       title: "Proof of work",
@@ -83,11 +87,11 @@ const cards = {
     },
     {
       title: "Bitcoin in politics",
-      text: "Bitcoin is a global currency that is not controlled by any single government or institution. This has led to debates about its regulation and use in politics. The government tends to regulate it to prevent illegal activities and try to control Bitcoin because it is a threat to the traditional financial system.",
+      text: "The government tends to regulate it to prevent illegal activities and try to control Bitcoin because it is a threat to the traditional financial system.",
     },
     {
       title: "Bitcoin vs Gold",
-      text: "Bitcoin and gold are both considered stores of value. However, Bitcoin has the advantage of being easily transferable and divisible, while gold is a physical asset that is difficult to transport and divide. The term mining comes from the fact that Bitcoin is like gold, but in a digital form.",
+      text: "Bitcoin and gold are both considered stores of value. The term mining comes from the fact that Bitcoin is like gold, but in a digital form.",
     },
     {
       title: "Bitcoin divisibility",
@@ -112,12 +116,16 @@ const cards = {
       text: "L'argent est un moyen d'échange largement accepté dans les transactions. Il peut se présenter sous forme de pièces, de billets de banque ou de monnaie numérique. La monnaie est un système d'argent en usage général dans un pays particulier. Elle peut se présenter sous forme de pièces, de billets de banque ou de monnaie numérique.",
     },
     {
+      title: "Les trois fonctions de l'argent",
+      text: "L'argent a trois fonctions principales : un moyen d'échange, une unité de compte et une réserve de valeur.",
+    },
+    {
       title: "Plus d'informations sur l'argent",
-      text: "L'argent a trois fonctions principales : un moyen d'échange, une unité de compte et une réserve de valeur. Un moyen d'échange est quelque chose que les acheteurs donnent aux vendeurs en échange de biens et services. Une unité de compte est une unité standard dans laquelle les prix peuvent être cités et les dettes enregistrées. Une réserve de valeur est quelque chose qui conserve sa valeur au fil du temps.",
+      text: "Un moyen d'échange est quelque chose que les acheteurs donnent aux vendeurs en échange de biens et services. Une unité de compte est une unité standard dans laquelle les prix peuvent être cités et les dettes enregistrées. Une réserve de valeur est quelque chose qui conserve sa valeur au fil du temps.",
     },
     {
       title: "Monnaie fiduciaire",
-      text: "La monnaie fiduciaire est un type de monnaie émise par un gouvernement et qui n'est pas adossée à une marchandise physique, telle que l'or ou l'argent. La valeur de la monnaie fiduciaire découle de la relation entre l'offre et la demande plutôt que de la valeur du matériau dont est faite la monnaie.",
+      text: "La monnaie fiduciaire est un type de monnaie émise par un gouvernement et qui n'est pas adossée à une marchandise physique, telle que l'or ou l'argent. La valeur de la monnaie fiduciaire découle de la relation entre l'offre et la demande.",
     },
     {
       title: "Monnaie marchandise",
@@ -149,7 +157,7 @@ const cards = {
     },
     {
       title: "Technologie derrière le Bitcoin",
-      text: "Le Bitcoin fonctionne sur un réseau décentralisé basé sur la technologie de la blockchain. Une blockchain est un registre distribué qui enregistre toutes les transactions sur plusieurs ordinateurs. Chaque transaction est enregistrée dans un bloc, qui est ensuite lié au bloc précédent, créant ainsi une chaîne de blocs.",
+      text: "Le Bitcoin fonctionne sur la blockchain qui est un registre distribué qui enregistre toutes les transactions sur plusieurs ordinateurs. Chaque transaction est enregistrée dans un bloc, qui est ensuite lié au bloc précédent, créant ainsi une chaîne de blocs.",
     },
     {
       title: "Transactions sur le réseau Bitcoin",
@@ -173,7 +181,7 @@ const cards = {
     },
     {
       title: "Minage de Bitcoin",
-      text: "Le minage de Bitcoin est le processus d'ajout d'enregistrements de transactions à la blockchain publique de Bitcoin. Cela utilise un système de preuve de travail, qui est un mécanisme de consensus qui exige des nœuds du réseau de résoudre des problèmes mathématiques complexes pour vérifier les transactions.",
+      text: "Le minage de Bitcoin est le processus d'ajout d'enregistrements de transactions à la blockchain. Cela utilise un système de preuve de travail, qui est un mécanisme de consensus qui exige des nœuds du réseau de résoudre des problèmes mathématiques complexes pour vérifier les transactions.",
     },
     {
       title: "Preuve de travail",
@@ -185,11 +193,11 @@ const cards = {
     },
     {
       title: "Bitcoin en politique",
-      text: "Le Bitcoin est une monnaie mondiale qui n'est pas contrôlée par un seul gouvernement ou institution. Cela a conduit à des débats sur sa réglementation et son utilisation en politique. Le gouvernement a tendance à le réglementer pour prévenir les activités illégales et tenter de le contrôler car il constitue une menace pour le système financier traditionnel.",
+      text: "Le gouvernement a tendance à le réglementer pour prévenir les activités illégales et tenter de le contrôler car il constitue une menace pour le système financier traditionnel.",
     },
     {
       title: "Bitcoin vs Or",
-      text: "Le Bitcoin et l'or sont tous deux considérés comme des réserves de valeur. Cependant, le Bitcoin a l'avantage d'être facilement transférable et divisible, tandis que l'or est un actif physique difficile à transporter et à diviser. Le terme minage vient du fait que le Bitcoin est comme l'or, mais sous forme numérique.",
+      text: "Le Bitcoin et l'or sont tous deux considérés comme des réserves de valeur. Le terme minage vient du fait que le Bitcoin est comme l'or, mais sous forme numérique.",
     },
     {
       title: "Divisibilité du Bitcoin",

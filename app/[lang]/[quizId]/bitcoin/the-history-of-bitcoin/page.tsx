@@ -44,11 +44,7 @@ const cards = {
     },
     {
       title: "Pizza Day",
-      text: "In 2010, the first retail transaction with physical goods using Bitcoin occurred, exchanging 10,000 BTC for two pizzas, establishing May 22 as Bitcoin Pizza Day. A major vulnerability was discovered in August, allowing the creation of arbitrary amounts of bitcoin; however, it was swiftly addressed, preventing any lasting impact on the blockchain.",
-    },
-    {
-      title: "The Silk Road",
-      text: "The Silk Road was an online black market and the first modern darknet market, best known as a platform for selling illegal drugs. As part of the dark web, it was operated as a Tor hidden service, such that online users were able to browse it anonymously and securely without potential traffic monitoring. The website was launched in February 2011 and shut down by the FBI in October 2013.",
+      text: "In 2010, the first retail transaction with physical goods using Bitcoin occurred, exchanging 10,000 BTC for two pizzas, establishing May 22 as Bitcoin Pizza Day.",
     },
     {
       title: "The Bitcoin Foundation",
@@ -56,7 +52,7 @@ const cards = {
     },
     {
       title: "Mt. Gox",
-      text: "Mt. Gox was a bitcoin exchange based in Shibuya, Tokyo, Japan. Launched in July 2010, by 2013 and into 2014 it was handling over 70% of all bitcoin transactions worldwide, as the largest bitcoin intermediary and the world's leading bitcoin exchange. In February 2014, Mt. Gox suspended trading, closed its website and exchange service, and filed for bankruptcy protection from creditors.",
+      text: "Mt. Gox was a bitcoin exchange based in Shibuya, Tokyo, Japan. Launched in July 2010, by 2013 and into 2014 it was handling over 70% of all bitcoin transactions worldwide. In February 2014, Mt. Gox filed for bankruptcy protection from creditors.",
     },
     {
       title: "The EFF",
@@ -164,11 +160,7 @@ const cards = {
     },
     {
       title: "Jour de la pizza",
-      text: "En 2010, la première transaction de détail avec des biens physiques utilisant Bitcoin a eu lieu, échangeant 10 000 BTC contre deux pizzas, établissant le 22 mai comme le Bitcoin Pizza Day. Une vulnérabilité majeure a été découverte en août, permettant la création de montants arbitraires de bitcoins; cependant, elle a été rapidement corrigée, évitant tout impact durable sur la blockchain.",
-    },
-    {
-      title: "La Route de la soie",
-      text: "La Route de la soie était un marché noir en ligne et le premier marché noir moderne, mieux connu comme une plateforme pour la vente de drogues illégales. Dans le cadre du web sombre, il a été exploité en tant que service caché Tor, de sorte que les utilisateurs en ligne pouvaient le parcourir de manière anonyme et sécurisée sans surveillance potentielle du trafic. Le site a été lancé en février 2011 et fermé par le FBI en octobre 2013.",
+      text: "En 2010, la première transaction de détail avec des biens physiques utilisant Bitcoin a eu lieu, échangeant 10 000 BTC contre deux pizzas, établissant le 22 mai comme le Bitcoin Pizza Day.",
     },
     {
       title: "La Fondation Bitcoin",
@@ -176,7 +168,7 @@ const cards = {
     },
     {
       title: "Mt. Gox",
-      text: "Mt. Gox était une bourse de bitcoins basée à Shibuya, Tokyo, Japon. Lancée en juillet 2010, en 2013 et en 2014, elle traitait plus de 70% de toutes les transactions de bitcoins dans le monde, en tant qu'intermédiaire en bitcoins le plus important et la principale bourse de bitcoins au monde. En février 2014, Mt. Gox a suspendu ses activités, fermé son site Web et son service d'échange, et a déposé une demande de protection contre les créanciers.",
+      text: "Mt. Gox était une bourse de bitcoins basée à Shibuya, Tokyo, Japon. Lancée en juillet 2010, en 2013 et en 2014, elle traitait plus de 70% de toutes les transactions de bitcoins dans le monde. En février 2014, Mt. Gox a déposé une demande de protection contre les créanciers.",
     },
     {
       title: "L'EFF",
