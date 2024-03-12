@@ -24,6 +24,7 @@ import StreakProvider from "@/app/[lang]/providers/streakProvider";
 import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 import UserProvider from "@/app/[lang]/providers/userProvider";
 import ThemeProvider from "@/app/[lang]/providers/themeProvider";
+import AudioProvider from "@/app/[lang]/providers/audioProvider";
 import "swiper/css";
 import "animate.css";
 import "swiper/css/navigation";
@@ -137,14 +138,16 @@ export default function Layout({
                         <LifeProvider>
                           <StreakProvider>
                             <PremiumProvider>
-                              <Banner lang={lang} />
-                              <Changelogs lang={lang} />
-                              <Header lang={lang} />
-                              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
-                                {children}
-                              </main>
-                              <Footer lang={lang} />
-                              <MobileFooter lang={lang} />
+                              <AudioProvider>
+                                <Banner lang={lang} />
+                                <Changelogs lang={lang} />
+                                <Header lang={lang} />
+                                <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                                  {children}
+                                </main>
+                                <Footer lang={lang} />
+                                <MobileFooter lang={lang} />
+                              </AudioProvider>
                             </PremiumProvider>
                           </StreakProvider>
                         </LifeProvider>
