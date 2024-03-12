@@ -8,6 +8,7 @@ import LevelSection from "@/app/[lang]/account/components/level";
 import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";
 import axios from "axios";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
 export default function Account({
   params: { lang },
@@ -42,11 +43,15 @@ export default function Account({
           </>
         ) : (
           <>
-            <p className="text-center text-gray-900 dark:text-gray-100 text-xl">
-              {lang === "en"
-                ? "You need to sign in."
-                : "Vous devez vous connecter."}
-            </p>
+            <div className="mx-auto flex justify-center items-center flex-col gap-4">
+              <p className="text-center text-gray-900 dark:text-gray-100 text-xl">
+                {lang === "en"
+                  ? "You need to sign in."
+                  : "Vous devez vous connecter."}
+              </p>
+
+              <Wallet lang={lang} />
+            </div>
           </>
         )}
       </div>

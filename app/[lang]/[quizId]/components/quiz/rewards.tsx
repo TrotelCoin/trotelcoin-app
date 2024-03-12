@@ -115,7 +115,9 @@ const Rewards = ({
               ? "Sign in to claim rewards."
               : "Connectez-vous pour réclamer vos récompenses."}
           </h2>
-          <Wallet lang={lang} />
+          <div className="mt-4">
+            <Wallet isFull={false} lang={lang} />
+          </div>
         </div>
       )}
       {claimingLoading && !claimingError && (

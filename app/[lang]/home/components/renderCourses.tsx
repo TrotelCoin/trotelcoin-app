@@ -129,7 +129,7 @@ const renderCourses = (
             )}
             {course.new && (
               <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
-                {lang === "en" ? "New course 👀" : "Nouveau cours 👀"}
+                {lang === "en" ? "New 👀" : "Nouveau 👀"}
               </div>
             )}
           </div>

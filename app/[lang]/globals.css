@@ -136,11 +136,7 @@ a:hover {
   animation: changeGradient 3s linear infinite;
 }
 
-.connectWallet {
-  border-bottom-width: 4px !important;
-  border-color: #1d4ed8 !important;
-}
-
-.connectWallet:active {
+.connectWalletButton:active {
   border: none !important;
+  margin-top: 0.25rem !important;
 }
