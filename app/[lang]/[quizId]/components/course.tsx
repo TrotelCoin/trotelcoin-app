@@ -35,12 +35,12 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   };
 
   const handleNext = () => {
-    setCurrentCardIndex(currentCardIndex + 1);
+    setCurrentCardIndex((prev) => prev + 1);
   };
 
   const handlePrevious = () => {
     if (currentCardIndex > 0) {
-      setCurrentCardIndex(currentCardIndex - 1);
+      setCurrentCardIndex((prev) => prev - 1);
     }
   };
 
@@ -74,7 +74,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           onClose={() => setFullScreen(false)}
         >
           <div className="flex flex-1 justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
-            <span className="text-gray-900 dark:text-gray-100 flex w-12 justify-center items-center">
+            <span className="text-gray-900 dark:text-gray-100 flex w-12 justify-center items-center font-semibold">
               {currentCardIndex + 1}/{cards.en.length}
             </span>
 
