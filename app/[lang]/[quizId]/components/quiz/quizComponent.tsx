@@ -7,7 +7,6 @@ import React, {
   useState,
 } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import Confetti from "react-dom-confetti";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData";
 import shuffleArray from "@/utils/shuffleArray";
@@ -32,7 +31,6 @@ const QuizComponent = ({
   quizId: number;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
-  const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
@@ -60,7 +58,6 @@ const QuizComponent = ({
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
-    setShowConfetti(false);
 
     if (!isCaptchaVerified && !debug) {
       setCaptchaMessage(true);
@@ -72,7 +69,6 @@ const QuizComponent = ({
         "bg-green-500 hover:bg-green-500 text-gray-100 hover:text-gray-100"
       );
       setIsCorrect(true);
-      setShowConfetti(true);
       setShowMessage(true);
       if (questions) {
         if (audioEnabled && audioRefGood.current) {
@@ -92,7 +88,6 @@ const QuizComponent = ({
         "bg-red-500 hover:bg-red-500 text-gray-100 hover:text-gray-100"
       );
       setIsCorrect(false);
-      setShowConfetti(false);
       setShowMessage(true);
       if (!isIntermediate && !isExpert && life > 0) {
         updateLife();
@@ -102,12 +97,6 @@ const QuizComponent = ({
       }
     }
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowConfetti(false);
-    }, 2000);
-  }, [showConfetti]);
 
   const handleCaptchaVerify = () => {
     setIsCaptchaVerified(true);
@@ -191,9 +180,6 @@ const QuizComponent = ({
                         >
                           {option}
                         </div>
-                        <div className="flex justify-center items-center mx-auto">
-                          <Confetti active={showConfetti} />
-                        </div>
                       </li>
                     )
                   )
@@ -209,9 +195,6 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
-                        </div>
-                        <div className="flex justify-center items-center mx-auto">
-                          <Confetti active={showConfetti} />
                         </div>
                       </li>
                     )
