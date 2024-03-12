@@ -20,6 +20,8 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
   const { audioEnabled } = useContext(AudioContext);
@@ -56,6 +58,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
     if (!fullscreen) {
       setCurrentCardIndex(0);
       setWidth(0);
+      setIsLoading(false);
     }
   }, [fullscreen]);
 
@@ -147,12 +150,15 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               >
                 <BlueButton
                   lang={lang}
+                  showConfetti={isLoading}
+                  isLoading={isLoading}
                   onClick={() => {
-                    setFullScreen(false);
-                    setCurrentCardIndex(0);
-                    setWidth(0);
                     setIsCourseFinished(true);
                     playAudio();
+                    setIsLoading(true);
+                    setTimeout(() => {
+                      setFullScreen(false);
+                    }, 2000);
                   }}
                   text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
                 />
