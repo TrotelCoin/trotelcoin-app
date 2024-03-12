@@ -81,7 +81,6 @@ const ApproveButton = ({
         onClick={() => approve(amount)}
         text={lang === "en" ? "Approve" : "Approuver"}
         isLoading={isLoading}
-        lang={lang}
       />
 
       <Success
