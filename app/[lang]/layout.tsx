@@ -134,8 +134,8 @@ export default function Layout({
 
                 <UserProvider lang={lang}>
                   <PremiumProvider>
-                    <LifeProvider>
-                      <StreakProvider>
+                    <LifeProvider lang={lang}>
+                      <StreakProvider lang={lang}>
                         <ThemeProvider>
                           <AudioProvider>
                             <Suspense fallback={<Loading lang={lang} />}>

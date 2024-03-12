@@ -239,8 +239,8 @@ const QuizComponent = ({
           className={`mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-green-500 dark:text-green-300`}
         >
           {lang === "en"
-            ? "You got all the questions right!"
-            : "Vous avez toutes les questions correctes!"}
+            ? "You answered correctly to all the questions!"
+            : "Vous avez répondu correctement à toutes les questions !"}
         </div>
       )}
       {showMessage && !isCorrect && (
@@ -249,7 +249,7 @@ const QuizComponent = ({
         >
           {lang === "en"
             ? "Oups. You answered incorrectly. Try again!"
-            : "Mince. Tu as répondu incorrectement. Essaye encore !"}
+            : "Mince. Vous avez répondu incorrectement. Essayez encore !"}
           {life >= 0 && life <= 3 && !isIntermediate && !isExpert && (
             <span className="text-red-500 dark:text-red-300">
               {lang === "en" ? (
