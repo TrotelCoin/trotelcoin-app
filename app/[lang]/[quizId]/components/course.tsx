@@ -28,6 +28,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
 
   const playAudio = () => {
     if (audioEnabled && audioRef.current) {
+      audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
   };

@@ -61,6 +61,7 @@ const Rewards = ({
       });
 
     if (audioEnabled && audioRef.current) {
+      audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
 

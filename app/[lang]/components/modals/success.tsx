@@ -14,6 +14,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
 
   const playAudio = () => {
     if (audioRef.current && audioEnabled) {
+      audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
   };

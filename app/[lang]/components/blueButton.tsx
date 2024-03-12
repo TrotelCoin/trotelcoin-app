@@ -24,6 +24,7 @@ const BlueButton = ({
 
   const playAudio = () => {
     if (audioEnabled && audioRef.current) {
+      audioRef.current.currentTime = 0;
       audioRef.current.play();
     }
   };
