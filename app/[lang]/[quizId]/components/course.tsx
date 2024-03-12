@@ -90,9 +90,6 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
             <div className="flex items-center gap-2">
               <AudioSelector />
               <div className="hidden md:block">
-                <LanguageSelector lang={lang} />
-              </div>
-              <div className="hidden md:block">
                 <ThemeSelector />
               </div>
 
