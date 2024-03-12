@@ -121,8 +121,6 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
           <div className="items-center flex gap-2">
-            <LanguageSelector lang={lang} />
-            <AudioSelector />
             <ThemeSwitcher />
             <BlueButton
               onClick={() => setMobileMenuOpen(true)}
