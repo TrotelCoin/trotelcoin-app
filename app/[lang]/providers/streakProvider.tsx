@@ -83,10 +83,10 @@ const StreakProvider = ({
   }, [userMaxStreak]);
 
   useEffect(() => {
-    if (!disabled) {
+    if (!disabled && address) {
       setStreakResetMessage(true);
     }
-  }, [disabled]);
+  }, [disabled, address]);
 
   const updateStreak = async (address: Address) => {
     setIsStreakLoading(true);

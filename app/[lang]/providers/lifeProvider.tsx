@@ -50,10 +50,10 @@ const LifeProvider = ({
   }, [lifeData]);
 
   useEffect(() => {
-    if (life > 2 && isNotPremium) {
+    if (life > 2 && isNotPremium && address) {
       setLifeResetMessage(true);
     }
-  }, [life, isNotPremium]);
+  }, [life, isNotPremium, address]);
 
   const { data: lifeLastReset } = useSWR(
     address ? `/api/database/getUserLifeLastReset?wallet=${address}` : null,
