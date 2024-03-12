@@ -1,5 +1,11 @@
 import { DictType, Lang, Question } from "@/types/types";
-import React, { SetStateAction, useContext, useEffect, useState } from "react";
+import React, {
+  SetStateAction,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Confetti from "react-dom-confetti";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
@@ -8,6 +14,7 @@ import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { useUser } from "@thirdweb-dev/react";
+import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 const debug = process.env.NODE_ENV === "development";
 
@@ -41,6 +48,10 @@ const QuizComponent = ({
   const { updateLife, life } = useContext(LifeContext);
   const { isLoggedIn } = useUser();
   const { isIntermediate, isExpert } = useContext(PremiumContext);
+  const { audioEnabled } = useContext(AudioContext);
+
+  const audioRefGood = useRef<HTMLAudioElement>(null);
+  const audioRefBad = useRef<HTMLAudioElement>(null);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -58,9 +69,14 @@ const QuizComponent = ({
       setShowConfetti(true);
       setShowMessage(true);
       if (questions) {
-        setCurrentQuestion((prev) =>
-          prev < questions.length - 1 ? prev + 1 : prev
-        );
+        if (audioEnabled && audioRefGood.current) {
+          audioRefGood.current.play();
+        }
+        setTimeout(() => {
+          setCurrentQuestion((prev) =>
+            prev < questions.length - 1 ? prev + 1 : prev
+          );
+        }, 2000);
         if (currentQuestion === questions.length - 1) {
           setIsTotallyCorrect(true);
         }
@@ -71,6 +87,9 @@ const QuizComponent = ({
       setShowMessage(true);
       if (!isIntermediate && !isExpert && life > 0) {
         updateLife();
+      }
+      if (audioEnabled && audioRefBad.current) {
+        audioRefBad.current.play();
       }
     }
   };
@@ -121,6 +140,8 @@ const QuizComponent = ({
 
   return (
     <>
+      <audio ref={audioRefGood} src="/audio/sounds/good-answer.wav" />
+      <audio ref={audioRefBad} src="/audio/sounds/bad-answer.wav" />
       {isCaptchaVerified || debug ? (
         <>
           {shuffledQuestions &&

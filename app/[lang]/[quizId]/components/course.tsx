@@ -1,16 +1,33 @@
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from "react";
 import { Lang, Cards } from "@/types/types";
 import GetStarted from "@/app/[lang]/[quizId]/components/getStarted";
 import Card from "@/app/[lang]/[quizId]/components/card";
 import { Dialog, Transition } from "@headlessui/react";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
+import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
+
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
+  const { audioEnabled } = useContext(AudioContext);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const playAudio = () => {
+    if (audioEnabled && audioRef.current) {
+      audioRef.current.play();
+    }
+  };
 
   const handleNext = () => {
     setCurrentCardIndex(currentCardIndex + 1);
@@ -40,6 +57,8 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
 
   return (
     <>
+      <audio ref={audioRef} src="/audio/sounds/course-finished.wav" />
+
       <GetStarted lang={lang} setFullScreen={setFullScreen} />
 
       <Transition as={Fragment} show={fullscreen}>
@@ -114,6 +133,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                     setCurrentCardIndex(0);
                     setWidth(0);
                     setIsCourseFinished(true);
+                    playAudio();
                   }}
                   text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
                 />
