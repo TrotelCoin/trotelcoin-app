@@ -19,8 +19,10 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
   };
 
   useEffect(() => {
-    playAudio();
-  }, []);
+    if (show) {
+      playAudio();
+    }
+  }, [show]);
 
   return (
     <>
