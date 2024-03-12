@@ -91,7 +91,7 @@ const AccountMobile = ({
                   <div
                     className={`${address ? walletClass : disconnectedClass}`}
                   >
-                    <span className={address && animatedClass}>
+                    <span>
                       {address
                         ? lang === "en"
                           ? "Only wallet"
