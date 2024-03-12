@@ -239,8 +239,8 @@ const QuizComponent = ({
           className={`mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-green-500 dark:text-green-300`}
         >
           {lang === "en"
-            ? "You got all the questions right!"
-            : "Vous avez toutes les questions correctes!"}
+            ? "You answered correctly to all the questions!"
+            : "Vous avez répondu correctement à toutes les questions !"}
         </div>
       )}
       {showMessage && !isCorrect && (
