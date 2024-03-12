@@ -37,7 +37,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <span className="break-words whitespace-normal">
             Click on your address to copy it:{" "}
             <span
-              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
               onClick={() => {
                 if (address) {
                   navigator.clipboard.writeText(address);
@@ -74,7 +74,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <>
             Cliquez sur votre adresse pour la copier :{" "}
             <span
-              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
               onClick={() => {
                 if (address) {
                   navigator.clipboard.writeText(address);
