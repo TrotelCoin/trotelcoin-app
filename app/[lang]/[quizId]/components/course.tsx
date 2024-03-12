@@ -131,13 +131,21 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                 onClick={() => handlePrevious()}
                 text={lang === "en" ? "Previous" : "Précédent"}
               />
-              {currentCardIndex < cards.en.length - 1 && (
+              <div
+                className={`${
+                  currentCardIndex === cards.en.length - 1 && "hidden"
+                }`}
+              >
                 <BlueButton
                   onClick={() => handleNext()}
                   text={lang === "en" ? "Next" : "Suivant"}
                 />
-              )}
-              {currentCardIndex === cards.en.length - 1 && (
+              </div>
+              <div
+                className={`${
+                  currentCardIndex < cards.en.length - 1 && "hidden"
+                }`}
+              >
                 <BlueButton
                   onClick={() => {
                     setFullScreen(false);
@@ -148,7 +156,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   }}
                   text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
                 />
-              )}
+              </div>
             </div>
           </div>
         </Dialog>
