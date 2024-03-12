@@ -103,6 +103,12 @@ const QuizComponent = ({
     }
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      setShowConfetti(false);
+    }, 2000);
+  }, [showConfetti]);
+
   const handleCaptchaVerify = () => {
     setIsCaptchaVerified(true);
     setCaptchaMessage(false);
@@ -184,6 +190,9 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
+                        </div>
+                        <div className="flex justify-center items-center mx-auto">
+                          <Confetti active={showConfetti} />
                         </div>
                       </li>
                     )
