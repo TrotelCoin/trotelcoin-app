@@ -43,7 +43,7 @@ const cards = {
     },
     {
       title: "Conclusion",
-      text: "TrotelCoin wants to make learning about cryptocurrencies safe and fun. Our Web3 platform encourages learning. Take the quiz below to earn TrotelCoins and good luck on your learning adventure!",
+      text: "Take the quiz to earn TrotelCoins and good luck on your learning adventure!",
     },
   ],
   fr: [
@@ -85,7 +85,7 @@ const cards = {
     },
     {
       title: "Conclusion",
-      text: "TrotelCoin veut rendre l'apprentissage des cryptomonnaies sûr et amusant. Notre plateforme Web3 encourage l'apprentissage. Passez le quiz ci-dessous pour gagner des TrotelCoins et bonne chance dans votre aventure d'apprentissage !",
+      text: "Faîtes le quiz pour gagner des TrotelCoins et bonne chance dans votre aventure d'apprentissage !",
     },
   ],
 };

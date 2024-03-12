@@ -98,7 +98,7 @@ const cards = {
     },
     {
       title: "Hardware wallets",
-      text: "Hardware wallets are the most secure type of wallet. They are physical devices that store your private keys offline. They are immune to computer viruses and malware. Examples of hardware wallets include Ledger and Trezor.",
+      text: "Hardware wallets are the most secure type of wallet. They are physical devices that store your private keys offline. They are immune to computer viruses and malware.",
     },
     {
       title: "Ledger",
@@ -238,7 +238,7 @@ const cards = {
     },
     {
       title: "Portefeuilles matériels",
-      text: "Les portefeuilles matériels sont le type de portefeuille le plus sécurisé. Ce sont des appareils physiques qui stockent vos clés privées hors ligne. Ils sont immunisés contre les virus informatiques et les logiciels malveillants. Les exemples de portefeuilles matériels incluent Ledger et Trezor.",
+      text: "Les portefeuilles matériels sont le type de portefeuille le plus sécurisé. Ce sont des appareils physiques qui stockent vos clés privées hors ligne. Ils sont immunisés contre les virus informatiques et les logiciels malveillants.",
     },
     {
       title: "Ledger",
