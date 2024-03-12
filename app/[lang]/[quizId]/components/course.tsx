@@ -70,7 +70,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           className="z-50 fixed top-0 left-0 w-full h-screen bg-white dark:bg-gray-900"
           onClose={() => setFullScreen(false)}
         >
-          <div className="flex justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
+          <div className="flex flex-1 justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
             <span className="text-gray-900 dark:text-gray-100 flex w-12 justify-center items-center">
               {currentCardIndex + 1}/{cards.en.length}
             </span>
