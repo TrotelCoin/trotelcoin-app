@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import "animate.css";
 import { Lang } from "@/types/types";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
+import Confetti from "react-dom-confetti";
 
 const BlueButton = ({
   text,
@@ -10,6 +11,7 @@ const BlueButton = ({
   isFull,
   lang,
   disabled,
+  showConfetti,
 }: {
   text: string;
   onClick: Function;
@@ -17,6 +19,7 @@ const BlueButton = ({
   isFull?: boolean;
   lang: Lang;
   disabled?: boolean;
+  showConfetti?: boolean;
 }) => {
   const { audioEnabled } = useContext(AudioContext);
 
@@ -54,6 +57,9 @@ const BlueButton = ({
         >
           {isLoading ? (lang === "en" ? "Loading..." : "Chargement...") : text}
         </span>
+        <div className="flex justify-center items-center mx-auto">
+          <Confetti active={showConfetti as boolean} />
+        </div>
       </button>
     </>
   );
