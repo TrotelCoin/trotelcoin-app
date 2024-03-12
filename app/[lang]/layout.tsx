@@ -111,32 +111,34 @@ export default function Layout({
           `}
                 </Script>
               </head>
-              <ThemeProvider>
-                <body
-                  className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
-                >
-                  {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-                    <GoogleAnalytics
-                      ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
-                    />
-                  ) : null}
-                  <NextTopLoader
-                    color="#3b82f6"
-                    initialPosition={0.08}
-                    crawlSpeed={200}
-                    height={5}
-                    crawl={true}
-                    showSpinner={false}
-                    easing="ease"
-                    speed={200}
-                    shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+
+              <body
+                className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
+              >
+                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+                  <GoogleAnalytics
+                    ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
                   />
-                  <Suspense fallback={<Loading lang={lang} />}>
-                    <UserProvider lang={lang}>
-                      <LifeProvider>
-                        <StreakProvider>
-                          <PremiumProvider>
-                            <AudioProvider>
+                ) : null}
+                <NextTopLoader
+                  color="#3b82f6"
+                  initialPosition={0.08}
+                  crawlSpeed={200}
+                  height={5}
+                  crawl={true}
+                  showSpinner={false}
+                  easing="ease"
+                  speed={200}
+                  shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+                />
+
+                <UserProvider lang={lang}>
+                  <PremiumProvider>
+                    <LifeProvider>
+                      <StreakProvider>
+                        <ThemeProvider>
+                          <AudioProvider>
+                            <Suspense fallback={<Loading lang={lang} />}>
                               <Banner lang={lang} />
                               <Changelogs lang={lang} />
                               <Header lang={lang} />
@@ -145,16 +147,18 @@ export default function Layout({
                               </main>
                               <Footer lang={lang} />
                               <MobileFooter lang={lang} />
-                            </AudioProvider>
-                          </PremiumProvider>
-                        </StreakProvider>
-                      </LifeProvider>
-                    </UserProvider>
-                  </Suspense>
-                  <Analytics />
-                  <SpeedInsights />
-                </body>
-              </ThemeProvider>
+                            </Suspense>
+                          </AudioProvider>
+                        </ThemeProvider>
+                      </StreakProvider>
+                    </LifeProvider>
+                  </PremiumProvider>
+                </UserProvider>
+
+                <Analytics />
+                <SpeedInsights />
+              </body>
+
               <Script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
