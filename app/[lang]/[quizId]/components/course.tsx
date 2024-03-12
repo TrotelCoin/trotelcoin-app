@@ -87,8 +87,10 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
 
             <div>
               <AudioSelector />
-              <LanguageSelector lang={lang} />
-              <ThemeSelector />
+              <div className="hidden md:block">
+                <LanguageSelector lang={lang} />
+                <ThemeSelector />
+              </div>
               <button
                 onClick={() => setFullScreen(false)}
                 className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
