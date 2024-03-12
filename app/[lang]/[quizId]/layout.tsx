@@ -18,6 +18,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 import CourseFinishedProvider from "@/app/[lang]/providers/courseFinishedProvider";
 import useSWR from "swr";
 import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
+import CourseTitle from "@/app/[lang]/[quizId]/components/courseTitle";
 
 const CoursePage = ({
   params: { lang, quizId },
@@ -129,9 +130,7 @@ const CoursePage = ({
                 </svg>
               </button>
             </div>
-            <h1 className="my-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-              {title}
-            </h1>
+            <CourseTitle title={title} />
 
             {/* Disclaimer */}
             <div className="mt-4">

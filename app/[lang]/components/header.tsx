@@ -11,13 +11,13 @@ import ThemeSwitcher from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { Lang, DictType } from "@/types/types";
-import { useDisconnect, useAddress, useUser } from "@thirdweb-dev/react";
 import StreakMobile from "@/app/[lang]/components/header/streakMobile";
 import ShopMobile from "@/app/[lang]/components/header/shopMobile";
 import AccountMobile from "@/app/[lang]/components/header/accountMobile";
 import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
+import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,15 +33,6 @@ const Header = ({ lang }: { lang: Lang }) => {
 
     fetchDictionary();
   }, [lang]);
-
-  const disconnect = useDisconnect();
-
-  const handleDisconnect = async () => {
-    await disconnect();
-  };
-
-  const { isLoggedIn } = useUser();
-  const address = useAddress();
 
   const navigation = [
     {
@@ -129,15 +120,10 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-4">
-            {isLoggedIn && address && (
-              <button
-                onClick={() => handleDisconnect()}
-                className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-              >
-                {lang === "en" ? "Disconnect" : "Se déconnecter"}
-              </button>
-            )}
+          <div className="items-center flex gap-2">
+            <LanguageSelector lang={lang} />
+            <AudioSelector />
+            <ThemeSwitcher />
             <BlueButton
               onClick={() => setMobileMenuOpen(true)}
               text={lang === "en" ? "Menu" : "Menu"}
@@ -148,15 +134,8 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Mobile menu button */}
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
-            <div className="flex items-center gap-4">
-              {isLoggedIn && address && (
-                <button
-                  onClick={() => handleDisconnect()}
-                  className="font-semibold text-sm text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
-                >
-                  {lang === "en" ? "Disconnect" : "Se déconnecter"}
-                </button>
-              )}
+            <div className="flex items-center gap-2">
+              <ThemeSwitcher />
               <BlueButton
                 onClick={() => setMobileMenuOpen(true)}
                 text={lang === "en" ? "Menu" : "Menu"}
@@ -179,16 +158,10 @@ const Header = ({ lang }: { lang: Lang }) => {
                 Menu
               </h2>
             </div>
-            <div className="flex flex-1 items-center justify-end gap-1">
+            <div className="flex flex-1 items-center justify-end gap-2">
               <AudioSelector />
               <LanguageSelector lang={lang} />
-              <ThemeSwitcher />
-
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(false)}
-                className="hidden lg:block p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-              >
+              <BlueSimpleButton onClick={() => setMobileMenuOpen(false)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -197,21 +170,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                 >
                   <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
                 </svg>
-              </button>
-              <button
-                type="button"
-                className="rounded-xl p-2 text-gray-900 dark:text-gray-100 lg:hidden"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="w-5 h-5"
-                >
-                  <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
-                </svg>
-              </button>
+              </BlueSimpleButton>
             </div>
           </div>
           <div className="flex flex-col gap-4 mt-10">

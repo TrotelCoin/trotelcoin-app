@@ -15,6 +15,7 @@ import AudioContext from "@/app/[lang]/contexts/audioContext";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import ThemeSelector from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
+import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 
 const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
@@ -86,16 +87,16 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               />
             </div>
 
-            <div className="flex">
+            <div className="flex items-center gap-2">
               <AudioSelector />
               <div className="hidden md:block">
                 <LanguageSelector lang={lang} />
+              </div>
+              <div className="hidden md:block">
                 <ThemeSelector />
               </div>
-              <button
-                onClick={() => setFullScreen(false)}
-                className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
-              >
+
+              <BlueSimpleButton onClick={() => setFullScreen(false)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -104,7 +105,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                 >
                   <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
                 </svg>
-              </button>
+              </BlueSimpleButton>
             </div>
           </div>
           <div
