@@ -99,6 +99,7 @@ const Rewards = ({
             <div className="mt-6 items-center">
               <BlueButton
                 onClick={handleClaimRewards}
+                lang={lang}
                 text={
                   lang === "en" ? "Claim rewards" : "Réclamez vos récompenses"
                 }

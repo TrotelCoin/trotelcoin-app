@@ -104,6 +104,7 @@ const ClaimingButton = ({
   return (
     <>
       <BlueButton
+        lang={lang}
         onClick={() => claim()}
         isLoading={isLoading}
         text={lang === "en" ? "Claim" : "Réclamer"}

@@ -15,7 +15,7 @@ const BlueButton = ({
   onClick: Function;
   isLoading?: boolean;
   isFull?: boolean;
-  lang?: Lang;
+  lang: Lang;
   disabled?: boolean;
 }) => {
   const { audioEnabled } = useContext(AudioContext);

@@ -134,6 +134,7 @@ const SendButton = ({
   return (
     <>
       <BlueButton
+        lang={lang}
         onClick={() => send(amount as number)}
         isLoading={isLoading}
         text={lang === "en" ? "Send" : "Envoyer"}

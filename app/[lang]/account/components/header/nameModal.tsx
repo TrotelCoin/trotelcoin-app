@@ -147,6 +147,7 @@ const NameModal = ({
                         setName(null);
                         setNameModal(false);
                       }}
+                      lang={lang}
                       isFull={true}
                       text={lang === "en" ? "Close" : "Fermer"}
                     />
@@ -154,6 +155,7 @@ const NameModal = ({
                     <BlueButton
                       onClick={() => postName(name as string)}
                       isFull={true}
+                      lang={lang}
                       text={lang === "en" ? "Save" : "Sauvegarder"}
                       isLoading={nameIsLoading}
                     />

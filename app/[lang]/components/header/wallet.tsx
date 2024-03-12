@@ -29,6 +29,7 @@ const Wallet = ({ lang }: { lang: Lang }) => {
       {address && isLoggedIn ? (
         <>
           <BlueButton
+            lang={lang}
             onClick={handleDisconnect}
             isFull={true}
             text={lang === "en" ? "Sign out" : "Déconnexion"}
