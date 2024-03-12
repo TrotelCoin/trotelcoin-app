@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { Lang } from "@/types/types";
@@ -18,9 +18,11 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
     { code: "en", label: "English 🇬🇧" },
     { code: "fr", label: "Français 🇫🇷" },
   ];
+
   const pathname = usePathname();
 
   const onChangeLanguage = (language: Language) => {
+    localStorage.setItem("lang", language.code);
     const newPathname = pathname?.replace(/^\/(en|fr)/, "");
     if (language.code === "fr") {
       router.replace(`/fr${newPathname}`);
