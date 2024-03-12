@@ -1,9 +1,9 @@
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const Satisfaction = ({ lang }: { lang: Lang }) => {
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
@@ -45,11 +45,12 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
         }`}
       >
         <div className="flex flex-col gap-4 mx-auto text-center">
-          {typeof dict?.account !== "string" && (
-            <span className="text-xl font-semibold">
-              {dict?.account.satisfaction as string}
-            </span>
-          )}
+          <span className="text-xl font-semibold">
+            {lang === "en"
+              ? "Would you recommend TrotelCoin?"
+              : "Recommanderiez-vous TrotelCoin?"}
+          </span>
+
           <div className="grid grid-cols-6 lg:grid-cols-11 gap-2 mx-auto mt-2">
             {Array.from(Array(11).keys()).map((number, index) => (
               <div key={index}>

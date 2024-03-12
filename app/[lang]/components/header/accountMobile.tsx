@@ -107,7 +107,7 @@ const AccountMobile = ({
               </span>
             </div>
             <div className="flex justify-start items-center gap-4 p-4">
-              <Wallet lang={lang} />
+              <Wallet lang={lang} isFull={true} />
             </div>
           </div>
         </>

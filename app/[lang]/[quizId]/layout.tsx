@@ -1,12 +1,11 @@
 "use client";
 
 import "animate.css";
-import { Course, DictType, Lang } from "@/types/types";
+import { Course, Lang } from "@/types/types";
 import React, { useEffect, useState, useContext } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import CourseFinished from "@/app/[lang]/[quizId]/components/courseFinished";
 import { useAddress } from "@thirdweb-dev/react";
-import { getDictionary } from "@/app/[lang]/dictionaries";
 import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
 import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
 import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
@@ -27,7 +26,6 @@ const CoursePage = ({
   params: { lang: Lang; quizId: number };
   children: React.ReactNode;
 }) => {
-  const [dict, setDict] = useState<DictType | null>(null);
   const [answered, setAnswered] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -38,15 +36,6 @@ const CoursePage = ({
       : "";
 
   const URL = `${origin}${pathname}`;
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   const { data: numberOfAnswers } = useSWR(
     quizId ? `/api/database/getCourseNumberOfAnswers?quizId=${quizId}` : null,
@@ -90,7 +79,7 @@ const CoursePage = ({
   const renderUnauthorizedContent = () => {
     return (
       <>
-        <UnauthorizedContent dict={dict as DictType} lang={lang} />
+        <UnauthorizedContent lang={lang} />
       </>
     );
   };
@@ -103,9 +92,7 @@ const CoursePage = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <p className="text-base font-semibold leading-7 text-blue-500 dark:text-blue-300">
-                  {typeof dict?.lesson !== "string" && (
-                    <>{dict?.lesson.course}</>
-                  )}
+                  {lang === "en" ? "Course" : "Cours"}
                 </p>
                 <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
                 <p className="text-base leading-7 text-gray-700 dark:text-gray-300">
@@ -134,17 +121,13 @@ const CoursePage = ({
 
             {/* Disclaimer */}
             <div className="mt-4">
-              <Disclaimer dict={dict as DictType} />
+              <Disclaimer lang={lang} />
             </div>
 
             {/* Course */}
             <div className="flex justify-start">{children}</div>
 
-            <CourseFinished
-              lang={lang}
-              dict={dict as DictType}
-              quizId={quizId}
-            />
+            <CourseFinished lang={lang} quizId={quizId} />
           </div>
         </CourseFinishedProvider>
 

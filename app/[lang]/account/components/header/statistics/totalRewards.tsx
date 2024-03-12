@@ -1,12 +1,11 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 
-const TotalRewards = ({ dict }: { dict: DictType }) => {
+const TotalRewards = ({ lang }: { lang: Lang }) => {
   const [tokensEarned, setTokensEarned] = useState<number>(0);
-  const [totalRewards, setTotalRewards] = useState<number | null>(null);
 
   const address = useAddress();
 
@@ -18,16 +17,12 @@ const TotalRewards = ({ dict }: { dict: DictType }) => {
   );
 
   useEffect(() => {
-    if (totalRewards && Boolean(totalRewardsPending)) {
-      setTokensEarned(totalRewards + totalRewardsPending);
-    } else if (totalRewards) {
-      setTokensEarned(totalRewards);
-    } else if (totalRewardsPending) {
+    if (Boolean(totalRewardsPending)) {
       setTokensEarned(totalRewardsPending);
     } else {
       setTokensEarned(0);
     }
-  }, [totalRewards, totalRewardsPending, address]);
+  }, [totalRewardsPending, address]);
 
   return (
     <>
@@ -50,11 +45,7 @@ const TotalRewards = ({ dict }: { dict: DictType }) => {
               </span>
             </>
           </span>
-          <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.totalRewards}</>
-            )}
-          </span>
+          <span>{lang === "en" ? "Total rewards" : "Récompenses totales"}</span>
         </div>
       </div>
     </>

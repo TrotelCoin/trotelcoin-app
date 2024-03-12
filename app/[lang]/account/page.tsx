@@ -1,31 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useUser, useAddress } from "@thirdweb-dev/react";
-import { Lang, DictType } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import LevelSection from "@/app/[lang]/account/components/level";
 import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";
 import axios from "axios";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
 export default function Account({
   params: { lang },
 }: {
   params: { lang: Lang };
 }) {
-  const [dict, setDict] = useState<DictType | null>(null);
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
   const address = useAddress();
   const { isLoggedIn } = useUser();
 
@@ -48,18 +37,21 @@ export default function Account({
       <div className="mx-auto">
         {address && isLoggedIn ? (
           <>
-            <HeaderSection dict={dict} lang={lang} />
-            <LevelSection dict={dict} />
-            <BadgesSection dict={dict as DictType} lang={lang} />
+            <HeaderSection lang={lang} />
+            <LevelSection lang={lang} />
+            <BadgesSection lang={lang} />
           </>
         ) : (
           <>
-            <p className="text-center text-gray-900 dark:text-gray-100 text-xl">
-              {typeof dict?.modals !== "string" &&
-                typeof dict?.modals.connectWallet !== "string" && (
-                  <>{dict?.modals.connectWallet.message}</>
-                )}
-            </p>
+            <div className="mx-auto flex justify-center items-center flex-col gap-4">
+              <p className="text-center text-gray-900 dark:text-gray-100 text-xl">
+                {lang === "en"
+                  ? "You need to sign in."
+                  : "Vous devez vous connecter."}
+              </p>
+
+              <Wallet isCentered={true} lang={lang} />
+            </div>
           </>
         )}
       </div>

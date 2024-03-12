@@ -20,7 +20,6 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
-  const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
@@ -113,15 +112,9 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
           >
             <div className="max-w-xl mx-auto text-center">
               {lang === "en" ? (
-                <Card
-                  title={cards.en[currentCardIndex].title}
-                  text={cards.en[currentCardIndex].text}
-                />
+                <Card text={cards.en[currentCardIndex].text} />
               ) : (
-                <Card
-                  title={cards.fr[currentCardIndex].title}
-                  text={cards.fr[currentCardIndex].text}
-                />
+                <Card text={cards.fr[currentCardIndex].text} />
               )}
             </div>
           </div>

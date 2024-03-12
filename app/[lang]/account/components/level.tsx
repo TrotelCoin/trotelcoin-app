@@ -1,15 +1,11 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useAddress } from "@thirdweb-dev/react";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 
-interface LevelSectionProps {
-  dict: DictType | null;
-}
-
-const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
+const LevelSection = ({ lang }: { lang: Lang }) => {
   const [width, setWidth] = useState<number>(0);
   const [userLevel, setUserLevel] = useState<number | null>(1);
   const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(1);
@@ -39,7 +35,7 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
   return (
     <>
       <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
-        {typeof dict?.account !== "string" && <>{dict?.account.level}</>}
+        {lang === "en" ? "Level" : "Niveau"}
       </h2>
       <div
         className={`mt-4 bg-gray-100 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
@@ -51,19 +47,11 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
             }`}
           >
             {isNotPremium && (
-              <p>
-                {typeof dict?.account !== "string" && (
-                  <>{dict?.account.notPremium}</>
-                )}
-              </p>
+              <p>{lang === "en" ? "Not premium" : "Non premium"}</p>
             )}
             {!isNotPremium && (
               <>
-                <p>
-                  {typeof dict?.account !== "string" && (
-                    <>{dict?.account.youAreLevel}</>
-                  )}
-                </p>
+                <p>{lang === "en" ? "You are level" : "Vous êtes niveau"}</p>
                 {userLevel ? (
                   <>{userLevel}</>
                 ) : (
@@ -81,12 +69,9 @@ const LevelSection: React.FC<LevelSectionProps> = ({ dict }) => {
           >
             {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium
               ? `${quizzesRemaining.toFixed(0)} ${
-                  typeof dict?.account !== "string" &&
-                  dict?.account.trotelCoinsLeft
+                  lang === "en" ? "quizzes left" : "quiz restant"
                 }`
-              : `${
-                  typeof dict?.account !== "string" && dict?.account.notPremium
-                }`}
+              : `${lang === "en" ? "Not premium" : "Non premium"}`}
           </p>
         </div>
         <div

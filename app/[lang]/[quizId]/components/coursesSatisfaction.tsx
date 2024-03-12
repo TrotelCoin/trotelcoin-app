@@ -1,4 +1,4 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { useEffect, useState } from "react";
 import { Address } from "viem";
@@ -7,11 +7,11 @@ import axios from "axios";
 import { fetcher } from "@/lib/axios/fetcher";
 
 const CoursesSatisfaction = ({
-  dict,
   quizId,
+  lang,
 }: {
-  dict: DictType;
   quizId: number;
+  lang: Lang;
 }) => {
   const [satisfactionMessage, setSatisfactionMessage] =
     useState<boolean>(false);
@@ -56,10 +56,7 @@ const CoursesSatisfaction = ({
             {!coursesSatisfactionAnswered?.answered && (
               <>
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                  {typeof dict?.lesson !== "string" && (
-                    <>{dict?.lesson.satisfaction}</>
-                  )}{" "}
-                  :
+                  {lang === "en" ? "Rate this course:" : "Notez ce cours:"}
                 </h2>
                 <div className="flex items-center">
                   {[...Array(5)].map((star, index) => {
@@ -116,16 +113,16 @@ const CoursesSatisfaction = ({
           </div>
           {satisfactionMessage && (
             <p className="mt-2 text-green-500 dark:text-green-300 animate__animated animate__fadeIn">
-              {typeof dict?.lesson !== "string" && (
-                <>{dict?.lesson.satisfactionMessage}</>
-              )}
+              {lang === "en"
+                ? "Thank you for rating this course."
+                : "Merci d'avoir noté ce cours."}
             </p>
           )}
           {errorMessage && (
             <p className="mt-2 text-red-500 dark:text-red-300 animate__animated animate__fadeIn">
-              {typeof dict?.lesson !== "string" && (
-                <>{dict?.lesson.errorMessage}</>
-              )}
+              {lang === "en"
+                ? "An error occured. Please try again later."
+                : "Une erreur est survenue. Veuillez réessayer plus tard."}
             </p>
           )}
         </div>

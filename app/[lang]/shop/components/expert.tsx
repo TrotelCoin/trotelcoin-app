@@ -11,8 +11,7 @@ import {
   trotelCoinAddress,
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
-import { DictType, Lang } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
@@ -29,21 +28,11 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const [isClaimedMessage, setIsClaimedMessage] = useState<boolean>(false);
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
-  const [dict, setDict] = useState<DictType | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
   const advantages = {
-    1: typeof dict?.expert !== "string" && dict?.expert.advantage1,
-    2: typeof dict?.expert !== "string" && dict?.expert.advantage2,
+    1: lang === "en" ? "Beta features" : "Fonctionnalités bêta",
+    2: lang === "en" ? "Crypto community" : "Communauté crypto",
   };
 
   const address = useAddress();
@@ -205,7 +194,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
-                  {typeof dict?.shop !== "string" && <>{dict?.shop.claimed}</>}
+                  {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
               )}
             </div>
@@ -235,19 +224,9 @@ const Expert = ({ lang }: { lang: Lang }) => {
       )}
       <Fail
         show={isNotConnectedMessage}
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.connectWallet !== "string" &&
-          dict?.modals.connectWallet.title === "string"
-            ? dict?.modals.connectWallet.title
-            : ""
-        }
+        title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.connectWallet !== "string" &&
-          typeof dict?.modals.connectWallet.message === "string"
-            ? dict?.modals.connectWallet.message
-            : ""
+          lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
         }
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
@@ -261,38 +240,22 @@ const Expert = ({ lang }: { lang: Lang }) => {
       />
       <Success
         show={isEligibleMessageSuccess}
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.eligible !== "string" &&
-          dict?.modals.eligible.title === "string"
-            ? dict?.modals.eligible.title
-            : ""
-        }
+        title={lang === "en" ? "Eligible" : "Éligible"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.eligible !== "string" &&
-          typeof dict?.modals.eligible.message === "string"
-            ? dict?.modals.eligible.message
-            : ""
+          lang === "en"
+            ? "Congratulations. You are eligible."
+            : "Félicitations. Vous êtes éligible."
         }
         onClose={() => setIsEligibleMessageSuccess(false)}
         lang={lang}
       />
       <Success
         show={isClaimedMessage}
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedExpertNFT !== "string" &&
-          dict?.modals.claimedExpertNFT.title === "string"
-            ? dict?.modals.claimedExpertNFT.title
-            : ""
-        }
+        title={lang === "en" ? "Expert" : "Expert"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedExpertNFT !== "string" &&
-          typeof dict?.modals.claimedExpertNFT.message === "string"
-            ? dict?.modals.claimedExpertNFT.message
-            : ""
+          lang === "en"
+            ? "You became an Expert."
+            : "Vous êtes devenu un Expert."
         }
         onClose={() => setIsClaimedMessage(false)}
         lang={lang}

@@ -1,17 +1,9 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { DictType, Badges, Badge, Lang } from "@/types/types";
+import { Badges, Badge, Lang } from "@/types/types";
 import React, { useContext } from "react";
 import Tilt from "react-parallax-tilt";
 
-const BadgesList = ({
-  badges,
-  dict,
-  lang,
-}: {
-  badges: Badges;
-  dict: DictType;
-  lang: Lang;
-}) => {
+const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
   const { isNotPremium } = useContext(PremiumContext);
 
   return (
@@ -50,11 +42,8 @@ const BadgesList = ({
                     >
                       {!isNotPremium && badge.name ? (
                         <>{badge.name}</>
-                      ) : typeof dict?.account !== "string" &&
-                        typeof dict?.account.notPremium === "string" ? (
-                        <>{dict?.account.notPremium}</>
                       ) : (
-                        <>{lang === "en" ? "Loading..." : "Chargement..."}</>
+                        <>{lang === "en" ? "Not premium" : "Non premium"}</>
                       )}
                     </span>
                     <div className="flex gap-2 justify-start items-center w-full">

@@ -9,7 +9,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     en: [
       {
         title: "Introduction",
-        text: 'Stablecoins are cryptocurrencies designed to minimize the volatility of the price of the stablecoin, relative to some "stable" asset or basket of assets.',
+        text: 'Stablecoins are cryptocurrencies designed to minimize the volatility of the price of the stablecoin, relative to some stable asset or basket of assets.',
       },
       {
         title: "Understanding Stablecoins",
@@ -95,7 +95,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     fr: [
       {
         title: "Introduction",
-        text: "Les stablecoins sont des cryptomonnaies conçues pour minimiser la volatilité du prix du stablecoin, par rapport à un actif ou un panier d'actifs «stables».",
+        text: "Les stablecoins sont des cryptomonnaies conçues pour minimiser la volatilité du prix du stablecoin, par rapport à un actif ou un panier d'actifs stables.",
       },
       {
         title: "Comprendre les stablecoins",

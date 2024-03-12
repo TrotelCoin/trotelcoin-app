@@ -3,8 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
-import { Lessons, Lang, DictType } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lessons, Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import Form from "@/app/[lang]/home/components/form";
 import {
@@ -19,19 +18,9 @@ import useSWR from "swr";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [dict, setDict] = useState<DictType | null>(null);
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   const filterLessons = (lesson: Lessons) => {
     const categoryMatch = filterByCategory(lesson, searchTerm);
@@ -73,7 +62,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   return (
     <>
       <>
-        <Form dict={dict as DictType} setSearchTerm={setSearchTerm} />
+        <Form lang={lang} setSearchTerm={setSearchTerm} />
         <div className="flex flex-col">
           {filteredLessons
             .filter((lesson) =>
@@ -118,7 +107,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                         lang,
                         course.quizId,
                         status,
-                        dict,
                         index,
                         lesson.category
                       )

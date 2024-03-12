@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment, useContext, useState } from "react";
@@ -6,7 +6,7 @@ import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
-const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const LifeCount = ({ lang }: { lang: Lang }) => {
   const [isHoveringLife, setIsHoveringLife] = useState<boolean>(false);
 
   const { life } = useContext(LifeContext);

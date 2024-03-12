@@ -2,25 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import "animate.css";
-import { DictType, Lang } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 
 const Beginner = ({ lang }: { lang: Lang }) => {
-  const [dict, setDict] = useState<DictType | null>(null);
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
   const advantages = {
-    1: typeof dict?.beginner !== "string" && dict?.beginner.advantage1,
-    2: typeof dict?.beginner !== "string" && dict?.beginner.advantage2,
+    1: lang === "en" ? "Free courses" : "Cours gratuit",
+    2: lang === "en" ? "Crypto rewards" : "Récompenses en crypto",
   };
 
   return (
@@ -68,7 +56,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
                 </div>
               </div>
               <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
-                {typeof dict?.shop !== "string" && <>{dict?.shop.claimed}</>}
+                {lang === "en" ? "Already claimed" : "Déjà réclamé"}
               </button>
             </div>
           </div>

@@ -1,10 +1,10 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
-const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
+const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
   const address = useAddress();
 
   const { data: totalRewardsPending } = useSWR(
@@ -35,9 +35,7 @@ const TotalRewardsPending = ({ dict }: { dict: DictType }) => {
             </>
           </span>
           <span>
-            {typeof dict?.account !== "string" && (
-              <>{dict?.account.rewardsPending}</>
-            )}
+            {lang === "en" ? "Rewards pending" : "Récompenses en attente"}
           </span>
         </div>
       </div>

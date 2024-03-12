@@ -11,8 +11,7 @@ import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
 } from "@/data/web3/addresses";
-import { DictType, Lang } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import {
   useAddress,
   useUser,
@@ -34,21 +33,11 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isClaimedMessage, setIsClaimedMessage] = useState<boolean>(false);
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
-  const [dict, setDict] = useState<DictType | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
   const advantages = {
-    1: typeof dict?.intermediate !== "string" && dict?.intermediate.advantage1,
-    2: typeof dict?.intermediate !== "string" && dict?.intermediate.advantage2,
+    1: lang === "en" ? "Advanced courses" : "Cours avancés",
+    2: lang === "en" ? "Unlimited lives" : "Vies illimitées",
   };
 
   const address = useAddress();
@@ -64,12 +53,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     enabled: Boolean(address),
     watch: true,
   });
-  const {
-    mutateAsync,
-    isLoading: isLoadingWrite,
-    isSuccess,
-    isError,
-  } = useContractWrite(contract, "mint");
+  const { mutateAsync, isSuccess, isError } = useContractWrite(
+    contract,
+    "mint"
+  );
   const { data: claimed } = useContractRead({
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
@@ -214,7 +201,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               )}
               {isClaimed && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
-                  {typeof dict?.shop !== "string" && <>{dict?.shop.claimed}</>}
+                  {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
               )}
             </div>
@@ -244,19 +231,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       )}
       <Fail
         show={isNotConnectedMessage}
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.connectWallet !== "string" &&
-          dict?.modals.connectWallet.title === "string"
-            ? dict?.modals.connectWallet.title
-            : ""
-        }
+        title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.connectWallet !== "string" &&
-          typeof dict?.modals.connectWallet.message === "string"
-            ? dict?.modals.connectWallet.message
-            : ""
+          lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
         }
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
@@ -270,38 +247,22 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       />
       <Success
         show={isEligibleMessageSuccess}
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.eligible !== "string" &&
-          dict?.modals.eligible.title === "string"
-            ? dict?.modals.eligible.title
-            : ""
-        }
+        title={lang === "en" ? "Eligible" : "Éligible"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.eligible !== "string" &&
-          typeof dict?.modals.eligible.message === "string"
-            ? dict?.modals.eligible.message
-            : ""
+          lang === "en"
+            ? "Congratulations. You are eligible."
+            : "Félicitations. Vous êtes éligible."
         }
         onClose={() => setIsEligibleMessageSuccess(false)}
         lang={lang}
       />
       <Success
         show={isClaimedMessage}
-        title={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedIntermediateNFT !== "string" &&
-          dict?.modals.claimedIntermediateNFT.title === "string"
-            ? dict?.modals.claimedIntermediateNFT.title
-            : ""
-        }
+        title={lang === "en" ? "Intermediate" : "Intermédiaire"}
         message={
-          typeof dict?.modals !== "string" &&
-          typeof dict?.modals.claimedIntermediateNFT !== "string" &&
-          typeof dict?.modals.claimedIntermediateNFT.message === "string"
-            ? dict?.modals.claimedIntermediateNFT.message
-            : ""
+          lang === "en"
+            ? "You became an Intermediate."
+            : "Vous êtes devenu un Intermédiaire."
         }
         onClose={() => setIsClaimedMessage(false)}
         lang={lang}

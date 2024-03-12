@@ -1,5 +1,5 @@
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import { Badge, Badges, BadgesNames, DictType, Lang } from "@/types/types";
+import { Badge, Badges, BadgesNames, Lang } from "@/types/types";
 import { useAddress } from "@thirdweb-dev/react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
@@ -11,7 +11,7 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 
-const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
     null
   );
@@ -393,7 +393,7 @@ const BadgesSection = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           {lang === "en" ? "Staking duration" : "Durée de staking"}
         </button>
       </div>
-      <BadgesList badges={badges} dict={dict} lang={lang} />
+      <BadgesList badges={badges} lang={lang} />
     </>
   );
 };

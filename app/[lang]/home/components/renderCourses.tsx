@@ -1,4 +1,4 @@
-import { Lesson, Lang, DictType } from "@/types/types";
+import { Lesson, Lang } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";
 
@@ -9,7 +9,6 @@ const renderCourses = (
   lang: Lang,
   quizId: number,
   status: string[],
-  dict: DictType | null,
   index: number,
   category: string
 ) => {
@@ -102,9 +101,7 @@ const renderCourses = (
             )}
             {!course.available && (
               <div className="inline-flex items-center rounded-xl text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
-                {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.notAvailable}</>
-                )}
+                {lang === "en" ? "Not available" : "Non disponible"}
               </div>
             )}
             {course.available && (
@@ -127,16 +124,12 @@ const renderCourses = (
             )}
             {course.sponsored && (
               <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
-                {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.sponsored} 📚</>
-                )}
+                {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
               </div>
             )}
             {course.new && (
               <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
-                {typeof dict?.lesson !== "string" && (
-                  <>{dict?.lesson.newCourse} 👀</>
-                )}
+                {lang === "en" ? "New 👀" : "Nouveau 👀"}
               </div>
             )}
           </div>

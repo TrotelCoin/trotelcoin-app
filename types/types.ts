@@ -88,10 +88,6 @@ export interface Answers {
   [key: number]: string;
 }
 
-export type DictType = {
-  [key: string]: string | DictType;
-};
-
 export type Question = {
   questionId: number;
   question: LanguageStrings;
@@ -117,7 +113,7 @@ export type QuizAnswer = {
 };
 
 export type FooterItem = {
-  name: string | false | DictType | undefined;
+  name: string | false | undefined;
   href: string;
   display: boolean;
   id: number;

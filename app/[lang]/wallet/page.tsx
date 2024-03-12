@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Lang, DictType } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
 import Send from "@/app/[lang]/wallet/components/send";
@@ -17,7 +16,6 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const searchParams = useSearchParams();
   const category = searchParams?.get("category");
 
-  const [dict, setDict] = useState<DictType | null>(null);
   const [component, setComponent] = useState<ActiveComponent>("claim");
   const [chainError, setChainError] = useState<boolean>(false);
 
@@ -30,15 +28,6 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setChainError(true);
     }
   }, [chain]);
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   useEffect(() => {
     if (category) {

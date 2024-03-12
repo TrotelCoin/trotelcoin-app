@@ -16,7 +16,6 @@ import Changelogs from "@/app/[lang]/components/changelogs/changelogs";
 import Footer from "@/app/[lang]/components/footer";
 import Header from "@/app/[lang]/components/header";
 import Loading from "@/app/[lang]/components/loading";
-import { DictionaryProvider } from "@/app/[lang]/providers/dictionnaryProvider";
 import GoogleAnalytics from "@/app/[lang]/googleAnalytics";
 import LifeProvider from "@/app/[lang]/providers/lifeProvider";
 import MobileFooter from "@/app/[lang]/components/mobileFooter";
@@ -133,26 +132,24 @@ export default function Layout({
                     shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
                   />
                   <Suspense fallback={<Loading lang={lang} />}>
-                    <DictionaryProvider lang={lang}>
-                      <UserProvider lang={lang}>
-                        <LifeProvider>
-                          <StreakProvider>
-                            <PremiumProvider>
-                              <AudioProvider>
-                                <Banner lang={lang} />
-                                <Changelogs lang={lang} />
-                                <Header lang={lang} />
-                                <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
-                                  {children}
-                                </main>
-                                <Footer lang={lang} />
-                                <MobileFooter lang={lang} />
-                              </AudioProvider>
-                            </PremiumProvider>
-                          </StreakProvider>
-                        </LifeProvider>
-                      </UserProvider>
-                    </DictionaryProvider>
+                    <UserProvider lang={lang}>
+                      <LifeProvider>
+                        <StreakProvider>
+                          <PremiumProvider>
+                            <AudioProvider>
+                              <Banner lang={lang} />
+                              <Changelogs lang={lang} />
+                              <Header lang={lang} />
+                              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                                {children}
+                              </main>
+                              <Footer lang={lang} />
+                              <MobileFooter lang={lang} />
+                            </AudioProvider>
+                          </PremiumProvider>
+                        </StreakProvider>
+                      </LifeProvider>
+                    </UserProvider>
                   </Suspense>
                   <Analytics />
                   <SpeedInsights />

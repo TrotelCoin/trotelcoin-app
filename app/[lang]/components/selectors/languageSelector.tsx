@@ -1,10 +1,9 @@
 "use client";
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { usePathname, useRouter } from "next/navigation";
-import { DictType, Lang } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { Lang } from "@/types/types";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 
 interface Language {
@@ -13,18 +12,7 @@ interface Language {
 }
 
 const LanguageSelector = ({ lang }: { lang: Lang }) => {
-  const [dict, setDict] = useState<DictType | null>(null);
-
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   const languages = [
     { code: "en", label: "English 🇬🇧" },

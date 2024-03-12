@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import React, { useContext } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { useAddress } from "@thirdweb-dev/react";
@@ -6,7 +6,7 @@ import { Address } from "viem";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import "animate.css";
 
-const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
+const StreakMobile = ({ lang }: { lang: Lang }) => {
   const address = useAddress();
 
   const { streak, disabled, updateStreak, cooldown, isStreakLoading } =

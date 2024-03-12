@@ -87,11 +87,11 @@ const cards = {
     },
     {
       title: "Bitcoin in politics",
-      text: "The government tends to regulate it to prevent illegal activities and try to control Bitcoin because it is a threat to the traditional financial system.",
+      text: "The government tends to regulate Bitcoin to prevent illegal activities and try to control Bitcoin because it is a threat to the traditional financial system.",
     },
     {
       title: "Bitcoin vs Gold",
-      text: "Bitcoin and gold are both considered stores of value. The term mining comes from the fact that Bitcoin is like gold, but in a digital form.",
+      text: "Bitcoin and gold are both considered stores of value. The term mining comes from the fact that Bitcoins extraction is like gold, but in a digital form.",
     },
     {
       title: "Bitcoin divisibility",
@@ -145,7 +145,7 @@ const cards = {
     },
     {
       title: "Quels problèmes résout le Bitcoin ?",
-      text: "Le Bitcoin résout le problème du double dépense, qui est le risque qu'une monnaie numérique puisse être dépensée deux fois. Il résout également le problème de la confiance, car il repose sur un réseau décentralisé qui est sécurisé et transparent.",
+      text: "Le Bitcoin résout le problème de la double dépense, qui est le risque qu'une monnaie numérique puisse être dépensée deux fois. Il résout également le problème de la confiance, car il repose sur un réseau décentralisé qui est sécurisé et transparent.",
     },
     {
       title: "Bitcoin et l'inflation",
@@ -193,11 +193,11 @@ const cards = {
     },
     {
       title: "Bitcoin en politique",
-      text: "Le gouvernement a tendance à le réglementer pour prévenir les activités illégales et tenter de le contrôler car il constitue une menace pour le système financier traditionnel.",
+      text: "Le gouvernement a tendance à réglementer Bitcoin pour prévenir les activités illégales et tenter de le contrôler car il constitue une menace pour le système financier traditionnel.",
     },
     {
       title: "Bitcoin vs Or",
-      text: "Le Bitcoin et l'or sont tous deux considérés comme des réserves de valeur. Le terme minage vient du fait que le Bitcoin est comme l'or, mais sous forme numérique.",
+      text: "Le Bitcoin et l'or sont tous deux considérés comme des réserves de valeur. Le terme minage vient du fait que l'extraction de Bitcoins est comme l'or, mais sous forme numérique.",
     },
     {
       title: "Divisibilité du Bitcoin",

@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import React, { useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Link from "next/link";
@@ -7,11 +7,9 @@ import BlueButton from "@/app/[lang]/components/blueButton";
 
 const LifeMobile = ({
   lang,
-  dict,
   setMobileMenuOpen,
 }: {
   lang: Lang;
-  dict: DictType;
   setMobileMenuOpen: (open: boolean) => void;
 }) => {
   const { life, lifeCooldown } = useContext(LifeContext);

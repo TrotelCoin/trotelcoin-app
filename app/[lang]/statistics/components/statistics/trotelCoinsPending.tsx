@@ -1,9 +1,9 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
-const TrotelCoinsPending = ({ dict }: { dict: DictType }) => {
+const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
   const { data: trotelCoinsPending } = useSWR(
     "/api/database/getTotalTrotelCoinsPending",
     fetcher
@@ -28,9 +28,7 @@ const TrotelCoinsPending = ({ dict }: { dict: DictType }) => {
         </span>
 
         <span>
-          {typeof dict?.algorithm !== "string" && (
-            <>{dict?.algorithm.trotelCoinsPending}</>
-          )}
+          {lang === "en" ? "pending TrotelCoins" : "TrotelCoins en attente"}
         </span>
       </div>
     </>

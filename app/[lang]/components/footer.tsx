@@ -3,8 +3,7 @@
 import { JSX, SVGProps, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { DictType, FooterItem, Lang } from "@/types/types";
-import { getDictionary } from "@/app/[lang]/dictionaries";
+import { FooterItem, Lang } from "@/types/types";
 
 const discordIcon = (
   props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
@@ -38,17 +37,6 @@ const githubIcon = (
 );
 
 export default function Footer({ lang }: { lang: Lang }) {
-  const [dict, setDict] = useState<DictType | null>(null);
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
-
   const navigation = {
     main: [
       {
@@ -59,70 +47,70 @@ export default function Footer({ lang }: { lang: Lang }) {
         anotherWindow: true,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.documentation,
+        name: lang === "en" ? "Documentation" : "Documentation",
         href: "https://docs.trotelcoin.com",
         display: false,
         id: 2,
         anotherWindow: true,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.statistics,
+        name: lang === "en" ? "Statistics" : "Statistiques",
         href: `/${lang}/statistics`,
         display: true,
         id: 3,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.leaderboard,
+        name: lang === "en" ? "Leaderboard" : "Classement",
         href: `/${lang}/leaderboard`,
         display: true,
         id: 4,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.shop,
+        name: lang === "en" ? "Shop" : "Boutique",
         href: `/${lang}/shop`,
         display: false,
         id: 5,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.business,
+        name: lang === "en" ? "Business" : "Entreprise",
         href: "mailto:hello@trotelcoin.com",
         display: true,
         id: 6,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.partners,
+        name: lang === "en" ? "Partners" : "Partenaires",
         href: "#",
         display: false,
         id: 7,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.jobs,
+        name: lang === "en" ? "Jobs" : "Métiers",
         href: "#",
         display: false,
         id: 8,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.blog,
+        name: lang === "en" ? "Blog" : "Blog",
         href: "#",
         display: false,
         id: 9,
         anotherWindow: true,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.terms,
+        name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
         href: `/${lang}/terms-of-service`,
         display: true,
         id: 10,
         anotherWindow: false,
       },
       {
-        name: typeof dict?.footer !== "string" && dict?.footer.privacy,
+        name: lang === "en" ? "Privacy policy" : "Politique de confidentialité",
         href: `/${lang}/privacy-policy`,
         display: false,
         id: 11,

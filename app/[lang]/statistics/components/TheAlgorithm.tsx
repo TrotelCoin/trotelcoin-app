@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import TrotelCoinsDistributed from "@/app/[lang]/statistics/components/statistics/trotelCoinsDistributed";
 import TrotelCoinsPending from "@/app/[lang]/statistics/components/statistics/trotelCoinsPending";
@@ -12,7 +12,7 @@ import Intermediate from "@/app/[lang]/statistics/components/statistics/intermed
 import Early from "@/app/[lang]/statistics/components/statistics/early";
 import Tilt from "react-parallax-tilt";
 
-const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const TheAlgorithm = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div>
@@ -27,7 +27,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <TrotelCoinsDistributed dict={dict} />
+            <TrotelCoinsDistributed lang={lang} />
           </Tilt>
 
           <Tilt
@@ -37,7 +37,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <TrotelCoinsPending dict={dict} />
+            <TrotelCoinsPending lang={lang} />
           </Tilt>
 
           <Tilt
@@ -47,7 +47,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <NumberOfQuizzesAnswered dict={dict} />
+            <NumberOfQuizzesAnswered lang={lang} />
           </Tilt>
 
           <Tilt
@@ -57,7 +57,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <RemainingRewards dict={dict} />
+            <RemainingRewards lang={lang} />
           </Tilt>
 
           <Tilt
@@ -67,7 +67,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <EstimatedRewards dict={dict} />
+            <EstimatedRewards lang={lang} />
           </Tilt>
 
           <Tilt
@@ -77,7 +77,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <MaxStreak dict={dict} />
+            <MaxStreak lang={lang} />
           </Tilt>
 
           <Tilt
@@ -87,7 +87,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <NumberOfLearners dict={dict} />
+            <NumberOfLearners lang={lang} />
           </Tilt>
 
           <Tilt
@@ -97,7 +97,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <Early dict={dict} lang={lang} />
+            <Early lang={lang} />
           </Tilt>
 
           <Tilt
@@ -107,7 +107,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <Intermediate dict={dict} lang={lang} />
+            <Intermediate lang={lang} />
           </Tilt>
 
           <Tilt
@@ -117,7 +117,7 @@ const TheAlgorithm = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <Expert dict={dict} lang={lang} />
+            <Expert lang={lang} />
           </Tilt>
         </div>
       </div>

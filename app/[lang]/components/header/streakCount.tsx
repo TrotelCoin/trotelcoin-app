@@ -1,4 +1,4 @@
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
 import { useAddress } from "@thirdweb-dev/react";
 import React, { Fragment, useContext, useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { Address } from "viem";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import "animate.css";
 
-const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const StreakCount = ({ lang }: { lang: Lang }) => {
   const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
   const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 

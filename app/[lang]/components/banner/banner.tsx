@@ -1,23 +1,12 @@
 "use client";
 
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useState, useEffect } from "react";
-import { getDictionary } from "@/app/[lang]/dictionaries";
 import Link from "next/link";
 
 export default function Banner({ lang }: { lang: Lang }) {
   const [isHidden, setIsHidden] = useState<boolean | null>(null);
-  const [dict, setDict] = useState<DictType | null>(null);
-
-  useEffect(() => {
-    const fetchDictionary = async () => {
-      const result = await getDictionary(lang);
-      setDict(result);
-    };
-
-    fetchDictionary();
-  }, [lang]);
 
   useEffect(() => {
     const isBannerHidden = localStorage.getItem("bannerHidden");
@@ -70,13 +59,13 @@ export default function Banner({ lang }: { lang: Lang }) {
       </div>
       {/* Banner content */}
       <p className="text-sm leading-6 dark:text-gray-900 text-gray-100">
-        {typeof dict?.banner !== "string" && <>{dict?.banner.message}</>}{" "}
+        {lang === "en" ? "TrotelCoin is in beta." : "TrotelCoin est en bêta."}{" "}
         <Link
           href="https://docs.trotelcoin.com/overview/whitepaper"
           target="_blank"
           className="whitespace-nowrap font-semibold"
         >
-          {typeof dict?.banner !== "string" && <>{dict?.banner.button}</>}&nbsp;
+          {lang === "en" ? "Read the whitepaper" : "Lire le livre blanc"}&nbsp;
           <span aria-hidden="true">&rarr;</span>
         </Link>
       </p>

@@ -1,9 +1,9 @@
-import { DictType } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
-const MaxStreak = ({ dict }: { dict: DictType }) => {
+const MaxStreak = ({ lang }: { lang: Lang }) => {
   const { data: maxStreak } = useSWR(
     "/api/database/getTotalMaxStreak",
     fetcher
@@ -27,11 +27,7 @@ const MaxStreak = ({ dict }: { dict: DictType }) => {
           )}
         </span>
 
-        <span>
-          {typeof dict?.algorithm !== "string" && (
-            <>{dict?.algorithm.maxStreak}</>
-          )}
-        </span>
+        <span>{lang === "en" ? "Max streak" : "Série maximale"}</span>
       </div>
     </>
   );

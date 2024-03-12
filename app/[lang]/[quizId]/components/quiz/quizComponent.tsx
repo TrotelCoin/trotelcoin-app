@@ -1,4 +1,4 @@
-import { DictType, Lang, Question } from "@/types/types";
+import { Lang, Question } from "@/types/types";
 import React, {
   SetStateAction,
   useContext,
@@ -18,13 +18,11 @@ import AudioContext from "@/app/[lang]/contexts/audioContext";
 const debug = process.env.NODE_ENV !== "production";
 
 const QuizComponent = ({
-  dict,
   lang,
   isTotallyCorrect,
   setIsTotallyCorrect,
   quizId,
 }: {
-  dict: DictType;
   lang: Lang;
   isTotallyCorrect: boolean;
   setIsTotallyCorrect: React.Dispatch<SetStateAction<boolean>>;
@@ -202,7 +200,7 @@ const QuizComponent = ({
             </ul>
           ) : (
             <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
-              {typeof dict?.quiz !== "string" && <>{dict?.quiz.loading}</>}
+              {lang === "en" ? "Loading quiz..." : "Chargement du quiz..."}
             </span>
           )}
         </>
@@ -249,7 +247,9 @@ const QuizComponent = ({
         <div
           className={`mt-4 flex flex-col gap-2 animate__animated animate__fadeIn text-red-500 dark:text-red-300`}
         >
-          <>{dict && typeof dict.quiz !== "string" && dict?.quiz.incorrect}</>
+          {lang === "en"
+            ? "Oups. You answered incorrectly. Try again!"
+            : "Mince. Tu as répondu incorrectement. Essaye encore !"}
           {life >= 0 && life <= 3 && !isIntermediate && !isExpert && (
             <span className="text-red-500 dark:text-red-300">
               {lang === "en" ? (

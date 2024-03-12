@@ -21,11 +21,11 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
       {
         title: "What are the roles of this NFTs?",
-        text: "Don't worry about your lives with these NFTs. Certain courses are only for Intermediates or Experts. Exclusive gamification features require NFT ownership, like earning badges. Intermediates and Experts can test beta features.",
+        text: "Don't worry about your lives with these NFTs. Moreover, certain courses are only for Intermediates or Experts. Also, exclusive gamification features require NFT ownership, like earning badges. Finally, Intermediates and Experts can test beta features.",
       },
       {
         title: "How to claim the NFTs?",
-        text: "Go to the shop, link your wallet, and verify. Make sure you have enough TrotelCoins in your wallet. If using email or social media, find the linked wallet address.",
+        text: "Go to the shop, link your wallet, and verify. Make sure you have enough TrotelCoins in your wallet. If using email or your social accounts, find the linked wallet address.",
       },
       {
         title: "Claiming",
@@ -58,11 +58,11 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
       {
         title: "Quels sont les rôles de ces NFTs ?",
-        text: "Ne vous souciez plus de vos vies avec ces NFTs. Certains cours sont réservés uniquement aux Intermédiaires ou Experts. Des fonctionnalités exclusives de gamification nécessitent la possession de NFT, comme gagner des badges. Les Intermédiaires et Experts peuvent tester les fonctionnalités bêta.",
+        text: "Ne vous souciez plus de vos vies avec ces NFTs. De plus, certains cours sont réservés uniquement aux Intermédiaires ou Experts. Aussi, des fonctionnalités exclusives de gamification nécessitent la possession de NFT, comme gagner des badges. Enfin, les Intermédiaires et Experts peuvent tester les fonctionnalités bêta.",
       },
       {
         title: "Comment réclamer les NFTs ?",
-        text: "Allez à la boutique, liez votre portefeuille et vérifiez-le. Assurez-vous d'avoir suffisamment de TrotelCoins dans votre portefeuille. Si vous utilisez un e-mail ou les médias sociaux, trouvez l'adresse du portefeuille liée.",
+        text: "Allez à la boutique, liez votre portefeuille et vérifiez-le. Assurez-vous d'avoir suffisamment de TrotelCoins dans votre portefeuille. Si vous utilisez un e-mail ou vos réseaux sociaux, trouvez l'adresse du portefeuille liée.",
       },
       {
         title: "Réclamation",

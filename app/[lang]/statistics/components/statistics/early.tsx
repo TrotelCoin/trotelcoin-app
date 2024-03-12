@@ -1,11 +1,11 @@
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 import { trotelCoinEarlyAddress } from "@/data/web3/addresses";
-import { DictType, Lang } from "@/types/types";
+import { Lang } from "@/types/types";
 import React from "react";
 import { polygon } from "viem/chains";
 import { useContractRead } from "wagmi";
 
-const Early = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
+const Early = ({ lang }: { lang: Lang }) => {
   const { data: early } = useContractRead({
     chainId: polygon.id,
     address: trotelCoinEarlyAddress,
