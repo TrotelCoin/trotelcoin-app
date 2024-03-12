@@ -85,7 +85,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               />
             </div>
 
-            <div>
+            <div className="flex">
               <AudioSelector />
               <div className="hidden md:block">
                 <LanguageSelector lang={lang} />
