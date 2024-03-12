@@ -49,7 +49,7 @@ const cards = {
     },
     {
       title: "Bloc",
-      text: "Un bloc est une collection de transactions. Chaque bloc contient une liste de transactions, une horodatage et une référence au bloc précédent. Une fois qu'un bloc est ajouté à la blockchain, il ne peut pas être modifié.",
+      text: "Un bloc est une collection de transactions. Chaque bloc contient une liste de transactions, un horodatage et une référence au bloc précédent.",
     },
     {
       title: "Immuable",

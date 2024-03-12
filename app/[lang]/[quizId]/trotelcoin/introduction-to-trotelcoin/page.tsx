@@ -19,27 +19,23 @@ const cards = {
     },
     {
       title: "How to get started?",
-      text: "To start earning TrotelCoins, create an account. Don't worry, learning is free.",
+      text: "To start earning TrotelCoins, create an account. Don't worry, you can learn for free.",
     },
     {
       title: "Tokenomics",
-      text: "TROTEL unlocks platform features and lets holders participate in governance. It also rewards users for learning and contributing to the platform. Finally, it allows to buy items in the shop.",
+      text: "TROTEL token unlocks app features and let participatation in governance. It also rewards users for their learning and their contribution to the platform. Finally, it allows transactions in the shop.",
     },
     {
       title: "Rewards",
-      text: "TrotelCoins are given as rewards based on an algorithm. The more tokens left for a cycle, the more rewards you may get. Your reward is random based on a percentage.",
+      text: "TrotelCoins are distributed as rewards based on an algorithm. The more tokens left for a cycle, the more rewards you may get. Your reward is random based on a percentage.",
     },
     {
       title: "Liquidity",
-      text: "Joining the liquidity pool makes TROTEL trading smoother. Earn commissions on Uniswap transactions. Contributing boosts liquidity, stability, and project growth.",
+      text: "Joining the liquidity pool makes TROTEL trading smoother. You can earn commissions on Uniswap transactions.",
     },
     {
       title: "Token burning",
       text: "Token burning maintains value and stability. Tokens are essentially burned through buyback and transactions from the shop. This reduces the total supply, increasing the value of the remaining tokens.",
-    },
-    {
-      title: "Fraud prevention",
-      text: "One quiz attempt only. Captcha added to block spam bots. Our system discourages spammers, making it fair for all.",
     },
     {
       title: "Conclusion",
@@ -57,31 +53,27 @@ const cards = {
     },
     {
       title: "Qu'est-ce que TrotelCoin ?",
-      text: "TrotelCoin est une plateforme éducative pour explorer les cryptomonnaies. Accédez à des ressources, passez des quiz et gagnez des TrotelCoins en récompense.",
+      text: "TrotelCoin est une plateforme éducative pour explorer les cryptomonnaies. Vous pourrez accéder à des ressources, faire des quiz et gagner des TrotelCoins en récompense.",
     },
     {
       title: "Comment commencer ?",
-      text: "Pour commencer à gagner des TrotelCoins, créez un compte. Ne vous inquiétez pas, l'apprentissage est gratuit.",
+      text: "Pour commencer à gagner des TrotelCoins, créez un compte. Ne vous inquiétez pas, vous pouvez apprendre gratuitement.",
     },
     {
       title: "Tokenomics",
-      text: "TROTEL débloque les fonctionnalités de la plateforme et permet aux détenteurs de participer à la gouvernance. Il récompense également les utilisateurs pour l'apprentissage et la contribution à la plateforme. Enfin, il permet d'acheter des articles dans la boutique.",
+      text: "Le token TROTEL débloque des fonctionnalités de l'app et permet la participation à la gouvernance. Il récompense également les utilisateurs pour leur apprentissage et leur contribution à la plateforme. Enfin, il permet de faire des transactions dans la boutique.",
     },
     {
       title: "Récompenses",
-      text: "Les TrotelCoins sont donnés en récompense en fonction d'un algorithme. Plus il reste de tokens pour un cycle, plus vous pouvez obtenir de récompenses. Votre récompense est aléatoire en fonction d'un pourcentage.",
+      text: "Les TrotelCoins sont donnés distribués en fonction d'un algorithme. Plus il reste de tokens pour un cycle, plus vous pouvez obtenir de récompenses. Votre récompense est aléatoire en fonction d'un pourcentage.",
     },
     {
       title: "Liquidité",
-      text: "Rejoindre le pool de liquidité rend le trading de TROTEL plus fluide. Gagnez des commissions sur les transactions Uniswap. Contribuer renforce la liquidité, la stabilité et la croissance du projet.",
+      text: "Rejoindre la pool de liquidité rend le trading de TROTEL plus fluide. Vous pourrez gagner des commissions sur les transactions Uniswap.",
     },
     {
       title: "Token burning",
-      text: "Le token burning maintient la valeur et la stabilité. Les tokens sont essentiellement brûlés via le rachat et les transactions de la boutique. Cela réduit l'offre totale, augmentant la valeur des tokens restants.",
-    },
-    {
-      title: "Prévention de la fraude",
-      text: "Une seule tentative de quiz. Captcha ajouté pour bloquer les bots spammeurs. Notre système décourage les spammeurs, rendant le jeu équitable pour tous.",
+      text: "Le burning maintient la valeur et la stabilité du token. Les tokens sont essentiellement brûlés via le rachat et les transactions de la boutique. Cela réduit l'offre totale, augmentant la valeur des tokens restants.",
     },
     {
       title: "Conclusion",

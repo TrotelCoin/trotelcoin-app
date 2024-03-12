@@ -11,7 +11,15 @@ import BlueButton from "@/app/[lang]/components/blueButton";
 import { Lang } from "@/types/types";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 
-const Wallet = ({ lang, isFull }: { lang: Lang; isFull?: boolean }) => {
+const Wallet = ({
+  lang,
+  isFull,
+  isCentered,
+}: {
+  lang: Lang;
+  isFull?: boolean;
+  isCentered?: boolean;
+}) => {
   const { isLoggedIn } = useUser();
   const address = useAddress();
   const disconnect = useDisconnect();
@@ -51,7 +59,12 @@ const Wallet = ({ lang, isFull }: { lang: Lang; isFull?: boolean }) => {
         </>
       ) : (
         <>
-          <div className="w-full mx-auto flex justify-center items-center" onClick={() => playAudio()}>
+          <div
+            className={`w-full ${
+              isCentered && "mx-auto flex justify-center items-center"
+            }`}
+            onClick={() => playAudio()}
+          >
             <ConnectWallet
               theme={theme === "light" ? "light" : "dark"}
               auth={{ loginOptional: false }}

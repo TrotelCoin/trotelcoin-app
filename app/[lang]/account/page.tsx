@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useUser, useAddress } from "@thirdweb-dev/react";
 import { Lang } from "@/types/types";
@@ -50,7 +50,7 @@ export default function Account({
                   : "Vous devez vous connecter."}
               </p>
 
-              <Wallet lang={lang} />
+              <Wallet isCentered={true} lang={lang} />
             </div>
           </>
         )}

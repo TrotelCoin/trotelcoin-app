@@ -105,15 +105,15 @@ const cards = {
       text: (
         <>
           Ledger is a hardware wallet that supports a wide range of
-          cryptocurrencies. To buy and set up{" "}
+          cryptocurrencies. To buy a key and set it up, go to the{" "}
           <Link
             href="https://www.ledger.com/"
             target="_blank"
             className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
           >
             Ledger
-          </Link>
-          , go to the website and follow the instructions to purchase a device.
+          </Link>{" "}
+          website and follow the instructions to purchase a device.
         </>
       ),
     },
@@ -245,16 +245,16 @@ const cards = {
       text: (
         <>
           Ledger est un portefeuille matériel qui prend en charge une large
-          gamme de cryptomonnaies. Pour acheter et configurer{" "}
+          gamme de cryptomonnaies. Pour acheter une clé et la configurer, allez
+          sur le site{" "}
           <Link
             href="https://www.ledger.com/"
             target="_blank"
             className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
           >
             Ledger
-          </Link>
-          , allez sur le site et suivez les instructions pour acheter un
-          appareil.
+          </Link>{" "}
+          et suivez les instructions pour acheter un appareil.
         </>
       ),
     },

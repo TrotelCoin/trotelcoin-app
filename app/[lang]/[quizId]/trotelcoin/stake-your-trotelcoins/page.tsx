@@ -11,7 +11,7 @@ const cards = {
     },
     {
       title: "Definition of TrotelCoin's staking",
-      text: "Staking means locking your TrotelCoins for a while to earn more. The more you stake, the more you earn.",
+      text: "The staking means locking your TrotelCoins for a while to earn more. The more you stake, the more you earn.",
     },
     {
       title: "Earning more",
@@ -23,7 +23,7 @@ const cards = {
     },
     {
       title: "Helping the ecosystem",
-      text: "Lastly, staking helps the ecosystem grow by stabilizing TrotelCoin prices.",
+      text: "Lastly, staking helps the ecosystem grow by stabilizing TrotelCoin's price.",
     },
     {
       title: "How to stake?",
@@ -43,7 +43,7 @@ const cards = {
     },
     {
       title: "Approving",
-      text: "Approving the staking contract allows it to receive your TrotelCoins.",
+      text: "Approving the staking contract allows it to receive your TrotelCoins before staking.",
     },
     {
       title: "Staking",
@@ -57,7 +57,7 @@ const cards = {
     },
     {
       title: "Définition du staking de TrotelCoin",
-      text: "Staking signifie bloquer vos TrotelCoins pendant un certain temps pour en gagner davantage. Plus vous misez, plus vous gagnez.",
+      text: "Le staking signifie bloquer vos TrotelCoins pendant un certain temps pour en gagner davantage. Plus vous misez, plus vous gagnez.",
     },
     {
       title: "Gagner davantage",
@@ -65,11 +65,11 @@ const cards = {
     },
     {
       title: "Pouvoir de vote",
-      text: "Deuxièmement, le staking augmente votre pouvoir de vote, car le solde de vos TrotelCoins misés le double.",
+      text: "Deuxièmement, le staking augmente votre pouvoir de vote, car le solde de vos TrotelCoins misés double dans le cadre d'un vote.",
     },
     {
       title: "Aider l'écosystème",
-      text: "Enfin, le staking aide l'écosystème à croître en stabilisant les prix des TrotelCoins.",
+      text: "Enfin, le staking aide l'écosystème à croître en stabilisant le prix du TrotelCoin.",
     },
     {
       title: "Comment miser ?",
@@ -89,11 +89,11 @@ const cards = {
     },
     {
       title: "Approbation",
-      text: "Approuver le contrat de staking lui permet de recevoir vos TrotelCoins.",
+      text: "Approuver le contrat de staking lui permet de recevoir vos TrotelCoins avant le staking.",
     },
     {
       title: "Miser",
-      text: "Après l'approbation, utilisez le bouton de mise pour miser.",
+      text: "Après l'approbation, utilisez le bouton de staking pour miser.",
     },
   ],
 };
