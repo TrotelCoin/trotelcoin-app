@@ -32,7 +32,7 @@ const LifeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (lifeData) {
-      setLife(lifeData);
+      setLife(Math.max(0, lifeData));
     } else {
       setLife(3);
     }
