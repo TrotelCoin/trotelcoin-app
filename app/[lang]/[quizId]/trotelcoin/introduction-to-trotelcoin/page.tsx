@@ -23,7 +23,7 @@ const cards = {
     },
     {
       title: "Tokenomics",
-      text: "TROTEL token unlocks app features and let participatation in governance. It also rewards users for their learning and their contribution to the platform. Finally, it allows transactions in the shop.",
+      text: "TROTEL token unlocks app features and let you participate in governance. It also rewards users for their learning and their contribution to the platform. Finally, it allows transactions in the shop.",
     },
     {
       title: "Rewards",
@@ -61,7 +61,7 @@ const cards = {
     },
     {
       title: "Tokenomics",
-      text: "Le token TROTEL débloque des fonctionnalités de l'app et permet la participation à la gouvernance. Il récompense également les utilisateurs pour leur apprentissage et leur contribution à la plateforme. Enfin, il permet de faire des transactions dans la boutique.",
+      text: "Le token TROTEL débloque des fonctionnalités de l'app et vous permet de participer à la gouvernance. Il récompense également les utilisateurs pour leur apprentissage et leur contribution à la plateforme. Enfin, il permet de faire des transactions dans la boutique.",
     },
     {
       title: "Récompenses",
