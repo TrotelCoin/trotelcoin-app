@@ -146,9 +146,9 @@ const Header = ({ lang }: { lang: Lang }) => {
       {/* Mobile menu */}
       <Transition
         show={mobileMenuOpen}
-        className={`${mobileMenuOpen ? "" : "pointer-events-none"} z-50`}
+        className={`${mobileMenuOpen ? "" : "pointer-events-none"}`}
       >
-        <div className="fixed inset-0 z-10" />
+        <div className="fixed inset-0 z-50" />
         <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
           <div className="flex items-center gap-x-6">
             <div className="p-1">
