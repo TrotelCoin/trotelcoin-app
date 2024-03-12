@@ -5,7 +5,7 @@ export interface Modals {
   show: boolean;
   message: string;
   onClose: () => void;
-  lang: string;
+  lang: Lang;
 }
 
 export interface Token {
