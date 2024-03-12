@@ -24,6 +24,7 @@ import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 import UserProvider from "@/app/[lang]/providers/userProvider";
 import ThemeProvider from "@/app/[lang]/providers/themeProvider";
 import AudioProvider from "@/app/[lang]/providers/audioProvider";
+import LanguageProvider from "@/app/[lang]/providers/languageProvider";
 import "swiper/css";
 import "animate.css";
 import "swiper/css/navigation";
@@ -136,20 +137,22 @@ export default function Layout({
                   <PremiumProvider>
                     <LifeProvider lang={lang}>
                       <StreakProvider lang={lang}>
-                        <ThemeProvider>
-                          <AudioProvider>
-                            <Suspense fallback={<Loading lang={lang} />}>
-                              <Banner lang={lang} />
-                              <Changelogs lang={lang} />
-                              <Header lang={lang} />
-                              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
-                                {children}
-                              </main>
-                              <Footer lang={lang} />
-                              <MobileFooter lang={lang} />
-                            </Suspense>
-                          </AudioProvider>
-                        </ThemeProvider>
+                        <LanguageProvider>
+                          <ThemeProvider>
+                            <AudioProvider>
+                              <Suspense fallback={<Loading lang={lang} />}>
+                                <Banner lang={lang} />
+                                <Changelogs lang={lang} />
+                                <Header lang={lang} />
+                                <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                                  {children}
+                                </main>
+                                <Footer lang={lang} />
+                                <MobileFooter lang={lang} />
+                              </Suspense>
+                            </AudioProvider>
+                          </ThemeProvider>
+                        </LanguageProvider>
                       </StreakProvider>
                     </LifeProvider>
                   </PremiumProvider>
