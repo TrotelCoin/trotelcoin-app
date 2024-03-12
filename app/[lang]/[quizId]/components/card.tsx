@@ -7,6 +7,9 @@ const Card = ({ text }: { text: string | JSX.Element }) => {
   const delay: number = 10;
 
   useEffect(() => {
+    setTimeout(() => {
+      setIsTyping(true);
+    }, 1000);
     if (isTyping && typeof text === "string") {
       if (currentIndex < text.length) {
         const timeout = setTimeout(() => {
