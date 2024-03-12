@@ -103,14 +103,6 @@ const QuizComponent = ({
     }
   };
 
-  useEffect(() => {
-    if (showMessage) {
-      setTimeout(() => {
-        setShowMessage(false);
-      }, 5000);
-    }
-  }, [showMessage]);
-
   const handleCaptchaVerify = () => {
     setIsCaptchaVerified(true);
     setCaptchaMessage(false);
