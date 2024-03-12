@@ -16,7 +16,7 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { useUser } from "@thirdweb-dev/react";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 
-const debug = process.env.NODE_ENV === "development";
+const debug = process.env.NODE_ENV !== "production";
 
 const QuizComponent = ({
   dict,
