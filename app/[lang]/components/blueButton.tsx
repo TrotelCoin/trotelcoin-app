@@ -35,6 +35,7 @@ const BlueButton = ({
 
   return (
     <>
+      <audio ref={audioRef} src="/audio/sounds/blue-button.wav" />
       <button
         type="button"
         onClick={() => whenClicked()}
