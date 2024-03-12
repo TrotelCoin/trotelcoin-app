@@ -24,7 +24,7 @@ const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/success-modal.mp3" />
+      <audio ref={audioRef} src="/audio/sounds/success-modal.wav" />
       <Transition.Root show={show} as={Fragment}>
         <Dialog
           as="div"

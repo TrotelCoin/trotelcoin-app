@@ -2,7 +2,7 @@
 
 import { DictType, Lang } from "@/types/types";
 import { useAddress, useUser } from "@thirdweb-dev/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -10,6 +10,7 @@ import useSWR from "swr";
 import axios from "axios";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 const Rewards = ({
   lang,
@@ -29,6 +30,10 @@ const Rewards = ({
     useState<boolean>(false);
   const [claimedRewardsMessage, setClaimedRewardsMessage] =
     useState<boolean>(false);
+
+  const { audioEnabled } = useContext(AudioContext);
+
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const address = useAddress();
   const { isLoggedIn } = useUser();
@@ -55,6 +60,10 @@ const Rewards = ({
         setClaimingError(true);
       });
 
+    if (audioEnabled && audioRef.current) {
+      audioRef.current.play();
+    }
+
     setClaimingLoading(false);
   };
 
@@ -75,6 +84,7 @@ const Rewards = ({
 
   return (
     <>
+      <audio ref={audioRef} src="/audio/sounds/claimed-rewards.wav" />
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
         address &&
