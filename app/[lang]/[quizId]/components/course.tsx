@@ -14,7 +14,6 @@ import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import ThemeSelector from "@/app/[lang]/components/selectors/themeSelector";
-import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 
 const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
@@ -127,6 +126,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
             <div className="flex justify-between items-center mx-auto">
               <BlueButton
                 onClick={() => handlePrevious()}
+                lang={lang}
                 text={lang === "en" ? "Previous" : "Précédent"}
               />
               <div
@@ -136,6 +136,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
               >
                 <BlueButton
                   onClick={() => handleNext()}
+                  lang={lang}
                   text={lang === "en" ? "Next" : "Suivant"}
                 />
               </div>
@@ -145,6 +146,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                 }`}
               >
                 <BlueButton
+                  lang={lang}
                   onClick={() => {
                     setFullScreen(false);
                     setCurrentCardIndex(0);

@@ -123,6 +123,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           <div className="items-center flex gap-2">
             <ThemeSwitcher />
             <BlueButton
+              lang={lang}
               onClick={() => setMobileMenuOpen(true)}
               text={lang === "en" ? "Menu" : "Menu"}
             />
@@ -135,6 +136,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             <div className="flex items-center gap-2">
               <ThemeSwitcher />
               <BlueButton
+                lang={lang}
                 onClick={() => setMobileMenuOpen(true)}
                 text={lang === "en" ? "Menu" : "Menu"}
               />

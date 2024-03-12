@@ -139,6 +139,7 @@ const StakingButton = ({
   return (
     <>
       <BlueButton
+        lang={lang}
         onClick={() => stake(amount, stakingPeriod)}
         text={lang === "en" ? "Stake" : "Staker"}
         isLoading={isLoading}

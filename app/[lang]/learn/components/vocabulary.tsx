@@ -61,6 +61,7 @@ const Vocabulary = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
 
         <div className="flex justify-center items-center mt-16">
           <BlueButton
+            lang={lang}
             text={lang === "en" ? "Shuffe" : "Mélanger"}
             onClick={() => setRandomVocabulary(getRandomVocabulary(vocabulary))}
           />

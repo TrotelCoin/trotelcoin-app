@@ -68,6 +68,7 @@ const Satisfaction = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
           </div>
           <div className="mx-auto mt-2">
             <BlueButton
+              lang={lang}
               onClick={() => satisfactionResult(selectedNumber as number)}
               isLoading={isResultLoading}
               text={lang === "en" ? "Submit" : "Envoyer"}

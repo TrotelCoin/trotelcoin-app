@@ -81,6 +81,7 @@ const StreakCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
                 {lang === "en" ? "Your streak" : "Votre série"}
               </p>
               <BlueButton
+                lang={lang}
                 text={
                   disabled
                     ? lang === "en"

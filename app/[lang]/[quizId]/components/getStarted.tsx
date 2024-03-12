@@ -15,6 +15,7 @@ const GetStarted = ({
     <>
       <BlueButton
         text={lang === "en" ? "Launch the course" : "Lancer le cours"}
+        lang={lang}
         onClick={() => setFullScreen(true)}
       />
     </>

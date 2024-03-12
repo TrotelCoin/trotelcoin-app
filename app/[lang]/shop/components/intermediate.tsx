@@ -183,6 +183,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               {!isClaimed && !isEligible && (
                 <>
                   <BlueButton
+                    lang={lang}
                     onClick={checkEligibility}
                     text={
                       lang === "en"
@@ -195,6 +196,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               {isEligible && !isClaimed && (
                 <>
                   <BlueButton
+                    lang={lang}
                     onClick={async () => {
                       try {
                         await mutateAsync({ args: [address as Address] });

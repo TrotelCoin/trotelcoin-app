@@ -128,6 +128,7 @@ const RewardsButton = ({
   return (
     <>
       <BlueButton
+        lang={lang}
         onClick={() => fetchRewards()}
         isLoading={isLoading}
         isFull={true}

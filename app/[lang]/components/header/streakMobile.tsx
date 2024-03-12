@@ -26,6 +26,7 @@ const StreakMobile = ({ lang, dict }: { lang: Lang; dict: DictType }) => {
         <div className="flex justify-center items-center gap-4 p-4">
           <BlueButton
             isFull={true}
+            lang={lang}
             text={
               disabled
                 ? lang === "en"

@@ -47,6 +47,7 @@ const LifeCount = ({ dict, lang }: { dict: DictType; lang: Lang }) => {
               </p>
               <Link href={`/${lang}/shop?category=ranks`}>
                 <BlueButton
+                  lang={lang}
                   onClick={() => setIsHoveringLife(false)}
                   text={
                     lang === "en"
