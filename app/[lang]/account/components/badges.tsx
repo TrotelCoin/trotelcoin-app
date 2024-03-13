@@ -1,9 +1,8 @@
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Badge, Badges, BadgesNames, Lang } from "@/types/types";
-import { useAccount } from "wagmi";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
-import { useContractRead, useBalance } from "wagmi";
+import { useReadContract, useBalance, useAccount } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 import { useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
@@ -21,13 +20,11 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [duration, setDuration] = useState<number | null>(null);
   const [badgesName, setBadgesName] = useState<BadgesNames>("ranks");
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const balance = useBalance({
     chainId: polygon.id,
     address: address as Address,
-    enabled: Boolean(address),
-    watch: true,
     token: trotelCoinAddress,
   });
 
@@ -45,13 +42,11 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const { userNumberOfQuizzesAnswered: quizzesAnswered } =
     useContext(UserContext);
 
-  const { data: getStakingDataNoTyped } = useContractRead({
+  const { data: getStakingDataNoTyped } = useReadContract({
     address: trotelCoinStakingV1,
     functionName: "stakings",
     args: [address as Address],
     chainId: polygon.id,
-    watch: true,
-    enabled: Boolean(address),
     abi: trotelCoinStakingV1ABI,
   });
 
