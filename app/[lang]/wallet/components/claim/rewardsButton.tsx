@@ -33,9 +33,18 @@ const RewardsButton = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
+  const [errorHappened, setErrorHappened] = useState<boolean>(false);
 
   const { address } = useAccount();
-  const { sendTransactionAsync, isError } = useSendTransaction();
+  const { sendTransactionAsync, isError } = useSendTransaction({
+    mutation: {
+      onError: () => {
+        setErrorMessage(true);
+        setIsLoading(false);
+        setErrorHappened(true);
+      },
+    },
+  });
   const { switchChain } = useSwitchChain();
 
   useEffect(() => {
@@ -72,15 +81,14 @@ const RewardsButton = ({
       const gasAmount: string = "0.02";
 
       // make transaction to pay central wallet
-      try {
-        await sendTransactionAsync({
-          to: centralWalletAddress,
-          value: parseEther(gasAmount),
-        });
-      } catch (error) {
-        console.error(error);
-        setErrorMessage(true);
+      await sendTransactionAsync({
+        to: centralWalletAddress,
+        value: parseEther(gasAmount),
+      });
+
+      if (errorHappened) {
         setIsLoading(false);
+        setErrorMessage(true);
         return;
       }
 
