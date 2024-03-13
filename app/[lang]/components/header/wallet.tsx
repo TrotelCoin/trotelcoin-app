@@ -104,7 +104,7 @@ const Wallet = ({
               } text-center border-b-4 active:border-none active:mt-1 text-sm font-semibold rounded-xl text-gray-100 backdrop-blur-xl px-6 py-2 bg-blue-500 hover:bg-blue-500/80 border-blue-700`}
               onClick={() => open()}
             >
-              {lang === "en" ? "Connect wallet" : "Connectez son portefeuille"}
+              {lang === "en" ? "Connect wallet" : "Connectez votre portefeuille"}
             </button>
           </div>
         </>
