@@ -7,7 +7,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 const TotalRewards = ({ lang }: { lang: Lang }) => {
   const [tokensEarned, setTokensEarned] = useState<number>(0);
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const { data: totalRewardsPending } = useSWR(
     address
@@ -17,7 +17,7 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
   );
 
   useEffect(() => {
-    if (Boolean(totalRewardsPending)) {
+    if (totalRewardsPending) {
       setTokensEarned(totalRewardsPending);
     } else {
       setTokensEarned(0);

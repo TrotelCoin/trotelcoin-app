@@ -4,7 +4,7 @@ import { Lang } from "@/types/types";
 import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { Address } from "viem";
+import { Address, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
 import { polygon } from "viem/chains";
@@ -35,7 +35,7 @@ const RewardsButton = ({
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
-  const { mutateAsync, isError } = useSendTransaction();
+  const { sendTransactionAsync, isError } = useSendTransaction();
   const { switchChain } = useSwitchChain();
 
   useEffect(() => {
@@ -73,9 +73,9 @@ const RewardsButton = ({
 
       // make transaction to pay central wallet
       try {
-        await mutateAsync({
+        await sendTransactionAsync({
           to: centralWalletAddress,
-          amount: gasAmount,
+          value: parseEther(gasAmount),
         });
       } catch (error) {
         console.error(error);

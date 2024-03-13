@@ -18,9 +18,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
   const { data: userLeaderboard, isLoading: isLoadingUserLeaderboard } = useSWR(
-    address
-      ? `/api/database/getUserLeaderboard?wallet=${address as Address}`
-      : null,
+    address ? `/api/database/getUserLeaderboard?wallet=${address}` : null,
     fetcher
   );
 

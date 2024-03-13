@@ -3,7 +3,12 @@
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
 import { Address } from "viem";
-import { useAccount, useBalance, useReadContract } from "wagmi";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -41,12 +46,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
-  const { isSuccess, isError, writeContractAsync } = useWriteContract({
-    address: trotelCoinIntermediateAddress,
-    abi: trotelCoinIntermediateABI,
-    functionName: "claim",
-    chainId: polygon.id,
-  });
+  const { isSuccess, isError, isPending, writeContractAsync } =
+    useWriteContract();
   const { data: claimed } = useReadContract({
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
@@ -173,10 +174,14 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 <>
                   <BlueButton
                     lang={lang}
+                    isLoading={isPending}
                     onClick={async () => {
                       try {
                         await writeContractAsync({
-                          args: [address as Address],
+                          address: trotelCoinIntermediateAddress,
+                          abi: trotelCoinIntermediateABI,
+                          functionName: "claim",
+                          chainId: polygon.id,
                         });
                       } catch (error) {
                         console.error(error);

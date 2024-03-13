@@ -46,12 +46,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
-  const { isSuccess, isError, writeContractAsync } = useWriteContract({
-    address: trotelCoinExpertAddress,
-    abi: trotelCoinExpertABI,
-    functionName: "claim",
-    chainId: polygon.id,
-  });
+  const { isSuccess, isError, isPending, writeContractAsync } =
+    useWriteContract();
   const { data: claimed } = useReadContract({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
@@ -178,10 +174,14 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 <>
                   <BlueButton
                     lang={lang}
+                    isLoading={isPending}
                     onClick={async () => {
                       try {
                         await writeContractAsync({
-                          args: [address as Address],
+                          address: trotelCoinExpertAddress,
+                          abi: trotelCoinExpertABI,
+                          functionName: "claim",
+                          chainId: polygon.id,
                         });
                       } catch (error) {
                         console.error(error);
