@@ -5,7 +5,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
 const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const { data: totalRewardsPending } = useSWR(
     `/api/database/getUserTotalRewardsPending?wallet=${address}`,
@@ -34,9 +34,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
               </span>
             </>
           </span>
-          <span>
-            {lang === "en" ? "Rewards pending" : "Récompenses en attente"}
-          </span>
+          <span>{lang === "en" ? "To claim" : "À réclamer"}</span>
         </div>
       </div>
     </>
