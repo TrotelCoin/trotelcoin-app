@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { data, error } = await supabase
-      .from("satisfaction")
+      .from("net_promoter_scores")
       .select("net_promoter_score")
       .eq("wallet", wallet)
       .single();
