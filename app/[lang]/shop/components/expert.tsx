@@ -8,6 +8,7 @@ import {
   useBalance,
   useReadContract,
   useWriteContract,
+  useBlockNumber,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -41,14 +42,18 @@ const Expert = ({ lang }: { lang: Lang }) => {
   };
 
   const { address } = useAccount();
-  const { data } = useBalance({
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+  const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
   const { isSuccess, isError, isPending, writeContractAsync } =
     useWriteContract();
-  const { data: claimed } = useReadContract({
+  const { data: claimed, refetch: refetchBalanceExpert } = useReadContract({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "balanceOf",
@@ -56,6 +61,11 @@ const Expert = ({ lang }: { lang: Lang }) => {
     args: [address],
     account: address as Address,
   });
+
+  useEffect(() => {
+    refetchBalance();
+    refetchBalanceExpert();
+  }, [blockNumber]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {

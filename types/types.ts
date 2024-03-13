@@ -39,6 +39,7 @@ export interface BalanceData {
   };
   isError: boolean;
   isLoading: boolean;
+  refetch: () => void;
 }
 
 export type Lang = "en" | "fr";

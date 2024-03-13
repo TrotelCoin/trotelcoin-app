@@ -2,7 +2,7 @@
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { Address } from "viem";
@@ -11,12 +11,20 @@ const Balance = ({ lang }: { lang: Lang }) => {
   const [balance, setBalance] = useState<number | null>(null);
 
   const { address } = useAccount();
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
 
-  const { data } = useBalance({
+  const { data, refetch: refetchBalance } = useBalance({
     token: trotelCoinAddress,
     chainId: polygon.id,
     address: address as Address,
   });
+
+  useEffect(() => {
+    refetchBalance();
+  }, [blockNumber]);
 
   useEffect(() => {
     if (data) {

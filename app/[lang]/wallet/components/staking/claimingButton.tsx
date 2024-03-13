@@ -3,12 +3,12 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import {
-  useAddress,
-  useContract,
-  useContractWrite,
-  useContractRead,
+  useAccount,
+  useWriteContract,
+  useReadContract,
   useSwitchChain,
-} from "@thirdweb-dev/react";
+  useBlockNumber,
+} from "wagmi";
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
@@ -35,25 +35,37 @@ const ClaimingButton = ({
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const { address}  = useAccount();
-  const switchChain = useSwitchChain();
+  const { address } = useAccount();
+  const { switchChain } = useSwitchChain();
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
 
-  const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
+  const { writeContractAsync, isSuccess, isPending, isError } =
+    useWriteContract();
 
-  const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
-    contract,
-    "unstake"
-  );
+  const { data: getUserStakingData, refetch: refetchStakingDetails } =
+    useReadContract({
+      address: trotelCoinStakingV1,
+      abi: trotelCoinStakingV1ABI,
+      chainId: polygon.id,
+      functionName: "getUserStakingDetails",
+      args: [address as Address],
+    });
 
-  const { data: getUserStakingData } = useContractRead(
-    contract,
-    "getUserStakingDetails",
-    [address as Address]
-  );
+  const { data: getStakingData, refetch: refetchStakings } = useReadContract({
+    address: trotelCoinStakingV1,
+    abi: trotelCoinStakingV1ABI,
+    chainId: polygon.id,
+    functionName: "stakings",
+    args: [address as Address],
+  });
 
-  const { data: getStakingData } = useContractRead(contract, "stakings", [
-    address as Address,
-  ]);
+  useEffect(() => {
+    refetchStakingDetails();
+    refetchStakings();
+  }, [blockNumber]);
 
   useEffect(() => {
     if (getUserStakingData && address) {
@@ -89,7 +101,12 @@ const ClaimingButton = ({
     }
 
     try {
-      await mutateAsync({ args: [] });
+      await writeContractAsync({
+        address: trotelCoinStakingV1,
+        functionName: "unstake",
+        chainId: polygon.id,
+        abi: trotelCoinStakingV1ABI,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -106,7 +123,7 @@ const ClaimingButton = ({
       <BlueButton
         lang={lang}
         onClick={() => claim()}
-        isLoading={isLoading}
+        isLoading={isPending}
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
 
@@ -157,7 +174,7 @@ const ClaimingButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain(polygon.id);
+          switchChain({ chainId: polygon.id });
           setChainError(false);
         }}
         lang={lang}

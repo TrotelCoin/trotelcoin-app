@@ -2,9 +2,9 @@ import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Badge, Badges, BadgesNames, Lang } from "@/types/types";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
-import { useReadContract, useBalance, useAccount } from "wagmi";
+import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
@@ -22,15 +22,24 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
 
   const { address } = useAccount();
 
-  const balance = useBalance({
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     address: address as Address,
     token: trotelCoinAddress,
   });
 
   useEffect(() => {
+    refetchBalance();
+  }, [blockNumber]);
+
+  useEffect(() => {
     if (balance) {
-      setTrotelCoinBalance(parseFloat(balance.data?.formatted as string));
+      setTrotelCoinBalance(parseFloat(balance.formatted as string));
     } else {
       setTrotelCoinBalance(null);
     }
@@ -42,13 +51,18 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const { userNumberOfQuizzesAnswered: quizzesAnswered } =
     useContext(UserContext);
 
-  const { data: getStakingDataNoTyped } = useReadContract({
-    address: trotelCoinStakingV1,
-    functionName: "stakings",
-    args: [address as Address],
-    chainId: polygon.id,
-    abi: trotelCoinStakingV1ABI,
-  });
+  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
+    useReadContract({
+      address: trotelCoinStakingV1,
+      functionName: "stakings",
+      args: [address as Address],
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI,
+    });
+
+  useEffect(() => {
+    refetchStakings();
+  }, [blockNumber]);
 
   const getStakingData = getStakingDataNoTyped as any[];
 

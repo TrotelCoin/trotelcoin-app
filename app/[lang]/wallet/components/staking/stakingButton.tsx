@@ -3,19 +3,18 @@
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import {
-  useAddress,
-  useContract,
-  useContractWrite,
-  useContractRead,
+  useAccount,
+  useWriteContract,
+  useReadContract,
   useSwitchChain,
-} from "@thirdweb-dev/react";
+  useBlockNumber,
+} from "wagmi";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, parseEther } from "viem";
 import "animate.css";
-import { BigNumber } from "ethers";
 import { polygon } from "wagmi/chains";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
@@ -42,20 +41,24 @@ const StakingButton = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnected, setNotConnected] = useState<boolean>(false);
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
+  const { data: blockNumber } = useBlockNumber({ watch: true });
+  const { switchChain } = useSwitchChain();
 
-  const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
+  const { writeContractAsync, isSuccess, isPending, isError } =
+    useWriteContract();
 
-  const switchChain = useSwitchChain();
+  const { data: getStakingData, refetch } = useReadContract({
+    chainId: polygon.id,
+    abi: trotelCoinStakingV1ABI,
+    address: trotelCoinStakingV1,
+    functionName: "stakings",
+    args: [address as Address],
+  });
 
-  const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
-    contract,
-    "stake"
-  );
-
-  const { data: getStakingData } = useContractRead(contract, "stakings", [
-    address as Address,
-  ]);
+  useEffect(() => {
+    refetch();
+  }, [blockNumber]);
 
   useEffect(() => {
     if (stakingPeriod <= 0) {
@@ -117,12 +120,14 @@ const StakingButton = ({
         stakingDuration = 0;
     }
 
-    const stakingAmount = BigNumber.from(
-      parseEther(amount.toString()).toString()
-    );
+    const stakingAmount = parseEther(amount.toString());
 
     try {
-      await mutateAsync({
+      await writeContractAsync({
+        address: trotelCoinStakingV1,
+        functionName: "stake",
+        chainId: polygon.id,
+        abi: trotelCoinStakingV1ABI,
         args: [stakingAmount, stakingDuration],
       });
     } catch (error) {
@@ -142,7 +147,7 @@ const StakingButton = ({
         lang={lang}
         onClick={() => stake(amount, stakingPeriod)}
         text={lang === "en" ? "Stake" : "Staker"}
-        isLoading={isLoading}
+        isLoading={isPending}
       />
       <Success
         show={stakeMessage}
@@ -203,7 +208,7 @@ const StakingButton = ({
         show={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain(polygon.id);
+          switchChain({ chainId: polygon.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

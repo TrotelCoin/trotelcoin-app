@@ -2,19 +2,13 @@
 
 import { Lang } from "@/types/types";
 import React, { useEffect, useState } from "react";
-import {
-  useAddress,
-  useContract,
-  useContractWrite,
-  useSwitchChain,
-} from "@thirdweb-dev/react";
+import { useAccount, useWriteContract, useSwitchChain } from "wagmi";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
 import Success from "@/app/[lang]/components/modals/success";
-import { BigNumber } from "ethers";
 import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
@@ -33,15 +27,11 @@ const ApproveButton = ({
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const { contract } = useContract(trotelCoinAddress, trotelCoinV1ABI);
+  const { switchChain } = useSwitchChain();
+  const { address } = useAccount();
 
-  const switchChain = useSwitchChain();
-  const { address}  = useAccount();
-
-  const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
-    contract,
-    "approve"
-  );
+  const { writeContractAsync, isSuccess, isPending, isError } =
+    useWriteContract();
 
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
@@ -49,13 +39,15 @@ const ApproveButton = ({
       return;
     }
 
-    const approveAmount = BigNumber.from(
-      parseEther(amount.toString()).toString()
-    );
+    const approveAmount = parseEther(amount.toString());
 
     try {
-      await mutateAsync({
+      await writeContractAsync({
         args: [trotelCoinStakingV1, approveAmount],
+        address: trotelCoinAddress,
+        functionName: "approve",
+        chainId: polygon.id,
+        abi: trotelCoinV1ABI,
       });
     } catch (error) {
       console.error(error);
@@ -80,7 +72,7 @@ const ApproveButton = ({
         lang={lang}
         onClick={() => approve(amount)}
         text={lang === "en" ? "Approve" : "Approuver"}
-        isLoading={isLoading}
+        isLoading={isPending}
       />
 
       <Success
@@ -117,7 +109,7 @@ const ApproveButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain(polygon.id);
+          switchChain({ chainId: polygon.id });
           setChainError(false);
         }}
         lang={lang}
