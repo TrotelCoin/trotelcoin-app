@@ -22,6 +22,7 @@ import { Lang } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import { useSession } from "next-auth/react";
 
 const holdingRequirements: number = 10000;
 
@@ -42,6 +43,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
@@ -79,7 +81,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isConnected) {
+    if (address && isConnected && session) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);

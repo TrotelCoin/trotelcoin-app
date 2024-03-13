@@ -9,13 +9,15 @@ import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";
 import axios from "axios";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import { useSession } from "next-auth/react";
 
 export default function Account({
   params: { lang },
 }: {
   params: { lang: Lang };
 }) {
-  const { address, isConnected}  = useAccount();
+  const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchNewLearner = async () => {
@@ -34,7 +36,7 @@ export default function Account({
   return (
     <>
       <div className="mx-auto">
-        {address && isConnected ? (
+        {address && isConnected && session ? (
           <>
             <HeaderSection lang={lang} />
             <LevelSection lang={lang} />

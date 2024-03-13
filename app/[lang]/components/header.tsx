@@ -19,12 +19,14 @@ import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import { useAccount } from "wagmi";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
+import { useSession } from "next-auth/react";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const pathname = usePathname();
   const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
   const { disabled } = useContext(StreakContext);
 
   const navigation = [
@@ -121,7 +123,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                 onClick={() => setMobileMenuOpen(true)}
                 text={lang === "en" ? "Menu" : "Menu"}
               />
-              {(!address || !disabled || !isConnected) && (
+              {(!address || !disabled || !isConnected || !session) && (
                 <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
               )}
             </div>
@@ -139,7 +141,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                   onClick={() => setMobileMenuOpen(true)}
                   text={lang === "en" ? "Menu" : "Menu"}
                 />
-                {(!address || !disabled || !isConnected) && (
+                {(!address || !disabled || !isConnected || !session) && (
                   <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
                 )}
               </div>

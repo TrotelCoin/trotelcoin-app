@@ -7,6 +7,7 @@ import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Rewards from "@/app/[lang]/[quizId]/components/quiz/rewards";
 import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import { useSession } from "next-auth/react";
 
 interface QuizProps {
   quizId: number;
@@ -19,6 +20,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const { life } = useContext(LifeContext);
 
   const { isConnected, address } = useAccount();
+  const { data: session } = useSession();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
@@ -38,7 +40,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     <>
       {/* QuizComponent */}
 
-      {isConnected && address && (
+      {isConnected && session && address && (
         <>
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10">
             <QuizComponent

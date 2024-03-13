@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import SessionProviderComponent from "@/app/[lang]/providers/sessionProvider";
-import Wagmi from "@/app/[lang]/wagmi";
 import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
 import { Lang } from "@/types/types";
@@ -129,34 +128,32 @@ export default function Layout({
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
           />{" "}
           <ThemeProvider>
-            <Wagmi>
-              <Web3ModalProvider>
-                <SessionProviderComponent session={session}>
-                  <UserProvider lang={lang}>
-                    <PremiumProvider>
-                      <LifeProvider lang={lang}>
-                        <StreakProvider lang={lang}>
-                          <LanguageProvider>
-                            <AudioProvider>
-                              <Suspense fallback={<Loading lang={lang} />}>
-                                <Banner lang={lang} />
-                                <Changelogs lang={lang} />
-                                <Header lang={lang} />
-                                <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
-                                  {children}
-                                </main>
-                                <Footer lang={lang} />
-                                <MobileFooter lang={lang} />
-                              </Suspense>
-                            </AudioProvider>
-                          </LanguageProvider>
-                        </StreakProvider>
-                      </LifeProvider>
-                    </PremiumProvider>
-                  </UserProvider>{" "}
-                </SessionProviderComponent>
-              </Web3ModalProvider>
-            </Wagmi>{" "}
+            <Web3ModalProvider>
+              <SessionProviderComponent session={session}>
+                <UserProvider lang={lang}>
+                  <PremiumProvider>
+                    <LifeProvider lang={lang}>
+                      <StreakProvider lang={lang}>
+                        <LanguageProvider>
+                          <AudioProvider>
+                            <Suspense fallback={<Loading lang={lang} />}>
+                              <Banner lang={lang} />
+                              <Changelogs lang={lang} />
+                              <Header lang={lang} />
+                              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                                {children}
+                              </main>
+                              <Footer lang={lang} />
+                              <MobileFooter lang={lang} />
+                            </Suspense>
+                          </AudioProvider>
+                        </LanguageProvider>
+                      </StreakProvider>
+                    </LifeProvider>
+                  </PremiumProvider>
+                </UserProvider>
+              </SessionProviderComponent>
+            </Web3ModalProvider>
           </ThemeProvider>
           <Analytics />
           <SpeedInsights />

@@ -3,6 +3,7 @@ import { useAccount } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import Link from "next/link";
 import React from "react";
+import { useSession } from "next-auth/react";
 
 const connectedClass =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -19,15 +20,16 @@ const AccountMobile = ({
   setMobileMenuOpen: (open: boolean) => void;
 }) => {
   const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
 
   return (
     <>
-      {isConnected && address ? (
+      {isConnected && address && session ? (
         <>
           <Link
             href={`/${lang}/account`}
             onClick={() => {
-              if (isConnected && address) {
+              if (isConnected && address && session) {
                 setMobileMenuOpen(false);
               }
             }}
@@ -69,7 +71,7 @@ const AccountMobile = ({
                   </button>
                 </div>
               </div>
-              {!address && !isConnected && (
+              {!address && !isConnected && !session && (
                 <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
               )}
             </div>

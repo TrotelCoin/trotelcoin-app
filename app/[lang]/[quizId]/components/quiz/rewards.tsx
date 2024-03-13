@@ -12,6 +12,7 @@ import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import { useSession } from "next-auth/react";
 
 const Rewards = ({
   lang,
@@ -35,6 +36,7 @@ const Rewards = ({
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
 
   const handleClaimRewards = async () => {
     if (!address && !isConnected) {
@@ -88,6 +90,7 @@ const Rewards = ({
         !hasAlreadyAnswered &&
         address &&
         isConnected &&
+        session &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
@@ -107,7 +110,7 @@ const Rewards = ({
             </div>
           </div>
         )}
-      {(!address || !isConnected) && !hasAlreadyAnswered && (
+      {(!address || !isConnected || !session) && !hasAlreadyAnswered && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
