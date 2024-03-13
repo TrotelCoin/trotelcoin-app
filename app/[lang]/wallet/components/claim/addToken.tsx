@@ -3,6 +3,7 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
 import React from "react";
+import { polygon } from "viem/chains";
 
 const token = {
   address: trotelCoinAddress,
@@ -18,9 +19,24 @@ declare global {
   }
 }
 
+const switchToPolygon = async () => {
+  try {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: polygon.id }],
+    });
+  } catch (switchError) {
+    console.error(switchError);
+  }
+};
+
 const AddToken = ({ lang }: { lang: Lang }) => {
   const addToken = async () => {
     try {
+      if (window.ethereum) {
+        await switchToPolygon();
+      }
+
       await window.ethereum.request({
         method: "wallet_watchAsset",
         params: {
