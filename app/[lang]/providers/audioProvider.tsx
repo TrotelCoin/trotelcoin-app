@@ -6,8 +6,12 @@ import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [audioEnabled, setAudioEnabled] = useState<boolean>(() => {
-    const saved = localStorage.getItem("audioEnabled");
-    return saved ? JSON.parse(saved) : true;
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("audioEnabled");
+      return saved ? JSON.parse(saved) : true;
+    } else {
+      return true;
+    }
   });
 
   useEffect(() => {
