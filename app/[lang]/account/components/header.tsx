@@ -1,7 +1,8 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import { Address } from "viem";
-import { useEnsName, mainnet } from "wagmi";
+import { useEnsName } from "wagmi";
+import { mainnet } from "viem/chains";
 import Satisfaction from "@/app/[lang]/account/components/header/satisfaction";
 import Rank from "@/app/[lang]/account/components/header/rank";
 import Balance from "@/app/[lang]/account/components/header/statistics/balance";
@@ -18,7 +19,7 @@ import "animate.css";
 const Header = ({ lang }: { lang: Lang }) => {
   const [nameModal, setNameModal] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address } = useAccount();
   const {
     username: name,
     setUsername: setName,
@@ -27,7 +28,6 @@ const Header = ({ lang }: { lang: Lang }) => {
 
   const { data: ensName } = useEnsName({
     address: address as Address,
-    enabled: Boolean(address),
     chainId: mainnet.id,
   });
 

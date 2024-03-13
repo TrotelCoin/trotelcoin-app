@@ -12,8 +12,9 @@ import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData
 import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
+import { useSession } from "next-auth/react";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -45,7 +46,8 @@ const QuizComponent = ({
   );
 
   const { updateLife, life } = useContext(LifeContext);
-  const { isLoggedIn } = useUser();
+  const { isConnected, address } = useAccount();
+  const { data: session } = useSession();
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { audioEnabled } = useContext(AudioContext);
 
@@ -148,7 +150,9 @@ const QuizComponent = ({
         <>
           {shuffledQuestions &&
             shuffledQuestions[currentQuestion] &&
-            isLoggedIn && (
+            isConnected &&
+            session &&
+            address && (
               <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
                 <span>
                   {lang === "en"

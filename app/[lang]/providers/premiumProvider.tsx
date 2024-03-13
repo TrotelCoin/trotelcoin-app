@@ -1,7 +1,7 @@
 "use client";
 
-import { useAddress } from "@thirdweb-dev/react";
-import React, { useMemo } from "react";
+import { useAccount, useReadContract, useBlockNumber } from "wagmi";
+import React, { useEffect, useMemo } from "react";
 import type { ReactNode } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
@@ -12,42 +12,36 @@ import {
   trotelCoinEarlyAddress,
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
-import { Address } from "viem";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
-  const { data: early } = useContractRead({
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { data: early, refetch: refetchEarly } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinEarlyABI,
     address: trotelCoinEarlyAddress,
     functionName: "balanceOf",
     args: [address],
-    enabled: Boolean(address),
-    account: address as Address,
-    watch: true,
   });
-  const { data: intermediate } = useContractRead({
+  const { data: intermediate, refetch: refetchIntermediate } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinIntermediateABI,
     address: trotelCoinIntermediateAddress,
     functionName: "balanceOf",
     args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
   });
-  const { data: expert } = useContractRead({
+  const { data: expert, refetch: refetchExpert } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinExpertABI,
     address: trotelCoinExpertAddress,
     functionName: "balanceOf",
     args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
   });
 
   const earlyBalance: number = parseFloat(early as string);
@@ -60,6 +54,12 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
 
   const isExpert = expertBalance > 0;
   const isIntermediate = intermediateBalance > 0;
+
+  useEffect(() => {
+    refetchEarly();
+    refetchIntermediate();
+    refetchExpert();
+  }, [blockNumber]);
 
   const contextValue = useMemo(
     () => ({

@@ -1,4 +1,4 @@
-import { Address } from "wagmi";
+import { Address } from "viem";
 
 export const trotelCoinAddress: Address =
   "0x85057d5a8d063f9075Ba963101D76352051675E5";

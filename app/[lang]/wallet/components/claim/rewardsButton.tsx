@@ -1,14 +1,10 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import {
-  useAddress,
-  useSwitchChain,
-  useTransferNativeToken,
-} from "@thirdweb-dev/react";
+import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { Address } from "viem";
+import { Address, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
 import { polygon } from "viem/chains";
@@ -38,9 +34,9 @@ const RewardsButton = ({
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
-  const address = useAddress();
-  const { mutateAsync, isError } = useTransferNativeToken();
-  const switchChain = useSwitchChain();
+  const { address } = useAccount();
+  const { sendTransactionAsync, isError } = useSendTransaction();
+  const { switchChain } = useSwitchChain();
 
   useEffect(() => {
     if (isError) {
@@ -77,9 +73,9 @@ const RewardsButton = ({
 
       // make transaction to pay central wallet
       try {
-        await mutateAsync({
+        await sendTransactionAsync({
           to: centralWalletAddress,
-          amount: gasAmount,
+          value: parseEther(gasAmount),
         });
       } catch (error) {
         console.error(error);
@@ -182,7 +178,7 @@ const RewardsButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain(polygon.id);
+          switchChain({ chainId: polygon.id });
           setChainError(false);
         }}
         lang={lang}

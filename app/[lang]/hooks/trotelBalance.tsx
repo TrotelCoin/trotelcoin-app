@@ -1,24 +1,30 @@
 "use client";
 
-import { useBalance } from "wagmi";
+import { useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 
 export default function TrotelBalance() {
-  const [balance, setBalance] = useState("0");
+  const [balance, setBalance] = useState<string>("0");
 
-  const address = useAddress();
+  const { address } = useAccount();
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
 
-  const { data, isError, isLoading }: BalanceData = useBalance({
-    address: address as `0x${string}`,
-    enabled: Boolean(address),
+  const { data, isError, isLoading, refetch }: BalanceData = useBalance({
+    address: address,
     token: trotelCoinAddress,
     chainId: polygon.id,
-    watch: true,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [blockNumber]);
 
   useEffect(() => {
     if (isLoading) {

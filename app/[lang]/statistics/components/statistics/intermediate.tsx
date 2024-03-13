@@ -1,18 +1,26 @@
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import React from "react";
+import React, { useEffect } from "react";
 import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
+import { useReadContract, useBlockNumber } from "wagmi";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
-  const { data: intermediate } = useContractRead({
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { data: intermediate, refetch } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
     functionName: "totalSupply",
-    watch: true,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [blockNumber]);
 
   return (
     <>

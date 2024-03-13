@@ -13,7 +13,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.6.7";
+const version = "1.7.1";
 
 interface ChangelogItem {
   title: string;
@@ -108,6 +108,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Showing slides number"
               : "- Affichage du numéro de diapositive",
+          isNew: true,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- New login with WalletConnect"
+              : "- Nouvelle connexion avec WalletConnect",
           isNew: true,
         },
       ],

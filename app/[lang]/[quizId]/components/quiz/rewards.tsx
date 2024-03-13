@@ -1,7 +1,7 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -12,6 +12,7 @@ import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import { useSession } from "next-auth/react";
 
 const Rewards = ({
   lang,
@@ -34,11 +35,11 @@ const Rewards = ({
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
+  const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
 
   const handleClaimRewards = async () => {
-    if (!address && !isLoggedIn) {
+    if (!address && !isConnected) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -88,7 +89,8 @@ const Rewards = ({
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
         address &&
-        isLoggedIn &&
+        isConnected &&
+        session &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
@@ -108,7 +110,7 @@ const Rewards = ({
             </div>
           </div>
         )}
-      {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
+      {(!address || !isConnected || !session) && !hasAlreadyAnswered && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"

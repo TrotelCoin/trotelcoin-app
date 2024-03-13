@@ -1,9 +1,9 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount, useEnsName } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
-import { mainnet, useEnsName } from "wagmi";
+import { mainnet } from "viem/chains";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
@@ -15,19 +15,16 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [streak, setStreak] = useState<number | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: userLeaderboard, isLoading: isLoadingUserLeaderboard } = useSWR(
-    address
-      ? `/api/database/getUserLeaderboard?wallet=${address as Address}`
-      : null,
+    address ? `/api/database/getUserLeaderboard?wallet=${address}` : null,
     fetcher
   );
 
   const { data: result } = useEnsName({
     address: address as Address,
     chainId: mainnet.id,
-    enabled: Boolean(address),
   });
 
   useEffect(() => {

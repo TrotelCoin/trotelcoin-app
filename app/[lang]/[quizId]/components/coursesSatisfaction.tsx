@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { Address } from "viem";
 import useSWR from "swr";
@@ -18,7 +18,7 @@ const CoursesSatisfaction = ({
   const [rating, setRating] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const postSatisfaction = (rating: number) => {
     if (rating) {

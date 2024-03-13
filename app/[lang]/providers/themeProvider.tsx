@@ -2,9 +2,10 @@
 
 import { useEffect, useState, useMemo } from "react";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
+import { Theme } from "@/types/types";
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState("system");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {

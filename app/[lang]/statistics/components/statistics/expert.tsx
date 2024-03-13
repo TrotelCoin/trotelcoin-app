@@ -1,18 +1,26 @@
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import { trotelCoinExpertAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import React from "react";
+import React, { useEffect } from "react";
 import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
+import { useReadContract, useBlockNumber } from "wagmi";
 
 const Expert = ({ lang }: { lang: Lang }) => {
-  const { data: expert } = useContractRead({
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { data: expert, refetch } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "totalSupply",
-    watch: true,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [blockNumber]);
 
   return (
     <>

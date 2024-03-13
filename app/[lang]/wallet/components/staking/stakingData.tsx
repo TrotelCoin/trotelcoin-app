@@ -1,16 +1,12 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import {
-  useAddress,
-  useTokenBalance,
-  useContract,
-  useContractRead,
-} from "@thirdweb-dev/react";
+import { useBalance, useAccount, useReadContract, useBlockNumber } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import { polygon } from "viem/chains";
 
 const staking =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -24,15 +20,22 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isStaking, setIsStaking] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address } = useAccount();
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
 
-  const { contract } = useContract(trotelCoinAddress, "token");
-  const { data: balance } = useTokenBalance(contract, address as Address);
+  const { data: balance, refetch: refetchBalance } = useBalance({
+    chainId: polygon.id,
+    token: trotelCoinAddress,
+    address: address as Address,
+  });
 
   useEffect(() => {
     if (balance && address) {
       const availableBalance = parseFloat(
-        parseFloat(balance.displayValue).toFixed(0)
+        parseFloat(balance?.formatted).toFixed(0)
       );
       if (availableBalance > 0) {
         setAvailableTrotelCoins(availableBalance);
@@ -44,22 +47,45 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     }
   }, [balance, address]);
 
-  const { contract: trotelCoinStakingContract } = useContract(
-    trotelCoinStakingV1,
-    trotelCoinStakingV1ABI
-  );
+  const { data: getUserStakingDataNoTyped, refetch: refetchStakingDetails } =
+    useReadContract({
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI,
+      address: trotelCoinStakingV1,
+      functionName: "getUserStakingDetails",
+      args: [address as Address],
+    });
 
-  const { data: getUserStakingData } = useContractRead(
-    trotelCoinStakingContract,
-    "getUserStakingDetails",
-    [address as Address]
-  );
+  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
+    useReadContract({
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI,
+      address: trotelCoinStakingV1,
+      functionName: "stakings",
+      args: [address as Address],
+    });
 
-  const { data: getStakingData } = useContractRead(
-    trotelCoinStakingContract,
-    "stakings",
-    [address as Address]
-  );
+  useEffect(() => {
+    refetchBalance();
+    refetchStakingDetails();
+    refetchStakings();
+  }, [blockNumber]);
+
+  let getStakingData = getStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getStakingDataNoTyped) {
+      getStakingData = getStakingDataNoTyped as any[];
+    }
+  }, [getStakingData, address]);
+
+  let getUserStakingData = getUserStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getUserStakingDataNoTyped) {
+      getUserStakingData = getUserStakingDataNoTyped as any[];
+    }
+  }, [getUserStakingData, address]);
 
   useEffect(() => {
     if (getUserStakingData && address) {

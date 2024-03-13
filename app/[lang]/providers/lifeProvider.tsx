@@ -1,6 +1,6 @@
 "use client";
 
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import type { ReactNode } from "react";
@@ -23,7 +23,7 @@ const LifeProvider = ({
   const [lastReset, setLastReset] = useState<string>("");
   const [lifeResetMessage, setLifeResetMessage] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address } = useAccount();
   const { isNotPremium } = useContext(PremiumContext);
 
   const updateLife = async () => {

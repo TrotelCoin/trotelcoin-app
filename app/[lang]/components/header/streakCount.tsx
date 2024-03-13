@@ -1,6 +1,6 @@
 import { Lang } from "@/types/types";
 import { Transition } from "@headlessui/react";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { Address } from "viem";
@@ -11,7 +11,7 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
   const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
   const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const {
     streak,

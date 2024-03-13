@@ -1,11 +1,11 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
 const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data: totalRewardsPending } = useSWR(
     `/api/database/getUserTotalRewardsPending?wallet=${address}`,

@@ -6,7 +6,7 @@ import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
 import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import Status from "@/app/[lang]/wallet/components/claim/status";
 import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -26,7 +26,7 @@ const Claim = ({
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
   const [claimed, setClaimed] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data: userTotalRewardsPendingData } = useSWR(
     address

@@ -12,6 +12,12 @@ const token = {
   image: "ipfs://Qmf2dXFJ5XjxUamA3SAnFamYGccEdjZmsVZxkkdDBRqhzd/trotelcoin.png",
 };
 
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
+
 const AddToken = ({ lang }: { lang: Lang }) => {
   const addToken = async () => {
     try {

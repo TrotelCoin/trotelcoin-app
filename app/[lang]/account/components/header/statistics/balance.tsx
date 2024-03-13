@@ -1,20 +1,27 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
-import React from "react";
+import { useAccount, useBalance, useBlockNumber } from "wagmi";
+import React, { useEffect } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
-import { useBalance } from "wagmi";
 
 const Balance = ({ lang }: { lang: Lang }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
-  const { data: balance } = useBalance({
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { data: balance, refetch } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    enabled: Boolean(address),
     address: address as Address,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [blockNumber]);
 
   return (
     <>

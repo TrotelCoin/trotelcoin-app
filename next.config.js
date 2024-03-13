@@ -23,6 +23,8 @@ module.exports = withMDX(
         fs: false, // the solution
       };
 
+      config.externals.push("pino-pretty", "lokijs", "encoding");
+
       return config;
     },
 

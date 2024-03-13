@@ -2,7 +2,14 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
-import { useBalance, useContractRead, Address } from "wagmi";
+import { Address } from "viem";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+  useBlockNumber,
+} from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -12,15 +19,10 @@ import {
   trotelCoinIntermediateAddress,
 } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import {
-  useAddress,
-  useUser,
-  useContractWrite,
-  useContract,
-} from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import { useSession } from "next-auth/react";
 
 const holdingRequirements: number = 10000;
 
@@ -40,32 +42,33 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     2: lang === "en" ? "Unlimited lives" : "Vies illimitées",
   };
 
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
-  const { contract } = useContract(
-    trotelCoinIntermediateAddress,
-    trotelCoinIntermediateABI
-  );
-  const { data } = useBalance({
+  const { address, isConnected } = useAccount();
+  const { data: session } = useSession();
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+  const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
-    enabled: Boolean(address),
-    watch: true,
   });
-  const { mutateAsync, isSuccess, isError } = useContractWrite(
-    contract,
-    "mint"
-  );
-  const { data: claimed } = useContractRead({
-    address: trotelCoinIntermediateAddress,
-    abi: trotelCoinIntermediateABI,
-    enabled: Boolean(address),
-    functionName: "balanceOf",
-    chainId: polygon.id,
-    args: [address],
-    account: address as Address,
-  });
+  const { isSuccess, isError, isPending, writeContractAsync } =
+    useWriteContract();
+  const { data: claimed, refetch: refetchBalanceIntermediate } =
+    useReadContract({
+      address: trotelCoinIntermediateAddress,
+      abi: trotelCoinIntermediateABI,
+      functionName: "balanceOf",
+      chainId: polygon.id,
+      args: [address],
+      account: address as Address,
+    });
+
+  useEffect(() => {
+    refetchBalance();
+    refetchBalanceIntermediate();
+  }, [blockNumber]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
@@ -78,7 +81,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isLoggedIn) {
+    if (address && isConnected && session) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
@@ -184,9 +187,15 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 <>
                   <BlueButton
                     lang={lang}
+                    isLoading={isPending}
                     onClick={async () => {
                       try {
-                        await mutateAsync({ args: [address as Address] });
+                        await writeContractAsync({
+                          address: trotelCoinIntermediateAddress,
+                          abi: trotelCoinIntermediateABI,
+                          functionName: "claim",
+                          chainId: polygon.id,
+                        });
                       } catch (error) {
                         console.error(error);
                         setErrorMessage(true);
