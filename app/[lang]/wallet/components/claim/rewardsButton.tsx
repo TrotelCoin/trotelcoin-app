@@ -1,11 +1,7 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import {
-  useAddress,
-  useSwitchChain,
-  useTransferNativeToken,
-} from "@thirdweb-dev/react";
+import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address } from "viem";
@@ -38,9 +34,9 @@ const RewardsButton = ({
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
-  const { address}  = useAccount();
-  const { mutateAsync, isError } = useTransferNativeToken();
-  const switchChain = useSwitchChain();
+  const { address } = useAccount();
+  const { mutateAsync, isError } = useSendTransaction();
+  const { switchChain } = useSwitchChain();
 
   useEffect(() => {
     if (isError) {
@@ -182,7 +178,7 @@ const RewardsButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain(polygon.id);
+          switchChain({ chainId: polygon.id });
           setChainError(false);
         }}
         lang={lang}

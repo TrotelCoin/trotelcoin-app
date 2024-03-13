@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Lang } from "@/types/types";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Rewards from "@/app/[lang]/[quizId]/components/quiz/rewards";
 import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";
@@ -17,9 +17,8 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
 
   const { life } = useContext(LifeContext);
-  const { address}  = useAccount();
 
-  const { isLoggedIn } = useUser();
+  const { isConnected, address } = useAccount();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
@@ -39,7 +38,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     <>
       {/* QuizComponent */}
 
-      {isLoggedIn && address && (
+      {isConnected && address && (
         <>
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10">
             <QuizComponent

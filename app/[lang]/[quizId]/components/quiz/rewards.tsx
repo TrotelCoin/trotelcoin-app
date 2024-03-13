@@ -1,7 +1,7 @@
 "use client";
 
 import { Lang } from "@/types/types";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -34,11 +34,10 @@ const Rewards = ({
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const { address}  = useAccount();
-  const { isLoggedIn } = useUser();
+  const { address, isConnected } = useAccount();
 
   const handleClaimRewards = async () => {
-    if (!address && !isLoggedIn) {
+    if (!address && !isConnected) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -88,7 +87,7 @@ const Rewards = ({
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
         address &&
-        isLoggedIn &&
+        isConnected &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
@@ -108,7 +107,7 @@ const Rewards = ({
             </div>
           </div>
         )}
-      {(!address || !isLoggedIn) && !hasAlreadyAnswered && (
+      {(!address || !isConnected) && !hasAlreadyAnswered && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"

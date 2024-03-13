@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 
-import { useUser, useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import { Lang } from "@/types/types";
 import LevelSection from "@/app/[lang]/account/components/level";
 import HeaderSection from "@/app/[lang]/account/components/header";
@@ -15,8 +15,7 @@ export default function Account({
 }: {
   params: { lang: Lang };
 }) {
-  const { address}  = useAccount();
-  const { isLoggedIn } = useUser();
+  const { address, isConnected}  = useAccount();
 
   useEffect(() => {
     const fetchNewLearner = async () => {
@@ -35,7 +34,7 @@ export default function Account({
   return (
     <>
       <div className="mx-auto">
-        {address && isLoggedIn ? (
+        {address && isConnected ? (
           <>
             <HeaderSection lang={lang} />
             <LevelSection lang={lang} />

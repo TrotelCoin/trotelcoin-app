@@ -5,7 +5,7 @@ import { Lang } from "@/types/types";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
 import Send from "@/app/[lang]/wallet/components/send";
-import { useChain } from "@thirdweb-dev/react";
+import { useChainId } from "wagmi";
 import { polygon } from "viem/chains";
 import { useSearchParams } from "next/navigation";
 import Buy from "@/app/[lang]/wallet/components/buy";
@@ -19,15 +19,15 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [component, setComponent] = useState<ActiveComponent>("claim");
   const [chainError, setChainError] = useState<boolean>(false);
 
-  const chain = useChain();
+  const chainId = useChainId();
 
   useEffect(() => {
-    if (chain && chain.chainId === polygon.id) {
+    if (chainId === polygon.id) {
       setChainError(false);
     } else {
       setChainError(true);
     }
-  }, [chain]);
+  }, [chainId]);
 
   useEffect(() => {
     if (category) {
