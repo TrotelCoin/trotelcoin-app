@@ -45,7 +45,7 @@ const ClaimingButton = ({
   const { writeContractAsync, isSuccess, isPending, isError } =
     useWriteContract();
 
-  const { data: getUserStakingData, refetch: refetchStakingDetails } =
+  const { data: getUserStakingDataNoTyped, refetch: refetchStakingDetails } =
     useReadContract({
       address: trotelCoinStakingV1,
       abi: trotelCoinStakingV1ABI,
@@ -54,13 +54,30 @@ const ClaimingButton = ({
       args: [address as Address],
     });
 
-  const { data: getStakingData, refetch: refetchStakings } = useReadContract({
-    address: trotelCoinStakingV1,
-    abi: trotelCoinStakingV1ABI,
-    chainId: polygon.id,
-    functionName: "stakings",
-    args: [address as Address],
-  });
+  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
+    useReadContract({
+      address: trotelCoinStakingV1,
+      abi: trotelCoinStakingV1ABI,
+      chainId: polygon.id,
+      functionName: "stakings",
+      args: [address as Address],
+    });
+
+  let getStakingData = getStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getStakingDataNoTyped) {
+      getStakingData = getStakingDataNoTyped as any[];
+    }
+  }, [getStakingData, address]);
+
+  let getUserStakingData = getUserStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getUserStakingDataNoTyped) {
+      getUserStakingData = getUserStakingDataNoTyped as any[];
+    }
+  }, [getUserStakingData, address]);
 
   useEffect(() => {
     refetchStakingDetails();

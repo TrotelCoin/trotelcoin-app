@@ -47,7 +47,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     }
   }, [balance, address]);
 
-  const { data: getUserStakingData, refetch: refetchStakingDetails } =
+  const { data: getUserStakingDataNoTyped, refetch: refetchStakingDetails } =
     useReadContract({
       chainId: polygon.id,
       abi: trotelCoinStakingV1ABI,
@@ -56,19 +56,36 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       args: [address as Address],
     });
 
-  const { data: getStakingData, refetch: refetchStakings } = useReadContract({
-    chainId: polygon.id,
-    abi: trotelCoinStakingV1ABI,
-    address: trotelCoinStakingV1,
-    functionName: "stakings",
-    args: [address as Address],
-  });
+  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
+    useReadContract({
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI,
+      address: trotelCoinStakingV1,
+      functionName: "stakings",
+      args: [address as Address],
+    });
 
   useEffect(() => {
     refetchBalance();
     refetchStakingDetails();
     refetchStakings();
   }, [blockNumber]);
+
+  let getStakingData = getStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getStakingDataNoTyped) {
+      getStakingData = getStakingDataNoTyped as any[];
+    }
+  }, [getStakingData, address]);
+
+  let getUserStakingData = getUserStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getUserStakingDataNoTyped) {
+      getUserStakingData = getUserStakingDataNoTyped as any[];
+    }
+  }, [getUserStakingData, address]);
 
   useEffect(() => {
     if (getUserStakingData && address) {

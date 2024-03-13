@@ -48,7 +48,7 @@ const StakingButton = ({
   const { writeContractAsync, isSuccess, isPending, isError } =
     useWriteContract();
 
-  const { data: getStakingData, refetch } = useReadContract({
+  const { data: getStakingDataNoTyped, refetch } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinStakingV1ABI,
     address: trotelCoinStakingV1,
@@ -71,6 +71,14 @@ const StakingButton = ({
       setErrorMessage(true);
     }
   }, [isError]);
+
+  let getStakingData = getStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getStakingDataNoTyped) {
+      getStakingData = getStakingDataNoTyped as any[];
+    }
+  }, [getStakingData, address]);
 
   useEffect(() => {
     if (address && getStakingData) {

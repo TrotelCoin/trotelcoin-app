@@ -64,7 +64,13 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     refetchStakings();
   }, [blockNumber]);
 
-  const getStakingData = getStakingDataNoTyped as any[];
+  let getStakingData = getStakingDataNoTyped as any[];
+
+  useEffect(() => {
+    if (getStakingDataNoTyped) {
+      getStakingData = getStakingDataNoTyped as any[];
+    }
+  }, [getStakingData, address]);
 
   useEffect(() => {
     if (getStakingData && address) {
