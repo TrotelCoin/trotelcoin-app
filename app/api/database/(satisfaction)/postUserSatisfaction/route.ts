@@ -8,7 +8,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const wallet = searchParams.get("wallet");
 
   try {
-    const { error } = await supabase.from("satisfaction").insert([
+    const { error } = await supabase.from("net_promoter_scores").insert([
       {
         net_promoter_score: parseFloat(satisfaction as string),
         answered_at: new Date().toISOString(),
