@@ -2,8 +2,10 @@ import { Lang, LeaderboardItem } from "@/types/types";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
-import { fetchEnsName, mainnet } from "@wagmi/core";
+import { getEnsName } from "@wagmi/core";
+import { mainnet } from "viem/chains";
 import { fetcher } from "@/lib/axios/fetcher";
+import { config } from "@/config/Web3ModalConfig";
 import useSWR from "swr";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
@@ -24,7 +26,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     const fetchEns = async (address: Address) => {
-      const result = await fetchEnsName({
+      const result = await getEnsName(config, {
         address: address,
         chainId: mainnet.id,
       });

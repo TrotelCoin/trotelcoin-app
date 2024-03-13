@@ -15,7 +15,7 @@ import { polygon } from "viem/chains";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
-  const address = useAccount();
+  const { address } = useAccount();
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,

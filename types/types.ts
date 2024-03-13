@@ -203,3 +203,5 @@ export type Cards = {
     text: string | JSX.Element;
   }[];
 };
+
+export type Theme = "light" | "dark";

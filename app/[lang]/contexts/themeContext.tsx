@@ -1,7 +1,8 @@
 import React from "react";
+import { Theme } from "@/types/types";
 
 const ThemeContext = React.createContext({
-  theme: "system" as string,
+  theme: "light" as Theme,
   toggleTheme: {} as () => void,
 });
 

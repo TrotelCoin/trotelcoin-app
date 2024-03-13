@@ -3,8 +3,7 @@ import { Lang } from "@/types/types";
 import React, { useContext } from "react";
 
 const Rank = ({ lang }: { lang: Lang }) => {
-  const { isNotPremium, intermediateBalance, expertBalance } =
-    useContext(PremiumContext);
+  const { isNotPremium, isIntermediate, isExpert } = useContext(PremiumContext);
 
   return (
     <>
@@ -19,10 +18,10 @@ const Rank = ({ lang }: { lang: Lang }) => {
               !isNotPremium && "rainbow-text"
             }`}
           >
-            {intermediateBalance > 0 && expertBalance <= 0 && (
+            {isIntermediate && !isExpert && (
               <>{lang === "en" ? "Intermediate" : "Intermédiaire"}</>
             )}
-            {expertBalance > 0 && <>{lang === "en" ? "Expert" : "Expert"}</>}
+            {isExpert && <>{lang === "en" ? "Expert" : "Expert"}</>}
             {isNotPremium && <>{lang === "en" ? "Beginner" : "Débutant"}</>}
           </span>{" "}
           <span>{lang === "en" ? "Rank" : "Rang"}</span>

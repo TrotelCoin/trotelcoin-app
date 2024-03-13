@@ -127,16 +127,16 @@ export default function Layout({
             easing="ease"
             speed={200}
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-          />
-          <Wagmi>
-            <Web3ModalProvider>
-              <SessionProviderComponent session={session}>
-                <UserProvider lang={lang}>
-                  <PremiumProvider>
-                    <LifeProvider lang={lang}>
-                      <StreakProvider lang={lang}>
-                        <LanguageProvider>
-                          <ThemeProvider>
+          />{" "}
+          <ThemeProvider>
+            <Wagmi>
+              <Web3ModalProvider>
+                <SessionProviderComponent session={session}>
+                  <UserProvider lang={lang}>
+                    <PremiumProvider>
+                      <LifeProvider lang={lang}>
+                        <StreakProvider lang={lang}>
+                          <LanguageProvider>
                             <AudioProvider>
                               <Suspense fallback={<Loading lang={lang} />}>
                                 <Banner lang={lang} />
@@ -149,16 +149,15 @@ export default function Layout({
                                 <MobileFooter lang={lang} />
                               </Suspense>
                             </AudioProvider>
-                          </ThemeProvider>
-                        </LanguageProvider>
-                      </StreakProvider>
-                    </LifeProvider>
-                  </PremiumProvider>
-                </UserProvider>{" "}
-              </SessionProviderComponent>
-            </Web3ModalProvider>
-          </Wagmi>
-
+                          </LanguageProvider>
+                        </StreakProvider>
+                      </LifeProvider>
+                    </PremiumProvider>
+                  </UserProvider>{" "}
+                </SessionProviderComponent>
+              </Web3ModalProvider>
+            </Wagmi>{" "}
+          </ThemeProvider>
           <Analytics />
           <SpeedInsights />
         </body>
