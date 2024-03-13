@@ -24,7 +24,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isStaking, setIsStaking] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { contract } = useContract(trotelCoinAddress, "token");
   const { data: balance } = useTokenBalance(contract, address as Address);

@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -7,7 +7,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 const TotalRewards = ({ lang }: { lang: Lang }) => {
   const [tokensEarned, setTokensEarned] = useState<number>(0);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data: totalRewardsPending } = useSWR(
     address

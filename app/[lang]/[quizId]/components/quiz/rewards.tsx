@@ -34,7 +34,7 @@ const Rewards = ({
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const address = useAddress();
+  const { address}  = useAccount();
   const { isLoggedIn } = useUser();
 
   const handleClaimRewards = async () => {

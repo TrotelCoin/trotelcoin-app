@@ -1,13 +1,13 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useBalance } from "wagmi";
 
 const Balance = ({ lang }: { lang: Lang }) => {
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data: balance } = useBalance({
     chainId: polygon.id,

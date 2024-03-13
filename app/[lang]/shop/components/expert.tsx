@@ -2,7 +2,13 @@
 
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useEffect, useState } from "react";
-import { useBalance, useContractRead, Address } from "wagmi";
+import { Address } from "viem";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -12,7 +18,6 @@ import {
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import { useAddress, useContract, useContractWrite } from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import axios from "axios";
@@ -35,29 +40,25 @@ const Expert = ({ lang }: { lang: Lang }) => {
     2: lang === "en" ? "Crypto community" : "Communauté crypto",
   };
 
-  const address = useAddress();
-  const { contract } = useContract(
-    trotelCoinExpertAddress,
-    trotelCoinExpertABI
-  );
+  const { address } = useAccount();
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
-    watch: true,
   });
-  const { mutateAsync, isSuccess, isError } = useContractWrite(
-    contract,
-    "mint"
-  );
-  const { data: claimed } = useContractRead({
+  const { isSuccess, isError, writeContractAsync } = useWriteContract({
+    address: trotelCoinExpertAddress,
+    abi: trotelCoinExpertABI,
+    functionName: "claim",
+    chainId: polygon.id,
+  });
+  const { data: claimed } = useReadContract({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],
     account: address as Address,
-    enabled: Boolean(address),
   });
 
   useEffect(() => {
@@ -179,7 +180,9 @@ const Expert = ({ lang }: { lang: Lang }) => {
                     lang={lang}
                     onClick={async () => {
                       try {
-                        await mutateAsync({ args: [address as Address] });
+                        await writeContractAsync({
+                          args: [address as Address],
+                        });
                       } catch (error) {
                         console.error(error);
                         setErrorMessage(true);

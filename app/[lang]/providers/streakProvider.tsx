@@ -1,6 +1,6 @@
 "use client";
 
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useState, useEffect, useMemo } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import type { ReactNode } from "react";
@@ -26,7 +26,7 @@ const StreakProvider = ({
   const [isStreakLoading, setIsStreakLoading] = useState<boolean>(false);
   const [streakResetMessage, setStreakResetMessage] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: userStreak } = useSWR(
     address ? `/api/database/getUserStreak?wallet=${address}` : null,

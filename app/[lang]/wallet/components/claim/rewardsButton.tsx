@@ -38,7 +38,7 @@ const RewardsButton = ({
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
   const { mutateAsync, isError } = useTransferNativeToken();
   const switchChain = useSwitchChain();
 

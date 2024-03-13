@@ -2,7 +2,7 @@
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { useBalance } from "wagmi";
@@ -11,7 +11,7 @@ import { Address } from "viem";
 const Balance = ({ lang }: { lang: Lang }) => {
   const [balance, setBalance] = useState<number | null>(null);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data } = useBalance({
     token: trotelCoinAddress,

@@ -5,12 +5,12 @@ import React, { useEffect, useState } from "react";
 import { polygon } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 
 export default function TrotelBalance() {
   const [balance, setBalance] = useState("0");
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data, isError, isLoading }: BalanceData = useBalance({
     address: address as `0x${string}`,

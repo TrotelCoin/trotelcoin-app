@@ -6,7 +6,7 @@ import Token from "@/app/[lang]/wallet/components/send/token";
 import TokenAmount from "@/app/[lang]/wallet/components/send/tokenAmount";
 import SendButton from "@/app/[lang]/wallet/components/send/sendButton";
 import { useBalance, useEnsName } from "wagmi";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import { Address, isAddress } from "viem";
 import { mainnet, polygon } from "viem/chains";
 import { trotelCoinAddress, usdcAddress } from "@/data/web3/addresses";
@@ -41,7 +41,7 @@ const SendAndReceive = ({
   const [missingFieldsError, setMissingFieldsError] = useState<boolean>(false);
   const [handles, setHandles] = useState<string | null>(null);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data: ens } = useEnsName({
     address: address as Address,

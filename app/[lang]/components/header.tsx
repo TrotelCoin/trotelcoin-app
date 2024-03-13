@@ -17,15 +17,14 @@ import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const pathname = usePathname();
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
+  const { address, isConnected } = useAccount();
   const { disabled } = useContext(StreakContext);
 
   const navigation = [
@@ -122,7 +121,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                 onClick={() => setMobileMenuOpen(true)}
                 text={lang === "en" ? "Menu" : "Menu"}
               />
-              {(!address || !disabled || !isLoggedIn) && (
+              {(!address || !disabled || !isConnected) && (
                 <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
               )}
             </div>
@@ -140,7 +139,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                   onClick={() => setMobileMenuOpen(true)}
                   text={lang === "en" ? "Menu" : "Menu"}
                 />
-                {(!address || !disabled || !isLoggedIn) && (
+                {(!address || !disabled || !isConnected) && (
                   <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
                 )}
               </div>

@@ -1,13 +1,13 @@
 import { Lang } from "@/types/types";
 import React, { useContext } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import { Address } from "viem";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import "animate.css";
 
 const StreakMobile = ({ lang }: { lang: Lang }) => {
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { streak, disabled, updateStreak, cooldown, isStreakLoading } =
     useContext(StreakContext);

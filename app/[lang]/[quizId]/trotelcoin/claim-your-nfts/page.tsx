@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/types";
 import Course from "@/app/[lang]/[quizId]/components/course";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import shortenAddress from "@/utils/shortenAddress";
 import { Address } from "viem";
 import React, { useState } from "react";
@@ -11,7 +11,7 @@ import Success from "@/app/[lang]/components/modals/success";
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [copied, setCopied] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const cards = {
     en: [

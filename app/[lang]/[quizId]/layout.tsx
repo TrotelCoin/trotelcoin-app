@@ -5,7 +5,7 @@ import { Course, Lang } from "@/types/types";
 import React, { useEffect, useState, useContext } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import CourseFinished from "@/app/[lang]/[quizId]/components/courseFinished";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
 import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
 import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
@@ -72,7 +72,7 @@ const CoursePage = ({
       title = currentCourse?.title.en;
   }
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 

@@ -42,7 +42,7 @@ const StakingButton = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnected, setNotConnected] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);
 

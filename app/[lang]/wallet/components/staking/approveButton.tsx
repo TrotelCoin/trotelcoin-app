@@ -36,7 +36,7 @@ const ApproveButton = ({
   const { contract } = useContract(trotelCoinAddress, trotelCoinV1ABI);
 
   const switchChain = useSwitchChain();
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { mutateAsync, isSuccess, isLoading, isError } = useContractWrite(
     contract,

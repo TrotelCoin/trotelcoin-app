@@ -17,7 +17,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
 
   const { life } = useContext(LifeContext);
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { isLoggedIn } = useUser();
 

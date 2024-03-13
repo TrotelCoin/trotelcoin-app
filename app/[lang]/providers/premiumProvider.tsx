@@ -1,6 +1,6 @@
 "use client";
 
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount, useReadContract } from "wagmi";
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
@@ -12,42 +12,31 @@ import {
   trotelCoinEarlyAddress,
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import { useContractRead } from "wagmi";
-import { Address } from "viem";
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
-  const address = useAddress();
+  const address = useAccount();
 
-  const { data: early } = useContractRead({
+  const { data: early } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinEarlyABI,
     address: trotelCoinEarlyAddress,
     functionName: "balanceOf",
     args: [address],
-    enabled: Boolean(address),
-    account: address as Address,
-    watch: true,
   });
-  const { data: intermediate } = useContractRead({
+  const { data: intermediate } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinIntermediateABI,
     address: trotelCoinIntermediateAddress,
     functionName: "balanceOf",
     args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
   });
-  const { data: expert } = useContractRead({
+  const { data: expert } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinExpertABI,
     address: trotelCoinExpertAddress,
     functionName: "balanceOf",
     args: [address],
-    account: address as Address,
-    enabled: Boolean(address),
-    watch: true,
   });
 
   const earlyBalance: number = parseFloat(early as string);

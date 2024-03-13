@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import { Lessons, Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";
 import {
   filterByCategory,
@@ -32,7 +32,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const filteredLessons = lessons.filter(filterLessons);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 

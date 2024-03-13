@@ -8,7 +8,7 @@ import { Address } from "viem";
 import renderCourses from "@/app/[lang]/category/[category]/components/renderCourses";
 import lessons from "@/data/lessons/lessonsData";
 import { lessonsLength } from "@/utils/courses";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
 
@@ -25,7 +25,7 @@ const Page = ({
     (lesson) => lesson.category.toLowerCase() === category.toLowerCase()
   );
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 

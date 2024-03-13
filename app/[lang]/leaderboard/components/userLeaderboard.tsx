@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
@@ -15,7 +15,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [streak, setStreak] = useState<number | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { data: userLeaderboard, isLoading: isLoadingUserLeaderboard } = useSWR(
     address

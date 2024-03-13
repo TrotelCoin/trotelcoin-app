@@ -1,6 +1,6 @@
 "use client";
 
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
@@ -24,7 +24,7 @@ const UserProvider = ({
   const [username, setUsername] = useState<string | null>(null);
   const [isUsernameLoading, setIsUsernameLoading] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address } = useAccount();
 
   const { data: userTotalRewardsPendingData } = useSWR(
     address
@@ -82,8 +82,8 @@ const UserProvider = ({
 
   useEffect(() => {
     if ((!usernameData || nameError(usernameData)) && address) {
-      setUsername(shortenAddress(address as Address));
-      localStorage.setItem("username", shortenAddress(address as Address));
+      setUsername(shortenAddress(address));
+      localStorage.setItem("username", shortenAddress(address));
     } else if (usernameData) {
       setUsername(usernameData as string);
       localStorage.setItem("username", usernameData as string);

@@ -15,7 +15,7 @@ export default function Account({
 }: {
   params: { lang: Lang };
 }) {
-  const address = useAddress();
+  const { address}  = useAccount();
   const { isLoggedIn } = useUser();
 
   useEffect(() => {

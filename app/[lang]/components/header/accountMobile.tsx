@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { useAddress, useUser } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import Link from "next/link";
 import React from "react";
@@ -11,9 +11,6 @@ const walletClass =
 const disconnectedClass =
   "inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100";
 
-const animatedClass =
-  "animate__animated animate__flash animate__infinite animate__slower";
-
 const AccountMobile = ({
   lang,
   setMobileMenuOpen,
@@ -21,17 +18,16 @@ const AccountMobile = ({
   lang: Lang;
   setMobileMenuOpen: (open: boolean) => void;
 }) => {
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
+  const { address, isConnected } = useAccount();
 
   return (
     <>
-      {isLoggedIn && address ? (
+      {isConnected && address ? (
         <>
           <Link
             href={`/${lang}/account`}
             onClick={() => {
-              if (isLoggedIn) {
+              if (isConnected && address) {
                 setMobileMenuOpen(false);
               }
             }}
@@ -73,7 +69,7 @@ const AccountMobile = ({
                   </button>
                 </div>
               </div>
-              {!address && !isLoggedIn && (
+              {!address && !isConnected && (
                 <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
               )}
             </div>

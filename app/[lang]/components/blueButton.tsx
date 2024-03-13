@@ -34,6 +34,7 @@ const BlueButton = ({
 
   const whenClicked = () => {
     playAudio();
+
     onClick();
   };
 

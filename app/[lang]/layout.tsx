@@ -25,9 +25,6 @@ import ThemeProvider from "@/app/[lang]/providers/themeProvider";
 import AudioProvider from "@/app/[lang]/providers/audioProvider";
 import LanguageProvider from "@/app/[lang]/providers/languageProvider";
 import Web3ModalProvider from "@/app/[lang]/contexts/Web3ModalContext";
-import { config } from "@/config/Web3ModalConfig";
-import { cookieToInitialState } from "wagmi";
-import { headers } from "next/headers";
 import "swiper/css";
 import "animate.css";
 import "swiper/css/navigation";
@@ -78,8 +75,6 @@ export const jsonLd = {
   description:
     "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
 };
-
-const initialState = cookieToInitialState(config, headers().get("cookie"));
 
 export default function Layout({
   session,
@@ -134,7 +129,7 @@ export default function Layout({
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
           />
           <Wagmi>
-            <Web3ModalProvider initialState={initialState}>
+            <Web3ModalProvider>
               <SessionProviderComponent session={session}>
                 <UserProvider lang={lang}>
                   <PremiumProvider>

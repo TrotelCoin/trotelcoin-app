@@ -1,6 +1,6 @@
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Badge, Badges, BadgesNames, Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useContractRead, useBalance } from "wagmi";
@@ -21,7 +21,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [duration, setDuration] = useState<number | null>(null);
   const [badgesName, setBadgesName] = useState<BadgesNames>("ranks");
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const balance = useBalance({
     chainId: polygon.id,

@@ -2,7 +2,8 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useEffect, useState } from "react";
-import { useBalance, useContractRead, Address } from "wagmi";
+import { Address } from "viem";
+import { useAccount, useBalance, useReadContract } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -12,12 +13,6 @@ import {
   trotelCoinIntermediateAddress,
 } from "@/data/web3/addresses";
 import { Lang } from "@/types/types";
-import {
-  useAddress,
-  useUser,
-  useContractWrite,
-  useContract,
-} from "@thirdweb-dev/react";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
@@ -40,27 +35,21 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     2: lang === "en" ? "Unlimited lives" : "Vies illimitées",
   };
 
-  const address = useAddress();
-  const { isLoggedIn } = useUser();
-  const { contract } = useContract(
-    trotelCoinIntermediateAddress,
-    trotelCoinIntermediateABI
-  );
+  const { address, isConnected } = useAccount();
   const { data } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
-    enabled: Boolean(address),
-    watch: true,
   });
-  const { mutateAsync, isSuccess, isError } = useContractWrite(
-    contract,
-    "mint"
-  );
-  const { data: claimed } = useContractRead({
+  const { isSuccess, isError, writeContractAsync } = useWriteContract({
     address: trotelCoinIntermediateAddress,
     abi: trotelCoinIntermediateABI,
-    enabled: Boolean(address),
+    functionName: "claim",
+    chainId: polygon.id,
+  });
+  const { data: claimed } = useReadContract({
+    address: trotelCoinIntermediateAddress,
+    abi: trotelCoinIntermediateABI,
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],
@@ -78,7 +67,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isLoggedIn) {
+    if (address && isConnected) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
@@ -186,7 +175,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     lang={lang}
                     onClick={async () => {
                       try {
-                        await mutateAsync({ args: [address as Address] });
+                        await writeContractAsync({
+                          args: [address as Address],
+                        });
                       } catch (error) {
                         console.error(error);
                         setErrorMessage(true);

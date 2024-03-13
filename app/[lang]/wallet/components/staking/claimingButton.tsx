@@ -35,7 +35,7 @@ const ClaimingButton = ({
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
   const switchChain = useSwitchChain();
 
   const { contract } = useContract(trotelCoinStakingV1, trotelCoinStakingV1ABI);

@@ -1,5 +1,5 @@
 import { Lang } from "@/types/types";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import { Address } from "viem";
 import { useEnsName, mainnet } from "wagmi";
 import Satisfaction from "@/app/[lang]/account/components/header/satisfaction";
@@ -18,7 +18,7 @@ import "animate.css";
 const Header = ({ lang }: { lang: Lang }) => {
   const [nameModal, setNameModal] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
   const {
     username: name,
     setUsername: setName,

@@ -1,6 +1,6 @@
 import { Lang } from "@/types/types";
 import { Transition, Dialog } from "@headlessui/react";
-import { useAddress } from "@thirdweb-dev/react";
+import { useAccount } from "wagmi";
 import React, { Fragment, useEffect, useState } from "react";
 import "animate.css";
 import axios from "axios";
@@ -22,7 +22,7 @@ const NameModal = ({
   const [nameError, setNameError] = useState<string | null>(null);
   const [nameIsLoading, setNameIsLoading] = useState<boolean>(false);
 
-  const address = useAddress();
+  const { address}  = useAccount();
 
   useEffect(() => {
     if (name) {

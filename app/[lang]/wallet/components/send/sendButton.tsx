@@ -45,7 +45,7 @@ const SendButton = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const switchChain = useSwitchChain();
-  const address = useAddress();
+  const { address}  = useAccount();
 
   const { contract: trotelContract } = useContract(
     trotelCoinAddress,
