@@ -1,40 +1,35 @@
 import BlueButton from "@/app/[lang]/components/blueButton";
 import { Lang } from "@/types/types";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import UserContext from "@/app/[lang]/contexts/userContext";
+import { useAccount } from "wagmi";
 
 const Satisfaction = ({ lang }: { lang: Lang }) => {
-  const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
-    useState<boolean>(false);
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
   const [isResultLoading, setIsResultLoading] = useState<boolean>(false);
 
+  const { alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction } =
+    useContext(UserContext);
+
+  const { address } = useAccount();
+
   const satisfactionResult = async (number: number) => {
     setIsResultLoading(true);
-    if (number) {
+    if (number && address) {
       await axios
-        .post(`/api/database/postUserSatisfaction?number=${number}`)
+        .post(
+          `/api/database/postUserSatisfaction?number=${number}&wallet=${address}`
+        )
         .catch((error) => {
           console.error(error);
         });
-
-      localStorage.setItem("satisfactionAnswered", "true");
       setAlreadyAnsweredSatisfaction(true);
     } else {
       setAlreadyAnsweredSatisfaction(false);
     }
     setIsResultLoading(false);
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("satisfactionAnswered") === null) {
-      localStorage.setItem("satisfactionAnswered", "false");
-    } else {
-      setAlreadyAnsweredSatisfaction(
-        localStorage.getItem("satisfactionAnswered") === "true"
-      );
-    }
-  }, []);
 
   return (
     <>

@@ -1,7 +1,6 @@
 import { Lang } from "@/types/types";
-import { useAccount } from "wagmi";
+import { useAccount, useEnsName } from "wagmi";
 import { Address } from "viem";
-import { useEnsName } from "wagmi";
 import { mainnet } from "viem/chains";
 import Satisfaction from "@/app/[lang]/account/components/header/satisfaction";
 import Rank from "@/app/[lang]/account/components/header/rank";
@@ -10,21 +9,11 @@ import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/stat
 import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
 import shortenAddress from "@/utils/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
-import { useContext, useState } from "react";
-import NameModal from "@/app/[lang]/account/components/header/nameModal";
-import UserContext from "@/app/[lang]/contexts/userContext";
 import Tilt from "react-parallax-tilt";
 import "animate.css";
 
 const Header = ({ lang }: { lang: Lang }) => {
-  const [nameModal, setNameModal] = useState<boolean>(false);
-
   const { address } = useAccount();
-  const {
-    username: name,
-    setUsername: setName,
-    isUsernameLoading,
-  } = useContext(UserContext);
 
   const { data: ensName } = useEnsName({
     address: address as Address,
@@ -36,17 +25,8 @@ const Header = ({ lang }: { lang: Lang }) => {
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
           {lang === "en" ? "Hello" : "Bonjour"},{" "}
-          <span
-            onClick={() => setNameModal(true)}
-            className={`font-bold hover:text-blue-500 cursor-pointer`}
-          >
-            {isUsernameLoading ? (
-              <div className="animate__animated animate__flash animate__slower animate__infinite">
-                {lang === "en" ? "Loading..." : "Chargement..."}
-              </div>
-            ) : localStorage.getItem("username") ? (
-              <>{localStorage.getItem("username")}</>
-            ) : ensName ? (
+          <span className={`font-bold`}>
+            {ensName ? (
               <>{ensName}</>
             ) : (
               <>{shortenAddress(address as Address)}</>
@@ -101,13 +81,6 @@ const Header = ({ lang }: { lang: Lang }) => {
           <MaxStreak lang={lang} />
         </Tilt>
       </div>
-      <NameModal
-        lang={lang}
-        name={name}
-        setName={setName}
-        nameModal={nameModal}
-        setNameModal={setNameModal}
-      />
     </>
   );
 };
