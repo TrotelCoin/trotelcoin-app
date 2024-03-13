@@ -3,7 +3,6 @@ import SessionProviderComponent from "@/app/[lang]/providers/sessionProvider";
 import Wagmi from "@/app/[lang]/wagmi";
 import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
-import ThirdWebProvider from "@/app/[lang]/providers/ThirdWebProvider";
 import { Lang } from "@/types/types";
 import type { Metadata } from "next";
 import Script from "next/script";
@@ -25,6 +24,10 @@ import UserProvider from "@/app/[lang]/providers/userProvider";
 import ThemeProvider from "@/app/[lang]/providers/themeProvider";
 import AudioProvider from "@/app/[lang]/providers/audioProvider";
 import LanguageProvider from "@/app/[lang]/providers/languageProvider";
+import Web3ModalProvider from "@/app/[lang]/contexts/Web3ModalContext";
+import { config } from "@/config/Web3ModalConfig";
+import { cookieToInitialState } from "wagmi";
+import { headers } from "next/headers";
 import "swiper/css";
 import "animate.css";
 import "swiper/css/navigation";
@@ -76,6 +79,8 @@ export const jsonLd = {
     "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
 };
 
+const initialState = cookieToInitialState(config, headers().get("cookie"));
+
 export default function Layout({
   session,
   children,
@@ -88,19 +93,17 @@ export default function Layout({
   return (
     <>
       {/* Use Suspense for loading fallback */}
-      <Wagmi>
-        <ThirdWebProvider lang={lang}>
-          <SessionProviderComponent session={session}>
-            <html lang={lang}>
-              <head>
-                <link
-                  rel="apple-touch-icon"
-                  href="/assets/logo/trotelcoin.png"
-                  as="image"
-                />
-                <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
-                <Script strategy="lazyOnload">
-                  {`
+
+      <html lang={lang}>
+        <head>
+          <link
+            rel="apple-touch-icon"
+            href="/assets/logo/trotelcoin.png"
+            as="image"
+          />
+          <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
+          <Script strategy="lazyOnload">
+            {`
             (function(h,o,t,j,a,r){
               h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
               h._hjSettings={hjid:3685770,hjsv:6};
@@ -110,29 +113,29 @@ export default function Layout({
               a.appendChild(r);
             })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
           `}
-                </Script>
-              </head>
+          </Script>
+        </head>
 
-              <body
-                className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
-              >
-                {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
-                  <GoogleAnalytics
-                    ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}
-                  />
-                ) : null}
-                <NextTopLoader
-                  color="#3b82f6"
-                  initialPosition={0.08}
-                  crawlSpeed={200}
-                  height={5}
-                  crawl={true}
-                  showSpinner={false}
-                  easing="ease"
-                  speed={200}
-                  shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
-                />
-
+        <body
+          className={`bg-white dark:bg-gray-900 ${poppins.className} antialiased`}
+        >
+          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+            <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+          ) : null}
+          <NextTopLoader
+            color="#3b82f6"
+            initialPosition={0.08}
+            crawlSpeed={200}
+            height={5}
+            crawl={true}
+            showSpinner={false}
+            easing="ease"
+            speed={200}
+            shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
+          />
+          <Wagmi>
+            <Web3ModalProvider initialState={initialState}>
+              <SessionProviderComponent session={session}>
                 <UserProvider lang={lang}>
                   <PremiumProvider>
                     <LifeProvider lang={lang}>
@@ -156,20 +159,20 @@ export default function Layout({
                       </StreakProvider>
                     </LifeProvider>
                   </PremiumProvider>
-                </UserProvider>
+                </UserProvider>{" "}
+              </SessionProviderComponent>
+            </Web3ModalProvider>
+          </Wagmi>
 
-                <Analytics />
-                <SpeedInsights />
-              </body>
+          <Analytics />
+          <SpeedInsights />
+        </body>
 
-              <Script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-              />
-            </html>
-          </SessionProviderComponent>
-        </ThirdWebProvider>
-      </Wagmi>
+        <Script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </html>
     </>
   );
 }
