@@ -93,7 +93,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     <>
       <Course cards={cards} lang={lang} />
       <Success
-        display={copied}
+        show={copied}
+        onClose={() => setCopied(false)}
         lang={lang}
         title={lang === "en" ? "Success" : "Succès"}
         message={

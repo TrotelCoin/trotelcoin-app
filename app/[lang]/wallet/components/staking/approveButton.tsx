@@ -9,7 +9,6 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
 import Success from "@/app/[lang]/components/modals/success";
-import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
@@ -98,8 +97,9 @@ const ApproveButton = ({
             : "Le montant doit être positif"
         }
       />
-      <FailNotification
-        display={errorMessage}
+      <Fail
+        show={errorMessage}
+        onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={

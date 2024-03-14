@@ -14,7 +14,6 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
-import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
@@ -245,16 +244,18 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       )}
-      <FailNotification
-        display={isNotConnectedMessage}
+      <Fail
+        show={isNotConnectedMessage}
+        onClose={() => setIsNotConnectedMessage(false)}
         title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
           lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
         }
         lang={lang}
       />
-      <FailNotification
-        display={errorMessage}
+      <Fail
+        show={errorMessage}
+        onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur a survenue"}
