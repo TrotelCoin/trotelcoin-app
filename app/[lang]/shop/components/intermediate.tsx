@@ -1,7 +1,7 @@
 "use client";
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import {
   useAccount,
@@ -22,6 +22,7 @@ import { Lang } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { useSession } from "next-auth/react";
 
 const holdingRequirements: number = 10000;
@@ -43,6 +44,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const { address, isConnected } = useAccount();
+  const { isIntermediate } = useContext(PremiumContext);
   const { data: session } = useSession();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -174,7 +176,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   ))}
                 </div>
               </div>
-              {!isClaimed && !isEligible && (
+              {!isClaimed && !isEligible && !isIntermediate && (
                 <>
                   <BlueButton
                     lang={lang}
@@ -187,7 +189,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isEligible && !isClaimed && (
+              {isEligible && !isClaimed && !isIntermediate && (
                 <>
                   <BlueButton
                     lang={lang}
@@ -212,7 +214,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isClaimed && (
+              {(isClaimed || isIntermediate) && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
                   {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
