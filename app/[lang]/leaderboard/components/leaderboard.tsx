@@ -67,7 +67,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                       key={index}
                       className="w-full flex items-center justify-between gap-4 py-4 px-6"
                     >
-                      <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-gray-500">
+                      <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
                         {index + 1}
                       </div>
                       <div className="hidden md:block">{entry.wallet}</div>
