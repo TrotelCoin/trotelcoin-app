@@ -59,7 +59,7 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
     refetchEarly();
     refetchIntermediate();
     refetchExpert();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   const contextValue = useMemo(
     () => ({

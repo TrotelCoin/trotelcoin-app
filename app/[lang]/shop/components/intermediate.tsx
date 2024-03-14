@@ -66,9 +66,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     });
 
   useEffect(() => {
-    refetchBalance();
-    refetchBalanceIntermediate();
-  }, [blockNumber]);
+    if (address) {
+      refetchBalance();
+      refetchBalanceIntermediate();
+    } else {
+      setIsClaimed(false);
+    }
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {

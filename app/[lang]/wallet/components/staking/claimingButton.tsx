@@ -82,7 +82,7 @@ const ClaimingButton = ({
   useEffect(() => {
     refetchStakingDetails();
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (getUserStakingData && address) {

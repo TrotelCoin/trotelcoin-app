@@ -58,7 +58,7 @@ const StakingButton = ({
 
   useEffect(() => {
     refetch();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (stakingPeriod <= 0) {

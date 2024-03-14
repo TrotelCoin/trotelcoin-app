@@ -24,7 +24,7 @@ export default function TrotelBalance() {
 
   useEffect(() => {
     refetch();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (isLoading) {

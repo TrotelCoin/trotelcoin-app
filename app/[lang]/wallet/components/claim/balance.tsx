@@ -24,7 +24,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (data) {

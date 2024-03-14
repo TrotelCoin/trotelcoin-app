@@ -69,7 +69,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     refetchBalance();
     refetchStakingDetails();
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   let getStakingData = getStakingDataNoTyped as any[];
 

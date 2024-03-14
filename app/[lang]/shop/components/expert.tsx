@@ -65,7 +65,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     refetchBalance();
     refetchBalanceExpert();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
