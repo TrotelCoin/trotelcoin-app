@@ -6,6 +6,7 @@ import AudioContext from "@/app/[lang]/contexts/audioContext";
 import { useAccount, useDisconnect, useChainId, useSignMessage } from "wagmi";
 import { getCsrfToken, signIn, useSession } from "next-auth/react";
 import { SiweMessage } from "siwe";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const Wallet = ({
   lang,
@@ -18,7 +19,8 @@ const Wallet = ({
 }) => {
   const { open } = useWeb3Modal();
   const { disconnect } = useDisconnect();
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
+  const { isLoggedIn } = useContext(UserContext);
   const chainId = useChainId();
   const { signMessageAsync } = useSignMessage();
   const { data: session } = useSession();
@@ -60,7 +62,7 @@ const Wallet = ({
 
   return (
     <>
-      {address && isConnected && !session && (
+      {address && !session && (
         <>
           <BlueButton
             lang={lang}
@@ -70,7 +72,7 @@ const Wallet = ({
           />
         </>
       )}
-      {address && isConnected && session && (
+      {isLoggedIn && (
         <>
           <BlueButton
             lang={lang}
@@ -80,7 +82,7 @@ const Wallet = ({
           />
         </>
       )}
-      {(!address || !isConnected) && (
+      {!address && (
         <>
           <div
             className={`w-full ${

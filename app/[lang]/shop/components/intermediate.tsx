@@ -43,7 +43,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     2: lang === "en" ? "Unlimited lives" : "Vies illimitées",
   };
 
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate } = useContext(PremiumContext);
   const { data: blockNumber } = useBlockNumber({

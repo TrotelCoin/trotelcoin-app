@@ -1,7 +1,7 @@
 "use client";
 
 import { Transition } from "@headlessui/react";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,17 +17,11 @@ import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
-import { useAccount } from "wagmi";
-import StreakContext from "@/app/[lang]/contexts/streakContext";
-import { useSession } from "next-auth/react";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const pathname = usePathname();
-  const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
-  const { disabled } = useContext(StreakContext);
 
   const navigation = [
     {

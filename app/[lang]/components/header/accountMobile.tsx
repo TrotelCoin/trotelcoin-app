@@ -2,8 +2,8 @@ import { Lang } from "@/types/types";
 import { useAccount } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import Link from "next/link";
-import React from "react";
-import { useSession } from "next-auth/react";
+import React, { useContext } from "react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const connectedClass =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -19,17 +19,17 @@ const AccountMobile = ({
   lang: Lang;
   setMobileMenuOpen: (open: boolean) => void;
 }) => {
-  const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
+  const { address } = useAccount();
+  const { isLoggedIn } = useContext(UserContext);
 
   return (
     <>
-      {isConnected && address && session ? (
+      {isLoggedIn ? (
         <>
           <Link
             href={`/${lang}/account`}
             onClick={() => {
-              if (isConnected && address && session) {
+              if (isLoggedIn) {
                 setMobileMenuOpen(false);
               }
             }}

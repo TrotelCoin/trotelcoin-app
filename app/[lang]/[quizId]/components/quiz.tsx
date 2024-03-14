@@ -2,12 +2,11 @@
 
 import React, { useContext, useState } from "react";
 import { Lang } from "@/types/types";
-import { useAccount } from "wagmi";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Rewards from "@/app/[lang]/[quizId]/components/quiz/rewards";
 import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { useSession } from "next-auth/react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 interface QuizProps {
   quizId: number;
@@ -18,10 +17,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
 
   const { life } = useContext(LifeContext);
-
-  const { isConnected, address } = useAccount();
-  const { data: session } = useSession();
-
+  const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   if (life === 0 && !isIntermediate && !isExpert) {
@@ -40,7 +36,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
     <>
       {/* QuizComponent */}
 
-      {isConnected && session && address && (
+      {isLoggedIn && (
         <>
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10">
             <QuizComponent

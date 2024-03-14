@@ -33,11 +33,11 @@ const Rewards = ({
 
   const { playAudio } = useContext(AudioContext);
 
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
 
   const handleClaimRewards = async () => {
-    if (!address && !isConnected) {
+    if (!address) {
       setIsLearnerDisconnected(true);
       return;
     }
