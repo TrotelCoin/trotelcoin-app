@@ -1,7 +1,7 @@
 "use client";
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import {
   useAccount,
@@ -14,6 +14,7 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
@@ -22,7 +23,8 @@ import { Lang } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { useSession } from "next-auth/react";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const holdingRequirements: number = 10000;
 
@@ -43,7 +45,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
+  const { isLoggedIn } = useContext(UserContext);
+  const { isIntermediate } = useContext(PremiumContext);
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
@@ -66,9 +69,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     });
 
   useEffect(() => {
-    refetchBalance();
-    refetchBalanceIntermediate();
-  }, [blockNumber]);
+    if (address) {
+      refetchBalance();
+      refetchBalanceIntermediate();
+    } else {
+      setIsClaimed(false);
+    }
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
@@ -81,7 +88,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isConnected && session) {
+    if (isLoggedIn) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
@@ -170,7 +177,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   ))}
                 </div>
               </div>
-              {!isClaimed && !isEligible && (
+              {!isClaimed && !isEligible && !isIntermediate && (
                 <>
                   <BlueButton
                     lang={lang}
@@ -183,7 +190,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isEligible && !isClaimed && (
+              {isEligible && !isClaimed && !isIntermediate && (
                 <>
                   <BlueButton
                     lang={lang}
@@ -208,7 +215,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isClaimed && (
+              {(isClaimed || isIntermediate) && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
                   {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
@@ -238,19 +245,17 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       )}
-      <Fail
-        show={isNotConnectedMessage}
+      <FailNotification
+        display={isNotConnectedMessage}
         title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
           lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
         }
-        onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         lang={lang}
-        onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur a survenue"}
       />
@@ -267,13 +272,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       />
       <Success
         show={isClaimedMessage}
+        onClose={() => setIsClaimedMessage(false)}
         title={lang === "en" ? "Intermediate" : "Intermédiaire"}
         message={
           lang === "en"
             ? "You became an Intermediate."
             : "Vous êtes devenu un Intermédiaire."
         }
-        onClose={() => setIsClaimedMessage(false)}
         lang={lang}
       />
     </>

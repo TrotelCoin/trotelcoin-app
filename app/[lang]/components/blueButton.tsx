@@ -21,26 +21,17 @@ const BlueButton = ({
   disabled?: boolean;
   showConfetti?: boolean;
 }) => {
-  const { audioEnabled } = useContext(AudioContext);
+  const { playAudio } = useContext(AudioContext);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const playAudio = () => {
-    if (audioEnabled && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
-  };
-
   const whenClicked = () => {
-    playAudio();
-
+    playAudio("blueButton");
     onClick();
   };
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/blue-button.wav" />
       <button
         type="button"
         onClick={() => whenClicked()}

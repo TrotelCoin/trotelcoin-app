@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import "animate.css";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 
@@ -9,25 +9,15 @@ const BlueSimpleButton = ({
   onClick: Function;
   children?: React.ReactNode;
 }) => {
-  const { audioEnabled } = useContext(AudioContext);
-
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const playAudio = () => {
-    if (audioEnabled && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
-  };
+  const { playAudio } = useContext(AudioContext);
 
   const whenClicked = () => {
-    playAudio();
+    playAudio("blueButton");
     onClick();
   };
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/blue-button.wav" />
       <button
         type="button"
         onClick={() => whenClicked()}

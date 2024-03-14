@@ -7,6 +7,9 @@ import type { ReactNode } from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { Lang } from "@/types/types";
+import WarningNotification from "@/app/[lang]/components/modals/warningNotification";
+import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
+import { useSession } from "next-auth/react";
 
 const UserProvider = ({
   children,
@@ -21,8 +24,18 @@ const UserProvider = ({
     useState<number>(0);
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session && address) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [session]);
 
   const { data: userTotalRewardsPendingData } = useSWR(
     address
@@ -75,12 +88,14 @@ const UserProvider = ({
       userNumberOfQuizzesAnswered,
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
+      isLoggedIn,
     }),
     [
       userTotalRewardsPending,
       userNumberOfQuizzesAnswered,
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
+      isLoggedIn,
     ]
   );
 
@@ -88,6 +103,22 @@ const UserProvider = ({
     <>
       <UserContext.Provider value={contextValue}>
         {children}
+        <WarningNotification
+          title={lang === "en" ? "Not connected" : "Non connecté"}
+          message={
+            lang === "en"
+              ? "You are not connected."
+              : "Vous n'êtes pas connecté."
+          }
+          lang={lang}
+          display={!isLoggedIn}
+        />
+        <SuccessNotification
+          title={lang === "en" ? "Connected" : "Connecté"}
+          message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
+          lang={lang}
+          display={isLoggedIn}
+        />
       </UserContext.Provider>
     </>
   );

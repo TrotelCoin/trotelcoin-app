@@ -72,7 +72,7 @@ const CoursePage = ({
       title = currentCourse?.title.en;
   }
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 

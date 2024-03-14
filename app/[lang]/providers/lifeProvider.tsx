@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 import axios from "axios";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 import { Lang } from "@/types/types";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
@@ -116,10 +116,9 @@ const LifeProvider = ({
       <LifeContext.Provider value={contextValue}>
         {children}
       </LifeContext.Provider>
-      <Success
+      <SuccessNotification
         title={lang === "en" ? "Your lives" : "Vos vies"}
-        show={lifeResetMessage}
-        onClose={() => setLifeResetMessage(false)}
+        display={lifeResetMessage}
         message={
           lang === "en"
             ? "You have all your lives!"

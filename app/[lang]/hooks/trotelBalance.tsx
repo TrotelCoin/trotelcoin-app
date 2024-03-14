@@ -1,11 +1,10 @@
 "use client";
 
-import { useBalance, useBlockNumber } from "wagmi";
+import { useBalance, useBlockNumber, useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "wagmi/chains";
 import { BalanceData } from "@/types/types";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { useAccount } from "wagmi";
 
 export default function TrotelBalance() {
   const [balance, setBalance] = useState<string>("0");
@@ -24,7 +23,7 @@ export default function TrotelBalance() {
 
   useEffect(() => {
     refetch();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (isLoading) {

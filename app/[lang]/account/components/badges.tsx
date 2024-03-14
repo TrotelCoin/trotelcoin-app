@@ -4,7 +4,7 @@ import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
-import { use, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
@@ -35,11 +35,11 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (balance) {
-      setTrotelCoinBalance(parseFloat(balance.formatted as string));
+      setTrotelCoinBalance(parseFloat(balance.formatted));
     } else {
       setTrotelCoinBalance(null);
     }
@@ -62,7 +62,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   let getStakingData = getStakingDataNoTyped as any[];
 

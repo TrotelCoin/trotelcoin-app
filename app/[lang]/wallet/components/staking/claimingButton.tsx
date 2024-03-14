@@ -13,6 +13,7 @@ import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";
 import { polygon } from "viem/chains";
@@ -82,7 +83,7 @@ const ClaimingButton = ({
   useEffect(() => {
     refetchStakingDetails();
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (getUserStakingData && address) {
@@ -177,9 +178,8 @@ const ClaimingButton = ({
             : "Vous n'avez pas de TrotelCoins en staking"
         }
       />
-      <Fail
-        show={errorMessage}
-        onClose={() => setErrorMessage(false)}
+      <FailNotification
+        display={errorMessage}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={

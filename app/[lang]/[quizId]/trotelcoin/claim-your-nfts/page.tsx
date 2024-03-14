@@ -4,14 +4,13 @@ import { Lang } from "@/types/types";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import { useAccount } from "wagmi";
 import shortenAddress from "@/utils/shortenAddress";
-import { Address } from "viem";
 import React, { useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [copied, setCopied] = useState<boolean>(false);
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const cards = {
     en: [
@@ -45,7 +44,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 }
               }}
             >
-              {address ? shortenAddress(address as Address) : "Not connected"}
+              {address ? shortenAddress(address) : "Not connected"}
             </span>
           </span>
         ),
@@ -82,7 +81,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 }
               }}
             >
-              {address ? shortenAddress(address as Address) : "Non connecté"}
+              {address ? shortenAddress(address) : "Non connecté"}
             </span>
           </>
         ),
@@ -94,8 +93,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     <>
       <Course cards={cards} lang={lang} />
       <Success
-        show={copied}
-        onClose={() => setCopied(false)}
+        display={copied}
         lang={lang}
         title={lang === "en" ? "Success" : "Succès"}
         message={

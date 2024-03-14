@@ -71,9 +71,6 @@ const AccountMobile = ({
                   </button>
                 </div>
               </div>
-              {!address && !isConnected && !session && (
-                <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
-              )}
             </div>
           </Link>
         </>
@@ -119,8 +116,6 @@ const AccountMobile = ({
                 <Wallet lang={lang} isFull={true} />
               </div>
             </div>
-
-            <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
           </div>
         </>
       )}

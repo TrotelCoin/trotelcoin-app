@@ -3,7 +3,6 @@ import React, {
   SetStateAction,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -49,10 +48,7 @@ const QuizComponent = ({
   const { isConnected, address } = useAccount();
   const { data: session } = useSession();
   const { isIntermediate, isExpert } = useContext(PremiumContext);
-  const { audioEnabled } = useContext(AudioContext);
-
-  const audioRefGood = useRef<HTMLAudioElement>(null);
-  const audioRefBad = useRef<HTMLAudioElement>(null);
+  const { playAudio } = useContext(AudioContext);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -71,9 +67,7 @@ const QuizComponent = ({
       setIsCorrect(true);
       setShowMessage(true);
       if (questions) {
-        if (audioEnabled && audioRefGood.current) {
-          audioRefGood.current.play();
-        }
+        playAudio("goodAnswer");
         setTimeout(() => {
           setCurrentQuestion((prev) =>
             prev < questions.length - 1 ? prev + 1 : prev
@@ -92,9 +86,7 @@ const QuizComponent = ({
       if (!isIntermediate && !isExpert && life > 0) {
         updateLife();
       }
-      if (audioEnabled && audioRefBad.current) {
-        audioRefBad.current.play();
-      }
+      playAudio("badAnswer");
     }
   };
 
@@ -144,8 +136,6 @@ const QuizComponent = ({
 
   return (
     <>
-      <audio ref={audioRefGood} src="/audio/sounds/good-answer.wav" />
-      <audio ref={audioRefBad} src="/audio/sounds/bad-answer.wav" />
       {isCaptchaVerified || debug ? (
         <>
           {shuffledQuestions &&

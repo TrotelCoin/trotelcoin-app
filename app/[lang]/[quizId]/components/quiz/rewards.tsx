@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/types";
 import { useAccount } from "wagmi";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -12,7 +12,7 @@ import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { useSession } from "next-auth/react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const Rewards = ({
   lang,
@@ -31,12 +31,10 @@ const Rewards = ({
   const [claimedRewardsMessage, setClaimedRewardsMessage] =
     useState<boolean>(false);
 
-  const { audioEnabled } = useContext(AudioContext);
-
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const { playAudio } = useContext(AudioContext);
 
   const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
+  const { isLoggedIn } = useContext(UserContext);
 
   const handleClaimRewards = async () => {
     if (!address && !isConnected) {
@@ -60,10 +58,7 @@ const Rewards = ({
         setClaimingError(true);
       });
 
-    if (audioEnabled && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
+    playAudio("claimedRewards");
 
     setClaimingLoading(false);
   };
@@ -85,12 +80,9 @@ const Rewards = ({
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/claimed-rewards.wav" />
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
-        address &&
-        isConnected &&
-        session &&
+        isLoggedIn &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
@@ -110,7 +102,7 @@ const Rewards = ({
             </div>
           </div>
         )}
-      {(!address || !isConnected || !session) && !hasAlreadyAnswered && (
+      {!isLoggedIn && !hasAlreadyAnswered && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
@@ -152,8 +144,7 @@ const Rewards = ({
         message={
           lang === "en" ? "You need to sign in." : "Vous devez vous connecter."
         }
-        show={isLearnerDisconnected}
-        onClose={() => setIsLearnerDisconnected(false)}
+        display={isLearnerDisconnected}
         lang={lang}
       />
       <Success
@@ -163,8 +154,7 @@ const Rewards = ({
             ? "You have successfully claimed your rewards."
             : "Vous avez réclamé vos récompenses avec succès."
         }
-        show={claimedRewardsMessage}
-        onClose={() => setClaimedRewardsMessage(false)}
+        display={claimedRewardsMessage}
         lang={lang}
       />
     </>

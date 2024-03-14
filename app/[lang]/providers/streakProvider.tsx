@@ -9,7 +9,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import { Lang } from "@/types/types";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 
 const StreakProvider = ({
   children,
@@ -147,10 +147,9 @@ const StreakProvider = ({
       <StreakContext.Provider value={contextValue}>
         {children}
       </StreakContext.Provider>
-      <Success
+      <SuccessNotification
         title={lang === "en" ? "Your streak" : "Votre série"}
-        show={streakResetMessage}
-        onClose={() => setStreakResetMessage(false)}
+        display={streakResetMessage}
         message={
           lang === "en"
             ? "You can do your streak!"

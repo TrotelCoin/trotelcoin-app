@@ -123,9 +123,6 @@ const Header = ({ lang }: { lang: Lang }) => {
                 onClick={() => setMobileMenuOpen(true)}
                 text={lang === "en" ? "Menu" : "Menu"}
               />
-              {(!address || !disabled || !isConnected || !session) && (
-                <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
-              )}
             </div>
           </div>
         </div>
@@ -141,9 +138,6 @@ const Header = ({ lang }: { lang: Lang }) => {
                   onClick={() => setMobileMenuOpen(true)}
                   text={lang === "en" ? "Menu" : "Menu"}
                 />
-                {(!address || !disabled || !isConnected || !session) && (
-                  <div className="w-4 h-4 bg-blue-300 rounded-full absolute -top-1 -right-1 animate__flash animate__animated animate__slower animate__infinite" />
-                )}
               </div>
             </div>
           </div>

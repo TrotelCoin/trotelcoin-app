@@ -1,7 +1,7 @@
 "use client";
 
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import {
   useAccount,
@@ -14,6 +14,7 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import {
   trotelCoinAddress,
   trotelCoinExpertAddress,
@@ -22,6 +23,7 @@ import { Lang } from "@/types/types";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import axios from "axios";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const holdingRequirements: number = 50000;
 
@@ -42,6 +44,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
   };
 
   const { address } = useAccount();
+  const { isExpert } = useContext(PremiumContext);
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
@@ -65,7 +68,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     refetchBalance();
     refetchBalanceExpert();
-  }, [blockNumber]);
+  }, [blockNumber, address]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
@@ -78,8 +81,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address) {
-      const balance = parseFloat(data?.formatted as string);
+    if (address && data) {
+      const balance = parseFloat(data.formatted);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
         setIsEligibleMessageSuccess(true);
@@ -167,7 +170,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                   ))}
                 </div>
               </div>
-              {!isClaimed && !isEligible && (
+              {!isClaimed && !isEligible && !isExpert && (
                 <>
                   <BlueButton
                     lang={lang}
@@ -180,7 +183,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isEligible && !isClaimed && (
+              {isEligible && !isClaimed && !isExpert && (
                 <>
                   <BlueButton
                     lang={lang}
@@ -205,7 +208,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isClaimed && (
+              {(isClaimed || isExpert) && (
                 <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
                   {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
@@ -244,9 +247,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
       />
-      <Fail
-        show={errorMessage}
-        onClose={() => setErrorMessage(false)}
+      <FailNotification
+        display={errorMessage}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur est survenue"}
@@ -264,13 +266,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
       />
       <Success
         show={isClaimedMessage}
+        onClose={() => setIsClaimedMessage(false)}
         title={lang === "en" ? "Expert" : "Expert"}
         message={
           lang === "en"
             ? "You became an Expert."
             : "Vous êtes devenu un Expert."
         }
-        onClose={() => setIsClaimedMessage(false)}
         lang={lang}
       />
     </>
