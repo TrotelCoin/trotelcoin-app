@@ -62,9 +62,6 @@ export interface Tier {
 export interface Lesson {
   title: LanguageStrings;
   description: LanguageStrings;
-  one: LanguageStrings;
-  two: LanguageStrings;
-  three: LanguageStrings;
   href: string;
   tier: Tier;
   sponsored: boolean;

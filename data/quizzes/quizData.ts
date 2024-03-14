@@ -916,6 +916,117 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 18,
+    title: "Web3 Essentials",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is Web3 primarily focused on?",
+          fr: "Sur quoi se concentre principalement Web3 ?",
+        },
+        options: {
+          en: [
+            "Decentralization and control",
+            "Centralization and authority",
+            "Data consumption",
+            "Social media dominance",
+          ],
+          fr: [
+            "La décentralisation et le contrôle",
+            "La centralisation et l'autorité",
+            "La consommation de données",
+            "La domination des réseaux sociaux",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which term describes Web2?",
+          fr: "Quel terme décrit le Web2 ?",
+        },
+        options: {
+          en: [
+            "Big companies and centralized services",
+            "Decentralization and control",
+            "Freedom and privacy",
+            "Interoperability and ownership",
+          ],
+          fr: [
+            "Les grandes entreprises et les services centralisés",
+            "La décentralisation et le contrôle",
+            "La liberté et la confidentialité",
+            "L'interopérabilité et la propriété",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is one aspect of Web3 that contrasts with Web2?",
+          fr: "Quel est un aspect de Web3 qui contraste avec Web2 ?",
+        },
+        options: {
+          en: [
+            "Ownership of data and identity",
+            "Lack of privacy",
+            "Dependence on centralized platforms",
+            "Limited participation",
+          ],
+          fr: [
+            "La propriété des données et de l'identité",
+            "Le manque de confidentialité",
+            "La dépendance aux plateformes centralisées",
+            "La participation limitée",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What does Web3 empower individuals to do?",
+          fr: "Que permet à faire Web3 aux individus ?",
+        },
+        options: {
+          en: [
+            "Own and shape the fair web",
+            "Surrender control to corporations",
+            "Be solely consumers",
+            "Avoid participation",
+          ],
+          fr: [
+            "Posséder et façonner le web équitable",
+            "Donner le contrôle aux entreprises",
+            "Être uniquement des consommateurs",
+            "Éviter la participation",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What is one benefit of Web3 for creators?",
+          fr: "Quelle est un bénéfice du Web3 pour les créateurs ?",
+        },
+        options: {
+          en: [
+            "New ways to monetize their work",
+            "Decreased control over their content",
+            "Limited opportunities for creativity",
+            "Increased reliance on centralized platforms",
+          ],
+          fr: [
+            "De nouvelles façons de monétiser leur travail",
+            "Un contrôle diminué sur leur contenu",
+            "Des opportunités limitées pour la créativité",
+            "Une dépendance accrue aux plateformes centralisées",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
