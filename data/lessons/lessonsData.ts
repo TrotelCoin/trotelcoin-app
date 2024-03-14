@@ -363,7 +363,7 @@ const lessons: Lessons[] = [
     category: "Web3",
     courses: [
       {
-        title: { en: "Web3 essentials", fr: "" },
+        title: { en: "Web3 Essentials", fr: "Les bases du Web3" },
         description: {
           en: "Learn about the basics of Web3.",
           fr: "Apprenez les bases de Web3.",

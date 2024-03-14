@@ -84,6 +84,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               : "- Introduction aux stablecoins",
           isNew: false,
         },
+        {
+          text:
+            lang === "en"
+              ? "- Web3 Essentials"
+              : "- Les bases du Web3",
+          isNew: true,
+        },
       ],
     },
     {

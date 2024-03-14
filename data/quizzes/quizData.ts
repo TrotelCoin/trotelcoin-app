@@ -918,7 +918,7 @@ const quizzes: QuizData = [
   },
   {
     quizId: 18,
-    title: "Web3 essentials",
+    title: "Web3 Essentials",
     questions: [
       {
         questionId: 1,
