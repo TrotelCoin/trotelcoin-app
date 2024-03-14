@@ -11,7 +11,6 @@ import { polygon } from "viem/chains";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
-import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
 const RewardsButton = ({
@@ -162,9 +161,10 @@ const RewardsButton = ({
             : "Vous n'avez rien à récupérer"
         }
       />
-      <FailNotification
-        display={errorMessage}
+      <Fail
+        show={errorMessage}
         lang={lang}
+        onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en"

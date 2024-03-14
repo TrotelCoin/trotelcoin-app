@@ -33,11 +33,11 @@ const Rewards = ({
 
   const { playAudio } = useContext(AudioContext);
 
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
 
   const handleClaimRewards = async () => {
-    if (!address && !isConnected) {
+    if (!address) {
       setIsLearnerDisconnected(true);
       return;
     }
@@ -144,7 +144,8 @@ const Rewards = ({
         message={
           lang === "en" ? "You need to sign in." : "Vous devez vous connecter."
         }
-        display={isLearnerDisconnected}
+        show={isLearnerDisconnected}
+        onClose={() => setIsLearnerDisconnected(false)}
         lang={lang}
       />
       <Success
@@ -154,7 +155,8 @@ const Rewards = ({
             ? "You have successfully claimed your rewards."
             : "Vous avez réclamé vos récompenses avec succès."
         }
-        display={claimedRewardsMessage}
+        show={claimedRewardsMessage}
+        onClose={() => setClaimedRewardsMessage(false)}
         lang={lang}
       />
     </>

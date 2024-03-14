@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { use, useContext, useEffect } from "react";
 
 import { useAccount } from "wagmi";
 import { Lang } from "@/types/types";
@@ -9,15 +9,15 @@ import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";
 import axios from "axios";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { useSession } from "next-auth/react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 export default function Account({
   params: { lang },
 }: {
   params: { lang: Lang };
 }) {
-  const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
+  const { address } = useAccount();
+  const { isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
     const fetchNewLearner = async () => {
@@ -36,7 +36,7 @@ export default function Account({
   return (
     <>
       <div className="mx-auto">
-        {address && isConnected && session ? (
+        {isLoggedIn ? (
           <>
             <HeaderSection lang={lang} />
             <LevelSection lang={lang} />

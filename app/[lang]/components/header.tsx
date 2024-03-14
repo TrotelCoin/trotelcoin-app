@@ -1,7 +1,7 @@
 "use client";
 
 import { Transition } from "@headlessui/react";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,17 +17,11 @@ import LifeMobile from "@/app/[lang]/components/header/lifeMobile";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
-import { useAccount } from "wagmi";
-import StreakContext from "@/app/[lang]/contexts/streakContext";
-import { useSession } from "next-auth/react";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const pathname = usePathname();
-  const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
-  const { disabled } = useContext(StreakContext);
 
   const navigation = [
     {
@@ -88,14 +82,14 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Desktop navigation links */}
         <div
-          className={`hidden lg:flex backdrop-blur-xl items-center bg-gray-900 dark:bg-white p-2 rounded-full lg:gap-x-8`}
+          className={`hidden lg:flex backdrop-blur-xl items-center bg-blue-500 p-2 rounded-full lg:gap-x-8`}
         >
           {navigation.map((item, index) => {
             const defaultClasses =
-              "text-gray-300 dark:text-gray-700 hover:text-gray-100 dark:hover:text-gray-900 text-sm font-semibold leading-6 py-1 px-4 rounded-full";
+              "text-gray-100 hover:text-white text-sm font-semibold leading-6 py-1 px-4 rounded-full";
 
             const dynamicClasses =
-              "bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 hover:shadow-lg rounded-full";
+              "bg-white dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 hover:shadow-lg rounded-full";
 
             return (
               <Link

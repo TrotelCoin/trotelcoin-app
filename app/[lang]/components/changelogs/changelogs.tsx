@@ -75,14 +75,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Introduction to blockchains"
               : "- Introduction aux blockchains",
-          isNew: true,
+          isNew: false,
         },
         {
           text:
             lang === "en"
               ? "- Introduction to stablecoins"
               : "- Introduction aux stablecoins",
-          isNew: true,
+          isNew: false,
         },
       ],
     },
@@ -94,7 +94,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Courses are funnier"
               : "- Les cours sont plus amusants",
-          isNew: true,
+          isNew: false,
         },
         {
           text:
@@ -106,8 +106,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Showing slides number"
-              : "- Affichage du numéro de diapositive",
+              ? "- We added notifications"
+              : "- Nous avons ajouté des notifications",
           isNew: true,
         },
         {
@@ -115,7 +115,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- New login with WalletConnect"
               : "- Nouvelle connexion avec WalletConnect",
-          isNew: true,
+          isNew: false,
         },
       ],
     },
@@ -125,9 +125,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We listed on ProductHunt"
-              : "- On a listé sur ProductHunt",
-          isNew: false,
+              ? "- We reached 100 learners"
+              : "- Nous avons atteint 100 apprenants",
+          isNew: true,
         },
       ],
     },
@@ -138,8 +138,11 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           : "Et les prochaines mises à jour? 🙈",
       content: [
         {
-          text: lang === "en" ? "- Some secrets..." : "- Quelques secrets...",
-          isNew: false,
+          text:
+            lang === "en"
+              ? "- The shop will be available in the next month"
+              : "- La boutique sera disponible le mois prochain",
+          isNew: true,
         },
       ],
     },

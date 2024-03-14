@@ -1,19 +1,13 @@
 import { Lang, Question } from "@/types/types";
-import React, {
-  SetStateAction,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { SetStateAction, useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData";
 import shuffleArray from "@/utils/shuffleArray";
 import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { useAccount } from "wagmi";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
-import { useSession } from "next-auth/react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -45,8 +39,7 @@ const QuizComponent = ({
   );
 
   const { updateLife, life } = useContext(LifeContext);
-  const { isConnected, address } = useAccount();
-  const { data: session } = useSession();
+  const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { playAudio } = useContext(AudioContext);
 
@@ -140,9 +133,7 @@ const QuizComponent = ({
         <>
           {shuffledQuestions &&
             shuffledQuestions[currentQuestion] &&
-            isConnected &&
-            session &&
-            address && (
+            isLoggedIn && (
               <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
                 <span>
                   {lang === "en"

@@ -1,9 +1,4 @@
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Lang, Cards } from "@/types/types";
 import GetStarted from "@/app/[lang]/[quizId]/components/getStarted";
 import Card from "@/app/[lang]/[quizId]/components/card";
@@ -50,6 +45,27 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
       setIsLoading(false);
     }
   }, [fullscreen]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case "ArrowRight":
+          handleNext();
+          break;
+        case "ArrowLeft":
+          handlePrevious();
+          break;
+        default:
+          break;
+      }
+
+      window.addEventListener("keydown", handleKeyDown);
+
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    };
+  }, []);
 
   return (
     <>
