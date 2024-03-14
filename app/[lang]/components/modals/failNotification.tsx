@@ -66,7 +66,7 @@ export default function WarningNotification({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white dark:bg-gray-900 shadow-lg border border-gray-900/10 dark:border-gray-100/10">
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-lg border border-gray-900/10 dark:border-gray-100/10">
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
