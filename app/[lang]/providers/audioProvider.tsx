@@ -35,7 +35,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     claimedRewards: useRef<HTMLAudioElement>(null),
   };
 
-  const playAudio = (key: keyof typeof audioRefs) => {
+  const playAudio = (key: Audios) => {
     const audioRef = audioRefs[key];
     if (audioEnabled && audioRef.current) {
       audioRef.current.currentTime = 0;

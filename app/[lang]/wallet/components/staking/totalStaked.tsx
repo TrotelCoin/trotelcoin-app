@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/types";
 import { useBalance, useBlockNumber } from "wagmi";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 

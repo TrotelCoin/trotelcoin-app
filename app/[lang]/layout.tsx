@@ -128,14 +128,14 @@ export default function Layout({
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
           />{" "}
           <ThemeProvider>
-            <Web3ModalProvider>
-              <SessionProviderComponent session={session}>
-                <UserProvider lang={lang}>
-                  <PremiumProvider>
-                    <LifeProvider lang={lang}>
-                      <StreakProvider lang={lang}>
-                        <LanguageProvider>
-                          <AudioProvider>
+            <AudioProvider>
+              <Web3ModalProvider>
+                <SessionProviderComponent session={session}>
+                  <UserProvider lang={lang}>
+                    <PremiumProvider>
+                      <LifeProvider lang={lang}>
+                        <StreakProvider lang={lang}>
+                          <LanguageProvider>
                             <Suspense fallback={<Loading lang={lang} />}>
                               <Banner lang={lang} />
                               <Changelogs lang={lang} />
@@ -146,14 +146,14 @@ export default function Layout({
                               <Footer lang={lang} />
                               <MobileFooter lang={lang} />
                             </Suspense>
-                          </AudioProvider>
-                        </LanguageProvider>
-                      </StreakProvider>
-                    </LifeProvider>
-                  </PremiumProvider>
-                </UserProvider>
-              </SessionProviderComponent>
-            </Web3ModalProvider>
+                          </LanguageProvider>
+                        </StreakProvider>
+                      </LifeProvider>
+                    </PremiumProvider>
+                  </UserProvider>
+                </SessionProviderComponent>
+              </Web3ModalProvider>
+            </AudioProvider>
           </ThemeProvider>
           <Analytics />
           <SpeedInsights />
