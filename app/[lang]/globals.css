@@ -1,0 +1,142 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --gray-900: #0f172a;
+  --progress-end: 100%;
+  --gray-800: #1f2937;
+  --gray-100: #f3f4f6;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: transparent;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Style for the div */
+.rainbow-border {
+  border: 3px solid transparent;
+  animation: rainbowBorder 3s linear infinite;
+}
+
+/* Keyframes for the animation */
+@keyframes rainbowBorder {
+  0%,
+  100% {
+    border: 1px solid #f87171;
+  }
+  16.66% {
+    border: 1px solid #fb923c;
+  }
+  33.33% {
+    border: 1px solid #facc15;
+  }
+  50% {
+    border: 1px solid #4ade80;
+  }
+  66.66% {
+    border: 1px solid #60a5fa;
+  }
+  83.33% {
+    border: 1px solid #818cf8;
+  }
+}
+
+.rainbow-text {
+  animation: rainbowText 3s linear infinite;
+}
+
+/* Keyframes for the animation */
+@keyframes rainbowText {
+  0%,
+  100% {
+    color: #f87171;
+  }
+  16.66% {
+    color: #fb923c;
+  }
+  33.33% {
+    color: #facc15;
+  }
+  50% {
+    color: #4ade80;
+  }
+  66.66% {
+    color: #60a5fa;
+  }
+  83.33% {
+    color: #818cf8;
+  }
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+@keyframes changeGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-animation {
+  background: linear-gradient(to right, #fef08a, #f5d0fe);
+  background-size: 200% 100%;
+  animation: changeGradient 3s linear infinite;
+}
+
+.connectWalletButton:active {
+  border: none !important;
+  margin-top: 0.25rem !important;
+}
