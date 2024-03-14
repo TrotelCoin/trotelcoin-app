@@ -1,7 +1,7 @@
 "use client";
 
 import { useAccount } from "wagmi";
-import React, { use, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -88,12 +88,14 @@ const UserProvider = ({
       userNumberOfQuizzesAnswered,
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
+      isLoggedIn,
     }),
     [
       userTotalRewardsPending,
       userNumberOfQuizzesAnswered,
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
+      isLoggedIn,
     ]
   );
 

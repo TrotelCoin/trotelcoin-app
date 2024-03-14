@@ -7,6 +7,7 @@ const UserContext = React.createContext({
   setAlreadyAnsweredSatisfaction: {} as React.Dispatch<
     React.SetStateAction<boolean>
   >,
+  isLoggedIn: false as boolean,
 });
 
 export default UserContext;

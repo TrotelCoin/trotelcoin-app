@@ -14,6 +14,7 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
@@ -23,7 +24,7 @@ import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { useSession } from "next-auth/react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const holdingRequirements: number = 10000;
 
@@ -44,8 +45,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   };
 
   const { address, isConnected } = useAccount();
+  const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate } = useContext(PremiumContext);
-  const { data: session } = useSession();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
@@ -87,7 +88,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address]);
 
   const checkEligibility = async () => {
-    if (address && isConnected && session) {
+    if (isLoggedIn) {
       const balance = parseFloat(data?.formatted as string);
       if (balance >= holdingRequirements) {
         setIsEligible(true);
@@ -244,19 +245,17 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       )}
-      <Fail
-        show={isNotConnectedMessage}
+      <FailNotification
+        display={isNotConnectedMessage}
         title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
           lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
         }
-        onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         lang={lang}
-        onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur a survenue"}
       />
@@ -273,13 +272,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       />
       <Success
         show={isClaimedMessage}
+        onClose={() => setIsClaimedMessage(false)}
         title={lang === "en" ? "Intermediate" : "Intermédiaire"}
         message={
           lang === "en"
             ? "You became an Intermediate."
             : "Vous êtes devenu un Intermédiaire."
         }
-        onClose={() => setIsClaimedMessage(false)}
         lang={lang}
       />
     </>

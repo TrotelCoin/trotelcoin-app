@@ -12,6 +12,7 @@ import {
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, parseEther } from "viem";
 import "animate.css";
@@ -201,10 +202,9 @@ const StakingButton = ({
             : "Vous stakez déjà des TrotelCoins"
         }
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         lang={lang}
-        onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en"

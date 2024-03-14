@@ -14,6 +14,7 @@ import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import {
   trotelCoinAddress,
   trotelCoinExpertAddress,
@@ -246,9 +247,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
       />
-      <Fail
-        show={errorMessage}
-        onClose={() => setErrorMessage(false)}
+      <FailNotification
+        display={errorMessage}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur est survenue"}
@@ -266,13 +266,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
       />
       <Success
         show={isClaimedMessage}
+        onClose={() => setIsClaimedMessage(false)}
         title={lang === "en" ? "Expert" : "Expert"}
         message={
           lang === "en"
             ? "You became an Expert."
             : "Vous êtes devenu un Expert."
         }
-        onClose={() => setIsClaimedMessage(false)}
         lang={lang}
       />
     </>

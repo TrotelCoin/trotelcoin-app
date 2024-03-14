@@ -12,7 +12,7 @@ import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { useSession } from "next-auth/react";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const Rewards = ({
   lang,
@@ -34,7 +34,7 @@ const Rewards = ({
   const { playAudio } = useContext(AudioContext);
 
   const { address, isConnected } = useAccount();
-  const { data: session } = useSession();
+  const { isLoggedIn } = useContext(UserContext);
 
   const handleClaimRewards = async () => {
     if (!address && !isConnected) {
@@ -82,9 +82,7 @@ const Rewards = ({
     <>
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
-        address &&
-        isConnected &&
-        session &&
+        isLoggedIn &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
@@ -104,7 +102,7 @@ const Rewards = ({
             </div>
           </div>
         )}
-      {(!address || !isConnected || !session) && !hasAlreadyAnswered && (
+      {!isLoggedIn && !hasAlreadyAnswered && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
@@ -146,8 +144,7 @@ const Rewards = ({
         message={
           lang === "en" ? "You need to sign in." : "Vous devez vous connecter."
         }
-        show={isLearnerDisconnected}
-        onClose={() => setIsLearnerDisconnected(false)}
+        display={isLearnerDisconnected}
         lang={lang}
       />
       <Success
@@ -157,8 +154,7 @@ const Rewards = ({
             ? "You have successfully claimed your rewards."
             : "Vous avez réclamé vos récompenses avec succès."
         }
-        show={claimedRewardsMessage}
-        onClose={() => setClaimedRewardsMessage(false)}
+        display={claimedRewardsMessage}
         lang={lang}
       />
     </>
