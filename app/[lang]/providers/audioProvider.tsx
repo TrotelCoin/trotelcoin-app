@@ -11,6 +11,7 @@ export type Audios =
   | "courseFinished"
   | "failModal"
   | "successModal"
+  | "warningModal"
   | "potion"
   | "claimedRewards";
 
@@ -31,6 +32,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     courseFinished: useRef<HTMLAudioElement>(null),
     failModal: useRef<HTMLAudioElement>(null),
     successModal: useRef<HTMLAudioElement>(null),
+    warningModal: useRef<HTMLAudioElement>(null),
     potion: useRef<HTMLAudioElement>(null),
     claimedRewards: useRef<HTMLAudioElement>(null),
   };
@@ -75,6 +77,10 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
       <audio
         ref={audioRefs["successModal"]}
         src="/audio/sounds/success-modal.wav"
+      />
+      <audio
+        ref={audioRefs["warningModal"]}
+        src="/audio/sounds/warning-modal.wav"
       />
       <audio ref={audioRefs["potion"]} src="/audio/sounds/potion.wav" />
       <audio
