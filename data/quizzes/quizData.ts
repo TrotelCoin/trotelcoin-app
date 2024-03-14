@@ -966,7 +966,7 @@ const quizzes: QuizData = [
         questionId: 3,
         question: {
           en: "What is one aspect of Web3 that contrasts with Web2?",
-          fr: "Quel est un aspect de Web3 qui contraste avec Web2 ?",
+          fr: "Quel est un aspect du Web3 qui contraste avec le Web2 ?",
         },
         options: {
           en: [
@@ -987,7 +987,7 @@ const quizzes: QuizData = [
         questionId: 4,
         question: {
           en: "What does Web3 empower individuals to do?",
-          fr: "Que permet à faire Web3 aux individus ?",
+          fr: "Que permet le Web3 aux individus de faire ?",
         },
         options: {
           en: [
