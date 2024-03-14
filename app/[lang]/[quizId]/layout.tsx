@@ -1,7 +1,7 @@
 "use client";
 
 import "animate.css";
-import { Course, Lang } from "@/types/types";
+import { Lang, Lesson } from "@/types/types";
 import React, { useEffect, useState, useContext } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import CourseFinished from "@/app/[lang]/[quizId]/components/courseFinished";
@@ -51,9 +51,9 @@ const CoursePage = ({
   const foundTier = getTierByQuizId(quizId, lessons);
   const foundAvailability = getAvailabilityByQuizId(quizId, lessons);
 
-  const currentCourse: Course = lessons
+  const currentCourse: Lesson = lessons
     .flatMap((lesson) => lesson.courses)
-    .find((course) => course.quizId.toString() === quizId.toString()) as Course;
+    .find((course) => course.quizId.toString() === quizId.toString()) as Lesson;
 
   let tier = "";
   let title = "";
