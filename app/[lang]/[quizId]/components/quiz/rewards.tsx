@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/types";
 import { useAccount } from "wagmi";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher } from "@/lib/axios/fetcher";
@@ -31,9 +31,7 @@ const Rewards = ({
   const [claimedRewardsMessage, setClaimedRewardsMessage] =
     useState<boolean>(false);
 
-  const { audioEnabled } = useContext(AudioContext);
-
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const { playAudio } = useContext(AudioContext);
 
   const { address, isConnected } = useAccount();
   const { data: session } = useSession();
@@ -60,10 +58,7 @@ const Rewards = ({
         setClaimingError(true);
       });
 
-    if (audioEnabled && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
+    playAudio("claimedRewards");
 
     setClaimingLoading(false);
   };
@@ -85,7 +80,6 @@ const Rewards = ({
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/claimed-rewards.wav" />
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
         address &&

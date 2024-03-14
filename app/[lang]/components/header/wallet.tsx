@@ -1,5 +1,5 @@
 import { useWeb3Modal } from "@web3modal/wagmi/react";
-import React, { use, useContext, useRef } from "react";
+import React, { useContext } from "react";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import { Lang } from "@/types/types";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
@@ -21,22 +21,13 @@ const Wallet = ({
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const { signMessageAsync } = useSignMessage();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const { audioEnabled } = useContext(AudioContext);
+  const { playAudio } = useContext(AudioContext);
 
   const handleDisconnect = () => {
     if (address) {
       disconnect();
-    }
-  };
-
-  const playAudio = () => {
-    if (audioEnabled && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
     }
   };
 
@@ -69,7 +60,6 @@ const Wallet = ({
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/blue-button.wav" />
       {address && isConnected && !session && (
         <>
           <BlueButton
@@ -96,7 +86,7 @@ const Wallet = ({
             className={`w-full ${
               isCentered && "mx-auto flex justify-center items-center"
             }`}
-            onClick={() => playAudio()}
+            onClick={() => playAudio("blueButton")}
           >
             <button
               className={`${
@@ -104,7 +94,9 @@ const Wallet = ({
               } text-center border-b-4 active:border-none active:mt-1 text-sm font-semibold rounded-xl text-gray-100 backdrop-blur-xl px-6 py-2 bg-blue-500 hover:bg-blue-500/80 border-blue-700`}
               onClick={() => open()}
             >
-              {lang === "en" ? "Connect wallet" : "Connectez votre portefeuille"}
+              {lang === "en"
+                ? "Connect wallet"
+                : "Connectez votre portefeuille"}
             </button>
           </div>
         </>

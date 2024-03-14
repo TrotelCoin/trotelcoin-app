@@ -2,32 +2,22 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
-import React, { Fragment, useContext, useEffect, useRef } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import { Modals } from "@/types/types";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
-  const { audioEnabled } = useContext(AudioContext);
-
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const playAudio = () => {
-    if (audioRef.current && audioEnabled) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
-  };
+  const { playAudio } = useContext(AudioContext);
 
   useEffect(() => {
     if (show) {
-      playAudio();
+      playAudio("successModal");
     }
   }, [show]);
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/success-modal.wav" />
       <Transition.Root show={show} as={Fragment}>
         <Dialog
           as="div"

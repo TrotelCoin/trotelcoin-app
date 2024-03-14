@@ -3,7 +3,6 @@ import React, {
   useContext,
   useEffect,
   useState,
-  useRef,
 } from "react";
 import { Lang, Cards } from "@/types/types";
 import GetStarted from "@/app/[lang]/[quizId]/components/getStarted";
@@ -23,16 +22,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
-  const { audioEnabled } = useContext(AudioContext);
-
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const playAudio = () => {
-    if (audioEnabled && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
-  };
+  const { playAudio } = useContext(AudioContext);
 
   const handleNext = () => {
     setCurrentCardIndex((prev) => prev + 1);
@@ -63,8 +53,6 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/sounds/course-finished.wav" />
-
       <GetStarted lang={lang} setFullScreen={setFullScreen} />
 
       <Transition as={Fragment} show={fullscreen}>
@@ -147,7 +135,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   isLoading={isLoading}
                   onClick={() => {
                     setIsCourseFinished(true);
-                    playAudio();
+                    playAudio("courseFinished");
                     setIsLoading(true);
                     setTimeout(() => {
                       setFullScreen(false);
