@@ -34,13 +34,20 @@ export default function WarningNotification({
 
   useEffect(() => {
     if (show) {
+      const duration = 3000;
+      const initialProgress = 100;
+
       const timer = setTimeout(() => {
         setShow(false);
-      }, 3000);
+      }, duration);
+
+      setProgress(initialProgress);
+
+      const progressInterval = duration / initialProgress;
 
       const progressTimer = setInterval(() => {
         setProgress((prev) => prev - 1);
-      }, 30);
+      }, progressInterval);
 
       return () => {
         clearTimeout(timer);
