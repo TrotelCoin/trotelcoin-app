@@ -35,11 +35,11 @@ const cards = {
     },
     {
       title: "Thematics",
-      text: "Web3 is about finance, art, gaming, social networks, and much more. It's about the future of the internet.",
+      text: "Web3 is about finance, art, gaming, social networks, and much more. It's about the future of internet.",
     },
     {
       title: "Web2 vs Web3",
-      text: "Web2 is the current web. It's about big companies and centralized services. Web3 is about decentralization and control.",
+      text: "Web2 is the current web. It's about big companies and centralized services whereas Web3 is about decentralization and control.",
     },
     {
       title: "Example",
@@ -85,7 +85,7 @@ const cards = {
     },
     {
       title: "Web2 vs Web3",
-      text: "Le Web2 est le web actuel. Il s'agit des grandes entreprises et des services centralisés. Le Web3 se repose sur la décentralisation et le contrôle.",
+      text: "Le Web2 est le web actuel. Il s'agit des grandes entreprises et des services centralisés tandis que le Web3 se repose sur la décentralisation et le contrôle.",
     },
     {
       title: "Exemple",
