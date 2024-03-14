@@ -35,7 +35,7 @@ const UserProvider = ({
     } else {
       setIsLoggedIn(false);
     }
-  }, [session]);
+  }, [session, address]);
 
   const { data: userTotalRewardsPendingData } = useSWR(
     address

@@ -1,6 +1,5 @@
 import { Lang } from "@/types/types";
 import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
-import { useAccount } from "wagmi";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
@@ -9,8 +8,6 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
   const [width, setWidth] = useState<number>(0);
   const [userLevel, setUserLevel] = useState<number | null>(1);
   const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(1);
-
-  const { address}  = useAccount();
 
   const { isNotPremium } = useContext(PremiumContext);
   const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
@@ -27,7 +24,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
       setQuizzesRemaining(quizzesRemaining);
     } else {
       setWidth(0);
-      setUserLevel(1);
+      setUserLevel(0);
       setQuizzesRemaining(0);
     }
   }, [numberOfQuizzesAnswered]);

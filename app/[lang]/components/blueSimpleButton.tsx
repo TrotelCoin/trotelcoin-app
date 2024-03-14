@@ -5,14 +5,18 @@ import AudioContext from "@/app/[lang]/contexts/audioContext";
 const BlueSimpleButton = ({
   onClick,
   children,
+  silence,
 }: {
   onClick: Function;
   children?: React.ReactNode;
+  silence?: boolean;
 }) => {
   const { playAudio } = useContext(AudioContext);
 
   const whenClicked = () => {
-    playAudio("blueButton");
+    if (!silence) {
+      playAudio("blueButton");
+    }
     onClick();
   };
 
