@@ -9,6 +9,7 @@ import AudioContext from "@/app/[lang]/contexts/audioContext";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import ThemeSelector from "@/app/[lang]/components/selectors/themeSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
+import { useKeyPressed } from "@react-hooks-library/core";
 
 const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
@@ -46,26 +47,15 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
     }
   }, [fullscreen]);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case "ArrowRight":
-          handleNext();
-          break;
-        case "ArrowLeft":
-          handlePrevious();
-          break;
-        default:
-          break;
-      }
+  useKeyPressed(["ArrowRight"], (e) => {
+    handleNext();
+    e.preventDefault();
+  });
 
-      window.addEventListener("keydown", handleKeyDown);
-
-      return () => {
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    };
-  }, []);
+  useKeyPressed(["ArrowLeft"], (e) => {
+    handlePrevious();
+    e.preventDefault();
+  });
 
   return (
     <>
@@ -128,6 +118,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                 onClick={() => handlePrevious()}
                 lang={lang}
                 text={lang === "en" ? "Previous" : "Précédent"}
+                disabled={currentCardIndex === 0}
               />
               <div
                 className={`${
@@ -138,6 +129,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   onClick={() => handleNext()}
                   lang={lang}
                   text={lang === "en" ? "Next" : "Suivant"}
+                  disabled={currentCardIndex > cards.en.length - 1}
                 />
               </div>
               <div
@@ -149,6 +141,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   lang={lang}
                   showConfetti={isLoading}
                   isLoading={isLoading}
+                  disabled={currentCardIndex < cards.en.length - 1}
                   onClick={() => {
                     setIsCourseFinished(true);
                     playAudio("courseFinished");

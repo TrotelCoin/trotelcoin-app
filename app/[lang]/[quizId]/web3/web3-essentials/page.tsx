@@ -15,7 +15,7 @@ const cards = {
     },
     {
       title: "Ownership",
-      text: "Web3 is about owning your data and identity. You're not a consumer anymore like on Instagram for instance, you're a participant.",
+      text: "Web3 is also about owning your data and identity. You're not a consumer anymore like on Instagram for instance, you're a participant.",
     },
     {
       title: "Privacy",
@@ -23,7 +23,7 @@ const cards = {
     },
     {
       title: "Creator Economy",
-      text: "Web3 is also about creators. It's a new way to monetize their work and to be paid for their creativity.",
+      text: "Creators are also empowered by this new economy. Indeed, web3 allows a way to monetize their work and get paid for their creativity.",
     },
     {
       title: "Interoperability",
@@ -35,11 +35,11 @@ const cards = {
     },
     {
       title: "Thematics",
-      text: "Web3 is about finance, art, gaming, social networks, and much more. It's about the future of internet.",
+      text: "Web3 is about finance, art, gaming, social networks, and much more. It's about the future of the web.",
     },
     {
       title: "Web2 vs Web3",
-      text: "Web2 is the current web. It's about big companies and centralized services whereas Web3 is about decentralization and control.",
+      text: "Currently, the web we know is referred to as Web2. It's the model made of big companies and centralized services.",
     },
     {
       title: "Example",
@@ -57,11 +57,11 @@ const cards = {
     },
     {
       title: "Autonomie",
-      text: "Le Web3 change la notion de confiance, vous permettant de vérifier sans devoir faire confiance à un groupe. TrotelCoin vous aide à posséder et à façonner ce web équitable, vous encourageant à explorer et à participer à ses possibilités.",
+      text: "Le Web3 change la notion de confiance, vous permettant de vérifier sans avoir à faire confiance à un groupe. TrotelCoin vous aide à posséder et à façonner ce web équitable, vous encourageant à explorer et à participer à ses possibilités.",
     },
     {
       title: "Propriété",
-      text: "Le Web3 consiste à posséder vos données et votre identité. Vous n'êtes plus un simple consommateur comme sur Instagram par exemple, vous êtes acteur.",
+      text: "Il s'agit aussi de posséder vos données et votre identité. Vous n'êtes plus un simple consommateur comme sur Instagram par exemple, vous êtes acteur.",
     },
     {
       title: "Vie privée",
@@ -69,7 +69,7 @@ const cards = {
     },
     {
       title: "Économie des créateurs",
-      text: "Le Web3 concerne également les créateurs. C'est une nouvelle manière de monétiser leur travail et d'être rémunéré pour leur créativité.",
+      text: "Les créateurs sont aussi avantagés par cette nouvelle économique. En effet, le web3 permet une manière de monétiser leur travail et d'être rémunéré pour leur créativité.",
     },
     {
       title: "Interopérabilité",
@@ -81,11 +81,11 @@ const cards = {
     },
     {
       title: "Thématiques",
-      text: "Le Web3 porte sur la finance, l'art, le jeu, les réseaux sociaux, et bien plus encore. Il s'agit de l'avenir d'Internet.",
+      text: "Le Web3 porte sur la finance, l'art, les jeux vidéos, les réseaux sociaux, et bien plus encore. C'est l'avenir du web.",
     },
     {
       title: "Web2 vs Web3",
-      text: "Le Web2 est le web actuel. Il s'agit des grandes entreprises et des services centralisés tandis que le Web3 se repose sur la décentralisation et le contrôle.",
+      text: "Actuellement, le web que nous connaissons est qualifié de Web2. C'est le modèle composé des grandes entreprises et des services centralisés.",
     },
     {
       title: "Exemple",
@@ -93,7 +93,7 @@ const cards = {
     },
     {
       title: "Conclusion",
-      text: "Enfin, Le Web3 c'est de la liberté, de la vie privée et du contrôle. Il s'agit d'un Internet plus équitable. Il s'agit de vous.",
+      text: "Enfin, Le Web3 est synonyme de liberté, de vie privée et de contrôle. Il s'agit d'un Internet plus équitable. Il s'agit de vous.",
     },
   ],
 };
