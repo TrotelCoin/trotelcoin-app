@@ -118,6 +118,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                 onClick={() => handlePrevious()}
                 lang={lang}
                 text={lang === "en" ? "Previous" : "Précédent"}
+                disabled={currentCardIndex === 0}
               />
               <div
                 className={`${
@@ -128,6 +129,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   onClick={() => handleNext()}
                   lang={lang}
                   text={lang === "en" ? "Next" : "Suivant"}
+                  disabled={currentCardIndex > cards.en.length - 1}
                 />
               </div>
               <div
@@ -139,6 +141,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   lang={lang}
                   showConfetti={isLoading}
                   isLoading={isLoading}
+                  disabled={currentCardIndex < cards.en.length - 1}
                   onClick={() => {
                     setIsCourseFinished(true);
                     playAudio("courseFinished");
