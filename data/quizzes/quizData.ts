@@ -502,6 +502,159 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 8,
+    title: "Consensus Mechanisms",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What does the term consensus mechanism refer to?",
+          fr: "À quoi fait référence le terme mécanisme de consensus?",
+        },
+        options: {
+          en: [
+            "A stack of ideas, protocols, and incentives facilitating nodes to agree on the blockchain's current state",
+            "A protocol for selecting honest validators in a blockchain network",
+            "A method for creating new blocks in a blockchain",
+            "A rule for deciding the longest chain in Bitcoin",
+          ],
+          fr: [
+            "Un ensemble d'idées, de protocoles et d'incitations facilitant la mise d'accord des nœuds sur l'état actuel de la blockchain",
+            "Un protocole pour sélectionner les validateurs honnêtes dans un réseau de blockchain",
+            "Une méthode pour créer de nouveaux blocs dans une blockchain",
+            "Une règle pour décider de la plus longue chaîne dans Bitcoin",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is a consensus?",
+          fr: "Qu'est-ce qu'un consensus?",
+        },
+        options: {
+          en: [
+            "A general agreement reached among participants",
+            "A disagreement among blockchain nodes",
+            "A method for validating transactions in a blockchain",
+            "A mechanism for preventing Sybil attacks",
+          ],
+          fr: [
+            "Un accord général atteint entre les participants",
+            "Un désaccord entre les nœuds de la blockchain",
+            "Une méthode pour valider les transactions dans une blockchain",
+            "Un mécanisme pour prévenir les attaques Sybil",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What consensus mechanism does Bitcoin use?",
+          fr: "Quel mécanisme de consensus utilise Bitcoin?",
+        },
+        options: {
+          en: [
+            "Proof of Work",
+            "Proof of Stake",
+            "Byzantine Fault Tolerance",
+            "Proof of History",
+          ],
+          fr: [
+            "Preuve de travail",
+            "Preuve d'enjeu",
+            "Tolérance aux fautes byzantines",
+            "Preuve d'histoire",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "How is the main chain decided in Proof-of-Work?",
+          fr: "Comment la chaîne principale est-elle décidée en Preuve de Travail ?",
+        },
+        options: {
+          en: [
+            "By selecting the blocks with the most mining effort",
+            "By choosing blocks randomly",
+            "By the longest chain rule",
+            "By the fork-choice method",
+          ],
+          fr: [
+            "En sélectionnant les blocs avec le plus d'efforts de minage",
+            "En choisissant les blocs au hasard",
+            "Par la règle de la chaîne la plus longue",
+            "Par la méthode de choix de fourche",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What is Proof of Stake?",
+          fr: "Qu'est-ce que la Preuve d'enjeu?",
+        },
+        options: {
+          en: [
+            "A consensus mechanism where validators are chosen based on the amount of cryptocurrency they hold",
+            "A method for creating new blocks in a blockchain",
+            "A rule for deciding the longest chain in Bitcoin",
+            "A protocol for selecting honest validators in a blockchain network",
+          ],
+          fr: [
+            "Un mécanisme de consensus où les validateurs sont choisis en fonction du montant de cryptomonnaie qu'ils détiennent",
+            "Une méthode pour créer de nouveaux blocs dans une blockchain",
+            "Une règle pour décider de la plus longue chaîne dans Bitcoin",
+            "Un protocole pour sélectionner les validateurs honnêtes dans un réseau de blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "What is Sybil Resistance?",
+          fr: "Qu'est-ce que la résistance Sybil?",
+        },
+        options: {
+          en: [
+            "A feature of Proof-of-Work and Proof-of-Stake mechanisms to prevent Sybil attacks",
+            "A protocol for selecting honest validators in a blockchain network",
+            "A method for validating transactions in a blockchain",
+            "A mechanism for creating a fingerprint of information in a blockchain",
+          ],
+          fr: [
+            "Une caractéristique des mécanismes de Preuve de travail et de Preuve d'enjeu pour prévenir les attaques Sybil",
+            "Un protocole pour sélectionner les validateurs honnêtes dans un réseau de blockchain",
+            "Une méthode pour valider les transactions dans une blockchain",
+            "Un mécanisme pour créer une empreinte digitale d'informations dans une blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 7,
+        question: {
+          en: "What is the role of Tower BFT in Solana's design?",
+          fr: "Quel est le rôle de Tower BFT dans la conception de Solana?",
+        },
+        options: {
+          en: [
+            "To handle transactions simultaneously and improve scalability",
+            "To prevent Sybil attacks",
+            "To decide the longest chain in a blockchain",
+            "To select honest validators in a blockchain network",
+          ],
+          fr: [
+            "Pour gérer les transactions simultanément et améliorer la scalabilité",
+            "Pour prévenir les attaques Sybil",
+            "Pour décider de la plus longue chaîne dans une blockchain",
+            "Pour sélectionner les validateurs honnêtes dans un réseau de blockchain",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 9,
     title: "Introduction to Bitcoin",
     questions: [
