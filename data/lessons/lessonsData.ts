@@ -45,7 +45,7 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Stake your TrotelCoins",
-          fr: "Stakez vos TrotelCoins",
+          fr: "Misez vos TrotelCoins",
         },
         description: {
           en: "Learn how to stake your TrotelCoins to earn more.",
@@ -168,7 +168,7 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "The consensus mechanisms",
+          en: "Consensus mechanisms",
           fr: "Les mécanismes de consensus",
         },
         description: {
@@ -273,7 +273,7 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "The smart contracts",
+          en: "Smart contracts",
           fr: "Les contrats intelligents",
         },
         description: {
@@ -292,8 +292,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "The Ethereum Virtual Machine",
-          fr: "La machine virtuelle d'Ethereum",
+          en: "Ethereum Virtual Machine",
+          fr: "La Machine Virtuelle d'Ethereum",
         },
         description: {
           en: "Learn about the basics of the Ethereum Virtual Machine.",
