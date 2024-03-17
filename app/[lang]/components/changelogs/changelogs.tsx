@@ -71,24 +71,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text:
-            lang === "en"
-              ? "- Introduction to blockchains"
-              : "- Introduction aux blockchains",
+          text: lang === "en" ? "- Web3 Essentials" : "- Les bases du Web3",
           isNew: false,
         },
         {
           text:
             lang === "en"
-              ? "- Introduction to stablecoins"
-              : "- Introduction aux stablecoins",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Web3 Essentials"
-              : "- Les bases du Web3",
+              ? "- Consensus Mechanisms"
+              : "- Les Mécanismes de Consensus",
           isNew: true,
         },
       ],
