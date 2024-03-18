@@ -19,7 +19,7 @@ const cards = {
     },
     {
       title: "Voting power",
-      text: "Secondly, staking increases your voting power, as the balance of your staked TrotelCoins doubles it.",
+      text: "Secondly, staking increases your voting power, as the balance of your staked TrotelCoins + the rewards.",
     },
     {
       title: "Helping the ecosystem",
@@ -65,7 +65,7 @@ const cards = {
     },
     {
       title: "Pouvoir de vote",
-      text: "Deuxièmement, le staking augmente votre pouvoir de vote, car le solde de vos TrotelCoins misés double dans le cadre d'un vote.",
+      text: "Deuxièmement, le staking augmente votre pouvoir de vote, car le solde de vos TrotelCoins est ajouté aux récompenses futures.",
     },
     {
       title: "Aider l'écosystème",
