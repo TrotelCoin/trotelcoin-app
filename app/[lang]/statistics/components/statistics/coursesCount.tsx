@@ -1,6 +1,6 @@
 import { Lang } from "@/types/types";
 import React, { useEffect } from "react";
-import fetcher from "@/lib/fetcher";
+import { fetcher } from "@/lib/axios/fetcher";
 
 const CoursesCount = ({ lang }: { lang: Lang }) => {
   const { data: coursesCount } = useSWR("/api/courses/coursesCount", fetcher);
