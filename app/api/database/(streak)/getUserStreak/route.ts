@@ -30,13 +30,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
     let disabled = false;
 
     // update streaks where last_streak_at is more than 2 days old
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+    twoDaysAgo.setHours(0, 0, 0, 0);
+
     const { error: updateError } = await supabase
       .from("streak")
       .update({ current_streak: 0 })
-      .lte(
-        "last_streak_at",
-        new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
-      )
+      .lte("last_streak_at", twoDaysAgo.toISOString())
       .eq("wallet", wallet as Address);
 
     if (updateError) {
@@ -53,13 +54,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     // check if one day hasn't passed since the last streak
     if (lastUpdated) {
+      const oneDayAgo = new Date();
+      oneDayAgo.setDate(oneDayAgo.getDate() - 1);
+      oneDayAgo.setHours(0, 0, 0, 0);
+
       const { data: oneDay, error: oneDayError } = await supabase
         .from("streak")
         .select("*")
-        .lte(
-          "last_streak_at",
-          new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
-        )
+        .lte("last_streak_at", oneDayAgo.toISOString())
         .eq("wallet", wallet as Address);
 
       if (oneDayError) {
@@ -67,7 +69,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         return NextResponse.json(
           {
             currentStreak: 0,
-            lastUpdated: new Date().toISOString(),
+            lastUpdated: oneDayAgo.toISOString(),
             disabled: false,
           },
           { status: 500 }
@@ -80,8 +82,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     if (lastUpdated) {
-      const date = new Date(lastUpdated).toISOString();
-      lastUpdated = date;
+      const date = new Date(lastUpdated);
+      date.setHours(0, 0, 0, 0);
+      lastUpdated = date.toISOString();
     }
 
     return NextResponse.json(

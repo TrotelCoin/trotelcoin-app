@@ -121,11 +121,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     // update only if the last streak was more than 1 day ago
     if (oneDay.length !== 0) {
+      const nowMidnight = new Date();
+      nowMidnight.setHours(0, 0, 0, 0);
+
       const { error: updateCurrentStreakError } = await supabase
         .from("streak")
         .update({
           current_streak: currentStreak[0].current_streak + 1,
-          last_streak_at: new Date().toISOString(),
+          last_streak_at: nowMidnight.toISOString(),
         })
         .eq("wallet", wallet as string);
 
