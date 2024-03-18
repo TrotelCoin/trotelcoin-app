@@ -2,10 +2,9 @@ import lessons from "@/data/lessons/lessonsData";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const totalCourses = lessons.reduce(
-    (acc, curr) => acc + curr.courses.length,
-    0
-  );
+  const totalCourses = lessons
+    .filter((lesson) => lesson.available)
+    .reduce((acc, curr) => acc + curr.courses.length, 0);
 
   return NextResponse.json(totalCourses, {
     status: 200,
