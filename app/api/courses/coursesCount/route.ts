@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const totalCourses = lessons
-    .filter((lesson) => lesson.available)
+    .filter((lesson) => lesson.courses.available)
     .reduce((acc, curr) => acc + curr.courses.length, 0);
 
   return NextResponse.json(totalCourses, {
