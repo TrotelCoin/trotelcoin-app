@@ -69,7 +69,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         return NextResponse.json(
           {
             currentStreak: 0,
-            lastUpdated: new Date().toISOString(),
+            lastUpdated: oneDayAgo.toISOString(),
             disabled: false,
           },
           { status: 500 }
@@ -82,8 +82,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     if (lastUpdated) {
-      const date = new Date(lastUpdated).toISOString();
-      lastUpdated = date;
+      const date = new Date(lastUpdated);
+      date.setHours(0, 0, 0, 0);
+      lastUpdated = date.toISOString();
     }
 
     return NextResponse.json(
