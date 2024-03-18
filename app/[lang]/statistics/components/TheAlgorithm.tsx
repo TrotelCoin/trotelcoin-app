@@ -10,6 +10,7 @@ import NumberOfLearners from "@/app/[lang]/statistics/components/statistics/numb
 import Expert from "@/app/[lang]/statistics/components/statistics/expert";
 import Intermediate from "@/app/[lang]/statistics/components/statistics/intermediate";
 import Early from "@/app/[lang]/statistics/components/statistics/early";
+import CoursesCount from "@/app/[lang]/statistics/components/statistics/coursesCount";
 import Tilt from "react-parallax-tilt";
 
 const TheAlgorithm = ({ lang }: { lang: Lang }) => {
@@ -118,6 +119,16 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             perspective={800}
           >
             <Expert lang={lang} />
+          </Tilt>
+
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <CoursesCount lang={lang} />
           </Tilt>
         </div>
       </div>
