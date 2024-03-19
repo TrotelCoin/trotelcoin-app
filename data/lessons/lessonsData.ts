@@ -254,8 +254,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "The layers 2",
-          fr: "Les layers 2",
+          en: "The Layer 2s",
+          fr: "Les Layer 2s",
         },
         description: {
           en: "Learn about the different layers 2.",
