@@ -137,10 +137,10 @@ const Staking = ({
             {allowance && amount && allowance < amount ? (
               <ApproveButton
                 lang={lang}
-                amount={amount as number}
+                amount={amount}
                 chainError={chainError}
                 setChainError={setChainError}
-                allowance={allowance as number}
+                allowance={allowance}
               />
             ) : (
               <StakingButton
