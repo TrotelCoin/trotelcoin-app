@@ -56,8 +56,28 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
-  const { isSuccess, isError, isPending, writeContractAsync } =
-    useWriteContract();
+  const { isPending, writeContractAsync } = useWriteContract({
+    mutation: {
+      onError: () => {
+        setErrorMessage(true);
+      },
+      onSuccess: () => {
+        setIsClaimed(true);
+        setIsClaimedMessage(true);
+
+        const postClaimIntermediate = async () => {
+          await axios
+            .post(`/api/database/claimIntermediate?wallet=${address}`)
+            .catch((error) => {
+              console.error(error);
+              setErrorMessage(true);
+            });
+        };
+
+        postClaimIntermediate();
+      },
+    },
+  });
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
       address: trotelCoinIntermediateAddress,
@@ -100,30 +120,6 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       setIsNotConnectedMessage(true);
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setIsClaimed(true);
-      setIsClaimedMessage(true);
-
-      const postClaimIntermediate = async () => {
-        await axios
-          .post(`/api/database/claimIntermediate?wallet=${address}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-          });
-      };
-
-      postClaimIntermediate();
-    }
-  }, [isSuccess, address, setIsClaimed, setIsClaimedMessage]);
-
-  useEffect(() => {
-    if (isError) {
-      setErrorMessage(true);
-    }
-  }, [isError]);
 
   return (
     <>

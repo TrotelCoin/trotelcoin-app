@@ -32,8 +32,16 @@ const ApproveButton = ({
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
 
-  const { writeContractAsync, isSuccess, isPending, isError } =
-    useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setApproveMessage(true);
+      },
+      onError: () => {
+        setErrorMessage(true);
+      },
+    },
+  });
 
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
@@ -54,18 +62,6 @@ const ApproveButton = ({
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setApproveMessage(true);
-    }
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (isError) {
-      setErrorMessage(true);
-    }
-  }, [isError]);
 
   useEffect(() => {
     if (amount && address && allowance < amount) {

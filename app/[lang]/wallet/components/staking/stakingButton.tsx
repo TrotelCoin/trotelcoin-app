@@ -47,8 +47,16 @@ const StakingButton = ({
   const { data: blockNumber } = useBlockNumber({ watch: true });
   const { switchChain } = useSwitchChain();
 
-  const { writeContractAsync, isSuccess, isPending, isError } =
-    useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setStakeMessage(true);
+      },
+      onError: () => {
+        setErrorMessage(true);
+      },
+    },
+  });
 
   const { data: getStakingDataNoTyped, refetch } = useReadContract({
     chainId: polygon.id,
@@ -67,12 +75,6 @@ const StakingButton = ({
       setStakingPeriodMessage(true);
     }
   }, [stakingPeriod]);
-
-  useEffect(() => {
-    if (isError) {
-      setErrorMessage(true);
-    }
-  }, [isError]);
 
   let getStakingData = getStakingDataNoTyped as any[];
 
@@ -143,12 +145,6 @@ const StakingButton = ({
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setStakeMessage(true);
-    }
-  }, [isSuccess]);
 
   useEffect(() => {
     if (amount && address && allowance >= amount && stakedTrotelCoins <= 0) {

@@ -10,11 +10,11 @@ import {
 } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
-import { Address, formatUnits, Hash, parseUnits } from "viem";
+import { Address, Hash, parseUnits } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { useDebounce } from "use-debounce";
+import Success from "@/app/[lang]/components/modals/success";
 
 export type Token = {
   address: Address;
@@ -170,6 +170,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fromDecimals, setFromDecimals] = useState<number>(usdc.decimals);
   const [toDecimals, setToDecimals] = useState<number>(trotel.decimals);
+  const [swappedMessage, setSwappedMessage] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -214,7 +215,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
       },
     },
   });
-  const { sendTransactionAsync: swappingAsync } = useSendTransaction();
+  const { sendTransactionAsync: swappingAsync } = useSendTransaction({
+    mutation: {
+      onSuccess: () => {
+        setSwappedMessage(true);
+      },
+    },
+  });
 
   const tokenAddressToName = (tokenAddress: Address) => {
     switch (tokenAddress) {
@@ -241,14 +248,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
 
-  const [debouncedFromAmount] = useDebounce(fromAmount, 500);
-
   useEffect(() => {
     const fetchQuote = async () => {
       setIsLoading(true);
 
-      const fromAmountDecimals: number = debouncedFromAmount
-        ? Number(parseUnits(debouncedFromAmount.toString(), fromDecimals))
+      const fromAmountDecimals: number = fromAmount
+        ? Number(parseUnits(fromAmount.toString(), fromDecimals))
         : 0;
 
       const quote = await getQuote(
@@ -281,14 +286,14 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setIsLoading(false);
     };
 
-    if (userAddress && debouncedFromAmount) {
+    if (userAddress && fromAmount) {
       fetchQuote();
     } else {
       setQuote(null);
       setToAmount(0);
     }
   }, [
-    debouncedFromAmount,
+    fromAmount,
     fromChainId,
     toChainId,
     userAddress,
@@ -399,9 +404,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               <input
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent"
-                value={
-                  (debouncedFromAmount as number) < 0 ? 0 : debouncedFromAmount
-                }
+                value={(fromAmount as number) < 0 ? 0 : fromAmount}
                 onChange={(e) => setFromAmount(parseFloat(e.target.value))}
                 placeholder={lang === "en" ? "Amount" : "Montant"}
               />
@@ -484,7 +487,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 text={lang === "en" ? "Swap" : "Échanger"}
                 onClick={async () => {
                   const txHash = await swappingAsync({
-                    account: userAddress as Address,
+                    account: userAddress,
                     to: apiReturnData.result.txTarget,
                     value: apiReturnData.result.value,
                     data: apiReturnData.result.txData,
@@ -507,6 +510,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
         }
+      />
+      <Success
+        show={swappedMessage}
+        onClose={() => setSwappedMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Success" : "Succès"}
+        message={lang === "en" ? "Swap successful !" : "Échange réussi !"}
       />
     </>
   );

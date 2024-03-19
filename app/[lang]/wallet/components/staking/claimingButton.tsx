@@ -43,8 +43,16 @@ const ClaimingButton = ({
     chainId: polygon.id,
   });
 
-  const { writeContractAsync, isSuccess, isPending, isError } =
-    useWriteContract();
+  const { writeContractAsync, isPending } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setClaimMessage(true);
+      },
+      onError: () => {
+        setErrorMessage(true);
+      },
+    },
+  });
 
   const { data: getUserStakingDataNoTyped, refetch: refetchStakingDetails } =
     useReadContract({
@@ -94,12 +102,6 @@ const ClaimingButton = ({
   }, [getUserStakingData, address]);
 
   useEffect(() => {
-    if (isError) {
-      setErrorMessage(true);
-    }
-  }, [isError]);
-
-  useEffect(() => {
     if (getStakingData && address) {
       setStakedTrotelCoins(getStakingData[0].toString());
     } else {
@@ -129,12 +131,6 @@ const ClaimingButton = ({
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setClaimMessage(true);
-    }
-  }, [isSuccess]);
 
   useEffect(() => {
     if (
