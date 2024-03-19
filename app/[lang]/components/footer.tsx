@@ -1,9 +1,10 @@
 "use client";
 
-import { JSX, SVGProps, useEffect, useState } from "react";
+import { JSX, SVGProps } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FooterItem, Lang } from "@/types/types";
+import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 
 const discordIcon = (
   props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
@@ -158,20 +159,7 @@ export default function Footer({ lang }: { lang: Lang }) {
               )}
               {item.anotherWindow && (
                 <span className="ml-1 text-gray-900 dark:text-gray-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-3 h-3"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                    />
-                  </svg>
+                  <ArrowUpRightIcon className="w-4 h-4" />
                 </span>
               )}
             </div>

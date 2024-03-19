@@ -3,6 +3,7 @@
 import { Lang } from "@/types/types";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 const formatDate = (date: Date) => {
   const options: Intl.DateTimeFormatOptions = {
@@ -180,20 +181,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
                   className="absolute top-4 right-4 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full"
                   onClick={hide}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18 18 6M6 6l12 12"
-                    />
-                  </svg>
+                  <XMarkIcon className="h-6 w-6" />
                 </button>
                 <div>
                   <Dialog.Title
