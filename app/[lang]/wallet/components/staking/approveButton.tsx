@@ -25,7 +25,6 @@ const ApproveButton = ({
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
   allowance: number;
 }) => {
-  const [amountMessage, setAmountMessage] = useState<boolean>(false);
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -38,7 +37,6 @@ const ApproveButton = ({
 
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
-      setAmountMessage(true);
       return;
     }
 
@@ -96,17 +94,6 @@ const ApproveButton = ({
           lang === "en"
             ? "You approved the amount"
             : "Vous avez approuvé le montant"
-        }
-      />
-      <Fail
-        show={amountMessage}
-        onClose={() => setAmountMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "The amount must be positive"
-            : "Le montant doit être positif"
         }
       />
       <Fail

@@ -14,3 +14,5 @@ export const trotelCoinStakingV1: Address =
   "0x47350DEF1f6CDA6022703e5e05e6b9a3Ab4b7703";
 export const usdcAddress: Address =
   "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";
+export const trotelCoinDAOAddress: Address =
+  "0x804BCfe2cF0C9d363fE2D85FF29CF0A8FfcBB8db";

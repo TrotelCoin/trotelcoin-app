@@ -27,7 +27,6 @@ const Staking = ({
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
-  const [amountError, setAmountError] = useState<string | null>(null);
   const [allowance, setAllowance] = useState<number | null>(null);
 
   const { address } = useAccount();
@@ -56,26 +55,6 @@ const Staking = ({
     }
   }, [stakingPeriod, APY]);
 
-  useEffect(() => {
-    if (amount) {
-      if (amount < 0) {
-        setAmountError(
-          lang === "en"
-            ? "The amount must be positive"
-            : "Le montant doit être positif"
-        );
-      } else if (!Number(amount)) {
-        setAmountError(
-          lang === "en"
-            ? "The amount must be a number"
-            : "Le montant doit être un nombre"
-        );
-      } else {
-        setAmountError(null);
-      }
-    }
-  }, [amount]);
-
   const { data: allowanceData, refetch } = useReadContract({
     address: trotelCoinAddress,
     abi: trotelCoinV1ABI,
@@ -97,19 +76,37 @@ const Staking = ({
 
   return (
     <>
-      <div className="mt-8 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="flex flex-col flex-wrap gap-4 px-4">
+      <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="flex flex-col px-4 pb-4">
           <span className="font-bold text-xl">
-            {lang === "en" ? <>Earn</> : <>Gagner</>}
+            {lang === "en" ? <>Stake</> : <>Staker</>}
           </span>
-          <div>
-            <span className="text-4xl font-bold text-green-500 dark:text-green-300">
-              {APY}%{" "}
-              <span className="text-base text-gray-700 dark:text-gray-300">
-                ROI
+          <div className="flex items-center gap-1">
+            <div
+              className={`w-3 h-3 rounded-full ${
+                address ? "bg-green-500" : "bg-gray-500"
+              }`}
+            />
+            {address ? (
+              <span className="text-gray-700 dark:text-gray-300 text-sm">
+                {lang === "en" ? "Connected" : "Connecté"}
               </span>
-            </span>
+            ) : (
+              <span className="text-gray-700 dark:text-gray-300 text-sm">
+                {lang === "en" ? "Not connected" : "Non connecté"}
+              </span>
+            )}
           </div>
+        </div>
+
+        <div className="px-4 py-4 flex flex-col gap-2">
+          <span className="text-4xl font-bold text-green-500 dark:text-green-300">
+            {APY}%{" "}
+            <span className="text-base text-gray-700 dark:text-gray-300">
+              ROI
+            </span>
+          </span>
+
           <div>
             <Period
               lang={lang}
@@ -122,33 +119,39 @@ const Staking = ({
               lang={lang}
               amount={amount as number}
               setAmount={setAmount}
-              amountError={amountError as string}
             />
           </div>
         </div>
-        <div className="pt-4 px-4">
+
+        <div className="py-4 px-4">
           <StakingData lang={lang} />
         </div>
-        <div className="pt-4 px-4">
+        <div className="py-4 px-4">
           <TotalStaked lang={lang} />
         </div>
         <div className="pt-4 px-4">
           <div className="grid grid-cols-2 gap-4">
-            <ApproveButton
-              lang={lang}
-              amount={amount as number}
-              chainError={chainError}
-              setChainError={setChainError}
-              allowance={allowance as number}
-            />
-            <StakingButton
-              lang={lang}
-              stakingPeriod={stakingPeriod}
-              amount={amount as number}
-              chainError={chainError}
-              setChainError={setChainError}
-              allowance={allowance as number}
-            />
+            {allowance &&
+            (allowance < (amount as number) ||
+              amount === undefined ||
+              !address) ? (
+              <ApproveButton
+                lang={lang}
+                amount={amount as number}
+                chainError={chainError}
+                setChainError={setChainError}
+                allowance={allowance}
+              />
+            ) : (
+              <StakingButton
+                lang={lang}
+                stakingPeriod={stakingPeriod}
+                amount={amount as number}
+                chainError={chainError}
+                setChainError={setChainError}
+                allowance={allowance as number}
+              />
+            )}
 
             <ClaimingButton
               lang={lang}

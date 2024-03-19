@@ -8,8 +8,9 @@ import { useChainId } from "wagmi";
 import { polygon } from "viem/chains";
 import { useSearchParams } from "next/navigation";
 import Buy from "@/app/[lang]/wallet/components/buy";
+import Swap from "@/app/[lang]/wallet/components/swap";
 
-type ActiveComponent = "claim" | "staking" | "buy";
+type ActiveComponent = "claim" | "staking" | "buy" | "swap";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const searchParams = useSearchParams();
@@ -68,7 +69,17 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
             }`}
           >
-            {lang === "en" ? <>Stake</> : <>Stake</>}
+            {lang === "en" ? <>Stake</> : <>Staker</>}
+          </button>
+          <button
+            onClick={() => setComponent("swap")}
+            className={`px-4 py-2 rounded-full ${
+              component === "swap"
+                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
+                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+            }`}
+          >
+            {lang === "en" ? <>Swap</> : <>Échanger</>}
           </button>
         </div>
       </div>
@@ -89,6 +100,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
               setChainError={setChainError}
             />
           )}
+          {component === "swap" && <Swap lang={lang} />}
         </div>
       )}
     </>

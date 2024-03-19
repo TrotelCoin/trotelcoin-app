@@ -81,7 +81,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                     </div>
                     <div className="block md:hidden">
                       {address
-                        ? shortenAddress(address as Address)
+                        ? shortenAddress(address)
                         : lang === "en"
                         ? "Connect your wallet"
                         : "Connectez votre portefeuille"}
