@@ -12,30 +12,140 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
 import { Address } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { PriceResponse, QuoteResponse } from "@/pages/api/zerox/types";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { trotelCoinDAOAddress } from "@/data/web3/addresses";
 
 export const maticAddress: Address =
   "0x0000000000000000000000000000000000001010";
 
-const AFFILIATE_FEE = 0.01;
-const FEE_RECIPIENT = trotelCoinDAOAddress;
+export type Sort = "output" | "gas" | "time";
+
+const getQuote = async (
+  fromChainId: number,
+  fromTokenAddress: Address,
+  toChainId: number,
+  toTokenAddress: Address,
+  fromAmount: number,
+  userAddress: Address,
+  uniqueRoutesPerBridge: boolean,
+  sort: Sort,
+  singleTxOnly: boolean
+) => {
+  const response = await fetch(
+    `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}`,
+    {
+      method: "GET",
+      headers: {
+        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const json = await response.json();
+  return json;
+};
+
+const getRouteTransactionData = async (route: any) => {
+  const response = await fetch("https://api.socket.tech/v2/build-tx", {
+    method: "POST",
+    headers: {
+      "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ route: route }),
+  });
+
+  const json = await response.json();
+  return json;
+};
+
+const checkAllowance = async (
+  chainId: number,
+  owner: Address,
+  allowanceTarget: Address,
+  tokenAddress: Address
+) => {
+  const response = await fetch(
+    `https://api.socket.tech/v2/approval/check-allowance?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}`,
+    {
+      method: "GET",
+      headers: {
+        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const json = await response.json();
+  return json;
+};
+
+const getApprovalTransactionData = async (
+  chainId: number,
+  owner: Address,
+  allowanceTarget: Address,
+  tokenAddress: Address,
+  amount: number
+) => {
+  const response = await fetch(
+    `https://api.socket.tech/v2/approval/build-tx?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}&amount=${amount}`,
+    {
+      method: "GET",
+      headers: {
+        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const json = await response.json();
+  return json;
+};
+
+const getBridgeStatus = async (
+  transactionHash: Address,
+  fromChainId: number,
+  toChainId: number
+) => {
+  const response = await fetch(
+    `https://api.socket.tech/v2/bridge-status?transactionHash=${transactionHash}&fromChainId=${fromChainId}&toChainId=${toChainId}`,
+    {
+      method: "GET",
+      headers: {
+        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const json = await response.json();
+  return json;
+};
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
+  const [fromChainId] = useState<number>(polygon.id);
+  const [toChainId] = useState<number>(polygon.id);
   const [fromTokenAddress, setFromTokenAddress] =
     useState<Address>(maticAddress);
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toTokenAddress, setToTokenAddress] =
     useState<Address>(trotelCoinAddress);
-  const [quote, setQuote] = useState<QuoteResponse | null>(null);
+  const [quote, setQuote] = useState<any>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [fromBalance, setFromBalance] = useState<number | null>(null);
   const [toBalance, setToBalance] = useState<number | null>(null);
+  const [uniqueRoutesPerBridge] = useState<boolean>(true);
+  const [sort] = useState<Sort>("output");
+  const [singleTxOnly] = useState<boolean>(true);
 
   const { address: userAddress } = useAccount();
 
