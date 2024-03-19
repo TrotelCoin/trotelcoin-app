@@ -14,6 +14,7 @@ import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import { polygon } from "viem/chains";
 import { useAccount, useReadContract, useBlockNumber } from "wagmi";
 import { formatEther } from "viem";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
 const Staking = ({
   lang,
@@ -131,33 +132,37 @@ const Staking = ({
         </div>
         <div className="pt-4 px-4">
           <div className="grid grid-cols-2 gap-4">
-            {allowance &&
-            (allowance < (amount as number) ||
-              amount === undefined ||
-              !address) ? (
-              <ApproveButton
-                lang={lang}
-                amount={amount as number}
-                chainError={chainError}
-                setChainError={setChainError}
-                allowance={allowance}
-              />
-            ) : (
-              <StakingButton
-                lang={lang}
-                stakingPeriod={stakingPeriod}
-                amount={amount as number}
-                chainError={chainError}
-                setChainError={setChainError}
-                allowance={allowance as number}
-              />
-            )}
+            {address ? (
+              <>
+                {allowance &&
+                (allowance < (amount as number) || amount === undefined) ? (
+                  <ApproveButton
+                    lang={lang}
+                    amount={amount as number}
+                    chainError={chainError}
+                    setChainError={setChainError}
+                    allowance={allowance}
+                  />
+                ) : (
+                  <StakingButton
+                    lang={lang}
+                    stakingPeriod={stakingPeriod}
+                    amount={amount as number}
+                    chainError={chainError}
+                    setChainError={setChainError}
+                    allowance={allowance as number}
+                  />
+                )}
 
-            <ClaimingButton
-              lang={lang}
-              chainError={chainError}
-              setChainError={setChainError}
-            />
+                <ClaimingButton
+                  lang={lang}
+                  chainError={chainError}
+                  setChainError={setChainError}
+                />
+              </>
+            ) : (
+              <Wallet lang={lang} isFull={true} isCentered={true} />
+            )}
           </div>
         </div>
       </div>
