@@ -27,7 +27,7 @@ export const trotel: Token = {
 };
 
 export const usdc: Token = {
-  address: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+  address: "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
   decimals: 6,
 };
 
@@ -160,7 +160,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [uniqueRoutesPerBridge] = useState<boolean>(true);
   const [sort] = useState<Sort>("output");
   const [singleTxOnly] = useState<boolean>(true);
-  const [needApproval, setNeedApproval] = useState<boolean>(false);
+  const [needApproval, setNeedApproval] = useState<boolean>(true);
   const [approvalData, setApprovalData] = useState<any>(null);
   const [txHash, setTxHash] = useState<Hash | null>(null);
   const [apiReturnData, setApiReturnData] = useState<any>(null);
@@ -207,7 +207,14 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromBalanceData, toBalanceData]);
 
-  const { sendTransactionAsync } = useSendTransaction();
+  const { sendTransactionAsync: approvingAsync } = useSendTransaction({
+    mutation: {
+      onSuccess: () => {
+        setNeedApproval(false);
+      },
+    },
+  });
+  const { sendTransactionAsync: swappingAsync } = useSendTransaction();
 
   const tokenAddressToName = (tokenAddress: Address) => {
     switch (tokenAddress) {
@@ -261,6 +268,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
       const route = quote.result.routes[0];
 
       const apiReturnData = await getRouteTransactionData(route);
+
+      setApiReturnData(apiReturnData);
 
       const approvalData = apiReturnData.result?.approvalData;
 
@@ -318,6 +327,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
         allowanceTarget,
         fromTokenAddress
       );
+
       const allowanceValue = allowanceCheckStatus.result?.value;
 
       if (minimumApprovalAmount > allowanceValue) {
@@ -329,7 +339,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
           minimumApprovalAmount
         );
 
+        setNeedApproval(true);
         setApprovalTransactionData(approvalTransactionData);
+      } else {
+        setNeedApproval(false);
       }
     };
 
@@ -378,7 +391,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en" ? "Balance:" : "Solde:"}{" "}
                 {fromBalance
-                  ? Number(fromBalance?.toFixed(0)).toLocaleString("en-US")
+                  ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
                   : "0"}
               </span>
             </div>
@@ -418,7 +431,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en" ? "Balance:" : "Solde:"}{" "}
                 {toBalance
-                  ? Number(toBalance?.toFixed(0)).toLocaleString("en-US")
+                  ? Number(toBalance?.toFixed(2)).toLocaleString("en-US")
                   : "0"}
               </span>
             </div>
@@ -427,7 +440,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed"
                 onWheel={(e) => e.preventDefault()}
-                value={toAmount ? Number((toAmount * 1e-18).toFixed(0)) : 0}
+                value={toAmount ? Number((toAmount * 1e-18).toFixed(2)) : 0}
                 disabled={true}
               />
               <div className="flex flex-col justify-center items-end">
@@ -455,7 +468,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 isLoading={isLoading}
                 text={lang === "en" ? "Approve" : "Approuver"}
                 onClick={async () => {
-                  await sendTransactionAsync({
+                  await approvingAsync({
                     to: approvalTransactionData.result?.to,
                     data: approvalTransactionData.result?.data,
                     chainId: fromChainId,
@@ -470,7 +483,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 isLoading={isLoading}
                 text={lang === "en" ? "Swap" : "Échanger"}
                 onClick={async () => {
-                  const txHash = await sendTransactionAsync({
+                  const txHash = await swappingAsync({
                     account: userAddress as Address,
                     to: apiReturnData.result.txTarget,
                     value: apiReturnData.result.value,
