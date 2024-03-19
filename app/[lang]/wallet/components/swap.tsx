@@ -92,9 +92,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="mt-8 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="flex items-center justify-between px-4">
-          <div>
+      <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="flex items-center justify-between px-4 pb-4">
+          <div className="flex flex-col">
             <span className="font-bold text-xl">
               {lang === "en" ? <>Swap</> : <>Échanger</>}
             </span>
@@ -122,7 +122,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
           </div>
         </div>
 
-        <div className="px-4 pt-4">
+        <div className="px-4 py-4">
           <div className="flex flex-col justify-center gap-4">
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
@@ -154,7 +154,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
           </div>
         </div>
 
-        <div className="px-4 pt-4">
+        <div className="px-4 py-4">
           <div className="flex flex-col justify-center gap-4">
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
@@ -185,6 +185,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             </div>
           </div>
         </div>
+
         <div className="px-4 pt-4">
           {userAddress ? (
             <BlueButton

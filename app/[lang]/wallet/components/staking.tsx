@@ -76,19 +76,37 @@ const Staking = ({
 
   return (
     <>
-      <div className="mt-8 w-full flex flex-col flex-wrap gap-4 bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="flex flex-col flex-wrap gap-4 px-4">
+      <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="flex flex-col px-4 pb-4">
           <span className="font-bold text-xl">
-            {lang === "en" ? <>Earn</> : <>Gagner</>}
+            {lang === "en" ? <>Stake</> : <>Staker</>}
           </span>
-          <div>
-            <span className="text-4xl font-bold text-green-500 dark:text-green-300">
-              {APY}%{" "}
-              <span className="text-base text-gray-700 dark:text-gray-300">
-                ROI
+          <div className="flex items-center gap-1">
+            <div
+              className={`w-3 h-3 rounded-full ${
+                address ? "bg-green-500" : "bg-gray-500"
+              }`}
+            />
+            {address ? (
+              <span className="text-gray-700 dark:text-gray-300 text-sm">
+                {lang === "en" ? "Connected" : "Connecté"}
               </span>
-            </span>
+            ) : (
+              <span className="text-gray-700 dark:text-gray-300 text-sm">
+                {lang === "en" ? "Not connected" : "Non connecté"}
+              </span>
+            )}
           </div>
+        </div>
+
+        <div className="px-4 py-4 flex flex-col gap-2">
+          <span className="text-4xl font-bold text-green-500 dark:text-green-300">
+            {APY}%{" "}
+            <span className="text-base text-gray-700 dark:text-gray-300">
+              ROI
+            </span>
+          </span>
+
           <div>
             <Period
               lang={lang}
@@ -104,10 +122,11 @@ const Staking = ({
             />
           </div>
         </div>
-        <div className="pt-4 px-4">
+
+        <div className="py-4 px-4">
           <StakingData lang={lang} />
         </div>
-        <div className="pt-4 px-4">
+        <div className="py-4 px-4">
           <TotalStaked lang={lang} />
         </div>
         <div className="pt-4 px-4">
