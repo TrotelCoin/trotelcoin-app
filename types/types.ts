@@ -122,8 +122,8 @@ export type MobileFooterItem = {
   name: string;
   href: string;
   id: number;
-  iconOutline: React.JSX.Element;
-  iconSolid: React.JSX.Element;
+  iconOutline?: React.JSX.Element;
+  iconSolid?: React.JSX.Element;
 };
 
 export type LeaderboardItem = {

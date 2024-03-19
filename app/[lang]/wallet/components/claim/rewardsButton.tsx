@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/types";
 import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
@@ -34,6 +34,7 @@ const RewardsButton = ({
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [errorHappened, setErrorHappened] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { sendTransactionAsync, isError } = useSendTransaction({
@@ -129,12 +130,21 @@ const RewardsButton = ({
     }
   };
 
+  useEffect(() => {
+    if (address && availableToClaim > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [address, availableToClaim]);
+
   return (
     <>
       <BlueButton
         lang={lang}
         onClick={() => fetchRewards()}
         isLoading={isLoading}
+        disabled={disabled}
         isFull={true}
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
