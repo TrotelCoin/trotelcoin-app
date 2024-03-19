@@ -175,7 +175,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 text-left transition-all my-8 w-full max-w-2xl p-6">
                 <button
-                  className="absolute top-4 right-4 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full"
+                  className="absolute top-4 right-4 p-1 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-full focus:outline-none"
                   onClick={hide}
                 >
                   <XMarkIcon className="h-6 w-6" />
