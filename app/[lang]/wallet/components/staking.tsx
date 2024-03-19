@@ -9,6 +9,11 @@ import Amount from "@/app/[lang]/wallet/components/staking/amount";
 import ClaimingButton from "@/app/[lang]/wallet/components/staking/claimingButton";
 import ApproveButton from "@/app/[lang]/wallet/components/staking/approveButton";
 import TotalStaked from "@/app/[lang]/wallet/components/staking/totalStaked";
+import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
+import trotelCoinV1ABI from "@/abi/trotelCoinV1";
+import { polygon } from "viem/chains";
+import { useAccount, useReadContract, useBlockNumber } from "wagmi";
+import { formatEther } from "viem";
 
 const Staking = ({
   lang,
@@ -23,6 +28,14 @@ const Staking = ({
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [amountError, setAmountError] = useState<string | null>(null);
+  const [allowance, setAllowance] = useState<number | null>(null);
+
+  const { address } = useAccount();
+
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
 
   useEffect(() => {
     switch (stakingPeriod) {
@@ -62,6 +75,25 @@ const Staking = ({
       }
     }
   }, [amount]);
+
+  const { data: allowanceData, refetch } = useReadContract({
+    address: trotelCoinAddress,
+    abi: trotelCoinV1ABI,
+    chainId: polygon.id,
+    functionName: "allowance",
+    args: [address, trotelCoinStakingV1],
+  });
+
+  useEffect(() => {
+    if (allowanceData) {
+      const allowance = Number(formatEther(allowanceData as bigint));
+      setAllowance(allowance);
+    }
+  }, [allowanceData]);
+
+  useEffect(() => {
+    refetch();
+  }, [blockNumber, address]);
 
   return (
     <>
@@ -107,6 +139,7 @@ const Staking = ({
               amount={amount as number}
               chainError={chainError}
               setChainError={setChainError}
+              allowance={allowance as number}
             />
             <StakingButton
               lang={lang}
@@ -114,6 +147,7 @@ const Staking = ({
               amount={amount as number}
               chainError={chainError}
               setChainError={setChainError}
+              allowance={allowance as number}
             />
 
             <ClaimingButton

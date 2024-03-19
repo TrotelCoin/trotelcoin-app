@@ -34,6 +34,7 @@ const ClaimingButton = ({
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
@@ -135,12 +136,26 @@ const ClaimingButton = ({
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    if (
+      stakedTrotelCoins &&
+      stakedTrotelCoins > 0 &&
+      timeLeft &&
+      timeLeft <= 0
+    ) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [stakedTrotelCoins, timeLeft]);
+
   return (
     <>
       <BlueButton
         lang={lang}
         onClick={() => claim()}
         isLoading={isPending}
+        disabled={disabled}
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
 

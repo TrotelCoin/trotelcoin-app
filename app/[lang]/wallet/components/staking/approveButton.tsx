@@ -17,15 +17,18 @@ const ApproveButton = ({
   amount,
   chainError,
   setChainError,
+  allowance,
 }: {
   lang: Lang;
   amount: number;
   chainError: boolean;
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+  allowance: number;
 }) => {
   const [amountMessage, setAmountMessage] = useState<boolean>(false);
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
@@ -66,11 +69,20 @@ const ApproveButton = ({
     }
   }, [isError]);
 
+  useEffect(() => {
+    if (amount && address && allowance < amount) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [amount, address, allowance]);
+
   return (
     <>
       <BlueButton
         lang={lang}
         onClick={() => approve(amount)}
+        disabled={disabled}
         text={lang === "en" ? "Approve" : "Approuver"}
         isLoading={isPending}
       />
