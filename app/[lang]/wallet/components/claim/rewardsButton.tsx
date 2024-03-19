@@ -34,7 +34,7 @@ const RewardsButton = ({
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [errorHappened, setErrorHappened] = useState<boolean>(false);
-  const [disabled, setDisabled] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const { address } = useAccount();
   const { sendTransactionAsync, isError } = useSendTransaction({

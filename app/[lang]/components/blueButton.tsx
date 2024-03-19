@@ -35,6 +35,7 @@ const BlueButton = ({
       <button
         type="button"
         onClick={() => whenClicked()}
+        disabled={disabled}
         className={`text-center border-b-4 active:border-none active:mt-1 text-sm font-semibold rounded-xl text-gray-100 backdrop-blur-xl px-6 py-2 ${
           disabled
             ? "bg-gray-500 hover:bg-gray-500/80 border-gray-700 cursor-not-allowed"
