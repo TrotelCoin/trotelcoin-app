@@ -10,13 +10,13 @@ import {
 } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
-import { Address } from "viem";
+import { Address, Hash } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
 
-export const maticAddress: Address =
-  "0x0000000000000000000000000000000000001010";
+export const wrappedMaticAddress: Address =
+  "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270";
 
 export type Sort = "output" | "gas" | "time";
 
@@ -134,7 +134,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [fromChainId] = useState<number>(polygon.id);
   const [toChainId] = useState<number>(polygon.id);
   const [fromTokenAddress, setFromTokenAddress] =
-    useState<Address>(maticAddress);
+    useState<Address>(wrappedMaticAddress);
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toTokenAddress, setToTokenAddress] =
     useState<Address>(trotelCoinAddress);
@@ -146,6 +146,14 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [uniqueRoutesPerBridge] = useState<boolean>(true);
   const [sort] = useState<Sort>("output");
   const [singleTxOnly] = useState<boolean>(true);
+  const [needApproval, setNeedApproval] = useState<boolean>(false);
+  const [approvalData, setApprovalData] = useState<any>(null);
+  const [txHash, setTxHash] = useState<Hash | null>(null);
+  const [apiReturnData, setApiReturnData] = useState<any>(null);
+  const [approvalTransactionData, setApprovalTransactionData] =
+    useState<any>(null);
+  const [toAmount, setToAmount] = useState<number | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -189,8 +197,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     switch (tokenAddress) {
       case trotelCoinAddress:
         return "TROTEL";
-      case maticAddress:
-        return "MATIC";
+      case wrappedMaticAddress:
+        return "WMATIC";
       default:
         return "Unknown";
     }
@@ -201,13 +209,114 @@ const Swap = ({ lang }: { lang: Lang }) => {
       fromAmount &&
       userAddress &&
       toBalance &&
-      fromAmount <= (fromBalance as number)
+      fromAmount <= (fromBalance as number) &&
+      !isLoading
     ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [fromAmount, userAddress, toBalance, fromBalance]);
+  }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
+
+  useEffect(() => {
+    const fetchQuote = async () => {
+      setIsLoading(true);
+
+      const quote = await getQuote(
+        fromChainId,
+        fromTokenAddress,
+        toChainId,
+        toTokenAddress,
+        fromAmount as number,
+        userAddress as Address,
+        uniqueRoutesPerBridge,
+        sort,
+        singleTxOnly
+      );
+
+      setQuote(quote);
+
+      const route = quote.result.routes[0];
+
+      console.log("route", route);
+
+      const apiReturnData = await getRouteTransactionData(route);
+
+      const approvalData = apiReturnData.result?.approvalData;
+
+      setToAmount(route ? route?.toAmount : 0);
+
+      setApprovalData(approvalData);
+      setIsLoading(false);
+    };
+
+    if (userAddress && fromAmount) {
+      fetchQuote();
+    } else {
+      setQuote(null);
+      setToAmount(0);
+    }
+  }, [
+    fromAmount,
+    fromChainId,
+    toChainId,
+    userAddress,
+    fromTokenAddress,
+    toTokenAddress,
+    uniqueRoutesPerBridge,
+    sort,
+    singleTxOnly,
+  ]);
+
+  useEffect(() => {
+    const txStatus = setInterval(async () => {
+      const status = await getBridgeStatus(
+        txHash as Address,
+        fromChainId,
+        toChainId
+      );
+
+      if (status.code !== 200) {
+        return;
+      }
+
+      if (status.result.destinationTxStatus == "COMPLETED") {
+        clearInterval(txStatus);
+      }
+    }, 20000);
+  }, [txHash]);
+
+  useEffect(() => {
+    const fetchApproval = async () => {
+      const { allowanceTarget, minimumApprovalAmount } = approvalData;
+
+      const allowanceCheckStatus = await checkAllowance(
+        fromChainId,
+        userAddress as Address,
+        allowanceTarget,
+        fromTokenAddress
+      );
+      const allowanceValue = allowanceCheckStatus.result?.value;
+
+      if (minimumApprovalAmount > allowanceValue) {
+        const approvalTransactionData = await getApprovalTransactionData(
+          fromChainId,
+          userAddress as Address,
+          allowanceTarget,
+          fromTokenAddress,
+          minimumApprovalAmount
+        );
+
+        setApprovalTransactionData(approvalTransactionData);
+      }
+    };
+
+    if (approvalData && userAddress) {
+      fetchApproval();
+    } else {
+      setNeedApproval(false);
+    }
+  }, [approvalData, userAddress, fromTokenAddress, fromChainId]);
 
   return (
     <>
@@ -294,7 +403,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed"
                 onWheel={(e) => e.preventDefault()}
-                value={quote?.buyAmount ? quote?.buyAmount.toString() : "0"}
+                value={toAmount ? toAmount : "0"}
                 disabled={true}
               />
               <div className="flex flex-col justify-center items-end">
@@ -314,18 +423,40 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
         <div className="px-4 pt-4">
           {userAddress ? (
-            <BlueButton
-              isFull={true}
-              disabled={disabled}
-              lang={lang}
-              text={lang === "en" ? "Swap" : "Échanger"}
-              onClick={() =>
-                sendTransactionAsync({
-                  to: quote?.to as Address,
-                  data: quote?.data,
-                })
-              }
-            />
+            needApproval ? (
+              <BlueButton
+                isFull={true}
+                disabled={disabled}
+                lang={lang}
+                isLoading={isLoading}
+                text={lang === "en" ? "Approve" : "Approuver"}
+                onClick={async () => {
+                  await sendTransactionAsync({
+                    to: approvalTransactionData.result?.to,
+                    data: approvalTransactionData.result?.data,
+                    chainId: fromChainId,
+                  });
+                }}
+              />
+            ) : (
+              <BlueButton
+                isFull={true}
+                disabled={disabled}
+                lang={lang}
+                isLoading={isLoading}
+                text={lang === "en" ? "Swap" : "Échanger"}
+                onClick={async () => {
+                  const txHash = await sendTransactionAsync({
+                    account: userAddress as Address,
+                    to: apiReturnData.result.txTarget,
+                    value: apiReturnData.result.value,
+                    data: apiReturnData.result.txData,
+                  });
+
+                  setTxHash(txHash);
+                }}
+              />
+            )
           ) : (
             <Wallet lang={lang} isFull={true} isCentered={true} />
           )}
