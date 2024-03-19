@@ -3,7 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { Lang } from "@/types/types";
 import { CogIcon } from "@heroicons/react/20/solid";
-import { useAccount, useSendTransaction, useBalance } from "wagmi";
+import {
+  useAccount,
+  useSendTransaction,
+  useBalance,
+  useBlockNumber,
+} from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
@@ -40,19 +45,23 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
   const { address: userAddress } = useAccount();
 
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
   const { isLoading: isLoadingPrice } = useSWR(
-    [
-      "/api/quote",
-      {
-        sellToken: price?.sellTokenAddress,
-        buyToken: price?.buyTokenAddress,
-        sellAmount: price?.sellAmount,
-        buyAmount: 50000,
-        userAddress,
-        feeRecipient: 0,
-        buyTokenPercentageFee: "",
-      },
-    ],
+    userAddress && fromAmount
+      ? [
+          "/api/zerox/price",
+          {
+            sellToken: fromTokenAddress,
+            sellAmount: fromAmount,
+            buyToken: toTokenAddress,
+            takerAddress: userAddress,
+          },
+        ]
+      : null,
     fetcher,
     {
       onSuccess: (data) => {
@@ -61,17 +70,22 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   );
 
-  const { data: fromBalanceData } = useBalance({
+  const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
     token: fromTokenAddress,
     chainId: polygon.id,
   });
 
-  const { data: toBalanceData } = useBalance({
+  const { data: toBalanceData, refetch: refetchTo } = useBalance({
     address: userAddress,
     token: toTokenAddress,
     chainId: polygon.id,
   });
+
+  useEffect(() => {
+    refetchFrom();
+    refetchTo();
+  }, [blockNumber, userAddress]);
 
   useEffect(() => {
     if (fromBalanceData) {
@@ -157,7 +171,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
               </div>
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en" ? "Balance:" : "Solde:"}{" "}
-                {Number(fromBalance?.toFixed(0)).toLocaleString("en-US") ?? "0"}
+                {fromBalance
+                  ? Number(fromBalance?.toFixed(0)).toLocaleString("en-US")
+                  : "0"}
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -193,7 +209,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
               </div>
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en" ? "Balance:" : "Solde:"}{" "}
-                {Number(toBalance?.toFixed(0)).toLocaleString("en-US") ?? "0"}
+                {toBalance
+                  ? Number(toBalance?.toFixed(0)).toLocaleString("en-US")
+                  : "0"}
               </span>
             </div>
             <div className="flex items-center gap-4">
