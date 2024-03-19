@@ -10,13 +10,26 @@ import {
 } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
-import { Address, Hash } from "viem";
+import { Address, formatUnits, Hash, parseUnits } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
+import { useDebounce } from "use-debounce";
 
-export const wrappedMaticAddress: Address =
-  "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270";
+export type Token = {
+  address: Address;
+  decimals: number;
+};
+
+export const trotel: Token = {
+  address: trotelCoinAddress,
+  decimals: 18,
+};
+
+export const usdc: Token = {
+  address: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+  decimals: 6,
+};
 
 export type Sort = "output" | "gas" | "time";
 
@@ -133,8 +146,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromChainId] = useState<number>(polygon.id);
   const [toChainId] = useState<number>(polygon.id);
-  const [fromTokenAddress, setFromTokenAddress] =
-    useState<Address>(wrappedMaticAddress);
+  const [fromTokenAddress, setFromTokenAddress] = useState<Address>(
+    usdc.address
+  );
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toTokenAddress, setToTokenAddress] =
     useState<Address>(trotelCoinAddress);
@@ -154,6 +168,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     useState<any>(null);
   const [toAmount, setToAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [fromDecimals, setFromDecimals] = useState<number>(usdc.decimals);
+  const [toDecimals, setToDecimals] = useState<number>(trotel.decimals);
 
   const { address: userAddress } = useAccount();
 
@@ -197,8 +213,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     switch (tokenAddress) {
       case trotelCoinAddress:
         return "TROTEL";
-      case wrappedMaticAddress:
-        return "WMATIC";
+      case usdc.address:
+        return "USDC";
       default:
         return "Unknown";
     }
@@ -218,16 +234,22 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
 
+  const [debouncedFromAmount] = useDebounce(fromAmount, 500);
+
   useEffect(() => {
     const fetchQuote = async () => {
       setIsLoading(true);
+
+      const fromAmountDecimals: number = debouncedFromAmount
+        ? Number(parseUnits(debouncedFromAmount.toString(), fromDecimals))
+        : 0;
 
       const quote = await getQuote(
         fromChainId,
         fromTokenAddress,
         toChainId,
         toTokenAddress,
-        fromAmount as number,
+        fromAmountDecimals,
         userAddress as Address,
         uniqueRoutesPerBridge,
         sort,
@@ -238,26 +260,26 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       const route = quote.result.routes[0];
 
-      console.log("route", route);
-
       const apiReturnData = await getRouteTransactionData(route);
 
       const approvalData = apiReturnData.result?.approvalData;
 
-      setToAmount(route ? route?.toAmount : 0);
+      const toAmount = Number(Number(route?.toAmount).toFixed(0));
+
+      setToAmount(route ? toAmount : 0);
 
       setApprovalData(approvalData);
       setIsLoading(false);
     };
 
-    if (userAddress && fromAmount) {
+    if (userAddress && debouncedFromAmount) {
       fetchQuote();
     } else {
       setQuote(null);
       setToAmount(0);
     }
   }, [
-    fromAmount,
+    debouncedFromAmount,
     fromChainId,
     toChainId,
     userAddress,
@@ -364,7 +386,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
               <input
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent"
-                value={(fromAmount as number) < 0 ? 0 : fromAmount}
+                value={
+                  (debouncedFromAmount as number) < 0 ? 0 : debouncedFromAmount
+                }
                 onChange={(e) => setFromAmount(parseFloat(e.target.value))}
                 placeholder={lang === "en" ? "Amount" : "Montant"}
               />
@@ -403,7 +427,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed"
                 onWheel={(e) => e.preventDefault()}
-                value={toAmount ? toAmount : "0"}
+                value={toAmount ? Number((toAmount * 1e-18).toFixed(0)) : 0}
                 disabled={true}
               />
               <div className="flex flex-col justify-center items-end">
