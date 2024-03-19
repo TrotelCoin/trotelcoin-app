@@ -10,10 +10,11 @@ import {
 } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
-import { Address, formatUnits, Hash, parseUnits } from "viem";
+import { Address, Hash, parseUnits } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
+import Success from "@/app/[lang]/components/modals/success";
 import { useDebounce } from "use-debounce";
 
 export type Token = {
@@ -170,6 +171,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fromDecimals, setFromDecimals] = useState<number>(usdc.decimals);
   const [toDecimals, setToDecimals] = useState<number>(trotel.decimals);
+  const [swappedMessage, setSwappedMessage] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -214,7 +216,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
       },
     },
   });
-  const { sendTransactionAsync: swappingAsync } = useSendTransaction();
+  const { sendTransactionAsync: swappingAsync } = useSendTransaction({
+    mutation: {
+      onSuccess: () => {
+        setSwappedMessage(true);
+      },
+    },
+  });
 
   const tokenAddressToName = (tokenAddress: Address) => {
     switch (tokenAddress) {
@@ -484,7 +492,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 text={lang === "en" ? "Swap" : "Échanger"}
                 onClick={async () => {
                   const txHash = await swappingAsync({
-                    account: userAddress as Address,
+                    account: userAddress,
                     to: apiReturnData.result.txTarget,
                     value: apiReturnData.result.value,
                     data: apiReturnData.result.txData,
@@ -507,6 +515,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
         message={
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
         }
+      />
+      <Success
+        show={swappedMessage}
+        onClose={() => setSwappedMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Success" : "Succès"}
+        message={lang === "en" ? "Swap successful !" : "Échange réussi !"}
       />
     </>
   );

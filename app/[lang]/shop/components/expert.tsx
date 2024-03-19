@@ -54,8 +54,28 @@ const Expert = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
-  const { isSuccess, isError, isPending, writeContractAsync } =
-    useWriteContract();
+  const { isPending, writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setIsClaimed(true);
+        setIsClaimedMessage(true);
+
+        const postClaimExpert = async () => {
+          await axios
+            .post(`/api/database/claimExpert?wallet=${address}`)
+            .catch((error) => {
+              console.error(error);
+              setErrorMessage(true);
+            });
+        };
+
+        postClaimExpert();
+      },
+      onError: () => {
+        setErrorMessage(true);
+      },
+    },
+  });
   const { data: claimed, refetch: refetchBalanceExpert } = useReadContract({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
@@ -93,30 +113,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
       setIsNotConnectedMessage(true);
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setIsClaimed(true);
-      setIsClaimedMessage(true);
-
-      const postClaimExpert = async () => {
-        await axios
-          .post(`/api/database/claimExpert?wallet=${address}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-          });
-      };
-
-      postClaimExpert();
-    }
-  }, [isSuccess, address, setIsClaimedMessage, setIsClaimed]);
-
-  useEffect(() => {
-    if (isError) {
-      setErrorMessage(true);
-    }
-  }, [isError]);
 
   return (
     <>
