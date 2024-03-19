@@ -36,7 +36,6 @@ const StakingButton = ({
   const [stakeMessage, setStakeMessage] = useState<boolean>(false);
   const [stakingPeriodMessage, setStakingPeriodMessage] =
     useState<boolean>(false);
-  const [amountMessage, setAmountMessage] = useState<boolean>(false);
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
   const [alreadyStakingMessage, setAlreadyStakingMessage] =
     useState<boolean>(false);
@@ -103,7 +102,6 @@ const StakingButton = ({
     }
 
     if (amount <= 0) {
-      setAmountMessage(true);
       return;
     }
 
@@ -189,17 +187,6 @@ const StakingButton = ({
           lang === "en"
             ? "You need to select a staking period"
             : "Vous devez sélectionner une période de staking"
-        }
-      />
-      <Fail
-        show={amountMessage}
-        lang={lang}
-        onClose={() => setAmountMessage(false)}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "The amount must be positive"
-            : "Le montant doit être positif"
         }
       />
       <Fail

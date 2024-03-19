@@ -12,7 +12,8 @@ import { trotelCoinAddress } from "@/data/web3/addresses";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 import { PriceResponse, QuoteResponse } from "@/pages/api/zerox/types";
-import BlueButton from "../../components/blueButton";
+import BlueButton from "@/app/[lang]/components/blueButton";
+import Fail from "@/app/[lang]/components/modals/fail";
 
 export const maticAddress: Address =
   "0x0000000000000000000000000000000000001010";
@@ -33,6 +34,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [price, setPrice] = useState<PriceResponse | null>(null);
   const [tradeDirection, setTradeDirection] = useState<TradeDirection>("buy");
   const [disabled, setDisabled] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -142,7 +144,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               <input
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent"
-                value={fromAmount as number}
+                value={(fromAmount as number) < 0 ? 0 : fromAmount}
                 onChange={(e) => setFromAmount(parseFloat(e.target.value))}
                 placeholder={lang === "en" ? "Amount" : "Montant"}
               />
@@ -204,6 +206,15 @@ const Swap = ({ lang }: { lang: Lang }) => {
       <div className="mt-4 block md:hidden">
         <Wallet lang={lang} isFull={true} isCentered={true} />
       </div>
+      <Fail
+        show={errorMessage}
+        onClose={() => setErrorMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en" ? "An error occurred" : "Une erreur s'est produite"
+        }
+      />
     </>
   );
 };

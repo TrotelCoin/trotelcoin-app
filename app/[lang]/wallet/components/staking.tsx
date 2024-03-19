@@ -27,7 +27,6 @@ const Staking = ({
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
-  const [amountError, setAmountError] = useState<string | null>(null);
   const [allowance, setAllowance] = useState<number | null>(null);
 
   const { address } = useAccount();
@@ -55,26 +54,6 @@ const Staking = ({
         setAPY(0);
     }
   }, [stakingPeriod, APY]);
-
-  useEffect(() => {
-    if (amount) {
-      if (amount < 0) {
-        setAmountError(
-          lang === "en"
-            ? "The amount must be positive"
-            : "Le montant doit être positif"
-        );
-      } else if (!Number(amount)) {
-        setAmountError(
-          lang === "en"
-            ? "The amount must be a number"
-            : "Le montant doit être un nombre"
-        );
-      } else {
-        setAmountError(null);
-      }
-    }
-  }, [amount]);
 
   const { data: allowanceData, refetch } = useReadContract({
     address: trotelCoinAddress,
@@ -122,7 +101,6 @@ const Staking = ({
               lang={lang}
               amount={amount as number}
               setAmount={setAmount}
-              amountError={amountError as string}
             />
           </div>
         </div>
