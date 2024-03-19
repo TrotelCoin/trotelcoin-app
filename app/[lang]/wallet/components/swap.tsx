@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Lang } from "@/types/types";
 import { CogIcon } from "@heroicons/react/20/solid";
-import { useAccount, useEstimateGas, useSendTransaction } from "wagmi";
+import { useAccount, useSendTransaction, useBalance } from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
@@ -35,6 +35,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [tradeDirection, setTradeDirection] = useState<TradeDirection>("buy");
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [fromBalance, setFromBalance] = useState<number | null>(null);
+  const [toBalance, setToBalance] = useState<number | null>(null);
 
   const { address: userAddress } = useAccount();
 
@@ -59,11 +61,29 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   );
 
-  const { data: gasPrice } = useEstimateGas({
+  const { data: fromBalanceData } = useBalance({
+    address: userAddress,
+    token: fromTokenAddress,
     chainId: polygon.id,
-    to: quote?.to as Address,
-    data: quote?.data,
   });
+
+  const { data: toBalanceData } = useBalance({
+    address: userAddress,
+    token: toTokenAddress,
+    chainId: polygon.id,
+  });
+
+  useEffect(() => {
+    if (fromBalanceData) {
+      const balance = Number(fromBalanceData?.formatted);
+      setFromBalance(balance);
+    }
+
+    if (toBalanceData) {
+      const balance = Number(toBalanceData?.formatted);
+      setToBalance(balance);
+    }
+  }, [fromBalanceData, toBalanceData]);
 
   const { sendTransactionAsync } = useSendTransaction();
 
@@ -83,12 +103,17 @@ const Swap = ({ lang }: { lang: Lang }) => {
   };
 
   useEffect(() => {
-    if (fromAmount && userAddress) {
+    if (
+      fromAmount &&
+      userAddress &&
+      toBalance &&
+      fromAmount <= (fromBalance as number)
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [fromAmount, userAddress]);
+  }, [fromAmount, userAddress, toBalance, fromBalance]);
 
   return (
     <>
@@ -123,18 +148,16 @@ const Swap = ({ lang }: { lang: Lang }) => {
         </div>
 
         <div className="px-4 py-4">
-          <div className="flex flex-col justify-center gap-4">
+          <div className="flex flex-col justify-center gap-2">
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
                 <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "From" : "De"}
+                  {lang === "en" ? "Pay with" : "Acheter avec"}
                 </span>
               </div>
-              <span>
-                $
-                {fromPrice
-                  ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
-                  : "0"}
+              <span className="text-sm text-gray-700 dark:text-gray-300">
+                {lang === "en" ? "Balance:" : "Solde:"}{" "}
+                {Number(fromBalance?.toFixed(0)).toLocaleString("en-US") ?? "0"}
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -145,9 +168,15 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 onChange={(e) => setFromAmount(parseFloat(e.target.value))}
                 placeholder={lang === "en" ? "Amount" : "Montant"}
               />
-              <div className="flex items-center">
+              <div className="flex flex-col justify-center items-end">
                 <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {tokenAddressToName(fromTokenAddress)}
+                </span>
+                <span className="text-xs">
+                  $
+                  {fromPrice
+                    ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
+                    : "0"}
                 </span>
               </div>
             </div>
@@ -155,18 +184,16 @@ const Swap = ({ lang }: { lang: Lang }) => {
         </div>
 
         <div className="px-4 py-4">
-          <div className="flex flex-col justify-center gap-4">
+          <div className="flex flex-col justify-center gap-2">
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
                 <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "To" : "Vers"}
+                  {lang === "en" ? "You receive" : "Vous recevez"}
                 </span>
               </div>
-              <span>
-                $
-                {toPrice
-                  ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
-                  : "0"}
+              <span className="text-sm text-gray-700 dark:text-gray-300">
+                {lang === "en" ? "Balance:" : "Solde:"}{" "}
+                {Number(toBalance?.toFixed(0)).toLocaleString("en-US") ?? "0"}
               </span>
             </div>
             <div className="flex items-center gap-4">
@@ -174,12 +201,18 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed"
                 onWheel={(e) => e.preventDefault()}
-                placeholder={lang === "en" ? "0" : "0"}
+                value={quote?.buyAmount ? quote?.buyAmount.toString() : "0"}
                 disabled={true}
               />
-              <div className="flex items-center">
+              <div className="flex flex-col justify-center items-end">
                 <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {tokenAddressToName(toTokenAddress)}
+                </span>
+                <span className="text-xs">
+                  $
+                  {toPrice
+                    ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
+                    : "0"}
                 </span>
               </div>
             </div>
@@ -197,7 +230,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 sendTransactionAsync({
                   to: quote?.to as Address,
                   data: quote?.data,
-                  gasPrice: gasPrice as bigint,
                 })
               }
             />
