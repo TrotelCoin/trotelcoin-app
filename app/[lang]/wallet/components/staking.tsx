@@ -112,10 +112,13 @@ const Staking = ({
         </div>
         <div className="pt-4 px-4">
           <div className="grid grid-cols-2 gap-4">
-            {allowance && amount && allowance < amount ? (
+            {allowance &&
+            (allowance < (amount as number) ||
+              amount === undefined ||
+              !address) ? (
               <ApproveButton
                 lang={lang}
-                amount={amount}
+                amount={amount as number}
                 chainError={chainError}
                 setChainError={setChainError}
                 allowance={allowance}

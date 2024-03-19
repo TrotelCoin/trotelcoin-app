@@ -116,9 +116,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <div className="hidden md:block">
-              <Wallet lang={lang} />
-            </div>
             <BlueSimpleButton onClick={() => openSettings()}>
               <CogIcon className="w-5 h-5 text-gray-100" />
             </BlueSimpleButton>
@@ -189,23 +186,24 @@ const Swap = ({ lang }: { lang: Lang }) => {
           </div>
         </div>
         <div className="px-4 pt-4">
-          <BlueButton
-            isFull={true}
-            disabled={disabled}
-            lang={lang}
-            text={lang === "en" ? "Swap" : "Échanger"}
-            onClick={() =>
-              sendTransactionAsync({
-                to: quote?.to as Address,
-                data: quote?.data,
-                gasPrice: gasPrice as bigint,
-              })
-            }
-          />
+          {userAddress ? (
+            <BlueButton
+              isFull={true}
+              disabled={disabled}
+              lang={lang}
+              text={lang === "en" ? "Swap" : "Échanger"}
+              onClick={() =>
+                sendTransactionAsync({
+                  to: quote?.to as Address,
+                  data: quote?.data,
+                  gasPrice: gasPrice as bigint,
+                })
+              }
+            />
+          ) : (
+            <Wallet lang={lang} isFull={true} isCentered={true} />
+          )}
         </div>
-      </div>
-      <div className="mt-4 block md:hidden">
-        <Wallet lang={lang} isFull={true} isCentered={true} />
       </div>
       <Fail
         show={errorMessage}
