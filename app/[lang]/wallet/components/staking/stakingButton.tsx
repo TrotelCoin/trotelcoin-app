@@ -153,7 +153,7 @@ const StakingButton = ({
   }, [isSuccess]);
 
   useEffect(() => {
-    if (amount && address && allowance < amount && stakedTrotelCoins <= 0) {
+    if (amount && address && allowance >= amount && stakedTrotelCoins <= 0) {
       setDisabled(false);
     } else {
       setDisabled(true);
