@@ -15,7 +15,6 @@ import { trotelCoinAddress } from "@/data/web3/addresses";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
-import { useDebounce } from "use-debounce";
 
 export type Token = {
   address: Address;
@@ -249,14 +248,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
 
-  const [debouncedFromAmount] = useDebounce(fromAmount, 500);
-
   useEffect(() => {
     const fetchQuote = async () => {
       setIsLoading(true);
 
-      const fromAmountDecimals: number = debouncedFromAmount
-        ? Number(parseUnits(debouncedFromAmount.toString(), fromDecimals))
+      const fromAmountDecimals: number = fromAmount
+        ? Number(parseUnits(fromAmount.toString(), fromDecimals))
         : 0;
 
       const quote = await getQuote(
@@ -289,14 +286,14 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setIsLoading(false);
     };
 
-    if (userAddress && debouncedFromAmount) {
+    if (userAddress && fromAmount) {
       fetchQuote();
     } else {
       setQuote(null);
       setToAmount(0);
     }
   }, [
-    debouncedFromAmount,
+    fromAmount,
     fromChainId,
     toChainId,
     userAddress,
@@ -407,9 +404,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               <input
                 type="number"
                 className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent"
-                value={
-                  (debouncedFromAmount as number) < 0 ? 0 : debouncedFromAmount
-                }
+                value={(fromAmount as number) < 0 ? 0 : fromAmount}
                 onChange={(e) => setFromAmount(parseFloat(e.target.value))}
                 placeholder={lang === "en" ? "Amount" : "Montant"}
               />
