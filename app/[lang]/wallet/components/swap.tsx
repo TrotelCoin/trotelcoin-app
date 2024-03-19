@@ -198,6 +198,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               sendTransactionAsync({
                 to: quote?.to as Address,
                 data: quote?.data,
+                gasPrice: data,
               })
             }
           />
