@@ -24,12 +24,14 @@ const StakingButton = ({
   amount,
   chainError,
   setChainError,
+  allowance,
 }: {
   lang: Lang;
   stakingPeriod: number;
   amount: number;
   chainError: boolean;
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+  allowance: number;
 }) => {
   const [stakeMessage, setStakeMessage] = useState<boolean>(false);
   const [stakingPeriodMessage, setStakingPeriodMessage] =
@@ -40,6 +42,7 @@ const StakingButton = ({
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnected, setNotConnected] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
@@ -149,11 +152,20 @@ const StakingButton = ({
     }
   }, [isSuccess]);
 
+  useEffect(() => {
+    if (amount && address && allowance < amount && stakedTrotelCoins <= 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [amount, address, allowance, stakedTrotelCoins]);
+
   return (
     <>
       <BlueButton
         lang={lang}
         onClick={() => stake(amount, stakingPeriod)}
+        disabled={disabled}
         text={lang === "en" ? "Stake" : "Staker"}
         isLoading={isPending}
       />

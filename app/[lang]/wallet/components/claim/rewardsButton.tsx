@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/types";
 import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
