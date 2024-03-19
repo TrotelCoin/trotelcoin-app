@@ -267,9 +267,9 @@ const lessons: Lessons[] = [
           fr: "Intermédiaire",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 12,
-        available: false,
+        available: true,
       },
       {
         title: {

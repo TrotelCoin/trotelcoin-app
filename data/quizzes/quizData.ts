@@ -863,6 +863,107 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 12,
+    title: "Understand the layers 2",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What are the three good things about a blockchain?",
+          fr: "Quels sont les trois bons aspects d'une blockchain ?",
+        },
+        options: {
+          en: [
+            "Decentralized, secure, scalable",
+            "Fast, private, cheap",
+            "Centralized, insecure, slow",
+            "Scalable, private, cheap",
+          ],
+          fr: [
+            "Décentralisée, sécurisée, évolutive",
+            "Rapide, privée, bon marché",
+            "Centralisée, non sécurisée, lente",
+            "Évolutive, privée, bon marché",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is the problem called the blockchain trilemma?",
+          fr: "Quel est le problème appelé le trilemme de la blockchain ?",
+        },
+        options: {
+          en: [
+            "A basic blockchain can only have two of decentralized, secure, scalable",
+            "A basic blockchain can have all three aspects",
+            "A basic blockchain can have only one aspect",
+            "A basic blockchain cannot be secure",
+          ],
+          fr: [
+            "Une blockchain de base ne peut avoir que deux aspects sur trois : décentralisé, sécurisé, évolutive",
+            "Une blockchain de base peut avoir les trois aspects",
+            "Une blockchain de base peut avoir seulement un aspect",
+            "Une blockchain de base ne peut pas être sécurisée",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What are Layer 2 blockchains mainly built on?",
+          fr: "Sur quoi sont construites les blockchains de couche 2 principalement ?",
+        },
+        options: {
+          en: ["Ethereum", "Bitcoin", "Ripple", "Cardano"],
+          fr: ["Ethereum", "Bitcoin", "Ripple", "Cardano"],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What analogy is used to explain a Layer 2 solution?",
+          fr: "Quelle analogie est utilisée pour expliquer une solution de couche 2 ?",
+        },
+        options: {
+          en: [
+            "Friends helping carry a heavy backpack",
+            "Fish swimming in the sea",
+            "Cars racing on a track",
+            "Birds flying in the sky",
+          ],
+          fr: [
+            "Des amis aidant à porter un sac à dos lourd",
+            "Des poissons nageant dans la mer",
+            "Des voitures courant sur une piste",
+            "Des oiseaux volant dans le ciel",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What are some popular Layer 2 solutions mentioned in the course?",
+          fr: "Quelles sont quelques solutions de couche 2 populaires mentionnées dans le cours ?",
+        },
+        options: {
+          en: [
+            "Polygon, Arbitrum, Optimism",
+            "Bitcoin, Ethereum, Litecoin",
+            "Stellar, Dogecoin, Dash",
+            "Tezos, EOS, TRON",
+          ],
+          fr: [
+            "Polygon, Arbitrum, Optimism",
+            "Bitcoin, Ethereum, Litecoin",
+            "Stellar, Dogecoin, Dash",
+            "Tezos, EOS, TRON",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 16,
     title: "Stake your TrotelCoins",
     questions: [
