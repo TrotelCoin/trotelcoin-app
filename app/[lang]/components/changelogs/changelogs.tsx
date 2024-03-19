@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.7.3";
+const version = "1.7.5";
 
 interface ChangelogItem {
   title: string;
@@ -80,6 +80,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Consensus Mechanisms"
               : "- Les Mécanismes de Consensus",
+          isNew: false,
+        },
+        {
+          text: lang === "en" ? "- The Layers 2" : "- Les Layers 2",
           isNew: true,
         },
       ],
@@ -90,16 +94,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Courses are funnier"
-              : "- Les cours sont plus amusants",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
               ? "- There are now sounds"
               : "- Il y a maintenant des sons",
-          isNew: true,
+          isNew: false,
         },
         {
           text:
@@ -111,9 +108,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- New login with WalletConnect"
-              : "- Nouvelle connexion avec WalletConnect",
-          isNew: false,
+              ? "- Web3 buttons UX improved"
+              : "- Amélioration de l'UX des boutons Web3",
+          isNew: true,
         },
       ],
     },
