@@ -59,7 +59,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   );
 
-  const { data } = useEstimateGas({
+  const { data: gasPrice } = useEstimateGas({
     chainId: polygon.id,
     to: quote?.to as Address,
     data: quote?.data,
@@ -198,7 +198,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
               sendTransactionAsync({
                 to: quote?.to as Address,
                 data: quote?.data,
-                gasPrice: data,
+                gasPrice: gasPrice as bigint,
               })
             }
           />
