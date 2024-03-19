@@ -2,49 +2,68 @@
 
 import React, { useEffect, useState } from "react";
 import { Lang } from "@/types/types";
-import { CogIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useAccount } from "wagmi";
+import { CogIcon } from "@heroicons/react/20/solid";
+import { useAccount, useEstimateGas, useSendTransaction } from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { polygon, mainnet } from "viem/chains";
+import { polygon } from "viem/chains";
 import { Address } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
+import useSWR from "swr";
+import { fetcher } from "@/lib/axios/fetcher";
+import { PriceResponse, QuoteResponse } from "@/pages/api/zerox/types";
+import BlueButton from "../../components/blueButton";
 
 export const maticAddress: Address =
   "0x0000000000000000000000000000000000001010";
 
+export type TradeDirection = "buy" | "sell";
+
 export type Sort = "output" | "gas" | "time";
 
 const Swap = ({ lang }: { lang: Lang }) => {
-  const [fromChainId, setFromChainId] = useState<number>(polygon.id);
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromTokenAddress, setFromTokenAddress] =
     useState<Address>(maticAddress);
-  const [toChainId, setToChainId] = useState<number>(polygon.id);
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toTokenAddress, setToTokenAddress] =
     useState<Address>(trotelCoinAddress);
-  const [uniqueRoutesPerBridge, setUniqueRoutesPerBridge] =
-    useState<boolean>(true);
-  const [sort, setSort] = useState<Sort>("output");
-  const [singleTxOnly, setSingleTxOnly] = useState<boolean>(false);
-  const [signer, setSigner] = useState<any>(null);
-  const [provider, setProvider] = useState<any>(null);
-  const [tokenList, setTokenList] = useState<any[]>([]);
+  const [quote, setQuote] = useState<QuoteResponse | null>(null);
+  const [price, setPrice] = useState<PriceResponse | null>(null);
+  const [tradeDirection, setTradeDirection] = useState<TradeDirection>("buy");
+  const [disabled, setDisabled] = useState<boolean>(true);
 
   const { address: userAddress } = useAccount();
 
-  const chainIdToName = (chainId: number) => {
-    switch (chainId) {
-      case mainnet.id:
-        return "Ethereum";
-      case polygon.id:
-        return "Polygon";
-      default:
-        return "Unknown";
+  const { isLoading: isLoadingPrice } = useSWR(
+    [
+      "/api/quote",
+      {
+        sellToken: price?.sellTokenAddress,
+        buyToken: price?.buyTokenAddress,
+        sellAmount: price?.sellAmount,
+        buyAmount: 50000,
+        userAddress,
+        feeRecipient: 0,
+        buyTokenPercentageFee: "",
+      },
+    ],
+    fetcher,
+    {
+      onSuccess: (data) => {
+        setQuote(data);
+      },
     }
-  };
+  );
+
+  const { data } = useEstimateGas({
+    chainId: polygon.id,
+    to: quote?.to as Address,
+    data: quote?.data,
+  });
+
+  const { sendTransactionAsync } = useSendTransaction();
 
   const tokenAddressToName = (tokenAddress: Address) => {
     switch (tokenAddress) {
@@ -60,6 +79,14 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const openSettings = () => {
     null;
   };
+
+  useEffect(() => {
+    if (fromAmount && userAddress) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [fromAmount, userAddress]);
 
   return (
     <>
@@ -158,6 +185,20 @@ const Swap = ({ lang }: { lang: Lang }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="px-4 pt-4">
+          <BlueButton
+            isFull={true}
+            disabled={disabled}
+            lang={lang}
+            text={lang === "en" ? "Swap" : "Échanger"}
+            onClick={() =>
+              sendTransactionAsync({
+                to: quote?.to as Address,
+                data: quote?.data,
+              })
+            }
+          />
         </div>
       </div>
       <div className="mt-4 block md:hidden">

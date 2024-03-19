@@ -31,6 +31,7 @@
     "@tanstack/react-query": "^5.27.5",
     "@types/lodash.merge": "^4.6.7",
     "@types/mdx": "^2.0.11",
+    "@types/qs": "^6.9.13",
     "@uniswap/v2-core": "^1.0.1",
     "@uniswap/v3-core": "^1.0.1",
     "@uniswap/v3-periphery": "^1.4.4",

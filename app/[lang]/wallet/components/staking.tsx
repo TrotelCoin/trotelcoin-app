@@ -134,21 +134,24 @@ const Staking = ({
         </div>
         <div className="pt-4 px-4">
           <div className="grid grid-cols-2 gap-4">
-            <ApproveButton
-              lang={lang}
-              amount={amount as number}
-              chainError={chainError}
-              setChainError={setChainError}
-              allowance={allowance as number}
-            />
-            <StakingButton
-              lang={lang}
-              stakingPeriod={stakingPeriod}
-              amount={amount as number}
-              chainError={chainError}
-              setChainError={setChainError}
-              allowance={allowance as number}
-            />
+            {allowance && amount && allowance < amount ? (
+              <ApproveButton
+                lang={lang}
+                amount={amount as number}
+                chainError={chainError}
+                setChainError={setChainError}
+                allowance={allowance as number}
+              />
+            ) : (
+              <StakingButton
+                lang={lang}
+                stakingPeriod={stakingPeriod}
+                amount={amount as number}
+                chainError={chainError}
+                setChainError={setChainError}
+                allowance={allowance as number}
+              />
+            )}
 
             <ClaimingButton
               lang={lang}
