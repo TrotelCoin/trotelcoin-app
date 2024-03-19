@@ -138,6 +138,7 @@ const ClaimingButton = ({
 
   useEffect(() => {
     if (
+      address &&
       stakedTrotelCoins &&
       stakedTrotelCoins > 0 &&
       timeLeft &&
@@ -147,7 +148,7 @@ const ClaimingButton = ({
     } else {
       setDisabled(true);
     }
-  }, [stakedTrotelCoins, timeLeft]);
+  }, [stakedTrotelCoins, timeLeft, address]);
 
   return (
     <>
