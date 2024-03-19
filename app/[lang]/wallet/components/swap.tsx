@@ -2,30 +2,26 @@
 
 import React, { useEffect, useState } from "react";
 import { Lang } from "@/types/types";
-import { CogIcon } from "@heroicons/react/20/solid";
 import {
   useAccount,
   useSendTransaction,
   useBalance,
   useBlockNumber,
 } from "wagmi";
-import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
 import { Address } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import useSWR from "swr";
-import { fetcher } from "@/lib/axios/fetcher";
 import { PriceResponse, QuoteResponse } from "@/pages/api/zerox/types";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
+import { trotelCoinDAOAddress } from "@/data/web3/addresses";
 
 export const maticAddress: Address =
   "0x0000000000000000000000000000000000001010";
 
-export type TradeDirection = "buy" | "sell";
-
-export type Sort = "output" | "gas" | "time";
+const AFFILIATE_FEE = 0.01;
+const FEE_RECIPIENT = trotelCoinDAOAddress;
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -36,8 +32,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [toTokenAddress, setToTokenAddress] =
     useState<Address>(trotelCoinAddress);
   const [quote, setQuote] = useState<QuoteResponse | null>(null);
-  const [price, setPrice] = useState<PriceResponse | null>(null);
-  const [tradeDirection, setTradeDirection] = useState<TradeDirection>("buy");
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [fromBalance, setFromBalance] = useState<number | null>(null);
@@ -49,26 +43,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
     watch: true,
     chainId: polygon.id,
   });
-
-  const { isLoading: isLoadingPrice } = useSWR(
-    userAddress && fromAmount
-      ? [
-          "/api/zerox/price",
-          {
-            sellToken: fromTokenAddress,
-            sellAmount: fromAmount,
-            buyToken: toTokenAddress,
-            takerAddress: userAddress,
-          },
-        ]
-      : null,
-    fetcher,
-    {
-      onSuccess: (data) => {
-        setQuote(data);
-      },
-    }
-  );
 
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
@@ -112,10 +86,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   };
 
-  const openSettings = () => {
-    null;
-  };
-
   useEffect(() => {
     if (
       fromAmount &&
@@ -153,11 +123,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 </span>
               )}
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <BlueSimpleButton onClick={() => openSettings()}>
-              <CogIcon className="w-5 h-5 text-gray-100" />
-            </BlueSimpleButton>
           </div>
         </div>
 
