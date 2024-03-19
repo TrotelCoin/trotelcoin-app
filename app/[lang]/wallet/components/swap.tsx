@@ -353,8 +353,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
     if (approvalData && userAddress) {
       fetchApproval();
-    } else {
-      setNeedApproval(false);
     }
   }, [approvalData, userAddress, fromTokenAddress, fromChainId]);
 
