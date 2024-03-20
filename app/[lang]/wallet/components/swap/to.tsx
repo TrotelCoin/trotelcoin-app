@@ -52,9 +52,16 @@ const To = ({
             </span>
             <span className="text-xs">
               $
-              {toPrice
-                ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
-                : "0"}
+              <span
+                className={`${
+                  isLoading &&
+                  "animate__animated animate__slower animate__infinite animate__flash"
+                }`}
+              >
+                {toPrice
+                  ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
+                  : "0"}
+              </span>
             </span>
           </div>
         </div>

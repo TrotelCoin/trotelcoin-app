@@ -10,6 +10,7 @@ const From = ({
   setFromAmount,
   fromTokenAddress,
   fromPrice,
+  isLoading,
 }: {
   lang: Lang;
   fromBalance: number;
@@ -17,6 +18,7 @@ const From = ({
   setFromAmount: React.Dispatch<React.SetStateAction<number>>;
   fromTokenAddress: Address;
   fromPrice: number;
+  isLoading: boolean;
 }) => {
   return (
     <>
@@ -48,9 +50,16 @@ const From = ({
             </span>
             <span className="text-xs">
               $
-              {fromPrice
-                ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
-                : "0"}
+              <span
+                className={`${
+                  isLoading &&
+                  "animate__animated animate__slower animate__infinite animate__flash"
+                }`}
+              >
+                {fromPrice
+                  ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
+                  : "0"}
+              </span>
             </span>
           </div>
         </div>

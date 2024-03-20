@@ -251,6 +251,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             setFromAmount={
               setFromAmount as React.Dispatch<React.SetStateAction<number>>
             }
+            isLoading={isLoading}
           />
         </div>
 
