@@ -2,6 +2,7 @@ import type { Lang } from "@/types/lang";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
   const { data: numberOfQuizzesAnswered } = useSWR(
@@ -22,7 +23,7 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
               <span className="hidden md:inline">📚</span>
             </>
           ) : (
-            <span className="animate__animated animate__flash animate__slower animate__infinite">
+            <span className={`${loadingFlashClass}`}>
               0 <span className="hidden md:inline">📚</span>
             </span>
           )}

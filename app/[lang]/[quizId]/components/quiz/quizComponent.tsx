@@ -9,6 +9,7 @@ import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -185,7 +186,9 @@ const QuizComponent = ({
                   )}
             </ul>
           ) : (
-            <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
+            <span
+              className={`font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
+            >
               {lang === "en" ? "Loading quiz..." : "Chargement du quiz..."}
             </span>
           )}

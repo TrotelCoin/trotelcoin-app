@@ -13,6 +13,7 @@ import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const Rewards = ({
   lang,
@@ -116,7 +117,9 @@ const Rewards = ({
       )}
       {claimingLoading && !claimingError && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
-          <span className="font-semibold text-gray-900 dark:text-gray-100 animate__animated animate__flash animate__slower animate__infinite">
+          <span
+            className={`font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
+          >
             {lang === "en" ? "Loading..." : "Chargement..."}
           </span>
         </div>

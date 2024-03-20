@@ -2,6 +2,7 @@ import React from "react";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import type { Lang } from "@/types/lang";
 import { Address } from "viem";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const From = ({
   lang,
@@ -11,6 +12,7 @@ const From = ({
   fromTokenAddress,
   fromPrice,
   isLoading,
+  fromChainId,
 }: {
   lang: Lang;
   fromBalance: number;
@@ -19,6 +21,7 @@ const From = ({
   fromTokenAddress: Address;
   fromPrice: number;
   isLoading: boolean;
+  fromChainId: number;
 }) => {
   return (
     <>
@@ -46,15 +49,10 @@ const From = ({
           />
           <div className="flex flex-col justify-center items-end">
             <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {tokenAddressToName(fromTokenAddress)}
+              {tokenAddressToName(fromTokenAddress, fromChainId)}
             </span>
 
-            <span
-              className={`text-xs ${
-                isLoading &&
-                "animate__animated animate__slower animate__infinite animate__flash"
-              }`}
-            >
+            <span className={`text-xs ${isLoading && loadingFlashClass}`}>
               $
               {fromPrice
                 ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")

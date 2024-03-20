@@ -3,6 +3,7 @@ import "animate.css";
 import type { Lang } from "@/types/lang";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Confetti from "react-dom-confetti";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const BlueButton = ({
   text,
@@ -42,12 +43,7 @@ const BlueButton = ({
             : "bg-blue-500 hover:bg-blue-500/80 border-blue-700"
         } ${isFull && "w-full"}`}
       >
-        <span
-          className={`text-center ${
-            isLoading &&
-            "animate__animated animate__flash animate__slower animate__infinite"
-          }`}
-        >
+        <span className={`text-center ${isLoading && loadingFlashClass}`}>
           {isLoading ? (lang === "en" ? "Loading..." : "Chargement...") : text}
         </span>
         <div className="flex justify-center items-center mx-auto">

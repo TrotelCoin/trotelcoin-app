@@ -1,4 +1,5 @@
 import StreakContext from "@/app/[lang]/contexts/streakContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 
@@ -17,9 +18,7 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
                 {maxStreak ? (
                   <span>{maxStreak}</span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
+                  <span className={`${loadingFlashClass}`}>0</span>
                 )}
               </span>
             </>

@@ -3,6 +3,7 @@ import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {
   const [tokensEarned, setTokensEarned] = useState<number>(0);
@@ -38,9 +39,7 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
                     {Math.floor(tokensEarned).toLocaleString("en-US")}
                   </span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
+                  <span className={`${loadingFlashClass}`}>0</span>
                 )}
               </span>
             </>

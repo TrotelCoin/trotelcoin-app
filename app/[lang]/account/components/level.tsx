@@ -3,6 +3,7 @@ import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const LevelSection = ({ lang }: { lang: Lang }) => {
   const [width, setWidth] = useState<number>(0);
@@ -52,9 +53,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
                 {userLevel ? (
                   <>{userLevel}</>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
+                  <span className={`${loadingFlashClass}`}>0</span>
                 )}
               </>
             )}

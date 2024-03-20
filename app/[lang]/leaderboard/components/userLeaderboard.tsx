@@ -6,6 +6,7 @@ import shortenAddress from "@/utils/shortenAddress";
 import { mainnet } from "viem/chains";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);
@@ -52,7 +53,9 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
       <React.Suspense fallback={null}>
         {isLoadingUserLeaderboard ? (
           <>
-            <p className="mt-2 text-gray-700 dark:text-gray-300 animate__animated animate__slower animate__flash animate__infinite">
+            <p
+              className={`mt-2 text-gray-700 dark:text-gray-300 ${loadingFlashClass}`}
+            >
               {lang === "en" ? <>Loading...</> : <>Chargement...</>}
             </p>
           </>

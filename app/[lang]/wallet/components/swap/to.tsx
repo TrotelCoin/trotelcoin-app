@@ -3,6 +3,7 @@ import React from "react";
 import { Address } from "viem";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import "animate.css";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const To = ({
   lang,
@@ -11,6 +12,7 @@ const To = ({
   toTokenAddress,
   toPrice,
   isLoading,
+  toChainId,
 }: {
   lang: Lang;
   toBalance: number;
@@ -18,6 +20,7 @@ const To = ({
   toTokenAddress: Address;
   toPrice: number;
   isLoading: boolean;
+  toChainId: number;
 }) => {
   return (
     <>
@@ -39,8 +42,7 @@ const To = ({
           <input
             type="number"
             className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed ${
-              isLoading &&
-              "animate__animated animate__slower animate__infinite animate__flash"
+              isLoading && loadingFlashClass
             }`}
             onWheel={(e) => e.preventDefault()}
             value={toAmount ? Number((toAmount * 1e-18).toFixed(2)) : 0}
@@ -48,14 +50,9 @@ const To = ({
           />
           <div className="flex flex-col justify-center items-end">
             <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {tokenAddressToName(toTokenAddress)}
+              {tokenAddressToName(toTokenAddress, toChainId)}
             </span>
-            <span
-              className={`text-xs ${
-                isLoading &&
-                "animate__animated animate__slower animate__infinite animate__flash"
-              }`}
-            >
+            <span className={`text-xs ${isLoading && loadingFlashClass}`}>
               $
               {toPrice
                 ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
