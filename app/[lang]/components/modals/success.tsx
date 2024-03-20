@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useContext, useEffect } from "react";
-import { Modals } from "@/types/types";
+import { Modals } from "@/types/components/components";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 
