@@ -123,7 +123,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
 
-  const [debouncedFromAmount] = useDebounce(fromAmount, 500);
+  const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
 
   useEffect(() => {
     const fetchQuote = async () => {
