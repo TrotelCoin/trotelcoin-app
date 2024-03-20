@@ -186,7 +186,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
         toChainId
       );
 
-      if (status.statusCode !== 200) {
+      if (!status) {
         return;
       }
 
