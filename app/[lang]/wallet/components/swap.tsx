@@ -37,7 +37,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromChainId] = useState<number>(polygon.id);
   const [toChainId] = useState<number>(polygon.id);
-  const [fromToken, setFromToken] = useState<Token>(matic);
+  const [fromToken, setFromToken] = useState<Token>(usdc);
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toToken, setToToken] = useState<Token>(trotelCoin);
   const [disabled, setDisabled] = useState<boolean>(true);
@@ -97,6 +97,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     const fetchTokenPrice = async () => {
+      setIsLoading(true);
+
       const fromTokenPrice = await getTokenPrice(
         fromToken.address,
         fromChainId
@@ -106,15 +108,40 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       setFromPrice(fromTokenPrice.result?.tokenPrice);
       setToPrice(toTokenPrice.result?.tokenPrice);
+      setIsLoading(false);
     };
 
     if (fromToken && toToken) {
       fetchTokenPrice();
+      const interval = setInterval(() => {
+        fetchTokenPrice();
+      }, 30000);
+
+      return () => clearInterval(interval);
     } else {
       setFromPrice(null);
       setToPrice(null);
     }
   }, [fromToken, toToken]);
+
+  useEffect(() => {
+    if (toPrice && !fromPrice) {
+      if (toPrice > 0) {
+        setFromPrice((toPrice * (fromAmount as number)) / (toAmount as number));
+      }
+    }
+
+    if (fromPrice && !toPrice) {
+      if (fromPrice > 0) {
+        setToPrice((fromPrice * (toAmount as number)) / (fromAmount as number));
+        console.log("toPrice", toPrice);
+        console.log(
+          "toPrice calcul",
+          (fromPrice * (toAmount as number)) / (fromAmount as number)
+        );
+      }
+    }
+  }, [fromPrice, toPrice, fromAmount, toAmount]);
 
   const { sendTransactionAsync: approvingAsync } = useSendTransaction({
     mutation: {
@@ -274,6 +301,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             }
             isLoading={isLoading}
             fromChainId={fromChainId}
+            userAddress={userAddress as Address}
           />
         </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import type { Lang } from "@/types/lang";
-import { Address } from "viem";
+import type { Address } from "viem";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const From = ({
@@ -13,6 +13,7 @@ const From = ({
   fromPrice,
   isLoading,
   fromChainId,
+  userAddress,
 }: {
   lang: Lang;
   fromBalance: number;
@@ -22,6 +23,7 @@ const From = ({
   fromPrice: number;
   isLoading: boolean;
   fromChainId: number;
+  userAddress: Address;
 }) => {
   return (
     <>
@@ -46,6 +48,7 @@ const From = ({
             value={fromAmount < 0 ? 0 : fromAmount}
             onChange={(e) => setFromAmount(parseFloat(e.target.value))}
             placeholder={lang === "en" ? "Amount" : "Montant"}
+            disabled={!userAddress}
           />
           <div className="flex flex-col justify-center items-end">
             <span className="font-semibold text-gray-900 dark:text-gray-100">
