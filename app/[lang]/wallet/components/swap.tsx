@@ -149,8 +149,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       const apiReturnData = await getRouteTransactionData(route);
 
-      console.log("apiReturnData", apiReturnData);
-
       setApiReturnData(apiReturnData);
 
       const approvalData = apiReturnData.result?.approvalData;
@@ -188,7 +186,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
         toChainId
       );
 
-      if (status.code !== 200) {
+      if (status.statusCode !== 200) {
         return;
       }
 
@@ -209,12 +207,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
         fromTokenAddress
       );
 
-      console.log("allowanceCheckStatus", allowanceCheckStatus);
-
       const allowanceValue = allowanceCheckStatus.result?.value;
-
-      console.log("allowanceValue", allowanceValue);
-      console.log("minimumApprovalAmount", minimumApprovalAmount);
 
       if (minimumApprovalAmount > allowanceValue) {
         const approvalTransactionData = await getApprovalTransactionData(
