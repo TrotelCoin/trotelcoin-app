@@ -333,7 +333,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
         fromTokenAddress
       );
 
+      console.log("allowanceCheckStatus", allowanceCheckStatus);
+
       const allowanceValue = allowanceCheckStatus.result?.value;
+
+      console.log("allowanceValue", allowanceValue);
+      console.log("minimumApprovalAmount", minimumApprovalAmount);
 
       if (minimumApprovalAmount > allowanceValue) {
         const approvalTransactionData = await getApprovalTransactionData(
