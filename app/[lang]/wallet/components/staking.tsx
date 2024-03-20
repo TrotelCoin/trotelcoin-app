@@ -15,6 +15,7 @@ import { polygon } from "viem/chains";
 import { useAccount, useReadContract, useBlockNumber } from "wagmi";
 import { formatEther } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import "animate.css";
 
 const Staking = ({
   lang,
@@ -85,7 +86,9 @@ const Staking = ({
           <div className="flex items-center gap-1">
             <div
               className={`w-3 h-3 rounded-full ${
-                address ? "bg-green-500" : "bg-gray-500"
+                address
+                  ? "bg-green-500 animate__animated animate__infinite animate__slower animate__flash"
+                  : "bg-gray-500"
               }`}
             />
             {address ? (
@@ -131,9 +134,9 @@ const Staking = ({
           <TotalStaked lang={lang} />
         </div>
         <div className="pt-4 px-4">
-          <div className="grid grid-cols-2 gap-4">
-            {address ? (
-              <>
+          {address ? (
+            <>
+              <div className="grid grid-cols-2 gap-4">
                 {allowance &&
                 (allowance < (amount as number) || amount === undefined) ? (
                   <ApproveButton
@@ -153,17 +156,16 @@ const Staking = ({
                     allowance={allowance as number}
                   />
                 )}
-
                 <ClaimingButton
                   lang={lang}
                   chainError={chainError}
                   setChainError={setChainError}
                 />
-              </>
-            ) : (
-              <Wallet lang={lang} isFull={true} isCentered={true} />
-            )}
-          </div>
+              </div>
+            </>
+          ) : (
+            <Wallet lang={lang} isFull={true} isCentered={true} />
+          )}
         </div>
       </div>
     </>

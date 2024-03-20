@@ -12,6 +12,7 @@ import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import "animate.css";
 
 const Claim = ({
   lang,
@@ -65,7 +66,7 @@ const Claim = ({
           <div className="flex items-center gap-1">
             <div
               className={`w-3 h-3 rounded-full ${
-                address ? "bg-green-500" : "bg-gray-500"
+                address ? "bg-green-500 animate__animated animate__infinite animate__slower animate__flash" : "bg-gray-500"
               }`}
             />
             {address ? (
