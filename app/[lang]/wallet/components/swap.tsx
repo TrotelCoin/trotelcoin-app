@@ -8,9 +8,10 @@ import {
   useSendTransaction,
   useBalance,
   useBlockNumber,
+  useEstimateGas,
 } from "wagmi";
 import { polygon } from "viem/chains";
-import { Address, Hash, parseUnits } from "viem";
+import { Address, formatUnits, Hash, parseUnits } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -21,6 +22,7 @@ import {
   ArrowPathIcon,
   ArrowsUpDownIcon,
   Cog6ToothIcon,
+  BoltIcon,
 } from "@heroicons/react/20/solid";
 import {
   getQuote,
@@ -38,6 +40,7 @@ import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -96,6 +99,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     refetchFrom();
     refetchTo();
+    refetchGas();
   }, [blockNumber, userAddress]);
 
   useEffect(() => {
@@ -312,6 +316,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [approvalData, userAddress, fromToken.address, fromChainId]);
 
+  const { data: gasPrice, refetch: refetchGas } = useEstimateGas({
+    account: userAddress as Address,
+    to: apiReturnData?.result?.txTarget,
+    value: apiReturnData?.result?.value,
+    data: apiReturnData?.result?.txData,
+  });
+
   return (
     <>
       <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
@@ -392,6 +403,18 @@ const Swap = ({ lang }: { lang: Lang }) => {
           />
         </div>
       </div>
+
+      <div className="mt-2 flex items-center gap-1 px-4">
+        <BoltIcon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+        <span className={`text-gray-700 dark:text-gray-300 text-xs`}>
+          {lang === "en" ? "Gas price:" : "Frais de gaz:"}{" "}
+          <span className={`${isLoading && loadingFlashClass}`}>
+            {Boolean(gasPrice) ? Number(Number(gasPrice).toFixed(0)) : 0}
+          </span>{" "}
+          wei
+        </span>
+      </div>
+
       <Fail
         show={errorMessage}
         onClose={() => setErrorMessage(false)}
