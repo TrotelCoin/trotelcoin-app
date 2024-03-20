@@ -3,13 +3,14 @@ import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import type { Lang } from "@/types/lang";
 import type { Address } from "viem";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { Token } from "@/types/web3/token";
 
 const From = ({
   lang,
   fromBalance,
   fromAmount,
   setFromAmount,
-  fromTokenAddress,
+  fromToken,
   fromPrice,
   isLoading,
   fromChainId,
@@ -19,7 +20,7 @@ const From = ({
   fromBalance: number;
   fromAmount: number;
   setFromAmount: React.Dispatch<React.SetStateAction<number>>;
-  fromTokenAddress: Address;
+  fromToken: Token;
   fromPrice: number;
   isLoading: boolean;
   fromChainId: number;
@@ -76,10 +77,11 @@ const From = ({
             onChange={(e) => setFromAmount(parseFloat(e.target.value))}
             placeholder={lang === "en" ? "Amount" : "Montant"}
             disabled={!userAddress}
+            onWheel={(e) => (e.target as HTMLInputElement).blur()}
           />
           <div className="flex flex-col justify-center items-end">
             <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {tokenAddressToName(fromTokenAddress, fromChainId)}
+              {tokenAddressToName(fromToken.address, fromChainId)}
             </span>
 
             <span className={`text-xs ${isLoading && loadingFlashClass}`}>

@@ -16,6 +16,8 @@ import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
 import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
+import { ArrowsUpDownIcon } from "@heroicons/react/20/solid";
 import {
   getQuote,
   getRouteTransactionData,
@@ -31,6 +33,7 @@ import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
+import BlueSimpleButton from "../../components/blueSimpleButton";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -55,9 +58,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
     useState<any>(null);
   const [toAmount, setToAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [fromDecimals, setFromDecimals] = useState<number>(usdc.decimals);
-  const [toDecimals, setToDecimals] = useState<number>(trotelCoin.decimals);
   const [swappedMessage, setSwappedMessage] = useState<boolean>(false);
+  const [noQuoteNotification, setNoQuoteNotification] =
+    useState<boolean>(false);
+  const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -77,6 +81,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
     token: toToken.address,
     chainId: polygon.id,
   });
+
+  const exchangeTokens = () => {
+    const temp = fromToken;
+    setFromToken(toToken);
+    setToToken(temp);
+  };
 
   useEffect(() => {
     refetchFrom();
@@ -134,16 +144,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromToken, toToken]);
 
-  useEffect(() => {
-    if (fromPrice && !toPrice) {
-      setToPrice(fromPrice);
-    }
-
-    if (!fromPrice && toPrice) {
-      setFromPrice(toPrice);
-    }
-  }, [fromPrice, toPrice, fromAmount, toAmount]);
-
   const { sendTransactionAsync: approvingAsync } = useSendTransaction({
     mutation: {
       onSuccess: () => {
@@ -180,7 +180,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setIsLoading(true);
 
       const fromAmountDecimals: number = fromAmount
-        ? Number(parseUnits(fromAmount.toString(), fromDecimals))
+        ? Number(parseUnits(fromAmount.toString(), fromToken.decimals))
         : 0;
 
       const quote = await getQuote(
@@ -195,7 +195,21 @@ const Swap = ({ lang }: { lang: Lang }) => {
         singleTxOnly
       );
 
+      if (!quote) {
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        return;
+      }
+
       const route = quote.result.routes[0];
+
+      if (!route) {
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        return;
+      }
 
       const apiReturnData = await getRouteTransactionData(route);
 
@@ -203,11 +217,19 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       const approvalData = apiReturnData.result?.approvalData;
 
+      if (!approvalData) {
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        return;
+      }
+
       const toAmount = Number(Number(route?.toAmount).toFixed(0));
 
       setToAmount(route ? toAmount : 0);
 
       setApprovalData(approvalData);
+      setQuoteFetched(true);
       setIsLoading(false);
     };
 
@@ -221,8 +243,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     fromChainId,
     toChainId,
     userAddress,
-    fromToken.address,
-    toToken.address,
+    fromToken,
+    toToken,
     uniqueRoutesPerBridge,
     sort,
     singleTxOnly,
@@ -296,7 +318,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             fromAmount={fromAmount as number}
             fromBalance={fromBalance as number}
             fromPrice={fromPrice as number}
-            fromTokenAddress={fromToken.address}
+            fromToken={fromToken}
             setFromAmount={
               setFromAmount as React.Dispatch<React.SetStateAction<number>>
             }
@@ -306,15 +328,22 @@ const Swap = ({ lang }: { lang: Lang }) => {
           />
         </div>
 
+        <div className="px-4 py-4 flex justify-center items-center">
+          <BlueSimpleButton onClick={() => exchangeTokens()}>
+            <ArrowsUpDownIcon className="h-5 w-5 text-gray-100" />
+          </BlueSimpleButton>
+        </div>
+
         <div className="px-4 py-4">
           <To
             lang={lang}
             toAmount={toAmount as number}
             toPrice={toPrice as number}
             toBalance={toBalance as number}
-            toTokenAddress={toToken.address}
+            toToken={toToken}
             isLoading={isLoading}
             toChainId={toChainId}
+            fromPrice={fromPrice as number}
           />
         </div>
 
@@ -333,6 +362,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
             approvingAsync={approvingAsync}
             isLoading={isLoading}
             fromChainId={fromChainId}
+            quoteFetched={quoteFetched}
+            toAmount={toAmount as number}
           />
         </div>
       </div>
@@ -351,6 +382,16 @@ const Swap = ({ lang }: { lang: Lang }) => {
         lang={lang}
         title={lang === "en" ? "Success" : "Succès"}
         message={lang === "en" ? "Swap successful !" : "Échange réussi !"}
+      />
+      <FailNotification
+        display={noQuoteNotification}
+        lang={lang}
+        title={lang === "en" ? "No quote" : "Pas de devis"}
+        message={
+          lang === "en"
+            ? "An error occured while fetching the quote."
+            : "Une erreur est survenue lors de la récupération du devis."
+        }
       />
     </>
   );

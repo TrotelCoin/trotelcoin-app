@@ -1,31 +1,29 @@
 import type { Lang } from "@/types/lang";
-import React, { useEffect } from "react";
-import { Address } from "viem";
+import React from "react";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import "animate.css";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { Token } from "@/types/web3/token";
 
 const To = ({
   lang,
   toBalance,
   toAmount,
-  toTokenAddress,
+  toToken,
   toPrice,
   isLoading,
   toChainId,
+  fromPrice,
 }: {
   lang: Lang;
   toBalance: number;
   toAmount: number;
-  toTokenAddress: Address;
+  toToken: Token;
   toPrice: number;
   isLoading: boolean;
   toChainId: number;
+  fromPrice: number;
 }) => {
-  useEffect(() => {
-    console.log("toPrice", toPrice);
-  }, [toPrice]);
-
   return (
     <>
       <div className="flex flex-col justify-center gap-2">
@@ -49,13 +47,68 @@ const To = ({
               isLoading && loadingFlashClass
             }`}
             onWheel={(e) => e.preventDefault()}
-            value={toAmount ? Number((toAmount * 1e-18).toFixed(2)) : 0}
+            value={
+              toAmount
+                ? Number((toAmount * 10 ** -toToken.decimals).toFixed(2))
+                : 0
+            }
             disabled={true}
           />
 
-          <span className="font-semibold text-gray-900 dark:text-gray-100">
-            {tokenAddressToName(toTokenAddress, toChainId)}
-          </span>
+          <div className="flex flex-col justify-center items-end">
+            <span className="font-semibold text-gray-900 dark:text-gray-100">
+              {tokenAddressToName(toToken.address, toChainId)}
+            </span>
+            <div className="flex items-center gap-1">
+              <span className={`text-xs ${isLoading && loadingFlashClass}`}>
+                $
+                {toPrice && toAmount
+                  ? Number(
+                      (toPrice * (toAmount * 10 ** -toToken.decimals)).toFixed(2)
+                    ).toLocaleString("en-US")
+                  : "0"}
+              </span>
+              {
+                <span className={`text-xs ${isLoading && loadingFlashClass}`}>
+                  {(() => {
+                    let percentage = 0;
+                    if (
+                      !fromPrice ||
+                      !toPrice ||
+                      fromPrice === 0 ||
+                      toPrice === 0 ||
+                      fromPrice === toPrice
+                    ) {
+                      return (
+                        <span className={"text-gray-700 dark:text-gray-300"}>
+                          ({percentage.toFixed(2)}%)
+                        </span>
+                      );
+                    }
+
+                    const difference = toPrice - fromPrice;
+                    percentage = (difference / fromPrice) * 100;
+                    const isPositive = percentage > 0;
+                    const isZero = percentage === 0;
+                    return (
+                      <span
+                        className={
+                          isZero
+                            ? "text-gray-700 dark:text-gray-300"
+                            : isPositive
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
+                        {isZero ? "" : isPositive ? "+" : "-"}(
+                        {percentage.toFixed(2)}%)
+                      </span>
+                    );
+                  })()}
+                </span>
+              }
+            </div>
+          </div>
         </div>
       </div>
     </>

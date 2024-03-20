@@ -16,6 +16,8 @@ const SwapButton = ({
   fromChainId,
   apiReturnData,
   approvingAsync,
+  quoteFetched,
+  toAmount,
 }: {
   lang: Lang;
   userAddress: Address;
@@ -28,6 +30,8 @@ const SwapButton = ({
   approvalTransactionData: any;
   apiReturnData: any;
   approvingAsync: any;
+  quoteFetched: boolean;
+  toAmount: number;
 }) => {
   return (
     <>
@@ -35,7 +39,7 @@ const SwapButton = ({
         needApproval ? (
           <BlueButton
             isFull={true}
-            disabled={disabled}
+            disabled={disabled || !quoteFetched}
             lang={lang}
             isLoading={isLoading}
             text={lang === "en" ? "Approve" : "Approuver"}
@@ -50,7 +54,7 @@ const SwapButton = ({
         ) : (
           <BlueButton
             isFull={true}
-            disabled={disabled}
+            disabled={disabled || !quoteFetched || toAmount === 0}
             lang={lang}
             isLoading={isLoading}
             text={lang === "en" ? "Swap" : "Échanger"}
