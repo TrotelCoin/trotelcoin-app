@@ -17,7 +17,6 @@ export const getQuote = async (
     .get(
       `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}`,
       {
-        method: "GET",
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
           Accept: "application/json",
@@ -34,7 +33,6 @@ export const getQuote = async (
 export const getRouteTransactionData = async (route: any) => {
   const response = await axios
     .post("https://api.socket.tech/v2/build-tx", {
-      method: "POST",
       headers: {
         "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
         Accept: "application/json",
@@ -58,7 +56,6 @@ export const checkAllowance = async (
     .get(
       `https://api.socket.tech/v2/approval/check-allowance?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}`,
       {
-        method: "GET",
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
           Accept: "application/json",
@@ -83,7 +80,6 @@ export const getApprovalTransactionData = async (
     .get(
       `https://api.socket.tech/v2/approval/build-tx?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}&amount=${amount}`,
       {
-        method: "GET",
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
           Accept: "application/json",
@@ -106,7 +102,6 @@ export const getBridgeStatus = async (
     .get(
       `https://api.socket.tech/v2/bridge-status?transactionHash=${transactionHash}&fromChainId=${fromChainId}&toChainId=${toChainId}`,
       {
-        method: "GET",
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
           Accept: "application/json",
