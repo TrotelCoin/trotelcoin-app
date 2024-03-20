@@ -1,7 +1,8 @@
 "use client";
 
 import "animate.css";
-import { Lang, Lesson } from "@/types/types";
+import { Lang } from "@/types/lang";
+import { Lesson } from "@/types/courses/lessons";
 import React, { useEffect, useState, useContext } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import CourseFinished from "@/app/[lang]/[quizId]/components/courseFinished";

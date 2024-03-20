@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { Lang, Cards } from "@/types/types";
+import { Lang } from "@/types/lang";
+import { Cards } from "@/types/components/cards";
 import GetStarted from "@/app/[lang]/[quizId]/components/getStarted";
 import Card from "@/app/[lang]/[quizId]/components/card";
 import { Dialog, Transition } from "@headlessui/react";

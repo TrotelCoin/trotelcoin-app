@@ -1,4 +1,5 @@
-import { Lang, LeaderboardItem } from "@/types/types";
+import { Lang } from "@/types/lang";
+import { LeaderboardItem } from "@/types/components/components";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
