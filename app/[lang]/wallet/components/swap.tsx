@@ -70,6 +70,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     useState<boolean>(false);
   const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
   const [openSettings, setOpenSettings] = useState<boolean>(false);
+  const [fromTokens, setFromTokens] = useState<Token[]>([]);
+  const [toTokens, setToTokens] = useState<Token[]>([]);
 
   const { address: userAddress } = useAccount();
 
@@ -265,6 +267,32 @@ const Swap = ({ lang }: { lang: Lang }) => {
   ]);
 
   useEffect(() => {
+    const fetchTokensList = async () => {
+      const fromTokens = await getFromTokenList(fromChainId, toChainId);
+      const toTokens = await getToTokenList(fromChainId, toChainId);
+
+      if (fromTokens && toTokens) {
+        setFromTokens(fromTokens);
+        setToTokens(toTokens);
+        setFromToken(fromTokens.result[0]);
+        if (toChainId === polygon.id) {
+          setToToken(trotelCoin);
+        } else {
+          setToToken(toTokens.result[0]);
+        }
+      }
+
+      if (fromChainId === polygon.id || toChainId === polygon.id) {
+        fromTokens.result.unshift(trotelCoin);
+      }
+    };
+
+    if (fromChainId && toChainId) {
+      fetchTokensList();
+    }
+  }, [fromChainId, toChainId]);
+
+  useEffect(() => {
     const txStatus = setInterval(async () => {
       const status = await getBridgeStatus(
         txHash as Address,
@@ -332,18 +360,21 @@ const Swap = ({ lang }: { lang: Lang }) => {
             lang={lang}
           />
           <div className="flex items-center gap-2">
+            <BlueSimpleButton onClick={() => exchangeTokens()}>
+              <ArrowsUpDownIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
+            </BlueSimpleButton>
             <BlueSimpleButton
               onClick={() => refetchQuote()}
               disabled={isLoading}
             >
               <ArrowPathIcon
-                className={`h-5 w-5 text-gray-100 ${
+                className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
                   isLoading && "animate-spin"
                 }`}
               />
             </BlueSimpleButton>
             <BlueSimpleButton onClick={() => setOpenSettings(true)}>
-              <Cog6ToothIcon className="h-5 w-5 text-gray-100" />
+              <Cog6ToothIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
             </BlueSimpleButton>
           </div>
         </div>
@@ -362,12 +393,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
             fromChainId={fromChainId}
             userAddress={userAddress as Address}
           />
-        </div>
-
-        <div className="px-4 py-4 flex justify-center items-center">
-          <BlueSimpleButton onClick={() => exchangeTokens()}>
-            <ArrowsUpDownIcon className="h-5 w-5 text-gray-100" />
-          </BlueSimpleButton>
         </div>
 
         <div className="px-4 py-4">

@@ -57,14 +57,16 @@ const To = ({
 
           <div className="flex flex-col justify-center items-end">
             <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {tokenAddressToName(toToken.address, toChainId)}
+              {toToken.symbol}
             </span>
             <div className="flex items-center gap-1">
               <span className={`text-xs ${isLoading && loadingFlashClass}`}>
                 $
                 {toPrice && toAmount
                   ? Number(
-                      (toPrice * (toAmount * 10 ** -toToken.decimals)).toFixed(2)
+                      (toPrice * (toAmount * 10 ** -toToken.decimals)).toFixed(
+                        2
+                      )
                     ).toLocaleString("en-US")
                   : "0"}
               </span>

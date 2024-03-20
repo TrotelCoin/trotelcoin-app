@@ -81,7 +81,7 @@ const From = ({
           />
           <div className="flex flex-col justify-center items-end">
             <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {tokenAddressToName(fromToken.address, fromChainId)}
+              {fromToken.symbol}
             </span>
 
             <span className={`text-xs ${isLoading && loadingFlashClass}`}>
