@@ -48,18 +48,17 @@ const From = ({
             <span className="font-semibold text-gray-900 dark:text-gray-100">
               {tokenAddressToName(fromTokenAddress)}
             </span>
-            <span className="text-xs">
+
+            <span
+              className={`text-xs ${
+                isLoading &&
+                "animate__animated animate__slower animate__infinite animate__flash"
+              }`}
+            >
               $
-              <span
-                className={`${
-                  isLoading &&
-                  "animate__animated animate__slower animate__infinite animate__flash"
-                }`}
-              >
-                {fromPrice
-                  ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
-                  : "0"}
-              </span>
+              {fromPrice
+                ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
+                : "0"}
             </span>
           </div>
         </div>
