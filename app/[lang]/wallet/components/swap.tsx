@@ -149,6 +149,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       const apiReturnData = await getRouteTransactionData(route);
 
+      console.log("apiReturnData", apiReturnData);
+
       setApiReturnData(apiReturnData);
 
       const approvalData = apiReturnData.result?.approvalData;
