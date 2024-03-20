@@ -1,5 +1,5 @@
 import type { Lang } from "@/types/lang";
-import React from "react";
+import React, { useEffect } from "react";
 import { Address } from "viem";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import "animate.css";
@@ -22,6 +22,10 @@ const To = ({
   isLoading: boolean;
   toChainId: number;
 }) => {
+  useEffect(() => {
+    console.log("toPrice", toPrice);
+  }, [toPrice]);
+
   return (
     <>
       <div className="flex flex-col justify-center gap-2">
@@ -38,29 +42,20 @@ const To = ({
               : "0"}
           </span>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-end gap-4">
           <input
             type="number"
-            className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed ${
+            className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed ${
               isLoading && loadingFlashClass
             }`}
             onWheel={(e) => e.preventDefault()}
             value={toAmount ? Number((toAmount * 1e-18).toFixed(2)) : 0}
             disabled={true}
           />
-          <div className="flex flex-col justify-center items-end">
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {tokenAddressToName(toTokenAddress, toChainId)}
-            </span>
-            <span className={`text-xs ${isLoading && loadingFlashClass}`}>
-              $
-              {toPrice
-                ? Number((toPrice * toAmount).toFixed(2)).toLocaleString(
-                    "en-US"
-                  )
-                : "0"}
-            </span>
-          </div>
+
+          <span className="font-semibold text-gray-900 dark:text-gray-100">
+            {tokenAddressToName(toTokenAddress, toChainId)}
+          </span>
         </div>
       </div>
     </>

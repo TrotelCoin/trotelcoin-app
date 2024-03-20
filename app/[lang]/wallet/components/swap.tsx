@@ -106,8 +106,18 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       const toTokenPrice = await getTokenPrice(toToken.address, toChainId);
 
-      setFromPrice(fromTokenPrice.result?.tokenPrice);
-      setToPrice(toTokenPrice.result?.tokenPrice);
+      if (fromTokenPrice && toTokenPrice) {
+        setFromPrice(fromTokenPrice?.result?.tokenPrice);
+        setToPrice(toTokenPrice?.result?.tokenPrice);
+      } else if (fromTokenPrice) {
+        setFromPrice(fromTokenPrice?.result?.tokenPrice);
+      } else if (toTokenPrice) {
+        setToPrice(toTokenPrice?.result?.tokenPrice);
+      } else {
+        setFromPrice(0);
+        setToPrice(0);
+      }
+
       setIsLoading(false);
     };
 
@@ -119,32 +129,18 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       return () => clearInterval(interval);
     } else {
-      setFromPrice(null);
-      setToPrice(null);
+      setFromPrice(0);
+      setToPrice(0);
     }
   }, [fromToken, toToken]);
 
   useEffect(() => {
-    if (toPrice && !fromPrice) {
-      if (toPrice > 0) {
-        setFromPrice((toPrice * (fromAmount as number)) / (toAmount as number));
-      }
+    if (fromPrice && !toPrice) {
+      setToPrice(fromPrice);
     }
 
-    if (fromPrice && !toPrice) {
-      if (fromPrice > 0) {
-        setToPrice(
-          (fromPrice * ((toAmount as number) * 10 ** toToken.decimals)) /
-            (fromAmount as number)
-        );
-        console.log("fromAmount", fromAmount);
-        console.log("toAmount", toAmount);
-        console.log(
-          "toPrice calcul",
-          (fromPrice * ((toAmount as number) * 10 ** toToken.decimals)) /
-            (fromAmount as number)
-        );
-      }
+    if (!fromPrice && toPrice) {
+      setFromPrice(toPrice);
     }
   }, [fromPrice, toPrice, fromAmount, toAmount]);
 
