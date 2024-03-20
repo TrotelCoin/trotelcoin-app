@@ -17,7 +17,11 @@ import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
 import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
 import FailNotification from "@/app/[lang]/components/modals/failNotification";
-import { ArrowsUpDownIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowPathIcon,
+  ArrowsUpDownIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/20/solid";
 import {
   getQuote,
   getRouteTransactionData,
@@ -33,7 +37,7 @@ import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
-import BlueSimpleButton from "../../components/blueSimpleButton";
+import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -62,6 +66,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [noQuoteNotification, setNoQuoteNotification] =
     useState<boolean>(false);
   const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
+  const [openSettings, setOpenSettings] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -159,6 +164,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
     },
   });
 
+  const refetchQuote = () => {
+    setQuoteFetched(false);
+  };
+
   useEffect(() => {
     if (
       fromAmount &&
@@ -248,6 +257,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
     uniqueRoutesPerBridge,
     sort,
     singleTxOnly,
+    quoteFetched,
   ]);
 
   useEffect(() => {
@@ -310,6 +320,21 @@ const Swap = ({ lang }: { lang: Lang }) => {
             title={lang === "en" ? "Swap" : "Échanger"}
             lang={lang}
           />
+          <div className="flex items-center gap-2">
+            <BlueSimpleButton
+              onClick={() => refetchQuote()}
+              disabled={isLoading}
+            >
+              <ArrowPathIcon
+                className={`h-5 w-5 text-gray-100 ${
+                  isLoading && "animate-spin"
+                }`}
+              />
+            </BlueSimpleButton>
+            <BlueSimpleButton onClick={() => setOpenSettings(true)}>
+              <Cog6ToothIcon className="h-5 w-5 text-gray-100" />
+            </BlueSimpleButton>
+          </div>
         </div>
 
         <div className="px-4 py-4">
