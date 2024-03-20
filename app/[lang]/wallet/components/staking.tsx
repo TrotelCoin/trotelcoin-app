@@ -13,7 +13,7 @@ import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import { polygon } from "viem/chains";
 import { useAccount, useReadContract, useBlockNumber } from "wagmi";
-import { formatEther } from "viem";
+import { Address, formatEther } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -104,6 +104,7 @@ const Staking = ({
               lang={lang}
               amount={amount as number}
               setAmount={setAmount}
+              address={address as Address}
             />
           </div>
         </div>

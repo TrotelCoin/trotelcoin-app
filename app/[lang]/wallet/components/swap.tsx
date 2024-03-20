@@ -11,7 +11,6 @@ import {
 } from "wagmi";
 import { polygon } from "viem/chains";
 import { Address, Hash, parseUnits } from "viem";
-import { trotelCoinAddress } from "@/data/web3/addresses";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -23,23 +22,24 @@ import {
   getBridgeStatus,
   checkAllowance,
   getApprovalTransactionData,
+  getFromTokenList,
+  getToTokenList,
+  getTokenPrice,
 } from "@/lib/socket/socket";
-import { usdc, trotelCoin } from "@/data/web3/tokens";
+import { usdc, trotelCoin, matic } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
+import { Token } from "@/types/web3/token";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromChainId] = useState<number>(polygon.id);
   const [toChainId] = useState<number>(polygon.id);
-  const [fromTokenAddress, setFromTokenAddress] = useState<Address>(
-    usdc.address
-  );
+  const [fromToken, setFromToken] = useState<Token>(usdc);
   const [toPrice, setToPrice] = useState<number | null>(null);
-  const [toTokenAddress, setToTokenAddress] =
-    useState<Address>(trotelCoinAddress);
+  const [toToken, setToToken] = useState<Token>(trotelCoin);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [fromBalance, setFromBalance] = useState<number | null>(null);
@@ -68,13 +68,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
-    token: fromTokenAddress,
+    token: fromToken.address,
     chainId: polygon.id,
   });
 
   const { data: toBalanceData, refetch: refetchTo } = useBalance({
     address: userAddress,
-    token: toTokenAddress,
+    token: toToken.address,
     chainId: polygon.id,
   });
 
@@ -94,6 +94,55 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setToBalance(balance);
     }
   }, [fromBalanceData, toBalanceData]);
+
+  useEffect(() => {
+    const fetchTokenPrice = async () => {
+      setIsLoading(true);
+
+      const fromTokenPrice = await getTokenPrice(
+        fromToken.address,
+        fromChainId
+      );
+
+      const toTokenPrice = await getTokenPrice(toToken.address, toChainId);
+
+      if (fromTokenPrice && toTokenPrice) {
+        setFromPrice(fromTokenPrice?.result?.tokenPrice);
+        setToPrice(toTokenPrice?.result?.tokenPrice);
+      } else if (fromTokenPrice) {
+        setFromPrice(fromTokenPrice?.result?.tokenPrice);
+      } else if (toTokenPrice) {
+        setToPrice(toTokenPrice?.result?.tokenPrice);
+      } else {
+        setFromPrice(0);
+        setToPrice(0);
+      }
+
+      setIsLoading(false);
+    };
+
+    if (fromToken && toToken) {
+      fetchTokenPrice();
+      const interval = setInterval(() => {
+        fetchTokenPrice();
+      }, 30000);
+
+      return () => clearInterval(interval);
+    } else {
+      setFromPrice(0);
+      setToPrice(0);
+    }
+  }, [fromToken, toToken]);
+
+  useEffect(() => {
+    if (fromPrice && !toPrice) {
+      setToPrice(fromPrice);
+    }
+
+    if (!fromPrice && toPrice) {
+      setFromPrice(toPrice);
+    }
+  }, [fromPrice, toPrice, fromAmount, toAmount]);
 
   const { sendTransactionAsync: approvingAsync } = useSendTransaction({
     mutation: {
@@ -136,9 +185,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
       const quote = await getQuote(
         fromChainId,
-        fromTokenAddress,
+        fromToken.address,
         toChainId,
-        toTokenAddress,
+        toToken.address,
         fromAmountDecimals,
         userAddress as Address,
         uniqueRoutesPerBridge,
@@ -172,8 +221,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     fromChainId,
     toChainId,
     userAddress,
-    fromTokenAddress,
-    toTokenAddress,
+    fromToken.address,
+    toToken.address,
     uniqueRoutesPerBridge,
     sort,
     singleTxOnly,
@@ -205,7 +254,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
         fromChainId,
         userAddress as Address,
         allowanceTarget,
-        fromTokenAddress
+        fromToken.address
       );
 
       const allowanceValue = allowanceCheckStatus.result?.value;
@@ -215,7 +264,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
           fromChainId,
           userAddress as Address,
           allowanceTarget,
-          fromTokenAddress,
+          fromToken.address,
           minimumApprovalAmount
         );
 
@@ -229,7 +278,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
     if (approvalData && userAddress) {
       fetchApproval();
     }
-  }, [approvalData, userAddress, fromTokenAddress, fromChainId]);
+  }, [approvalData, userAddress, fromToken.address, fromChainId]);
 
   return (
     <>
@@ -247,11 +296,13 @@ const Swap = ({ lang }: { lang: Lang }) => {
             fromAmount={fromAmount as number}
             fromBalance={fromBalance as number}
             fromPrice={fromPrice as number}
-            fromTokenAddress={fromTokenAddress}
+            fromTokenAddress={fromToken.address}
             setFromAmount={
               setFromAmount as React.Dispatch<React.SetStateAction<number>>
             }
             isLoading={isLoading}
+            fromChainId={fromChainId}
+            userAddress={userAddress as Address}
           />
         </div>
 
@@ -261,8 +312,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
             toAmount={toAmount as number}
             toPrice={toPrice as number}
             toBalance={toBalance as number}
-            toTokenAddress={toTokenAddress}
+            toTokenAddress={toToken.address}
             isLoading={isLoading}
+            toChainId={toChainId}
           />
         </div>
 

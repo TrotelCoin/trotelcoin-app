@@ -1,3 +1,4 @@
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React from "react";
 import { useAccount } from "wagmi";
@@ -12,9 +13,7 @@ const WidgetTitle = ({ title, lang }: { title: string; lang: Lang }) => {
         <div className="flex items-center gap-1">
           <div
             className={`w-3 h-3 rounded-full ${
-              address
-                ? "bg-green-500 animate__animated animate__infinite animate__slower animate__flash"
-                : "bg-gray-500"
+              address ? `bg-green-500 ${loadingFlashClass}` : "bg-gray-500"
             }`}
           />
           {address ? (

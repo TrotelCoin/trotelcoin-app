@@ -2,6 +2,7 @@ import type { Lang } from "@/types/lang";
 import React from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const RemainingRewards = ({ lang }: { lang: Lang }) => {
   const { data: remainingRewards } = useSWR(
@@ -21,7 +22,7 @@ const RemainingRewards = ({ lang }: { lang: Lang }) => {
               <span className="hidden md:inline">⏳</span>
             </>
           ) : (
-            <span className="animate__animated animate__flash animate__slower animate__infinite">
+            <span className={`${loadingFlashClass}`}>
               0 <span className="hidden md:inline">⏳</span>
             </span>
           )}

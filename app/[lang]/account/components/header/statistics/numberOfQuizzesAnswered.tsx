@@ -1,4 +1,5 @@
 import UserContext from "@/app/[lang]/contexts/userContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 
@@ -18,9 +19,7 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
                 {numberOfQuizzesAnswered ? (
                   <span>{numberOfQuizzesAnswered.toLocaleString("en-US")}</span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
+                  <span className={`${loadingFlashClass}`}>0</span>
                 )}
               </span>
             </>

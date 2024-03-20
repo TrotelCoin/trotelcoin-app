@@ -2,6 +2,7 @@ import type { Lang } from "@/types/lang";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const EstimatedRewards = ({ lang }: { lang: Lang }) => {
   const { data: remainingRewards } = useSWR(
@@ -22,9 +23,7 @@ const EstimatedRewards = ({ lang }: { lang: Lang }) => {
               {Math.floor(remainingRewards / 4).toLocaleString("en-US")}
             </>
           ) : (
-            <span className="animate__animated animate__flash animate__slower animate__infinite">
-              {"0 < 🧠 < 0"}
-            </span>
+            <span className={`${loadingFlashClass}`}>{"0 < 🧠 < 0"}</span>
           )}
         </span>
 

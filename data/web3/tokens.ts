@@ -1,5 +1,6 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import type { Token } from "@/types/web3/token";
+import type { Address } from "viem";
 
 export const trotelCoin: Token = {
   address: trotelCoinAddress,
@@ -12,3 +13,12 @@ export const usdc: Token = {
   decimals: 6,
   symbol: "USDC",
 };
+
+export const matic: Token = {
+  address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  decimals: 18,
+  symbol: "MATIC",
+};
+
+export const nativeAddress: Address =
+  "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";

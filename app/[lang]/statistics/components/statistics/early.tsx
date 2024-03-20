@@ -1,5 +1,6 @@
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 import { trotelCoinEarlyAddress } from "@/data/web3/addresses";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useEffect } from "react";
 import { polygon } from "viem/chains";
@@ -34,7 +35,7 @@ const Early = ({ lang }: { lang: Lang }) => {
               <span className="hidden md:inline">🤫</span>
             </>
           ) : (
-            <span className="animate__animated animate__flash animate__slower animate__infinite">
+            <span className={`${loadingFlashClass}`}>
               0 <span className="hidden md:inline">🤫</span>
             </span>
           )}

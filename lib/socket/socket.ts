@@ -117,3 +117,63 @@ export const getBridgeStatus = async (
 
   return response;
 };
+
+export const getFromTokenList = async (
+  fromChainId: number,
+  toChainId: number
+) => {
+  const response = await axios
+    .get(
+      `https://api.socket.tech/v2/token-lists/from-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
+      {
+        headers: {
+          "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+
+  return response;
+};
+
+export const getToTokenList = async (
+  fromChainId: number,
+  toChainId: number
+) => {
+  const response = await axios
+    .get(
+      `https://api.socket.tech/v2/token-lists/to-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
+      {
+        headers: {
+          "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+
+  return response;
+};
+
+export const getTokenPrice = async (tokenAddress: Address, chainId: number) => {
+  const response = await axios
+    .get(
+      `https://api.socket.tech/v2/token-price?tokenAddress=${tokenAddress}&chainId=${chainId}`,
+      {
+        headers: {
+          "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+
+  return response;
+};

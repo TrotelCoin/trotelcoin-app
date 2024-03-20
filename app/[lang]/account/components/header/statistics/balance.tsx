@@ -4,6 +4,7 @@ import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
@@ -39,9 +40,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
                     )}
                   </span>
                 ) : (
-                  <span className="animate__animated animate__flash animate__slower animate__infinite">
-                    0
-                  </span>
+                  <span className={`${loadingFlashClass}`}>0</span>
                 )}
               </span>
             </>
