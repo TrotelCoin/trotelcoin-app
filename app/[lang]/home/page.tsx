@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import { Lesson, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";

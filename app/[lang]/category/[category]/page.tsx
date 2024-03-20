@@ -1,7 +1,7 @@
 "use client";
 
-import { Lang } from "@/types/lang";
-import { Lessons } from "@/types/courses/lessons";
+import type { Lang } from "@/types/lang";
+import type { Lessons } from "@/types/courses/lessons";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";

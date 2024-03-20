@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
 import Balance from "@/app/[lang]/wallet/components/claim/balance";

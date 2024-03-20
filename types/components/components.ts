@@ -1,4 +1,4 @@
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 
 export interface Modals {
   title: string;

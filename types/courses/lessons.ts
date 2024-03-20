@@ -1,5 +1,5 @@
-import { LanguageStrings } from "@/types/lang";
-import { Tier } from "@/types/user/premium";
+import type { LanguageStrings } from "@/types/lang";
+import type { Tier } from "@/types/user/premium";
 
 export interface Lesson {
   title: LanguageStrings;

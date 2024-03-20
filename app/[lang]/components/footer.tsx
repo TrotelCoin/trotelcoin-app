@@ -3,7 +3,7 @@
 import { JSX, SVGProps } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import { FooterItem } from "@/types/components/components";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 

@@ -1,4 +1,4 @@
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import Link from "next/link";
 import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";

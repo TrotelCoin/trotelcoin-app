@@ -3,7 +3,7 @@
 import React from "react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import "animate.css";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 
 const Beginner = ({ lang }: { lang: Lang }) => {

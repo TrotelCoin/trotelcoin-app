@@ -1,6 +1,6 @@
 import quizzes from "@/data/quizzes/quizData";
 import { NextRequest, NextResponse } from "next/server";
-import { Question, Quiz } from "@/types/types";
+import type { Question, Quiz } from "@/types/courses/quiz";
 
 const getQuestionsByLanguage = (quiz: Quiz, lang: string) => {
   switch (lang) {

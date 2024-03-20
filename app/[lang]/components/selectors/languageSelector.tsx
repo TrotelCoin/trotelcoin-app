@@ -3,7 +3,7 @@
 import React, { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { usePathname, useRouter } from "next/navigation";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import { LanguageIcon } from "@heroicons/react/20/solid";
 

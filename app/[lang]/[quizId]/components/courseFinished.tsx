@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import CoursesSatisfaction from "@/app/[lang]/[quizId]/components/coursesSatisfaction";
 import Quiz from "@/app/[lang]/[quizId]/components/quiz";
 import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";

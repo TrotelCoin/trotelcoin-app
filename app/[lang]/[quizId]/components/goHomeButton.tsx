@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 
 export default function GoHomeButton({ lang }: { lang: Lang }) {
   return (

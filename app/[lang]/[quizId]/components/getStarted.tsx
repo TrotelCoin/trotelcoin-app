@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import React from "react";
 import BlueButton from "@/app/[lang]/components/blueButton";
 

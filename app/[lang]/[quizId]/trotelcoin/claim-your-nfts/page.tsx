@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import { useAccount } from "wagmi";
 import shortenAddress from "@/utils/shortenAddress";

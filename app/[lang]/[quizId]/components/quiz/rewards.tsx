@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";

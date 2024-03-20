@@ -1,6 +1,6 @@
 import React from "react";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import { Address } from "viem";
 
 const From = ({

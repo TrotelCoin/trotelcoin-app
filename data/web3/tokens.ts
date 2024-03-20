@@ -1,5 +1,5 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { Token } from "@/types/web3/token";
+import type { Token } from "@/types/web3/token";
 
 export const trotelCoin: Token = {
   address: trotelCoinAddress,

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Intermediate from "@/app/[lang]/shop/components/intermediate";
 import Expert from "@/app/[lang]/shop/components/expert";
 import Beginner from "@/app/[lang]/shop/components/beginner";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
 import { useSearchParams } from "next/navigation";
 

@@ -1,4 +1,4 @@
-import { LanguageOptions, LanguageStrings } from "@/types/lang";
+import type { LanguageOptions, LanguageStrings } from "@/types/lang";
 
 export interface Answers {
   [key: number]: string;

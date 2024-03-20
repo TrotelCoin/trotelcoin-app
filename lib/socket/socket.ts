@@ -1,5 +1,5 @@
 import { Address } from "viem";
-import { Sort } from "@/types/web3/swap";
+import type { Sort } from "@/types/web3/swap";
 import axios from "axios";
 
 export const getQuote = async (

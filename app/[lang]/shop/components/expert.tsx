@@ -19,7 +19,7 @@ import {
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import axios from "axios";

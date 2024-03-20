@@ -1,5 +1,5 @@
-import { Lang } from "@/types/lang";
-import { Question } from "@/types/courses/quiz";
+import type { Lang } from "@/types/lang";
+import type { Question } from "@/types/courses/quiz";
 import React, { SetStateAction, useContext, useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";

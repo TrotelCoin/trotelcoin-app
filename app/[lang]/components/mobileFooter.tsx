@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import { MobileFooterItem } from "@/types/components/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

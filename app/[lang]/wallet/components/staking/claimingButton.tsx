@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import {
   useAccount,

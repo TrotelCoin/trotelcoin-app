@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import "animate.css";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Confetti from "react-dom-confetti";
 

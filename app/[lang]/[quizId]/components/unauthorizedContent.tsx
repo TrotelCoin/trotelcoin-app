@@ -1,4 +1,4 @@
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import React from "react";
 import Link from "next/link";
 

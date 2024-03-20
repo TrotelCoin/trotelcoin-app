@@ -1,7 +1,7 @@
 "use client";
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import React from "react";
 import { polygon } from "viem/chains";
 

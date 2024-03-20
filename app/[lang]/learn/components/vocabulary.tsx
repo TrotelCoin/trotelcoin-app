@@ -1,4 +1,4 @@
-import { Lang } from "@/types/lang";
+import type { Lang } from "@/types/lang";
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,9 +8,10 @@ import { vocabulary } from "@/data/vocabulary/vocabulary";
 import Image from "next/image";
 import getRandomVocabulary from "@/utils/vocabulary";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import type { Vocabulary, VocabularyItem } from "@/types/components/cards";
 
 const Vocabulary = ({ lang }: { lang: Lang }) => {
-  const [randomVocabulary, setRandomVocabulary] = useState(
+  const [randomVocabulary, setRandomVocabulary] = useState<Vocabulary>(
     getRandomVocabulary(vocabulary)
   );
 
@@ -23,7 +24,7 @@ const Vocabulary = ({ lang }: { lang: Lang }) => {
           modules={[EffectCards]}
           style={{ width: "240px", height: "320px" }}
         >
-          {randomVocabulary.map((item, index) => (
+          {randomVocabulary.map((item: VocabularyItem, index: number) => (
             <SwiperSlide
               key={index}
               className="flex flex-col justify-center items-center rounded-xl bg-gray-100 dark:bg-gray-800 shadow-xl border border-gray-900/10 dark:border-gray-100/10"
