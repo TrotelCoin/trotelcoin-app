@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Lang } from "@/types/types";
+import { Lang, Sort } from "@/types/types";
 import {
   useAccount,
   useSendTransaction,
@@ -15,132 +15,17 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
-import SwapButton from "./swap/swapButton";
-
-export type Token = {
-  address: Address;
-  decimals: number;
-};
-
-export const trotel: Token = {
-  address: trotelCoinAddress,
-  decimals: 18,
-};
-
-export const usdc: Token = {
-  address: "0x3c499c542cef5e3811e1192ce70d8cc03d5c3359",
-  decimals: 6,
-};
-
-export type Sort = "output" | "gas" | "time";
-
-const getQuote = async (
-  fromChainId: number,
-  fromTokenAddress: Address,
-  toChainId: number,
-  toTokenAddress: Address,
-  fromAmount: number,
-  userAddress: Address,
-  uniqueRoutesPerBridge: boolean,
-  sort: Sort,
-  singleTxOnly: boolean
-) => {
-  const response = await fetch(
-    `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}`,
-    {
-      method: "GET",
-      headers: {
-        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const json = await response.json();
-  return json;
-};
-
-const getRouteTransactionData = async (route: any) => {
-  const response = await fetch("https://api.socket.tech/v2/build-tx", {
-    method: "POST",
-    headers: {
-      "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ route: route }),
-  });
-
-  const json = await response.json();
-  return json;
-};
-
-const checkAllowance = async (
-  chainId: number,
-  owner: Address,
-  allowanceTarget: Address,
-  tokenAddress: Address
-) => {
-  const response = await fetch(
-    `https://api.socket.tech/v2/approval/check-allowance?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}`,
-    {
-      method: "GET",
-      headers: {
-        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const json = await response.json();
-  return json;
-};
-
-const getApprovalTransactionData = async (
-  chainId: number,
-  owner: Address,
-  allowanceTarget: Address,
-  tokenAddress: Address,
-  amount: number
-) => {
-  const response = await fetch(
-    `https://api.socket.tech/v2/approval/build-tx?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}&amount=${amount}`,
-    {
-      method: "GET",
-      headers: {
-        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const json = await response.json();
-  return json;
-};
-
-const getBridgeStatus = async (
-  transactionHash: Address,
-  fromChainId: number,
-  toChainId: number
-) => {
-  const response = await fetch(
-    `https://api.socket.tech/v2/bridge-status?transactionHash=${transactionHash}&fromChainId=${fromChainId}&toChainId=${toChainId}`,
-    {
-      method: "GET",
-      headers: {
-        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  const json = await response.json();
-  return json;
-};
+import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
+import {
+  getQuote,
+  getRouteTransactionData,
+  getBridgeStatus,
+  checkAllowance,
+  getApprovalTransactionData,
+} from "@/lib/socket/socket";
+import { usdc, trotelCoin } from "@/data/web3/tokens";
+import From from "@/app/[lang]/wallet/components/swap/from";
+import To from "@/app/[lang]/wallet/components/swap/to";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -170,7 +55,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [toAmount, setToAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [fromDecimals, setFromDecimals] = useState<number>(usdc.decimals);
-  const [toDecimals, setToDecimals] = useState<number>(trotel.decimals);
+  const [toDecimals, setToDecimals] = useState<number>(trotelCoin.decimals);
   const [swappedMessage, setSwappedMessage] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
@@ -223,17 +108,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
       },
     },
   });
-
-  const tokenAddressToName = (tokenAddress: Address) => {
-    switch (tokenAddress) {
-      case trotelCoinAddress:
-        return "TROTEL";
-      case usdc.address:
-        return "USDC";
-      default:
-        return "Unknown";
-    }
-  };
 
   useEffect(() => {
     if (
@@ -373,79 +247,26 @@ const Swap = ({ lang }: { lang: Lang }) => {
         </div>
 
         <div className="px-4 py-4">
-          <div className="flex flex-col justify-center gap-2">
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col justify-center">
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "You pay" : "Vous payez"}
-                </span>
-              </div>
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                {lang === "en" ? "Balance:" : "Solde:"}{" "}
-                {fromBalance
-                  ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
-                  : "0"}
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <input
-                type="number"
-                className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent"
-                value={(fromAmount as number) < 0 ? 0 : fromAmount}
-                onChange={(e) => setFromAmount(parseFloat(e.target.value))}
-                placeholder={lang === "en" ? "Amount" : "Montant"}
-              />
-              <div className="flex flex-col justify-center items-end">
-                <span className="font-semibold text-gray-900 dark:text-gray-100">
-                  {tokenAddressToName(fromTokenAddress)}
-                </span>
-                <span className="text-xs">
-                  $
-                  {fromPrice
-                    ? Number(fromPrice?.toFixed(2)).toLocaleString("en-US")
-                    : "0"}
-                </span>
-              </div>
-            </div>
-          </div>
+          <From
+            lang={lang}
+            fromAmount={fromAmount as number}
+            fromBalance={fromBalance as number}
+            fromPrice={fromPrice as number}
+            fromTokenAddress={fromTokenAddress}
+            setFromAmount={
+              setFromAmount as React.Dispatch<React.SetStateAction<number>>
+            }
+          />
         </div>
 
         <div className="px-4 py-4">
-          <div className="flex flex-col justify-center gap-2">
-            <div className="flex items-center justify-between">
-              <div className="flex flex-col justify-center">
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "You receive" : "Vous recevez"}
-                </span>
-              </div>
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                {lang === "en" ? "Balance:" : "Solde:"}{" "}
-                {toBalance
-                  ? Number(toBalance?.toFixed(2)).toLocaleString("en-US")
-                  : "0"}
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <input
-                type="number"
-                className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed"
-                onWheel={(e) => e.preventDefault()}
-                value={toAmount ? Number((toAmount * 1e-18).toFixed(2)) : 0}
-                disabled={true}
-              />
-              <div className="flex flex-col justify-center items-end">
-                <span className="font-semibold text-gray-900 dark:text-gray-100">
-                  {tokenAddressToName(toTokenAddress)}
-                </span>
-                <span className="text-xs">
-                  $
-                  {toPrice
-                    ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
-                    : "0"}
-                </span>
-              </div>
-            </div>
-          </div>
+          <To
+            lang={lang}
+            toAmount={toAmount as number}
+            toPrice={toPrice as number}
+            toBalance={toBalance as number}
+            toTokenAddress={toTokenAddress}
+          />
         </div>
 
         <div className="px-4 pt-4">

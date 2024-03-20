@@ -40,7 +40,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto flex justify-center items-center -mt-10">
-        <div className="flex items-center text-sm justify-between gap-4 text-gray-900 dark:text-gray-100">
+        <div className="flex flex-wrap items-center text-sm gap-4 text-gray-900 dark:text-gray-100">
           <button
             onClick={() => setComponent("claim")}
             className={`px-4 py-2 rounded-full ${

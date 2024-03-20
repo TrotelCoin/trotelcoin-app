@@ -8,11 +8,6 @@ export interface Modals {
   lang: Lang;
 }
 
-export interface Token {
-  symbol: string;
-  address: Address;
-}
-
 export interface Module {
   id: number;
   href: string;
@@ -202,3 +197,11 @@ export type Cards = {
 };
 
 export type Theme = "light" | "dark";
+
+export type Token = {
+  address: Address;
+  decimals: number;
+  symbol: string;
+};
+
+export type Sort = "output" | "gas" | "time";
