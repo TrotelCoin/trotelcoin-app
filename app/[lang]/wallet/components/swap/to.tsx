@@ -2,6 +2,7 @@ import type { Lang } from "@/types/lang";
 import React from "react";
 import { Address } from "viem";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
+import "animate.css";
 
 const To = ({
   lang,
@@ -9,12 +10,14 @@ const To = ({
   toAmount,
   toTokenAddress,
   toPrice,
+  isLoading,
 }: {
   lang: Lang;
   toBalance: number;
   toAmount: number;
   toTokenAddress: Address;
   toPrice: number;
+  isLoading: boolean;
 }) => {
   return (
     <>
@@ -35,7 +38,10 @@ const To = ({
         <div className="flex items-center gap-4">
           <input
             type="number"
-            className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed"
+            className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full p-2 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed ${
+              isLoading &&
+              "animate__animated animate__slower animate__infinite animate__flash"
+            }`}
             onWheel={(e) => e.preventDefault()}
             value={toAmount ? Number((toAmount * 1e-18).toFixed(2)) : 0}
             disabled={true}

@@ -261,6 +261,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             toPrice={toPrice as number}
             toBalance={toBalance as number}
             toTokenAddress={toTokenAddress}
+            isLoading={isLoading}
           />
         </div>
 
