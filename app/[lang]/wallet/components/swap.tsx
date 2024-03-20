@@ -15,6 +15,7 @@ import { trotelCoinAddress } from "@/data/web3/addresses";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import "animate.css";
 
 export type Token = {
   address: Address;
@@ -372,7 +373,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
             <div className="flex items-center gap-1">
               <div
                 className={`w-3 h-3 rounded-full ${
-                  userAddress ? "bg-green-500" : "bg-gray-500"
+                  userAddress
+                    ? "bg-green-500 animate__animated animate__infinite animate__slower animate__flash"
+                    : "bg-gray-500"
                 }`}
               />
               {userAddress ? (
@@ -393,7 +396,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             <div className="flex items-center justify-between">
               <div className="flex flex-col justify-center">
                 <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "Pay with" : "Acheter avec"}
+                  {lang === "en" ? "You pay" : "Vous payez"}
                 </span>
               </div>
               <span className="text-sm text-gray-700 dark:text-gray-300">
