@@ -8,14 +8,14 @@ import {
   useBalance,
   useBlockNumber,
 } from "wagmi";
-import Wallet from "@/app/[lang]/components/header/wallet";
 import { polygon } from "viem/chains";
 import { Address, Hash, parseUnits } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
+import SwapButton from "./swap/swapButton";
 
 export type Token = {
   address: Address;
@@ -366,29 +366,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
     <>
       <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <div className="flex items-center justify-between px-4 pb-4">
-          <div className="flex flex-col">
-            <span className="font-bold text-xl">
-              {lang === "en" ? <>Swap</> : <>Échanger</>}
-            </span>
-            <div className="flex items-center gap-1">
-              <div
-                className={`w-3 h-3 rounded-full ${
-                  userAddress
-                    ? "bg-green-500 animate__animated animate__infinite animate__slower animate__flash"
-                    : "bg-gray-500"
-                }`}
-              />
-              {userAddress ? (
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "Connected" : "Connecté"}
-                </span>
-              ) : (
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {lang === "en" ? "Not connected" : "Non connecté"}
-                </span>
-              )}
-            </div>
-          </div>
+          <WidgetTitle
+            title={lang === "en" ? "Swap" : "Échanger"}
+            lang={lang}
+          />
         </div>
 
         <div className="px-4 py-4">
@@ -468,44 +449,21 @@ const Swap = ({ lang }: { lang: Lang }) => {
         </div>
 
         <div className="px-4 pt-4">
-          {userAddress ? (
-            needApproval ? (
-              <BlueButton
-                isFull={true}
-                disabled={disabled}
-                lang={lang}
-                isLoading={isLoading}
-                text={lang === "en" ? "Approve" : "Approuver"}
-                onClick={async () => {
-                  await approvingAsync({
-                    to: approvalTransactionData.result?.to,
-                    data: approvalTransactionData.result?.data,
-                    chainId: fromChainId,
-                  });
-                }}
-              />
-            ) : (
-              <BlueButton
-                isFull={true}
-                disabled={disabled}
-                lang={lang}
-                isLoading={isLoading}
-                text={lang === "en" ? "Swap" : "Échanger"}
-                onClick={async () => {
-                  const txHash = await swappingAsync({
-                    account: userAddress,
-                    to: apiReturnData.result.txTarget,
-                    value: apiReturnData.result.value,
-                    data: apiReturnData.result.txData,
-                  });
-
-                  setTxHash(txHash);
-                }}
-              />
-            )
-          ) : (
-            <Wallet lang={lang} isFull={true} isCentered={true} />
-          )}
+          <SwapButton
+            lang={lang}
+            userAddress={userAddress as Address}
+            disabled={disabled}
+            needApproval={needApproval}
+            approvalTransactionData={approvalTransactionData}
+            apiReturnData={apiReturnData}
+            swappingAsync={swappingAsync}
+            setTxHash={
+              setTxHash as React.Dispatch<React.SetStateAction<string>>
+            }
+            approvingAsync={approvingAsync}
+            isLoading={isLoading}
+            fromChainId={fromChainId}
+          />
         </div>
       </div>
       <Fail
