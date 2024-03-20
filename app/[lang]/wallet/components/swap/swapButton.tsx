@@ -1,5 +1,5 @@
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import React from "react";
 import { Address } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";

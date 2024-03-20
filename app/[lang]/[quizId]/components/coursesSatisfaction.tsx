@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { Address } from "viem";

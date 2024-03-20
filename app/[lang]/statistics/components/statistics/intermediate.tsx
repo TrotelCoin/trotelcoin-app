@@ -1,6 +1,6 @@
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import React, { useEffect } from "react";
 import { polygon } from "viem/chains";
 import { useReadContract, useBlockNumber } from "wagmi";

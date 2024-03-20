@@ -1,7 +1,7 @@
 import { useWeb3Modal } from "@web3modal/wagmi/react";
 import React, { useContext } from "react";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import { useAccount, useDisconnect, useChainId, useSignMessage } from "wagmi";
 import { getCsrfToken, signIn, useSession } from "next-auth/react";

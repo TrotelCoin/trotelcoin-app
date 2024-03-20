@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import Claim from "@/app/[lang]/wallet/components/claim";
 import Staking from "@/app/[lang]/wallet/components/staking";
 import { useChainId } from "wagmi";

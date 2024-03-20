@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { useAccount } from "wagmi";

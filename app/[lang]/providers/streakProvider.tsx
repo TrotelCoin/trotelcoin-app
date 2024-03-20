@@ -8,7 +8,7 @@ import { Address } from "viem";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 
 const StreakProvider = ({

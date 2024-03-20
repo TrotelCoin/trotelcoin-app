@@ -1,5 +1,5 @@
 import StreakContext from "@/app/[lang]/contexts/streakContext";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 
 const MaxStreak = ({ lang }: { lang: Lang }) => {

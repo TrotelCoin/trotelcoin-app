@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Lang, Sort } from "@/types/types";
+import { Lang } from "@/types/lang";
+import { Sort } from "@/types/web3/swap";
 import {
   useAccount,
   useSendTransaction,

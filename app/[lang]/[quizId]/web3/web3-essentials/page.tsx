@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 
 const cards = {

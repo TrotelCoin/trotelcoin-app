@@ -3,7 +3,7 @@
 import React, { use, useContext, useEffect } from "react";
 
 import { useAccount } from "wagmi";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import LevelSection from "@/app/[lang]/account/components/level";
 import HeaderSection from "@/app/[lang]/account/components/header";
 import BadgesSection from "@/app/[lang]/account/components/badges";

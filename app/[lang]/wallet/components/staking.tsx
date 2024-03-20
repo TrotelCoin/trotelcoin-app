@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import Period from "@/app/[lang]/wallet/components/staking/period";
 import StakingData from "@/app/[lang]/wallet/components/staking/stakingData";

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import SessionProviderComponent from "@/app/[lang]/providers/sessionProvider";
 import "@/app/[lang]/globals.css";
 import { Session } from "next-auth";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { poppins } from "@/lib/fonts/poppins";

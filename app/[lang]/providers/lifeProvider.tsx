@@ -8,7 +8,7 @@ import axios from "axios";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const LifeProvider = ({

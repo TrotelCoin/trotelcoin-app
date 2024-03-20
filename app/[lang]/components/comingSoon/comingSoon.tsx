@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import React from "react";
 
 // Define a functional component called ComingSoon

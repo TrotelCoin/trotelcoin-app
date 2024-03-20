@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import Vocabulary from "@/app/[lang]/learn/components/vocabulary";
 import { useSearchParams } from "next/navigation";
 

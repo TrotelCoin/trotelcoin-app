@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";

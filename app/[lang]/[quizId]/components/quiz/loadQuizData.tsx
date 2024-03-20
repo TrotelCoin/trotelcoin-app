@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import axios from "axios";
 
 export const loadQuizData = async (quizId: number, lang: Lang) => {

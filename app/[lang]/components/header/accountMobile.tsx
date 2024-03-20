@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import Link from "next/link";

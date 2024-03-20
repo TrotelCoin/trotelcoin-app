@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";

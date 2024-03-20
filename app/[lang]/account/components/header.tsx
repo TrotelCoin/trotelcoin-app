@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import { useAccount, useEnsName } from "wagmi";
 import { Address } from "viem";
 import { mainnet } from "viem/chains";

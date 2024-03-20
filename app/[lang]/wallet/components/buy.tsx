@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Lang } from "@/types/types";
+import { Lang } from "@/types/lang";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 
