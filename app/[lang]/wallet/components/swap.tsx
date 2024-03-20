@@ -26,6 +26,7 @@ import {
 import { usdc, trotelCoin } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
+import { useDebounce } from "use-debounce";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -123,6 +124,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
 
+  const [debouncedFromAmount] = useDebounce(fromAmount, 500);
+
   useEffect(() => {
     const fetchQuote = async () => {
       setIsLoading(true);
@@ -168,7 +171,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setToAmount(0);
     }
   }, [
-    fromAmount,
+    debouncedFromAmount,
     fromChainId,
     toChainId,
     userAddress,
