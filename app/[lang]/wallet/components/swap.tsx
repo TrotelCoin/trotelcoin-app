@@ -39,7 +39,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toTokenAddress, setToTokenAddress] =
     useState<Address>(trotelCoinAddress);
-  const [quote, setQuote] = useState<any>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [fromBalance, setFromBalance] = useState<number | null>(null);
@@ -146,8 +145,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
         singleTxOnly
       );
 
-      setQuote(quote);
-
       const route = quote.result.routes[0];
 
       const apiReturnData = await getRouteTransactionData(route);
@@ -167,7 +164,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
     if (userAddress && fromAmount) {
       fetchQuote();
     } else {
-      setQuote(null);
       setToAmount(0);
     }
   }, [
