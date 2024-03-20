@@ -133,11 +133,16 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
     if (fromPrice && !toPrice) {
       if (fromPrice > 0) {
-        setToPrice((fromPrice * (toAmount as number)) / (fromAmount as number));
-        console.log("toPrice", toPrice);
+        setToPrice(
+          (fromPrice * ((toAmount as number) * 10 ** toToken.decimals)) /
+            (fromAmount as number)
+        );
+        console.log("fromAmount", fromAmount);
+        console.log("toAmount", toAmount);
         console.log(
           "toPrice calcul",
-          (fromPrice * (toAmount as number)) / (fromAmount as number)
+          (fromPrice * ((toAmount as number) * 10 ** toToken.decimals)) /
+            (fromAmount as number)
         );
       }
     }
