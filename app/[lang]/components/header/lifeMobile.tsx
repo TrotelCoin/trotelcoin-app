@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Link from "next/link";

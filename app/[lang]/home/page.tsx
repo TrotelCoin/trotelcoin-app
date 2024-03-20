@@ -3,7 +3,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import lessons from "@/data/lessons/lessonsData";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
-import { Lessons, Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
+import { Lesson, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";
 import {
@@ -66,9 +67,11 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
         <div className="flex flex-col">
           {filteredLessons
             .filter((lesson) =>
-              lesson.courses.some((course) => course.available)
+              lesson.courses.some(
+                (course: { available: boolean }) => course.available
+              )
             )
-            .map((lesson, index) => (
+            .map((lesson: Lessons, index: number) => (
               <div className="my-10" key={index}>
                 <div className="flex justify-between items-center">
                   <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100 mt-1">
@@ -84,7 +87,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                 </div>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {lesson.courses
-                    .sort((a, b) => {
+                    .sort((a: Lesson, b: Lesson) => {
                       const tierOrder = {
                         Beginner: 2,
                         Intermediate: 1,
@@ -92,14 +95,14 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                       };
                       return tierOrder[a.tier.en] - tierOrder[b.tier.en];
                     })
-                    .filter((course) => {
+                    .filter((course: Lesson) => {
                       const lowerCaseTitle = course.title[lang].toLowerCase();
                       return (
                         lowerCaseTitle.includes(searchTerm) && course.available
                       );
                     })
                     .slice(0, 3)
-                    .map((course, index) =>
+                    .map((course: Lesson, index: number) =>
                       renderCourses(
                         course,
                         isIntermediate,

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import answers from "@/data/quizzes/quizAnswers";
-import { QuizAnswer } from "@/types/types";
+import type { QuizAnswer } from "@/types/courses/quiz";
 
 const getAnswersByLanguage = (quiz: QuizAnswer, lang: string) => {
   switch (lang) {

@@ -1,5 +1,6 @@
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import { Badge, Badges, BadgesNames, Lang } from "@/types/types";
+import type { Badge, Badges, BadgesNames } from "@/types/components/badges";
+import type { Lang } from "@/types/lang";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";

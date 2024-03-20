@@ -3,7 +3,7 @@
 import { useBalance, useBlockNumber, useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "wagmi/chains";
-import { BalanceData } from "@/types/types";
+import { BalanceData } from "@/types/web3/balance";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 
 export default function TrotelBalance() {

@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment, useContext, useState } from "react";

@@ -1,5 +1,5 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 
 const Rank = ({ lang }: { lang: Lang }) => {

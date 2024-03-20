@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (

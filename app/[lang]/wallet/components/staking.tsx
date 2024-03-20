@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import Period from "@/app/[lang]/wallet/components/staking/period";
 import StakingData from "@/app/[lang]/wallet/components/staking/stakingData";
@@ -16,6 +16,7 @@ import { useAccount, useReadContract, useBlockNumber } from "wagmi";
 import { formatEther } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
+import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 
 const Staking = ({
   lang,
@@ -80,27 +81,7 @@ const Staking = ({
     <>
       <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <div className="flex flex-col px-4 pb-4">
-          <span className="font-bold text-xl">
-            {lang === "en" ? <>Stake</> : <>Staker</>}
-          </span>
-          <div className="flex items-center gap-1">
-            <div
-              className={`w-3 h-3 rounded-full ${
-                address
-                  ? "bg-green-500 animate__animated animate__infinite animate__slower animate__flash"
-                  : "bg-gray-500"
-              }`}
-            />
-            {address ? (
-              <span className="text-gray-700 dark:text-gray-300 text-sm">
-                {lang === "en" ? "Connected" : "Connecté"}
-              </span>
-            ) : (
-              <span className="text-gray-700 dark:text-gray-300 text-sm">
-                {lang === "en" ? "Not connected" : "Non connecté"}
-              </span>
-            )}
-          </div>
+          <WidgetTitle title={lang === "en" ? "Stake" : "Staker"} lang={lang} />
         </div>
 
         <div className="px-4 py-4 flex flex-col gap-2">

@@ -1,5 +1,5 @@
-import { Lesson, Lang } from "@/types/types";
-
+import type { Lesson } from "@/types/courses/lessons";
+import type { Lang } from "@/types/lang";
 import { Address } from "viem";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";

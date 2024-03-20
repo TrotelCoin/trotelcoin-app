@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import Link from "next/link";
 
 export default function NotPremium({

@@ -6,7 +6,7 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import WarningNotification from "@/app/[lang]/components/modals/warningNotification";
 import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 import { useSession } from "next-auth/react";

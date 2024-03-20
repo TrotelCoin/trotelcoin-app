@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";

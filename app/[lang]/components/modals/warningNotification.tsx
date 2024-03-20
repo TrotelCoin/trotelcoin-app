@@ -1,7 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 export default function WarningNotification({

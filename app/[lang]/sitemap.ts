@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 
 export default function sitemap({
   lang,

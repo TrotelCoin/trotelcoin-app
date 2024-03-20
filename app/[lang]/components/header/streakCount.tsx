@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import { Transition } from "@headlessui/react";
 import { useAccount } from "wagmi";
 import React, { Fragment, useContext, useEffect, useState } from "react";

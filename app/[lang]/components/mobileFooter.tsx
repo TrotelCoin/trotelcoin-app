@@ -1,6 +1,7 @@
 "use client";
 
-import { Lang, MobileFooterItem } from "@/types/types";
+import type { Lang } from "@/types/lang";
+import { MobileFooterItem } from "@/types/components/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";

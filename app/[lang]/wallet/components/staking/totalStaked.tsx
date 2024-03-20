@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import { useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";

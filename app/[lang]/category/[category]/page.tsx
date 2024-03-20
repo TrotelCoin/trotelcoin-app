@@ -1,6 +1,7 @@
 "use client";
 
-import { Lang, Lessons } from "@/types/types";
+import type { Lang } from "@/types/lang";
+import type { Lessons } from "@/types/courses/lessons";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const Page = ({
     (lesson) => lesson.category.toLowerCase() === category.toLowerCase()
   );
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 

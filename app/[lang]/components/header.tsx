@@ -9,7 +9,7 @@ import TrotelPrice from "@/app/[lang]/hooks/trotelPrice";
 import TrotelPriceChange from "@/app/[lang]/hooks/trotelPriceChange";
 import ThemeSwitcher from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import StreakMobile from "@/app/[lang]/components/header/streakMobile";
 import ShopMobile from "@/app/[lang]/components/header/shopMobile";
 import AccountMobile from "@/app/[lang]/components/header/accountMobile";

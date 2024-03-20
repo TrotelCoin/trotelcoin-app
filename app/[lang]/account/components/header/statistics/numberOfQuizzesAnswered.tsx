@@ -1,5 +1,5 @@
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 
 const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {

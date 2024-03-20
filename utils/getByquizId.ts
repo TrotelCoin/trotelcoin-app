@@ -1,4 +1,4 @@
-import { Lessons, Lesson } from "@/types/types";
+import type { Lessons, Lesson } from "@/types/courses/lessons";
 
 export const getTierByQuizId = (
   quizIdParam: number,

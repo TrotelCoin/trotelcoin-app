@@ -19,7 +19,7 @@ import {
   trotelCoinAddress,
   trotelCoinIntermediateAddress,
 } from "@/data/web3/addresses";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";

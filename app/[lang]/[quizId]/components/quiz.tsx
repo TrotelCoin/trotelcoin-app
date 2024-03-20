@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useState } from "react";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import Rewards from "@/app/[lang]/[quizId]/components/quiz/rewards";
 import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";

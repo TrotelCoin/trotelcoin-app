@@ -1,4 +1,4 @@
-import { QuizData } from "@/types/types";
+import type { QuizData } from "@/types/courses/quiz";
 
 const quizzes: QuizData = [
   {

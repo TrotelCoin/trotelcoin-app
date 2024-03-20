@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import React from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";

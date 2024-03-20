@@ -1,5 +1,5 @@
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";

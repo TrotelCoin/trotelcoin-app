@@ -1,6 +1,6 @@
 "use client";
 
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import Link from "next/link";
 
