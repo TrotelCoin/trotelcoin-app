@@ -25,6 +25,10 @@ const From = ({
   fromChainId: number;
   userAddress: Address;
 }) => {
+  const setMax = () => {
+    setFromAmount(fromBalance as number);
+  };
+
   return (
     <>
       <div className="flex flex-col justify-center gap-2">
@@ -34,12 +38,20 @@ const From = ({
               {lang === "en" ? "You pay" : "Vous payez"}
             </span>
           </div>
-          <span className="text-sm text-gray-700 dark:text-gray-300">
-            {lang === "en" ? "Balance:" : "Solde:"}{" "}
-            {fromBalance
-              ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
-              : "0"}
-          </span>
+          <div className="flex items-center gap-1">
+            <span className="text-sm text-gray-700 dark:text-gray-300">
+              {lang === "en" ? "Balance:" : "Solde:"}{" "}
+              {fromBalance
+                ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
+                : "0"}
+            </span>
+            <button
+              onClick={() => setMax()}
+              className="text-sm text-blue-500 dark:text-blue-500 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+            >
+              {lang === "en" ? "Max" : "Max"}
+            </button>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <input
