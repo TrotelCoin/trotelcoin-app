@@ -55,7 +55,9 @@ const To = ({
             <span className={`text-xs ${isLoading && loadingFlashClass}`}>
               $
               {toPrice
-                ? Number(toPrice?.toFixed(2)).toLocaleString("en-US")
+                ? Number((toPrice * toAmount).toFixed(2)).toLocaleString(
+                    "en-US"
+                  )
                 : "0"}
             </span>
           </div>

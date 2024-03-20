@@ -11,7 +11,6 @@ import {
 } from "wagmi";
 import { polygon } from "viem/chains";
 import { Address, Hash, parseUnits } from "viem";
-import { trotelCoinAddress } from "@/data/web3/addresses";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -23,6 +22,9 @@ import {
   getBridgeStatus,
   checkAllowance,
   getApprovalTransactionData,
+  getFromTokenList,
+  getToTokenList,
+  getTokenPrice,
 } from "@/lib/socket/socket";
 import { usdc, trotelCoin, matic } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
@@ -92,6 +94,27 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setToBalance(balance);
     }
   }, [fromBalanceData, toBalanceData]);
+
+  useEffect(() => {
+    const fetchTokenPrice = async () => {
+      const fromTokenPrice = await getTokenPrice(
+        fromToken.address,
+        fromChainId
+      );
+
+      const toTokenPrice = await getTokenPrice(toToken.address, toChainId);
+
+      setFromPrice(fromTokenPrice.result?.tokenPrice);
+      setToPrice(toTokenPrice.result?.tokenPrice);
+    };
+
+    if (fromToken && toToken) {
+      fetchTokenPrice();
+    } else {
+      setFromPrice(null);
+      setToPrice(null);
+    }
+  }, [fromToken, toToken]);
 
   const { sendTransactionAsync: approvingAsync } = useSendTransaction({
     mutation: {
