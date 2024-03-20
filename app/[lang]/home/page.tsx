@@ -63,7 +63,12 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   return (
     <>
       <>
-        <Form lang={lang} setSearchTerm={setSearchTerm} />
+        <Form
+          lang={lang}
+          setSearchTerm={setSearchTerm}
+          searchTerm={searchTerm}
+          filteredLessons={filteredLessons}
+        />
         <div className="flex flex-col">
           {filteredLessons
             .filter((lesson) =>

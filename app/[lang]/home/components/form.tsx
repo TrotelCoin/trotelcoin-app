@@ -1,12 +1,17 @@
+import { Lessons } from "@/types/courses/lessons";
 import type { Lang } from "@/types/lang";
 import React from "react";
 
 const Form = ({
   lang,
   setSearchTerm,
+  searchTerm,
+  filteredLessons,
 }: {
   lang: Lang;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  searchTerm: string;
+  filteredLessons: Lessons[];
 }) => {
   return (
     <>
