@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import type { Lang } from "@/types/lang";
 import type { Address } from "viem";
@@ -25,15 +25,26 @@ const From = ({
   fromChainId: number;
   userAddress: Address;
 }) => {
+  const [isMax, setIsMax] = useState<boolean>(false);
+
   const setMax = () => {
     setFromAmount(fromBalance as number);
   };
+
+  useEffect(() => {
+    if (fromAmount === fromBalance) {
+      setIsMax(true);
+    } else {
+      setIsMax(false);
+    }
+  }, [fromAmount, fromBalance]);
 
   return (
     <>
       <div className="flex flex-col justify-center gap-2">
         <div className="flex items-center justify-between">
           <div className="flex flex-col justify-center">
+            {}
             <span className="text-gray-700 dark:text-gray-300 text-sm">
               {lang === "en" ? "You pay" : "Vous payez"}
             </span>
@@ -45,12 +56,14 @@ const From = ({
                 ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
                 : "0"}
             </span>
-            <button
-              onClick={() => setMax()}
-              className="text-sm text-blue-500 dark:text-blue-500 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
-            >
-              {lang === "en" ? "Max" : "Max"}
-            </button>
+            {!isMax && (
+              <button
+                onClick={() => setMax()}
+                className="text-sm text-blue-500 dark:text-blue-500 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+              >
+                {lang === "en" ? "Max" : "Max"}
+              </button>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-4">
