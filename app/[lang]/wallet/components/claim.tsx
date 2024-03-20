@@ -11,6 +11,7 @@ import Status from "@/app/[lang]/wallet/components/claim/status";
 import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
 const Claim = ({
   lang,
@@ -99,13 +100,17 @@ const Claim = ({
         </div>
 
         <div className="pt-4 px-4">
-          <RewardsButton
-            centralWalletAddress={centralWalletAddress as Address}
-            lang={lang}
-            chainError={chainError}
-            setChainError={setChainError}
-            setClaimed={setClaimed}
-          />
+          {address ? (
+            <RewardsButton
+              centralWalletAddress={centralWalletAddress as Address}
+              lang={lang}
+              chainError={chainError}
+              setChainError={setChainError}
+              setClaimed={setClaimed}
+            />
+          ) : (
+            <Wallet lang={lang} isFull={true} isCentered={true} />
+          )}
         </div>
       </div>
     </>
