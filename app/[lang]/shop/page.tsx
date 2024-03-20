@@ -26,34 +26,34 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex justify-center items-center -mt-10">
+      <div className="mx-auto flex justify-start items-center">
         <div className="flex items-center text-sm justify-between gap-4 text-gray-900 dark:text-gray-100">
           <button
             onClick={() => setComponent("ranks")}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-4 py-2 rounded-full font-semibold ${
               component === "ranks"
-                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
-                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+              ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
+              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
             }`}
           >
             {lang === "en" ? <>Ranks</> : <>Rangs</>}
           </button>
           <button
             onClick={() => setComponent("shop")}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-4 py-2 rounded-full font-semibold ${
               component === "shop"
-                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
-                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+              ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
+              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
             }`}
           >
             {lang === "en" ? <>Shop</> : <>Boutique</>}
           </button>
           <button
             onClick={() => setComponent("inventory")}
-            className={`px-4 py-2 rounded-full ${
+            className={`px-4 py-2 rounded-full font-semibold ${
               component === "inventory"
-                ? "text-gray-100 dark:text-gray-900 font-semibold bg-gray-800 dark:bg-gray-100"
-                : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 bg-gray-200 dark:bg-gray-700"
+              ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
+              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
             }`}
           >
             {lang === "en" ? <>Inventory</> : <>Inventaire</>}
@@ -61,9 +61,9 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
       </div>
       {component && (
-        <div className="mx-auto mt-8">
+        <div className="mx-auto mt-4">
           {component === "ranks" && (
-            <div className="grid grid-cols-1 mt-4 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Beginner lang={lang} />
               <Intermediate lang={lang} />
               <Expert lang={lang} />

@@ -22,7 +22,6 @@ import {
   ArrowPathIcon,
   ArrowsUpDownIcon,
   Cog6ToothIcon,
-  BoltIcon,
 } from "@heroicons/react/20/solid";
 import {
   getQuote,
@@ -32,7 +31,6 @@ import {
   getApprovalTransactionData,
   getFromTokenList,
   getToTokenList,
-  getTokenPrice,
 } from "@/lib/socket/socket";
 import { usdc, trotelCoin, matic } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
@@ -40,7 +38,7 @@ import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import SwapData from "@/app/[lang]/wallet/components/swap/swapData";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -72,6 +70,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [openSettings, setOpenSettings] = useState<boolean>(false);
   const [fromTokens, setFromTokens] = useState<Token[]>([]);
   const [toTokens, setToTokens] = useState<Token[]>([]);
+  const [gasPrice, setGasPrice] = useState<number | null>(null);
 
   const { address: userAddress } = useAccount();
 
@@ -101,7 +100,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     refetchFrom();
     refetchTo();
-    refetchGas();
   }, [blockNumber, userAddress]);
 
   useEffect(() => {
@@ -115,45 +113,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setToBalance(balance);
     }
   }, [fromBalanceData, toBalanceData]);
-
-  useEffect(() => {
-    const fetchTokenPrice = async () => {
-      setIsLoading(true);
-
-      const fromTokenPrice = await getTokenPrice(
-        fromToken.address,
-        fromChainId
-      );
-
-      const toTokenPrice = await getTokenPrice(toToken.address, toChainId);
-
-      if (fromTokenPrice && toTokenPrice) {
-        setFromPrice(fromTokenPrice?.result?.tokenPrice);
-        setToPrice(toTokenPrice?.result?.tokenPrice);
-      } else if (fromTokenPrice) {
-        setFromPrice(fromTokenPrice?.result?.tokenPrice);
-      } else if (toTokenPrice) {
-        setToPrice(toTokenPrice?.result?.tokenPrice);
-      } else {
-        setFromPrice(0);
-        setToPrice(0);
-      }
-
-      setIsLoading(false);
-    };
-
-    if (fromToken && toToken) {
-      fetchTokenPrice();
-      const interval = setInterval(() => {
-        fetchTokenPrice();
-      }, 30000);
-
-      return () => clearInterval(interval);
-    } else {
-      setFromPrice(0);
-      setToPrice(0);
-    }
-  }, [fromToken, toToken]);
 
   const { sendTransactionAsync: approvingAsync } = useSendTransaction({
     mutation: {
@@ -218,6 +177,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
       }
 
       const route = quote.result.routes[0];
+      setGasPrice(quote.result.routes[0].totalGasFeesInUsd);
+      setFromPrice(quote.result.routes[0].inputValueInUsd);
+      setToPrice(quote.result.routes[0].outputValueInUsd);
 
       if (!route) {
         setIsLoading(false);
@@ -293,21 +255,23 @@ const Swap = ({ lang }: { lang: Lang }) => {
   }, [fromChainId, toChainId]);
 
   useEffect(() => {
-    const txStatus = setInterval(async () => {
-      const status = await getBridgeStatus(
-        txHash as Address,
-        fromChainId,
-        toChainId
-      );
+    if (txHash) {
+      const txStatus = setInterval(async () => {
+        const status = await getBridgeStatus(
+          txHash as Address,
+          fromChainId,
+          toChainId
+        );
 
-      if (!status) {
-        return;
-      }
+        if (!status) {
+          return;
+        }
 
-      if (status.result.destinationTxStatus == "COMPLETED") {
-        clearInterval(txStatus);
-      }
-    }, 20000);
+        if (status.result.destinationTxStatus == "COMPLETED") {
+          clearInterval(txStatus);
+        }
+      }, 20000);
+    }
   }, [txHash]);
 
   useEffect(() => {
@@ -344,16 +308,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [approvalData, userAddress, fromToken.address, fromChainId]);
 
-  const { data: gasPrice, refetch: refetchGas } = useEstimateGas({
-    account: userAddress as Address,
-    to: apiReturnData?.result?.txTarget,
-    value: apiReturnData?.result?.value,
-    data: apiReturnData?.result?.txData,
-  });
-
   return (
     <>
-      <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <div className="flex items-center justify-between px-4 pb-4">
           <WidgetTitle
             title={lang === "en" ? "Swap" : "Échanger"}
@@ -365,7 +322,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
             </BlueSimpleButton>
             <BlueSimpleButton
               onClick={() => refetchQuote()}
-              disabled={isLoading}
+              disabled={
+                isLoading || !userAddress || !fromAmount || !quoteFetched
+              }
             >
               <ArrowPathIcon
                 className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
@@ -429,16 +388,11 @@ const Swap = ({ lang }: { lang: Lang }) => {
         </div>
       </div>
 
-      <div className="mt-2 flex items-center gap-1 px-4">
-        <BoltIcon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-        <span className={`text-gray-700 dark:text-gray-300 text-xs`}>
-          {lang === "en" ? "Gas price:" : "Frais de gaz:"}{" "}
-          <span className={`${isLoading && loadingFlashClass}`}>
-            {Boolean(gasPrice) ? Number(Number(gasPrice).toFixed(0)) : 0}
-          </span>{" "}
-          wei
-        </span>
-      </div>
+      <SwapData
+        lang={lang}
+        isLoading={isLoading}
+        gasPrice={gasPrice as number}
+      />
 
       <Fail
         show={errorMessage}
