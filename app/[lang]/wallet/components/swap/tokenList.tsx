@@ -132,7 +132,7 @@ const TokenList = ({
                                   {token.name === "TrotelCoin" ? (
                                     <>
                                       <div className="block dark:hidden">
-                                        <Image
+                                        <img
                                           width={48}
                                           height={48}
                                           className="rounded-full"
@@ -142,7 +142,7 @@ const TokenList = ({
                                         />
                                       </div>
                                       <div className="hidden dark:block">
-                                        <Image
+                                        <img
                                           width={48}
                                           height={48}
                                           className="rounded-full"
@@ -153,7 +153,7 @@ const TokenList = ({
                                       </div>
                                     </>
                                   ) : (
-                                    <Image
+                                    <img
                                       width={48}
                                       height={48}
                                       className="rounded-full"
