@@ -34,7 +34,7 @@ const From = ({
   const [isMax, setIsMax] = useState<boolean>(false);
 
   const setMax = () => {
-    setFromAmount(fromBalance as number);
+    setFromAmount(fromBalance);
   };
 
   useEffect(() => {
@@ -62,10 +62,10 @@ const From = ({
                 ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
                 : "0"}
             </span>
-            {!isMax && (
+            {!isMax && fromBalance > 0 && (
               <button
                 onClick={() => setMax()}
-                className="text-sm text-blue-500 dark:text-blue-500 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+                className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
               >
                 {lang === "en" ? "Max" : "Max"}
               </button>
