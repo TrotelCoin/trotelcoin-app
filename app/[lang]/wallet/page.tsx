@@ -84,7 +84,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
       </div>
       {component && (
-        <div className="mx-auto max-w-md mt-4">
+        <div className="mx-auto max-w-md mt-2">
           {component === "buy" && <Buy lang={lang} />}
           {component === "claim" && (
             <Claim

@@ -61,7 +61,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
       </div>
       {component && (
-        <div className="mx-auto mt-4">
+        <div className="mx-auto mt-2">
           {component === "ranks" && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Beginner lang={lang} />
