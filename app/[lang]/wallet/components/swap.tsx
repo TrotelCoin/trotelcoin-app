@@ -225,10 +225,18 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setIsLoading(false);
     };
 
-    if (userAddress && fromAmount) {
+    if (userAddress && fromAmount && fromAmount > 0 && !quoteFetched) {
       fetchQuote();
     } else {
       setToAmount(0);
+      setQuoteFetched(false);
+      setGasPrice(null);
+      setFromPrice(null);
+      setToPrice(null);
+      setSwapSlippage(null);
+      setProtocolName(null);
+      setProtocolIcon(null);
+      setMinimumAmountOut(null);
     }
   }, [
     debouncedFromAmount,
