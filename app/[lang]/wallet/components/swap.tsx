@@ -17,11 +17,7 @@ import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
 import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
 import FailNotification from "@/app/[lang]/components/modals/failNotification";
-import {
-  ArrowPathIcon,
-  ArrowsUpDownIcon,
-  Cog6ToothIcon,
-} from "@heroicons/react/20/solid";
+import { ArrowPathIcon, ArrowsUpDownIcon } from "@heroicons/react/20/solid";
 import {
   getQuote,
   getRouteTransactionData,
@@ -39,6 +35,7 @@ import { Token } from "@/types/web3/token";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import SwapData from "@/app/[lang]/wallet/components/swap/swapData";
 import TokenList from "@/app/[lang]/wallet/components/swap/tokenList";
+import Settings from "@/app/[lang]/wallet/components/swap/settings";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -67,7 +64,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [noQuoteNotification, setNoQuoteNotification] =
     useState<boolean>(false);
   const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
-  const [openSettings, setOpenSettings] = useState<boolean>(false);
   const [fromTokens, setFromTokens] = useState<Token[]>([]);
   const [toTokens, setToTokens] = useState<Token[]>([]);
   const [gasPrice, setGasPrice] = useState<number | null>(null);
@@ -357,6 +353,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             <BlueSimpleButton onClick={() => exchangeTokens()}>
               <ArrowsUpDownIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
             </BlueSimpleButton>
+
             <BlueSimpleButton
               onClick={() => refetchQuote()}
               disabled={
@@ -369,9 +366,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
                 }`}
               />
             </BlueSimpleButton>
-            <BlueSimpleButton onClick={() => setOpenSettings(true)}>
-              <Cog6ToothIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
-            </BlueSimpleButton>
+
+            <Settings
+              lang={lang}
+              enableRefuel={enableRefuel}
+              setEnableRefuel={setEnableRefuel}
+            />
           </div>
         </div>
 
@@ -423,8 +423,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
             approvingAsync={approvingAsync}
             isLoading={isLoading}
             fromChainId={fromChainId}
-            enableRefuel={enableRefuel}
-            setEnableRefuel={setEnableRefuel}
             isPendingApproving={isPendingApproving}
           />
         </div>

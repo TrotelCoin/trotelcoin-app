@@ -25,6 +25,8 @@
     "@next/eslint-plugin-next": "^14.0.1",
     "@next/mdx": "^14.1.1",
     "@radix-ui/react-popover": "latest",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-hooks-library/core": "^0.6.2",
     "@socket.tech/socket-v2-sdk": "^1.24.2",
