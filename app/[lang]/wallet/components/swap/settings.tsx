@@ -32,7 +32,7 @@ const Settings = ({
           <Popover.Content
             side="bottom"
             align="center"
-            sideOffset={5}
+            sideOffset={10}
             className="max-w-xl flex flex-col bg-gray-100 dark:bg-gray-800 divide-y divide-gray-900/10 dark:divide-gray-100/10 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl"
           >
             <div className="flex gap-12 justify-between items-center px-4 py-4">
