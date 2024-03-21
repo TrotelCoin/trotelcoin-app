@@ -286,8 +286,8 @@ const SwapData = ({
                       as="div"
                     >
                       {lang === "en"
-                        ? "When you move tokens to a new chain, you may lack the native token for transactions. You can request funds from a faucet or bridge the token from another chain."
-                        : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez manquer du jeton natif pour les transactions. Vous pouvez demander des fonds à un faucet ou transférer le jeton depuis une autre chaîne."}
+                        ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain."
+                        : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne."}
                     </Popover.Panel>
                   </Transition>
                 </>
