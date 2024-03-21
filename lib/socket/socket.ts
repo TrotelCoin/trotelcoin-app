@@ -11,11 +11,12 @@ export const getQuote = async (
   userAddress: Address,
   uniqueRoutesPerBridge: boolean,
   sort: Sort,
-  singleTxOnly: boolean
+  singleTxOnly: boolean,
+  enableRefuel: boolean
 ) => {
   const response = await axios
     .get(
-      `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}`,
+      `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}&bridgeWithGas=${enableRefuel}`,
       {
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
@@ -30,10 +31,13 @@ export const getQuote = async (
   return response;
 };
 
-export const getRouteTransactionData = async (route: any) => {
+export const getRouteTransactionData = async (
+  route: any,
+  enableRefuel: boolean
+) => {
   const response = await axios
     .post(
-      "https://api.socket.tech/v2/build-tx",
+      `https://api.socket.tech/v2/build-tx?bridgeWithGas=${enableRefuel}`,
       { route: route },
       {
         headers: {
@@ -124,7 +128,7 @@ export const getFromTokenList = async (
 ) => {
   const response = await axios
     .get(
-      `https://api.socket.tech/v2/token-lists/from-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
+      `https://api.socket.tech/v2/token-lists/from-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}&isShortList=true`,
       {
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
@@ -145,7 +149,7 @@ export const getToTokenList = async (
 ) => {
   const response = await axios
     .get(
-      `https://api.socket.tech/v2/token-lists/to-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
+      `https://api.socket.tech/v2/token-lists/to-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}&isShortList=true`,
       {
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,

@@ -18,10 +18,10 @@ const trotelCoin = {
 const Buy = ({ lang }: { lang: Lang }) => {
   return (
     <>
-      <div className="mt-8 flex justify-center rounded-xl mx-auto">
+      <div className="flex justify-center rounded-xl mx-auto">
         <iframe
           title="Buy"
-          width="400"
+          width="448"
           height="720"
           style={{ overflow: "hidden" }}
           className="block dark:hidden overflow-hidden border border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-100 dark:bg-gray-800"
@@ -30,7 +30,7 @@ const Buy = ({ lang }: { lang: Lang }) => {
         />
         <iframe
           title="Buy"
-          width="400"
+          width="448"
           height="720"
           style={{ overflow: "hidden" }}
           className="hidden dark:block overflow-hidden border border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-gray-100 dark:bg-gray-800"

@@ -1,7 +1,7 @@
 "use client";
 
-import { Transition } from "@headlessui/react";
-import React, { useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -140,31 +140,63 @@ const Header = ({ lang }: { lang: Lang }) => {
       </nav>
 
       {/* Mobile menu */}
-      <Transition show={mobileMenuOpen} className={`z-50`}>
-        <div className="fixed inset-0 z-10" />
-        <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
-          <div className="flex items-center gap-x-6">
-            <div className="p-1">
-              <h2 className="font-bold text-gray-900 dark:text-gray-100 text-2xl">
-                Menu
-              </h2>
-            </div>
-            <div className="flex flex-1 items-center justify-end gap-2">
-              <AudioSelector />
-              <LanguageSelector lang={lang} />
-              <BlueSimpleButton onClick={() => setMobileMenuOpen(false)}>
-                <XMarkIcon className="h-5 w-5" />
-              </BlueSimpleButton>
+      <Transition.Root show={mobileMenuOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={setMobileMenuOpen}>
+          <div className="fixed inset-0">
+            <div className="fixed inset-0 overflow-hidden">
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                  <Transition.Child
+                    as={Fragment}
+                    enter="transform transition ease-in-out duration-500"
+                    enterFrom="translate-x-full"
+                    enterTo="translate-x-0"
+                    leave="transform transition ease-in-out duration-500"
+                    leaveFrom="translate-x-0"
+                    leaveTo="translate-x-full"
+                  >
+                    <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
+                        <div className="flex items-center gap-x-6">
+                          <div className="p-1">
+                            <Dialog.Title className="font-bold text-gray-900 dark:text-gray-100 text-2xl">
+                              {lang === "en" ? "Menu" : "Menu"}
+                            </Dialog.Title>
+                          </div>
+                          <div className="flex flex-1 items-center justify-end gap-2">
+                            <AudioSelector />
+                            <LanguageSelector lang={lang} />
+                            <BlueSimpleButton
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              <XMarkIcon className="h-5 w-5" />
+                            </BlueSimpleButton>
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-4 mt-10">
+                          <AccountMobile
+                            lang={lang}
+                            setMobileMenuOpen={setMobileMenuOpen}
+                          />
+                          <StreakMobile lang={lang} />
+                          <LifeMobile
+                            lang={lang}
+                            setMobileMenuOpen={setMobileMenuOpen}
+                          />
+                          <ShopMobile
+                            lang={lang}
+                            setMobileMenuOpen={setMobileMenuOpen}
+                          />
+                        </div>
+                      </div>
+                    </Dialog.Panel>
+                  </Transition.Child>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-4 mt-10">
-            <AccountMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
-            <StreakMobile lang={lang} />
-            <LifeMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
-            <ShopMobile lang={lang} setMobileMenuOpen={setMobileMenuOpen} />
-          </div>
-        </div>
-      </Transition>
+        </Dialog>
+      </Transition.Root>
     </header>
   );
 };

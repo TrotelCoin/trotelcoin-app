@@ -1,12 +1,17 @@
+import { Lessons } from "@/types/courses/lessons";
 import type { Lang } from "@/types/lang";
 import React from "react";
 
 const Form = ({
   lang,
   setSearchTerm,
+  searchTerm,
+  filteredLessons,
 }: {
   lang: Lang;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  searchTerm: string;
+  filteredLessons: Lessons[];
 }) => {
   return (
     <>
@@ -23,14 +28,17 @@ const Form = ({
           <input
             type="search"
             id="default-search"
-            className="block w-full p-4 pl-14 focus:shadow focus:border-gray-900/50 dark:focus:border-gray-100/50 text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-100 dark:bg-gray-800 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none"
+            className="appearance-none block w-full p-4 pl-14 focus:shadow-xl text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-100 dark:bg-gray-800 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-transparent focus:border-gray-900/10 dark:focus:border-gray-100/10 transition-all duration-200 ease-in-out"
             placeholder={
               lang === "en"
                 ? "What do you want to learn?"
                 : "Que voulez-vous apprendre ?"
             }
             onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ appearance: "none" }}
+            style={{
+              WebkitAppearance: "none",
+              appearance: "none",
+            }}
           />
         </div>
       </form>

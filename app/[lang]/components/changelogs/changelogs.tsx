@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.7.5";
+const version = "1.8.1";
 
 interface ChangelogItem {
   title: string;
@@ -94,22 +94,22 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- There are now sounds"
-              : "- Il y a maintenant des sons",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
               ? "- We added notifications"
               : "- Nous avons ajouté des notifications",
-          isNew: true,
+          isNew: false,
         },
         {
           text:
             lang === "en"
               ? "- Web3 buttons UX improved"
               : "- Amélioration de l'UX des boutons Web3",
+          isNew: false,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Swap natively integrated"
+              : "- Swap intégré nativement",
           isNew: true,
         },
       ],
@@ -120,9 +120,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We reached 100 learners"
-              : "- Nous avons atteint 100 apprenants",
-          isNew: true,
+              ? "- We have 100+ students"
+              : "- Nous avons 100+ élèves",
+          isNew: false,
         },
       ],
     },

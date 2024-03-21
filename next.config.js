@@ -14,6 +14,29 @@ module.exports = withMDX(
     swcMinify: true,
     pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 
+    images: {
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "coingecko.com",
+          port: "",
+          pathname: "",
+        },
+        {
+          protocol: "https",
+          hostname: "cryptologos.cc",
+          port: "",
+          pathname: "",
+        },
+        {
+          protocol: "https",
+          hostname: "assets.coingecko.com",
+          port: "",
+          pathname: "",
+        },
+      ],
+    },
+
     webpack(config) {
       config.resolve.fallback = {
         // if you miss it, all the other options in fallback, specified

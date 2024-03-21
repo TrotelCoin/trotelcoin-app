@@ -23,7 +23,7 @@ const Amount = ({
           }`}
           value={amount < 0 ? 0 : amount}
           onChange={(e) => setAmount(parseFloat(e.target.value))}
-          onWheel={(e) => e.preventDefault()}
+          onWheel={(e) => (e.target as HTMLInputElement).blur()}
           placeholder={lang === "en" ? "Amount" : "Montant"}
           disabled={!address}
         />

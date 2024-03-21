@@ -2,20 +2,27 @@
 
 import React, { useEffect, useState } from "react";
 import type { Lang } from "@/types/lang";
-import { Sort } from "@/types/web3/swap";
+import { Sort, TokenSource } from "@/types/web3/swap";
 import {
   useAccount,
   useSendTransaction,
   useBalance,
   useBlockNumber,
+  useEstimateGas,
 } from "wagmi";
 import { polygon } from "viem/chains";
-import { Address, Hash, parseUnits } from "viem";
+import { Address, formatUnits, Hash, parseUnits } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
 import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
+import {
+  ArrowPathIcon,
+  ArrowsUpDownIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/20/solid";
 import {
   getQuote,
   getRouteTransactionData,
@@ -24,22 +31,24 @@ import {
   getApprovalTransactionData,
   getFromTokenList,
   getToTokenList,
-  getTokenPrice,
 } from "@/lib/socket/socket";
-import { usdc, trotelCoin, matic } from "@/data/web3/tokens";
+import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
+import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
+import SwapData from "@/app/[lang]/wallet/components/swap/swapData";
+import TokenList from "@/app/[lang]/wallet/components/swap/tokenList";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromChainId] = useState<number>(polygon.id);
   const [toChainId] = useState<number>(polygon.id);
-  const [fromToken, setFromToken] = useState<Token>(usdc);
+  const [fromToken, setFromToken] = useState<Token>(usdcPolygon);
   const [toPrice, setToPrice] = useState<number | null>(null);
-  const [toToken, setToToken] = useState<Token>(trotelCoin);
+  const [toToken, setToToken] = useState<Token>(trotelCoinPolygon);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [fromBalance, setFromBalance] = useState<number | null>(null);
@@ -55,9 +64,22 @@ const Swap = ({ lang }: { lang: Lang }) => {
     useState<any>(null);
   const [toAmount, setToAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [fromDecimals, setFromDecimals] = useState<number>(usdc.decimals);
-  const [toDecimals, setToDecimals] = useState<number>(trotelCoin.decimals);
   const [swappedMessage, setSwappedMessage] = useState<boolean>(false);
+  const [noQuoteNotification, setNoQuoteNotification] =
+    useState<boolean>(false);
+  const [quoteFetched, setQuoteFetched] = useState<boolean>(false);
+  const [openSettings, setOpenSettings] = useState<boolean>(false);
+  const [fromTokens, setFromTokens] = useState<Token[]>([]);
+  const [toTokens, setToTokens] = useState<Token[]>([]);
+  const [gasPrice, setGasPrice] = useState<number | null>(null);
+  const [swapSlippage, setSwapSlippage] = useState<number | null>(null);
+  const [protocolName, setProtocolName] = useState<string | null>(null);
+  const [protocolIcon, setProtocolIcon] = useState<string | null>(null);
+  const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
+  const [minimumAmountOut, setMinimumAmountOut] = useState<number | null>(null);
+  const [enableRefuel, setEnableRefuel] = useState<boolean>(false);
+  const [tokenList, setTokenList] = useState<TokenSource>("from");
+  const [openTokenList, setOpenTokenList] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -78,6 +100,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
   });
 
+  const exchangeTokens = () => {
+    const temp = fromToken;
+    setFromToken(toToken);
+    setToToken(temp);
+  };
+
   useEffect(() => {
     refetchFrom();
     refetchTo();
@@ -95,55 +123,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromBalanceData, toBalanceData]);
 
-  useEffect(() => {
-    const fetchTokenPrice = async () => {
-      setIsLoading(true);
-
-      const fromTokenPrice = await getTokenPrice(
-        fromToken.address,
-        fromChainId
-      );
-
-      const toTokenPrice = await getTokenPrice(toToken.address, toChainId);
-
-      if (fromTokenPrice && toTokenPrice) {
-        setFromPrice(fromTokenPrice?.result?.tokenPrice);
-        setToPrice(toTokenPrice?.result?.tokenPrice);
-      } else if (fromTokenPrice) {
-        setFromPrice(fromTokenPrice?.result?.tokenPrice);
-      } else if (toTokenPrice) {
-        setToPrice(toTokenPrice?.result?.tokenPrice);
-      } else {
-        setFromPrice(0);
-        setToPrice(0);
-      }
-
-      setIsLoading(false);
-    };
-
-    if (fromToken && toToken) {
-      fetchTokenPrice();
-      const interval = setInterval(() => {
-        fetchTokenPrice();
-      }, 30000);
-
-      return () => clearInterval(interval);
-    } else {
-      setFromPrice(0);
-      setToPrice(0);
-    }
-  }, [fromToken, toToken]);
-
-  useEffect(() => {
-    if (fromPrice && !toPrice) {
-      setToPrice(fromPrice);
-    }
-
-    if (!fromPrice && toPrice) {
-      setFromPrice(toPrice);
-    }
-  }, [fromPrice, toPrice, fromAmount, toAmount]);
-
   const { sendTransactionAsync: approvingAsync } = useSendTransaction({
     mutation: {
       onSuccess: () => {
@@ -158,6 +137,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
       },
     },
   });
+
+  const refetchQuote = () => {
+    setQuoteFetched(false);
+  };
 
   useEffect(() => {
     if (
@@ -180,7 +163,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setIsLoading(true);
 
       const fromAmountDecimals: number = fromAmount
-        ? Number(parseUnits(fromAmount.toString(), fromDecimals))
+        ? Number(parseUnits(fromAmount.toString(), fromToken.decimals))
         : 0;
 
       const quote = await getQuote(
@@ -192,22 +175,53 @@ const Swap = ({ lang }: { lang: Lang }) => {
         userAddress as Address,
         uniqueRoutesPerBridge,
         sort,
-        singleTxOnly
+        singleTxOnly,
+        enableRefuel
       );
 
-      const route = quote.result.routes[0];
+      if (!quote) {
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        return;
+      }
 
-      const apiReturnData = await getRouteTransactionData(route);
+      const route = quote.result.routes[0];
+      setGasPrice(quote.result.routes[0].totalGasFeesInUsd);
+      setFromPrice(quote.result.routes[0].inputValueInUsd);
+      setToPrice(quote.result.routes[0].outputValueInUsd);
+      console.log("test", quote.result.routes[0].userTxs[0]);
+      setSwapSlippage(quote.result.routes[0].userTxs[0].swapSlippage);
+      setProtocolName(quote.result.routes[0].userTxs[0].protocol.displayName);
+      setProtocolIcon(quote.result.routes[0].userTxs[0].protocol.icon);
+      setMinimumAmountOut(quote.result.routes[0].userTxs[0].minAmountOut);
+
+      if (!route) {
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        return;
+      }
+
+      const apiReturnData = await getRouteTransactionData(route, enableRefuel);
 
       setApiReturnData(apiReturnData);
 
       const approvalData = apiReturnData.result?.approvalData;
+
+      if (!approvalData) {
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        return;
+      }
 
       const toAmount = Number(Number(route?.toAmount).toFixed(0));
 
       setToAmount(route ? toAmount : 0);
 
       setApprovalData(approvalData);
+      setQuoteFetched(true);
       setIsLoading(false);
     };
 
@@ -221,29 +235,58 @@ const Swap = ({ lang }: { lang: Lang }) => {
     fromChainId,
     toChainId,
     userAddress,
-    fromToken.address,
-    toToken.address,
+    fromToken,
+    toToken,
     uniqueRoutesPerBridge,
     sort,
     singleTxOnly,
+    quoteFetched,
   ]);
 
   useEffect(() => {
-    const txStatus = setInterval(async () => {
-      const status = await getBridgeStatus(
-        txHash as Address,
-        fromChainId,
-        toChainId
-      );
+    const fetchTokensList = async () => {
+      const fromTokens = await getFromTokenList(fromChainId, toChainId);
+      const toTokens = await getToTokenList(fromChainId, toChainId);
 
-      if (!status) {
-        return;
+      if (fromTokens && toTokens) {
+        setFromTokens(fromTokens.result);
+        setToTokens(toTokens.result);
+        setFromToken(fromTokens.result[0]);
+        if (toChainId === polygon.id) {
+          setToToken(trotelCoinPolygon);
+        } else {
+          setToToken(toTokens.result[0]);
+        }
       }
 
-      if (status.result.destinationTxStatus == "COMPLETED") {
-        clearInterval(txStatus);
+      if (fromChainId === polygon.id || toChainId === polygon.id) {
+        fromTokens.result.unshift(trotelCoinPolygon);
       }
-    }, 20000);
+    };
+
+    if (fromChainId && toChainId) {
+      fetchTokensList();
+    }
+  }, [fromChainId, toChainId]);
+
+  useEffect(() => {
+    if (txHash) {
+      const txStatus = setInterval(async () => {
+        const status = await getBridgeStatus(
+          txHash as Address,
+          fromChainId,
+          toChainId
+        );
+
+        if (!status) {
+          return;
+        }
+
+        if (status.result.destinationTxStatus == "COMPLETED") {
+          clearInterval(txStatus);
+        }
+      }, 20000);
+    }
   }, [txHash]);
 
   useEffect(() => {
@@ -282,12 +325,32 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="mt-8 w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
         <div className="flex items-center justify-between px-4 pb-4">
           <WidgetTitle
             title={lang === "en" ? "Swap" : "Échanger"}
             lang={lang}
           />
+          <div className="flex items-center gap-2">
+            <BlueSimpleButton onClick={() => exchangeTokens()}>
+              <ArrowsUpDownIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
+            </BlueSimpleButton>
+            <BlueSimpleButton
+              onClick={() => refetchQuote()}
+              disabled={
+                isLoading || !userAddress || !fromAmount || !quoteFetched
+              }
+            >
+              <ArrowPathIcon
+                className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
+                  isLoading && "animate-spin"
+                }`}
+              />
+            </BlueSimpleButton>
+            <BlueSimpleButton onClick={() => setOpenSettings(true)}>
+              <Cog6ToothIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
+            </BlueSimpleButton>
+          </div>
         </div>
 
         <div className="px-4 py-4">
@@ -296,13 +359,15 @@ const Swap = ({ lang }: { lang: Lang }) => {
             fromAmount={fromAmount as number}
             fromBalance={fromBalance as number}
             fromPrice={fromPrice as number}
-            fromTokenAddress={fromToken.address}
+            fromToken={fromToken}
             setFromAmount={
               setFromAmount as React.Dispatch<React.SetStateAction<number>>
             }
             isLoading={isLoading}
             fromChainId={fromChainId}
             userAddress={userAddress as Address}
+            setOpenTokenList={setOpenTokenList}
+            setTokenList={setTokenList}
           />
         </div>
 
@@ -312,9 +377,12 @@ const Swap = ({ lang }: { lang: Lang }) => {
             toAmount={toAmount as number}
             toPrice={toPrice as number}
             toBalance={toBalance as number}
-            toTokenAddress={toToken.address}
+            toToken={toToken}
             isLoading={isLoading}
             toChainId={toChainId}
+            fromPrice={fromPrice as number}
+            setOpenTokenList={setOpenTokenList}
+            setTokenList={setTokenList}
           />
         </div>
 
@@ -333,9 +401,36 @@ const Swap = ({ lang }: { lang: Lang }) => {
             approvingAsync={approvingAsync}
             isLoading={isLoading}
             fromChainId={fromChainId}
+            quoteFetched={quoteFetched}
+            toAmount={toAmount as number}
+            enableRefuel={enableRefuel}
+            setEnableRefuel={setEnableRefuel}
           />
         </div>
       </div>
+
+      <SwapData
+        lang={lang}
+        isLoading={isLoading}
+        gasPrice={gasPrice as number}
+        swapSlippage={swapSlippage as number}
+        protocolName={protocolName as string}
+        protocolIcon={protocolIcon as string}
+        minimumAmountOut={minimumAmountOut as number}
+        toToken={toToken}
+        enableRefuel={enableRefuel}
+      />
+
+      <TokenList
+        lang={lang}
+        setFromToken={setFromToken}
+        setToToken={setToToken}
+        fromTokens={fromTokens}
+        toTokens={toTokens}
+        tokenList={tokenList}
+        openTokenList={openTokenList}
+        setOpenTokenList={setOpenTokenList}
+      />
       <Fail
         show={errorMessage}
         onClose={() => setErrorMessage(false)}
@@ -351,6 +446,16 @@ const Swap = ({ lang }: { lang: Lang }) => {
         lang={lang}
         title={lang === "en" ? "Success" : "Succès"}
         message={lang === "en" ? "Swap successful !" : "Échange réussi !"}
+      />
+      <FailNotification
+        display={noQuoteNotification}
+        lang={lang}
+        title={lang === "en" ? "No quote" : "Pas de devis"}
+        message={
+          lang === "en"
+            ? "An error occured while fetching the quote."
+            : "Une erreur est survenue lors de la récupération du devis."
+        }
       />
     </>
   );
