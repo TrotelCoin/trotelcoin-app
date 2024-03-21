@@ -146,15 +146,28 @@ const Swap = ({ lang }: { lang: Lang }) => {
     if (
       fromAmount &&
       userAddress &&
-      toBalance &&
       fromAmount <= (fromBalance as number) &&
-      !isLoading
+      !isLoading &&
+      toAmount &&
+      toAmount > 0 &&
+      toToken &&
+      fromToken &&
+      quoteFetched
     ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
+  }, [
+    fromAmount,
+    userAddress,
+    fromBalance,
+    isLoading,
+    toAmount,
+    toToken,
+    quoteFetched,
+    fromToken,
+  ]);
 
   const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
 

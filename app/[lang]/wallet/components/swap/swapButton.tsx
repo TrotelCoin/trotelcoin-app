@@ -113,7 +113,7 @@ const SwapButton = ({
           needApproval ? (
             <BlueButton
               isFull={true}
-              disabled={disabled || !quoteFetched}
+              disabled={disabled}
               lang={lang}
               isLoading={isLoading}
               text={lang === "en" ? "Approve" : "Approuver"}
@@ -128,13 +128,7 @@ const SwapButton = ({
           ) : (
             <BlueButton
               isFull={true}
-              disabled={
-                isLoading ||
-                !userAddress ||
-                !fromAmount ||
-                !quoteFetched ||
-                toAmount === 0
-              }
+              disabled={disabled}
               lang={lang}
               isLoading={isLoading}
               text={lang === "en" ? "Swap" : "Échanger"}
