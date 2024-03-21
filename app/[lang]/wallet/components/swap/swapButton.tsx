@@ -45,7 +45,7 @@ const SwapButton = ({
   return (
     <>
       <div className="flex justify-between items-center">
-        <span className="text-gray-900 dark:text-gray-100 text-sm font-semibold">
+        <span className="text-gray-900 dark:text-gray-100 font-semibold">
           {lang === "en" ? "Refuel" : "Refuel"}
         </span>
         <Switch
