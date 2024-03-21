@@ -66,7 +66,7 @@ const TokenList = ({
           <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20">
+        <div className="fixed inset-0 z-10 w-screen overflow-y-auto h-screen flex justify-center items-center">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -76,7 +76,7 @@ const TokenList = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
+            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
               <Combobox>
                 <div className="relative">
                   <MagnifyingGlassIcon
@@ -110,60 +110,53 @@ const TokenList = ({
                         className={({ active }) =>
                           classNames(
                             "flex cursor-pointer select-none rounded-xl p-3",
-                            active && "bg-gray-300 dark:bg-gray-700"
+                            active && "bg-gray-200 dark:bg-gray-700"
                           )
                         }
                       >
                         {({ active }) => (
                           <>
-                            {token.logoURI &&
-                              token.logoURI.trim() !== "" &&
-                              token.name.trim() !== "" &&
-                              token.lightLogoURI &&
-                              token.lightLogoURI.trim() !== "" &&
-                              token.darkLogoURI &&
-                              token.darkLogoURI.trim() !== "" && (
-                                <div
-                                  className={classNames(
-                                    "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
-                                    token.logoURI
-                                  )}
-                                >
-                                  {token.name === "TrotelCoin" ? (
-                                    <>
-                                      <div className="block dark:hidden">
-                                        <img
-                                          width={48}
-                                          height={48}
-                                          className="rounded-full"
-                                          aria-hidden="true"
-                                          alt="Token logo"
-                                          src={token.lightLogoURI}
-                                        />
-                                      </div>
-                                      <div className="hidden dark:block">
-                                        <img
-                                          width={48}
-                                          height={48}
-                                          className="rounded-full"
-                                          aria-hidden="true"
-                                          alt="Token logo"
-                                          src={token.darkLogoURI}
-                                        />
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <img
+                            <div
+                              className={classNames(
+                                "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
+                                token.logoURI
+                              )}
+                            >
+                              {token.name === "TrotelCoin" ? (
+                                <>
+                                  <div className="block dark:hidden">
+                                    <Image
                                       width={48}
                                       height={48}
                                       className="rounded-full"
                                       aria-hidden="true"
                                       alt="Token logo"
-                                      src={token.logoURI}
+                                      src={token.lightLogoURI as string}
                                     />
-                                  )}
-                                </div>
+                                  </div>
+                                  <div className="hidden dark:block">
+                                    <Image
+                                      width={48}
+                                      height={48}
+                                      className="rounded-full"
+                                      aria-hidden="true"
+                                      alt="Token logo"
+                                      src={token.darkLogoURI as string}
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <Image
+                                  width={48}
+                                  height={48}
+                                  className="rounded-full"
+                                  aria-hidden="true"
+                                  alt="Token logo"
+                                  src={token.logoURI}
+                                />
                               )}
+                            </div>
+
                             <div className="ml-4 flex-auto">
                               <p
                                 className={classNames(

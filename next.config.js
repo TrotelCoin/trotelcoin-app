@@ -28,6 +28,12 @@ module.exports = withMDX(
           port: "",
           pathname: "**",
         },
+        {
+          protocol: "https",
+          hostname: "raw.githubusercontent.com",
+          port: "",
+          pathname: "**",
+        },
       ],
     },
 

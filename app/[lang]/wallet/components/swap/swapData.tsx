@@ -1,11 +1,11 @@
 import { Lang } from "@/types/lang";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BoltIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { Token } from "@/types/web3/token";
 import Image from "next/image";
-import { Popover, Transition } from "@headlessui/react";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 const SwapData = ({
   lang,
@@ -29,11 +29,6 @@ const SwapData = ({
   enableRefuel: boolean;
 }) => {
   const [showMore, setShowMore] = useState<boolean>(false);
-  const [openGasPrice, setOpenGasPrice] = useState<boolean>(false);
-  const [openSlippage, setOpenSlippage] = useState<boolean>(false);
-  const [openMinimumAmount, setOpenMinimumAmount] = useState<boolean>(false);
-  const [openProtocol, setOpenProtocol] = useState<boolean>(false);
-  const [openRefuel, setOpenRefuel] = useState<boolean>(false);
 
   return (
     <>
@@ -51,247 +46,226 @@ const SwapData = ({
                 </div>
               </button>
 
-              <Popover className="relative w-full" as="div">
-                <>
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-1">
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <span
+                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                          >
+                            {lang === "en" ? "Network fee" : "Frais de réseau"}{" "}
+                          </span>
+                        </Tooltip.Trigger>
+                      </div>
                       <span
-                        onMouseEnter={() => setOpenGasPrice(true)}
-                        onMouseLeave={() => setOpenGasPrice(false)}
-                        className={`text-gray-700 dark:text-gray-300 text-xs`}
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        {lang === "en" ? "Network fee" : "Frais de réseau"}{" "}
+                        <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
+                        </span>
                       </span>
                     </div>
-                    <span
-                      className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+
+                    <Tooltip.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
                     >
-                      <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
-                      <span className={`${isLoading && loadingFlashClass}`}>
-                        ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
-                      </span>
-                    </span>
+                      <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Native token fee for transactions on the network."
+                          : "Frais en jeton natif pour les transactions sur le réseau."}
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                    </Tooltip.Content>
                   </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
 
-                  <Transition
-                    as="div"
-                    show={openGasPrice}
-                    enter="transition-opacity duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Popover.Panel
-                      static
-                      className="absolute max-w-xs z-10 mt-2 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-200 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl"
-                      as="div"
-                    >
-                      {lang === "en"
-                        ? "Token payment for transactions on the network."
-                        : "Paiement en jeton natif pour les transactions sur le réseau."}
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              </Popover>
-
-              <Popover className="relative w-full" as="div">
-                <>
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-1">
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <span
+                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                          >
+                            {lang === "en"
+                              ? "Swap slippage"
+                              : "Glissement de swap"}{" "}
+                          </span>
+                        </Tooltip.Trigger>
+                      </div>
                       <span
-                        onMouseEnter={() => setOpenSlippage(true)}
-                        onMouseLeave={() => setOpenSlippage(false)}
-                        className={`text-gray-700 dark:text-gray-300 text-xs`}
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        {lang === "en" ? "Swap slippage" : "Glissement de swap"}{" "}
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          {swapSlippage ? Number(swapSlippage.toFixed(3)) : 0}%
+                        </span>
                       </span>
                     </div>
-                    <span
-                      className={`text-gray-700 dark:text-gray-300 text-xs ${
-                        isLoading && loadingFlashClass
-                      }`}
+
+                    <Tooltip.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
                     >
-                      {swapSlippage ? Number(swapSlippage.toFixed(3)) : 0}
-                    </span>
+                      <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Maximum difference between expected and executed price."
+                          : "Différence maximale entre le prix attendu et exécuté."}
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                    </Tooltip.Content>
                   </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
 
-                  <Transition
-                    as="div"
-                    show={openSlippage}
-                    enter="transition-opacity duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Popover.Panel
-                      static
-                      className="absolute max-w-xs z-10 mt-2 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-200 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl"
-                      as="div"
-                    >
-                      {lang === "en"
-                        ? "Difference between expected and executed price."
-                        : "Différence entre le prix attendu et exécuté."}
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              </Popover>
-
-              <Popover className="relative w-full" as="div">
-                <>
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-1">
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <span
+                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                          >
+                            {lang === "en"
+                              ? "Minimum Amount"
+                              : "Montant minimum"}{" "}
+                          </span>
+                        </Tooltip.Trigger>
+                      </div>
                       <span
-                        onMouseEnter={() => setOpenMinimumAmount(true)}
-                        onMouseLeave={() => setOpenMinimumAmount(false)}
-                        className={`text-gray-700 dark:text-gray-300 text-xs`}
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        {lang === "en" ? "Minimum Amount" : "Montant minimum"}{" "}
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          {minimumAmountOut
+                            ? Number(
+                                minimumAmountOut * 10 ** -toToken.decimals
+                              ).toFixed(2)
+                            : "0"}
+                        </span>
                       </span>
                     </div>
-                    <span
-                      className={`text-gray-700 dark:text-gray-300 text-xs ${
-                        isLoading && loadingFlashClass
-                      }`}
+
+                    <Tooltip.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
                     >
-                      {minimumAmountOut
-                        ? Number(
-                            minimumAmountOut * 10 ** -toToken.decimals
-                          ).toFixed(2)
-                        : "0"}
-                    </span>
+                      <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Minimum amount of token to expect."
+                          : "Montant minimum de token espéré."}
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                    </Tooltip.Content>
                   </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
 
-                  <Transition
-                    as="div"
-                    show={openMinimumAmount}
-                    enter="transition-opacity duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Popover.Panel
-                      static
-                      className="absolute max-w-xs z-10 mt-2 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-200 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl"
-                      as="div"
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <span
+                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                          >
+                            {lang === "en" ? "Protocol" : "Protocole"}{" "}
+                          </span>
+                        </Tooltip.Trigger>
+                      </div>
+                      <span
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                      >
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          {protocolName ?? "Unknown"}
+                        </span>
+                        {protocolIcon && (
+                          <>
+                            <Image
+                              alt="Protocol logo"
+                              className="rounded-full"
+                              width={12}
+                              height={12}
+                              src={protocolIcon}
+                            />
+                          </>
+                        )}
+                      </span>
+                    </div>
+
+                    <Tooltip.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
                     >
-                      {lang === "en"
-                        ? "Minimum amount of token to expect."
-                        : "Montant minimum de token espéré."}
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              </Popover>
-
-              <Popover className="relative w-full" as="div">
-                <>
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-1">
-                      <span
-                        onMouseEnter={() => setOpenProtocol(true)}
-                        onMouseLeave={() => setOpenProtocol(false)}
-                        className={`text-gray-700 dark:text-gray-300 text-xs`}
-                      >
-                        {lang === "en" ? "Protocol" : "Protocole"}{" "}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs ${
-                          isLoading && loadingFlashClass
-                        }`}
-                      >
-                        {protocolName ?? "Unknown"}
-                      </span>
-                      {protocolIcon && (
-                        <Image
-                          className="rounded-full"
-                          width={12}
-                          height={12}
-                          alt={"Protocol logo"}
-                          src={protocolIcon}
-                        />
-                      )}
-                    </div>
+                      <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Protocol used for the transaction."
+                          : "Protocole utilisé pour la transaction."}
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                    </Tooltip.Content>
                   </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
 
-                  <Transition
-                    as="div"
-                    show={openProtocol}
-                    enter="transition-opacity duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Popover.Panel
-                      static
-                      className="absolute max-w-xs z-10 mt-2 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-200 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl"
-                      as="div"
-                    >
-                      {lang === "en"
-                        ? "Protocol used for the transaction."
-                        : "Protocole utilisé pour la transaction."}
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              </Popover>
-
-              <Popover className="relative w-full" as="div">
-                <>
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-1">
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <span
+                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                          >
+                            {lang === "en" ? "Refuel" : "Refuel"}{" "}
+                          </span>
+                        </Tooltip.Trigger>
+                      </div>
                       <span
-                        onMouseEnter={() => setOpenRefuel(true)}
-                        onMouseLeave={() => setOpenRefuel(false)}
-                        className={`text-gray-700 dark:text-gray-300 text-xs`}
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        {lang === "en" ? "Refuel" : "Refuel"}{" "}
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          {enableRefuel
+                            ? lang === "en"
+                              ? "Enabled"
+                              : "Activé"
+                            : lang === "en"
+                            ? "Disabled"
+                            : "Désactivé"}
+                        </span>
                       </span>
                     </div>
-                    <span
-                      className={`text-gray-700 dark:text-gray-300 text-xs ${
-                        isLoading && loadingFlashClass
-                      }`}
-                    >
-                      {enableRefuel
-                        ? lang === "en"
-                          ? "Enabled"
-                          : "Activé"
-                        : lang === "en"
-                        ? "Disabled"
-                        : "Désactivé"}
-                    </span>
-                  </div>
 
-                  <Transition
-                    as="div"
-                    show={openRefuel}
-                    enter="transition-opacity duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Popover.Panel
-                      static
-                      className="absolute max-w-xs z-10 mt-2 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-200 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl"
-                      as="div"
+                    <Tooltip.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
                     >
-                      {lang === "en"
-                        ? "When you move tokens to a new chain, you may lack the native token for transactions. You can request funds from a faucet or bridge the token from another chain."
-                        : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez manquer du jeton natif pour les transactions. Vous pouvez demander des fonds à un faucet ou transférer le jeton depuis une autre chaîne."}
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              </Popover>
+                      <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        {lang === "en"
+                          ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain."
+                          : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne."}
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                    </Tooltip.Content>
+                  </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
             </div>
           </>
         ) : (
@@ -306,41 +280,36 @@ const SwapData = ({
                   <ChevronDownIcon className="w-4 h-4 text-gray-900 dark:text-gray-100" />
                 </div>
               </button>
-              <Popover className="relative" as="div">
-                <>
-                  <span
-                    onMouseEnter={() => setOpenGasPrice(true)}
-                    onMouseLeave={() => setOpenGasPrice(false)}
-                    className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
-                  >
-                    <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
-                    <span className={`${isLoading && loadingFlashClass}`}>
-                      ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
-                    </span>
-                  </span>
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative">
+                    <Tooltip.Trigger asChild>
+                      <span
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1 cursor-help`}
+                      >
+                        <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
+                        </span>
+                      </span>
+                    </Tooltip.Trigger>
 
-                  <Transition
-                    as="div"
-                    show={openGasPrice}
-                    enter="transition-opacity duration-300"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="transition-opacity duration-300"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Popover.Panel
-                      static
-                      className="absolute max-w-xs z-10 mt-2 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-200 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl"
-                      as="div"
+                    <Tooltip.Content
+                      sideOffset={5}
+                      side="right"
+                      align="center"
+                      className="relative max-w-xs"
                     >
-                      {lang === "en"
-                        ? "Token payment for transactions on the network."
-                        : "Paiement en jeton natif pour les transactions sur le réseau."}
-                    </Popover.Panel>
-                  </Transition>
-                </>
-              </Popover>
+                      <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Native token fee for transactions on the network."
+                          : "Frais en jeton natif pour les transactions sur le réseau."}
+                      </div>
+                      <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                    </Tooltip.Content>
+                  </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
             </div>
           </>
         )}
