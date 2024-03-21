@@ -95,70 +95,98 @@ const TokenList = ({
                     static
                     className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
                   >
-                    {filteredTokens.map((token: Token, index: number) => (
-                      <Combobox.Option
-                        key={index}
-                        value={token.symbol}
-                        onClick={() => {
-                          if (tokenList === "from") {
-                            setFromToken(token);
-                          } else {
-                            setToToken(token);
+                    {filteredTokens.map((token: Token, index: number) =>
+                      typeof token.logoURI === "string" &&
+                      token.logoURI.trim() !== "" ? (
+                        <Combobox.Option
+                          key={index}
+                          value={token.symbol}
+                          onClick={() => {
+                            if (tokenList === "from") {
+                              setFromToken(token);
+                            } else {
+                              setToToken(token);
+                            }
+                            setOpenTokenList(false);
+                          }}
+                          className={({ active }) =>
+                            classNames(
+                              "flex cursor-pointer select-none rounded-xl p-3",
+                              active && "bg-gray-300 dark:bg-gray-700"
+                            )
                           }
-                          setOpenTokenList(false);
-                        }}
-                        className={({ active }) =>
-                          classNames(
-                            "flex cursor-pointer select-none rounded-xl p-3",
-                            active && "bg-gray-300 dark:bg-gray-700"
-                          )
-                        }
-                      >
-                        {({ active }) => (
-                          <>
-                            {token.logoURI && (
-                              <div
-                                className={classNames(
-                                  "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
-                                  token.logoURI
-                                )}
-                              >
-                                <Image
-                                  width={48}
-                                  height={48}
-                                  className="rounded-full"
-                                  aria-hidden="true"
-                                  alt="Token logo"
-                                  src={token.logoURI}
-                                />
+                        >
+                          {({ active }) => (
+                            <>
+                              {token.logoURI && (
+                                <div
+                                  className={classNames(
+                                    "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
+                                    token.logoURI
+                                  )}
+                                >
+                                  {token.name === "TrotelCoin" ? (
+                                    <>
+                                      <div className="block dark:hidden">
+                                        <img
+                                          width={48}
+                                          height={48}
+                                          className="rounded-full"
+                                          aria-hidden="true"
+                                          alt="Token logo"
+                                          src={token.lightLogoURI}
+                                        />
+                                      </div>
+                                      <div className="hidden dark:block">
+                                        <img
+                                          width={48}
+                                          height={48}
+                                          className="rounded-full"
+                                          aria-hidden="true"
+                                          alt="Token logo"
+                                          src={token.darkLogoURI}
+                                        />
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <img
+                                      width={48}
+                                      height={48}
+                                      className="rounded-full"
+                                      aria-hidden="true"
+                                      alt="Token logo"
+                                      src={token.logoURI}
+                                    />
+                                  )}
+                                </div>
+                              )}
+                              <div className="ml-4 flex-auto">
+                                <p
+                                  className={classNames(
+                                    "text-sm font-medium",
+                                    active
+                                      ? "text-gray-900 dark:text-gray-100"
+                                      : "text-gray-700 dark:text-gray-300"
+                                  )}
+                                >
+                                  {token.name}
+                                </p>
+                                <p
+                                  className={classNames(
+                                    "text-sm",
+                                    active
+                                      ? "text-gray-700 dark:text-gray-300"
+                                      : "text-gray-700 dark:text-gray-300"
+                                  )}
+                                >
+                                  {token.symbol}
+                                </p>
                               </div>
-                            )}
-                            <div className="ml-4 flex-auto">
-                              <p
-                                className={classNames(
-                                  "text-sm font-medium",
-                                  active
-                                    ? "text-gray-900 dark:text-gray-100"
-                                    : "text-gray-700 dark:text-gray-300"
-                                )}
-                              >
-                                {token.name}
-                              </p>
-                              <p
-                                className={classNames(
-                                  "text-sm",
-                                  active
-                                    ? "text-gray-700 dark:text-gray-300"
-                                    : "text-gray-700 dark:text-gray-300"
-                                )}
-                              >
-                                {token.symbol}
-                              </p>
-                            </div>
-                          </>
-                        )}
-                      </Combobox.Option>
-                    ))}
+                            </>
+                          )}
+                        </Combobox.Option>
+                      ) : null
+                    )}
                   </Combobox.Options>
                 )}
 

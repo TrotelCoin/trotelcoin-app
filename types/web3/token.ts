@@ -9,4 +9,6 @@ export type Token = {
   icon?: string;
   logoURI: string;
   chainAgnosticId?: number;
+  lightLogoURI?: string;
+  darkLogoURI?: string;
 };

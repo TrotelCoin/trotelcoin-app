@@ -10,6 +10,8 @@ export const trotelCoinPolygon: Token = {
   name: "TrotelCoin",
   chainId: polygon.id,
   logoURI: "/assets/logo/trotelcoin.svg",
+  lightLogoURI: "/assets/logo/trotelcoin.svg",
+  darkLogoURI: "/assets/logo/trotelcoin-dark.jpg",
 };
 
 export const usdcPolygon: Token = {
