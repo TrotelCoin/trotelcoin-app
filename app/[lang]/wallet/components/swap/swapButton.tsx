@@ -111,7 +111,7 @@ const SwapButton = ({
               isFull={true}
               disabled={disabled}
               lang={lang}
-              isLoading={isLoading}
+              isLoading={isLoading || isPendingApproving}
               text={lang === "en" ? "Approve" : "Approuver"}
               onClick={async () => {
                 await approvingAsync({
