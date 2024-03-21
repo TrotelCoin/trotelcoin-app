@@ -74,7 +74,6 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [swapSlippage, setSwapSlippage] = useState<number | null>(null);
   const [protocolName, setProtocolName] = useState<string | null>(null);
   const [protocolIcon, setProtocolIcon] = useState<string | null>(null);
-  const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
   const [minimumAmountOut, setMinimumAmountOut] = useState<number | null>(null);
   const [enableRefuel, setEnableRefuel] = useState<boolean>(false);
   const [tokenList, setTokenList] = useState<TokenSource>("from");
@@ -147,15 +146,28 @@ const Swap = ({ lang }: { lang: Lang }) => {
     if (
       fromAmount &&
       userAddress &&
-      toBalance &&
       fromAmount <= (fromBalance as number) &&
-      !isLoading
+      !isLoading &&
+      toAmount &&
+      toAmount > 0 &&
+      toToken &&
+      fromToken &&
+      quoteFetched
     ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [fromAmount, userAddress, toBalance, fromBalance, isLoading]);
+  }, [
+    fromAmount,
+    userAddress,
+    fromBalance,
+    isLoading,
+    toAmount,
+    toToken,
+    quoteFetched,
+    fromToken,
+  ]);
 
   const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
 
@@ -410,6 +422,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
             toAmount={toAmount as number}
             enableRefuel={enableRefuel}
             setEnableRefuel={setEnableRefuel}
+            fromAmount={fromAmount as number}
           />
         </div>
       </div>

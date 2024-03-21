@@ -25,6 +25,7 @@ const SwapButton = ({
   toAmount,
   enableRefuel,
   setEnableRefuel,
+  fromAmount,
 }: {
   lang: Lang;
   userAddress: Address;
@@ -41,6 +42,7 @@ const SwapButton = ({
   toAmount: number;
   enableRefuel: boolean;
   setEnableRefuel: React.Dispatch<React.SetStateAction<boolean>>;
+  fromAmount: number;
 }) => {
   return (
     <>
@@ -111,7 +113,7 @@ const SwapButton = ({
           needApproval ? (
             <BlueButton
               isFull={true}
-              disabled={disabled || !quoteFetched}
+              disabled={disabled}
               lang={lang}
               isLoading={isLoading}
               text={lang === "en" ? "Approve" : "Approuver"}
@@ -126,7 +128,7 @@ const SwapButton = ({
           ) : (
             <BlueButton
               isFull={true}
-              disabled={disabled || !quoteFetched || toAmount === 0}
+              disabled={disabled}
               lang={lang}
               isLoading={isLoading}
               text={lang === "en" ? "Swap" : "Échanger"}
