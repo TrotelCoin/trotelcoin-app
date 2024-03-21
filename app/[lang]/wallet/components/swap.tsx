@@ -225,7 +225,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setIsLoading(false);
     };
 
-    if (userAddress && fromAmount && fromAmount > 0 && !quoteFetched) {
+    if (userAddress && fromAmount && fromAmount > 0) {
       fetchQuote();
     } else {
       setToAmount(0);
