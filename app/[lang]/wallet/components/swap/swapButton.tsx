@@ -21,11 +21,9 @@ const SwapButton = ({
   fromChainId,
   apiReturnData,
   approvingAsync,
-  quoteFetched,
-  toAmount,
   enableRefuel,
   setEnableRefuel,
-  fromAmount,
+  isPendingApproving,
 }: {
   lang: Lang;
   userAddress: Address;
@@ -38,11 +36,9 @@ const SwapButton = ({
   approvalTransactionData: any;
   apiReturnData: any;
   approvingAsync: any;
-  quoteFetched: boolean;
-  toAmount: number;
   enableRefuel: boolean;
   setEnableRefuel: React.Dispatch<React.SetStateAction<boolean>>;
-  fromAmount: number;
+  isPendingApproving: boolean;
 }) => {
   return (
     <>
@@ -110,7 +106,7 @@ const SwapButton = ({
       </div>
       <div className="mt-4">
         {userAddress ? (
-          needApproval ? (
+          needApproval || isPendingApproving ? (
             <BlueButton
               isFull={true}
               disabled={disabled}
