@@ -106,8 +106,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     refetchFrom();
     refetchTo();
+    setIsLoading(false);
   }, [blockNumber, userAddress, fromToken, toToken, refetchFrom, refetchTo]);
 
   useEffect(() => {
