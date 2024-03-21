@@ -38,7 +38,8 @@ const TokenList = ({
     .filter(
       (token: Token) =>
         token.symbol.toLowerCase().includes(query.toLowerCase()) ||
-        token.name.toLowerCase().includes(query.toLowerCase())
+        token.name.toLowerCase().includes(query.toLowerCase()) ||
+        token.address.toLowerCase().includes(query.toLowerCase())
     )
     .slice(0, 100);
 
