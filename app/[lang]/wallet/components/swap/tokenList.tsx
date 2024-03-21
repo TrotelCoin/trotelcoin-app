@@ -116,54 +116,47 @@ const TokenList = ({
                       >
                         {({ active }) => (
                           <>
-                            {token.logoURI &&
-                              token.logoURI.trim() !== "" &&
-                              token.name.trim() !== "" &&
-                              token.lightLogoURI &&
-                              token.lightLogoURI.trim() !== "" &&
-                              token.darkLogoURI &&
-                              token.darkLogoURI.trim() !== "" && (
-                                <div
-                                  className={classNames(
-                                    "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
-                                    token.logoURI
-                                  )}
-                                >
-                                  {token.name === "TrotelCoin" ? (
-                                    <>
-                                      <div className="block dark:hidden">
-                                        <img
-                                          width={48}
-                                          height={48}
-                                          className="rounded-full"
-                                          aria-hidden="true"
-                                          alt="Token logo"
-                                          src={token.lightLogoURI}
-                                        />
-                                      </div>
-                                      <div className="hidden dark:block">
-                                        <img
-                                          width={48}
-                                          height={48}
-                                          className="rounded-full"
-                                          aria-hidden="true"
-                                          alt="Token logo"
-                                          src={token.darkLogoURI}
-                                        />
-                                      </div>
-                                    </>
-                                  ) : (
+                            <div
+                              className={classNames(
+                                "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
+                                token.logoURI
+                              )}
+                            >
+                              {token.name === "TrotelCoin" ? (
+                                <>
+                                  <div className="block dark:hidden">
                                     <img
                                       width={48}
                                       height={48}
                                       className="rounded-full"
                                       aria-hidden="true"
                                       alt="Token logo"
-                                      src={token.logoURI}
+                                      src={token.lightLogoURI}
                                     />
-                                  )}
-                                </div>
+                                  </div>
+                                  <div className="hidden dark:block">
+                                    <img
+                                      width={48}
+                                      height={48}
+                                      className="rounded-full"
+                                      aria-hidden="true"
+                                      alt="Token logo"
+                                      src={token.darkLogoURI}
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <img
+                                  width={48}
+                                  height={48}
+                                  className="rounded-full"
+                                  aria-hidden="true"
+                                  alt="Token logo"
+                                  src={token.logoURI}
+                                />
                               )}
+                            </div>
+
                             <div className="ml-4 flex-auto">
                               <p
                                 className={classNames(

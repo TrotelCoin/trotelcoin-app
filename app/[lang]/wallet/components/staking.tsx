@@ -84,7 +84,7 @@ const Staking = ({
           <WidgetTitle title={lang === "en" ? "Stake" : "Staker"} lang={lang} />
         </div>
 
-        <div className="px-4 py-4 flex flex-col gap-2">
+        <div className="px-4 py-4 flex flex-col gap-4">
           <span className="text-4xl font-bold text-green-500 dark:text-green-300">
             {APY}%{" "}
             <span className="text-base text-gray-700 dark:text-gray-300">

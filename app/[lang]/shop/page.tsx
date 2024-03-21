@@ -33,7 +33,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
             className={`px-4 py-2 rounded-full font-semibold ${
               component === "ranks"
               ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
-              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 border border-transparent"
             }`}
           >
             {lang === "en" ? <>Ranks</> : <>Rangs</>}
@@ -43,7 +43,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
             className={`px-4 py-2 rounded-full font-semibold ${
               component === "shop"
               ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
-              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 border border-transparent"
             }`}
           >
             {lang === "en" ? <>Shop</> : <>Boutique</>}
@@ -53,7 +53,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
             className={`px-4 py-2 rounded-full font-semibold ${
               component === "inventory"
               ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
-              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+              : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 border border-transparent"
             }`}
           >
             {lang === "en" ? <>Inventory</> : <>Inventaire</>}
