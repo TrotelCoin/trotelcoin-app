@@ -40,9 +40,11 @@ const To = ({
           </div>
           <span className="text-sm text-gray-700 dark:text-gray-300">
             {lang === "en" ? "Balance:" : "Solde:"}{" "}
-            {toBalance
-              ? Number(toBalance?.toFixed(2)).toLocaleString("en-US")
-              : "0"}
+            <span className={`${isLoading && loadingFlashClass}`}>
+              {toBalance
+                ? Number(toBalance?.toFixed(2)).toLocaleString("en-US")
+                : "0"}
+            </span>
           </span>
         </div>
         <div className="flex items-end gap-4">
