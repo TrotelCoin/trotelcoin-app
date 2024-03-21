@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Lang } from "@/types/lang";
@@ -118,7 +118,7 @@ const TokenList = ({
                         >
                           {({ active }) => (
                             <>
-                              {token.logoURI && (
+                              {token.logoURI && token.logoURI !== "" && (
                                 <div
                                   className={classNames(
                                     "flex h-10 w-10 flex-none items-center justify-center rounded-xl",

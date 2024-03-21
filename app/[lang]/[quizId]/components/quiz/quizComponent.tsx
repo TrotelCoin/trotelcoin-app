@@ -1,7 +1,6 @@
 import type { Lang } from "@/types/lang";
 import type { Question } from "@/types/courses/quiz";
 import React, { SetStateAction, useContext, useEffect, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import { loadQuizData } from "@/app/[lang]/[quizId]/components/quiz/loadQuizData";
 import shuffleArray from "@/utils/shuffleArray";
@@ -10,6 +9,8 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import ThemeContext from "@/app/[lang]/contexts/themeContext";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -44,6 +45,7 @@ const QuizComponent = ({
   const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { playAudio } = useContext(AudioContext);
+  const { theme } = useContext(ThemeContext);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -209,6 +211,7 @@ const QuizComponent = ({
               process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
             }
             onChange={handleCaptchaVerify}
+            theme={theme}
           />
         </div>
       )}
