@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import type { Lang } from "@/types/lang";
-import { Sort } from "@/types/web3/swap";
+import { Sort, TokenSource } from "@/types/web3/swap";
 import {
   useAccount,
   useSendTransaction,
@@ -32,22 +32,23 @@ import {
   getFromTokenList,
   getToTokenList,
 } from "@/lib/socket/socket";
-import { usdc, trotelCoin, matic } from "@/data/web3/tokens";
+import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import SwapData from "@/app/[lang]/wallet/components/swap/swapData";
+import TokenList from "@/app/[lang]/wallet/components/swap/tokenList";
 
 const Swap = ({ lang }: { lang: Lang }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromChainId] = useState<number>(polygon.id);
   const [toChainId] = useState<number>(polygon.id);
-  const [fromToken, setFromToken] = useState<Token>(usdc);
+  const [fromToken, setFromToken] = useState<Token>(usdcPolygon);
   const [toPrice, setToPrice] = useState<number | null>(null);
-  const [toToken, setToToken] = useState<Token>(trotelCoin);
+  const [toToken, setToToken] = useState<Token>(trotelCoinPolygon);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [fromBalance, setFromBalance] = useState<number | null>(null);
@@ -71,6 +72,14 @@ const Swap = ({ lang }: { lang: Lang }) => {
   const [fromTokens, setFromTokens] = useState<Token[]>([]);
   const [toTokens, setToTokens] = useState<Token[]>([]);
   const [gasPrice, setGasPrice] = useState<number | null>(null);
+  const [swapSlippage, setSwapSlippage] = useState<number | null>(null);
+  const [protocolName, setProtocolName] = useState<string | null>(null);
+  const [protocolIcon, setProtocolIcon] = useState<string | null>(null);
+  const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
+  const [minimumAmountOut, setMinimumAmountOut] = useState<number | null>(null);
+  const [enableRefuel, setEnableRefuel] = useState<boolean>(false);
+  const [tokenList, setTokenList] = useState<TokenSource>("from");
+  const [openTokenList, setOpenTokenList] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -166,7 +175,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
         userAddress as Address,
         uniqueRoutesPerBridge,
         sort,
-        singleTxOnly
+        singleTxOnly,
+        enableRefuel
       );
 
       if (!quote) {
@@ -180,6 +190,11 @@ const Swap = ({ lang }: { lang: Lang }) => {
       setGasPrice(quote.result.routes[0].totalGasFeesInUsd);
       setFromPrice(quote.result.routes[0].inputValueInUsd);
       setToPrice(quote.result.routes[0].outputValueInUsd);
+      console.log("test", quote.result.routes[0].userTxs[0]);
+      setSwapSlippage(quote.result.routes[0].userTxs[0].swapSlippage);
+      setProtocolName(quote.result.routes[0].userTxs[0].protocol.displayName);
+      setProtocolIcon(quote.result.routes[0].userTxs[0].protocol.icon);
+      setMinimumAmountOut(quote.result.routes[0].userTxs[0].minAmountOut);
 
       if (!route) {
         setIsLoading(false);
@@ -188,7 +203,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
         return;
       }
 
-      const apiReturnData = await getRouteTransactionData(route);
+      const apiReturnData = await getRouteTransactionData(route, enableRefuel);
 
       setApiReturnData(apiReturnData);
 
@@ -234,18 +249,18 @@ const Swap = ({ lang }: { lang: Lang }) => {
       const toTokens = await getToTokenList(fromChainId, toChainId);
 
       if (fromTokens && toTokens) {
-        setFromTokens(fromTokens);
-        setToTokens(toTokens);
+        setFromTokens(fromTokens.result);
+        setToTokens(toTokens.result);
         setFromToken(fromTokens.result[0]);
         if (toChainId === polygon.id) {
-          setToToken(trotelCoin);
+          setToToken(trotelCoinPolygon);
         } else {
           setToToken(toTokens.result[0]);
         }
       }
 
       if (fromChainId === polygon.id || toChainId === polygon.id) {
-        fromTokens.result.unshift(trotelCoin);
+        fromTokens.result.unshift(trotelCoinPolygon);
       }
     };
 
@@ -351,6 +366,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
             isLoading={isLoading}
             fromChainId={fromChainId}
             userAddress={userAddress as Address}
+            setOpenTokenList={setOpenTokenList}
+            setTokenList={setTokenList}
           />
         </div>
 
@@ -364,6 +381,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
             isLoading={isLoading}
             toChainId={toChainId}
             fromPrice={fromPrice as number}
+            setOpenTokenList={setOpenTokenList}
+            setTokenList={setTokenList}
           />
         </div>
 
@@ -384,6 +403,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
             fromChainId={fromChainId}
             quoteFetched={quoteFetched}
             toAmount={toAmount as number}
+            enableRefuel={enableRefuel}
+            setEnableRefuel={setEnableRefuel}
           />
         </div>
       </div>
@@ -392,8 +413,24 @@ const Swap = ({ lang }: { lang: Lang }) => {
         lang={lang}
         isLoading={isLoading}
         gasPrice={gasPrice as number}
+        swapSlippage={swapSlippage as number}
+        protocolName={protocolName as string}
+        protocolIcon={protocolIcon as string}
+        minimumAmountOut={minimumAmountOut as number}
+        toToken={toToken}
+        enableRefuel={enableRefuel}
       />
 
+      <TokenList
+        lang={lang}
+        setFromToken={setFromToken}
+        setToToken={setToToken}
+        fromTokens={fromTokens}
+        toTokens={toTokens}
+        tokenList={tokenList}
+        openTokenList={openTokenList}
+        setOpenTokenList={setOpenTokenList}
+      />
       <Fail
         show={errorMessage}
         onClose={() => setErrorMessage(false)}

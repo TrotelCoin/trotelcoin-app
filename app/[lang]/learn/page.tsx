@@ -26,7 +26,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
     <>
       <div className="mx-auto">
         <div className="mx-auto flex justify-center items-center">
-          <div className="flex items-center text-sm justify-between gap-4 text-gray-900 dark:text-gray-100">
+          <div className="flex items-center text-sm justify-between gap-2 text-gray-900 dark:text-gray-100">
             <button
               onClick={() => setComponent("learn")}
               className={`px-4 py-2 rounded-full font-semibold ${

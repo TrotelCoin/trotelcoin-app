@@ -27,7 +27,7 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto flex justify-start items-center">
-        <div className="flex items-center text-sm justify-between gap-4 text-gray-900 dark:text-gray-100">
+        <div className="flex items-center text-sm justify-between gap-2 text-gray-900 dark:text-gray-100">
           <button
             onClick={() => setComponent("ranks")}
             className={`px-4 py-2 rounded-full font-semibold ${

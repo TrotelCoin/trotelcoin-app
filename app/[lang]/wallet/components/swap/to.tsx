@@ -1,9 +1,10 @@
 import type { Lang } from "@/types/lang";
 import React from "react";
-import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import "animate.css";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import { Token } from "@/types/web3/token";
+import { TokenSource } from "@/types/web3/swap";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const To = ({
   lang,
@@ -14,6 +15,8 @@ const To = ({
   isLoading,
   toChainId,
   fromPrice,
+  setOpenTokenList,
+  setTokenList,
 }: {
   lang: Lang;
   toBalance: number;
@@ -23,6 +26,8 @@ const To = ({
   isLoading: boolean;
   toChainId: number;
   fromPrice: number;
+  setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
+  setTokenList: React.Dispatch<React.SetStateAction<TokenSource>>;
 }) => {
   return (
     <>
@@ -56,9 +61,19 @@ const To = ({
           />
 
           <div className="flex flex-col justify-center items-end">
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {toToken.symbol}
-            </span>
+            <button
+              onClick={() => {
+                setTokenList("to");
+                setOpenTokenList(true);
+              }}
+              className="flex items-center"
+            >
+              <span className="font-semibold text-gray-900 dark:text-gray-100">
+                {toToken.symbol}
+              </span>
+              <ChevronDownIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+            </button>
+
             <div className="flex items-center gap-1">
               <span className={`text-xs ${isLoading && loadingFlashClass}`}>
                 $
@@ -102,8 +117,7 @@ const To = ({
                             : "text-red-500"
                         }
                       >
-                        {isZero ? "" : isPositive ? "+" : "-"}(
-                        {percentage.toFixed(2)}%)
+                        ({percentage.toFixed(2)}%)
                       </span>
                     );
                   })()}

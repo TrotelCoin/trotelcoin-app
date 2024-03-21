@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { tokenAddressToName } from "@/lib/tokenAddressToName";
 import type { Lang } from "@/types/lang";
 import type { Address } from "viem";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import { Token } from "@/types/web3/token";
+import { TokenSource } from "@/types/web3/swap";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 const From = ({
   lang,
@@ -15,6 +16,8 @@ const From = ({
   isLoading,
   fromChainId,
   userAddress,
+  setOpenTokenList,
+  setTokenList,
 }: {
   lang: Lang;
   fromBalance: number;
@@ -25,6 +28,8 @@ const From = ({
   isLoading: boolean;
   fromChainId: number;
   userAddress: Address;
+  setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
+  setTokenList: React.Dispatch<React.SetStateAction<TokenSource>>;
 }) => {
   const [isMax, setIsMax] = useState<boolean>(false);
 
@@ -80,9 +85,18 @@ const From = ({
             onWheel={(e) => (e.target as HTMLInputElement).blur()}
           />
           <div className="flex flex-col justify-center items-end">
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {fromToken.symbol}
-            </span>
+            <button
+              onClick={() => {
+                setTokenList("from");
+                setOpenTokenList(true);
+              }}
+              className="flex items-center"
+            >
+              <span className="font-semibold text-gray-900 dark:text-gray-100">
+                {fromToken.symbol}
+              </span>
+              <ChevronDownIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+            </button>
 
             <span className={`text-xs ${isLoading && loadingFlashClass}`}>
               $
