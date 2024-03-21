@@ -31,6 +31,7 @@ const Staking = ({
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [allowance, setAllowance] = useState<number | null>(null);
+  const [disabled, setDisabled] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -127,6 +128,7 @@ const Staking = ({
                     chainError={chainError}
                     setChainError={setChainError}
                     allowance={allowance}
+                    setDisabled={setDisabled}
                   />
                 ) : (
                   <StakingButton
@@ -136,6 +138,7 @@ const Staking = ({
                     chainError={chainError}
                     setChainError={setChainError}
                     allowance={allowance as number}
+                    disabled={disabled}
                   />
                 )}
                 <ClaimingButton

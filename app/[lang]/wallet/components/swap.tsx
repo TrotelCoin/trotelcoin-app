@@ -123,7 +123,10 @@ const Swap = ({ lang }: { lang: Lang }) => {
     }
   }, [fromBalanceData, toBalanceData]);
 
-  const { sendTransactionAsync: approvingAsync } = useSendTransaction({
+  const {
+    sendTransactionAsync: approvingAsync,
+    isPending: isPendingApproving,
+  } = useSendTransaction({
     mutation: {
       onSuccess: () => {
         setNeedApproval(false);
@@ -152,7 +155,8 @@ const Swap = ({ lang }: { lang: Lang }) => {
       toAmount > 0 &&
       toToken &&
       fromToken &&
-      quoteFetched
+      quoteFetched &&
+      !isPendingApproving
     ) {
       setDisabled(false);
     } else {
@@ -167,6 +171,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
     toToken,
     quoteFetched,
     fromToken,
+    isPendingApproving,
   ]);
 
   const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
@@ -418,11 +423,9 @@ const Swap = ({ lang }: { lang: Lang }) => {
             approvingAsync={approvingAsync}
             isLoading={isLoading}
             fromChainId={fromChainId}
-            quoteFetched={quoteFetched}
-            toAmount={toAmount as number}
             enableRefuel={enableRefuel}
             setEnableRefuel={setEnableRefuel}
-            fromAmount={fromAmount as number}
+            isPendingApproving={isPendingApproving}
           />
         </div>
       </div>
