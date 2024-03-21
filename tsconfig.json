@@ -35,6 +35,6 @@
     "app/404.js",
     "lib/walletContext.js",
     "middleware.js"
-  ],
+, "app/api/captcha/create"  ],
   "exclude": ["node_modules"]
 }

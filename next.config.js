@@ -18,21 +18,15 @@ module.exports = withMDX(
       remotePatterns: [
         {
           protocol: "https",
-          hostname: "coingecko.com",
+          hostname: "**.coingecko.com",
           port: "",
-          pathname: "",
+          pathname: "**",
         },
         {
           protocol: "https",
           hostname: "cryptologos.cc",
           port: "",
-          pathname: "",
-        },
-        {
-          protocol: "https",
-          hostname: "assets.coingecko.com",
-          port: "",
-          pathname: "",
+          pathname: "**",
         },
       ],
     },
