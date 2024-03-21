@@ -8,10 +8,9 @@ import {
   useSendTransaction,
   useBalance,
   useBlockNumber,
-  useEstimateGas,
 } from "wagmi";
 import { polygon } from "viem/chains";
-import { Address, formatUnits, Hash, parseUnits } from "viem";
+import { Address, Hash, parseUnits } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -280,11 +279,7 @@ const Swap = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     if (txHash) {
       const txStatus = setInterval(async () => {
-        const status = await getBridgeStatus(
-          txHash as Address,
-          fromChainId,
-          toChainId
-        );
+        const status = await getBridgeStatus(txHash, fromChainId, toChainId);
 
         if (!status) {
           return;
