@@ -8,7 +8,7 @@ const Rank = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto flex flex-col gap-4">
-        <span className="text-2xl font-semibold">
+        <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
           {lang === "en" ? "Ranks" : "Rangs"}
         </span>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
