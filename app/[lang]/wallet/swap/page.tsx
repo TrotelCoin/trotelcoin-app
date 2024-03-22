@@ -8,10 +8,12 @@ import {
   useSendTransaction,
   useBalance,
   useBlockNumber,
+  useReadContract,
+  useWriteContract,
 } from "wagmi";
 import { polygonChain } from "@/data/web3/chains";
 import { polygon } from "viem/chains";
-import { Address, Hash, parseUnits } from "viem";
+import { Address, formatUnits, Hash, parseUnits } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -23,8 +25,6 @@ import {
   getQuote,
   getRouteTransactionData,
   getBridgeStatus,
-  checkAllowance,
-  getApprovalTransactionData,
   getFromTokenList,
   getToTokenList,
   getChainList,
@@ -40,6 +40,7 @@ import TokenList from "@/app/[lang]/wallet/components/swap/tokenList";
 import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
+import allowanceAbi from "@/abi/allowanceAbi";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -84,6 +85,10 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [toChains, setToChains] = useState<Chain[]>([]);
   const [bridgeSlippage, setBridgeSlippage] = useState<number | null>(null);
   const [slippage, setSlippage] = useState<Slippage>("2");
+  const [isApproved, setIsApproved] = useState<boolean>(false);
+  const [approveMessage, setApproveMessage] = useState<boolean>(false);
+  const [allowance, setAllowance] = useState<number | null>(null);
+  const [allowanceTarget, setAllowanceTarget] = useState<Address | null>(null);
 
   const { address: userAddress } = useAccount();
 
@@ -129,20 +134,27 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }
   }, [fromBalanceData, toBalanceData]);
 
-  const {
-    sendTransactionAsync: approvingAsync,
-    isPending: isPendingApproving,
-  } = useSendTransaction({
-    mutation: {
-      onSuccess: () => {
-        setNeedApproval(false);
+  const { writeContractAsync: approvingAsync, isPending: isPendingApproving } =
+    useWriteContract({
+      mutation: {
+        onSuccess: () => {
+          setApproveMessage(true);
+          setIsApproved(true);
+        },
+        onError: () => {
+          setErrorMessage(true);
+          setIsApproved(false);
+        },
       },
-    },
-  });
+    });
+
   const { sendTransactionAsync: swappingAsync } = useSendTransaction({
     mutation: {
       onSuccess: () => {
         setSwappedMessage(true);
+      },
+      onError: () => {
+        setErrorMessage(true);
       },
     },
   });
@@ -161,8 +173,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       toAmount > 0 &&
       toToken &&
       fromToken &&
-      quoteFetched &&
-      !isPendingApproving
+      quoteFetched
     ) {
       setDisabled(false);
     } else {
@@ -177,7 +188,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     toToken,
     quoteFetched,
     fromToken,
-    isPendingApproving,
   ]);
 
   const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
@@ -208,6 +218,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setIsLoading(false);
         setNoQuoteNotification(true);
         setQuoteFetched(false);
+        setIsApproved(false);
         return;
       }
 
@@ -217,10 +228,9 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setIsLoading(false);
         setNoQuoteNotification(true);
         setQuoteFetched(false);
+        setIsApproved(false);
         return;
       }
-
-      console.log("route", route);
 
       setGasPrice(route.totalGasFeesInUsd);
       setFromPrice(route.inputValueInUsd);
@@ -241,6 +251,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setIsLoading(false);
         setNoQuoteNotification(true);
         setQuoteFetched(false);
+        setIsApproved(false);
         return;
       }
 
@@ -249,6 +260,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setToAmount(route ? toAmount : 0);
 
       setApprovalData(approvalData);
+      setAllowanceTarget(approvalData.allowanceTarget);
       setQuoteFetched(true);
       setIsLoading(false);
     };
@@ -349,39 +361,37 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }
   }, [txHash]);
 
+  const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
+    address: fromToken.address,
+    abi: allowanceAbi,
+    chainId: fromChain.chainId,
+    functionName: "allowance",
+    args: [userAddress, approvalData?.allowanceTarget],
+  });
+
   useEffect(() => {
-    const fetchApproval = async () => {
-      const { allowanceTarget, minimumApprovalAmount } = approvalData;
+    refetchAllowance();
+  }, [fromToken, userAddress, refetchAllowance]);
 
-      const allowanceCheckStatus = await checkAllowance(
-        fromChain.chainId,
-        userAddress as Address,
-        allowanceTarget,
-        fromToken.address
-      );
+  useEffect(() => {
+    if (allowanceData) {
+      const allowance = Number(formatUnits(allowanceData as bigint, 18));
+      setAllowance(allowance);
+    }
+  }, [allowanceData]);
 
-      const allowanceValue = allowanceCheckStatus.result?.value;
-
-      if (minimumApprovalAmount > allowanceValue) {
-        const approvalTransactionData = await getApprovalTransactionData(
-          fromChain.chainId,
-          userAddress as Address,
-          allowanceTarget,
-          fromToken.address,
-          minimumApprovalAmount
-        );
-
+  useEffect(() => {
+    if (allowance && fromAmount) {
+      if (fromAmount > allowance) {
         setNeedApproval(true);
-        setApprovalTransactionData(approvalTransactionData);
+        setIsApproved(false);
       } else {
         setNeedApproval(false);
       }
-    };
-
-    if (approvalData && userAddress) {
-      fetchApproval();
+    } else {
+      setNeedApproval(true);
     }
-  }, [approvalData, userAddress, fromToken.address, fromChain]);
+  }, [allowance, fromAmount]);
 
   return (
     <>
@@ -394,9 +404,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <div className="flex items-center gap-2">
             <BlueSimpleButton
               onClick={() => refetchQuote()}
-              disabled={
-                isLoading || !userAddress || !fromAmount || !quoteFetched
-              }
+              disabled={isLoading || !userAddress || !fromAmount}
             >
               <ArrowPathIcon
                 className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
@@ -473,7 +481,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
             userAddress={userAddress as Address}
             disabled={disabled}
             needApproval={needApproval}
-            approvalTransactionData={approvalTransactionData}
             apiReturnData={apiReturnData}
             swappingAsync={swappingAsync}
             setTxHash={
@@ -483,6 +490,11 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
             isLoading={isLoading}
             fromChain={fromChain}
             isPendingApproving={isPendingApproving}
+            isApproved={isApproved}
+            quoteFetched={quoteFetched}
+            allowanceTarget={allowanceTarget as Address}
+            fromAmount={fromAmount as number}
+            fromToken={fromToken}
           />
         </div>
 
@@ -534,6 +546,17 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           title={lang === "en" ? "Error" : "Erreur"}
           message={
             lang === "en" ? "An error occurred" : "Une erreur s'est produite"
+          }
+        />
+        <Success
+          show={approveMessage}
+          onClose={() => setApproveMessage(false)}
+          lang={lang}
+          title={lang === "en" ? "Success" : "Succès"}
+          message={
+            lang === "en"
+              ? "You approved the amount"
+              : "Vous avez approuvé le montant"
           }
         />
         <Success
