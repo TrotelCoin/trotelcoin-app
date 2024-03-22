@@ -6,7 +6,7 @@ const Chapters = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto max-w-md flex flex-col gap-4">
-        <span className="text-2xl font-semibold">
+        <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
           {lang === "en" ? "Chapters" : "Chapitres"}
         </span>
 
