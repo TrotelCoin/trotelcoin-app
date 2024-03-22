@@ -129,20 +129,20 @@ const From = ({
               <div className="flex items-center justify-end gap-1">
                 {fromToken.logoURI && fromToken.name === "TrotelCoin" ? (
                   <>
-                    <div className="block dark:hidden">
+                    <div className="block dark:hidden w-4 h-4">
                       <Image
-                        width={54}
-                        height={54}
+                        width={16}
+                        height={16}
                         className="rounded-full"
                         aria-hidden="true"
                         alt="Token logo"
                         src={fromToken.lightLogoURI as string}
                       />
                     </div>
-                    <div className="hidden dark:block">
+                    <div className="hidden dark:block w-w-4 h-4">
                       <Image
-                        width={54}
-                        height={54}
+                        width={16}
+                        height={16}
                         className="rounded-full"
                         aria-hidden="true"
                         alt="Token logo"
