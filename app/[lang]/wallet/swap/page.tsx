@@ -120,7 +120,16 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     refetchFrom();
     refetchTo();
     setIsLoading(false);
-  }, [blockNumber, userAddress, fromToken, toToken, refetchFrom, refetchTo]);
+  }, [
+    blockNumber,
+    userAddress,
+    fromToken,
+    toToken,
+    refetchFrom,
+    refetchTo,
+    fromChain,
+    toChain,
+  ]);
 
   useEffect(() => {
     if (fromBalanceData) {
