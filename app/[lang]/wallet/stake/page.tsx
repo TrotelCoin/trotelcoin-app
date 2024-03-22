@@ -12,28 +12,28 @@ import TotalStaked from "@/app/[lang]/wallet/components/staking/totalStaked";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import { polygon } from "viem/chains";
-import { useAccount, useReadContract, useBlockNumber } from "wagmi";
+import { useAccount, useReadContract, useBlockNumber, useChainId } from "wagmi";
 import { Address, formatEther } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
-import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 
-const Staking = ({
-  lang,
-  chainError,
-  setChainError,
-}: {
-  lang: Lang;
-  chainError: boolean;
-  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [allowance, setAllowance] = useState<number | null>(null);
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [chainError, setChainError] = useState<boolean>(false);
 
   const { address } = useAccount();
+
+  const chainId = useChainId();
+
+  useEffect(() => {
+    if (chainId !== polygon.id) {
+      setChainError(true);
+    }
+  }, [chainId]);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,

@@ -41,7 +41,7 @@ import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
 
-const Swap = ({ lang }: { lang: Lang }) => {
+const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
   const [fromChain, setFromChain] = useState<Chain>(polygonChain);

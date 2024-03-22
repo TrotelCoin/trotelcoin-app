@@ -6,29 +6,25 @@ import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
 import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";
-import { useAccount } from "wagmi";
+import { useAccount, useChainId } from "wagmi";
 import Status from "@/app/[lang]/wallet/components/claim/status";
 import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
+import { polygon } from "viem/chains";
 
-const Claim = ({
-  lang,
-  chainError,
-  setChainError,
-}: {
-  lang: Lang;
-  chainError: boolean;
-  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
   const [claimed, setClaimed] = useState<boolean>(false);
+  const [chainError, setChainError] = useState<boolean>(false);
 
   const { address } = useAccount();
+
+  const chainId = useChainId();
 
   const { data: userTotalRewardsPendingData } = useSWR(
     address
@@ -44,6 +40,12 @@ const Claim = ({
       setAvailableToClaim(0);
     }
   }, [userTotalRewardsPendingData]);
+
+  useEffect(() => {
+    if (chainId !== polygon.id) {
+      setChainError(true);
+    }
+  }, [chainId]);
 
   const { data: centralWalletAddressData } = useSWR(
     "/api/getCentralWalletAddress",
