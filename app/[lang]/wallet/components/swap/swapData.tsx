@@ -1,32 +1,37 @@
 import { Lang } from "@/types/lang";
 import React, { useState } from "react";
-import { BoltIcon } from "@heroicons/react/24/solid";
+import { BoltIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { Token } from "@/types/web3/token";
 import Image from "next/image";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { Slippage, Sort } from "@/types/web3/swap";
 
 const SwapData = ({
   lang,
   isLoading,
   gasPrice,
-  swapSlippage,
+  slippage,
   protocolName,
   protocolIcon,
   minimumAmountOut,
   toToken,
   enableRefuel,
+  sort,
+  bridgeSlippage,
 }: {
   lang: Lang;
   isLoading: boolean;
   gasPrice: number;
-  swapSlippage: number;
+  slippage: Slippage;
   protocolName: string;
   protocolIcon: string;
   minimumAmountOut: number;
   toToken: Token;
   enableRefuel: boolean;
+  sort: Sort;
+  bridgeSlippage: number;
 }) => {
   const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -52,11 +57,16 @@ const SwapData = ({
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
-                          <span
-                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
-                          >
-                            {lang === "en" ? "Network fee" : "Frais de réseau"}{" "}
-                          </span>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en"
+                                ? "Network fee"
+                                : "Frais de réseau"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
@@ -94,20 +104,23 @@ const SwapData = ({
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
-                          <span
-                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
-                          >
-                            {lang === "en"
-                              ? "Swap slippage"
-                              : "Glissement de swap"}{" "}
-                          </span>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en"
+                                ? "Swap slippage"
+                                : "Glissement de swap"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
                         <span className={`${isLoading && loadingFlashClass}`}>
-                          {swapSlippage ? Number(swapSlippage.toFixed(3)) : 0}%
+                          {slippage}%
                         </span>
                       </span>
                     </div>
@@ -137,13 +150,65 @@ const SwapData = ({
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
-                          <span
-                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
-                          >
-                            {lang === "en"
-                              ? "Minimum Amount"
-                              : "Montant minimum"}{" "}
-                          </span>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en"
+                                ? "Bridge slippage"
+                                : "Glissement de pont"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
+                        </Tooltip.Trigger>
+                      </div>
+                      <span
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                      >
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          {bridgeSlippage
+                            ? Number(bridgeSlippage.toFixed(3))
+                            : 0}
+                          %
+                        </span>
+                      </span>
+                    </div>
+
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        sideOffset={5}
+                        side="left"
+                        align="center"
+                        className="relative max-w-xs"
+                      >
+                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                          {lang === "en"
+                            ? "Maximum difference between expected and executed price."
+                            : "Différence maximale entre le prix attendu et exécuté."}
+                        </div>
+                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
+
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en"
+                                ? "Minimum Amount"
+                                : "Montant minimum"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
@@ -184,11 +249,14 @@ const SwapData = ({
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
-                          <span
-                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
-                          >
-                            {lang === "en" ? "Protocol" : "Protocole"}{" "}
-                          </span>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en" ? "Protocol" : "Protocole"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
@@ -236,11 +304,14 @@ const SwapData = ({
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
-                          <span
-                            className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
-                          >
-                            {lang === "en" ? "Refuel" : "Refuel"}{" "}
-                          </span>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en" ? "Refuel" : "Refuel"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
@@ -269,6 +340,50 @@ const SwapData = ({
                           {lang === "en"
                             ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain."
                             : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne."}
+                        </div>
+                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </div>
+                </Tooltip.Root>
+              </Tooltip.Provider>
+
+              <Tooltip.Provider>
+                <Tooltip.Root delayDuration={0}>
+                  <div className="relative w-full">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-1">
+                        <Tooltip.Trigger asChild>
+                          <div className="inline-flex items-center gap-1">
+                            <span
+                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                            >
+                              {lang === "en" ? "Sort by" : "Trier par"}{" "}
+                            </span>
+                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          </div>
+                        </Tooltip.Trigger>
+                      </div>
+                      <span
+                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                      >
+                        <span className={`${isLoading && loadingFlashClass}`}>
+                          {sort.charAt(0).toUpperCase() + sort.slice(1)}
+                        </span>
+                      </span>
+                    </div>
+
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        sideOffset={5}
+                        side="left"
+                        align="center"
+                        className="relative max-w-xs"
+                      >
+                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                          {lang === "en"
+                            ? "Sort the route by the best output amount, the lowest gas price, or fastest time."
+                            : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide."}
                         </div>
                         <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
                       </Tooltip.Content>

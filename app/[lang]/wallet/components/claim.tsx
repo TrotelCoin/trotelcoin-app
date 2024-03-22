@@ -59,15 +59,11 @@ const Claim = ({
 
   return (
     <>
-      <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="flex flex-col px-4 pb-4">
-          <WidgetTitle
-            title={lang === "en" ? "Claim" : "Récupérer"}
-            lang={lang}
-          />
-        </div>
-
-        <div className="flex flex-col gap-2 py-4 px-4">
+      <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="flex flex-col gap-2 px-4">
+          <span className="text-2xl font-bold">
+            {lang === "en" ? "Claim" : "Récupérer"}
+          </span>
           <div>
             <AvailableToClaim
               lang={lang}
@@ -79,26 +75,26 @@ const Claim = ({
             <Balance lang={lang} />
           </div>
           <div>
-            <AddToken lang={lang} />
-          </div>
-          <div>
             <Status lang={lang} availableToClaim={availableToClaim as number} />
           </div>
+          <div>
+            <AddToken lang={lang} />
+          </div>
         </div>
+      </div>
 
-        <div className="pt-4 px-4">
-          {address ? (
-            <RewardsButton
-              centralWalletAddress={centralWalletAddress as Address}
-              lang={lang}
-              chainError={chainError}
-              setChainError={setChainError}
-              setClaimed={setClaimed}
-            />
-          ) : (
-            <Wallet lang={lang} isFull={true} isCentered={true} />
-          )}
-        </div>
+      <div className="mt-4">
+        {address ? (
+          <RewardsButton
+            centralWalletAddress={centralWalletAddress as Address}
+            lang={lang}
+            chainError={chainError}
+            setChainError={setChainError}
+            setClaimed={setClaimed}
+          />
+        ) : (
+          <Wallet lang={lang} isFull={true} isCentered={true} />
+        )}
       </div>
     </>
   );

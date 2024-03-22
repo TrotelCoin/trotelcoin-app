@@ -5,6 +5,9 @@ import { loadingFlashClass } from "@/lib/tailwind/loading";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import type { Chain } from "@/types/web3/chain";
+import type { ChainSource } from "@/types/web3/swap";
+import Image from "next/image";
 
 const To = ({
   lang,
@@ -13,10 +16,12 @@ const To = ({
   toToken,
   toPrice,
   isLoading,
-  toChainId,
+  toChain,
   fromPrice,
   setOpenTokenList,
   setTokenList,
+  setOpenChainList,
+  setChainList,
 }: {
   lang: Lang;
   toBalance: number;
@@ -24,19 +29,46 @@ const To = ({
   toToken: Token;
   toPrice: number;
   isLoading: boolean;
-  toChainId: number;
+  toChain: Chain;
   fromPrice: number;
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
   setTokenList: React.Dispatch<React.SetStateAction<TokenSource>>;
+  setOpenChainList: React.Dispatch<React.SetStateAction<boolean>>;
+  setChainList: React.Dispatch<React.SetStateAction<ChainSource>>;
 }) => {
   return (
     <>
       <div className="flex flex-col justify-center gap-2">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col items-start justify-center">
             <span className="text-gray-700 dark:text-gray-300 text-sm">
               {lang === "en" ? "You receive" : "Vous recevez"}
             </span>
+            <button
+              onClick={() => {
+                setChainList("to");
+                setOpenChainList(true);
+              }}
+              className="flex items-center gap-1"
+            >
+              {toChain.icon && (
+                <>
+                  <Image
+                    width={16}
+                    height={16}
+                    alt="Chain logo"
+                    src={toChain.icon}
+                    className="rounded-full"
+                  />
+                </>
+              )}
+              <div className="flex items-center">
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
+                  {toChain.name}
+                </span>
+                <ChevronDownIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+              </div>
+            </button>
           </div>
           <span className="text-sm text-gray-700 dark:text-gray-300">
             {lang === "en" ? "Balance:" : "Solde:"}{" "}
@@ -70,21 +102,54 @@ const To = ({
               }}
               className="flex items-center"
             >
-              <span className="font-semibold text-gray-900 dark:text-gray-100">
-                {toToken.symbol}
-              </span>
-              <ChevronDownIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+              <div className="flex items-center justify-end gap-1">
+                {toToken.logoURI && toToken.name === "TrotelCoin" ? (
+                  <>
+                    <div className="block dark:hidden">
+                      <Image
+                        width={54}
+                        height={54}
+                        className="rounded-full"
+                        aria-hidden="true"
+                        alt="Token logo"
+                        src={toToken.lightLogoURI as string}
+                      />
+                    </div>
+                    <div className="hidden dark:block">
+                      <Image
+                        width={54}
+                        height={54}
+                        className="rounded-full"
+                        aria-hidden="true"
+                        alt="Token logo"
+                        src={toToken.darkLogoURI as string}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <Image
+                    width={16}
+                    height={16}
+                    className="rounded-full"
+                    aria-hidden="true"
+                    alt="Token logo"
+                    src={toToken.logoURI}
+                  />
+                )}
+                <div className="flex items-center justify-end">
+                  <span className="font-semibold text-gray-900 dark:text-gray-100">
+                    {toToken.symbol}
+                  </span>
+                  <ChevronDownIcon className="h-5 w-5 text-gray-700 dark:text-gray-300" />
+                </div>
+              </div>
             </button>
 
             <div className="flex items-center gap-1">
               <span className={`text-xs ${isLoading && loadingFlashClass}`}>
                 $
-                {toPrice && toAmount
-                  ? Number(
-                      (toPrice * (toAmount * 10 ** -toToken.decimals)).toFixed(
-                        2
-                      )
-                    ).toLocaleString("en-US")
+                {toPrice
+                  ? Number(toPrice.toFixed(2)).toLocaleString("en-US")
                   : "0"}
               </span>
               {

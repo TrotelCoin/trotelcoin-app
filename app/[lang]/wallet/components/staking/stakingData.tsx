@@ -131,6 +131,9 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div className="flex flex-col flex-wrap gap-2">
+        <span className="text-2xl font-bold">
+          {lang === "en" ? "Statistics" : "Statistiques"}
+        </span>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
           <div>

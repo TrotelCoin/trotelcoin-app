@@ -3,6 +3,7 @@ import type { Lang } from "@/types/lang";
 import React from "react";
 import { Address } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import { Chain } from "@/types/web3/chain";
 
 const SwapButton = ({
   lang,
@@ -13,7 +14,7 @@ const SwapButton = ({
   swappingAsync,
   approvalTransactionData,
   setTxHash,
-  fromChainId,
+  fromChain,
   apiReturnData,
   approvingAsync,
   isPendingApproving,
@@ -25,7 +26,7 @@ const SwapButton = ({
   isLoading: boolean;
   swappingAsync: any;
   setTxHash: React.Dispatch<React.SetStateAction<string>>;
-  fromChainId: number;
+  fromChain: Chain;
   approvalTransactionData: any;
   apiReturnData: any;
   approvingAsync: any;
@@ -45,7 +46,7 @@ const SwapButton = ({
               await approvingAsync({
                 to: approvalTransactionData.result?.to,
                 data: approvalTransactionData.result?.data,
-                chainId: fromChainId,
+                chainId: fromChain.chainId,
               });
             }}
           />
