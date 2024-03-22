@@ -2,17 +2,23 @@
 
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
-import Period from "@/app/[lang]/wallet/components/staking/period";
-import StakingData from "@/app/[lang]/wallet/components/staking/stakingData";
-import StakingButton from "@/app/[lang]/wallet/components/staking/stakingButton";
-import Amount from "@/app/[lang]/wallet/components/staking/amount";
-import ClaimingButton from "@/app/[lang]/wallet/components/staking/claimingButton";
-import ApproveButton from "@/app/[lang]/wallet/components/staking/approveButton";
-import TotalStaked from "@/app/[lang]/wallet/components/staking/totalStaked";
+import Period from "@/app/[lang]/wallet/components/stake/period";
+import StakingData from "@/app/[lang]/wallet/components/stake/stakingData";
+import StakingButton from "@/app/[lang]/wallet/components/stake/stakingButton";
+import Amount from "@/app/[lang]/wallet/components/stake/amount";
+import ClaimingButton from "@/app/[lang]/wallet/components/stake/claimingButton";
+import ApproveButton from "@/app/[lang]/wallet/components/stake/approveButton";
+import TotalStaked from "@/app/[lang]/wallet/components/stake/totalStaked";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import { polygon } from "viem/chains";
-import { useAccount, useReadContract, useBlockNumber, useChainId } from "wagmi";
+import {
+  useAccount,
+  useReadContract,
+  useBlockNumber,
+  useChainId,
+  useWriteContract,
+} from "wagmi";
 import { Address, formatEther } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
@@ -24,6 +30,10 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [chainError, setChainError] = useState<boolean>(false);
+  const [approveMessage, setApproveMessage] = useState<boolean>(false);
+  const [errorApproveMessage, setErrorApproveMessage] =
+    useState<boolean>(false);
+  const [isApproved, setIsApproved] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -66,6 +76,20 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
     functionName: "allowance",
     args: [address, trotelCoinStakingV1],
   });
+
+  const { writeContractAsync: approvingAsync, isPending: isPendingApproving } =
+    useWriteContract({
+      mutation: {
+        onSuccess: () => {
+          setApproveMessage(true);
+          setIsApproved(true);
+        },
+        onError: () => {
+          setErrorApproveMessage(true);
+          setIsApproved(false);
+        },
+      },
+    });
 
   useEffect(() => {
     if (allowanceData) {
@@ -122,7 +146,9 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               <div className="grid grid-cols-2 gap-4">
                 {allowance &&
-                (allowance < (amount as number) || amount === undefined) ? (
+                (allowance < (amount as number) ||
+                  amount === undefined ||
+                  isPendingApproving) ? (
                   <ApproveButton
                     lang={lang}
                     amount={amount as number}
@@ -130,6 +156,13 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     setChainError={setChainError}
                     allowance={allowance}
                     setDisabled={setDisabled}
+                    approvingAsync={approvingAsync}
+                    approveMessage={approveMessage}
+                    setApproveMessage={setApproveMessage}
+                    errorApproveMessage={errorApproveMessage}
+                    setErrorApproveMessage={setErrorApproveMessage}
+                    isPendingApproving={isPendingApproving}
+                    isApproved={isApproved}
                   />
                 ) : (
                   <StakingButton

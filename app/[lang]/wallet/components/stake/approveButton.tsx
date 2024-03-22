@@ -19,6 +19,13 @@ const ApproveButton = ({
   setChainError,
   allowance,
   setDisabled,
+  approvingAsync,
+  approveMessage,
+  setApproveMessage,
+  errorApproveMessage,
+  setErrorApproveMessage,
+  isApproved,
+  isPendingApproving,
 }: {
   lang: Lang;
   amount: number;
@@ -26,24 +33,18 @@ const ApproveButton = ({
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
   allowance: number;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  approvingAsync: any;
+  approveMessage: boolean;
+  setApproveMessage: React.Dispatch<React.SetStateAction<boolean>>;
+  errorApproveMessage: boolean;
+  setErrorApproveMessage: React.Dispatch<React.SetStateAction<boolean>>;
+  isPendingApproving: boolean;
+  isApproved: boolean;
 }) => {
-  const [approveMessage, setApproveMessage] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabledApprove, setDisabledApprove] = useState<boolean>(true);
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
-
-  const { writeContractAsync, isPending } = useWriteContract({
-    mutation: {
-      onSuccess: () => {
-        setApproveMessage(true);
-      },
-      onError: () => {
-        setErrorMessage(true);
-      },
-    },
-  });
 
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
@@ -53,7 +54,7 @@ const ApproveButton = ({
     const approveAmount = parseEther(amount.toString());
 
     try {
-      await writeContractAsync({
+      await approvingAsync({
         args: [trotelCoinStakingV1, approveAmount],
         address: trotelCoinAddress,
         functionName: "approve",
@@ -74,10 +75,10 @@ const ApproveButton = ({
   }, [amount, address, allowance]);
 
   useEffect(() => {
-    if (chainError && isPending) {
+    if (chainError && isPendingApproving) {
       setDisabled(true);
     }
-  }, [chainError, isPending]);
+  }, [chainError, isPendingApproving]);
 
   return (
     <>
@@ -86,7 +87,7 @@ const ApproveButton = ({
         onClick={() => approve(amount)}
         disabled={disabledApprove}
         text={lang === "en" ? "Approve" : "Approuver"}
-        isLoading={isPending}
+        isLoading={isPendingApproving || isApproved}
       />
 
       <Success
@@ -101,8 +102,8 @@ const ApproveButton = ({
         }
       />
       <Fail
-        show={errorMessage}
-        onClose={() => setErrorMessage(false)}
+        show={errorApproveMessage}
+        onClose={() => setErrorApproveMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
