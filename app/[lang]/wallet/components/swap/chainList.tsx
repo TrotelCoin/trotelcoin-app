@@ -1,55 +1,58 @@
 import { Fragment, useState } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
-import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Lang } from "@/types/lang";
-import type { Token } from "@/types/web3/token";
-import type { TokenSource } from "@/types/web3/swap";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import type { Chain } from "@/types/web3/chain";
+import type { ChainSource } from "@/types/web3/swap";
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-const TokenList = ({
+const ChainList = ({
   lang,
-  setFromToken,
-  setToToken,
-  fromTokens,
-  toTokens,
-  tokenList,
-  openTokenList,
-  setOpenTokenList,
-  fromToken,
-  toToken,
+  setFromChain,
+  setToChain,
+  fromChains,
+  toChains,
+  chainList,
+  openChainList,
+  setOpenChainList,
+  fromChain,
+  toChain,
 }: {
   lang: Lang;
-  setFromToken: React.Dispatch<React.SetStateAction<Token>>;
-  setToToken: React.Dispatch<React.SetStateAction<Token>>;
-  fromTokens: Token[];
-  toTokens: Token[];
-  tokenList: TokenSource;
-  openTokenList: boolean;
-  setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
-  fromToken: Token;
-  toToken: Token;
+  setFromChain: React.Dispatch<React.SetStateAction<Chain>>;
+  setToChain: React.Dispatch<React.SetStateAction<Chain>>;
+  fromChains: Chain[];
+  toChains: Chain[];
+  chainList: ChainSource;
+  openChainList: boolean;
+  setOpenChainList: React.Dispatch<React.SetStateAction<boolean>>;
+  fromChain: Chain;
+  toChain: Chain;
 }) => {
   const [query, setQuery] = useState("");
 
-  const tokens: Token[] = tokenList === "from" ? fromTokens : toTokens;
+  const chains: Chain[] = chainList === "from" ? fromChains : toChains;
 
-  const filteredTokens = tokens
+  const filteredChains = chains
     .filter(
-      (token: Token) =>
-        token.symbol.toLowerCase().includes(query.toLowerCase()) ||
-        token.name.toLowerCase().includes(query.toLowerCase()) ||
-        token.address.toLowerCase().includes(query.toLowerCase())
+      (chain: Chain) =>
+        chain.name.toLowerCase().includes(query.toLowerCase()) ||
+        chain.chainId.toString().toLowerCase().includes(query.toLowerCase()) ||
+        chain.currency.address.toLowerCase().includes(query.toLowerCase()) ||
+        chain.currency.symbol.toLowerCase().includes(query.toLowerCase()) ||
+        chain.currency.name.toLowerCase().includes(query.toLowerCase())
     )
     .slice(0, 100);
 
   return (
     <Transition.Root
-      show={openTokenList}
+      show={openChainList}
       as={Fragment}
       afterLeave={() => setQuery("")}
       appear
@@ -57,7 +60,7 @@ const TokenList = ({
       <Dialog
         as="div"
         className="relative z-10"
-        onClose={() => setOpenTokenList(false)}
+        onClose={() => setOpenChainList(false)}
       >
         <Transition.Child
           as={Fragment}
@@ -95,22 +98,22 @@ const TokenList = ({
                   />
                 </div>
 
-                {filteredTokens.length > 0 && (
+                {filteredChains.length > 0 && (
                   <Combobox.Options
                     static
                     className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
                   >
-                    {filteredTokens.map((token: Token, index: number) => (
+                    {filteredChains.map((chain: Chain, index: number) => (
                       <Combobox.Option
                         key={index}
-                        value={token.symbol}
+                        value={chain.name}
                         onClick={() => {
-                          if (tokenList === "from") {
-                            setFromToken(token);
+                          if (chainList === "from") {
+                            setFromChain(chain);
                           } else {
-                            setToToken(token);
+                            setToChain(chain);
                           }
-                          setOpenTokenList(false);
+                          setOpenChainList(false);
                         }}
                         className={({ active }) =>
                           classNames(
@@ -125,44 +128,18 @@ const TokenList = ({
                               <div
                                 className={classNames(
                                   "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
-                                  token.logoURI
+                                  chain.icon
                                 )}
                               >
-                                {token.name === "TrotelCoin" ? (
-                                  <>
-                                    <div className="block dark:hidden">
-                                      <Image
-                                        width={48}
-                                        height={48}
-                                        className="rounded-full"
-                                        aria-hidden="true"
-                                        alt="Token logo"
-                                        src={token.lightLogoURI as string}
-                                      />
-                                    </div>
-                                    <div className="hidden dark:block">
-                                      <Image
-                                        width={48}
-                                        height={48}
-                                        className="rounded-full"
-                                        aria-hidden="true"
-                                        alt="Token logo"
-                                        src={token.darkLogoURI as string}
-                                      />
-                                    </div>
-                                  </>
-                                ) : (
-                                  <img
-                                    width={48}
-                                    height={48}
-                                    className="rounded-full"
-                                    aria-hidden="true"
-                                    alt="Token logo"
-                                    src={token.logoURI}
-                                  />
-                                )}
+                                <img
+                                  width={48}
+                                  height={48}
+                                  className="rounded-full"
+                                  aria-hidden="true"
+                                  alt="Chain logo"
+                                  src={chain.icon}
+                                />
                               </div>
-
                               <div className="ml-4 flex-auto">
                                 <p
                                   className={classNames(
@@ -172,7 +149,7 @@ const TokenList = ({
                                       : "text-gray-700 dark:text-gray-300"
                                   )}
                                 >
-                                  {token.name}
+                                  {chain.name}
                                 </p>
                                 <p
                                   className={classNames(
@@ -182,11 +159,11 @@ const TokenList = ({
                                       : "text-gray-700 dark:text-gray-300"
                                   )}
                                 >
-                                  {token.symbol}
+                                  {chain.currency.symbol}
                                 </p>
-                              </div>
-                              {token.name ===
-                                (fromToken.name || toToken.name) && (
+                              </div>{" "}
+                              {chain.chainId ===
+                                (fromChain.chainId || toChain.chainId) && (
                                 <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
                               )}
                             </div>
@@ -197,7 +174,7 @@ const TokenList = ({
                   </Combobox.Options>
                 )}
 
-                {query !== "" && filteredTokens.length === 0 && (
+                {query !== "" && filteredChains.length === 0 && (
                   <div className="px-6 py-14 text-center text-sm sm:px-14">
                     <ExclamationCircleIcon
                       type="outline"
@@ -223,4 +200,4 @@ const TokenList = ({
   );
 };
 
-export default TokenList;
+export default ChainList;

@@ -140,7 +140,7 @@ export default function Layout({
                               <Banner lang={lang} />
                               <Changelogs lang={lang} />
                               <Header lang={lang} />
-                              <main className="px-6 lg:px-8 lg:mx-auto py-6 lg:py-8 max-w-5xl my-10">
+                              <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
                                 {children}
                               </main>
                               <Footer lang={lang} />

@@ -9,7 +9,7 @@ const WidgetTitle = ({ title, lang }: { title: string; lang: Lang }) => {
   return (
     <>
       <div className="flex flex-col">
-        <span className="font-bold text-base md:text-xl">{title}</span>
+        <span className="font-bold text-base md:text-xl text-gray-900 dark:text-gray-100">{title}</span>
         <div className="flex items-center gap-1">
           <div
             className={`w-2 h-2 md:w-3 md:h-3 rounded-full ${

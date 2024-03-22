@@ -1,5 +1,5 @@
 import { Address } from "viem";
-import type { Sort } from "@/types/web3/swap";
+import type { Slippage, Sort } from "@/types/web3/swap";
 import axios from "axios";
 
 export const getQuote = async (
@@ -12,11 +12,12 @@ export const getQuote = async (
   uniqueRoutesPerBridge: boolean,
   sort: Sort,
   singleTxOnly: boolean,
-  enableRefuel: boolean
+  enableRefuel: boolean,
+  slippage: Slippage
 ) => {
   const response = await axios
     .get(
-      `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}&bridgeWithGas=${enableRefuel}`,
+      `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}&bridgeWithGas=${enableRefuel}&defaultSwapSlippage=${slippage}`,
       {
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
@@ -176,6 +177,21 @@ export const getTokenPrice = async (tokenAddress: Address, chainId: number) => {
         },
       }
     )
+    .then((response) => response.data)
+    .catch((error) => console.error(error));
+
+  return response;
+};
+
+export const getChainList = async () => {
+  const response = await axios
+    .get(`https://api.socket.tech/v2/supported/chains`, {
+      headers: {
+        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
     .then((response) => response.data)
     .catch((error) => console.error(error));
 
