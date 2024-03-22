@@ -80,7 +80,6 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      {" "}
       <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
         <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="px-4 flex flex-col gap-4">
