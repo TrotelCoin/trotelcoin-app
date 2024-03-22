@@ -80,77 +80,80 @@ const Staking = ({
 
   return (
     <>
-      <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="px-4 flex flex-col gap-4">
-          <span className="text-4xl font-bold text-green-500 dark:text-green-300">
-            {APY}%{" "}
-            <span className="text-base text-gray-700 dark:text-gray-300">
-              ROI
+      {" "}
+      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
+        <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <div className="px-4 flex flex-col gap-4">
+            <span className="text-4xl font-bold text-green-500 dark:text-green-300">
+              {APY}%{" "}
+              <span className="text-base text-gray-700 dark:text-gray-300">
+                ROI
+              </span>
             </span>
-          </span>
 
-          <div>
-            <Period
-              lang={lang}
-              stakingPeriod={stakingPeriod}
-              setStakingPeriod={setStakingPeriod}
-            />
-          </div>
-          <div>
-            <Amount
-              lang={lang}
-              amount={amount as number}
-              setAmount={setAmount}
-              address={address as Address}
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="px-4 pb-4">
-          <StakingData lang={lang} />
-        </div>
-        <div className="pt-4 px-4">
-          <TotalStaked lang={lang} />
-        </div>
-      </div>
-
-      <div className="mt-4">
-        {address ? (
-          <>
-            <div className="grid grid-cols-2 gap-4">
-              {allowance &&
-              (allowance < (amount as number) || amount === undefined) ? (
-                <ApproveButton
-                  lang={lang}
-                  amount={amount as number}
-                  chainError={chainError}
-                  setChainError={setChainError}
-                  allowance={allowance}
-                  setDisabled={setDisabled}
-                />
-              ) : (
-                <StakingButton
-                  lang={lang}
-                  stakingPeriod={stakingPeriod}
-                  amount={amount as number}
-                  chainError={chainError}
-                  setChainError={setChainError}
-                  allowance={allowance as number}
-                  disabled={disabled}
-                />
-              )}
-              <ClaimingButton
+            <div>
+              <Period
                 lang={lang}
-                chainError={chainError}
-                setChainError={setChainError}
+                stakingPeriod={stakingPeriod}
+                setStakingPeriod={setStakingPeriod}
               />
             </div>
-          </>
-        ) : (
-          <Wallet lang={lang} isFull={true} isCentered={true} />
-        )}
+            <div>
+              <Amount
+                lang={lang}
+                amount={amount as number}
+                setAmount={setAmount}
+                address={address as Address}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <div className="px-4 pb-4">
+            <StakingData lang={lang} />
+          </div>
+          <div className="pt-4 px-4">
+            <TotalStaked lang={lang} />
+          </div>
+        </div>
+
+        <div className="mt-4 w-full">
+          {address ? (
+            <>
+              <div className="grid grid-cols-2 gap-4">
+                {allowance &&
+                (allowance < (amount as number) || amount === undefined) ? (
+                  <ApproveButton
+                    lang={lang}
+                    amount={amount as number}
+                    chainError={chainError}
+                    setChainError={setChainError}
+                    allowance={allowance}
+                    setDisabled={setDisabled}
+                  />
+                ) : (
+                  <StakingButton
+                    lang={lang}
+                    stakingPeriod={stakingPeriod}
+                    amount={amount as number}
+                    chainError={chainError}
+                    setChainError={setChainError}
+                    allowance={allowance as number}
+                    disabled={disabled}
+                  />
+                )}
+                <ClaimingButton
+                  lang={lang}
+                  chainError={chainError}
+                  setChainError={setChainError}
+                />
+              </div>
+            </>
+          ) : (
+            <Wallet lang={lang} isFull={true} isCentered={true} />
+          )}
+        </div>
       </div>
     </>
   );

@@ -385,161 +385,175 @@ const Swap = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between mt-4">
-        <WidgetTitle title={lang === "en" ? "Swap" : "Échanger"} lang={lang} />
-        <div className="flex items-center gap-2">
-          <BlueSimpleButton
-            onClick={() => refetchQuote()}
-            disabled={isLoading || !userAddress || !fromAmount || !quoteFetched}
-          >
-            <ArrowPathIcon
-              className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
-                isLoading && "animate-spin"
-              }`}
-            />
-          </BlueSimpleButton>
-
-          <Settings
+      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
+        <div className="flex items-center w-full justify-between">
+          <WidgetTitle
+            title={lang === "en" ? "Swap" : "Échanger"}
             lang={lang}
-            enableRefuel={enableRefuel}
-            setEnableRefuel={setEnableRefuel}
-            setSort={setSort}
-            sort={sort}
-            setSlippage={setSlippage}
-            slippage={slippage}
           />
-        </div>
-      </div>
+          <div className="flex items-center gap-2">
+            <BlueSimpleButton
+              onClick={() => refetchQuote()}
+              disabled={
+                isLoading || !userAddress || !fromAmount || !quoteFetched
+              }
+            >
+              <ArrowPathIcon
+                className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
+                  isLoading && "animate-spin"
+                }`}
+              />
+            </BlueSimpleButton>
 
-      <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="px-4">
-          <From
+            <Settings
+              lang={lang}
+              enableRefuel={enableRefuel}
+              setEnableRefuel={setEnableRefuel}
+              setSort={setSort}
+              sort={sort}
+              setSlippage={setSlippage}
+              slippage={slippage}
+            />
+          </div>
+        </div>
+
+        <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <div className="px-4">
+            <From
+              lang={lang}
+              fromAmount={fromAmount as number}
+              fromBalance={fromBalance as number}
+              fromPrice={fromPrice as number}
+              fromToken={fromToken}
+              setFromAmount={
+                setFromAmount as React.Dispatch<React.SetStateAction<number>>
+              }
+              isLoading={isLoading}
+              fromChain={fromChain}
+              userAddress={userAddress as Address}
+              setOpenTokenList={setOpenTokenList}
+              setTokenList={setTokenList}
+              setOpenChainList={setOpenChainList}
+              setChainList={setChainList}
+            />
+          </div>
+        </div>
+
+        <div className="my-4 flex justify-center items-center">
+          <BlueSimpleButton
+            onClick={() => exchangeTokens()}
+            isRoundedFull={true}
+          >
+            <ArrowsUpDownIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
+          </BlueSimpleButton>
+        </div>
+
+        <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <div className="px-4">
+            <To
+              lang={lang}
+              toAmount={toAmount as number}
+              toPrice={toPrice as number}
+              toBalance={toBalance as number}
+              toToken={toToken}
+              isLoading={isLoading}
+              toChain={toChain}
+              fromPrice={fromPrice as number}
+              setOpenTokenList={setOpenTokenList}
+              setTokenList={setTokenList}
+              setOpenChainList={setOpenChainList}
+              setChainList={setChainList}
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 w-full">
+          <SwapButton
             lang={lang}
-            fromAmount={fromAmount as number}
-            fromBalance={fromBalance as number}
-            fromPrice={fromPrice as number}
-            fromToken={fromToken}
-            setFromAmount={
-              setFromAmount as React.Dispatch<React.SetStateAction<number>>
+            userAddress={userAddress as Address}
+            disabled={disabled}
+            needApproval={needApproval}
+            approvalTransactionData={approvalTransactionData}
+            apiReturnData={apiReturnData}
+            swappingAsync={swappingAsync}
+            setTxHash={
+              setTxHash as React.Dispatch<React.SetStateAction<string>>
             }
+            approvingAsync={approvingAsync}
             isLoading={isLoading}
             fromChain={fromChain}
-            userAddress={userAddress as Address}
-            setOpenTokenList={setOpenTokenList}
-            setTokenList={setTokenList}
-            setOpenChainList={setOpenChainList}
-            setChainList={setChainList}
+            isPendingApproving={isPendingApproving}
           />
         </div>
-      </div>
 
-      <div className="my-4 flex justify-center items-center">
-        <BlueSimpleButton onClick={() => exchangeTokens()} isRoundedFull={true}>
-          <ArrowsUpDownIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
-        </BlueSimpleButton>
-      </div>
-
-      <div className="w-full flex flex-col flex-wrap bg-gray-100 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-        <div className="px-4">
-          <To
+        <div className="w-full">
+          <SwapData
             lang={lang}
-            toAmount={toAmount as number}
-            toPrice={toPrice as number}
-            toBalance={toBalance as number}
-            toToken={toToken}
             isLoading={isLoading}
-            toChain={toChain}
-            fromPrice={fromPrice as number}
-            setOpenTokenList={setOpenTokenList}
-            setTokenList={setTokenList}
-            setOpenChainList={setOpenChainList}
-            setChainList={setChainList}
+            gasPrice={gasPrice as number}
+            slippage={slippage}
+            protocolName={protocolName as string}
+            protocolIcon={protocolIcon as string}
+            minimumAmountOut={minimumAmountOut as number}
+            toToken={toToken}
+            enableRefuel={enableRefuel}
+            sort={sort}
+            bridgeSlippage={bridgeSlippage as number}
           />
         </div>
-      </div>
 
-      <div className="mt-4">
-        <SwapButton
+        <TokenList
           lang={lang}
-          userAddress={userAddress as Address}
-          disabled={disabled}
-          needApproval={needApproval}
-          approvalTransactionData={approvalTransactionData}
-          apiReturnData={apiReturnData}
-          swappingAsync={swappingAsync}
-          setTxHash={setTxHash as React.Dispatch<React.SetStateAction<string>>}
-          approvingAsync={approvingAsync}
-          isLoading={isLoading}
+          setFromToken={setFromToken}
+          setToToken={setToToken}
+          fromTokens={fromTokens}
+          toTokens={toTokens}
+          tokenList={tokenList}
+          openTokenList={openTokenList}
+          setOpenTokenList={setOpenTokenList}
+          fromToken={fromToken}
+          toToken={toToken}
+        />
+        <ChainList
+          lang={lang}
+          openChainList={openChainList}
+          setOpenChainList={setOpenChainList}
+          fromChains={fromChains}
+          toChains={toChains}
+          setFromChain={setFromChain}
+          setToChain={setToChain}
+          chainList={chainList}
           fromChain={fromChain}
-          isPendingApproving={isPendingApproving}
+          toChain={toChain}
+        />
+
+        <Fail
+          show={errorMessage}
+          onClose={() => setErrorMessage(false)}
+          lang={lang}
+          title={lang === "en" ? "Error" : "Erreur"}
+          message={
+            lang === "en" ? "An error occurred" : "Une erreur s'est produite"
+          }
+        />
+        <Success
+          show={swappedMessage}
+          onClose={() => setSwappedMessage(false)}
+          lang={lang}
+          title={lang === "en" ? "Success" : "Succès"}
+          message={lang === "en" ? "Swap successful !" : "Échange réussi !"}
+        />
+        <FailNotification
+          display={noQuoteNotification}
+          lang={lang}
+          title={lang === "en" ? "No quote" : "Pas de devis"}
+          message={
+            lang === "en"
+              ? "An error occured while fetching the quote."
+              : "Une erreur est survenue lors de la récupération du devis."
+          }
         />
       </div>
-
-      <SwapData
-        lang={lang}
-        isLoading={isLoading}
-        gasPrice={gasPrice as number}
-        slippage={slippage}
-        protocolName={protocolName as string}
-        protocolIcon={protocolIcon as string}
-        minimumAmountOut={minimumAmountOut as number}
-        toToken={toToken}
-        enableRefuel={enableRefuel}
-        sort={sort}
-        bridgeSlippage={bridgeSlippage as number}
-      />
-
-      <TokenList
-        lang={lang}
-        setFromToken={setFromToken}
-        setToToken={setToToken}
-        fromTokens={fromTokens}
-        toTokens={toTokens}
-        tokenList={tokenList}
-        openTokenList={openTokenList}
-        setOpenTokenList={setOpenTokenList}
-        fromToken={fromToken}
-        toToken={toToken}
-      />
-      <ChainList
-        lang={lang}
-        openChainList={openChainList}
-        setOpenChainList={setOpenChainList}
-        fromChains={fromChains}
-        toChains={toChains}
-        setFromChain={setFromChain}
-        setToChain={setToChain}
-        chainList={chainList}
-        fromChain={fromChain}
-        toChain={toChain}
-      />
-
-      <Fail
-        show={errorMessage}
-        onClose={() => setErrorMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en" ? "An error occurred" : "Une erreur s'est produite"
-        }
-      />
-      <Success
-        show={swappedMessage}
-        onClose={() => setSwappedMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Success" : "Succès"}
-        message={lang === "en" ? "Swap successful !" : "Échange réussi !"}
-      />
-      <FailNotification
-        display={noQuoteNotification}
-        lang={lang}
-        title={lang === "en" ? "No quote" : "Pas de devis"}
-        message={
-          lang === "en"
-            ? "An error occured while fetching the quote."
-            : "Une erreur est survenue lors de la récupération du devis."
-        }
-      />
     </>
   );
 };

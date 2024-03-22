@@ -1,61 +1,57 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
+import React from "react";
+import Link from "next/link";
+import Tilt from "react-parallax-tilt";
 import type { Lang } from "@/types/lang";
-import Vocabulary from "@/app/[lang]/learn/components/vocabulary";
-import { useSearchParams } from "next/navigation";
-
-type ActiveComponent = "learn" | "vocabulary";
 
 const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
-  const searchParams = useSearchParams();
-  const category = searchParams?.get("category");
-
-  const [component, setComponent] = useState<ActiveComponent>("learn");
-
-  useEffect(() => {
-    if (category) {
-      setComponent(category as ActiveComponent);
-    } else {
-      setComponent("learn");
-    }
-  }, [category]);
-
   return (
     <>
-      <div className="mx-auto">
-        <div className="mx-auto flex justify-center items-center">
-          <div className="flex items-center text-sm justify-between gap-2 text-gray-900 dark:text-gray-100">
-            <button
-              onClick={() => setComponent("learn")}
-              className={`px-4 py-2 rounded-full font-semibold ${
-                component === "learn"
-                  ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
-                  : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 border border-transparent"
-              }`}
-            >
-              {lang === "en" ? <>Learn</> : <>Apprendre</>}
-            </button>
-            <button
-              onClick={() => setComponent("vocabulary")}
-              className={`px-4 py-2 rounded-full font-semibold ${
-                component === "vocabulary"
-                  ? "text-gray-900 dark:text-gray-100 font-semibold bg-gray-200 dark:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10"
-                  : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 border border-transparent"
-              }`}
-            >
-              {lang === "en" ? <>Vocabulary</> : <>Vocabulaire</>}
-            </button>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Link href={`/${lang}/learn/chapters`}>
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+            className="bg-blue-500 dark:bg-blue-500 shadow-xl active:border-gray-900 active:bg-blue-400 dark:active:bg-blue-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+          >
+            <div className="flex flex-col items-center text-center justify-center gap-2">
+              <h2 className="text-gray-100 font-semibold text-4xl">
+                {lang === "en" ? "Chapters" : "Chapitres"}
+              </h2>
+              <span className="text-gray-100">
+                {lang === "en"
+                  ? "Get tailored lessons from your interests and level"
+                  : "Obtenez des leçons adaptées à vos intérêts et à votre niveau"}
+              </span>
+            </div>
+          </Tilt>
+        </Link>
+        <Link href={`/${lang}/learn/vocabulary`}>
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+            className="bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400  border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+          >
+            <div className="flex flex-col items-center text-center justify-center gap-2">
+              <h2 className="text-gray-100 font-semibold text-4xl">
+                {lang === "en" ? "Vocabulary" : "Vocabulaire"}
+              </h2>
+              <span className="text-gray-100">
+                {lang === "en"
+                  ? "Learn new words and expressions from the crypto world"
+                  : "Apprenez de nouveaux mots et expressions du monde de la cryptomonnaie"}
+              </span>
+            </div>
+          </Tilt>
+        </Link>
       </div>
-      {component === "learn" && (
-        <div className="mx-auto mt-2">
-          <ComingSoon lang={lang} />
-        </div>
-      )}
-      {component === "vocabulary" && <Vocabulary lang={lang} />}
     </>
   );
 };

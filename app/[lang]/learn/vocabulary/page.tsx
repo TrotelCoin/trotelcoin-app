@@ -1,3 +1,5 @@
+"use client";
+
 import type { Lang } from "@/types/lang";
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

@@ -33,7 +33,7 @@ const LifeMobile = ({
           </div>
         </div>
         <div className="flex justify-center items-center gap-4 p-4">
-          <Link href={`/${lang}/shop?category=ranks`} className="w-full">
+          <Link href={`/${lang}/shop/ranks`} className="w-full">
             <BlueButton
               lang={lang}
               isFull={true}
