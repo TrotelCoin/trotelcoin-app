@@ -186,7 +186,8 @@ const TokenList = ({
                                 </p>
                               </div>
                               {token.name ===
-                                (fromToken.name || toToken.name) && (
+                                ((fromToken.name && tokenList === "from") ||
+                                  (toToken.name && tokenList === "to")) && (
                                 <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
                               )}
                             </div>
