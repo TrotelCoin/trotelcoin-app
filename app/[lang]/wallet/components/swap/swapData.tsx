@@ -86,12 +86,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Native token fee for transactions on the network."
-                            : "Frais en jeton natif pour les transactions sur le réseau."}
+                            ? "Native token fee for transactions on the network"
+                            : "Frais en jeton natif pour les transactions sur le réseau"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -132,12 +132,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Maximum difference between expected and executed price."
-                            : "Différence maximale entre le prix attendu et exécuté."}
+                            ? "Maximum difference between expected and executed price"
+                            : "Différence maximale entre le prix attendu et exécuté"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -181,12 +181,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Maximum difference between expected and executed price."
-                            : "Différence maximale entre le prix attendu et exécuté."}
+                            ? "Maximum difference between expected and executed price"
+                            : "Différence maximale entre le prix attendu et exécuté"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -231,12 +231,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Minimum amount of token to expect."
-                            : "Montant minimum de token espéré."}
+                            ? "Minimum amount of token to expect"
+                            : "Montant minimum de token espéré"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -286,12 +286,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Protocol used for the transaction."
-                            : "Protocole utilisé pour la transaction."}
+                            ? "Protocol used for the transaction"
+                            : "Protocole utilisé pour la transaction"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -336,12 +336,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain."
-                            : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne."}
+                            ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain"
+                            : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -380,12 +380,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Sort the route by the best output amount, the lowest gas price, or fastest time."
-                            : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide."}
+                            ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
+                            : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>
@@ -426,12 +426,12 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex text-xs p-2 rounded-xl text-gray-700 dark:text-gray-300 dark:bg-gray-800 bg-gray-100 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 dark:bg-blue-300 backdrop-blur-xl">
                           {lang === "en"
-                            ? "Native token fee for transactions on the network."
-                            : "Frais en jeton natif pour les transactions sur le réseau."}
+                            ? "Native token fee for transactions on the network"
+                            : "Frais en jeton natif pour les transactions sur le réseau"}
                         </div>
-                        <Tooltip.Arrow className="fill-gray-900/20 dark:fill-gray-100/20" />
+                        <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
                       </Tooltip.Content>
                     </Tooltip.Portal>
                   </div>

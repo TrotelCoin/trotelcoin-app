@@ -1,6 +1,7 @@
 import React from "react";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
 import { Lang } from "@/types/lang";
+import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
@@ -11,6 +12,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </span>
         <ComingSoon lang={lang} />
       </div>
+      <BlockNumber lang={lang} />
     </>
   );
 };

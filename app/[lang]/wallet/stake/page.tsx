@@ -22,6 +22,7 @@ import {
 import { Address, formatEther } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
+import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
@@ -187,6 +188,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
           )}
         </div>
       </div>
+      <BlockNumber lang={lang} />
     </>
   );
 };
