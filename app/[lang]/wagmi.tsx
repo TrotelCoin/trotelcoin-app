@@ -1,15 +1,60 @@
 "use client";
 
 import React from "react";
-import { polygon, mainnet } from "wagmi/chains";
+import {
+  polygon,
+  mainnet,
+  optimism,
+  bsc,
+  gnosis,
+  fantom,
+  zkSync,
+  polygonZkEvm,
+  mantle,
+  base,
+  arbitrum,
+  avalanche,
+  linea,
+  blast,
+  aurora,
+} from "wagmi/chains";
 import { createConfig, http, WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const config = createConfig({
-  chains: [mainnet, polygon],
+  chains: [
+    mainnet,
+    polygon,
+    optimism,
+    bsc,
+    gnosis,
+    fantom,
+    zkSync,
+    polygonZkEvm,
+    mantle,
+    base,
+    arbitrum,
+    avalanche,
+    linea,
+    blast,
+    aurora,
+  ],
   transports: {
     [mainnet.id]: http(),
     [polygon.id]: http(),
+    [optimism.id]: http(),
+    [bsc.id]: http(),
+    [gnosis.id]: http(),
+    [fantom.id]: http(),
+    [zkSync.id]: http(),
+    [polygonZkEvm.id]: http(),
+    [mantle.id]: http(),
+    [base.id]: http(),
+    [arbitrum.id]: http(),
+    [avalanche.id]: http(),
+    [linea.id]: http(),
+    [blast.id]: http(),
+    [aurora.id]: http(),
   },
 });
 
