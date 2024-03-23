@@ -22,7 +22,6 @@ import PremiumProvider from "@/app/[lang]/providers/premiumProvider";
 import UserProvider from "@/app/[lang]/providers/userProvider";
 import ThemeProvider from "@/app/[lang]/providers/themeProvider";
 import AudioProvider from "@/app/[lang]/providers/audioProvider";
-import LanguageProvider from "@/app/[lang]/providers/languageProvider";
 import Web3ModalProvider from "@/app/[lang]/contexts/Web3ModalContext";
 import "swiper/css";
 import "animate.css";
@@ -135,18 +134,16 @@ export default function Layout({
                     <PremiumProvider>
                       <LifeProvider lang={lang}>
                         <StreakProvider lang={lang}>
-                          <LanguageProvider>
-                            <Suspense fallback={<Loading lang={lang} />}>
-                              <Banner lang={lang} />
-                              <Changelogs lang={lang} />
-                              <Header lang={lang} />
-                              <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
-                                {children}
-                              </main>
-                              <Footer lang={lang} />
-                              <MobileFooter lang={lang} />
-                            </Suspense>
-                          </LanguageProvider>
+                          <Suspense fallback={<Loading lang={lang} />}>
+                            <Banner lang={lang} />
+                            <Changelogs lang={lang} />
+                            <Header lang={lang} />
+                            <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                              {children}
+                            </main>
+                            <Footer lang={lang} />
+                            <MobileFooter lang={lang} />
+                          </Suspense>
                         </StreakProvider>
                       </LifeProvider>
                     </PremiumProvider>
