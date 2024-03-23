@@ -10,28 +10,39 @@ import TotalRewardsPending from "@/app/[lang]/account/components/header/statisti
 import shortenAddress from "@/utils/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
 import Tilt from "react-parallax-tilt";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
 import "animate.css";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
+  const { open, close } = useWeb3Modal();
 
   const { data: ensName } = useEnsName({
     address: address as Address,
     chainId: mainnet.id,
   });
 
+  const openAccount = () => {
+    open({ view: "Account" });
+  };
+
   return (
     <>
       <div className="flex justify-between items-center">
         <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
           {lang === "en" ? "Hello" : "Bonjour"},{" "}
-          <span className={`font-bold`}>
-            {ensName ? (
-              <>{ensName}</>
-            ) : (
-              <>{shortenAddress(address as Address)}</>
-            )}
-          </span>{" "}
+          <button
+            onClick={() => openAccount()}
+            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+          >
+            <span className={`font-bold`}>
+              {ensName ? (
+                <>{ensName}</>
+              ) : (
+                <>{shortenAddress(address as Address)}</>
+              )}
+            </span>
+          </button>{" "}
           👋
         </h2>
       </div>
