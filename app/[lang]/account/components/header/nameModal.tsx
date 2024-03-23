@@ -1,4 +1,4 @@
-import { Lang } from "@/types/types";
+import type { Lang } from "@/types/lang";
 import { Transition, Dialog } from "@headlessui/react";
 import { useAccount } from "wagmi";
 import React, { Fragment, useEffect, useState } from "react";
@@ -22,7 +22,7 @@ const NameModal = ({
   const [nameError, setNameError] = useState<string | null>(null);
   const [nameIsLoading, setNameIsLoading] = useState<boolean>(false);
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   useEffect(() => {
     if (name) {
