@@ -65,7 +65,7 @@ const Settings = ({
                     <Tooltip.Root delayDuration={0}>
                       <Tooltip.Trigger className="inline-flex items-center gap-1 cursor-help">
                         <span className="text-gray-900 dark:text-gray-100 text-sm">
-                          {lang === "en" ? "Sort by" : "Trier par"}{" "}
+                          {lang === "en" ? "Sort by" : "Trier par"}
                         </span>
                         <QuestionMarkCircleIcon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
                       </Tooltip.Trigger>
