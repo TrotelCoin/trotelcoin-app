@@ -16,7 +16,6 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
-import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -124,7 +123,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               </div>
             ))}
         </div>
-        <BlockNumber lang={lang} />
       </>
     </>
   );

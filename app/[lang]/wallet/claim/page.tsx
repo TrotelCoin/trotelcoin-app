@@ -14,7 +14,6 @@ import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
 import { polygon } from "viem/chains";
-import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
@@ -103,7 +102,6 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
           )}
         </div>
       </div>
-      <BlockNumber lang={lang} />
     </>
   );
 };

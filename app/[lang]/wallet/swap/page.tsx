@@ -41,7 +41,6 @@ import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
 import allowanceAbi from "@/abi/allowanceAbi";
-import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -587,7 +586,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           }
         />
       </div>
-      <BlockNumber lang={lang} />
     </>
   );
 };
