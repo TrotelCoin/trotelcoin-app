@@ -29,6 +29,7 @@ import "animate.css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -145,6 +146,7 @@ export default function Layout({
                               </main>
                               <Footer lang={lang} />
                               <MobileFooter lang={lang} />
+                              <BlockNumber lang={lang} />
                             </Suspense>
                           </LanguageProvider>
                         </StreakProvider>

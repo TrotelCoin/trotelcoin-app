@@ -65,7 +65,7 @@ const Settings = ({
                     <Tooltip.Root delayDuration={0}>
                       <Tooltip.Trigger className="inline-flex items-center gap-1 cursor-help">
                         <span className="text-gray-900 dark:text-gray-100 text-sm">
-                          {lang === "en" ? "Sort by" : "Trier par"}{" "}
+                          {lang === "en" ? "Sort by" : "Trier par"}
                         </span>
                         <QuestionMarkCircleIcon className="w-4 h-4 text-gray-700 dark:text-gray-300" />
                       </Tooltip.Trigger>
@@ -99,7 +99,7 @@ const Settings = ({
                       align="center"
                       sideOffset={5}
                     >
-                      <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 text-center flex shadow-lg p-2 flex-col bg-gray-100 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
+                      <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 flex shadow-lg p-2 flex-col bg-gray-100 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
                         <Popover.Close asChild>
                           <ul className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-xl">
                             <button onClick={() => setSort("output")}>

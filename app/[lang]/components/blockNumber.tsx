@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { polygon } from "viem/chains";
 import { useBlockNumber } from "wagmi";
