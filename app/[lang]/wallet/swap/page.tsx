@@ -94,7 +94,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: fromChain.chainId,
   });
 
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
