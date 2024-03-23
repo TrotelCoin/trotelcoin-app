@@ -94,19 +94,30 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: fromChain.chainId,
   });
 
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
     token: fromToken.address,
-    chainId: polygon.id,
+    chainId: fromChain.chainId,
   });
 
   const { data: toBalanceData, refetch: refetchTo } = useBalance({
     address: userAddress,
     token: toToken.address,
-    chainId: polygon.id,
+    chainId: toChain.chainId,
+  });
+
+  const { data: fromNativeBalanceData, refetch: refetchFromNative } =
+    useBalance({
+      address: userAddress,
+      chainId: fromChain.chainId,
+    });
+
+  const { data: toNativeBalanceData, refetch: refetchToNative } = useBalance({
+    address: userAddress,
+    chainId: toChain.chainId,
   });
 
   const exchangeTokens = () => {
@@ -119,6 +130,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     setIsLoading(true);
     refetchFrom();
     refetchTo();
+    refetchFromNative();
+    refetchToNative();
     setIsLoading(false);
   }, [
     blockNumber,
@@ -127,21 +140,46 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     toToken,
     refetchFrom,
     refetchTo,
+    refetchFromNative,
+    refetchToNative,
     fromChain,
     toChain,
   ]);
 
   useEffect(() => {
-    if (fromBalanceData) {
+    console.log(
+      "native address",
+      fromChain.currency.address,
+      fromToken.address
+    );
+    if (fromBalanceData && fromToken.address !== fromChain.currency.address) {
       const balance = Number(fromBalanceData?.formatted);
       setFromBalance(balance);
     }
 
-    if (toBalanceData) {
+    if (toBalanceData && toToken.address !== toChain.currency.address) {
       const balance = Number(toBalanceData?.formatted);
       setToBalance(balance);
     }
-  }, [fromBalanceData, toBalanceData]);
+
+    if (
+      fromNativeBalanceData &&
+      fromToken.address === fromChain.currency.address
+    ) {
+      const balance = Number(fromNativeBalanceData?.formatted);
+      setFromBalance(balance);
+    }
+
+    if (toNativeBalanceData && toToken.address === toChain.currency.address) {
+      const balance = Number(toNativeBalanceData?.formatted);
+      setToBalance(balance);
+    }
+  }, [
+    fromBalanceData,
+    toBalanceData,
+    fromNativeBalanceData,
+    toNativeBalanceData,
+  ]);
 
   const { writeContractAsync: approvingAsync, isPending: isPendingApproving } =
     useWriteContract({

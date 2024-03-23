@@ -1,7 +1,23 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { cookieStorage, createStorage } from "wagmi";
-import { mainnet, polygon } from "wagmi/chains";
+import {
+  mainnet,
+  polygon,
+  optimism,
+  bsc,
+  base,
+  avalanche,
+  aurora,
+  gnosis,
+  mantle,
+  linea,
+  blast,
+  fantom,
+  zkSync,
+  polygonZkEvm,
+  arbitrum,
+} from "wagmi/chains";
 
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
 
@@ -15,7 +31,23 @@ const metadata = {
   icons: [""],
 };
 
-const chains = [mainnet, polygon] as const;
+const chains = [
+  mainnet,
+  polygon,
+  optimism,
+  bsc,
+  base,
+  avalanche,
+  aurora,
+  gnosis,
+  mantle,
+  linea,
+  blast,
+  fantom,
+  zkSync,
+  polygonZkEvm,
+  arbitrum,
+] as const;
 
 export const config = defaultWagmiConfig({
   chains,
