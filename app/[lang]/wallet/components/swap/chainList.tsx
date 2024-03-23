@@ -163,7 +163,8 @@ const ChainList = ({
                                 </p>
                               </div>{" "}
                               {chain.chainId ===
-                                (fromChain.chainId || toChain.chainId) && (
+                                ((fromChain.chainId && chainList === "from") ||
+                                  (toChain.chainId && chainList === "to")) && (
                                 <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
                               )}
                             </div>
