@@ -100,13 +100,13 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
     token: fromToken.address,
-    chainId: polygon.id,
+    chainId: fromChain.chainId,
   });
 
   const { data: toBalanceData, refetch: refetchTo } = useBalance({
     address: userAddress,
     token: toToken.address,
-    chainId: polygon.id,
+    chainId: toChain.chainId,
   });
 
   const exchangeTokens = () => {
