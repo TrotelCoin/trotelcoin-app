@@ -3,6 +3,7 @@ import React from "react";
 import Beginner from "@/app/[lang]/shop/components/beginner";
 import Intermediate from "@/app/[lang]/shop/components/intermediate";
 import Expert from "@/app/[lang]/shop/components/expert";
+import BlockNumber from "@/app/[lang]/components/blockNumber";
 
 const Rank = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
@@ -17,6 +18,7 @@ const Rank = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <Expert lang={lang} />
         </div>
       </div>
+      <BlockNumber lang={lang} />
     </>
   );
 };
