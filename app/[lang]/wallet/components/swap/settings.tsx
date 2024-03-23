@@ -75,7 +75,7 @@ const Settings = ({
                           align="center"
                           sideOffset={5}
                         >
-                          <div className="max-w-xs text-sm text-gray-100 text-center flex shadow p-2 flex-col bg-blue-500 dark:bg-blue-300 backdrop-blur-xl rounded-xl">
+                          <div className="max-w-xs text-xs text-gray-100 text-center flex shadow p-2 flex-col bg-blue-500 dark:bg-blue-300 backdrop-blur-xl rounded-xl">
                             {lang === "en"
                               ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
                               : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
@@ -155,7 +155,7 @@ const Settings = ({
                           align="center"
                           sideOffset={5}
                         >
-                          <div className="max-w-xs text-sm text-gray-100 text-center flex shadow-lg p-2 flex-col bg-blue-500 dark:bg-blue-300 backdrop-blur-xl rounded-xl">
+                          <div className="max-w-xs text-xs text-gray-100 text-center flex shadow-lg p-2 flex-col bg-blue-500 dark:bg-blue-300 backdrop-blur-xl rounded-xl">
                             {lang === "en"
                               ? "Maximum difference between expected and executed price"
                               : "Différence maximale entre le prix attendu et exécuté"}
@@ -224,7 +224,7 @@ const Settings = ({
                           align="center"
                           sideOffset={5}
                         >
-                          <div className="max-w-xs text-sm text-gray-100 text-center flex shadow-lg p-2 flex-col bg-blue-500 dark:bg-blue-300 backdrop-blur-xl rounded-xl">
+                          <div className="max-w-xs text-xs text-gray-100 text-center flex shadow-lg p-2 flex-col bg-blue-500 dark:bg-blue-300 backdrop-blur-xl rounded-xl">
                             {lang === "en"
                               ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain"
                               : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne"}
