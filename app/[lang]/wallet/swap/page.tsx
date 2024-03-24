@@ -156,11 +156,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   ]);
 
   useEffect(() => {
-    console.log(
-      "native address",
-      fromChain.currency.address,
-      fromToken.address
-    );
     if (fromBalanceData && fromToken.address !== fromChain.currency.address) {
       const balance = Number(fromBalanceData?.formatted);
       setFromBalance(balance);
@@ -253,7 +248,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setIsLoading(true);
 
       const fromAmountDecimals: number = fromAmount
-        ? Number(parseUnits(fromAmount.toString(), fromToken.decimals))
+        ? Number(parseUnits(String(fromAmount), fromToken.decimals))
         : 0;
 
       const quote = await getQuote(
@@ -427,11 +422,13 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     refetchAllowance();
-  }, [fromToken, userAddress, refetchAllowance]);
+  }, [fromToken, userAddress, refetchAllowance, blockNumber, fromChain]);
 
   useEffect(() => {
     if (allowanceData) {
-      const allowance = Number(formatUnits(allowanceData as bigint, 18));
+      const allowance = Number(
+        formatUnits(allowanceData as bigint, fromToken.decimals)
+      );
       setAllowance(allowance);
     }
   }, [allowanceData]);
@@ -579,8 +576,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           tokenList={tokenList}
           openTokenList={openTokenList}
           setOpenTokenList={setOpenTokenList}
-          fromToken={fromToken}
-          toToken={toToken}
         />
         <ChainList
           lang={lang}

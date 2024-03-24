@@ -74,7 +74,7 @@ const To = ({
             {lang === "en" ? "Balance:" : "Solde:"}{" "}
             <span className={`${isLoading && loadingFlashClass}`}>
               {toBalance
-                ? Number(toBalance?.toFixed(2)).toLocaleString("en-US")
+                ? Number(toBalance?.toFixed(3)).toLocaleString("en-US")
                 : "0"}
             </span>
           </span>
