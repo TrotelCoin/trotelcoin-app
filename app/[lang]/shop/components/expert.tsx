@@ -98,7 +98,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
     } else {
       setIsClaimed(false);
     }
-  }, [address]);
+  }, [address, claimed]);
 
   const checkEligibility = async () => {
     if (address && data) {
