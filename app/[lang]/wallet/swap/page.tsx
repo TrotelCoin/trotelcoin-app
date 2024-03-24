@@ -10,6 +10,7 @@ import {
   useBlockNumber,
   useReadContract,
   useWriteContract,
+  useSwitchChain,
 } from "wagmi";
 import { polygonChain } from "@/data/web3/chains";
 import { polygon } from "viem/chains";
@@ -61,8 +62,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [approvalData, setApprovalData] = useState<any>(null);
   const [txHash, setTxHash] = useState<Hash | null>(null);
   const [apiReturnData, setApiReturnData] = useState<any>(null);
-  const [approvalTransactionData, setApprovalTransactionData] =
-    useState<any>(null);
   const [toAmount, setToAmount] = useState<number | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [swappedMessage, setSwappedMessage] = useState<boolean>(false);
@@ -91,6 +90,16 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [allowanceTarget, setAllowanceTarget] = useState<Address | null>(null);
 
   const { address: userAddress } = useAccount();
+
+  const { switchChain } = useSwitchChain();
+
+  useEffect(() => {
+    if (fromChain) {
+      switchChain({ chainId: fromChain.chainId });
+    } else {
+      switchChain({ chainId: polygon.id });
+    }
+  }, [userAddress, fromChain]);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
