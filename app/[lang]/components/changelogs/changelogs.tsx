@@ -72,17 +72,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text: lang === "en" ? "- Web3 Essentials" : "- Les bases du Web3",
-          isNew: false,
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Consensus Mechanisms"
-              : "- Les Mécanismes de Consensus",
-          isNew: false,
-        },
-        {
           text: lang === "en" ? "- The Layers 2" : "- Les Layers 2",
           isNew: true,
         },
@@ -142,8 +131,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "Support native tokens for swapping"
-              : "Support des tokens natifs pour le swap",
+              ? "- Support native tokens for swapping"
+              : "- Support des tokens natifs pour le swap",
           isNew: true,
         },
       ],
