@@ -35,7 +35,7 @@ const BlockNumber = ({ lang }: { lang: Lang }) => {
                     ? "Current block number on Polygon"
                     : "Numéro de bloc actuel sur Polygon"}
                 </div>
-                <Tooltip.Arrow className="fill-blue-500 dark:fill-blue-300" />
+                <Tooltip.Arrow className="fill-blue-500" />
               </Tooltip.Content>
             </Tooltip.Portal>
           </Tooltip.Root>

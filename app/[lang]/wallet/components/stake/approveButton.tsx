@@ -2,7 +2,7 @@
 
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
-import { useAccount, useWriteContract, useSwitchChain } from "wagmi";
+import { useAccount, useBalance, useBlockNumber, useSwitchChain } from "wagmi";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinV1ABI from "@/abi/trotelCoinV1";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -26,6 +26,7 @@ const ApproveButton = ({
   setErrorApproveMessage,
   isApproved,
   isPendingApproving,
+  isMax,
 }: {
   lang: Lang;
   amount: number;
@@ -40,18 +41,40 @@ const ApproveButton = ({
   setErrorApproveMessage: React.Dispatch<React.SetStateAction<boolean>>;
   isPendingApproving: boolean;
   isApproved: boolean;
+  isMax: boolean;
 }) => {
   const [disabledApprove, setDisabledApprove] = useState<boolean>(true);
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
 
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { data: balance, refetch: refetchBalance } = useBalance({
+    chainId: polygon.id,
+    token: trotelCoinAddress,
+    address: address,
+  });
+
+  useEffect(() => {
+    refetchBalance();
+  }, [blockNumber]);
+
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
       return;
     }
 
-    const approveAmount = parseEther(amount.toString());
+    let approveAmount;
+
+    if (isMax && balance) {
+      approveAmount = parseEther(balance?.formatted);
+    } else {
+      approveAmount = parseEther(String(amount));
+    }
 
     try {
       await approvingAsync({

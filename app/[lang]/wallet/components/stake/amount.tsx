@@ -10,14 +10,16 @@ const Amount = ({
   amount,
   setAmount,
   address,
+  isMax,
+  setIsMax,
 }: {
   lang: Lang;
   amount: number;
   setAmount: (amount: number) => void;
   address: Address;
+  isMax: boolean;
+  setIsMax: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const [isMax, setIsMax] = useState<boolean>(false);
-
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
