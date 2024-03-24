@@ -1,7 +1,7 @@
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import type { Badge, Badges, BadgesNames } from "@/types/components/badges";
 import type { Lang } from "@/types/lang";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
 import { polygon } from "viem/chains";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
@@ -65,25 +65,18 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     refetchStakings();
   }, [blockNumber, address]);
 
-  let getStakingData = getStakingDataNoTyped as any[];
-
   useEffect(() => {
-    if (getStakingDataNoTyped) {
-      getStakingData = getStakingDataNoTyped as any[];
-    }
-  }, [getStakingData, address]);
-
-  useEffect(() => {
-    if (getStakingData && address) {
-      const balance = parseFloat(getStakingData[0].toString()) * 1e-18;
-      const duration = parseFloat(getStakingData[2].toString());
+    if (getStakingDataNoTyped && address) {
+      const getStakingData = getStakingDataNoTyped as any[];
+      const balance = Number(formatEther(getStakingData[0]));
+      const duration = parseFloat(String(getStakingData[2]));
       setStakedTrotelCoins(balance);
       setDuration(duration);
     } else {
       setStakedTrotelCoins(null);
       setDuration(null);
     }
-  }, [getStakingData, address]);
+  }, [getStakingDataNoTyped, address]);
 
   const badgesRanks: Badges = [
     {
@@ -371,19 +364,6 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
         </button>
         <button
           onClick={() => {
-            setBadges(badgesStaking);
-            setBadgesName("staking");
-          }}
-          className={`${
-            badgesName === "staking"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
-          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
-        >
-          {lang === "en" ? "Staking" : "Staking"}
-        </button>
-        <button
-          onClick={() => {
             setBadges(badgesTrotelCoins);
             setBadgesName("trotelCoins");
           }}
@@ -394,6 +374,19 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Balance" : "Solde"}
+        </button>
+        <button
+          onClick={() => {
+            setBadges(badgesStaking);
+            setBadgesName("staking");
+          }}
+          className={`${
+            badgesName === "staking"
+              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+              : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+        >
+          {lang === "en" ? "Staking" : "Staking"}
         </button>
         <button
           onClick={() => {
