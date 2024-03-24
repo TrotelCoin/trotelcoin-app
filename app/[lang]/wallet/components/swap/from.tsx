@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { Lang } from "@/types/lang";
-import type { Address } from "viem";
+import { type Address } from "viem";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
@@ -41,16 +41,24 @@ const From = ({
   const [isMax, setIsMax] = useState<boolean>(false);
 
   const setMax = () => {
-    setFromAmount(fromBalance);
+    if (fromBalance && fromToken) {
+      const max = fromBalance * 0.999999;
+
+      setFromAmount(Number(max));
+    }
   };
 
   useEffect(() => {
-    if (fromAmount === fromBalance) {
-      setIsMax(true);
-    } else {
-      setIsMax(false);
+    if (fromBalance && fromToken) {
+      const max = fromBalance * 0.999999;
+
+      if (fromAmount === max) {
+        setIsMax(true);
+      } else {
+        setIsMax(false);
+      }
     }
-  }, [fromAmount, fromBalance]);
+  }, [fromAmount, fromBalance, fromToken]);
 
   return (
     <>
@@ -93,7 +101,7 @@ const From = ({
               {lang === "en" ? "Balance:" : "Solde:"}{" "}
               <span className={`${isLoading && loadingFlashClass}`}>
                 {fromBalance
-                  ? Number(fromBalance?.toFixed(2)).toLocaleString("en-US")
+                  ? Number(fromBalance?.toFixed(3)).toLocaleString("en-US")
                   : "0"}
               </span>
             </span>
@@ -114,7 +122,7 @@ const From = ({
               !userAddress && "cursor-not-allowed"
             }`}
             value={fromAmount < 0 ? 0 : fromAmount}
-            onChange={(e) => setFromAmount(parseFloat(e.target.value))}
+            onChange={(e) => setFromAmount(Number(e.target.value))}
             placeholder={lang === "en" ? "Amount" : "Montant"}
             disabled={!userAddress}
             onWheel={(e) => (e.target as HTMLInputElement).blur()}

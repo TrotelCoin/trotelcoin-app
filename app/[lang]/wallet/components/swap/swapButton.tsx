@@ -1,7 +1,7 @@
 import BlueButton from "@/app/[lang]/components/blueButton";
 import type { Lang } from "@/types/lang";
 import React from "react";
-import { Address, parseEther } from "viem";
+import { Address, parseUnits } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Chain } from "@/types/web3/chain";
 import { Token } from "@/types/web3/token";
@@ -66,7 +66,13 @@ const SwapButton = ({
                 abi: approveAbi,
                 functionName: "approve",
                 chainId: fromChain.chainId,
-                args: [allowanceTarget, parseEther(String(fromAmount))],
+                args: [
+                  allowanceTarget,
+                  parseUnits(
+                    String(fromAmount + 1 * 10 ** fromToken.decimals),
+                    fromToken.decimals
+                  ),
+                ],
               });
             }}
           />

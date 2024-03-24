@@ -1,11 +1,17 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
-import { CheckIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Lang } from "@/types/lang";
 import type { Token } from "@/types/web3/token";
 import type { TokenSource } from "@/types/web3/swap";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import { getBalance } from "@wagmi/core";
+import { type GetBalanceReturnType } from "@wagmi/core";
+import { useAccount } from "wagmi";
+import { config } from "@/config/Web3ModalConfig";
+import { Address } from "viem";
+import { nativeAddress } from "@/data/web3/tokens";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -20,8 +26,6 @@ const TokenList = ({
   tokenList,
   openTokenList,
   setOpenTokenList,
-  fromToken,
-  toToken,
 }: {
   lang: Lang;
   setFromToken: React.Dispatch<React.SetStateAction<Token>>;
@@ -31,12 +35,42 @@ const TokenList = ({
   tokenList: TokenSource;
   openTokenList: boolean;
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
-  fromToken: Token;
-  toToken: Token;
 }) => {
   const [query, setQuery] = useState("");
 
+  const { address } = useAccount();
+
   const tokens: Token[] = tokenList === "from" ? fromTokens : toTokens;
+
+  useEffect(() => {
+    if (address) {
+      tokens.map(async (token: Token, index: number) => {
+        if (token.address === nativeAddress) {
+          const balance: GetBalanceReturnType = await getBalance(config, {
+            chainId: token.chainId,
+            address: address,
+          });
+
+          if (balance) token.balance = Number(balance?.formatted);
+        } else {
+          const balance: GetBalanceReturnType = await getBalance(config, {
+            token: token.address,
+            chainId: token.chainId,
+            address: address,
+          });
+
+          if (balance) token.balance = Number(balance?.formatted);
+        }
+
+        return token;
+      });
+    } else {
+      tokens.map((token: Token, index: number) => {
+        token.balance = 0;
+        return token;
+      });
+    }
+  }, [fromTokens, toTokens, tokenList, address]);
 
   const filteredTokens = tokens
     .filter(
@@ -81,7 +115,7 @@ const TokenList = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
+            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
               <Combobox>
                 <div className="relative">
                   <MagnifyingGlassIcon
@@ -115,13 +149,13 @@ const TokenList = ({
                         className={({ active }) =>
                           classNames(
                             "flex cursor-pointer select-none rounded-xl p-3",
-                            active && "bg-gray-200 dark:bg-gray-700"
+                            active && "bg-gray-100 dark:bg-gray-800"
                           )
                         }
                       >
                         {({ active }) => (
                           <>
-                            <div className="flex justify-between items-center w-full">
+                            <div className="flex justify-between items-end w-full">
                               <div
                                 className={classNames(
                                   "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
@@ -185,11 +219,12 @@ const TokenList = ({
                                   {token.symbol}
                                 </p>
                               </div>
-                              {token.name ===
-                                ((fromToken.name && tokenList === "from") ||
-                                  (toToken.name && tokenList === "to")) && (
-                                <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-                              )}
+                              <span className="text-gray-700 dark:text-gray-300 text-xs">
+                                {lang === "en" ? "Balance:" : "Solde:"}{" "}
+                                {token.balance
+                                  ? token.balance?.toLocaleString("en-US")
+                                  : "0"}
+                              </span>
                             </div>
                           </>
                         )}

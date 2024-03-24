@@ -11,4 +11,5 @@ export type Token = {
   chainAgnosticId?: number;
   lightLogoURI?: string;
   darkLogoURI?: string;
+  balance?: number;
 };

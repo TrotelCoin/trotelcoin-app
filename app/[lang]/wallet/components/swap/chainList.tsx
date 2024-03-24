@@ -84,7 +84,7 @@ const ChainList = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
+            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
               <Combobox>
                 <div className="relative">
                   <MagnifyingGlassIcon
@@ -118,7 +118,7 @@ const ChainList = ({
                         className={({ active }) =>
                           classNames(
                             "flex cursor-pointer select-none rounded-xl p-3",
-                            active && "bg-gray-200 dark:bg-gray-700"
+                            active && "bg-gray-100 dark:bg-gray-800"
                           )
                         }
                       >
@@ -161,10 +161,11 @@ const ChainList = ({
                                 >
                                   {chain.currency.symbol}
                                 </p>
-                              </div>{" "}
-                              {chain.chainId ===
-                                ((fromChain.chainId && chainList === "from") ||
-                                  (toChain.chainId && chainList === "to")) && (
+                              </div>
+                              {((chain.chainId === fromChain.chainId &&
+                                chainList === "from") ||
+                                (chain.chainId === toChain.chainId &&
+                                  chainList === "to")) && (
                                 <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
                               )}
                             </div>
