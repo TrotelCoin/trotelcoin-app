@@ -46,7 +46,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <span className="text-gray-100">
                 {lang === "en"
                   ? "Buy TROTEL using your credit card and buy items in the shop"
-                  : "Achetez des TROTEL en utilisant votre carte de crédit et achetez des items dans la boutique"}
+                  : "Achetez des TROTEL en utilisant votre carte de crédit et achetez des items"}
               </span>
             </div>
           </Tilt>

@@ -24,13 +24,13 @@ const BlockNumber = ({ lang }: { lang: Lang }) => {
               >
                 {Number(blockNumber).toLocaleString("en-US")}
                 <div
-                  className={`w-2 h-2 bg-blue-500 dark:bg-blue-300 rounded-full ${loadingFlashClass}`}
+                  className={`w-2 h-2 bg-blue-500 rounded-full ${loadingFlashClass}`}
                 />
               </div>
             </Tooltip.Trigger>
             <Tooltip.Portal>
               <Tooltip.Content sideOffset={5} side="left" align="center">
-                <div className="p-2 text-xs shadow-lg backdrop-blur-xl bg-blue-500 dark:bg-blue-300 text-gray-100 rounded-xl">
+                <div className="p-2 text-xs shadow-lg backdrop-blur-xl bg-blue-500 text-gray-100 rounded-xl">
                   {lang === "en"
                     ? "Current block number on Polygon"
                     : "Numéro de bloc actuel sur Polygon"}

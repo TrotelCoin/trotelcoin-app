@@ -1,26 +1,24 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { Lang } from "@/types/lang";
-import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
-import { LanguageIcon } from "@heroicons/react/20/solid";
+import { LanguageIcon } from "@heroicons/react/24/solid";
+import * as Popover from "@radix-ui/react-popover";
+import BlueSimplePopover from "@/app/[lang]/components/blueSimplePopover";
 
 interface Language {
   code: string;
   label: string;
 }
 
+const languages = [
+  { code: "en", label: "English 🇬🇧" },
+  { code: "fr", label: "Français 🇫🇷" },
+];
+
 const LanguageSelector = ({ lang }: { lang: Lang }) => {
-  const [showMenu, setShowMenu] = useState(false);
-
   const router = useRouter();
-
-  const languages = [
-    { code: "en", label: "English 🇬🇧" },
-    { code: "fr", label: "Français 🇫🇷" },
-  ];
 
   const pathname = usePathname();
 
@@ -34,50 +32,38 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
     }
   };
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
   return (
-    <Menu as="div" className="relative inline-block text-center">
-      <div>
-        <BlueSimpleButton onClick={() => toggleMenu()}>
+    <Popover.Root>
+      <Popover.Trigger>
+        <BlueSimplePopover>
           <LanguageIcon className="w-5 h-5" />
-        </BlueSimpleButton>
-      </div>
+        </BlueSimplePopover>
+      </Popover.Trigger>
 
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-        show={showMenu}
-      >
-        <Menu.Items className="origin-top-right rounded-xl absolute z-50 right-0 mt-4 shadow w-40 bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 focus:outline-none">
+      <Popover.Portal>
+        <Popover.Content
+          side="bottom"
+          align="end"
+          sideOffset={10}
+          className="rounded-xl shadow-lg w-40 bg-blue-500 text-gray-100 focus:outline-none"
+        >
           <div className="p-2">
             {languages.map((language, index) => (
-              <Menu.Item key={index}>
-                {({ active }) => (
+              <ul key={index}>
+                <li>
                   <button
                     onClick={() => onChangeLanguage(language)}
-                    className={`${
-                      active
-                        ? "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                        : "text-gray-900 dark:text-gray-100"
-                    } hover:bg-gray-200 dark:hover:bg-gray-700 block px-4 py-2 text-sm w-full text-left rounded-xl`}
+                    className={`hover:bg-blue-400 dark:hover:bg-blue-400 block p-2 text-sm w-full text-left rounded-xl`}
                   >
                     {language.label}
                   </button>
-                )}
-              </Menu.Item>
+                </li>
+              </ul>
             ))}
           </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   );
 };
 
