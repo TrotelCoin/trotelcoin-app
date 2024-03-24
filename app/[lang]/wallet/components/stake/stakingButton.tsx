@@ -78,21 +78,14 @@ const StakingButton = ({
     }
   }, [stakingPeriod]);
 
-  let getStakingData = getStakingDataNoTyped as any[];
-
   useEffect(() => {
-    if (getStakingDataNoTyped) {
-      getStakingData = getStakingDataNoTyped as any[];
-    }
-  }, [getStakingData, address]);
-
-  useEffect(() => {
-    if (address && getStakingData) {
+    if (address && getStakingDataNoTyped) {
+      const getStakingData = getStakingDataNoTyped as any[];
       setStakedTrotelCoins(getStakingData[0].toString());
     } else {
       setStakedTrotelCoins(0);
     }
-  }, [getStakingData, address]);
+  }, [getStakingDataNoTyped, address]);
 
   const stake = async (amount: number, stakingPeriod: number) => {
     if (!address) {

@@ -8,6 +8,7 @@ import {
   useReadContract,
   useSwitchChain,
   useBlockNumber,
+  useBlock,
 } from "wagmi";
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
@@ -35,12 +36,18 @@ const ClaimingButton = ({
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
+  const [timestamp, setTimestamp] = useState<number | null>(null);
+  const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
+  });
+  const { data: block } = useBlock({
+    chainId: polygon.id,
+    blockNumber: blockNumber,
   });
 
   const { writeContractAsync, isPending } = useWriteContract({
@@ -54,15 +61,6 @@ const ClaimingButton = ({
     },
   });
 
-  const { data: getUserStakingDataNoTyped, refetch: refetchStakingDetails } =
-    useReadContract({
-      address: trotelCoinStakingV1,
-      abi: trotelCoinStakingV1ABI,
-      chainId: polygon.id,
-      functionName: "getUserStakingDetails",
-      args: [address as Address],
-    });
-
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
       address: trotelCoinStakingV1,
@@ -72,42 +70,40 @@ const ClaimingButton = ({
       args: [address as Address],
     });
 
-  let getStakingData = getStakingDataNoTyped as any[];
-
   useEffect(() => {
-    if (getStakingDataNoTyped) {
-      getStakingData = getStakingDataNoTyped as any[];
-    }
-  }, [getStakingData, address]);
-
-  let getUserStakingData = getUserStakingDataNoTyped as any[];
-
-  useEffect(() => {
-    if (getUserStakingDataNoTyped) {
-      getUserStakingData = getUserStakingDataNoTyped as any[];
-    }
-  }, [getUserStakingData, address]);
-
-  useEffect(() => {
-    refetchStakingDetails();
     refetchStakings();
   }, [blockNumber, address]);
 
   useEffect(() => {
-    if (getUserStakingData && address) {
-      setTimeLeft(getUserStakingData[1].toString());
-    } else {
-      setTimeLeft(0);
+    if (block && !blockFetched) {
+      const timestamp = Number(block.timestamp);
+      setTimestamp(timestamp);
+      setBlockFetched(true);
     }
-  }, [getUserStakingData, address]);
+  }, [block]);
 
   useEffect(() => {
-    if (getStakingData && address) {
-      setStakedTrotelCoins(getStakingData[0].toString());
+    if (getStakingDataNoTyped && address) {
+      const getStakingData = getStakingDataNoTyped as any[];
+      const stakedTrotelCoins = Number(getStakingData[0]);
+      const startTime = Number(getStakingData[1]);
+      const duration = Number(getStakingData[2]);
+
+      const timeLeft = startTime + duration - (timestamp as number);
+
+      setStakedTrotelCoins(stakedTrotelCoins);
+      setTimeLeft(Math.max(0, timeLeft));
+
+      const interval = setInterval(() => {
+        setTimeLeft((prev) => Math.max(0, prev - 1));
+      }, 1000);
+
+      return () => clearInterval(interval);
     } else {
       setStakedTrotelCoins(0);
+      setTimeLeft(0);
     }
-  }, [getStakingData, address]);
+  }, [getStakingDataNoTyped, address, timestamp]);
 
   const claim = async () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
@@ -115,7 +111,7 @@ const ClaimingButton = ({
       return;
     }
 
-    if (!timeLeft || timeLeft > 0) {
+    if (timeLeft > 0) {
       setTimeNotFinishedMessage(true);
       return;
     }
@@ -133,13 +129,7 @@ const ClaimingButton = ({
   };
 
   useEffect(() => {
-    if (
-      address &&
-      stakedTrotelCoins &&
-      stakedTrotelCoins > 0 &&
-      timeLeft &&
-      timeLeft <= 0
-    ) {
+    if (address && stakedTrotelCoins > 0 && timeLeft <= 0) {
       setDisabled(false);
     } else {
       setDisabled(true);

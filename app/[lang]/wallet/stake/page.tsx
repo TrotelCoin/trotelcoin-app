@@ -34,9 +34,9 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [errorApproveMessage, setErrorApproveMessage] =
     useState<boolean>(false);
   const [isApproved, setIsApproved] = useState<boolean>(false);
+  const [isMax, setIsMax] = useState<boolean>(false);
 
   const { address } = useAccount();
-
   const chainId = useChainId();
 
   useEffect(() => {
@@ -127,6 +127,8 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 amount={amount as number}
                 setAmount={setAmount}
                 address={address as Address}
+                isMax={isMax}
+                setIsMax={setIsMax}
               />
             </div>
           </div>
@@ -163,6 +165,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     setErrorApproveMessage={setErrorApproveMessage}
                     isPendingApproving={isPendingApproving}
                     isApproved={isApproved}
+                    isMax={isMax}
                   />
                 ) : (
                   <StakingButton

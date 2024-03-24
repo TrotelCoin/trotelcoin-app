@@ -1,7 +1,13 @@
 "use client";
 
 import type { Lang } from "@/types/lang";
-import { useBalance, useAccount, useReadContract, useBlockNumber } from "wagmi";
+import {
+  useBalance,
+  useAccount,
+  useReadContract,
+  useBlockNumber,
+  useBlock,
+} from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
@@ -19,11 +25,17 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   const [availableTrotelCoins, setAvailableTrotelCoins] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isStaking, setIsStaking] = useState<boolean>(false);
+  const [timestamp, setTimestamp] = useState<number | null>(null);
+  const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
+  });
+  const { data: block } = useBlock({
+    chainId: polygon.id,
+    blockNumber: blockNumber,
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
@@ -47,15 +59,6 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     }
   }, [balance, address]);
 
-  const { data: getUserStakingDataNoTyped, refetch: refetchStakingDetails } =
-    useReadContract({
-      chainId: polygon.id,
-      abi: trotelCoinStakingV1ABI,
-      address: trotelCoinStakingV1,
-      functionName: "getUserStakingDetails",
-      args: [address as Address],
-    });
-
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
       chainId: polygon.id,
@@ -67,66 +70,60 @@ const StakingData = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     refetchBalance();
-    refetchStakingDetails();
     refetchStakings();
-  }, [blockNumber, address]);
-
-  let getStakingData = getStakingDataNoTyped as any[];
+  }, [blockNumber]);
 
   useEffect(() => {
-    if (getStakingDataNoTyped) {
-      getStakingData = getStakingDataNoTyped as any[];
+    if (block && !blockFetched) {
+      const timestamp = Number(block.timestamp);
+      setTimestamp(timestamp);
+      setBlockFetched(true);
     }
-  }, [getStakingData, address]);
-
-  let getUserStakingData = getUserStakingDataNoTyped as any[];
+  }, [block]);
 
   useEffect(() => {
-    if (getUserStakingDataNoTyped) {
-      getUserStakingData = getUserStakingDataNoTyped as any[];
-    }
-  }, [getUserStakingData, address]);
+    if (getStakingDataNoTyped && address) {
+      const getStakingData = getStakingDataNoTyped as any[];
+      const stakedTrotelCoins = Number(getStakingData[0]);
+      const startTime = Number(getStakingData[1]);
+      const duration = Number(getStakingData[2]);
+      const timeLeft = startTime + duration - (timestamp as number);
+      const isStaking = getStakingData[0] > 0 && timeLeft > 0;
 
-  useEffect(() => {
-    if (getUserStakingData && address) {
-      const initialTimeLeft = parseFloat(getUserStakingData[1].toString());
-      setEarnedTrotelCoins(getUserStakingData[0].toString());
-      setTimeLeft(initialTimeLeft);
+      switch (duration) {
+        case 2592000:
+          setEarnedTrotelCoins(stakedTrotelCoins * 0.03);
+          break;
+        case 7862400:
+          setEarnedTrotelCoins(stakedTrotelCoins * 0.06);
+          break;
+        case 16588800:
+          setEarnedTrotelCoins(stakedTrotelCoins * 0.1);
+          break;
+        case 31536000:
+          setEarnedTrotelCoins(stakedTrotelCoins * 0.15);
+          break;
+        default:
+          setEarnedTrotelCoins(0);
+          break;
+      }
+
+      setStakedTrotelCoins(stakedTrotelCoins);
+      setTimeLeft(Math.max(0, timeLeft));
+      setIsStaking(isStaking);
 
       const interval = setInterval(() => {
-        setTimeLeft((prevTimeLeft) =>
-          prevTimeLeft > 0 ? prevTimeLeft - 1 : 0
-        );
+        setTimeLeft((prev) => Math.max(0, prev - 1));
       }, 1000);
 
-      return () => {
-        clearInterval(interval);
-      };
-    } else {
-      setTimeLeft(0);
-      setEarnedTrotelCoins(0);
-    }
-  }, [getUserStakingData, address]);
-
-  useEffect(() => {
-    if (getStakingData) {
-      setStakedTrotelCoins(getStakingData[0].toString());
+      return () => clearInterval(interval);
     } else {
       setStakedTrotelCoins(0);
-    }
-  }, [getStakingData, address]);
-
-  useEffect(() => {
-    if (getUserStakingData) {
-      if (getUserStakingData[0].toString() > 0) {
-        setIsStaking(true);
-      } else {
-        setIsStaking(false);
-      }
-    } else {
+      setTimeLeft(0);
       setIsStaking(false);
+      setEarnedTrotelCoins(0);
     }
-  }, [getUserStakingData]);
+  }, [getStakingDataNoTyped, address, timestamp]);
 
   return (
     <>
@@ -169,8 +166,22 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Status" : "Statut"}</span>
           <div>
-            <span className={`${isStaking ? staking : notStaking}`}>
-              {isStaking ? "Staking" : "Not staking"}
+            <span
+              className={`${
+                isStaking || stakedTrotelCoins > 0 ? staking : notStaking
+              }`}
+            >
+              {isStaking
+                ? lang === "en"
+                  ? "Staking"
+                  : "Misé"
+                : stakedTrotelCoins > 0
+                ? lang === "en"
+                  ? "Claimable"
+                  : "Réclamable"
+                : lang === "en"
+                ? "Not staking"
+                : "Non misé"}
             </span>
           </div>
         </div>
