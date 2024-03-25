@@ -1,8 +1,6 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
-import Tilt from "react-parallax-tilt";
 import { ReactTyped } from "react-typed";
 
 const Rank = ({ lang }: { lang: Lang }) => {
@@ -10,12 +8,7 @@ const Rank = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <Tilt
-        glareEnable={true}
-        tiltMaxAngleX={2.5}
-        tiltMaxAngleY={2.5}
-        glareMaxOpacity={0.15}
-        perspective={800}
+      <div
         className={`col-span-2 md:col-span-4 bg-blue-500 shadow-lg flex items-center backdrop-blur-xl text-center rounded-xl px-2 py-12 text-gray-100`}
       >
         <div className="flex flex-col mx-auto text-center gap-2">
@@ -70,11 +63,9 @@ const Rank = ({ lang }: { lang: Lang }) => {
             )}
             {isNotPremium && <>{lang === "en" ? "Beginner" : "Débutant"}</>}
           </span>
-          <span className={`${!isNotPremium && loadingFlashClass}`}>
-            {lang === "en" ? "Rank" : "Rang"}
-          </span>
+          <span>{lang === "en" ? "Rank" : "Rang"}</span>
         </div>
-      </Tilt>
+      </div>
     </>
   );
 };
