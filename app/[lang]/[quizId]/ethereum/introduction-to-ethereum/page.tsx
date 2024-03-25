@@ -1,65 +1,91 @@
 "use client";
 
-import React from "react";
+import type { Lang } from "@/types/lang";
+import Course from "@/app/[lang]/[quizId]/components/course";
 
-const CoursePage = () => {
+const cards = {
+  en: [
+    {
+      title: "Introduction to Ethereum",
+      text: "Let's dive into the world of Ethereum and explore its groundbreaking features in Web3.",
+    },
+    {
+      title: "What is Ethereum?",
+      text: "Ethereum is a decentralized platform that enables the creation of smart contracts and decentralized applications (dApps).",
+    },
+    {
+      title: "dApps",
+      text: "Decentralized applications (dApps) are applications that run on a decentralized network of computers, ensuring transparency and security.",
+    },
+    {
+      title: "Use Cases of Ethereum",
+      text: "Ethereum's use cases include decentralized finance (DeFi), non-fungible tokens (NFTs), supply chain management, and more.",
+    },
+    {
+      title: "Smart Contracts",
+      text: "Smart contracts are self-executing contracts with the terms directly written into code.",
+    },
+    {
+      title: "Tokens on Ethereum",
+      text: "Tokens on Ethereum can represent assets, voting power, or any other form of value, enabling various functionalities within dApps.",
+    },
+    {
+      title: "No Control Over Data",
+      text: "Ethereum operates on a decentralized network, ensuring that no single entity has control over user data or transactions.",
+    },
+    {
+      title: "Staking",
+      text: "Staking involves participating in the network by locking up a certain amount of cryptocurrency to support its operations and earn rewards.",
+    },
+    {
+      title: "Conclusion",
+      text: "As a conclusion, Ethereum is a powerful platform that is revolutionizing the way we interact with the internet.",
+    },
+  ],
+  fr: [
+    {
+      title: "Introduction à Ethereum !",
+      text: "Plongeons dans le monde d'Ethereum et explorons ses fonctionnalités révolutionnaires dans le Web3.",
+    },
+    {
+      title: "Qu'est-ce qu'Ethereum ?",
+      text: "Ethereum est une plateforme décentralisée qui permet la création de contrats intelligents et d'applications décentralisées (dApps).",
+    },
+    {
+      title: "dApps",
+      text: "Les applications décentralisées (dApps) sont des applications qui s'exécutent sur un réseau décentralisé d'ordinateurs, garantissant transparence et sécurité.",
+    },
+    {
+      title: "Cas d'utilisation d'Ethereum",
+      text: "Les cas d'utilisation d'Ethereum incluent la finance décentralisée (DeFi), les jetons non fongibles (NFT), la gestion de supply chains, et plus encore.",
+    },
+    {
+      title: "Contrats Intelligents",
+      text: "Les contrats intelligents sont des contrats qui s'exécutent automatiquement avec les termes directement écrits dans le code.",
+    },
+    {
+      title: "Jetons sur Ethereum",
+      text: "Les jetons sur Ethereum peuvent représenter des actifs, du pouvoir de vote, ou toute autre forme de valeur, permettant diverses fonctionnalités au sein des dApps.",
+    },
+    {
+      title: "Aucun Contrôle sur les Données",
+      text: "Ethereum fonctionne sur un réseau décentralisé, garantissant qu'aucune entité unique n'a le contrôle sur les données des utilisateurs ou les transactions.",
+    },
+    {
+      title: "Staking",
+      text: "Le staking implique de participer au réseau en verrouillant une certaine quantité de cryptomonnaie pour soutenir ses opérations et gagner des récompenses.",
+    },
+    {
+      title: "Conclusion",
+      text: "En conclusion, Ethereum est une plateforme puissante qui révolutionne la façon dont nous interagissons avec l'internet.",
+    },
+  ],
+};
+
+const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-        Install your first wallet
-      </h2>
-      <p className="mt-6">
-        Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in.
-        Convallis arcu ipsum urna nibh. Pharetra, euismod vitae interdum mauris
-        enim, consequat vulputate nibh. Maecenas pellentesque id sed tellus
-        mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi.
-        Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis
-        diam.
-      </p>
-      <figure className="mt-10 border-l border-blue-500 dark:border-blue-300 pl-9">
-        <blockquote className="font-semibold text-gray-900 dark:text-gray-100">
-          <p>
-            “Vel ultricies morbi odio facilisi ultrices accumsan donec lacus
-            purus. Lectus nibh ullamcorper ac dictum justo in euismod. Risus
-            aenean ut elit massa. In amet aliquet eget cras. Sem volutpat enim
-            tristique.”
-          </p>
-        </blockquote>
-        <figcaption className="mt-6 flex gap-x-4">
-          <div className="text-sm leading-6">
-            <strong className="font-semibold text-gray-900 dark:text-gray-100">
-              Alexandre Trotel
-            </strong>{" "}
-            – CEO & Founder
-          </div>
-        </figcaption>
-      </figure>
-      <p className="mt-10">
-        Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
-        Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent
-        donec est. Odio penatibus risus viverra tellus varius sit neque erat
-        velit.
-      </p>
-
-      <div className="mt-16 mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          Configure your wallet
-        </h2>
-        <p className="mt-6">
-          Purus morbi dignissim senectus mattis adipiscing. Amet, massa quam
-          varius orci dapibus volutpat cras. In amet eu ridiculus leo sodales
-          cursus tristique. Tincidunt sed tempus ut viverra ridiculus non
-          molestie. Gravida quis fringilla amet eget dui tempor dignissim.
-          Facilisis auctor venenatis varius nunc, congue erat ac. Cras fermentum
-          convallis quam.
-        </p>
-        <p className="mt-8">
-          Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus
-          enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor
-          praesent donec est. Odio penatibus risus viverra tellus varius sit
-          neque erat velit.
-        </p>
-      </div>
+      <Course cards={cards} lang={lang} />
     </>
   );
 };

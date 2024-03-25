@@ -181,7 +181,7 @@ const lessons: Lessons[] = [
           fr: "Intermédiaire",
         },
         sponsored: false,
-        new: true,
+        new: false,
         quizId: 8,
         available: true,
       },
@@ -248,9 +248,9 @@ const lessons: Lessons[] = [
           fr: "Débutant",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 11,
-        available: false,
+        available: true,
       },
       {
         title: {

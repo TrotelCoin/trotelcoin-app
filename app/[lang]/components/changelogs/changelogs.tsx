@@ -72,7 +72,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text: lang === "en" ? "- The Layers 2" : "- Les Layers 2",
+          text:
+            lang === "en"
+              ? "- Introduction to Ethereum"
+              : "- Introduction à Ethereum",
           isNew: true,
         },
       ],
