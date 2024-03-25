@@ -4,7 +4,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import Link from "next/link";
 import React, { useContext } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
 const connectedClass =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";

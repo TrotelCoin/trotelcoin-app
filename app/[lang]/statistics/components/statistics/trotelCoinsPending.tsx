@@ -3,6 +3,7 @@ import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
   const { data: trotelCoinsPending } = useSWR(
@@ -18,7 +19,7 @@ const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {trotelCoinsPending ? (
             <>
-              {Math.floor(trotelCoinsPending).toLocaleString("en-US")}{" "}
+              <CountUp start={0} end={Math.floor(trotelCoinsPending)} />{" "}
               <span className="hidden md:inline">💰</span>
             </>
           ) : (

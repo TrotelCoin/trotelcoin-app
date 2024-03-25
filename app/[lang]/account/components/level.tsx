@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const LevelSection = ({ lang }: { lang: Lang }) => {
   const [width, setWidth] = useState<number>(0);
@@ -51,7 +52,9 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
               <>
                 <p>{lang === "en" ? "You are level" : "Vous êtes niveau"}</p>
                 {userLevel ? (
-                  <>{userLevel}</>
+                  <>
+                    <CountUp start={0} end={userLevel} />
+                  </>
                 ) : (
                   <span className={`${loadingFlashClass}`}>0</span>
                 )}
@@ -63,11 +66,14 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
               isNotPremium && "blur hover:blur-none duration-500"
             }`}
           >
-            {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium
-              ? `${quizzesRemaining.toFixed(0)} ${
-                  lang === "en" ? "quizzes left" : "quiz restant"
-                }`
-              : `${lang === "en" ? "Not premium" : "Non premium"}`}
+            {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium ? (
+              <>
+                <CountUp start={0} end={quizzesRemaining} />{" "}
+                {lang === "en" ? "quizzes left" : "quiz restant"}
+              </>
+            ) : (
+              `${lang === "en" ? "Not premium" : "Non premium"}`
+            )}
           </p>
         </div>
         <div

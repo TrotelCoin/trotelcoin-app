@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {
   const [tokensEarned, setTokensEarned] = useState<number>(0);
@@ -36,7 +37,7 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
               <span className="font-semibold">
                 {tokensEarned ? (
                   <span>
-                    {Math.floor(tokensEarned).toLocaleString("en-US")}
+                    <CountUp start={0} end={Math.floor(tokensEarned)} />
                   </span>
                 ) : (
                   <span className={`${loadingFlashClass}`}>0</span>

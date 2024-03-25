@@ -2,6 +2,7 @@ import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
+import CountUp from "react-countup";
 
 const MaxStreak = ({ lang }: { lang: Lang }) => {
   const { maxStreak } = useContext(StreakContext);
@@ -16,7 +17,9 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
             <>
               <span className="font-semibold">
                 {maxStreak ? (
-                  <span>{maxStreak}</span>
+                  <span>
+                    <CountUp start={0} end={maxStreak} />
+                  </span>
                 ) : (
                   <span className={`${loadingFlashClass}`}>0</span>
                 )}

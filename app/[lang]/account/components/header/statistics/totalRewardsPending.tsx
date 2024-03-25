@@ -2,6 +2,7 @@ import type { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
+import CountUp from "react-countup";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 
@@ -24,8 +25,10 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
               <span className="font-semibold">
                 {totalRewardsPending ? (
                   <span>
-                    {Math.floor(totalRewardsPending)?.toLocaleString("en-US") ??
-                      0}
+                    <CountUp
+                      start={0}
+                      end={Math.floor(totalRewardsPending) ?? 0}
+                    />
                   </span>
                 ) : (
                   <span className={`${loadingFlashClass}`}>0</span>

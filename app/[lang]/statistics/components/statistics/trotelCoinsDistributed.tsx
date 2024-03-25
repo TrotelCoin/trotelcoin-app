@@ -4,6 +4,7 @@ import { trotelCoinAddress } from "@/data/web3/addresses";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import { useToken } from "wagmi";
 
@@ -35,7 +36,7 @@ const TrotelCoinsDistributed = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {trotelCoinsDistributed ? (
             <>
-              {Math.floor(trotelCoinsDistributed).toLocaleString("en-US")}{" "}
+              <CountUp start={0} end={Math.floor(trotelCoinsDistributed)} />{" "}
               <span className="hidden md:inline">💸</span>
             </>
           ) : (
