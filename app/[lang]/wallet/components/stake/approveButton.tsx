@@ -100,6 +100,8 @@ const ApproveButton = ({
   useEffect(() => {
     if (chainError && isPendingApproving) {
       setDisabled(true);
+    } else {
+      setDisabled(false);
     }
   }, [chainError, isPendingApproving]);
 
