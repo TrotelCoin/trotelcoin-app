@@ -38,7 +38,7 @@ const QuizComponent = ({
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [optionClass, setOptionClass] = useState<string>(
-    "bg-gray-200 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+    "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
   );
 
   const { updateLife, life } = useContext(LifeContext);
@@ -161,7 +161,7 @@ const QuizComponent = ({
                           className={`cursor-pointer items-center px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
                               ? optionClass
-                              : "bg-gray-200 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                              : "bg-gray-100 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
                         >
@@ -177,7 +177,7 @@ const QuizComponent = ({
                           className={`cursor-pointer px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
                               ? optionClass
-                              : "bg-gray-200 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                              : "bg-gray-100 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
                         >

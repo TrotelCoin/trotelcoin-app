@@ -89,7 +89,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   <Link
                     href={`/${lang}/category/${lesson.category.toLowerCase()}`}
                   >
-                    <button className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
+                    <button className="bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
                       {lang === "en" ? "View all" : "Voir tout"}
                     </button>
                   </Link>
