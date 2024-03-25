@@ -45,7 +45,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
           side="bottom"
           align="end"
           sideOffset={10}
-          className="rounded-xl shadow-lg w-40 bg-blue-500 text-gray-100 focus:outline-none"
+          className="rounded-xl shadow-lg w-40 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
         >
           <div className="p-2">
             {languages.map((language, index) => (
@@ -53,7 +53,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
                 <li>
                   <button
                     onClick={() => onChangeLanguage(language)}
-                    className={`hover:bg-blue-400 dark:hover:bg-blue-400 block p-2 text-sm w-full text-left rounded-xl`}
+                    className={`hover:bg-gray-100 dark:hover:bg-gray-700 block p-2 text-sm w-full text-left rounded-xl`}
                   >
                     {language.label}
                   </button>
