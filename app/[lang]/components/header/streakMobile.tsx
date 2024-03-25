@@ -4,7 +4,6 @@ import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { useAccount } from "wagmi";
 import { Address } from "viem";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import CountUp from "react-countup";
 import "animate.css";
 
 const StreakMobile = ({ lang }: { lang: Lang }) => {
