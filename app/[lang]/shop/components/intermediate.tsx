@@ -199,7 +199,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                 </>
               )}
               {(isClaimed || isIntermediate) && (
-                <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-200 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
+                <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
                   {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
               )}

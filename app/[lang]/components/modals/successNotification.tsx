@@ -90,7 +90,7 @@ export default function WarningNotification({
                       {message}
                     </p>
                     <div className="mt-2">
-                      <div className="bg-gray-200 rounded-full h-2">
+                      <div className="bg-gray-100 rounded-full h-2">
                         <div
                           className="bg-green-500 rounded-full h-2"
                           style={{ width: `${progress}%` }}

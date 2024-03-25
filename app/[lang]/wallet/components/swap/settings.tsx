@@ -101,7 +101,7 @@ const Settings = ({
                     >
                       <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 flex shadow-lg p-2 flex-col bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
                         <Popover.Close asChild>
-                          <ul className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-xl">
+                          <ul className="hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-xl">
                             <button onClick={() => setSort("output")}>
                               <li>
                                 {lang === "en"
@@ -112,7 +112,7 @@ const Settings = ({
                           </ul>
                         </Popover.Close>
                         <Popover.Close asChild>
-                          <ul className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-xl">
+                          <ul className="hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-xl">
                             <button onClick={() => setSort("time")}>
                               <li>
                                 {lang === "en"
@@ -123,7 +123,7 @@ const Settings = ({
                           </ul>
                         </Popover.Close>
                         <Popover.Close asChild>
-                          <ul className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-xl">
+                          <ul className="hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-xl">
                             <button onClick={() => setSort("gas")}>
                               <li>
                                 {lang === "en"
@@ -173,7 +173,7 @@ const Settings = ({
                       className={`${
                         slippage === "1"
                           ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
-                          : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                          : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                       } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                     >
                       1%
@@ -185,7 +185,7 @@ const Settings = ({
                       className={`${
                         slippage === "2"
                           ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
-                          : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                          : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                       } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                     >
                       2%
@@ -197,7 +197,7 @@ const Settings = ({
                       className={`${
                         slippage === "3"
                           ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
-                          : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                          : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                       } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                     >
                       3%

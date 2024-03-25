@@ -53,7 +53,7 @@ const Satisfaction = ({ lang }: { lang: Lang }) => {
                   onClick={() => setSelectedNumber(number)}
                   className={`m-1 w-10 h-10 rounded-xl ${
                     selectedNumber === number
-                      ? "bg-gray-900 hover:bg-gray-700 dark:bg-gray-50 dark:hover:bg-gray-200 text-gray-100 dark:text-gray-900"
+                      ? "bg-gray-900 hover:bg-gray-700 dark:bg-gray-50 dark:hover:bg-gray-100 text-gray-100 dark:text-gray-900"
                       : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100"
                   } cursor-pointer text-xl flex items-center justify-center`}
                 >
