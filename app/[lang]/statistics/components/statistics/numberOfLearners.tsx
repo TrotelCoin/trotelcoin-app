@@ -3,6 +3,7 @@ import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const NumberOfLearners = ({ lang }: { lang: Lang }) => {
   const { data: numberOfLearners } = useSWR(
@@ -18,7 +19,10 @@ const NumberOfLearners = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {numberOfLearners ? (
             <>
-              {numberOfLearners.toLocaleString("en-US")}{" "}
+              <CountUp
+                start={0}
+                end={numberOfLearners}
+              />{" "}
               <span className="hidden md:inline">👨‍💻</span>
             </>
           ) : (

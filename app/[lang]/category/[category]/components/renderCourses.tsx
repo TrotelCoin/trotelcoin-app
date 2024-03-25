@@ -1,6 +1,5 @@
 import type { Lesson } from "@/types/courses/lessons";
 import type { Lang } from "@/types/lang";
-import { Address } from "viem";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";
 
@@ -11,7 +10,6 @@ const renderCourses = (
   lang: Lang,
   quizId: number,
   status: string[],
-  address: Address | null,
   index: number,
   category: string
 ) => {
@@ -59,13 +57,6 @@ const renderCourses = (
         glareMaxOpacity={0.15}
         perspective={800}
       >
-        {/*<Image
-              height={400}
-              width={400}
-              src={placeholder}
-              alt="Placeholder"
-              className="mt-4 rounded-xl"
-              />*/}
         <div
           className={`rounded-xl px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-100 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
         >

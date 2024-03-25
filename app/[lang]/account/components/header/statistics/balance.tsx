@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
@@ -35,9 +36,10 @@ const Balance = ({ lang }: { lang: Lang }) => {
               <span className="font-semibold">
                 {balance ? (
                   <span>
-                    {Math.floor(parseFloat(balance.formatted)).toLocaleString(
-                      "en-US"
-                    )}
+                    <CountUp
+                      start={0}
+                      end={Math.floor(Number(balance.formatted))}
+                    />
                   </span>
                 ) : (
                   <span className={`${loadingFlashClass}`}>0</span>

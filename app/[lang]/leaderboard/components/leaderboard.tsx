@@ -9,6 +9,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 import { config } from "@/config/Web3ModalConfig";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
   const [leaderboard, setLeaderboard] = useState<LeaderboardItem[] | null>(
@@ -80,16 +81,26 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                       </div>
                       <div className="flex items-center gap-2 text-lg">
                         <span>
-                          {leaderboard &&
-                          leaderboard[index].number_of_quizzes_answered
-                            ? leaderboard[index].number_of_quizzes_answered
-                            : 0}{" "}
+                          <CountUp
+                            start={0}
+                            end={
+                              leaderboard &&
+                              leaderboard[index].number_of_quizzes_answered
+                                ? leaderboard[index].number_of_quizzes_answered
+                                : 0
+                            }
+                          />{" "}
                           📚
                         </span>
                         <span>
-                          {leaderboard && leaderboard[index].current_streak
-                            ? leaderboard[index].current_streak
-                            : 0}{" "}
+                          <CountUp
+                            start={0}
+                            end={
+                              leaderboard && leaderboard[index].current_streak
+                                ? leaderboard[index].current_streak
+                                : 0
+                            }
+                          />{" "}
                           🔥
                         </span>
                       </div>

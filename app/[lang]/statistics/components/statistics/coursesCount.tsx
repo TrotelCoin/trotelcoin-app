@@ -1,8 +1,9 @@
 import type { Lang } from "@/types/lang";
-import React, { useEffect } from "react";
+import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const CoursesCount = ({ lang }: { lang: Lang }) => {
   const { data: coursesCount } = useSWR("/api/courses/coursesCount", fetcher);
@@ -15,7 +16,8 @@ const CoursesCount = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {coursesCount ? (
             <>
-              {coursesCount ?? 0} <span className="hidden md:inline">📖</span>
+              <CountUp start={0} end={coursesCount} />{" "}
+              <span className="hidden md:inline">📖</span>
             </>
           ) : (
             <span className={`${loadingFlashClass}`}>

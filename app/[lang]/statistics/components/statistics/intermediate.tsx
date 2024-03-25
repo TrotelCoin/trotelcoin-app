@@ -3,6 +3,7 @@ import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useEffect } from "react";
+import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import { useReadContract, useBlockNumber } from "wagmi";
 
@@ -31,7 +32,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {intermediate ? (
             <>
-              {parseFloat(intermediate.toString())}{" "}
+              <CountUp start={0} end={Number(intermediate.toString())} />{" "}
               <span className="hidden md:inline">🙈</span>
             </>
           ) : (

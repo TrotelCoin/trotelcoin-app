@@ -20,6 +20,7 @@ import useSWR from "swr";
 import { ShareIcon } from "@heroicons/react/20/solid";
 import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
 import CourseTitle from "@/app/[lang]/[quizId]/components/courseTitle";
+import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
 
 const CoursePage = ({
   params: { lang, quizId },
@@ -96,10 +97,10 @@ const CoursePage = ({
                 <p className="text-base font-semibold leading-7 text-blue-500 dark:text-blue-300">
                   {lang === "en" ? "Course" : "Cours"}
                 </p>
-                <div className="flex justify-center items-center mx-2 h-6 w-px rounded-full bg-gray-800/20 dark:bg-gray-200/40" />
+                <SeparatorVertical />
                 <p className="text-base leading-7 text-gray-700 dark:text-gray-300">
                   <CountUp start={0} duration={2} end={answered} />{" "}
-                  {lang === "en" ? "people answered" : "personnes ont répondu"}
+                  {lang === "en" ? "participants" : "participants"}
                 </p>
               </div>
               <button

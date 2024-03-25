@@ -5,13 +5,14 @@ import type { Lessons } from "@/types/courses/lessons";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
-import { Address } from "viem";
+import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
 import renderCourses from "@/app/[lang]/category/[category]/components/renderCourses";
 import lessons from "@/data/lessons/lessonsData";
 import { lessonsLength } from "@/utils/courses";
 import { useAccount } from "wagmi";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
+import CountUp from "react-countup";
 
 const Page = ({
   params: { lang, category },
@@ -59,9 +60,16 @@ const Page = ({
         {filteredLessons.map((lesson: Lessons, index: number) => (
           <div className="mb-10" key={index}>
             <div className="flex justify-between items-center">
-              <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100 mt-1">
-                {lesson.category}
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                  {lesson.category}
+                </h2>
+                <SeparatorVertical />
+                <span className="text-base leading-7 text-gray-700 dark:text-gray-300">
+                  <CountUp start={0} end={lesson.courses.length} />{" "}
+                  {lang === "en" ? "lessons" : "leçons"}
+                </span>
+              </div>
             </div>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {lesson.courses
@@ -75,7 +83,6 @@ const Page = ({
                     lang,
                     course.quizId,
                     status,
-                    address as Address,
                     index,
                     lesson.category
                   )

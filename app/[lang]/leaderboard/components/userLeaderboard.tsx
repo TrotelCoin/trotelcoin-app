@@ -7,6 +7,7 @@ import { mainnet } from "viem/chains";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);
@@ -91,8 +92,13 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
                     </div>
 
                     <div className="flex items-center gap-2 text-lg">
-                      <span>{numberOfQuizzesAnswered ?? 0} 📚</span>
-                      <span>{streak ?? 0} 🔥</span>
+                      <span>
+                        <CountUp start={0} end={numberOfQuizzesAnswered ?? 0} />{" "}
+                        📚
+                      </span>
+                      <span>
+                        <CountUp start={0} end={streak ?? 0} /> 🔥
+                      </span>
                     </div>
                   </div>
                 )}

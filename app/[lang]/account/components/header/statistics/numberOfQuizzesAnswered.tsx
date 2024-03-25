@@ -2,6 +2,7 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
+import CountUp from "react-countup";
 
 const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
   const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
@@ -17,7 +18,9 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
             <>
               <span className="font-semibold">
                 {numberOfQuizzesAnswered ? (
-                  <span>{numberOfQuizzesAnswered.toLocaleString("en-US")}</span>
+                  <span>
+                    <CountUp start={0} end={numberOfQuizzesAnswered} />
+                  </span>
                 ) : (
                   <span className={`${loadingFlashClass}`}>0</span>
                 )}

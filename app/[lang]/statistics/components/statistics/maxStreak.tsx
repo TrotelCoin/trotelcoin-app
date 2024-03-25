@@ -3,6 +3,7 @@ import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const MaxStreak = ({ lang }: { lang: Lang }) => {
   const { data: maxStreak } = useSWR(
@@ -18,7 +19,7 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {maxStreak ? (
             <>
-              {maxStreak.toLocaleString("en-US")}{" "}
+              <CountUp start={0} end={maxStreak} />{" "}
               <span className="hidden md:inline">🔥</span>
             </>
           ) : (

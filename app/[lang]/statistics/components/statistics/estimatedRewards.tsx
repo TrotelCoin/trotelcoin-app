@@ -3,6 +3,7 @@ import React from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import CountUp from "react-countup";
 
 const EstimatedRewards = ({ lang }: { lang: Lang }) => {
   const { data: remainingRewards } = useSWR(
@@ -18,9 +19,9 @@ const EstimatedRewards = ({ lang }: { lang: Lang }) => {
         <span className="font-semibold text-2xl md:text-4xl">
           {remainingRewards ? (
             <>
-              {Math.floor(remainingRewards / 10).toLocaleString("en-US")}{" "}
+              <CountUp start={0} end={Math.floor(remainingRewards / 10)} />{" "}
               {"< 🧠 <"}
-              {Math.floor(remainingRewards / 4).toLocaleString("en-US")}
+              <CountUp start={0} end={Math.floor(remainingRewards / 4)} />
             </>
           ) : (
             <span className={`${loadingFlashClass}`}>{"0 < 🧠 < 0"}</span>
