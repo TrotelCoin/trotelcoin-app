@@ -863,6 +863,96 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 11,
+    title: "Introduction to Ethereum",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is Ethereum primarily known for?",
+          fr: "Pour quoi Ethereum est-il principalement connu ?",
+        },
+        options: {
+          en: [
+            "Creating smart contracts and dApps",
+            "Managing centralized databases",
+            "Mining Bitcoin",
+            "Developing mobile applications",
+          ],
+          fr: [
+            "Créer des contrats intelligents et des dApps",
+            "Gérer des bases de données centralisées",
+            "Extraire du Bitcoin",
+            "Développer des applications mobiles",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What are smart contracts?",
+          fr: "Quels sont les contrats intelligents ?",
+        },
+        options: {
+          en: [
+            "Self-executing contracts with the terms in the code",
+            "Paper-based contracts",
+            "Contracts that require human intervention",
+            "Contracts only applicable to real estate",
+          ],
+          fr: [
+            "Des contrats auto-exécutants avec les termes dans le code",
+            "Des contrats sur papier",
+            "Des contrats nécessitant une intervention humaine",
+            "Des contrats uniquement applicables à l'immobilier",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What can tokens represent on Ethereum?",
+          fr: "Que peuvent représenter les jetons sur Ethereum ?",
+        },
+        options: {
+          en: [
+            "Assets, voting power, or any form of value",
+            "Only physical commodities",
+            "Legal documents",
+            "Social media accounts",
+          ],
+          fr: [
+            "Des actifs, du pouvoir de vote, ou toute forme de valeur",
+            "Uniquement des marchandises physiques",
+            "Des documents légaux",
+            "Des comptes de médias sociaux",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What does staking involve in Ethereum?",
+          fr: "Que implique le staking sur Ethereum ?",
+        },
+        options: {
+          en: [
+            "Participating in the network by locking cryptocurrency to earn rewards",
+            "Selling Ethereum tokens",
+            "Creating new Ethereum tokens",
+            "Transferring tokens between wallets",
+          ],
+          fr: [
+            "Participer au réseau en verrouillant de la cryptomonnaie pour gagner des récompenses",
+            "Vendre des jetons Ethereum",
+            "Créer de nouveaux jetons Ethereum",
+            "Transférer des jetons entre des portefeuilles",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 12,
     title: "Understand the layers 2",
     questions: [
