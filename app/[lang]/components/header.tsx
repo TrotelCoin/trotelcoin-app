@@ -90,7 +90,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               "text-gray-100 hover:text-white text-sm font-semibold leading-6 py-1 px-4 rounded-full";
 
             const dynamicClasses =
-              "bg-white dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
+              "bg-gray-50 dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
 
             return (
               <Link
@@ -159,7 +159,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                     leaveTo="translate-x-full"
                   >
                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
+                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-50 dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
                         <div className="flex items-center gap-x-6">
                           <div className="p-1">
                             <Dialog.Title className="font-bold text-gray-900 dark:text-gray-100 text-2xl">

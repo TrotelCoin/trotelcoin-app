@@ -61,7 +61,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
           {!isLoadingLeaderboard ? (
             <>
               <div
-                className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-900/10 dark:border-gray-100/10 flex flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 items-center justify-between backdrop-blur-xl text-center rounded-2xl`}
+                className={`bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-900/10 dark:border-gray-100/10 flex flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 items-center justify-between backdrop-blur-xl text-center rounded-2xl`}
               >
                 {leaderboard &&
                   Array.isArray(leaderboard) &&

@@ -66,7 +66,7 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
               <>
                 {position && (
                   <div
-                    className={`mt-4 bg-gray-100 flex items-center justify-between ${
+                    className={`mt-4 bg-gray-50 flex items-center justify-between ${
                       position < 4
                         ? "rainbow-border"
                         : "border-gray-900/10 dark:border-gray-100/10"
