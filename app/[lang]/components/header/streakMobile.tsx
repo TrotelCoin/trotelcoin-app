@@ -4,7 +4,6 @@ import StreakContext from "@/app/[lang]/contexts/streakContext";
 import { useAccount } from "wagmi";
 import { Address } from "viem";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import CountUp from "react-countup";
 import "animate.css";
 
 const StreakMobile = ({ lang }: { lang: Lang }) => {
@@ -22,9 +21,7 @@ const StreakMobile = ({ lang }: { lang: Lang }) => {
             <div className="flex gap-2 items-center">
               <span>{cooldown}</span>
               <div className="border-r border-gray-900/10 dark:border-gray-100/10 h-6" />
-              <span>
-                <CountUp start={0} end={streak} /> 🔥
-              </span>
+              <span>{streak} 🔥</span>
             </div>
           </div>
           <div className="flex justify-center items-center gap-4 p-4">

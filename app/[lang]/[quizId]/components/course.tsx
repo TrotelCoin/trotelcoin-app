@@ -66,7 +66,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
       <Transition as={Fragment} show={fullscreen}>
         <Dialog
           as="div"
-          className="z-50 fixed top-0 left-0 w-full h-screen bg-gray-50 dark:bg-gray-900"
+          className="z-50 fixed top-0 left-0 w-full h-screen bg-white dark:bg-gray-900"
           onClose={() => setFullScreen(false)}
         >
           <div className="flex flex-1 justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">

@@ -9,9 +9,9 @@ const Rank = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div
-        className={`col-span-2 md:col-span-4 bg-blue-500 shadow-lg flex items-center backdrop-blur-xl text-center rounded-xl px-2 py-12 text-gray-100`}
+        className={`col-span-2 md:col-span-4 bg-blue-500 shadow md:shadow-lg flex items-center backdrop-blur-xl text-center rounded-xl px-2 py-10 text-gray-100`}
       >
-        <div className="flex flex-col mx-auto text-center gap-2">
+        <div className="flex flex-col mx-auto text-center gap-1">
           <span className={`text-4xl md:text-6xl font-semibold`}>
             {isIntermediate && !isExpert && (
               <>
