@@ -42,6 +42,8 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   useEffect(() => {
     if (chainId !== polygon.id) {
       setChainError(true);
+    } else {
+      setChainError(false);
     }
   }, [chainId]);
 
