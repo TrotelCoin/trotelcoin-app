@@ -21,7 +21,7 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
               perspective={800}
             >
               <div
-                className={`bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-xl py-10 px-2 text-center ${
+                className={`bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-xl py-10 px-2 text-center ${
                   badge.condition
                     ? "rainbow-border"
                     : "border border-gray-900/10 dark:border-gray-100/10"

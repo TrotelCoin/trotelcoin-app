@@ -37,7 +37,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
         {lang === "en" ? "Level" : "Niveau"}
       </h2>
       <div
-        className={`mt-4 bg-gray-100 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+        className={`mt-4 bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
       >
         <div className="flex justify-between">
           <div

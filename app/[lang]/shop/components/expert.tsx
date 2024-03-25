@@ -124,7 +124,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
         perspective={800}
       >
         <div
-          className={`overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-800 ${
+          className={`overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 ${
             isClaimed
               ? "rainbow-border"
               : "border border-gray-900/10 dark:border-gray-100/10"

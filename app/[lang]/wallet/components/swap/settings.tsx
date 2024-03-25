@@ -50,7 +50,7 @@ const Settings = ({
             side="bottom"
             align="end"
             sideOffset={10}
-            className="max-w-xl flex shadow flex-col bg-gray-100 dark:bg-gray-800 divide-y divide-gray-900/10 dark:divide-gray-100/10 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl"
+            className="max-w-xl flex shadow flex-col bg-gray-50 dark:bg-gray-800 divide-y divide-gray-900/10 dark:divide-gray-100/10 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl"
           >
             <div className="px-4 py-4">
               <span className="text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -99,7 +99,7 @@ const Settings = ({
                       align="center"
                       sideOffset={5}
                     >
-                      <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 flex shadow-lg p-2 flex-col bg-gray-100 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
+                      <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 flex shadow-lg p-2 flex-col bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
                         <Popover.Close asChild>
                           <ul className="hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-xl">
                             <button onClick={() => setSort("output")}>
@@ -172,7 +172,7 @@ const Settings = ({
                       onClick={() => setSlippage("1")}
                       className={`${
                         slippage === "1"
-                          ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+                          ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
                           : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                       } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                     >
@@ -184,7 +184,7 @@ const Settings = ({
                       onClick={() => setSlippage("2")}
                       className={`${
                         slippage === "2"
-                          ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+                          ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
                           : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                       } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                     >
@@ -196,7 +196,7 @@ const Settings = ({
                       onClick={() => setSlippage("3")}
                       className={`${
                         slippage === "3"
-                          ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+                          ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
                           : "bg-gray-200 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                       } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                     >
@@ -245,10 +245,10 @@ const Settings = ({
                     enableRefuel
                       ? "bg-blue-500"
                       : "bg-gray-300 dark:bg-gray-700",
-                    "w-[36px] h-[20px] bg-gray-100 dark:bg-gray-700 rounded-full relative data-[state=checked]:bg-blue-500 dark:data-[state=checked]:bg-blue-500 outline-none cursor-default"
+                    "w-[36px] h-[20px] bg-gray-50 dark:bg-gray-700 rounded-full relative data-[state=checked]:bg-blue-500 dark:data-[state=checked]:bg-blue-500 outline-none cursor-default"
                   )}
                 >
-                  <Switch.Thumb className="block w-[15px] h-[15px] bg-white rounded-full transition-transform duration-100 translate-x-1 will-change-transform data-[state=checked]:translate-x-[18px]" />
+                  <Switch.Thumb className="block w-[15px] h-[15px] bg-gray-50 rounded-full transition-transform duration-100 translate-x-1 will-change-transform data-[state=checked]:translate-x-[18px]" />
                 </Switch.Root>
               </div>
             </div>
