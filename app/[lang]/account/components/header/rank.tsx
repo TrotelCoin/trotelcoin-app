@@ -31,7 +31,7 @@ const Rank = ({ lang }: { lang: Lang }) => {
                   shuffle={true}
                   loop={true}
                   cursorChar="."
-                  typeSpeed={25}
+                  typeSpeed={50}
                   backSpeed={25}
                   startWhenVisible={true}
                 />
@@ -55,7 +55,7 @@ const Rank = ({ lang }: { lang: Lang }) => {
                   shuffle={true}
                   loop={true}
                   cursorChar="."
-                  typeSpeed={25}
+                  typeSpeed={50}
                   backSpeed={25}
                   startWhenVisible={true}
                 />
