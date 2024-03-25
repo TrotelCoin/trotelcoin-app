@@ -15,7 +15,7 @@ import {
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
 import { fetcher } from "@/lib/axios/fetcher";
-import { Flex, Separator } from "@radix-ui/themes";
+import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
 import useSWR from "swr";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
@@ -80,12 +80,10 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             .map((lesson: Lessons, index: number) => (
               <div className="my-10" key={index}>
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-1">
-                    <div className="flex items-center gap-2">
-                      <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                        {lesson.category}
-                      </h2>
-                    </div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                      {lesson.category}
+                    </h2>
                   </div>
 
                   <Link
