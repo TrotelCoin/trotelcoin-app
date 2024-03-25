@@ -1,25 +1,80 @@
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
+import Tilt from "react-parallax-tilt";
+import { ReactTyped } from "react-typed";
 
 const Rank = ({ lang }: { lang: Lang }) => {
   const { isNotPremium, isIntermediate, isExpert } = useContext(PremiumContext);
 
   return (
     <>
-      <div
-        className={`col-span-2 md:col-span-4 bg-blue-500 flex items-center backdrop-blur-xl text-center rounded-xl px-2 py-16 text-gray-100`}
+      <Tilt
+        glareEnable={true}
+        tiltMaxAngleX={2.5}
+        tiltMaxAngleY={2.5}
+        glareMaxOpacity={0.15}
+        perspective={800}
+        className={`col-span-2 md:col-span-4 bg-blue-500 shadow-lg flex items-center backdrop-blur-xl text-center rounded-xl px-2 py-12 text-gray-100`}
       >
-        <div className="flex flex-col mx-auto text-center">
+        <div className="flex flex-col mx-auto text-center gap-2">
           <span className={`text-4xl md:text-6xl font-semibold`}>
             {isIntermediate && !isExpert && (
-              <>{lang === "en" ? "Intermediate" : "Intermédiaire"}</>
+              <>
+                <ReactTyped
+                  strings={[
+                    "Intermediate",
+                    "Intermedio",
+                    "Intermediário",
+                    "Gevorderd",
+                    "Промежуточный",
+                    "中级",
+                    "中級",
+                    "중간",
+                    "متوسط",
+                    "इंटरमीडिएट",
+                  ]}
+                  shuffle={true}
+                  loop={true}
+                  cursorChar="."
+                  typeSpeed={25}
+                  backSpeed={25}
+                  startWhenVisible={true}
+                />
+              </>
             )}
-            {isExpert && <>{lang === "en" ? "Expert" : "Expert"}</>}
+            {isExpert && (
+              <>
+                <ReactTyped
+                  strings={[
+                    "Expert",
+                    "Esperto",
+                    "Especialista",
+                    "Deskundige",
+                    "Эксперт",
+                    "专家",
+                    "専門家",
+                    "전문가",
+                    "خبير",
+                    "विशेषज्ञ",
+                  ]}
+                  shuffle={true}
+                  loop={true}
+                  cursorChar="."
+                  typeSpeed={25}
+                  backSpeed={25}
+                  startWhenVisible={true}
+                />
+              </>
+            )}
             {isNotPremium && <>{lang === "en" ? "Beginner" : "Débutant"}</>}
           </span>
+          <span className={`${!isNotPremium && loadingFlashClass}`}>
+            {lang === "en" ? "Rank" : "Rang"}
+          </span>
         </div>
-      </div>
+      </Tilt>
     </>
   );
 };
