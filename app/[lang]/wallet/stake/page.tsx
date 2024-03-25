@@ -27,7 +27,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [APY, setAPY] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
-  const [allowance, setAllowance] = useState<number | null>(null);
+  const [allowance, setAllowance] = useState<number>(0);
   const [disabled, setDisabled] = useState<boolean>(false);
   const [chainError, setChainError] = useState<boolean>(false);
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
@@ -96,13 +96,24 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   useEffect(() => {
     if (allowanceData) {
       const allowance = Number(formatEther(allowanceData as bigint));
+
       setAllowance(allowance);
+    } else {
+      setAllowance(0);
     }
   }, [allowanceData]);
 
   useEffect(() => {
     refetch();
   }, [blockNumber, address]);
+
+  useEffect(() => {
+    if (allowance) {
+      console.log("allowance", allowance);
+      console.log("amount", amount);
+      console.log("allowance < amount", allowance < (amount as number));
+    }
+  }, [allowance, amount]);
 
   return (
     <>
@@ -149,10 +160,9 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {address ? (
             <>
               <div className="grid grid-cols-2 gap-4">
-                {allowance &&
-                (allowance < (amount as number) ||
-                  amount === undefined ||
-                  isPendingApproving) ? (
+                {allowance < (amount as number) ||
+                amount === undefined ||
+                isPendingApproving ? (
                   <ApproveButton
                     lang={lang}
                     amount={amount as number}
