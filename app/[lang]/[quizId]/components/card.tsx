@@ -9,10 +9,9 @@ const Card = ({ text }: { text: string | JSX.Element }) => {
   useEffect(() => {
     if (isTyping && typeof text === "string") {
       if (currentIndex < text.length) {
-        const currentDelay = currentIndex < 10 ? delay * 5 : delay;
         const timeout = setTimeout(() => {
           setCurrentIndex((prev) => prev + 1);
-        }, currentDelay);
+        }, delay);
 
         return () => clearTimeout(timeout);
       } else {
