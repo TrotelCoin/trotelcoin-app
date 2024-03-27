@@ -11,6 +11,7 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
 import ReCAPTCHA from "react-google-recaptcha";
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -35,6 +36,7 @@ const QuizComponent = ({
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[] | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [optionClass, setOptionClass] = useState<string>(
@@ -65,10 +67,12 @@ const QuizComponent = ({
       setShowMessage(true);
       if (questions) {
         playAudio("goodAnswer");
+        setIsLoading(true);
         setTimeout(() => {
           setCurrentQuestion((prev) =>
             prev < questions.length - 1 ? prev + 1 : prev
           );
+          setIsLoading(false);
         }, 2000);
         if (currentQuestion === questions.length - 1) {
           setIsTotallyCorrect(true);
@@ -139,7 +143,7 @@ const QuizComponent = ({
             shuffledQuestions[currentQuestion] &&
             isLoggedIn && (
               <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
-                <span>
+                <span className="flex items-center gap-2">
                   {lang === "en"
                     ? shuffledQuestions[currentQuestion].question.en
                     : shuffledQuestions[currentQuestion].question.fr}
@@ -158,7 +162,7 @@ const QuizComponent = ({
                     (option: string, index: number) => (
                       <li key={index} className="items-center">
                         <div
-                          className={`cursor-pointer items-center px-4 py-2 rounded-xl ${
+                          className={`cursor-pointer justify-between flex items-center px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
                               ? optionClass
                               : "bg-gray-100 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
@@ -166,6 +170,11 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
+                          {isLoading && (
+                            <CheckIcon
+                              className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
+                            />
+                          )}
                         </div>
                       </li>
                     )
@@ -182,6 +191,11 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
+                          {isLoading && (
+                            <CheckIcon
+                              className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
+                            />
+                          )}
                         </div>
                       </li>
                     )
