@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import QRCode from "react-qr-code";
-import { Address } from "viem";
 import { Lang } from "@/types/lang";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Success from "@/app/[lang]/components/modals/success";
