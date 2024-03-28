@@ -39,15 +39,15 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </span>
 
         {address && (
-          <div className="bg-white p-4 mt-4 border border-gray-900/10 dark:border-gray-100/10 rounded-xl">
+          <div className="bg-white p-4 my-8 border border-gray-900/10 dark:border-gray-100/10 rounded-xl">
             <QRCode value={address ?? ""} />
           </div>
         )}
 
-        <div className="flex flex-col text-center items-center justify-center gap-1 mt-8 mb-4">
+        <div className="flex flex-col text-center items-center justify-center gap-1">
           <div className="flex items-center gap-2">
-            <ExclamationTriangleIcon className="w-6 h-6 text-red-500 dark:text-red-500" />
-            <span className="text-red-500 dark:text-red-500">
+            <ExclamationTriangleIcon className="w-6 h-6 text-red-500 dark:text-red-300" />
+            <span className="text-red-500 dark:text-red-300">
               {lang === "en" ? "Important Notice!" : "Avis important!"}
             </span>
           </div>
@@ -60,7 +60,7 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {address && (
           <>
-            <div className="flex text-center items-center mt-4 px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 rounded-full">
+            <div className="flex text-center items-center mt-8 px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 rounded-full">
               <span className="block md:hidden font-semibold text-gray-900 dark:text-gray-100">
                 {shortenAddress(address)}
               </span>
