@@ -37,7 +37,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400  border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -58,7 +58,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-green-500 dark:bg-green-500 shadow-xl active:border-gray-900 active:bg-green-400 dark:active:bg-green-400  border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="bg-green-500 dark:bg-green-500 shadow-xl active:border-gray-900 active:bg-green-400 dark:active:bg-green-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -79,7 +79,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-red-500 dark:bg-red-500 shadow-xl active:border-gray-900 active:bg-red-400 dark:active:bg-red-400  border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="bg-red-500 dark:bg-red-500 shadow-xl active:border-gray-900 active:bg-red-400 dark:active:bg-red-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -89,6 +89,47 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 {lang === "en"
                   ? "Swap & bridge your tokens, from one blockchain to another or the same one"
                   : "Échangez et transférez vos jetons, d'une blockchain à une autre ou sur la même"}
+              </span>
+            </div>
+          </Tilt>
+        </Link>
+        <Link href={`/${lang}/wallet/send`}>
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+            className="bg-purple-500 dark:bg-purple-500 shadow-xl active:border-gray-900 active:bg-purple-400 dark:active:bg-purple-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+          >
+            <div className="flex flex-col items-center text-center justify-center gap-2">
+              <h2 className="text-gray-100 font-semibold text-4xl">
+                {lang === "en" ? "Send" : "Envoyer"}
+              </h2>
+              <span className="text-gray-100">
+                {lang === "en"
+                  ? "Send TROTEL to another wallet or to your friends"
+                  : "Envoyez des TROTEL à un autre portefeuille ou à vos amis"}
+              </span>
+            </div>
+          </Tilt>
+        </Link>
+        <Link href={`/${lang}/wallet/receive`}>
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+            className="bg-orange-500 dark:bg-orange-500 shadow-xl active:border-gray-900 active:bg-orange-400 dark:active:bg-orange-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+          >
+            <div className="flex flex-col items-center text-center justify-center gap-2">
+              <h2 className="text-gray-100 font-semibold text-4xl">
+                {lang === "en" ? "Receive" : "Recevoir"}
+              </h2>
+              <span className="text-gray-100">
+                {lang === "en"
+                  ? "Receive TROTEL from your friends, from anywhere" : "Recevez des TROTEL de vos amis, à partir de n'importe où"}
               </span>
             </div>
           </Tilt>

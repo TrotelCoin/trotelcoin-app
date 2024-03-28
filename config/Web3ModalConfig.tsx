@@ -53,7 +53,7 @@ export const config = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  enableEmail: false,
+  enableEmail: true,
   ssr: true,
   storage: createStorage({
     storage: cookieStorage,

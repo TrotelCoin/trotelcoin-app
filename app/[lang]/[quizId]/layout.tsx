@@ -105,8 +105,13 @@ const CoursePage = ({
               </div>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(URL);
-                  setCopied(true);
+                  if (navigator.share) {
+                    navigator.share({
+                      title: title,
+                      text: `Wanna learn about ${title}? Check out this TrotelCoin course and start earning cryptocurrencies!`,
+                      url: URL,
+                    });
+                  }
                 }}
                 className="p-2 rounded-full bg-gray-50 dark:bg-gray-900 focus:bg-gray-50 dark:focus:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
