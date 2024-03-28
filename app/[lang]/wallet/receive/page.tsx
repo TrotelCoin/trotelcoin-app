@@ -20,7 +20,7 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
       try {
         await navigator.share({
           title: "TrotelCoin Wallet",
-          text: `Want to send me some TROTEL? Start your crypto learning journey with TrotelCoin today at https://app.trotelcoin.com. Let's dive into the world of Web3 together! Here's my crypto address: ${address}.`,
+          text: `Want to send me some TROTEL? \n\nStart your crypto learning journey with TrotelCoin today at https://app.trotelcoin.com. \n\nLet's dive into the world of Web3 together! \n\nHere's my crypto address: ${address}`,
         });
       } catch (error) {
         console.error("Error sharing", error);

@@ -38,6 +38,7 @@ const QuizComponent = ({
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
+  const [correctAnswer, setCorrectAnswer] = useState<string>("");
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [optionClass, setOptionClass] = useState<string>(
     "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
@@ -104,6 +105,7 @@ const QuizComponent = ({
 
       setQuestions(quiz);
       setCorrectAnswers(answers);
+      setCorrectAnswer(answers[currentQuestion]);
     };
 
     if (quizId && lang) {
@@ -170,7 +172,7 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
-                          {isLoading && (
+                          {isLoading && option === correctAnswer && (
                             <CheckIcon
                               className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
                             />
