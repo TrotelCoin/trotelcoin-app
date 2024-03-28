@@ -1,3 +1,5 @@
+"use client";
+
 import { Lang } from "@/types/lang";
 import React from "react";
 import Beginner from "@/app/[lang]/shop/components/beginner";

@@ -14,11 +14,11 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.8.3";
+const version = "1.8.4";
 
 interface ChangelogItem {
   title: string;
-  content: { text: string; isNew: boolean | undefined }[];
+  content: { text: string; isNew?: boolean }[];
 }
 
 const ChangelogSection = ({
@@ -88,21 +88,24 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We fixed some bugs with staking"
               : "- Nous avons corrigé quelques bugs avec le staking",
-          isNew: true,
         },
         {
           text:
             lang === "en"
               ? "- We fixed some bugs for swapping and bridging"
               : "- Nous avons corrigé quelques bugs pour le swap et le bridge",
-          isNew: true,
         },
         {
           text:
             lang === "en"
               ? "- Native tokens are not yet supported for swapping"
               : "- Les tokens natifs ne sont pas encore supportés pour le swap",
-          isNew: true,
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Send & Receive TROTEL"
+              : "- Envoyer & Recevoir des TROTEL",
         },
       ],
     },
@@ -129,14 +132,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- The shop will be available in the next month"
               : "- La boutique sera disponible le mois prochain",
-          isNew: true,
         },
         {
           text:
             lang === "en"
               ? "- Support native tokens for swapping"
               : "- Support des tokens natifs pour le swap",
-          isNew: true,
         },
       ],
     },
