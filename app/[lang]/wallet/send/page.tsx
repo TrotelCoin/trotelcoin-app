@@ -19,7 +19,7 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
-  const [amount, setAmount] = useState<number | null>(null);
+  const [amount, setAmount] = useState<number | undefined>(undefined);
   const [isMax, setIsMax] = useState<boolean>(false);
   const [isPaste, setIsPaste] = useState<boolean>(false);
   const [recipient, setRecipient] = useState<string | undefined>(undefined);
@@ -98,8 +98,9 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     const disabled =
-      !Boolean(recipient) &&
-      !Boolean(amount) &&
+      !recipient &&
+      !amount &&
+      recipient === "" &&
       (amount as number) <= 0 &&
       Number(balance?.formatted) <= 0 &&
       !isAddress(recipient as string) &&
@@ -122,14 +123,17 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </span>
 
             <div className="flex items-end gap-2">
-              <input
-                type="text"
-                className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent`}
-                value={recipient === undefined ? "" : recipient}
-                onChange={(e) => setRecipient(e.target.value)}
-                onWheel={(e) => (e.target as HTMLInputElement).blur()}
-                placeholder={lang === "en" ? "Recipient" : "Destinataire"}
-              />
+              <div className="flex flex-col gap-1">
+                <span className="text-sm">{lang === "en" ? "To" : "Vers"}</span>
+                <input
+                  type="text"
+                  className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent`}
+                  value={recipient ?? ""}
+                  onChange={(e) => setRecipient(e.target.value)}
+                  onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                  placeholder={lang === "en" ? "0x..." : "0x..."}
+                />
+              </div>
 
               {!isPaste && (
                 <>
@@ -145,17 +149,22 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
 
           <div className="flex items-end gap-2 px-4 pt-4">
-            <input
-              type="number"
-              className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
-                !address && "cursor-not-allowed"
-              }`}
-              value={amount === null || amount < 0 ? 0 : amount}
-              onChange={(e) => setAmount(parseFloat(e.target.value))}
-              onWheel={(e) => (e.target as HTMLInputElement).blur()}
-              placeholder={lang === "en" ? "Amount" : "Montant"}
-              disabled={!address}
-            />
+            <div className="flex flex-col gap-1">
+              <span className="text-sm">
+                {lang === "en" ? "Amount" : "Montant"}
+              </span>
+              <input
+                type="number"
+                className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
+                  !address && "cursor-not-allowed"
+                }`}
+                value={amount}
+                onChange={(e) => setAmount(parseFloat(e.target.value))}
+                onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                placeholder={lang === "en" ? "1000" : "1000"}
+                disabled={!address}
+              />
+            </div>
 
             <span className="font-semibold text-gray-900 dark:text-gray-100">
               TROTEL
