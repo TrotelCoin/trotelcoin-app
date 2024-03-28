@@ -108,8 +108,7 @@ const CoursePage = ({
                   if (navigator.share) {
                     navigator.share({
                       title: title,
-                      text: `Wanna learn about ${title}? Check out this TrotelCoin course and start earning cryptocurrencies!`,
-                      url: URL,
+                      text: `Wanna learn about ${title}? \n\nCheck out this TrotelCoin course and start earning cryptocurrencies! \n\n${URL}`,
                     });
                   }
                 }}
