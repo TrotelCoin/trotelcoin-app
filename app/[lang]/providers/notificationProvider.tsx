@@ -22,6 +22,8 @@ const NotificationProvider = ({
   >([]);
   const [currentNotification, setCurrentNotification] =
     useState<NotificationType | null>(null);
+  const [isNotificationShowing, setIsNotificationShowing] =
+    useState<boolean>(false);
 
   const { lifeResetMessage } = useContext(LifeContext);
   const { streakResetMessage } = useContext(StreakContext);
@@ -44,14 +46,15 @@ const NotificationProvider = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (notificationQueue.length > 0) {
+      if (!isNotificationShowing && notificationQueue.length > 0) {
         setCurrentNotification(notificationQueue[0]);
         setNotificationQueue((prevQueue) => prevQueue.slice(1));
+        setIsNotificationShowing(true);
       }
-    }, 2500);
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [notificationQueue]);
+  }, [notificationQueue, isNotificationShowing]);
 
   return (
     <>
@@ -65,6 +68,7 @@ const NotificationProvider = ({
             : "Vous avez toutes vos vies!"
         }
         lang={lang}
+        onDismiss={() => setIsNotificationShowing(false)}
       />
       <SuccessNotification
         title={lang === "en" ? "Your streak" : "Votre série"}
@@ -75,6 +79,7 @@ const NotificationProvider = ({
             : "Vous pouvez faire vos flammes!"
         }
         lang={lang}
+        onDismiss={() => setIsNotificationShowing(false)}
       />
       <WarningNotification
         title={lang === "en" ? "Not connected" : "Non connecté"}
@@ -83,12 +88,14 @@ const NotificationProvider = ({
         }
         lang={lang}
         display={currentNotification === "notLoggedIn"}
+        onDismiss={() => setIsNotificationShowing(false)}
       />
       <SuccessNotification
         title={lang === "en" ? "Connected" : "Connecté"}
         message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
         lang={lang}
         display={currentNotification === "loggedIn"}
+        onDismiss={() => setIsNotificationShowing(false)}
       />
     </>
   );
