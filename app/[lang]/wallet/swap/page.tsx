@@ -383,6 +383,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     const fetchChainsList = async () => {
+      setIsLoading(true);
       const fromChains = await getChainList();
       const toChains = await getChainList();
 
@@ -393,6 +394,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       if (toChains) {
         setToChains(toChains.result);
       }
+
+      setIsLoading(false);
     };
 
     fetchChainsList();
@@ -582,6 +585,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           tokenList={tokenList}
           openTokenList={openTokenList}
           setOpenTokenList={setOpenTokenList}
+          isLoading={isLoading}
         />
         <ChainList
           lang={lang}

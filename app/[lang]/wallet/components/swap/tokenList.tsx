@@ -12,6 +12,7 @@ import { useAccount } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
 import Pagination from "@/app/[lang]/components/pagination";
 import { nativeAddress } from "@/data/web3/tokens";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -28,6 +29,7 @@ const TokenList = ({
   tokenList,
   openTokenList,
   setOpenTokenList,
+  isLoading,
 }: {
   lang: Lang;
   setFromToken: React.Dispatch<React.SetStateAction<Token>>;
@@ -37,6 +39,7 @@ const TokenList = ({
   tokenList: TokenSource;
   openTokenList: boolean;
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
 }) => {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -243,6 +246,27 @@ const TokenList = ({
                       </Combobox.Option>
                     ))}
                   </Combobox.Options>
+                )}
+
+                {((query === "" && filteredTokens.length === 0) ||
+                  isLoading) && (
+                  <div className="px-6 py-14 text-center text-sm sm:px-14">
+                    <ExclamationCircleIcon
+                      type="outline"
+                      name="exclamation-circle"
+                      className="mx-auto h-6 w-6 text-gray-700 dark:text-gray-300"
+                    />
+                    <p className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
+                      {lang === "en" ? "Loading..." : "Chargement..."}
+                    </p>
+                    <p
+                      className={`mt-2 text-gray-700 dark:text-gray-300 ${loadingFlashClass}`}
+                    >
+                      {lang === "en"
+                        ? "Tokens are loading..."
+                        : "Les tokens sont en cours de chargement..."}
+                    </p>
+                  </div>
                 )}
 
                 {query !== "" && filteredTokens.length === 0 && (
