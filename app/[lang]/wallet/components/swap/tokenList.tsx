@@ -79,9 +79,8 @@ const TokenList = ({
         token.name.toLowerCase().includes(query.toLowerCase()) ||
         token.address.toLowerCase().includes(query.toLowerCase())
     )
-    .sort(
-      (a: Token, b: Token) => (b.balance as number) - (a.balance as number)
-    );
+    .sort((a: Token, b: Token) => (b.balance as number) - (a.balance as number))
+    .slice(0, 100);
 
   return (
     <Transition.Root
