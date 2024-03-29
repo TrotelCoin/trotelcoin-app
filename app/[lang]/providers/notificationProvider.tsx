@@ -56,50 +56,40 @@ const NotificationProvider = ({
   return (
     <>
       <>{children}</>
-      {currentNotification === "lifeResetMessage" && (
-        <SuccessNotification
-          title={lang === "en" ? "Your lives" : "Vos vies"}
-          display={true}
-          message={
-            lang === "en"
-              ? "You have all your lives!"
-              : "Vous avez toutes vos vies!"
-          }
-          lang={lang}
-        />
-      )}
-      {currentNotification === "streakResetMessage" && (
-        <SuccessNotification
-          title={lang === "en" ? "Your streak" : "Votre série"}
-          display={true}
-          message={
-            lang === "en"
-              ? "You can do your streak!"
-              : "Vous pouvez faire vos flammes!"
-          }
-          lang={lang}
-        />
-      )}
-      {currentNotification === "notLoggedIn" && (
-        <WarningNotification
-          title={lang === "en" ? "Not connected" : "Non connecté"}
-          message={
-            lang === "en"
-              ? "You are not connected."
-              : "Vous n'êtes pas connecté."
-          }
-          lang={lang}
-          display={true}
-        />
-      )}
-      {currentNotification === "loggedIn" && (
-        <SuccessNotification
-          title={lang === "en" ? "Connected" : "Connecté"}
-          message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
-          lang={lang}
-          display={true}
-        />
-      )}
+      <SuccessNotification
+        title={lang === "en" ? "Your lives" : "Vos vies"}
+        display={currentNotification === "lifeResetMessage"}
+        message={
+          lang === "en"
+            ? "You have all your lives!"
+            : "Vous avez toutes vos vies!"
+        }
+        lang={lang}
+      />
+      <SuccessNotification
+        title={lang === "en" ? "Your streak" : "Votre série"}
+        display={currentNotification === "streakResetMessage"}
+        message={
+          lang === "en"
+            ? "You can do your streak!"
+            : "Vous pouvez faire vos flammes!"
+        }
+        lang={lang}
+      />
+      <WarningNotification
+        title={lang === "en" ? "Not connected" : "Non connecté"}
+        message={
+          lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
+        }
+        lang={lang}
+        display={currentNotification === "notLoggedIn"}
+      />
+      <SuccessNotification
+        title={lang === "en" ? "Connected" : "Connecté"}
+        message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
+        lang={lang}
+        display={currentNotification === "loggedIn"}
+      />
     </>
   );
 };

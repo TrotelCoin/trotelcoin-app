@@ -138,8 +138,8 @@ export default function Layout({
                       <LifeProvider lang={lang}>
                         <StreakProvider lang={lang}>
                           <LanguageProvider>
-                            <Suspense fallback={<Loading lang={lang} />}>
-                              <NotificationProvider lang={lang}>
+                            <NotificationProvider lang={lang}>
+                              <Suspense fallback={<Loading lang={lang} />}>
                                 <Banner lang={lang} />
                                 <Changelogs lang={lang} />
                                 <Header lang={lang} />
@@ -149,8 +149,8 @@ export default function Layout({
                                 <Footer lang={lang} />
                                 <MobileFooter lang={lang} />
                                 <BlockNumber lang={lang} />
-                              </NotificationProvider>
-                            </Suspense>
+                              </Suspense>
+                            </NotificationProvider>
                           </LanguageProvider>
                         </StreakProvider>
                       </LifeProvider>
