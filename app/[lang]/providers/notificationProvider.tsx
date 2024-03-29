@@ -40,11 +40,11 @@ const NotificationProvider = ({
       });
     };
 
-    if (!isLoggedIn) {
-      addNotificationToQueue("notLoggedIn");
-    }
     if (isLoggedIn) {
       addNotificationToQueue("loggedIn");
+    }
+    if (!isLoggedIn) {
+      addNotificationToQueue("notLoggedIn");
     }
     if (lifeResetMessage) {
       addNotificationToQueue("lifeResetMessage");
