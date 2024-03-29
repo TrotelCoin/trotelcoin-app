@@ -29,7 +29,6 @@ const TokenList = ({
   tokenList,
   openTokenList,
   setOpenTokenList,
-  isLoading,
 }: {
   lang: Lang;
   setFromToken: React.Dispatch<React.SetStateAction<Token>>;
@@ -39,7 +38,6 @@ const TokenList = ({
   tokenList: TokenSource;
   openTokenList: boolean;
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoading: boolean;
 }) => {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -248,8 +246,7 @@ const TokenList = ({
                   </Combobox.Options>
                 )}
 
-                {((query === "" && filteredTokens.length === 0) ||
-                  isLoading) && (
+                {((query === "" && filteredTokens.length === 0) && (
                   <div className="px-6 py-14 text-center text-sm sm:px-14">
                     <ExclamationCircleIcon
                       type="outline"
