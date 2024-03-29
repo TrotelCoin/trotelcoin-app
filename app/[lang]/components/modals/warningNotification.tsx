@@ -11,11 +11,13 @@ export default function WarningNotification({
   message,
   lang,
   display,
+  onDismiss,
 }: {
   title: string;
   message: string;
   lang: Lang;
   display: boolean;
+  onDismiss?: () => void;
 }) {
   const [show, setShow] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(100);
@@ -41,6 +43,9 @@ export default function WarningNotification({
 
       const timer = setTimeout(() => {
         setShow(false);
+        if (onDismiss) {
+          onDismiss();
+        }
       }, duration);
 
       setProgress(initialProgress);
