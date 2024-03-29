@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Lang } from "@/types/lang";
 import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 import WarningNotification from "@/app/[lang]/components/modals/warningNotification";
@@ -29,24 +29,28 @@ const NotificationProvider = ({
 
   useEffect(() => {
     if (lifeResetMessage) {
-      setCurrentNotification("lifeResetMessage");
+      setNotificationQueue((prevQueue) => [...prevQueue, "lifeResetMessage"]);
     }
     if (streakResetMessage) {
-      setCurrentNotification("streakResetMessage");
+      setNotificationQueue((prevQueue) => [...prevQueue, "streakResetMessage"]);
     }
     if (!isLoggedIn) {
-      setCurrentNotification("notLoggedIn");
+      setNotificationQueue((prevQueue) => [...prevQueue, "notLoggedIn"]);
     }
     if (isLoggedIn) {
-      setCurrentNotification("loggedIn");
+      setNotificationQueue((prevQueue) => [...prevQueue, "loggedIn"]);
     }
   }, [lifeResetMessage, streakResetMessage, isLoggedIn]);
 
   useEffect(() => {
-    if (!currentNotification && notificationQueue) {
-      setCurrentNotification(notificationQueue[0]);
-      setNotificationQueue(notificationQueue.slice(1));
-    }
+    const interval = setInterval(() => {
+      if (!currentNotification && notificationQueue.length > 0) {
+        setCurrentNotification(notificationQueue[0]);
+        setNotificationQueue((prevQueue) => prevQueue.slice(1));
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
   }, [currentNotification, notificationQueue]);
 
   return (
