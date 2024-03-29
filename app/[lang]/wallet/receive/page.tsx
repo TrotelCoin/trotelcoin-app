@@ -38,12 +38,12 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </span>
 
         {address && (
-          <div className="bg-white p-4 my-8 border border-gray-900/10 dark:border-gray-100/10 rounded-xl">
+          <div className="bg-white p-4 mt-8 mb-4 border border-gray-900/10 dark:border-gray-100/10 rounded-xl">
             <QRCode value={address ?? ""} />
           </div>
         )}
 
-        <div className="flex flex-col text-center items-center justify-center gap-1">
+        <div className="flex flex-col mt-4 text-center items-center justify-center gap-1">
           <div className="flex items-center gap-2">
             <ExclamationTriangleIcon className="w-6 h-6 text-red-500 dark:text-red-300" />
             <span className="text-red-500 dark:text-red-300">
