@@ -76,7 +76,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Introduction to Ethereum"
               : "- Introduction à Ethereum",
-          isNew: true,
         },
       ],
     },
@@ -111,7 +110,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We launched a Liquid Bootstrapping Pool"
               : "- Nous avons lancé une Liquid Bootstrapping Pool",
-          isNew: true,
         },
       ],
     },
