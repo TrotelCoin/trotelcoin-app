@@ -26,21 +26,34 @@ const NotificationProvider = ({
     useState<boolean>(false);
 
   const { lifeResetMessage } = useContext(LifeContext);
-  const { streakResetMessage } = useContext(StreakContext);
+  const { streakResetMessage, streakMessage } = useContext(StreakContext);
   const { isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
-    if (lifeResetMessage) {
-      setNotificationQueue((prevQueue) => [...prevQueue, "lifeResetMessage"]);
-    }
-    if (streakResetMessage) {
-      setNotificationQueue((prevQueue) => [...prevQueue, "streakResetMessage"]);
-    }
+    const addNotificationToQueue = (notification: NotificationType) => {
+      setNotificationQueue((prevQueue) => {
+        if (!prevQueue.includes(notification)) {
+          return [...prevQueue, notification];
+        } else {
+          return prevQueue;
+        }
+      });
+    };
+
     if (!isLoggedIn) {
-      setNotificationQueue((prevQueue) => [...prevQueue, "notLoggedIn"]);
+      addNotificationToQueue("notLoggedIn");
     }
     if (isLoggedIn) {
-      setNotificationQueue((prevQueue) => [...prevQueue, "loggedIn"]);
+      addNotificationToQueue("loggedIn");
+    }
+    if (lifeResetMessage) {
+      addNotificationToQueue("lifeResetMessage");
+    }
+    if (streakResetMessage) {
+      addNotificationToQueue("streakResetMessage");
+    }
+    if (streakMessage) {
+      addNotificationToQueue("streakUpdated");
     }
   }, [lifeResetMessage, streakResetMessage, isLoggedIn]);
 
@@ -95,6 +108,17 @@ const NotificationProvider = ({
         message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
         lang={lang}
         display={currentNotification === "loggedIn"}
+        onDismiss={() => setIsNotificationShowing(false)}
+      />
+      <SuccessNotification
+        title={lang === "en" ? "Streak updated" : "Série mise à jour"}
+        message={
+          lang === "en"
+            ? "Your streak has been updated."
+            : "Votre série a été mise à jour."
+        }
+        lang={lang}
+        display={currentNotification === "streakUpdated"}
         onDismiss={() => setIsNotificationShowing(false)}
       />
     </>
