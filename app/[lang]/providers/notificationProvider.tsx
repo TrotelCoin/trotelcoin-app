@@ -48,7 +48,7 @@ const NotificationProvider = ({
         setCurrentNotification(notificationQueue[0]);
         setNotificationQueue((prevQueue) => prevQueue.slice(1));
       }
-    }, 3000);
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [notificationQueue]);
