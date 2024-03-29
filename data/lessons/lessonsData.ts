@@ -273,8 +273,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Smart contracts",
-          fr: "Les contrats intelligents",
+          en: "Smart Contracts",
+          fr: "Les Contrats Intelligents",
         },
         description: {
           en: "Learn about the basics of smart contracts.",
@@ -286,9 +286,9 @@ const lessons: Lessons[] = [
           fr: "Débutant",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 13,
-        available: false,
+        available: true,
       },
       {
         title: {

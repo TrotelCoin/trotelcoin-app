@@ -1054,6 +1054,96 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 13,
+    title: "Smart Contracts",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What are Smart Contracts?",
+          fr: "Qu'est-ce que les Contrats Intelligents ?",
+        },
+        options: {
+          en: [
+            "Self-executing contracts with code",
+            "Contracts signed by smart individuals",
+            "Contracts executed manually by lawyers",
+            "Contracts without any terms",
+          ],
+          fr: [
+            "Des contrats auto-exécutables avec du code",
+            "Des contrats signés par des individus intelligents",
+            "Des contrats exécutés manuellement par des avocats",
+            "Des contrats sans aucun terme",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Where do Smart Contracts work?",
+          fr: "Où fonctionnent les Contrats Intelligents ?",
+        },
+        options: {
+          en: [
+            "On blockchain technology",
+            "In traditional legal systems",
+            "On social media platforms",
+            "In physical contract papers",
+          ],
+          fr: [
+            "Sur la technologie de la blockchain",
+            "Dans les systèmes juridiques traditionnels",
+            "Sur les plateformes de médias sociaux",
+            "Dans des documents de contrat physiques",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What do Smart Contracts ensure?",
+          fr: "Que garantissent les Contrats Intelligents ?",
+        },
+        options: {
+          en: [
+            "Trust, transparency, and efficiency",
+            "Complexity and confusion",
+            "Delays and errors",
+            "Interference by intermediaries",
+          ],
+          fr: [
+            "Confiance, transparence et efficacité",
+            "Complexité et confusion",
+            "Retards et erreurs",
+            "Interférence des intermédiaires",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What challenges do Smart Contracts face?",
+          fr: "Quels défis les Contrats Intelligents rencontrent-ils ?",
+        },
+        options: {
+          en: [
+            "Security vulnerabilities, legal recognition, scalability, and complexity",
+            "Efficiency, trust, transparency",
+            "Intermediary involvement, simplicity",
+            "Ease of implementation, widespread adoption",
+          ],
+          fr: [
+            "Vulnérabilités de sécurité, reconnaissance légale, évolutivité et complexité",
+            "Efficacité, confiance, transparence",
+            "Implication des intermédiaires, simplicité",
+            "Facilité de mise en œuvre, adoption généralisée",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 16,
     title: "Stake your TrotelCoins",
     questions: [
