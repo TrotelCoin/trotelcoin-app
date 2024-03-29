@@ -44,14 +44,14 @@ const NotificationProvider = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!currentNotification && notificationQueue.length > 0) {
+      if (notificationQueue.length > 0) {
         setCurrentNotification(notificationQueue[0]);
         setNotificationQueue((prevQueue) => prevQueue.slice(1));
       }
-    }, 3000);
+    }, 2500);
 
     return () => clearInterval(interval);
-  }, [currentNotification, notificationQueue]);
+  }, [notificationQueue]);
 
   return (
     <>
