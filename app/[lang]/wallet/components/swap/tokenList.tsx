@@ -10,12 +10,14 @@ import { getBalance } from "@wagmi/core";
 import { type GetBalanceReturnType } from "@wagmi/core";
 import { useAccount } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
-import { Address } from "viem";
+import Pagination from "@/app/[lang]/components/pagination";
 import { nativeAddress } from "@/data/web3/tokens";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
 }
+
+const tokensPerPage = 100;
 
 const TokenList = ({
   lang,
@@ -37,6 +39,7 @@ const TokenList = ({
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [query, setQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const { address } = useAccount();
 
@@ -80,7 +83,7 @@ const TokenList = ({
         token.address.toLowerCase().includes(query.toLowerCase())
     )
     .sort((a: Token, b: Token) => (b.balance as number) - (a.balance as number))
-    .slice(0, 100);
+    .slice((currentPage - 1) * tokensPerPage, tokensPerPage * currentPage);
 
   useEffect(() => {
     console.log("filteredTokens", filteredTokens);
@@ -120,7 +123,7 @@ const TokenList = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
+            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
               <Combobox>
                 <div className="relative">
                   <MagnifyingGlassIcon
@@ -260,6 +263,17 @@ const TokenList = ({
                   </div>
                 )}
               </Combobox>
+
+              {filteredTokens.length > 0 && (
+                <Pagination
+                  lang={lang}
+                  list={tokens}
+                  filteredList={filteredTokens}
+                  page={currentPage}
+                  setPage={setCurrentPage}
+                  itemsPerPage={tokensPerPage}
+                />
+              )}
             </Dialog.Panel>
           </Transition.Child>
         </div>
