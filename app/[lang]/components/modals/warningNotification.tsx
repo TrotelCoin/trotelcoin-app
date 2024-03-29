@@ -1,3 +1,5 @@
+"use client";
+
 import { Fragment, useContext, useEffect, useState } from "react";
 import { Transition } from "@headlessui/react";
 import { ExclamationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
