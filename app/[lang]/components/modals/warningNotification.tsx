@@ -111,6 +111,9 @@ export default function WarningNotification({
                       className="inline-flex p-2 -mt-2 -mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
                       onClick={() => {
                         setShow(false);
+                        if (onDismiss) {
+                          onDismiss();
+                        }
                       }}
                     >
                       <span className="sr-only">Close</span>
