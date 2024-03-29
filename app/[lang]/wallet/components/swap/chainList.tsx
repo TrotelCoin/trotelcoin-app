@@ -39,16 +39,14 @@ const ChainList = ({
 
   const chains: Chain[] = chainList === "from" ? fromChains : toChains;
 
-  const filteredChains = chains
-    .filter(
-      (chain: Chain) =>
-        chain.name.toLowerCase().includes(query.toLowerCase()) ||
-        chain.chainId.toString().toLowerCase().includes(query.toLowerCase()) ||
-        chain.currency.address.toLowerCase().includes(query.toLowerCase()) ||
-        chain.currency.symbol.toLowerCase().includes(query.toLowerCase()) ||
-        chain.currency.name.toLowerCase().includes(query.toLowerCase())
-    )
-    .slice(0, 100);
+  const filteredChains = chains.filter(
+    (chain: Chain) =>
+      chain.name.toLowerCase().includes(query.toLowerCase()) ||
+      chain.chainId.toString().toLowerCase().includes(query.toLowerCase()) ||
+      chain.currency.address.toLowerCase().includes(query.toLowerCase()) ||
+      chain.currency.symbol.toLowerCase().includes(query.toLowerCase()) ||
+      chain.currency.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <Transition.Root
