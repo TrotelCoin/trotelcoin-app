@@ -9,7 +9,6 @@ import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import type { Lang } from "@/types/lang";
-import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 
 const StreakProvider = ({
   children,
@@ -119,6 +118,7 @@ const StreakProvider = ({
       setMaxStreak,
       isStreakLoading,
       setIsStreakLoading,
+      streakResetMessage,
     }),
     [
       streak,
@@ -134,6 +134,7 @@ const StreakProvider = ({
       setMaxStreak,
       isStreakLoading,
       setIsStreakLoading,
+      streakResetMessage,
     ]
   );
 
@@ -142,16 +143,6 @@ const StreakProvider = ({
       <StreakContext.Provider value={contextValue}>
         {children}
       </StreakContext.Provider>
-      <SuccessNotification
-        title={lang === "en" ? "Your streak" : "Votre série"}
-        display={streakResetMessage}
-        message={
-          lang === "en"
-            ? "You can do your streak!"
-            : "Vous pouvez faire vos flammes!"
-        }
-        lang={lang}
-      />
     </>
   );
 };

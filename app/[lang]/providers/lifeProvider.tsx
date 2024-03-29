@@ -7,7 +7,6 @@ import type { ReactNode } from "react";
 import axios from "axios";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
-import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 import type { Lang } from "@/types/lang";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
@@ -99,6 +98,7 @@ const LifeProvider = ({
       setLifeCooldown,
       lastReset,
       setLastReset,
+      lifeResetMessage,
     }),
     [
       updateLife,
@@ -108,6 +108,7 @@ const LifeProvider = ({
       setLifeCooldown,
       lastReset,
       setLastReset,
+      lifeResetMessage,
     ]
   );
 
@@ -116,16 +117,6 @@ const LifeProvider = ({
       <LifeContext.Provider value={contextValue}>
         {children}
       </LifeContext.Provider>
-      <SuccessNotification
-        title={lang === "en" ? "Your lives" : "Vos vies"}
-        display={lifeResetMessage}
-        message={
-          lang === "en"
-            ? "You have all your lives!"
-            : "Vous avez toutes vos vies!"
-        }
-        lang={lang}
-      />
     </>
   );
 };

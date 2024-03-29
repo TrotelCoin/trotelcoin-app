@@ -30,6 +30,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import BlockNumber from "@/app/[lang]/components/blockNumber";
+import NotificationProvider from "@/app/[lang]/providers/notificationProvider";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -138,15 +139,17 @@ export default function Layout({
                         <StreakProvider lang={lang}>
                           <LanguageProvider>
                             <Suspense fallback={<Loading lang={lang} />}>
-                              <Banner lang={lang} />
-                              <Changelogs lang={lang} />
-                              <Header lang={lang} />
-                              <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
-                                {children}
-                              </main>
-                              <Footer lang={lang} />
-                              <MobileFooter lang={lang} />
-                              <BlockNumber lang={lang} />
+                              <NotificationProvider lang={lang}>
+                                <Banner lang={lang} />
+                                <Changelogs lang={lang} />
+                                <Header lang={lang} />
+                                <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                                  {children}
+                                </main>
+                                <Footer lang={lang} />
+                                <MobileFooter lang={lang} />
+                                <BlockNumber lang={lang} />
+                              </NotificationProvider>
                             </Suspense>
                           </LanguageProvider>
                         </StreakProvider>
