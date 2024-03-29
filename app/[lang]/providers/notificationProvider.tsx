@@ -51,6 +51,7 @@ const NotificationProvider = ({
 
   return (
     <>
+      <>{children}</>
       {currentNotification === "lifeResetMessage" && (
         <SuccessNotification
           title={lang === "en" ? "Your lives" : "Vos vies"}
