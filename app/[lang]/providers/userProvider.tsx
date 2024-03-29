@@ -7,8 +7,6 @@ import type { ReactNode } from "react";
 import { fetcher } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
-import WarningNotification from "@/app/[lang]/components/modals/warningNotification";
-import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 import { useSession } from "next-auth/react";
 
 const UserProvider = ({
@@ -103,22 +101,6 @@ const UserProvider = ({
     <>
       <UserContext.Provider value={contextValue}>
         {children}
-        <WarningNotification
-          title={lang === "en" ? "Not connected" : "Non connecté"}
-          message={
-            lang === "en"
-              ? "You are not connected."
-              : "Vous n'êtes pas connecté."
-          }
-          lang={lang}
-          display={!isLoggedIn}
-        />
-        <SuccessNotification
-          title={lang === "en" ? "Connected" : "Connecté"}
-          message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
-          lang={lang}
-          display={isLoggedIn}
-        />
       </UserContext.Provider>
     </>
   );

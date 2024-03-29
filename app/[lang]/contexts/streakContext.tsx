@@ -16,6 +16,7 @@ const StreakContext = React.createContext({
   setMaxStreak: {} as Dispatch<React.SetStateAction<number>>,
   isStreakLoading: false as boolean,
   setIsStreakLoading: {} as Dispatch<React.SetStateAction<boolean>>,
+  streakResetMessage: false as boolean,
 });
 
 export default StreakContext;

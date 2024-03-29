@@ -8,6 +8,7 @@ const LifeContext = React.createContext({
   setLifeCooldown: (value: string) => {},
   lastReset: "" as string,
   setLastReset: (value: string) => {},
+  lifeResetMessage: false as boolean,
 });
 
 export default LifeContext;
