@@ -585,7 +585,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           tokenList={tokenList}
           openTokenList={openTokenList}
           setOpenTokenList={setOpenTokenList}
-          isLoading={isLoading}
         />
         <ChainList
           lang={lang}
