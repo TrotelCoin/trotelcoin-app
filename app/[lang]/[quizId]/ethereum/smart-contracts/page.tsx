@@ -1,65 +1,75 @@
 "use client";
 
-import React from "react";
+import type { Lang } from "@/types/lang";
+import Course from "@/app/[lang]/[quizId]/components/course";
 
-const CoursePage = () => {
+const cards = {
+  en: [
+    {
+      title: "What are Smart Contracts?",
+      text: "Smart contracts are self-executing contracts written with code. They automatically execute and enforce agreements when predefined conditions are met.",
+    },
+    {
+      title: "How do Smart Contracts Work?",
+      text: "Smart contracts work on blockchain technology. They facilitate, verify, or enforce the negotiation or performance of a contract, without third parties.",
+    },
+    {
+      title: "Example of a Smart Contract",
+      text: "Let's take a rental contract. The terms of the contract are written in code, and the rent payment is automatically made when the due date is reached.",
+    },
+    {
+      title: "Benefits of Smart Contracts",
+      text: "Smart contracts ensure trust, transparency, and efficiency in transactions. They reduce the need for intermediaries, minimize errors, and provide security.",
+    },
+    {
+      title: "Challenges of Smart Contracts",
+      text: "Smart contracts face challenges related to security vulnerabilities, legal recognition, scalability, and complexity of implementation. Addressing these challenges is crucial for widespread adoption.",
+    },
+    {
+      title: "Uses of Smart Contracts",
+      text: "Smart contracts are used in various fields such as finance, supply chain management, healthcare, real estate, and more. They automate processes, reduce costs, and enhance security.",
+    },
+    {
+      title: "Conclusion",
+      text: "Tokens are also smart contracts that represent assets, voting power, or any other form of value, enabling various functionalities within dApps. It's not only about the money, but also about the data.",
+    },
+  ],
+  fr: [
+    {
+      title: "Qu'est-ce que les Contrats Intelligents ?",
+      text: "Les contrats intelligents sont des contrats auto-exécutables écrits avec du code. Ils exécutent automatiquement et appliquent les accords lorsque des conditions prédéfinies sont remplies.",
+    },
+    {
+      title: "Comment fonctionnent les Contrats Intelligents ?",
+      text: "Les contrats intelligents fonctionnent sur la technologie de la blockchain. Ils facilitent, vérifient ou appliquent la négociation ou l'exécution d'un contrat, sans tiers.",
+    },
+    {
+      title: "Exemple de Contrat Intelligent",
+      text: "Prenons un contrat de location. Les termes du contrat sont écrits dans le code et le paiement du loyer est automatiquement effectué lorsque la date d'échéance est atteinte.",
+    },
+    {
+      title: "Avantages des Contrats Intelligents",
+      text: "Les contrats intelligents garantissent la confiance, la transparence et l'efficacité des transactions. Ils réduisent le besoin d'intermédiaires, minimisent les erreurs et fournissent la sécurité.",
+    },
+    {
+      title: "Défis des Contrats Intelligents",
+      text: "Les contrats intelligents font face à des défis liés aux vulnérabilités de sécurité, à la reconnaissance légale, à l'évolutivité et à la complexité de mise en œuvre. Il est crucial de relever ces défis pour une adoption généralisée.",
+    },
+    {
+      title: "Utilisations des Contrats Intelligents",
+      text: "Les contrats intelligents sont utilisés dans divers domaines tels que la finance, la supply chain, la santé, l'immobilier, et plus encore. Ils automatisent les processus, réduisent les coûts et renforcent la sécurité.",
+    },
+    {
+      title: "Conclusion",
+      text: "Les jetons sont aussi des contrats intelligents qui représentent des actifs, du pouvoir de vote ou toute autre forme de valeur, permettant diverses fonctionnalités au sein des dApps. Il ne s'agit pas seulement de l'argent, mais aussi des données.",
+    },
+  ],
+};
+
+const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-        Install your first wallet
-      </h2>
-      <p className="mt-6">
-        Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in.
-        Convallis arcu ipsum urna nibh. Pharetra, euismod vitae interdum mauris
-        enim, consequat vulputate nibh. Maecenas pellentesque id sed tellus
-        mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi.
-        Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis
-        diam.
-      </p>
-      <figure className="mt-10 border-l border-blue-500 dark:border-blue-300 pl-9">
-        <blockquote className="font-semibold text-gray-900 dark:text-gray-100">
-          <p>
-            “Vel ultricies morbi odio facilisi ultrices accumsan donec lacus
-            purus. Lectus nibh ullamcorper ac dictum justo in euismod. Risus
-            aenean ut elit massa. In amet aliquet eget cras. Sem volutpat enim
-            tristique.”
-          </p>
-        </blockquote>
-        <figcaption className="mt-6 flex gap-x-4">
-          <div className="text-sm leading-6">
-            <strong className="font-semibold text-gray-900 dark:text-gray-100">
-              Alexandre Trotel
-            </strong>{" "}
-            – CEO & Founder
-          </div>
-        </figcaption>
-      </figure>
-      <p className="mt-10">
-        Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
-        Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent
-        donec est. Odio penatibus risus viverra tellus varius sit neque erat
-        velit.
-      </p>
-
-      <div className="mt-16 mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          Configure your wallet
-        </h2>
-        <p className="mt-6">
-          Purus morbi dignissim senectus mattis adipiscing. Amet, massa quam
-          varius orci dapibus volutpat cras. In amet eu ridiculus leo sodales
-          cursus tristique. Tincidunt sed tempus ut viverra ridiculus non
-          molestie. Gravida quis fringilla amet eget dui tempor dignissim.
-          Facilisis auctor venenatis varius nunc, congue erat ac. Cras fermentum
-          convallis quam.
-        </p>
-        <p className="mt-8">
-          Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus
-          enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor
-          praesent donec est. Odio penatibus risus viverra tellus varius sit
-          neque erat velit.
-        </p>
-      </div>
+      <Course cards={cards} lang={lang} />
     </>
   );
 };

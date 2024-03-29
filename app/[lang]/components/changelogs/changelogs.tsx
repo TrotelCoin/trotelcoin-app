@@ -77,6 +77,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Introduction to Ethereum"
               : "- Introduction à Ethereum",
         },
+        {
+          text:
+            lang === "en" ? "- Smart Contracts" : "- Les Contrats Intelligents",
+        },
       ],
     },
     {
