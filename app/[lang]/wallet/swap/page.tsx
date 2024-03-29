@@ -30,7 +30,11 @@ import {
   getToTokenList,
   getChainList,
 } from "@/lib/socket/socket";
-import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
+import {
+  usdcPolygon,
+  trotelCoinPolygon,
+  nativeAddress,
+} from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
@@ -296,22 +300,24 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
       setApiReturnData(apiReturnData);
 
-      const approvalData = apiReturnData.result?.approvalData;
+      if (fromToken.address !== nativeAddress) {
+        const approvalData = apiReturnData.result?.approvalData;
 
-      if (!approvalData) {
-        setIsLoading(false);
-        setNoQuoteNotification(true);
-        setQuoteFetched(false);
-        setIsApproved(false);
-        return;
+        if (!approvalData) {
+          setIsLoading(false);
+          setNoQuoteNotification(true);
+          setQuoteFetched(false);
+          setIsApproved(false);
+          return;
+        }
+
+        setApprovalData(approvalData);
+        setAllowanceTarget(approvalData.allowanceTarget);
       }
 
       const toAmount = Number(Number(route?.toAmount).toFixed(0));
 
       setToAmount(route ? toAmount : 0);
-
-      setApprovalData(approvalData);
-      setAllowanceTarget(approvalData.allowanceTarget);
       setQuoteFetched(true);
       setIsLoading(false);
     };
