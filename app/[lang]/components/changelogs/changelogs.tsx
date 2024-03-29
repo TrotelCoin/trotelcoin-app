@@ -76,7 +76,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Introduction to Ethereum"
               : "- Introduction à Ethereum",
-          isNew: true,
         },
       ],
     },
@@ -98,12 +97,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Native tokens are not yet supported for swapping"
-              : "- Les tokens natifs ne sont pas encore supportés pour le swap",
-        },
-        {
-          text:
-            lang === "en"
               ? "- Send & Receive TROTEL"
               : "- Envoyer & Recevoir des TROTEL",
         },
@@ -117,7 +110,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We launched a Liquid Bootstrapping Pool"
               : "- Nous avons lancé une Liquid Bootstrapping Pool",
-          isNew: true,
         },
       ],
     },
