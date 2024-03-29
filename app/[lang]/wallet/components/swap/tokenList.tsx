@@ -82,6 +82,10 @@ const TokenList = ({
     .sort((a: Token, b: Token) => (b.balance as number) - (a.balance as number))
     .slice(0, 100);
 
+  useEffect(() => {
+    console.log("filteredTokens", filteredTokens);
+  }, [filteredTokens]);
+
   return (
     <Transition.Root
       show={openTokenList}
@@ -187,14 +191,18 @@ const TokenList = ({
                                     </div>
                                   </>
                                 ) : (
-                                  <img
-                                    width={48}
-                                    height={48}
-                                    className="rounded-full"
-                                    aria-hidden="true"
-                                    alt="Token logo"
-                                    src={token.logoURI}
-                                  />
+                                  <>
+                                    {Boolean(token.logoURI) && (
+                                      <img
+                                        width={48}
+                                        height={48}
+                                        className="rounded-full"
+                                        aria-hidden="true"
+                                        alt="Token logo"
+                                        src={token.logoURI}
+                                      />
+                                    )}
+                                  </>
                                 )}
                               </div>
 
