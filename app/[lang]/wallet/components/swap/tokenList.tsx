@@ -246,7 +246,7 @@ const TokenList = ({
                   </Combobox.Options>
                 )}
 
-                {((query === "" && filteredTokens.length === 0) && (
+                {query === "" && filteredTokens.length === 0 && (
                   <div className="px-6 py-14 text-center text-sm sm:px-14">
                     <ExclamationCircleIcon
                       type="outline"
