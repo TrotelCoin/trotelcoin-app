@@ -2,4 +2,5 @@ export type NotificationType =
   | "loggedIn"
   | "notLoggedIn"
   | "lifeResetMessage"
-  | "streakResetMessage";
+  | "streakResetMessage"
+  | "streakUpdated";

@@ -24,6 +24,7 @@ const StreakProvider = ({
   const [maxStreak, setMaxStreak] = useState<number>(0);
   const [isStreakLoading, setIsStreakLoading] = useState<boolean>(false);
   const [streakResetMessage, setStreakResetMessage] = useState<boolean>(false);
+  const [streakMessage, setStreakMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -91,7 +92,7 @@ const StreakProvider = ({
         setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
         setLastUpdatedStreak(new Date().toISOString());
         setDisabled(true);
-        setIsStreakLoading(false);
+        setStreakMessage(true);
       })
       .catch((error) => {
         console.error(error);
@@ -99,8 +100,10 @@ const StreakProvider = ({
         setMaxStreak(0);
         setDisabled(false);
         setCooldown("00:00:00");
-        setIsStreakLoading(false);
+        setStreakMessage(false);
       });
+
+    setIsStreakLoading(false);
   };
 
   const contextValue = useMemo(
@@ -119,6 +122,7 @@ const StreakProvider = ({
       isStreakLoading,
       setIsStreakLoading,
       streakResetMessage,
+      streakMessage,
     }),
     [
       streak,
@@ -135,6 +139,7 @@ const StreakProvider = ({
       isStreakLoading,
       setIsStreakLoading,
       streakResetMessage,
+      streakMessage,
     ]
   );
 
