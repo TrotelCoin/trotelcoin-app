@@ -98,12 +98,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Native tokens are not yet supported for swapping"
-              : "- Les tokens natifs ne sont pas encore supportés pour le swap",
-        },
-        {
-          text:
-            lang === "en"
               ? "- Send & Receive TROTEL"
               : "- Envoyer & Recevoir des TROTEL",
         },
