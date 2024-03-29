@@ -245,7 +245,7 @@ const Settings = ({
                     enableRefuel
                       ? "bg-blue-500"
                       : "bg-gray-300 dark:bg-gray-700",
-                    "w-[36px] h-[20px] bg-gray-50 dark:bg-gray-700 rounded-full relative data-[state=checked]:bg-blue-500 dark:data-[state=checked]:bg-blue-500 outline-none cursor-default"
+                    "w-[36px] h-[20px] bg-gray-100 dark:bg-gray-700 rounded-full relative data-[state=checked]:bg-blue-500 dark:data-[state=checked]:bg-blue-500 outline-none cursor-default"
                   )}
                 >
                   <Switch.Thumb className="block w-[15px] h-[15px] bg-gray-50 rounded-full transition-transform duration-100 translate-x-1 will-change-transform data-[state=checked]:translate-x-[18px]" />
