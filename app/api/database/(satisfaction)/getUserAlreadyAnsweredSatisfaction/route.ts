@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase/db";
+import { Address } from "viem";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
@@ -9,7 +10,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { data, error } = await supabase
       .from("net_promoter_scores")
       .select("net_promoter_score")
-      .eq("wallet", wallet)
+      .eq("wallet", wallet as Address)
       .single();
 
     if (error) {
