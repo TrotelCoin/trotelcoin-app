@@ -19,7 +19,7 @@ const Evolution = ({
         {Boolean(evolution) && (
           <>
             <span
-              className={`${
+              className={`text-sm ${
                 evolution === 0
                   ? neutralTextClass
                   : evolution < 0
