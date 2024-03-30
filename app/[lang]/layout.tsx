@@ -77,6 +77,8 @@ export const jsonLd = {
     "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
 };
 
+export const revalidate = 0;
+
 export default function Layout({
   session,
   children,
