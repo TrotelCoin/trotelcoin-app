@@ -14,7 +14,13 @@ const NumberOfLearners = ({ lang }: { lang: Lang }) => {
 
   const { data: numberOfLearners } = useSWR(
     "/api/database/getTotalNumberOfLearners",
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

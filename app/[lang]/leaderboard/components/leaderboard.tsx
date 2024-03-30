@@ -18,7 +18,13 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
 
   const { data: leaderboardData, isLoading: isLoadingLeaderboard } = useSWR(
     `/api/database/getLeaderboard`,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

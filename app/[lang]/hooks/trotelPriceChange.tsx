@@ -13,7 +13,16 @@ const TrotelPriceChange = () => {
   const [sign, setSign] = useState<string>("");
   const [loadingClass, setLoadingClass] = useState<string>("");
 
-  const { data, isLoading } = useSWR("/api/moralis/trotelPriceChange", fetcher);
+  const { data, isLoading } = useSWR(
+    "/api/moralis/trotelPriceChange",
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
+  );
 
   useEffect(() => {
     if (data) {

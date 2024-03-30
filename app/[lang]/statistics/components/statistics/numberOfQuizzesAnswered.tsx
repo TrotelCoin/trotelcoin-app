@@ -14,7 +14,13 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
 
   const { data: numberOfQuizzesAnswered } = useSWR(
     "/api/database/getTotalNumberOfQuizzesAnswered",
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

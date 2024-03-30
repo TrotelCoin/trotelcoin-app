@@ -12,7 +12,12 @@ import { updateEvolution } from "@/lib/statistics/evolution";
 const CoursesCount = ({ lang }: { lang: Lang }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
-  const { data: coursesCount } = useSWR("/api/courses/coursesCount", fetcher);
+  const { data: coursesCount } = useSWR("/api/courses/coursesCount", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: 3600000,
+  });
 
   useEffect(() => {
     if (coursesCount) {

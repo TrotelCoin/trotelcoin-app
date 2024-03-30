@@ -8,7 +8,13 @@ import CountUp from "react-countup";
 const RemainingRewards = ({ lang }: { lang: Lang }) => {
   const { data: remainingRewards } = useSWR(
     "/api/database/getRemainingRewards",
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   return (

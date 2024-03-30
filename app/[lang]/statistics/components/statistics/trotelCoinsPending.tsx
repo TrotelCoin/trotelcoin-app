@@ -14,7 +14,13 @@ const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
 
   const { data: trotelCoinsPending } = useSWR(
     "/api/database/getTotalTrotelCoinsPending",
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

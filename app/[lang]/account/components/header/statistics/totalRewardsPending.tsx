@@ -11,7 +11,13 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
 
   const { data: totalRewardsPending } = useSWR(
     `/api/database/getUserTotalRewardsPending?wallet=${address}`,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   return (

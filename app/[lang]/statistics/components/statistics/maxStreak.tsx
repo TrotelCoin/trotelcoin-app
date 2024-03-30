@@ -14,7 +14,13 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
 
   const { data: maxStreak } = useSWR(
     "/api/database/getTotalMaxStreak",
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

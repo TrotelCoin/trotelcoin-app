@@ -30,7 +30,13 @@ const StreakProvider = ({
 
   const { data: userStreak } = useSWR(
     address ? `/api/database/getUserStreak?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {
@@ -66,7 +72,13 @@ const StreakProvider = ({
 
   const { data: userMaxStreak } = useSWR(
     address ? `/api/database/getUserMaxStreak?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {
