@@ -27,7 +27,7 @@ const Evolution = ({
               }`}
             >
               {evolution === 0 ? "" : evolution < 0 ? "" : "+"}
-              {Number(evolution.toFixed(2))}
+              {Number(evolution.toFixed(1))}
               {percentage ? "%" : ""}
             </span>
           </>
