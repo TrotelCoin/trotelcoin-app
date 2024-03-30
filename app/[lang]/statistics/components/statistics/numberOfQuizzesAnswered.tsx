@@ -19,7 +19,7 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     updateEvolution(
-      numberOfQuizzesAnswered,
+      Number(numberOfQuizzesAnswered),
       "numberOfQuizzesAnswered",
       setEvolution
     );
