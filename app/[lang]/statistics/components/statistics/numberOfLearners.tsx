@@ -18,7 +18,13 @@ const NumberOfLearners = ({ lang }: { lang: Lang }) => {
   );
 
   useEffect(() => {
-    updateEvolution(numberOfLearners, "numberOfLearners", setEvolution);
+    if (numberOfLearners) {
+      updateEvolution(
+        numberOfLearners as number,
+        "numberOfLearners",
+        setEvolution
+      );
+    }
   }, [numberOfLearners]);
 
   return (

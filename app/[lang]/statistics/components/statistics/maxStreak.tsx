@@ -18,7 +18,9 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
   );
 
   useEffect(() => {
-    updateEvolution(maxStreak, "maxStreak", setEvolution);
+    if (maxStreak) {
+      updateEvolution(maxStreak as number, "maxStreak", setEvolution);
+    }
   }, [maxStreak]);
 
   return (

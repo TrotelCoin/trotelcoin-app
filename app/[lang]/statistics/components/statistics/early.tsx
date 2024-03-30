@@ -31,8 +31,9 @@ const Early = ({ lang }: { lang: Lang }) => {
   }, [blockNumber]);
 
   useEffect(() => {
-    const earlyCount = Number(early);
-    updateEvolution(earlyCount, "earlyCount", setEvolution);
+    if (early) {
+      updateEvolution(early as number, "early", setEvolution);
+    }
   }, [early]);
 
   return (
