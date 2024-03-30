@@ -18,7 +18,13 @@ const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
   );
 
   useEffect(() => {
-    updateEvolution(trotelCoinsPending, "trotelCoinsPending", setEvolution);
+    if (trotelCoinsPending) {
+      updateEvolution(
+        trotelCoinsPending as number,
+        "trotelCoinsPending",
+        setEvolution
+      );
+    }
   }, [trotelCoinsPending]);
 
   return (

@@ -15,7 +15,9 @@ const CoursesCount = ({ lang }: { lang: Lang }) => {
   const { data: coursesCount } = useSWR("/api/courses/coursesCount", fetcher);
 
   useEffect(() => {
-    updateEvolution(coursesCount, "coursesCount", setEvolution);
+    if (coursesCount) {
+      updateEvolution(coursesCount as number, "coursesCount", setEvolution);
+    }
   }, [coursesCount]);
 
   return (

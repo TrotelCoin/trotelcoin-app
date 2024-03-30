@@ -31,8 +31,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [blockNumber]);
 
   useEffect(() => {
-    const intermediateCount = Number(intermediate);
-    updateEvolution(intermediateCount, "intermediateCount", setEvolution);
+    if (intermediate) {
+      updateEvolution(intermediate as number, "intermediate", setEvolution);
+    }
   }, [intermediate]);
 
   return (

@@ -31,8 +31,9 @@ const Expert = ({ lang }: { lang: Lang }) => {
   }, [blockNumber]);
 
   useEffect(() => {
-    const expertCount = Number(expert);
-    updateEvolution(expertCount, "expertCount", setEvolution);
+    if (expert) {
+      updateEvolution(expert as number, "expert", setEvolution);
+    }
   }, [expert]);
 
   return (
