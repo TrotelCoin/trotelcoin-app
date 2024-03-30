@@ -10,12 +10,20 @@ import TotalRewardsPending from "@/app/[lang]/account/components/header/statisti
 import shortenAddress from "@/utils/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
 import Tilt from "react-parallax-tilt";
-import { useWeb3Modal } from "@web3modal/wagmi/react";
+import { useWeb3Modal, useWeb3ModalTheme } from "@web3modal/wagmi/react";
 import "animate.css";
+import { useContext, useEffect } from "react";
+import ThemeContext from "@/app/[lang]/contexts/themeContext";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
   const { open } = useWeb3Modal();
+  const { theme } = useContext(ThemeContext);
+  const { setThemeMode } = useWeb3ModalTheme();
+
+  useEffect(() => {
+    setThemeMode(theme);
+  }, [theme]);
 
   const { data: ensName } = useEnsName({
     address: address as Address,
