@@ -5,7 +5,13 @@ import {
 } from "@/lib/tailwind/evolution";
 import React from "react";
 
-const Evolution = ({ evolution }: { evolution: number }) => {
+const Evolution = ({
+  evolution,
+  percentage,
+}: {
+  evolution: number;
+  percentage?: boolean;
+}) => {
   return (
     <>
       <div className="p-2 absolute top-0 right-0">
@@ -21,7 +27,8 @@ const Evolution = ({ evolution }: { evolution: number }) => {
               }`}
             >
               {evolution === 0 ? "" : evolution < 0 ? "" : "+"}
-              {evolution}
+              {Number(evolution.toFixed(1))}
+              {percentage ? "%" : ""}
             </span>
           </>
         )}
