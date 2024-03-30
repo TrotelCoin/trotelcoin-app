@@ -4,6 +4,7 @@ import {
   positiveTextClass,
 } from "@/lib/tailwind/evolution";
 import React from "react";
+import "animate.css";
 
 const Evolution = ({
   evolution,
@@ -14,7 +15,7 @@ const Evolution = ({
 }) => {
   return (
     <>
-      <div className="p-2 absolute top-0 right-0">
+      <div className="p-2 absolute top-0 right-0 animate__animated animate__fadeIn">
         {Boolean(evolution) && (
           <>
             <span
