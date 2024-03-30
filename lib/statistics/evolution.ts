@@ -18,7 +18,7 @@ export const updateEvolution = (
     const storedStatisticsString = localStorage.getItem(statisticsName);
     const storedStatisticsCount = Number(storedStatisticsString);
     if (storedStatisticsCount !== null) {
-      setEvolution(statistics - storedStatisticsCount);
+      setEvolution(Number(statistics) - storedStatisticsCount);
     } else {
       setEvolution(0);
     }
