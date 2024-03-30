@@ -37,7 +37,13 @@ const LifeProvider = ({
 
   const { data: lifeData } = useSWR(
     address ? `/api/database/getUserLife?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {
@@ -56,7 +62,13 @@ const LifeProvider = ({
 
   const { data: lifeLastReset } = useSWR(
     address ? `/api/database/getUserLifeLastReset?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

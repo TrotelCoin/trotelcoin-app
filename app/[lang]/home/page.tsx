@@ -15,7 +15,6 @@ import {
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
 import { fetcher } from "@/lib/axios/fetcher";
-import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
 import useSWR from "swr";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
@@ -40,7 +39,13 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const { data: lessonsCompleted } = useSWR(
     address ? `/api/database/getUserCoursesCompleted?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

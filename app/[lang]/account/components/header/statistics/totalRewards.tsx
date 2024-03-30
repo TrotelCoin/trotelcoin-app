@@ -15,7 +15,13 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
     address
       ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
       : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

@@ -33,7 +33,13 @@ const Page = ({
 
   const { data: lessonsCompleted } = useSWR(
     address ? `/api/database/getUserCoursesCompleted?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

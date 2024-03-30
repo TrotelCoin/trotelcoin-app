@@ -21,7 +21,13 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
 
   const { data: userLeaderboard, isLoading: isLoadingUserLeaderboard } = useSWR(
     address ? `/api/database/getUserLeaderboard?wallet=${address}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   const { data: result } = useEnsName({

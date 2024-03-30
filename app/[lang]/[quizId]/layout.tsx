@@ -42,7 +42,13 @@ const CoursePage = ({
 
   const { data: numberOfAnswers } = useSWR(
     quizId ? `/api/database/getCourseNumberOfAnswers?quizId=${quizId}` : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

@@ -39,14 +39,26 @@ const UserProvider = ({
     address
       ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
       : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   const { data: alreadyAnsweredSatisfactionData } = useSWR(
     address
       ? `/api/database/getUserAlreadyAnsweredSatisfaction?wallet=${address}`
       : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {
@@ -69,7 +81,13 @@ const UserProvider = ({
     address
       ? `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`
       : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {

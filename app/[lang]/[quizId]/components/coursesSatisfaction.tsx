@@ -41,7 +41,13 @@ const CoursesSatisfaction = ({
     address && quizId
       ? `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`
       : null,
-    fetcher
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: 3600000,
+    }
   );
 
   useEffect(() => {
