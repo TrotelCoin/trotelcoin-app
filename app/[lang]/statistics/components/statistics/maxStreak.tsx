@@ -2,7 +2,7 @@
 
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import CountUp from "react-countup";
