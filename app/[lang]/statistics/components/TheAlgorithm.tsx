@@ -1,5 +1,5 @@
 import type { Lang } from "@/types/lang";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TrotelCoinsDistributed from "@/app/[lang]/statistics/components/statistics/trotelCoinsDistributed";
 import TrotelCoinsPending from "@/app/[lang]/statistics/components/statistics/trotelCoinsPending";
 import NumberOfQuizzesAnswered from "@/app/[lang]/statistics/components/statistics/numberOfQuizzesAnswered";
@@ -14,8 +14,16 @@ import CoursesCount from "@/app/[lang]/statistics/components/statistics/coursesC
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import {
+  StatisticsDataType,
+  StatisticsType,
+} from "@/types/statistics/statistics";
 
 const TheAlgorithm = ({ lang }: { lang: Lang }) => {
+  const [statsMap, setStatsMap] = useState<Map<StatisticsType, number> | null>(
+    null
+  );
+
   const { data: evolution } = useSWR("/api/statistics/getStatistics", fetcher, {
     refreshInterval: refreshIntervalTime,
     revalidateIfStale: true,
@@ -23,12 +31,33 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
     revalidateOnFocus: true,
   });
 
+  useEffect(() => {
+    if (evolution) {
+      const statistics: StatisticsDataType[] = evolution;
+      const statisticsMap: Map<StatisticsType, number> = new Map();
+
+      statistics.forEach((statistics) => {
+        statisticsMap.set(
+          statistics.statistics as StatisticsType,
+          statistics.statistics_number
+        );
+      });
+
+      setStatsMap(statisticsMap);
+    }
+  }, [evolution]);
+
   return (
     <>
       <div>
         <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
           {lang === "en" ? "Statistics" : "Statistiques"}
         </h2>
+        <span className="text-gray-700 dark:text-gray-300 text-sm">
+          {lang === "en"
+            ? "Percentage change is computed weekly."
+            : "La variation en pourcentage est calculée hebdomadairement."}
+        </span>
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
           <Tilt
             glareEnable={true}
@@ -37,7 +66,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <TrotelCoinsDistributed lang={lang} />
+            <TrotelCoinsDistributed
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -47,7 +79,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <TrotelCoinsPending lang={lang} />
+            <TrotelCoinsPending
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -57,7 +92,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <NumberOfQuizzesAnswered lang={lang} />
+            <NumberOfQuizzesAnswered
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -67,7 +105,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <RemainingRewards lang={lang} />
+            <RemainingRewards
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -87,7 +128,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <MaxStreak lang={lang} />
+            <MaxStreak
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -97,7 +141,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <NumberOfLearners lang={lang} />
+            <NumberOfLearners
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -107,7 +154,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <Early lang={lang} />
+            <Early
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -117,7 +167,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <Intermediate lang={lang} />
+            <Intermediate
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -127,7 +180,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <Expert lang={lang} />
+            <Expert
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
 
           <Tilt
@@ -137,7 +193,10 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             glareMaxOpacity={0.15}
             perspective={800}
           >
-            <CoursesCount lang={lang} />
+            <CoursesCount
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
           </Tilt>
         </div>
       </div>

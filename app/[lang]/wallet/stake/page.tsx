@@ -107,14 +107,6 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
     refetch();
   }, [blockNumber, address]);
 
-  useEffect(() => {
-    if (allowance) {
-      console.log("allowance", allowance);
-      console.log("amount", amount);
-      console.log("allowance < amount", allowance < (amount as number));
-    }
-  }, [allowance, amount]);
-
   return (
     <>
       <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">

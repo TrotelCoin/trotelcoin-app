@@ -8,8 +8,16 @@ import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import CountUp from "react-countup";
 import { updateEvolution } from "@/lib/statistics/evolutionPercentage";
+import { updateStatistics } from "@/lib/statistics/evolution";
+import { StatisticsType } from "@/types/statistics/statistics";
 
-const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
+const TrotelCoinsPending = ({
+  lang,
+  statsMap,
+}: {
+  lang: Lang;
+  statsMap: Map<StatisticsType, number>;
+}) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
   const { data: trotelCoinsPending } = useSWR(
@@ -24,14 +32,20 @@ const TrotelCoinsPending = ({ lang }: { lang: Lang }) => {
   );
 
   useEffect(() => {
-    if (trotelCoinsPending) {
+    if (
+      trotelCoinsPending &&
+      statsMap instanceof Map &&
+      statsMap.has("distributed_trotelcoins")
+    ) {
+      updateStatistics("pending_trotelcoins", trotelCoinsPending as number);
       updateEvolution(
         trotelCoinsPending as number,
         "trotelCoinsPending",
-        setEvolution
+        setEvolution,
+        statsMap.get("pending_trotelcoins") as number
       );
     }
-  }, [trotelCoinsPending]);
+  }, [trotelCoinsPending, statsMap]);
 
   return (
     <>

@@ -8,10 +8,17 @@ import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import { useReadContract, useBlockNumber } from "wagmi";
-import { updateEvolution } from "@/lib/statistics/evolution";
+import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
+import { StatisticsType } from "@/types/statistics/statistics";
 
-const Early = ({ lang }: { lang: Lang }) => {
+const Early = ({
+  lang,
+  statsMap,
+}: {
+  lang: Lang;
+  statsMap: Map<StatisticsType, number>;
+}) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
   const { data: blockNumber } = useBlockNumber({
@@ -31,17 +38,27 @@ const Early = ({ lang }: { lang: Lang }) => {
   }, [blockNumber]);
 
   useEffect(() => {
-    if (early) {
-      updateEvolution(early as number, "early", setEvolution);
+    if (
+      early &&
+      statsMap instanceof Map &&
+      statsMap.has("distributed_trotelcoins")
+    ) {
+      updateStatistics("early", early as number);
+      updateEvolution(
+        early as number,
+        "early",
+        setEvolution,
+        statsMap.get("early") as number
+      );
     }
-  }, [early]);
+  }, [early, statsMap]);
 
   return (
     <>
       <div
         className={`bg-gray-50 flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl px-2 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
       >
-        <Evolution evolution={evolution as number} />
+        <Evolution evolution={evolution as number} percentage={true} />
         <span className="font-semibold text-2xl md:text-4xl">
           {early ? (
             <>
