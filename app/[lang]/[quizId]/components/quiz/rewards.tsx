@@ -5,7 +5,7 @@ import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import "animate.css";
@@ -73,7 +73,7 @@ const Rewards = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

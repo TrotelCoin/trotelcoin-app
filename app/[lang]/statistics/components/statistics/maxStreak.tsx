@@ -19,7 +19,7 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

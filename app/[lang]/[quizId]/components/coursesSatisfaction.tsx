@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Address } from "viem";
 import useSWR from "swr";
 import axios from "axios";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import { StarIcon as StarIconSolid } from "@heroicons/react/20/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
 
@@ -46,7 +46,7 @@ const CoursesSatisfaction = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

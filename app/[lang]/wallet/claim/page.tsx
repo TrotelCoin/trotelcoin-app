@@ -9,7 +9,7 @@ import { Address } from "viem";
 import { useAccount, useChainId } from "wagmi";
 import Status from "@/app/[lang]/wallet/components/claim/status";
 import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
@@ -35,7 +35,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 
@@ -60,7 +60,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 
