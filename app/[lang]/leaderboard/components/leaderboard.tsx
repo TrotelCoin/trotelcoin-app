@@ -5,7 +5,7 @@ import { isAddress, Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { getEnsName } from "@wagmi/core";
 import { mainnet } from "viem/chains";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import { config } from "@/config/Web3ModalConfig";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
@@ -23,7 +23,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

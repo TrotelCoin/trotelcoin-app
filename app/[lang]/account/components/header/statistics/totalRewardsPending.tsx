@@ -1,7 +1,7 @@
 import type { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import React from "react";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import CountUp from "react-countup";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
@@ -16,7 +16,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

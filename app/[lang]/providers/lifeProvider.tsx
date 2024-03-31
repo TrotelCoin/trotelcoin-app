@@ -5,7 +5,7 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import type { ReactNode } from "react";
 import axios from "axios";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
@@ -42,7 +42,7 @@ const LifeProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 
@@ -67,7 +67,7 @@ const LifeProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

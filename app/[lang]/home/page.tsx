@@ -14,7 +14,7 @@ import {
 } from "@/utils/courses";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
@@ -44,7 +44,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

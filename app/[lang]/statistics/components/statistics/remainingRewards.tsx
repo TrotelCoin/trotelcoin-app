@@ -1,7 +1,7 @@
 import type { Lang } from "@/types/lang";
 import React from "react";
 import useSWR from "swr";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import CountUp from "react-countup";
 
@@ -13,7 +13,7 @@ const RemainingRewards = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

@@ -5,7 +5,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import type { ReactNode } from "react";
 import { Address } from "viem";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import type { Lang } from "@/types/lang";
@@ -35,7 +35,7 @@ const StreakProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 
@@ -77,7 +77,7 @@ const StreakProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

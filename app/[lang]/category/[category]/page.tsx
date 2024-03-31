@@ -2,7 +2,7 @@
 
 import type { Lang } from "@/types/lang";
 import type { Lessons } from "@/types/courses/lessons";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
 import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
@@ -38,7 +38,7 @@ const Page = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 

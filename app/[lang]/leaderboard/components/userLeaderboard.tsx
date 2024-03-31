@@ -1,15 +1,18 @@
+"use client";
+
 import type { Lang } from "@/types/lang";
 import { useAccount, useEnsName } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { mainnet } from "viem/chains";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import CountUp from "react-countup";
+import type { UserLeaderboard } from "@/types/leaderboard/leaderboard";
 
-const UserLeaderboard = ({ lang }: { lang: Lang }) => {
+const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   const [position, setPosition] = useState<number | null>(null);
   const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
     number | null
@@ -19,14 +22,14 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
 
   const { address } = useAccount();
 
-  const { data: userLeaderboard, isLoading: isLoadingUserLeaderboard } = useSWR(
-    address ? `/api/database/getUserLeaderboard?wallet=${address}` : null,
+  const { data, isLoading: isLoadingUserLeaderboard } = useSWR(
+    address ? `/api/database/getLeaderboard` : null,
     fetcher,
     {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: 3600000,
+      refreshInterval: refreshIntervalTime,
     }
   );
 
@@ -44,16 +47,26 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   }, [result]);
 
   useEffect(() => {
-    if (userLeaderboard) {
-      setPosition(userLeaderboard.position);
-      setNumberOfQuizzesAnswered(userLeaderboard.numberOfQuizzesAnswered);
-      setStreak(userLeaderboard.streak);
+    const leaderboard = data?.updatedLeaderboard;
+    if (leaderboard && Array.isArray(leaderboard)) {
+      leaderboard.map((user: UserLeaderboard, index: number) =>
+        user?.wallet === address ? setPosition(index + 1) : null
+      );
+
+      const filteredLeaderboard = leaderboard.filter(
+        (user: UserLeaderboard) => user?.wallet === address
+      );
+
+      setNumberOfQuizzesAnswered(
+        filteredLeaderboard[0]?.number_of_quizzes_answered
+      );
+      setStreak(filteredLeaderboard[0]?.current_streak);
     } else {
       setPosition(null);
       setNumberOfQuizzesAnswered(null);
       setStreak(null);
     }
-  }, [address, userLeaderboard]);
+  }, [address, data]);
 
   return (
     <>
@@ -127,4 +140,4 @@ const UserLeaderboard = ({ lang }: { lang: Lang }) => {
   );
 };
 
-export default UserLeaderboard;
+export default UserLeaderboardComponent;
