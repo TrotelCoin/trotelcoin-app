@@ -5,7 +5,6 @@ import {
 } from "@/lib/tailwind/evolution";
 import React from "react";
 import "animate.css";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const Evolution = ({
   evolution,
@@ -16,11 +15,11 @@ const Evolution = ({
 }) => {
   return (
     <>
-      <div className="p-2 absolute top-0 right-0 animate__animated animate__fadeIn">
+      <div className="px-2 py-1 absolute top-0 right-0 animate__animated animate__fadeIn">
         {Boolean(evolution) && (
           <>
             <span
-              className={`text-sm ${loadingFlashClass} ${
+              className={`text-xs ${
                 evolution === 0
                   ? neutralTextClass
                   : evolution < 0

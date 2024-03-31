@@ -67,7 +67,7 @@ const TrotelCoinsPending = ({
         </span>
 
         <span>
-          {lang === "en" ? "pending TrotelCoins" : "TrotelCoins en attente"}
+          {lang === "en" ? "Pending" : "En attente"}
         </span>
       </div>
     </>
