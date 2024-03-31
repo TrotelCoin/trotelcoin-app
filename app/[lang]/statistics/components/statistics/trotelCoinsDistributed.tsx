@@ -73,9 +73,7 @@ const TrotelCoinsDistributed = ({
           )}
         </span>
 
-        <span>
-          {lang === "en" ? "distributed TrotelCoins" : "TrotelCoins distribués"}
-        </span>
+        <span>{lang === "en" ? "Distributed" : "Distribués"}</span>
       </div>
     </>
   );
