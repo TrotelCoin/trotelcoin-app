@@ -9,8 +9,16 @@ import { polygon } from "viem/chains";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { useToken } from "wagmi";
 import { updateEvolution } from "@/lib/statistics/evolutionPercentage";
+import { updateStatistics } from "@/lib/statistics/evolution";
+import { StatisticsType } from "@/types/statistics/statistics";
 
-const TrotelCoinsDistributed = ({ lang }: { lang: Lang }) => {
+const TrotelCoinsDistributed = ({
+  lang,
+  statsMap,
+}: {
+  lang: Lang;
+  statsMap: Map<StatisticsType, number>;
+}) => {
   const [trotelCoinsDistributed, setTrotelCoinsDistributed] = useState<
     number | null
   >(null);
@@ -32,12 +40,19 @@ const TrotelCoinsDistributed = ({ lang }: { lang: Lang }) => {
   }, [data]);
 
   useEffect(() => {
-    updateEvolution(
-      trotelCoinsDistributed as number,
-      "trotelCoinsDistributed",
-      setEvolution
-    );
-  }, [trotelCoinsDistributed]);
+    if (statsMap instanceof Map && statsMap.has("distributed_trotelcoins")) {
+      updateStatistics(
+        "distributed_trotelcoins",
+        trotelCoinsDistributed as number
+      );
+      updateEvolution(
+        trotelCoinsDistributed as number,
+        "trotelCoinsDistributed",
+        setEvolution,
+        statsMap.get("distributed_trotelcoins") as number
+      );
+    }
+  }, [trotelCoinsDistributed, statsMap]);
 
   return (
     <>

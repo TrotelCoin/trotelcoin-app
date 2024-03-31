@@ -5,6 +5,7 @@ import {
 } from "@/lib/tailwind/evolution";
 import React from "react";
 import "animate.css";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const Evolution = ({
   evolution,
@@ -19,7 +20,7 @@ const Evolution = ({
         {Boolean(evolution) && (
           <>
             <span
-              className={`text-sm ${
+              className={`text-sm ${loadingFlashClass} ${
                 evolution === 0
                   ? neutralTextClass
                   : evolution < 0
