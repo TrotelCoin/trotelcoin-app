@@ -48,7 +48,8 @@ const Intermediate = ({
         intermediate as number,
         "intermediate",
         setEvolution,
-        statsMap.get("intermediate") as number
+        statsMap.get("intermediate") as number,
+        true
       );
     }
   }, [intermediate, statsMap]);

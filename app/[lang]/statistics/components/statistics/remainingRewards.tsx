@@ -41,7 +41,8 @@ const RemainingRewards = ({
         remainingRewards as number,
         "remainingReward",
         setEvolution,
-        statsMap.get("remaining_rewards") as number
+        statsMap.get("remaining_rewards") as number,
+        true
       );
     }
   }, [remainingRewards, statsMap]);

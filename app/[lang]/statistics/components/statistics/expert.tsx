@@ -48,7 +48,8 @@ const Expert = ({
         expert as number,
         "expert",
         setEvolution,
-        statsMap.get("expert") as number
+        statsMap.get("expert") as number,
+        true
       );
     }
   }, [expert, statsMap]);

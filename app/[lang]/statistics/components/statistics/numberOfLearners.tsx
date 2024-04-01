@@ -41,7 +41,8 @@ const NumberOfLearners = ({
         numberOfLearners as number,
         "numberOfLearners",
         setEvolution,
-        statsMap.get("learners") as number
+        statsMap.get("learners") as number,
+        true
       );
     }
   }, [numberOfLearners, statsMap]);

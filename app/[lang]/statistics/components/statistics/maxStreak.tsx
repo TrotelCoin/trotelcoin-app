@@ -41,7 +41,8 @@ const MaxStreak = ({
         maxStreak as number,
         "maxStreak",
         setEvolution,
-        statsMap.get("max_streak") as number
+        statsMap.get("max_streak") as number,
+        true
       );
     }
   }, [maxStreak, statsMap]);

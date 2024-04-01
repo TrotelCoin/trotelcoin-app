@@ -44,7 +44,8 @@ const NumberOfQuizzesAnswered = ({
         numberOfQuizzesAnswered as number,
         "numberOfQuizzesAnswered",
         setEvolution,
-        statsMap.get("number_of_quizzes_answered") as number
+        statsMap.get("number_of_quizzes_answered") as number,
+        true
       );
     }
   }, [numberOfQuizzesAnswered, statsMap]);
