@@ -3,7 +3,6 @@
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther } from "viem";
-import { CheckIcon } from "@heroicons/react/20/solid";
 import {
   useAccount,
   useBalance,
@@ -28,8 +27,6 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
-const holdingRequirements: number = 10000;
-
 const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
   const [isEligibleMessage, setIsEligibleMessage] = useState<boolean>(false);
@@ -41,13 +38,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const advantages = {
-    1: lang === "en" ? "Advanced courses" : "Cours avancés",
-    2: lang === "en" ? "Unlimited lives" : "Vies illimitées",
-  };
-
   const { address } = useAccount();
-  const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate } = useContext(PremiumContext);
   const { data: blockNumber } = useBlockNumber({
     watch: true,

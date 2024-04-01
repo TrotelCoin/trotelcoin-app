@@ -37,11 +37,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const advantages = {
-    1: lang === "en" ? "Beta features" : "Fonctionnalités bêta",
-    2: lang === "en" ? "Crypto community" : "Communauté crypto",
-  };
-
   const { address } = useAccount();
   const { isExpert } = useContext(PremiumContext);
   const { data: blockNumber } = useBlockNumber({
