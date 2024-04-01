@@ -5,10 +5,17 @@ export const updateEvolution = (
   statistics: number,
   statisticsName: string,
   setEvolution: React.Dispatch<React.SetStateAction<number | null>>,
-  storedStatistics: number
+  storedStatistics: number,
+  percentage: boolean
 ) => {
   if (storedStatistics !== null) {
-    setEvolution(Number(statistics) - storedStatistics);
+    if (percentage) {
+      setEvolution(
+        ((Number(statistics) - storedStatistics) / storedStatistics) * 100
+      );
+    } else {
+      setEvolution(Number(statistics) - storedStatistics);
+    }
   } else {
     setEvolution(0);
   }

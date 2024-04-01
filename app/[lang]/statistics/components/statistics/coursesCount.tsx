@@ -37,7 +37,8 @@ const CoursesCount = ({
         coursesCount as number,
         "coursesCount",
         setEvolution,
-        statsMap.get("courses_count") as number
+        statsMap.get("courses_count") as number,
+        true
       );
     }
   }, [coursesCount, statsMap]);

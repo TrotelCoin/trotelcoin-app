@@ -7,7 +7,7 @@ import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import CountUp from "react-countup";
-import { updateEvolution } from "@/lib/statistics/evolutionPercentage";
+import { updateEvolution } from "@/lib/statistics/evolution";
 import { updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
@@ -42,7 +42,8 @@ const TrotelCoinsPending = ({
         trotelCoinsPending as number,
         "trotelCoinsPending",
         setEvolution,
-        statsMap.get("pending_trotelcoins") as number
+        statsMap.get("pending_trotelcoins") as number,
+        true
       );
     }
   }, [trotelCoinsPending, statsMap]);
@@ -66,9 +67,7 @@ const TrotelCoinsPending = ({
           )}
         </span>
 
-        <span>
-          {lang === "en" ? "Pending" : "En attente"}
-        </span>
+        <span>{lang === "en" ? "Pending" : "En attente"}</span>
       </div>
     </>
   );

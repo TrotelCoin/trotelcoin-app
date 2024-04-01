@@ -48,7 +48,8 @@ const Early = ({
         early as number,
         "early",
         setEvolution,
-        statsMap.get("early") as number
+        statsMap.get("early") as number,
+        true
       );
     }
   }, [early, statsMap]);
