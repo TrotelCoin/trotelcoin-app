@@ -36,7 +36,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         title: "Intermediate",
         text: (
           <>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
               <Intermediate lang={lang} />
             </div>
           </>
@@ -46,7 +46,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         title: "Expert",
         text: (
           <>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
               <Expert lang={lang} />
             </div>
           </>
@@ -66,7 +66,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         title: "Intermédiaire",
         text: (
           <>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
               <Intermediate lang={lang} />
             </div>
           </>
@@ -76,7 +76,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         title: "Expert",
         text: (
           <>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
               <Expert lang={lang} />
             </div>
           </>

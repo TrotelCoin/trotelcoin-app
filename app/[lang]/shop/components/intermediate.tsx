@@ -25,6 +25,8 @@ import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const holdingRequirements: number = 10000;
 
@@ -155,28 +157,25 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           } backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between">
               <div
                 className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
                   isClaimed && "rainbow-text"
                 }`}
               >
-                🙈 {lang === "en" ? "Intermediate" : "Intermédiaire"}
+                {lang === "en" ? "Intermediate" : "Intermédiaire"}
               </div>
+              <Link
+                href="https://docs.trotelcoin.com/overview/tokenomics"
+                target="_blank"
+              >
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-800 dark:hover:text-gray-200" />
+              </Link>
             </div>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col mt-4">
-                <div className="flex flex-col gap-2 my-4">
-                  {Object.values(advantages).map((advantage, index) => (
-                    <div key={index} className="flex gap-1">
-                      <div className="text-gray-700 flex items-center dark:text-gray-300">
-                        <CheckIcon className="h-5 w-5" />
-                        <>{advantage}</>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="flex items-center justify-center mt-5">
+              <span className="text-8xl">🙈</span>
+            </div>
+            <div className="flex flex-col mt-5">
               {!isClaimed && !isEligible && !isIntermediate && (
                 <>
                   <BlueButton
