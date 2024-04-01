@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import type { Lang } from "@/types/lang";
 import { LanguageIcon } from "@heroicons/react/24/solid";
 import * as Popover from "@radix-ui/react-popover";
-import BlueSimplePopover from "@/app/[lang]/components/blueSimplePopover";
+import AudioContext from "@/app/[lang]/contexts/audioContext";
 
 interface Language {
   code: string;
@@ -19,8 +19,9 @@ const languages = [
 
 const LanguageSelector = ({ lang }: { lang: Lang }) => {
   const router = useRouter();
-
   const pathname = usePathname();
+
+  const { playAudio } = useContext(AudioContext);
 
   const onChangeLanguage = (language: Language) => {
     localStorage.setItem("lang", language.code);
@@ -34,10 +35,13 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
 
   return (
     <Popover.Root>
-      <Popover.Trigger>
-        <BlueSimplePopover>
+      <Popover.Trigger asChild>
+        <button
+          onClick={() => playAudio("blueButton")}
+          className="flex bg-blue-500 hover:bg-blue-500/80 border-blue-700 border-b-4 active:border-none active:mt-1 text-sm font-semibold justify-center rounded-xl text-gray-100 backdrop-blur-xl px-4 py-2"
+        >
           <LanguageIcon className="w-5 h-5" />
-        </BlueSimplePopover>
+        </button>
       </Popover.Trigger>
 
       <Popover.Portal>

@@ -13,6 +13,12 @@ import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import { polygon } from "viem/chains";
+import {
+  oneYear,
+  sixMonths,
+  thirstyDays,
+  threeMonths,
+} from "@/data/staking/duration";
 
 const staking =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -91,16 +97,16 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       const isStaking = getStakingData[0] > 0 && timeLeft > 0;
 
       switch (duration) {
-        case 2592000:
+        case thirstyDays:
           setEarnedTrotelCoins(stakedTrotelCoins * 0.03);
           break;
-        case 7862400:
+        case threeMonths:
           setEarnedTrotelCoins(stakedTrotelCoins * 0.06);
           break;
-        case 16588800:
+        case sixMonths:
           setEarnedTrotelCoins(stakedTrotelCoins * 0.1);
           break;
-        case 31536000:
+        case oneYear:
           setEarnedTrotelCoins(stakedTrotelCoins * 0.15);
           break;
         default:
