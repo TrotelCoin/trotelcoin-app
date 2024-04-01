@@ -22,7 +22,6 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import axios from "axios";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
 import trotelCoinABI from "@/abi/trotelCoin";
@@ -190,7 +189,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 href="https://docs.trotelcoin.com/overview/tokenomics"
                 target="_blank"
               >
-                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-800 dark:hover:text-gray-200" />
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
               </Link>
             </div>
             <div className="flex items-center justify-center mt-5">
