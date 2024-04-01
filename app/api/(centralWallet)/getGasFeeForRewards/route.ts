@@ -1,6 +1,6 @@
 import { publicClient } from "@/lib/viem/client";
 import { NextRequest, NextResponse } from "next/server";
-import trotelCoinV1ABI from "@/abi/trotelCoinV1";
+import trotelCoinABI from "@/abi/trotelCoin";
 import { Address, parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const gas = await publicClient.estimateContractGas({
       address: trotelCoinAddress,
-      abi: trotelCoinV1ABI,
+      abi: trotelCoinABI,
       functionName: "mint",
       account: centralWalletAddress as Address,
       args: [userAddress, parseEther(amount)],

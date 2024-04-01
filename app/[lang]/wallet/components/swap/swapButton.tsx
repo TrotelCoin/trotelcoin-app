@@ -5,7 +5,7 @@ import { Address, parseUnits } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Chain } from "@/types/web3/chain";
 import { Token } from "@/types/web3/token";
-import approveAbi from "@/abi/approveAbi";
+import approveAbi from "@/abi/approve";
 import { nativeAddress } from "@/data/web3/tokens";
 
 const SwapButton = ({

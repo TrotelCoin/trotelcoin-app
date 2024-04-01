@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useContext } from "react";
 import "animate.css";
 import AudioContext from "@/app/[lang]/contexts/audioContext";

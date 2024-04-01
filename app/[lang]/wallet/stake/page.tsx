@@ -10,7 +10,7 @@ import ClaimingButton from "@/app/[lang]/wallet/components/stake/claimingButton"
 import ApproveButton from "@/app/[lang]/wallet/components/stake/approveButton";
 import TotalStaked from "@/app/[lang]/wallet/components/stake/totalStaked";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import trotelCoinV1ABI from "@/abi/trotelCoinV1";
+import trotelCoinABI from "@/abi/trotelCoin";
 import { polygon } from "viem/chains";
 import {
   useAccount,
@@ -73,7 +73,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: allowanceData, refetch } = useReadContract({
     address: trotelCoinAddress,
-    abi: trotelCoinV1ABI,
+    abi: trotelCoinABI,
     chainId: polygon.id,
     functionName: "allowance",
     args: [address, trotelCoinStakingV1],

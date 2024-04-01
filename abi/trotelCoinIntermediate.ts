@@ -167,6 +167,19 @@ const trotelCoinIntermediateABI = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "daoAddress",
+        type: "address",
+      },
+    ],
+    name: "changingDaoAddress",
+    type: "event",
+  },
+  {
     inputs: [{ internalType: "address", name: "_minter", type: "address" }],
     name: "addMinter",
     outputs: [],
@@ -191,6 +204,13 @@ const trotelCoinIntermediateABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+    name: "approveContract",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "owner", type: "address" }],
     name: "balanceOf",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
@@ -201,6 +221,13 @@ const trotelCoinIntermediateABI = [
     inputs: [{ internalType: "address", name: "user", type: "address" }],
     name: "checkUserProgress",
     outputs: [{ internalType: "bool", name: "eligible", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "daoAddress",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
     type: "function",
   },
@@ -230,7 +257,7 @@ const trotelCoinIntermediateABI = [
   },
   {
     inputs: [{ internalType: "address", name: "user", type: "address" }],
-    name: "isEligibleForIntermediateNFT",
+    name: "isEligibleForNFT",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
     type: "function",
@@ -325,6 +352,13 @@ const trotelCoinIntermediateABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "address", name: "newAddress", type: "address" }],
+    name: "setDaoAddress",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "uint256", name: "newRequirement", type: "uint256" },
     ],
@@ -402,7 +436,9 @@ const trotelCoinIntermediateABI = [
   {
     inputs: [],
     name: "trotelCoin",
-    outputs: [{ internalType: "contract IERC20", name: "", type: "address" }],
+    outputs: [
+      { internalType: "contract TrotelCoinV2", name: "", type: "address" },
+    ],
     stateMutability: "view",
     type: "function",
   },

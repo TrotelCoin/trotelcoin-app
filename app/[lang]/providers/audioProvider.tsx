@@ -19,10 +19,13 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   const [audioEnabled, setAudioEnabled] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("audioEnabled");
-      return saved ? JSON.parse(saved) : true;
-    } else {
-      return true;
+      if (saved === "false") {
+        return false;
+      } else if (saved === null) {
+        localStorage.setItem("audioEnabled", "true");
+      }
     }
+    return true;
   });
 
   const audioRefs = {
@@ -46,7 +49,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("audioEnabled", JSON.stringify(audioEnabled));
+    localStorage.setItem("audioEnabled", String(audioEnabled));
   }, [audioEnabled]);
 
   const contextValue = useMemo(

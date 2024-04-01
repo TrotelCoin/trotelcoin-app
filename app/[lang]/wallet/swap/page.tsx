@@ -45,7 +45,7 @@ import TokenList from "@/app/[lang]/wallet/components/swap/tokenList";
 import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
-import allowanceAbi from "@/abi/allowanceAbi";
+import allowanceAbi from "@/abi/allowance";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
