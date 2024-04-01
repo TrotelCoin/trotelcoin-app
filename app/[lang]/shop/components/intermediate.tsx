@@ -23,9 +23,9 @@ import Tilt from "react-parallax-tilt";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import UserContext from "@/app/[lang]/contexts/userContext";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import trotelCoinABI from "@/abi/trotelCoin";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -37,6 +37,9 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [needApproval, setNeedApproval] = useState<boolean>(true);
+  const [approved, setApproved] = useState<boolean>(false);
+  const [approvedMessage, setApprovedMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { isIntermediate } = useContext(PremiumContext);
@@ -44,6 +47,27 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     watch: true,
     chainId: polygon.id,
   });
+  const { data: allowance, refetch: refetchAllowance } = useReadContract({
+    address: trotelCoinAddress,
+    abi: trotelCoinABI,
+    functionName: "allowance",
+    chainId: polygon.id,
+    args: [address, trotelCoinIntermediateAddress],
+    account: address as Address,
+  });
+  const { isPending: isLoadingApproval, writeContractAsync: approvingAsync } =
+    useWriteContract({
+      mutation: {
+        onError: (error) => {
+          console.log(error);
+          setErrorMessage(true);
+        },
+        onSuccess: () => {
+          setApproved(true);
+          setApprovedMessage(true);
+        },
+      },
+    });
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
@@ -60,23 +84,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   );
   const { isPending, writeContractAsync } = useWriteContract({
     mutation: {
-      onError: () => {
+      onError: (error) => {
+        console.log(error);
         setErrorMessage(true);
       },
       onSuccess: () => {
         setIsClaimed(true);
         setIsClaimedMessage(true);
-
-        const postClaimIntermediate = async () => {
-          await axios
-            .post(`/api/database/claimIntermediate?wallet=${address}`)
-            .catch((error) => {
-              console.error(error);
-              setErrorMessage(true);
-            });
-        };
-
-        postClaimIntermediate();
       },
     },
   });
@@ -95,6 +109,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       refetchBalance();
       refetchBalanceIntermediate();
       refetchHolding();
+      refetchAllowance();
     } else {
       setIsClaimed(false);
     }
@@ -109,6 +124,23 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       setIsClaimed(false);
     }
   }, [address, claimed]);
+
+  useEffect(() => {
+    if (allowance && holdingRequirement) {
+      const allowanceFormatted = Number(formatEther(allowance as bigint));
+      const holdingRequirementFormatted = Number(
+        formatEther(holdingRequirement as bigint)
+      );
+
+      if (allowanceFormatted >= holdingRequirementFormatted) {
+        setNeedApproval(false);
+      } else {
+        setNeedApproval(true);
+      }
+    } else {
+      setNeedApproval(true);
+    }
+  }, [allowance, holdingRequirement]);
 
   const checkEligibility = async () => {
     if (address && data) {
@@ -180,24 +212,40 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isEligible && !isClaimed && !isIntermediate && (
+              {isEligible && !isClaimed && !isIntermediate && needApproval && (
+                <>
+                  <BlueButton
+                    lang={lang}
+                    isLoading={isLoadingApproval || approved}
+                    onClick={async () => {
+                      await approvingAsync({
+                        address: trotelCoinAddress,
+                        abi: trotelCoinABI,
+                        functionName: "approve",
+                        chainId: polygon.id,
+                        args: [
+                          trotelCoinIntermediateAddress,
+                          holdingRequirement,
+                        ],
+                      });
+                    }}
+                    text={lang === "en" ? "Approve" : "Approuver"}
+                  />
+                </>
+              )}
+              {isEligible && !isClaimed && !isIntermediate && !needApproval && (
                 <>
                   <BlueButton
                     lang={lang}
                     isLoading={isPending}
                     onClick={async () => {
-                      try {
-                        await writeContractAsync({
-                          address: trotelCoinIntermediateAddress,
-                          abi: trotelCoinIntermediateABI,
-                          functionName: "claim",
-                          chainId: polygon.id,
-                        });
-                      } catch (error) {
-                        console.error(error);
-                        setErrorMessage(true);
-                        return;
-                      }
+                      await writeContractAsync({
+                        address: trotelCoinIntermediateAddress,
+                        abi: trotelCoinIntermediateABI,
+                        functionName: "mint",
+                        chainId: polygon.id,
+                        args: [address],
+                      });
                     }}
                     text={
                       lang === "en" ? "Claim your NFT" : "Réclamez votre NFT"
@@ -278,6 +326,17 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           lang === "en"
             ? "You became an Intermediate."
             : "Vous êtes devenu un Intermédiaire."
+        }
+        lang={lang}
+      />
+      <Success
+        show={approvedMessage}
+        onClose={() => setApprovedMessage(false)}
+        title={lang === "en" ? "Approved" : "Approuvé"}
+        message={
+          lang === "en"
+            ? "You can claim the NFT now."
+            : "Vous pouvez maintenant réclamer le NFT."
         }
         lang={lang}
       />
