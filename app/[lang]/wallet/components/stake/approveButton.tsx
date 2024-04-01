@@ -4,7 +4,7 @@ import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import { useAccount, useBalance, useBlockNumber, useSwitchChain } from "wagmi";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import trotelCoinV1ABI from "@/abi/trotelCoinV1";
+import trotelCoinABI from "@/abi/trotelCoin";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
@@ -82,7 +82,7 @@ const ApproveButton = ({
         address: trotelCoinAddress,
         functionName: "approve",
         chainId: polygon.id,
-        abi: trotelCoinV1ABI,
+        abi: trotelCoinABI,
       });
     } catch (error) {
       console.error(error);

@@ -1,4 +1,6 @@
-import React, { useContext, useRef } from "react";
+"use client";
+
+import React, { useContext } from "react";
 import "animate.css";
 import type { Lang } from "@/types/lang";
 import AudioContext from "@/app/[lang]/contexts/audioContext";

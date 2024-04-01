@@ -13,7 +13,7 @@ import {
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { isAddress, parseEther } from "viem";
-import trotelcoinV1ABI from "@/abi/trotelCoinV1";
+import trotelCoinABI from "@/abi/trotelCoin";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
@@ -209,7 +209,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
               await writeContractAsync({
                 address: trotelCoinAddress,
-                abi: trotelcoinV1ABI,
+                abi: trotelCoinABI,
                 functionName: "transfer",
                 args: [recipient, amountDecimals],
                 chainId: polygon.id,

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { walletClient, publicClient } from "@/lib/viem/client";
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import trotelcoinV1ABI from "@/abi/trotelCoinV1";
+import trotelCoinABI from "@/abi/trotelCoin";
 import { Address, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // prepare transaction
     const { request } = await publicClient.simulateContract({
       address: trotelCoinAddress,
-      abi: trotelcoinV1ABI,
+      abi: trotelCoinABI,
       functionName: "mint",
       account: account,
       args: [userAddress as Address, parseEther(amount)],

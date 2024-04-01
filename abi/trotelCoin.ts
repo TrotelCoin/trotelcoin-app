@@ -1,4 +1,4 @@
-const trotelcoinV1ABI = [
+const trotelCoinABI = [
   { inputs: [], stateMutability: "nonpayable", type: "constructor" },
   {
     anonymous: false,
@@ -228,6 +228,13 @@ const trotelcoinV1ABI = [
   },
   {
     inputs: [],
+    name: "cap",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "decimals",
     outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
     stateMutability: "view",
@@ -373,6 +380,13 @@ const trotelcoinV1ABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "_newCap", type: "uint256" }],
+    name: "setCap",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
     name: "supportsInterface",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -435,4 +449,4 @@ const trotelcoinV1ABI = [
   },
 ];
 
-export default trotelcoinV1ABI;
+export default trotelCoinABI;
