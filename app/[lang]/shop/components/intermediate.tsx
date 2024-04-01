@@ -58,7 +58,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     useWriteContract({
       mutation: {
         onError: (error) => {
-          console.log(error);
+          console.error(error);
           setErrorMessage(true);
         },
         onSuccess: () => {
@@ -84,7 +84,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const { isPending, writeContractAsync } = useWriteContract({
     mutation: {
       onError: (error) => {
-        console.log(error);
+        console.error(error);
         setErrorMessage(true);
       },
       onSuccess: () => {

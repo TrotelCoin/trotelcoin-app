@@ -58,7 +58,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
     useWriteContract({
       mutation: {
         onError: (error) => {
-          console.log(error);
+          console.error(error);
           setErrorMessage(true);
         },
         onSuccess: () => {
