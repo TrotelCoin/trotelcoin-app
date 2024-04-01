@@ -8,8 +8,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { data: leaderboard, error: leaderboardError } = await supabase
       .from("learners")
       .select("wallet, total_rewards_pending, number_of_quizzes_answered")
-      .order("number_of_quizzes_answered", { ascending: false })
-      .limit(50);
+      .order("number_of_quizzes_answered", { ascending: false });
 
     if (leaderboardError) {
       console.error(leaderboardError);
@@ -26,7 +25,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const updatedLeaderboard = [];
 
     // for each learner, get their streak from streak table
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < filteredLeaderboard.length; i++) {
       const { data: streak, error: streakError } = await supabase
         .from("streak")
         .select("current_streak")
