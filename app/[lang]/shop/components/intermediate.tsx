@@ -2,7 +2,7 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import {
   useAccount,
@@ -56,6 +56,15 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
+  const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
+    {
+      address: trotelCoinIntermediateAddress,
+      abi: trotelCoinIntermediateABI,
+      functionName: "holdingRequirement",
+      chainId: polygon.id,
+      account: address as Address,
+    }
+  );
   const { isPending, writeContractAsync } = useWriteContract({
     mutation: {
       onError: () => {
@@ -92,6 +101,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     if (address) {
       refetchBalance();
       refetchBalanceIntermediate();
+      refetchHolding();
     } else {
       setIsClaimed(false);
     }
@@ -108,13 +118,20 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   }, [address, claimed]);
 
   const checkEligibility = async () => {
-    if (isLoggedIn) {
-      const balance = parseFloat(data?.formatted as string);
-      if (balance >= holdingRequirements) {
-        setIsEligible(true);
-        setIsEligibleMessageSuccess(true);
+    if (address && data) {
+      if (holdingRequirement) {
+        const balance = parseFloat(data?.formatted);
+        const holdingRequirementFormatted = Number(
+          formatEther(holdingRequirement as bigint)
+        );
+        if (balance >= holdingRequirementFormatted) {
+          setIsEligible(true);
+          setIsEligibleMessageSuccess(true);
+        } else {
+          setIsEligibleMessage(true);
+        }
       } else {
-        setIsEligibleMessage(true);
+        setErrorMessage(true);
       }
     } else {
       setIsNotConnectedMessage(true);
@@ -211,9 +228,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="Vous n'êtes pas éligible"
-          message={`Vous avez besoin de ${holdingRequirements.toLocaleString(
-            "en-US"
-          )} TrotelCoins pour réclamer ce NFT.`}
+          message={`Vous avez besoin de ${
+            holdingRequirement
+              ? Number(
+                  formatEther(holdingRequirement as bigint)
+                ).toLocaleString("en-US")
+              : null
+          } TrotelCoins pour réclamer ce NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
@@ -221,9 +242,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="You're not eligible"
-          message={`You need ${holdingRequirements.toLocaleString(
-            "en-US"
-          )} TrotelCoin to claim the NFT.`}
+          message={`You need ${
+            holdingRequirement
+              ? Number(
+                  formatEther(holdingRequirement as bigint)
+                ).toLocaleString("en-US")
+              : null
+          } TrotelCoin to claim the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />

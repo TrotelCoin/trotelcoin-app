@@ -2,7 +2,7 @@
 
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useContext, useEffect, useState } from "react";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
 import {
   useAccount,
   useBalance,
@@ -24,8 +24,6 @@ import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import axios from "axios";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-
-const holdingRequirements: number = 50000;
 
 const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -54,6 +52,15 @@ const Expert = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
+  const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
+    {
+      address: trotelCoinExpertAddress,
+      abi: trotelCoinExpertABI,
+      functionName: "holdingRequirement",
+      chainId: polygon.id,
+      account: address as Address,
+    }
+  );
   const { isPending, writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => {
@@ -86,8 +93,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
   });
 
   useEffect(() => {
-    refetchBalance();
-    refetchBalanceExpert();
+    if (address) {
+      refetchBalance();
+      refetchBalanceExpert();
+      refetchHolding();
+    } else {
+      setIsClaimed(false);
+    }
   }, [blockNumber, address]);
 
   useEffect(() => {
@@ -102,12 +114,19 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   const checkEligibility = async () => {
     if (address && data) {
-      const balance = parseFloat(data.formatted);
-      if (balance >= holdingRequirements) {
-        setIsEligible(true);
-        setIsEligibleMessageSuccess(true);
+      if (holdingRequirement) {
+        const balance = parseFloat(data.formatted);
+        const holdingRequirementFormatted = Number(
+          formatEther(holdingRequirement as bigint)
+        );
+        if (balance >= holdingRequirementFormatted) {
+          setIsEligible(true);
+          setIsEligibleMessageSuccess(true);
+        } else {
+          setIsEligibleMessage(true);
+        }
       } else {
-        setIsEligibleMessage(true);
+        setErrorMessage(true);
       }
     } else {
       setIsNotConnectedMessage(true);
@@ -204,9 +223,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="Vous n'êtes pas éligible"
-          message={`Vous avez besoin de ${holdingRequirements.toLocaleString(
-            "en-US"
-          )} TrotelCoins pour réclamer ce NFT.`}
+          message={`Vous avez besoin de ${
+            holdingRequirement
+              ? Number(
+                  formatEther(holdingRequirement as bigint)
+                ).toLocaleString("en-US")
+              : null
+          } TrotelCoins pour réclamer ce NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
@@ -214,9 +237,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="You're not eligible"
-          message={`You need ${holdingRequirements.toLocaleString(
-            "en-US"
-          )} TrotelCoin to claim the NFT.`}
+          message={`You need ${
+            holdingRequirement
+              ? Number(
+                  formatEther(holdingRequirement as bigint)
+                ).toLocaleString("en-US")
+              : null
+          } TrotelCoin to claim the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
