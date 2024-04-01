@@ -7,8 +7,7 @@ import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import CountUp from "react-countup";
-import { updateEvolution } from "@/lib/statistics/evolution";
-import { updateStatistics } from "@/lib/statistics/evolution";
+import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const TrotelCoinsPending = ({
