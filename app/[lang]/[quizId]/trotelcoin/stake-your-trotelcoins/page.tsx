@@ -2,6 +2,11 @@
 
 import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
+import { useEffect, useState } from "react";
+import { useAccount, useBlockNumber, useReadContract } from "wagmi";
+import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import { trotelCoinStakingV1 } from "@/data/web3/addresses";
+import { polygon } from "wagmi/chains";
 
 const cards = {
   en: [
@@ -49,6 +54,10 @@ const cards = {
       title: "Staking",
       text: "After approving, use the stake button to stake.",
     },
+    {
+      title: "Exercise",
+      text: "To access the quiz, you need to stake some TrotelCoins. Comeback once it's done. Good luck!",
+    },
   ],
   fr: [
     {
@@ -95,13 +104,51 @@ const cards = {
       title: "Miser",
       text: "Après l'approbation, utilisez le bouton de staking pour miser.",
     },
+    {
+      title: "Exercice",
+      text: "Pour accéder au quiz, vous devez miser des TrotelCoins. Revenez une fois que c'est fait. Bonne chance !",
+    },
   ],
 };
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
+  const [condition, setCondition] = useState<boolean>(false);
+
+  const { address } = useAccount();
+  const { data: blockNumber } = useBlockNumber({
+    chainId: polygon.id,
+    watch: true,
+  });
+
+  const { data: stakingsData, refetch } = useReadContract({
+    chainId: polygon.id,
+    abi: trotelCoinStakingV1ABI,
+    address: trotelCoinStakingV1,
+    functionName: "stakings",
+    args: [address],
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [blockNumber]);
+
+  useEffect(() => {
+    const stakings = stakingsData as any[];
+    if (address && stakings) {
+      const amount = Number(stakings[0]);
+      if (amount > 0) {
+        setCondition(true);
+      } else {
+        setCondition(false);
+      }
+    } else {
+      setCondition(false);
+    }
+  }, [address, stakingsData]);
+
   return (
     <>
-      <Course cards={cards} lang={lang} />
+      <Course cards={cards} lang={lang} conditionIsOkay={condition} />
     </>
   );
 };

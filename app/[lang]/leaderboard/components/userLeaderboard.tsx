@@ -49,6 +49,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   useEffect(() => {
     const leaderboard = data?.updatedLeaderboard;
     if (address && leaderboard && Array.isArray(leaderboard)) {
+      console.log("leaderboard", leaderboard);
       leaderboard.map((user: UserLeaderboard, index: number) =>
         user?.wallet === address ? setPosition(index + 1) : null
       );

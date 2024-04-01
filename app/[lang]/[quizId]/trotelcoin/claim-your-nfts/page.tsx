@@ -2,15 +2,25 @@
 
 import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
+import React, { useContext, useEffect, useState } from "react";
+import Intermediate from "@/app/[lang]/shop/components/intermediate";
+import Expert from "@/app/[lang]/shop/components/expert";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { useAccount } from "wagmi";
-import shortenAddress from "@/utils/shortenAddress";
-import React, { useState } from "react";
-import Success from "@/app/[lang]/components/modals/success";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
-  const [copied, setCopied] = useState<boolean>(false);
+  const [condition, setCondition] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
+
+  useEffect(() => {
+    if (address && isIntermediate && isExpert) {
+      setCondition(true);
+    } else {
+      setCondition(false);
+    }
+  }, [isIntermediate, isExpert, address]);
 
   const cards = {
     en: [
@@ -23,30 +33,23 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         text: "Don't worry about your lives with these NFTs. Moreover, certain courses are only for Intermediates or Experts. Also, exclusive gamification features require NFT ownership, like earning badges. Finally, Intermediates and Experts can test beta features.",
       },
       {
-        title: "How to claim the NFTs?",
-        text: "Go to the shop, link your wallet, and verify. Make sure you have enough TrotelCoins in your wallet. If using email or your social accounts, find the linked wallet address.",
-      },
-      {
-        title: "Claiming",
-        text: "Visit the NFTs claim page, ensure you have enough TrotelCoins, and click the button to get your NFTs. If it works, your NFTs will have rainbow borders.",
-      },
-      {
-        title: "Your address",
+        title: "Intermediate",
         text: (
-          <span className="break-words whitespace-normal">
-            Click on your address to copy it:{" "}
-            <span
-              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
-              onClick={() => {
-                if (address) {
-                  navigator.clipboard.writeText(address);
-                  setCopied(true);
-                }
-              }}
-            >
-              {address ? shortenAddress(address) : "Not connected"}
-            </span>
-          </span>
+          <>
+            <div className="flex flex-col gap-4 w-full">
+              <Intermediate lang={lang} />
+            </div>
+          </>
+        ),
+      },
+      {
+        title: "Expert",
+        text: (
+          <>
+            <div className="flex flex-col gap-4 w-full">
+              <Expert lang={lang} />
+            </div>
+          </>
         ),
       },
     ],
@@ -60,29 +63,22 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         text: "Ne vous souciez plus de vos vies avec ces NFTs. De plus, certains cours sont réservés uniquement aux Intermédiaires ou Experts. Aussi, des fonctionnalités exclusives de gamification nécessitent la possession de NFT, comme gagner des badges. Enfin, les Intermédiaires et Experts peuvent tester les fonctionnalités bêta.",
       },
       {
-        title: "Comment réclamer les NFTs ?",
-        text: "Allez à la boutique, liez votre portefeuille et vérifiez-le. Assurez-vous d'avoir suffisamment de TrotelCoins dans votre portefeuille. Si vous utilisez un e-mail ou vos réseaux sociaux, trouvez l'adresse du portefeuille liée.",
-      },
-      {
-        title: "Réclamation",
-        text: "Visitez la page de réclamation des NFTs, assurez-vous d'avoir suffisamment de TrotelCoins, et cliquez sur le bouton pour obtenir vos NFTs. Si cela fonctionne, vos NFTs auront des bordures arc-en-ciel.",
-      },
-      {
-        title: "Votre adresse",
+        title: "Intermédiaire",
         text: (
           <>
-            Cliquez sur votre adresse pour la copier :{" "}
-            <span
-              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
-              onClick={() => {
-                if (address) {
-                  navigator.clipboard.writeText(address);
-                  setCopied(true);
-                }
-              }}
-            >
-              {address ? shortenAddress(address) : "Non connecté"}
-            </span>
+            <div className="flex flex-col gap-4 w-full">
+              <Intermediate lang={lang} />
+            </div>
+          </>
+        ),
+      },
+      {
+        title: "Expert",
+        text: (
+          <>
+            <div className="flex flex-col gap-4 w-full">
+              <Expert lang={lang} />
+            </div>
           </>
         ),
       },
@@ -91,18 +87,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <Course cards={cards} lang={lang} />
-      <Success
-        show={copied}
-        onClose={() => setCopied(false)}
-        lang={lang}
-        title={lang === "en" ? "Success" : "Succès"}
-        message={
-          lang === "en"
-            ? "You have copied your address."
-            : "Vous avez copié votre addresse."
-        }
-      />
+      <Course cards={cards} conditionIsOkay={condition} lang={lang} />
     </>
   );
 };

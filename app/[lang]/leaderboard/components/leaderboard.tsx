@@ -71,7 +71,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
               >
                 {leaderboard &&
                   Array.isArray(leaderboard) &&
-                  leaderboard.map((entry, index) => (
+                  leaderboard.slice(0, 20).map((entry, index) => (
                     <li
                       key={index}
                       className="w-full flex items-center justify-between gap-4 py-4 px-6"

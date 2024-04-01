@@ -13,7 +13,15 @@ import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import { useKeyPressed } from "@react-hooks-library/core";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 
-const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
+const Course = ({
+  cards,
+  lang,
+  conditionIsOkay,
+}: {
+  cards: Cards;
+  lang: Lang;
+  conditionIsOkay: boolean;
+}) => {
   const [fullscreen, setFullScreen] = useState<boolean>(false);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
@@ -99,7 +107,7 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
             className="flex justify-center items-center mx-8"
             style={{ height: "calc(100vh - 185px)" }}
           >
-            <div className="max-w-xl mx-auto text-center">
+            <div className="max-w-xl mx-auto text-center w-full">
               {lang === "en" ? (
                 <Card text={cards.en[currentCardIndex].text} />
               ) : (
@@ -136,14 +144,18 @@ const Course = ({ cards, lang }: { cards: Cards; lang: Lang }) => {
                   lang={lang}
                   showConfetti={isLoading}
                   isLoading={isLoading}
-                  disabled={currentCardIndex < cards.en.length - 1}
+                  disabled={
+                    currentCardIndex < cards.en.length - 1 || !conditionIsOkay
+                  }
                   onClick={() => {
-                    setIsCourseFinished(true);
-                    playAudio("courseFinished");
-                    setIsLoading(true);
-                    setTimeout(() => {
-                      setFullScreen(false);
-                    }, 2000);
+                    if (conditionIsOkay) {
+                      setIsCourseFinished(true);
+                      playAudio("courseFinished");
+                      setIsLoading(true);
+                      setTimeout(() => {
+                        setFullScreen(false);
+                      }, 2000);
+                    }
                   }}
                   text={lang === "en" ? "Do the quiz" : "Faire le quiz"}
                 />

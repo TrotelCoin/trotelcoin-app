@@ -1,17 +1,13 @@
 "use client";
 
 import React from "react";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import "animate.css";
 import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
+import Link from "next/link";
 
 const Beginner = ({ lang }: { lang: Lang }) => {
-  const advantages = {
-    1: lang === "en" ? "Free courses" : "Cours gratuit",
-    2: lang === "en" ? "Crypto rewards" : "Récompenses en crypto",
-  };
-
   return (
     <>
       <Tilt
@@ -25,24 +21,21 @@ const Beginner = ({ lang }: { lang: Lang }) => {
           className={`overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between">
               <div className={`font-semibold rainbow-text text-2xl`}>
-                🐣 {lang === "en" ? "Beginner" : "Débutant"}
+                {lang === "en" ? "Beginner" : "Débutant"}
               </div>
+              <Link
+                href="https://docs.trotelcoin.com/overview/tokenomics"
+                target="_blank"
+              >
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-800 dark:hover:text-gray-200" />
+              </Link>
             </div>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col mt-4">
-                <div className="flex flex-col gap-2 my-4">
-                  {Object.values(advantages).map((advantage, index) => (
-                    <div key={index} className="flex gap-1">
-                      <div className="text-gray-700 flex items-center dark:text-gray-300">
-                        <CheckIcon className="h-5 w-5" />
-                        <>{advantage}</>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="flex items-center justify-center mt-5">
+              <span className="text-8xl">🐣</span>
+            </div>
+            <div className="flex flex-col mt-5">
               <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
                 {lang === "en" ? "Already claimed" : "Déjà réclamé"}
               </button>

@@ -2,7 +2,7 @@
 
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useContext, useEffect, useState } from "react";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
 import {
   useAccount,
   useBalance,
@@ -18,14 +18,13 @@ import {
   trotelCoinAddress,
   trotelCoinExpertAddress,
 } from "@/data/web3/addresses";
-import { CheckIcon } from "@heroicons/react/20/solid";
+import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import axios from "axios";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-
-const holdingRequirements: number = 50000;
+import Link from "next/link";
 
 const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -54,6 +53,15 @@ const Expert = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
+  const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
+    {
+      address: trotelCoinExpertAddress,
+      abi: trotelCoinExpertABI,
+      functionName: "holdingRequirement",
+      chainId: polygon.id,
+      account: address as Address,
+    }
+  );
   const { isPending, writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => {
@@ -86,8 +94,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
   });
 
   useEffect(() => {
-    refetchBalance();
-    refetchBalanceExpert();
+    if (address) {
+      refetchBalance();
+      refetchBalanceExpert();
+      refetchHolding();
+    } else {
+      setIsClaimed(false);
+    }
   }, [blockNumber, address]);
 
   useEffect(() => {
@@ -102,12 +115,19 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   const checkEligibility = async () => {
     if (address && data) {
-      const balance = parseFloat(data.formatted);
-      if (balance >= holdingRequirements) {
-        setIsEligible(true);
-        setIsEligibleMessageSuccess(true);
+      if (holdingRequirement) {
+        const balance = parseFloat(data.formatted);
+        const holdingRequirementFormatted = Number(
+          formatEther(holdingRequirement as bigint)
+        );
+        if (balance >= holdingRequirementFormatted) {
+          setIsEligible(true);
+          setIsEligibleMessageSuccess(true);
+        } else {
+          setIsEligibleMessage(true);
+        }
       } else {
-        setIsEligibleMessage(true);
+        setErrorMessage(true);
       }
     } else {
       setIsNotConnectedMessage(true);
@@ -131,28 +151,25 @@ const Expert = ({ lang }: { lang: Lang }) => {
           } backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6">
-            <div className="flex items-center gap-1">
+            <div className="flex items-center justify-between">
               <div
                 className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
                   isClaimed && "rainbow-text"
                 }`}
               >
-                🦊 {lang === "en" ? "Expert" : "Expert"}
+                {lang === "en" ? "Expert" : "Expert"}
               </div>
+              <Link
+                href="https://docs.trotelcoin.com/overview/tokenomics"
+                target="_blank"
+              >
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-800 dark:hover:text-gray-200" />
+              </Link>
             </div>
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col mt-4">
-                <div className="flex flex-col gap-2 my-4">
-                  {Object.values(advantages).map((advantage, index) => (
-                    <div key={index} className="flex gap-1">
-                      <div className="text-gray-700 flex items-center dark:text-gray-300">
-                        <CheckIcon className="h-5 w-5" />
-                        <>{advantage}</>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <div className="flex items-center justify-center mt-5">
+              <span className="text-8xl">🦊</span>
+            </div>
+            <div className="flex flex-col mt-5">
               {!isClaimed && !isEligible && !isExpert && (
                 <>
                   <BlueButton
@@ -204,9 +221,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="Vous n'êtes pas éligible"
-          message={`Vous avez besoin de ${holdingRequirements.toLocaleString(
-            "en-US"
-          )} TrotelCoins pour réclamer ce NFT.`}
+          message={`Vous avez besoin de ${
+            holdingRequirement
+              ? Number(
+                  formatEther(holdingRequirement as bigint)
+                ).toLocaleString("en-US")
+              : null
+          } TrotelCoins pour réclamer ce NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
@@ -214,9 +235,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
         <Fail
           show={isEligibleMessage}
           title="You're not eligible"
-          message={`You need ${holdingRequirements.toLocaleString(
-            "en-US"
-          )} TrotelCoin to claim the NFT.`}
+          message={`You need ${
+            holdingRequirement
+              ? Number(
+                  formatEther(holdingRequirement as bigint)
+                ).toLocaleString("en-US")
+              : null
+          } TrotelCoin to claim the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />

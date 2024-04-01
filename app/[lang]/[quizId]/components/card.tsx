@@ -27,7 +27,7 @@ const Card = ({ text }: { text: string | JSX.Element }) => {
 
   return (
     <>
-      <p className="text-xl text-gray-900 dark:text-gray-100 break-words whitespace-normal">
+      <p className="text-xl text-gray-900 dark:text-gray-100 break-words whitespace-normal w-full">
         {typeof text === "string"
           ? text.split("").map((char, index) => (
               <span

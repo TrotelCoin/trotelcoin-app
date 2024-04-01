@@ -4,6 +4,7 @@ import { cookieStorage, createStorage } from "wagmi";
 import {
   mainnet,
   polygon,
+  polygonMumbai,
   optimism,
   bsc,
   base,
@@ -34,6 +35,7 @@ const metadata = {
 const chains = [
   mainnet,
   polygon,
+  polygonMumbai,
   optimism,
   bsc,
   base,

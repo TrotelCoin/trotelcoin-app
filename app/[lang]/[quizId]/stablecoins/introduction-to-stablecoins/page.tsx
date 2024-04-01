@@ -9,7 +9,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     en: [
       {
         title: "Introduction",
-        text: 'Stablecoins are cryptocurrencies designed to minimize the volatility of the price of the stablecoin, relative to some stable asset or basket of assets.',
+        text: "Stablecoins are cryptocurrencies designed to minimize the volatility of the price of the stablecoin, relative to some stable asset or basket of assets.",
       },
       {
         title: "Understanding Stablecoins",
@@ -182,7 +182,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <Course cards={cards} lang={lang} />
+      <Course cards={cards} lang={lang} conditionIsOkay={true} />
     </>
   );
 };

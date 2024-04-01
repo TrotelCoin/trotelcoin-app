@@ -10,15 +10,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { data, error } = await supabase
       .from("net_promoter_scores")
       .select("net_promoter_score")
-      .eq("wallet", wallet as Address)
-      .single();
+      .eq("wallet", wallet as Address);
 
     if (error) {
       console.error(error);
       return NextResponse.json(false, { status: 500 });
     }
 
-    if (data) {
+    if (!data.length) {
       return NextResponse.json(true, { status: 200 });
     } else {
       return NextResponse.json(false, { status: 200 });

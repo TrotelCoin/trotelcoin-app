@@ -24,8 +24,6 @@ const BlueButton = ({
 }) => {
   const { playAudio } = useContext(AudioContext);
 
-  const audioRef = useRef<HTMLAudioElement>(null);
-
   const whenClicked = () => {
     playAudio("blueButton");
     onClick();

@@ -72,7 +72,10 @@ const Fail: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
                   <div className="mt-5 sm:mt-6">
                     <BlueButton
                       lang={lang}
-                      onClick={onClose}
+                      onClick={(event: { stopPropagation: () => void }) => {
+                        event?.stopPropagation();
+                        onClose();
+                      }}
                       isFull={true}
                       text={lang === "en" ? "Close" : "Fermer"}
                     />
