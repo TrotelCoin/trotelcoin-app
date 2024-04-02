@@ -18,6 +18,8 @@ import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem"
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import useSWR from "swr";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
@@ -25,9 +27,44 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     InventoryItemTypeFinal[] | null
   >(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hide, setHide] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
+
+  const { data: numberOfUsedItemsData } = useSWR(
+    address ? `/api/database/getUserAllUsedItems?wallet=${address}` : null,
+    fetcher,
+    {
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
+      refreshInterval: refreshIntervalTime,
+    }
+  );
+
+  useEffect(() => {
+    if (numberOfUsedItemsData && inventories) {
+      let numberOfAllUsed: number = 0;
+      let allQuantity: number = 0;
+
+      numberOfUsedItemsData.forEach((item: { number_of_use: number }) => {
+        numberOfAllUsed += item.number_of_use;
+      });
+
+      inventories.forEach((item) => {
+        allQuantity += item.quantity;
+      });
+
+      if (numberOfAllUsed === allQuantity) {
+        setHide(true);
+      } else {
+        setHide(false);
+      }
+    } else {
+      setHide(false);
+    }
+  }, [numberOfUsedItemsData, inventories]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
@@ -119,7 +156,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {lang === "en" ? "Inventory" : "Inventaire"}
         </span>
 
-        {inventories && inventories.length > 0 ? (
+        {inventories && inventories.length > 0 && !hide ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {inventories.map(

@@ -108,8 +108,6 @@ const InventoryItem = ({
         const differenceInMs = now.getTime() - lostStreakAt.getTime();
         const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 
-        console.log("diff", differenceInDays);
-
         if (differenceInDays > 3) {
           setHourglassDisabled(true);
         } else {

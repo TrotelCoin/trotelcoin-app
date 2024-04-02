@@ -23,8 +23,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json(error, { status: 500 });
   }
 
-  if (data && data.length > 0 && data[0].number_of_use) {
-    return NextResponse.json(data[0].number_of_use, { status: 200 });
+  if (data.length > 0) {
+    return NextResponse.json(data[0]?.number_of_use, { status: 200 });
   }
 
   return NextResponse.json(0, { status: 200 });
