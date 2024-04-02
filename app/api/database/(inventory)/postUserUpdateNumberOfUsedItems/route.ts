@@ -25,13 +25,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(alreadyUsedError, { status: 500 });
   }
 
-  if (
-    alreadyUsedData &&
-    alreadyUsedData.length > 0 &&
-    alreadyUsedData[0].number_of_use
-  ) {
-    alreadyUsed = alreadyUsedData[0].number_of_use;
-  } else {
+  if (alreadyUsedData.length === 0) {
     await supabase.from("items").insert([
       {
         wallet: address,
@@ -41,6 +35,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     ]);
 
     return NextResponse.json(1, { status: 200 });
+  } else {
+    alreadyUsed = alreadyUsedData[0].number_of_use;
   }
 
   const { data, error } = await supabase

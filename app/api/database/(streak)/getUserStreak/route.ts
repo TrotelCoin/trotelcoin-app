@@ -26,6 +26,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     const currentStreak = result[0]?.current_streak;
+    const lostStreakAt = result[0]?.lost_streak_at;
     let lastUpdated = result[0]?.last_streak_at;
     let disabled = false;
 
@@ -36,7 +37,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const { error: updateError } = await supabase
       .from("streak")
-      .update({ current_streak: 0 })
+      .update({ current_streak: 0, lostStreakAt: new Date().toISOString() })
       .lte("last_streak_at", twoDaysAgo.toISOString())
       .eq("wallet", wallet as Address);
 
@@ -88,7 +89,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     return NextResponse.json(
-      { currentStreak, lastUpdated, disabled },
+      { currentStreak, lastUpdated, disabled, lostStreakAt },
       { status: 200 }
     );
   } catch (error) {

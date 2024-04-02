@@ -5,13 +5,14 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import { InventoryItemTypeFinal, Items } from "@/types/inventory/inventory";
 import { Lang } from "@/types/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
 import { translateItemsName, useItem } from "@/lib/inventory/inventory";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
 
 const InventoryItem = ({
   lang,
@@ -31,8 +32,10 @@ const InventoryItem = ({
   const [itemsUsedMessage, setItemsUsedMessage] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [displayedName, setDisplayedName] = useState<string | null>(null);
+  const [hourglassDisabled, setHourglassDisabled] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { lostStreakAt } = useContext(StreakContext);
 
   const { data: numberOfUsedItemsData } = useSWR(
     address && item
@@ -97,6 +100,29 @@ const InventoryItem = ({
     }
   }, [item, lang]);
 
+  useEffect(() => {
+    if (item.name === "Hourglass") {
+      if (lostStreakAt) {
+        const now = new Date();
+
+        const differenceInMs = now.getTime() - lostStreakAt.getTime();
+        const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
+
+        console.log("diff", differenceInDays);
+
+        if (differenceInDays > 3) {
+          setHourglassDisabled(true);
+        } else {
+          setHourglassDisabled(false);
+        }
+      } else {
+        setHourglassDisabled(true);
+      }
+    } else {
+      setHourglassDisabled(false);
+    }
+  }, [lostStreakAt, item]);
+
   return (
     <>
       <Tilt
@@ -125,7 +151,9 @@ const InventoryItem = ({
               <BlueButton
                 lang={lang}
                 isLoading={isLoading}
-                disabled={!address || isLoading || quantity === 0}
+                disabled={
+                  !address || isLoading || quantity === 0 || hourglassDisabled
+                }
                 onClick={() => {
                   useItem(
                     item.name,
