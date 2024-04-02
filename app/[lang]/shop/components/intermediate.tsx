@@ -200,7 +200,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                       }
                     }}
                     text={
-                      lang === "en" ? "Claim your NFT" : "Réclamez votre NFT"
+                      lang === "en" ? "Buy the NFT" : "Achetez le NFT"
                     }
                   />
                 </>
@@ -238,7 +238,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   formatEther(holdingRequirement as bigint)
                 ).toLocaleString("en-US")
               : null
-          } TrotelCoin to claim the NFT.`}
+          } TrotelCoin to buy the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />

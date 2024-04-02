@@ -247,7 +247,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                       });
                     }}
                     text={
-                      lang === "en" ? "Claim your NFT" : "Réclamez votre NFT"
+                      lang === "en" ? "Buy the NFT" : "Achetez le NFT"
                     }
                   />
                 </>
@@ -285,7 +285,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                   formatEther(holdingRequirement as bigint)
                 ).toLocaleString("en-US")
               : null
-          } TrotelCoin to claim the NFT.`}
+          } TrotelCoin to buy the NFT.`}
           onClose={() => setIsEligibleMessage(false)}
           lang={lang}
         />
@@ -334,8 +334,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         title={lang === "en" ? "Approved" : "Approuvé"}
         message={
           lang === "en"
-            ? "You can claim the NFT now."
-            : "Vous pouvez maintenant réclamer le NFT."
+            ? "You can buy the NFT now."
+            : "Vous pouvez maintenant acheter le NFT."
         }
         lang={lang}
       />

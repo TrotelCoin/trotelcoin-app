@@ -24,8 +24,8 @@ const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </h2>
               <span className="text-gray-100">
                 {lang === "en"
-                  ? "Claim your NFTs to access special ranks and benefits"
-                  : "Récupérez vos NFTs pour accéder à des rangs spéciaux et à des avantages"}
+                  ? "Buy NFTs to access special ranks and benefits"
+                  : "Achetez les NFTs pour accéder à des rangs spéciaux et à des avantages"}
               </span>
             </div>
           </Tilt>

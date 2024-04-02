@@ -177,7 +177,7 @@ const quizzes: QuizData = [
   },
   {
     quizId: 2,
-    title: "Claim your NFTs", // not used
+    title: "Buy the NFTs", // not used
     questions: [
       {
         questionId: 1,
@@ -224,8 +224,8 @@ const quizzes: QuizData = [
       {
         questionId: 3,
         question: {
-          en: "What do you need to claim the NFTs?",
-          fr: "De quoi avez-vous besoin pour réclamer les NFTs?",
+          en: "What do you need to buy the NFTs?",
+          fr: "De quoi avez-vous besoin pour acheter les NFTs?",
         },
         options: {
           en: [
