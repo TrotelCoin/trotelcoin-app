@@ -159,8 +159,7 @@ export const translateItemsName = (
       setDisplayedName(king);
       break;
     default:
-      const defaultName = String(quantity) + " " + name;
-      setDisplayedName(defaultName);
+      setDisplayedName(name);
       break;
   }
 };
