@@ -21,7 +21,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (!userExists.length) {
+    if (userExists.length === 0) {
       // wallet does not exist in the database
       const { error: insertError } = await supabase.from("learners").insert([
         {

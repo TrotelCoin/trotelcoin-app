@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       return NextResponse.json(false, { status: 500 });
     }
 
-    if (!data.length) {
+    if (data.length > 0) {
       return NextResponse.json(true, { status: 200 });
     } else {
       return NextResponse.json(false, { status: 200 });

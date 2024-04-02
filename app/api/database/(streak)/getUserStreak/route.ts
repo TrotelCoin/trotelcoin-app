@@ -76,7 +76,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         );
       }
 
-      if (!oneDay.length) {
+      if (oneDay.length === 0) {
         disabled = true;
       }
     }
