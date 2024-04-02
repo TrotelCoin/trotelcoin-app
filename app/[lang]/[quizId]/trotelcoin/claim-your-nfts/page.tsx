@@ -3,8 +3,8 @@
 import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import React, { useContext, useEffect, useState } from "react";
-import Intermediate from "@/app/[lang]/shop/components/intermediate";
-import Expert from "@/app/[lang]/shop/components/expert";
+import Intermediate from "@/app/[lang]/shop/components/ranks/intermediate";
+import Expert from "@/app/[lang]/shop/components/ranks/expert";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { useAccount } from "wagmi";
 
