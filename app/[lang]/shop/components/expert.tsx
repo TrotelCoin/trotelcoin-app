@@ -22,9 +22,9 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import axios from "axios";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
-import trotelCoinABI from "@/abi/trotelCoin";
 
 const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -36,9 +36,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
-  const [needApproval, setNeedApproval] = useState<boolean>(true);
-  const [approved, setApproved] = useState<boolean>(false);
-  const [approvedMessage, setApprovedMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { isExpert } = useContext(PremiumContext);
@@ -46,27 +43,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
     watch: true,
     chainId: polygon.id,
   });
-  const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: trotelCoinAddress,
-    abi: trotelCoinABI,
-    functionName: "allowance",
-    chainId: polygon.id,
-    args: [address, trotelCoinExpertAddress],
-    account: address as Address,
-  });
-  const { isPending: isLoadingApproval, writeContractAsync: approvingAsync } =
-    useWriteContract({
-      mutation: {
-        onError: (error) => {
-          console.error(error);
-          setErrorMessage(true);
-        },
-        onSuccess: () => {
-          setApproved(true);
-          setApprovedMessage(true);
-        },
-      },
-    });
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
@@ -86,6 +62,17 @@ const Expert = ({ lang }: { lang: Lang }) => {
       onSuccess: () => {
         setIsClaimed(true);
         setIsClaimedMessage(true);
+
+        const postClaimExpert = async () => {
+          await axios
+            .post(`/api/database/claimExpert?wallet=${address}`)
+            .catch((error) => {
+              console.error(error);
+              setErrorMessage(true);
+            });
+        };
+
+        postClaimExpert();
       },
       onError: () => {
         setErrorMessage(true);
@@ -106,7 +93,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
       refetchBalance();
       refetchBalanceExpert();
       refetchHolding();
-      refetchAllowance();
     } else {
       setIsClaimed(false);
     }
@@ -121,23 +107,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
       setIsClaimed(false);
     }
   }, [address, claimed]);
-
-  useEffect(() => {
-    if (allowance && holdingRequirement) {
-      const allowanceFormatted = Number(formatEther(allowance as bigint));
-      const holdingRequirementFormatted = Number(
-        formatEther(holdingRequirement as bigint)
-      );
-
-      if (allowanceFormatted >= holdingRequirementFormatted) {
-        setNeedApproval(false);
-      } else {
-        setNeedApproval(true);
-      }
-    } else {
-      setNeedApproval(true);
-    }
-  }, [allowance, holdingRequirement]);
 
   const checkEligibility = async () => {
     if (address && data) {
@@ -189,7 +158,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 href="https://docs.trotelcoin.com/overview/tokenomics"
                 target="_blank"
               >
-                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-800 dark:hover:text-gray-200" />
               </Link>
             </div>
             <div className="flex items-center justify-center mt-5">
@@ -209,37 +178,24 @@ const Expert = ({ lang }: { lang: Lang }) => {
                   />
                 </>
               )}
-              {isEligible && !isClaimed && !isExpert && needApproval && (
-                <>
-                  <BlueButton
-                    lang={lang}
-                    isLoading={isLoadingApproval || approved}
-                    onClick={async () => {
-                      await approvingAsync({
-                        address: trotelCoinAddress,
-                        abi: trotelCoinABI,
-                        functionName: "approve",
-                        chainId: polygon.id,
-                        args: [trotelCoinExpertAddress, holdingRequirement],
-                      });
-                    }}
-                    text={lang === "en" ? "Approve" : "Approuver"}
-                  />
-                </>
-              )}
-              {isEligible && !isClaimed && !isExpert && !needApproval && (
+              {isEligible && !isClaimed && !isExpert && (
                 <>
                   <BlueButton
                     lang={lang}
                     isLoading={isPending}
                     onClick={async () => {
-                      await writeContractAsync({
-                        address: trotelCoinExpertAddress,
-                        abi: trotelCoinExpertABI,
-                        functionName: "mint",
-                        chainId: polygon.id,
-                        args: [address],
-                      });
+                      try {
+                        await writeContractAsync({
+                          address: trotelCoinExpertAddress,
+                          abi: trotelCoinExpertABI,
+                          functionName: "claim",
+                          chainId: polygon.id,
+                        });
+                      } catch (error) {
+                        console.error(error);
+                        setErrorMessage(true);
+                        return;
+                      }
                     }}
                     text={
                       lang === "en" ? "Claim your NFT" : "Réclamez votre NFT"
@@ -320,17 +276,6 @@ const Expert = ({ lang }: { lang: Lang }) => {
           lang === "en"
             ? "You became an Expert."
             : "Vous êtes devenu un Expert."
-        }
-        lang={lang}
-      />
-      <Success
-        show={approvedMessage}
-        onClose={() => setApprovedMessage(false)}
-        title={lang === "en" ? "Approved" : "Approuvé"}
-        message={
-          lang === "en"
-            ? "You can claim the NFT now."
-            : "Vous pouvez maintenant réclamer le NFT."
         }
         lang={lang}
       />

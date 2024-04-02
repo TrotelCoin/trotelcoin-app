@@ -2,9 +2,9 @@
 
 import { Lang } from "@/types/lang";
 import React from "react";
-import Beginner from "@/app/[lang]/shop/components/beginner";
-import Intermediate from "@/app/[lang]/shop/components/intermediate";
-import Expert from "@/app/[lang]/shop/components/expert";
+import Beginner from "@/app/[lang]/shop/components/ranks/beginner";
+import Intermediate from "@/app/[lang]/shop/components/ranks/intermediate";
+import Expert from "@/app/[lang]/shop/components/ranks/expert";
 
 const Rank = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
