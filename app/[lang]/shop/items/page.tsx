@@ -149,12 +149,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
             {lang === "en" ? "Shop" : "Boutique"}
           </span>
-          <span className="text-gray-700 dark:text-gray-300 text-sm">
-            {lang === "en" ? "Balance:" : "Solde:"}{" "}
-            {balance?.toLocaleString("en-US") ?? "0"} TROTEL
-          </span>
         </div>
-        <div>
+        <div className="flex items-center justify-between">
           <ul className="flex items-center flex-wrap gap-2">
             <li>
               <button
@@ -193,6 +189,10 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </button>
             </li>
           </ul>
+          <span className="text-gray-700 dark:text-gray-300 text-sm">
+            {lang === "en" ? "Balance:" : "Solde:"}{" "}
+            {balance?.toLocaleString("en-US") ?? "0"} TROTEL
+          </span>
         </div>
         <div className="flex flex-col gap-1 mt-2">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

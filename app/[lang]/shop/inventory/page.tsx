@@ -158,6 +158,11 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {inventories && inventories.length > 0 && !hide ? (
           <>
+            <span className="text-gray-700 dark:text-gray-300 text-sm">
+              {lang === "en"
+                ? "Use your items to improve your learning experience."
+                : "Utilisez vos objets pour améliorer votre expérience d'apprentissage."}
+            </span>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {inventories.map(
                 (item: InventoryItemTypeFinal, index: number) => (
