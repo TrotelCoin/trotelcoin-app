@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   const { data: lostStreakData, error: lostStreakError } = await supabase
     .from("streak")
-    .select("lost_streak_at")
+    .select("streak_lost_at")
     .eq("wallet", wallet);
 
   if (lostStreakError) {
@@ -20,20 +20,21 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   if (lostStreakData.length > 0) {
-    const date = new Date(lostStreakData[0].lost_streak_at);
+    const date = new Date(lostStreakData[0].streak_lost_at);
     const now = new Date();
 
     const differenceInMs = now.getTime() - date.getTime();
     const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 
     if (differenceInDays > 3) {
+      console.error("Hourglass can't be use");
       return NextResponse.json("Hourglass can't be use.", { status: 500 });
     }
   }
 
   const { data: maxStreak, error: getMaxStreakError } = await supabase
     .from("streak")
-    .select("max_steak")
+    .select("max_streak")
     .eq("wallet", wallet);
 
   if (getMaxStreakError) {
@@ -45,7 +46,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { error } = await supabase
       .from("streak")
       .update({
-        current_streak: maxStreak[0].max_steak,
+        current_streak: maxStreak[0].max_streak,
       })
       .eq("wallet", wallet);
 

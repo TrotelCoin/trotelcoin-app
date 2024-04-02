@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   const { data: maxStreak, error: getMaxStreakError } = await supabase
     .from("streak")
-    .select("max_steak")
+    .select("max_streak")
     .eq("wallet", wallet);
 
   if (getMaxStreakError) {
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { error } = await supabase
       .from("streak")
       .update({
-        current_streak: maxStreak[0].max_steak,
+        current_streak: maxStreak[0].max_streak,
       })
       .eq("wallet", wallet);
 

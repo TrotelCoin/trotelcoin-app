@@ -42,11 +42,9 @@ const Wallet = ({
   };
 
   const handleLogin = async () => {
-    try {
-      await axios.post(`/api/postNewLearner?wallet=${address}`);
-    } catch (error) {
+    await axios.post(`/api/postNewLearner?wallet=${address}`).catch((error) => {
       console.error(error);
-    }
+    });
 
     try {
       const callbackUrl = "/protected";

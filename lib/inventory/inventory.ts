@@ -14,13 +14,108 @@ export const useItem = async (
 ) => {
   setIsLoading(true);
 
-  if (address) {
-    await axios.post(
-      `/api/database/postUserUpdateNumberOfUsedItems?address=${address}&item=${item}`
-    );
+  let errorEncountered: boolean = false;
 
-    setItemsUsedMessage(true);
-    setQuantity((prev) => (prev ? prev - 1 : null));
+  if (address && item) {
+    switch (item) {
+      case "Potion":
+        await axios
+          .post(`/api/items/usePotion?wallet=${address}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      case "Castle":
+        await axios
+          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      case "Clock":
+        await axios
+          .post(`/api/items/useClock?wallet=${address}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      case "Closed Lock":
+        await axios
+          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      case "Hourglass":
+        await axios
+          .post(`/api/items/useHourglass?wallet=${address}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      case "King":
+        await axios
+          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      case "Shield":
+        await axios
+          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+            return;
+          });
+        break;
+      default:
+        break;
+    }
+
+    await axios
+      .post(
+        `/api/database/postUserUpdateNumberOfUsedItems?address=${address}&item=${item}`
+      )
+      .catch((error) => {
+        console.error(error);
+        setErrorMessage(true);
+        setIsLoading(false);
+        return;
+      });
+
+    if (!errorEncountered) {
+      setItemsUsedMessage(true);
+      setQuantity((prev) => (prev ? prev - 1 : null));
+    } else {
+      setErrorMessage(true);
+    }
   } else {
     setErrorMessage(true);
   }
