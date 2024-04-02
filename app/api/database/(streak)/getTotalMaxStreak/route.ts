@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase/db";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { data: result, error } = await supabase
     .from("streak")

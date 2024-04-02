@@ -2,6 +2,8 @@ import Moralis from "moralis";
 import { NextRequest, NextResponse } from "next/server";
 import { polygon } from "viem/chains";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     if (!Moralis.Core.isStarted) {

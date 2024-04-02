@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase/db";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");

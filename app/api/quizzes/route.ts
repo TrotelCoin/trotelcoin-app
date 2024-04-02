@@ -1,29 +1,9 @@
 import quizzes from "@/data/quizzes/quizData";
 import { NextRequest, NextResponse } from "next/server";
-import type { Question, Quiz } from "@/types/courses/quiz";
+import { getQuestionsByLanguage } from "@/lib/quizzes/quizzes";
+import { Lang } from "@/types/lang";
 
-const getQuestionsByLanguage = (quiz: Quiz, lang: string) => {
-  switch (lang) {
-    case "en":
-      return quiz.questions.map((q: Question) => ({
-        questionId: q.questionId,
-        question: q.question,
-        options: q.options,
-      }));
-    case "fr":
-      return quiz.questions.map((q: Question) => ({
-        questionId: q.questionId,
-        question: q.question,
-        options: q.options,
-      }));
-    default:
-      return quiz.questions.map((q: Question) => ({
-        questionId: q.questionId,
-        question: q.question,
-        options: q.options,
-      }));
-  }
-};
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
@@ -39,7 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json({ error: "Quiz not found" }, { status: 404 });
   }
 
-  const questionsInLanguage = getQuestionsByLanguage(quiz, lang as string);
+  const questionsInLanguage = getQuestionsByLanguage(quiz, lang as Lang);
 
   if (!questionsInLanguage) {
     return NextResponse.json({ error: "Language not found" }, { status: 404 });

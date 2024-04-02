@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const satisfaction = searchParams.get("number");

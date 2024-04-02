@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import remainingRewards from "@/data/constants/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // Reset rewards if 24h has passed

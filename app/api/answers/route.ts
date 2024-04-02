@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import answers from "@/data/quizzes/quizAnswers";
 import type { QuizAnswer } from "@/types/courses/quiz";
 
+export const dynamic = "force-dynamic";
+
 const getAnswersByLanguage = (quiz: QuizAnswer, lang: string) => {
   switch (lang) {
     case "en":

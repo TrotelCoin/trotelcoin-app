@@ -5,6 +5,8 @@ import trotelCoinABI from "@/abi/trotelCoin";
 import { Address, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 
+export const dynamic = "force-dynamic";
+
 const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -39,10 +41,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // make transaction
     await walletClient.writeContract(request);
 
-    return NextResponse.json(
-      { success: true },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
