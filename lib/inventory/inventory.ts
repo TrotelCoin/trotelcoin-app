@@ -26,7 +26,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       case "Castle":
@@ -37,7 +36,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       case "Clock":
@@ -48,7 +46,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       case "Closed Lock":
@@ -59,7 +56,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       case "Hourglass":
@@ -70,7 +66,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       case "King":
@@ -81,7 +76,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       case "Shield":
@@ -92,7 +86,6 @@ export const useItem = async (
             setErrorMessage(true);
             setIsLoading(false);
             errorEncountered = true;
-            return;
           });
         break;
       default:
@@ -107,7 +100,6 @@ export const useItem = async (
         console.error(error);
         setErrorMessage(true);
         setIsLoading(false);
-        return;
       });
 
     if (!errorEncountered) {
