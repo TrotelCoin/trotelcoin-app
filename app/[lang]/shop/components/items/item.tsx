@@ -9,7 +9,9 @@ import Image from "next/image";
 import {
   useAccount,
   useBlockNumber,
+  useChainId,
   useReadContract,
+  useSwitchChain,
   useWriteContract,
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinShopV1 } from "@/data/web3/addresses";
@@ -31,6 +33,23 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
   const [buyMessage, setBuyMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const chainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
+
+  useEffect(() => {
+    if (chainId !== polygon.id) {
+      setDisabled(true);
+      const switchChain = async () => {
+        await switchChainAsync({
+          chainId: polygon.id,
+        });
+      };
+
+      switchChain();
+    } else {
+      setDisabled(false);
+    }
+  }, [chainId]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
