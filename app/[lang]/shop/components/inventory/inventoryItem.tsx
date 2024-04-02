@@ -96,7 +96,7 @@ const InventoryItem = ({
 
   useEffect(() => {
     if (item) {
-      translateItemsName(item.name, lang, setDisplayedName);
+      translateItemsName(item.name, lang, setDisplayedName, item.quantity);
     }
   }, [item, lang]);
 

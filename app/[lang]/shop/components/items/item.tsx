@@ -152,7 +152,12 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
 
   useEffect(() => {
     if (shopItem) {
-      translateItemsName(shopItem.name as Items, lang, setDisplayedName);
+      translateItemsName(
+        shopItem.name as Items,
+        lang,
+        setDisplayedName,
+        shopItem.quantity
+      );
     }
   }, [shopItem, lang]);
 
