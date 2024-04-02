@@ -9,7 +9,7 @@ import React, { useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
-import { useItem } from "@/lib/inventory/inventory";
+import { translateItemsName, useItem } from "@/lib/inventory/inventory";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 
@@ -30,6 +30,7 @@ const InventoryItem = ({
     useState<boolean>(false);
   const [itemsUsedMessage, setItemsUsedMessage] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [displayedName, setDisplayedName] = useState<string | null>(null);
 
   const { address } = useAccount();
 
@@ -90,6 +91,12 @@ const InventoryItem = ({
     }
   }, [item]);
 
+  useEffect(() => {
+    if (item) {
+      translateItemsName(item.name, lang, setDisplayedName);
+    }
+  }, [item, lang]);
+
   return (
     <>
       <Tilt
@@ -105,7 +112,7 @@ const InventoryItem = ({
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center justify-between">
               <div className={`font-semibold rainbow-text text-2xl`}>
-                {item.name}
+                {displayedName}
               </div>
               <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
                 {quantity}

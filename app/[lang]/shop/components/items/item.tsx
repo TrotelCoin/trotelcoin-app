@@ -5,6 +5,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { ShopItemType } from "@/types/shop/shop";
 import BlueButton from "@/app/[lang]/components/blueButton";
+import { translateItemsName } from "@/lib/inventory/inventory";
 import Image from "next/image";
 import {
   useAccount,
@@ -21,6 +22,7 @@ import trotelCoinABI from "@/abi/trotelCoin";
 import { formatEther, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import { Items } from "@/types/inventory/inventory";
 
 const discountDisabled: boolean = true;
 
@@ -36,6 +38,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
   const [priceAfterDiscount, setPriceAfterDiscount] = useState<number | null>(
     null
   );
+  const [displayedName, setDisplayedName] = useState<string | null>(null);
 
   const { address } = useAccount();
   const chainId = useChainId();
@@ -147,6 +150,12 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
     }
   }, [shopItem]);
 
+  useEffect(() => {
+    if (shopItem) {
+      translateItemsName(shopItem.name as Items, lang, setDisplayedName);
+    }
+  }, [shopItem, lang]);
+
   return (
     <>
       <Tilt
@@ -165,7 +174,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
                 <div
                   className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl`}
                 >
-                  {shopItem.name}
+                  {displayedName}
                 </div>
                 <Popover.Trigger asChild>
                   <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
