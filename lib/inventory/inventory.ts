@@ -1,4 +1,4 @@
-import { Items } from "@/types/inventory/inventory";
+import type { Items } from "@/types/inventory/inventory";
 import axios from "axios";
 import React from "react";
 import { Address } from "viem";

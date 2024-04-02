@@ -74,6 +74,9 @@ const InventoryItem = ({
         case "Clock":
           setEmoji("⏰");
           break;
+        case "Closed Lock":
+          setEmoji("🔒");
+          break;
         case "Shield":
           setEmoji("🛡️");
           break;

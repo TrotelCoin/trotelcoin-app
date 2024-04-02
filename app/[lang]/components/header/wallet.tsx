@@ -8,6 +8,7 @@ import { getCsrfToken, signIn, useSession } from "next-auth/react";
 import { SiweMessage } from "siwe";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
+import axios from "axios";
 
 const Wallet = ({
   lang,
@@ -41,6 +42,12 @@ const Wallet = ({
   };
 
   const handleLogin = async () => {
+    try {
+      await axios.post(`/api/postNewLearner?wallet=${address}`);
+    } catch (error) {
+      console.error(error);
+    }
+
     try {
       const callbackUrl = "/protected";
       const message = new SiweMessage({

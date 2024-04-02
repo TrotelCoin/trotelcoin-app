@@ -25,10 +25,22 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(alreadyUsedError, { status: 500 });
   }
 
-  if (alreadyUsedData) {
+  if (
+    alreadyUsedData &&
+    alreadyUsedData.length > 0 &&
+    alreadyUsedData[0].number_of_use
+  ) {
     alreadyUsed = alreadyUsedData[0].number_of_use;
   } else {
-    return NextResponse.json("No item found", { status: 404 });
+    await supabase.from("items").insert([
+      {
+        wallet: address,
+        name: item,
+        number_of_use: 1,
+      },
+    ]);
+
+    return NextResponse.json(1, { status: 200 });
   }
 
   const { data, error } = await supabase

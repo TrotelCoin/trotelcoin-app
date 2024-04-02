@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Lang } from "@/types/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
@@ -12,17 +12,22 @@ import { formatEther } from "viem";
 import type {
   InventoryItemType,
   InventoryItemTypeFinal,
+  Items,
 } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
-  const [inventories, setInventories] = useState<any[] | null>(null);
+  const [inventories, setInventories] = useState<
+    InventoryItemTypeFinal[] | null
+  >(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { address } = useAccount();
+  const { isLoggedIn } = useContext(UserContext);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
@@ -56,9 +61,13 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     if (totalItems && address) {
       const fetchInventory = async () => {
         setIsLoading(true);
-        let inventories = [];
+        let newInventories = [];
 
-        for (let item = 0; item < totalItems; item++) {
+        for (
+          let item = inventories ? inventories.length : 0;
+          item < totalItems;
+          item++
+        ) {
           try {
             const userItem = (await readContract(config, {
               address: trotelCoinShopV1,
@@ -74,28 +83,34 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
             const price = Number(formatEther(itemInfo.price));
             const discount = Number(itemInfo.discount);
             const itemFormatted = {
-              name: itemInfo.name,
+              name: itemInfo.name as Items,
               price: price,
               discount: discount,
               quantity: itemQuantity,
             };
 
-            inventories.push(itemFormatted);
+            newInventories.push(itemFormatted);
           } catch (error) {
             break;
           }
         }
 
         setIsLoading(false);
-        return inventories;
+        return newInventories;
       };
 
-      fetchInventory().then((inventories) => setInventories(inventories));
+      fetchInventory().then((newInventories) =>
+        setInventories(
+          inventories
+            ? [...inventories, ...newInventories]
+            : [...newInventories]
+        )
+      );
     } else {
       setInventories(null);
       setIsLoading(false);
     }
-  }, [totalItems, address]);
+  }, [totalItems, address, inventories]);
 
   return (
     <>
@@ -138,7 +153,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   ? "You don't have any items."
                   : "Vous n'avez aucun objet."}
               </span>
-              {!address && <Wallet lang={lang} isCentered={true} />}
+              {!isLoggedIn && <Wallet lang={lang} isCentered={true} />}
             </div>
           </>
         )}

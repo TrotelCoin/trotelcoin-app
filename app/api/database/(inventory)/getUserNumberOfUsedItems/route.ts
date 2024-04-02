@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json(error, { status: 500 });
   }
 
-  if (data) {
+  if (data && data.length > 0 && data[0].number_of_use) {
     return NextResponse.json(data[0].number_of_use, { status: 200 });
   }
 
