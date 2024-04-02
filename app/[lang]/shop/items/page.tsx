@@ -8,92 +8,113 @@ import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 
-const potions: ShopItemType[] = [
-  {
-    id: 1,
-    name: "Potion",
-    description: "Restores 1 life point.",
-    price: 100,
-    emoji: "🧪",
-    quantity: 1,
-  },
-  {
-    id: 1,
-    name: "3 Potions",
-    description: "Restores 3 life points.",
-    price: 100,
-    emoji: "🧪",
-    quantity: 3,
-    discount: 10,
-  },
-  {
-    id: 1,
-    name: "10 Potions",
-    description: "Restores 10 life points.",
-    price: 100,
-    emoji: "🧪",
-    quantity: 10,
-    discount: 10,
-  },
-];
-
-const clocks: ShopItemType[] = [
-  {
-    id: 2,
-    name: "Hourglass",
-    description: "Restores max streak within 72 hours after lost.",
-    price: 250,
-    emoji: "⏳",
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: "Clock",
-    description: "Restores max streak anytime you want.",
-    price: 5000,
-    emoji: "⏰",
-    quantity: 1,
-  },
-];
-
-const shields: ShopItemType[] = [
-  {
-    id: 4,
-    name: "Closed Lock",
-    description: "Protects from losing lives during 1 hour.",
-    price: 100,
-    emoji: "🔒",
-    quantity: 1,
-  },
-  {
-    id: 5,
-    name: "Shield",
-    description: "Protects from losing lives during 24 hours.",
-    price: 500,
-    emoji: "🛡️",
-    quantity: 1,
-  },
-  {
-    id: 6,
-    name: "Castle",
-    description: "Protects from losing lives during 72 hours.",
-    price: 1000,
-    emoji: "🏰",
-    quantity: 1,
-  },
-  {
-    id: 7,
-    name: "King",
-    description: "Protects from losing lives during 1 week.",
-    price: 5000,
-    emoji: "🤴",
-    quantity: 1,
-  },
-];
-
 const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [category, setCategory] = useState<ShopCategories>("potions");
   const [balance, setBalance] = useState<number | null>(null);
+
+  const potions: ShopItemType[] = [
+    {
+      id: 1,
+      name: "Potion",
+      description:
+        lang === "en" ? "Restores 1 life point" : "Restaure 1 point de vie",
+      price: 100,
+      emoji: "🧪",
+      quantity: 1,
+    },
+    {
+      id: 1,
+      name: "3 Potions",
+      description:
+        lang === "en" ? "Restores 3 life points" : "Restaure 3 points de vie",
+      price: 100,
+      emoji: "🧪",
+      quantity: 3,
+      discount: 10,
+    },
+    {
+      id: 1,
+      name: "10 Potions",
+      description:
+        lang === "en" ? "Restores 10 life points" : "Restaure 10 points de vie",
+      price: 100,
+      emoji: "🧪",
+      quantity: 10,
+      discount: 10,
+    },
+  ];
+
+  const clocks: ShopItemType[] = [
+    {
+      id: 2,
+      name: "Hourglass",
+      description:
+        lang === "en"
+          ? "Restores max streak within 72 hours after lost"
+          : "Restaure votre série maximale dans les 72 heures après la perte",
+      price: 250,
+      emoji: "⏳",
+      quantity: 1,
+    },
+    {
+      id: 3,
+      name: "Clock",
+      description:
+        lang === "en"
+          ? "Restores max streak anytime you want"
+          : "Restaure votre série maximale n'importe quand",
+      price: 5000,
+      emoji: "⏰",
+      quantity: 1,
+    },
+  ];
+
+  const shields: ShopItemType[] = [
+    {
+      id: 4,
+      name: "Closed Lock",
+      description:
+        lang === "en"
+          ? "Protects from losing lives during 1 hour"
+          : "Protège de la parte de points de vie pendant 1 heure",
+      price: 100,
+      emoji: "🔒",
+      quantity: 1,
+    },
+    {
+      id: 5,
+      name: "Shield",
+      description:
+        lang === "en"
+          ? "Protects from losing lives during 24 hours"
+          : "Protège de la perte de points de vie pendant 24 heures",
+      price: 500,
+      emoji: "🛡️",
+      quantity: 1,
+    },
+    {
+      id: 6,
+      name: "Castle",
+      description:
+        lang === "en"
+          ? "Protects from losing lives during 72 hours"
+          : "Protège de la perte de vie pendant 72 heures",
+      price: 1000,
+      emoji: "🏰",
+      quantity: 1,
+    },
+    {
+      id: 7,
+      name: "King",
+      description:
+        lang === "en"
+          ? "Protects from losing lives during 1 week"
+          : "Protège de la perte de points de vie pendant 1 semaine",
+      price: 5000,
+      emoji: "🤴",
+      quantity: 1,
+    },
+  ];
 
   const { address } = useAccount();
 
