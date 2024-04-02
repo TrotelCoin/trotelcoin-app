@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase/db";
+import { Items } from "@/types/inventory/inventory";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -20,12 +21,40 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   if (data.length > 0) {
-    data.map((shieldItem) => {
+    let shieldEnabled: boolean = false;
+
+    data.forEach((shieldItem) => {
       const now = new Date();
-      const 
+      const shieldStartTime = new Date(shieldItem.start_time);
+
+      const differenceInMs = now.getTime() - shieldStartTime.getTime();
+      const differenceInHours = differenceInMs / (1000 * 60 * 60);
+
+      let hours: number = 0;
+
+      switch (shieldItem.shield_name as Items) {
+        case "Closed Lock":
+          hours = 1;
+          break;
+        case "Shield":
+          hours = 24;
+          break;
+        case "Castle":
+          hours = 72;
+          break;
+        case "King":
+          hours = 168;
+          break;
+        default:
+          break;
+      }
+
+      if (differenceInHours <= hours) {
+        shieldEnabled = true;
+      }
     });
 
-    return NextResponse.json(, {status:200})
+    return NextResponse.json(shieldEnabled, { status: 200 });
   } else {
     return NextResponse.json(false, { status: 200 });
   }

@@ -3,7 +3,7 @@
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
-import { InventoryItemTypeFinal, Items } from "@/types/inventory/inventory";
+import { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import { Lang } from "@/types/lang";
 import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
