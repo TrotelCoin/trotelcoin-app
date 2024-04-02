@@ -152,14 +152,16 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto max-w-4xl flex flex-col gap-4">
-        <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-          {lang === "en" ? "Inventory" : "Inventaire"}
-        </span>
-        <span className="text-gray-700 dark:text-gray-300 text-sm">
-          {lang === "en"
-            ? "Use your items to improve your learning experience."
-            : "Utilisez vos objets pour améliorer votre expérience d'apprentissage."}
-        </span>
+        <div>
+          <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+            {lang === "en" ? "Inventory" : "Inventaire"}
+          </span>
+          <span className="text-gray-700 dark:text-gray-300 text-sm">
+            {lang === "en"
+              ? "Use your items to improve your learning experience."
+              : "Utilisez vos objets pour améliorer votre expérience d'apprentissage."}
+          </span>
+        </div>
 
         {inventories && inventories.length > 0 && !hide ? (
           <>
