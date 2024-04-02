@@ -126,7 +126,8 @@ export const useItem = async (
 export const translateItemsName = (
   name: Items,
   lang: Lang,
-  setDisplayedName: React.Dispatch<SetStateAction<string | null>>
+  setDisplayedName: React.Dispatch<SetStateAction<string | null>>,
+  quantity: number
 ) => {
   switch (name) {
     case "Potion":
@@ -156,6 +157,10 @@ export const translateItemsName = (
     case "King":
       const king = lang === "en" ? "King" : "Roi";
       setDisplayedName(king);
+      break;
+    default:
+      const defaultName = String(quantity) + " " + name;
+      setDisplayedName(defaultName);
       break;
   }
 };

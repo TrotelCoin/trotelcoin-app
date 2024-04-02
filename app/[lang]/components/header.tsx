@@ -5,8 +5,6 @@ import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import TrotelPrice from "@/app/[lang]/hooks/trotelPrice";
-import TrotelPriceChange from "@/app/[lang]/hooks/trotelPriceChange";
 import ThemeSwitcher from "@/app/[lang]/components/selectors/themeSelector";
 import LanguageSelector from "@/app/[lang]/components/selectors/languageSelector";
 import type { Lang } from "@/types/lang";
@@ -74,11 +72,6 @@ const Header = ({ lang }: { lang: Lang }) => {
               />
             </Link>
           </div>
-
-          <p className="hidden md:block font-semibold text-gray-900 dark:text-gray-100">
-            {<TrotelPrice />}
-          </p>
-          <div className="hidden md:block">{<TrotelPriceChange />}</div>
         </div>
 
         {/* Desktop navigation links */}
