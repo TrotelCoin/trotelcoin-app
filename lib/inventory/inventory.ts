@@ -1,8 +1,13 @@
-import type { Items } from "@/types/inventory/inventory";
+import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
+import { config } from "@/config/Web3ModalConfig";
+import { trotelCoinShopV1 } from "@/data/web3/addresses";
+import type { InventoryItemType, Items } from "@/types/inventory/inventory";
 import { Lang } from "@/types/lang";
+import { readContract } from "@wagmi/core";
 import axios from "axios";
 import React, { SetStateAction } from "react";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
+import { polygon } from "wagmi/chains";
 
 export const useItem = async (
   item: Items,
@@ -154,4 +159,39 @@ export const translateItemsName = (
       setDisplayedName(name);
       break;
   }
+};
+
+export const fetchInventory = async (totalItems: number, address: Address) => {
+  let newInventories = [];
+
+  for (let item = 0; item < totalItems; item++) {
+    try {
+      const userItem = (await readContract(config, {
+        address: trotelCoinShopV1,
+        abi: trotelCoinShopV1ABI,
+        functionName: "inventories",
+        chainId: polygon.id,
+        account: address,
+        args: [address, item],
+      })) as InventoryItemType;
+
+      const itemInfo = userItem[0];
+      const itemQuantity = Number(userItem[1]);
+      const price = Number(formatEther(itemInfo.price));
+      const discount = Number(itemInfo.discount);
+      const itemFormatted = {
+        name: itemInfo.name as Items,
+        price: price,
+        discount: discount,
+        quantity: itemQuantity,
+      };
+
+      newInventories.push(itemFormatted);
+    } catch (error) {
+      console.error(error);
+      break;
+    }
+  }
+
+  return newInventories;
 };
