@@ -126,11 +126,11 @@ const NotificationProvider = ({
         onDismiss={() => setIsNotificationShowing(false)}
       />
       <SuccessNotification
-        title={lang === "en" ? "Streak available" : "Série disponible"}
+        title={lang === "en" ? "Streak updated" : "Série mise ) jour"}
         message={
           lang === "en"
-            ? "Your streak can be updated."
-            : "Votre série peut être mise à jour."
+            ? "Your streak have been updated."
+            : "Votre série a été mise à jour."
         }
         lang={lang}
         display={currentNotification === "streakUpdated"}
