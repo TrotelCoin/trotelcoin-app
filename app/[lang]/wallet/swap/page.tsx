@@ -425,7 +425,9 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <div className="flex items-center gap-2">
             <BlueSimpleButton
               onClick={() => refetchQuote()}
-              disabled={isLoading || !userAddress || !fromAmount}
+              disabled={
+                isLoading || !userAddress || !fromAmount || fromAmount <= 0
+              }
             >
               <ArrowPathIcon
                 className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
