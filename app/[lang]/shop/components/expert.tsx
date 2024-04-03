@@ -155,7 +155,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 {lang === "en" ? "Expert" : "Expert"}
               </div>
               <Link
-                href="https://docs.trotelcoin.com/overview/tokenomics"
+                href="https://docs.trotelcoin.com/overview/ranks"
                 target="_blank"
               >
                 <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-800 dark:hover:text-gray-200" />
