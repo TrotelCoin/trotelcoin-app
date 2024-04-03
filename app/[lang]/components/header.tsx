@@ -1,7 +1,7 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -18,11 +18,21 @@ import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import PendingRewardsMobile from "@/app/[lang]/components/header/pendingRewardsMobile";
 import UserInformationMobile from "@/app/[lang]/components/header/userInformationMobile";
+import UserContext from "@/app/[lang]/contexts/userContext";
+import StreakContext from "@/app/[lang]/contexts/streakContext";
+import LifeContext from "@/app/[lang]/contexts/lifeContext";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const pathname = usePathname();
+
+  const { streak } = useContext(StreakContext);
+  const { life } = useContext(LifeContext);
+  const { userTotalRewardsPending, userNumberOfQuizzesAnswered, isLoggedIn } =
+    useContext(UserContext);
+  const { isPremium } = useContext(PremiumContext);
 
   const navigation = [
     {
@@ -51,29 +61,47 @@ const Header = ({ lang }: { lang: Lang }) => {
     <header className="bg-white dark:bg-gray-900">
       {/* Navigation */}
       <nav
-        className="mx-auto flex max-w-8xl items-center justify-between md:gap-x-16 p-6 lg:px-8"
+        className="mx-auto flex items-center justify-between md:gap-x-8 p-6 lg:px-8"
         aria-label="Global"
       >
         {/* Left section with logo, Trotel price, and version */}
-        <div className="flex lg:flex-1 items-center gap-x-4">
-          <div className="p-1">
-            <Link href={`/${lang}/home`}>
+        <div className="flex lg:flex-1 items-center md:gap-x-8">
+          <Link href={`/${lang}/home`}>
+            <div className="w-12 h-12">
               <Image
-                className="block dark:hidden h-12 w-auto"
-                width={128}
-                height={128}
+                className="block dark:hidden"
+                width={48}
+                height={48}
                 src="/assets/logo/trotelcoin-white.png"
                 alt="TrotelCoin Logo"
               />
               <Image
-                width={128}
-                height={128}
+                width={48}
+                height={48}
                 alt="TrotelCoin Logo"
-                className="hidden dark:block h-12 w-auto"
+                className="hidden dark:block"
                 src="/assets/logo/trotelcoin.png"
               />
-            </Link>
-          </div>
+            </div>
+          </Link>
+
+          {isLoggedIn &&
+            Boolean(streak) &&
+            Boolean(userNumberOfQuizzesAnswered) &&
+            Boolean(userTotalRewardsPending) &&
+            Boolean(life) &&
+            isPremium && (
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-full px-4 py-3 hidden lg:block w-96">
+                <UserInformationMobile
+                  lang={lang}
+                  streak={streak}
+                  userNumberOfQuizzesAnswered={userNumberOfQuizzesAnswered}
+                  userTotalRewardsPending={userTotalRewardsPending}
+                  isPremium={isPremium}
+                  life={life}
+                />
+              </div>
+            )}
         </div>
 
         {/* Desktop navigation links */}
@@ -106,9 +134,6 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
           <div className="items-center flex gap-2">
-            <AudioSelector />
-            <LanguageSelector lang={lang} />
-            <ThemeSwitcher />
             <div className="relative">
               <BlueButton
                 lang={lang}
@@ -123,8 +148,6 @@ const Header = ({ lang }: { lang: Lang }) => {
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
             <div className="flex items-center gap-2">
-              <LanguageSelector lang={lang} />
-              <ThemeSwitcher />
               <div className="relative">
                 <BlueButton
                   lang={lang}
@@ -137,9 +160,23 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
       </nav>
 
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 md:hidden">
-        <UserInformationMobile lang={lang} />
-      </div>
+      {isLoggedIn &&
+        Boolean(streak) &&
+        Boolean(userNumberOfQuizzesAnswered) &&
+        Boolean(userTotalRewardsPending) &&
+        Boolean(life) &&
+        isPremium && (
+          <div className="bg-gray-50 dark:bg-gray-800 px-4 py-3 lg:hidden">
+            <UserInformationMobile
+              lang={lang}
+              streak={streak}
+              userNumberOfQuizzesAnswered={userNumberOfQuizzesAnswered}
+              userTotalRewardsPending={userTotalRewardsPending}
+              isPremium={isPremium}
+              life={life}
+            />
+          </div>
+        )}
 
       {/* Mobile menu */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>
@@ -166,8 +203,10 @@ const Header = ({ lang }: { lang: Lang }) => {
                             </Dialog.Title>
                           </div>
                           <div className="flex flex-1 items-center justify-end gap-2">
-                            <div className="flex lg:hidden items-center gap-2">
+                            <div className="flex items-center gap-2">
                               <AudioSelector />
+                              <LanguageSelector lang={lang} />
+                              <ThemeSwitcher />
                             </div>
                             <BlueSimpleButton
                               onClick={() => setMobileMenuOpen(false)}

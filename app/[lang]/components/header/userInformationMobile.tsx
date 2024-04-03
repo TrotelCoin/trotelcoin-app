@@ -1,21 +1,25 @@
 "use client";
 
 import { Lang } from "@/types/lang";
-import React, { useContext } from "react";
-import StreakContext from "@/app/[lang]/contexts/streakContext";
-import LifeContext from "@/app/[lang]/contexts/lifeContext";
-import UserContext from "@/app/[lang]/contexts/userContext";
+import React from "react";
 import Image from "next/image";
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Marquee from "react-fast-marquee";
 
-const UserInformationMobile = ({ lang }: { lang: Lang }) => {
-  const { streak } = useContext(StreakContext);
-  const { life } = useContext(LifeContext);
-  const { userTotalRewardsPending, userNumberOfQuizzesAnswered } =
-    useContext(UserContext);
-  const { isPremium } = useContext(PremiumContext);
-
+const UserInformationMobile = ({
+  lang,
+  streak,
+  life,
+  userTotalRewardsPending,
+  userNumberOfQuizzesAnswered,
+  isPremium,
+}: {
+  lang: Lang;
+  streak: number;
+  life: number;
+  userTotalRewardsPending: number;
+  userNumberOfQuizzesAnswered: number;
+  isPremium: boolean;
+}) => {
   return (
     <>
       {streak &&
@@ -23,8 +27,8 @@ const UserInformationMobile = ({ lang }: { lang: Lang }) => {
         userTotalRewardsPending &&
         userNumberOfQuizzesAnswered &&
         isPremium && (
-          <Marquee pauseOnHover={true}>
-            <div className="flex items-center gap-16 w-full text-gray-900 dark:text-gray-100 font-semibold mx-8">
+          <Marquee>
+            <div className="flex rounded-full items-center gap-16 w-full text-gray-900 dark:text-gray-100 font-semibold mx-8">
               <div className="flex items-center">{streak} 🔥</div>
               <div className="flex items-center">
                 {isPremium ? (
