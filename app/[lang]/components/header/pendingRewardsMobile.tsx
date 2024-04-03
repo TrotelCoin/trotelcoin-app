@@ -8,13 +8,7 @@ import { useEffect } from "react";
 import useSWR from "swr";
 import { Address } from "viem";
 
-const PendingRewardsMobile = ({
-  lang,
-  setMobileMenuOpen,
-}: {
-  lang: Lang;
-  setMobileMenuOpen: (open: boolean) => void;
-}) => {
+const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
@@ -72,10 +66,7 @@ const PendingRewardsMobile = ({
             </div>
           </div>
         </div>
-        <div
-          onClick={() => setMobileMenuOpen(false)}
-          className="flex justify-center items-center gap-4 p-4 w-full"
-        >
+        <div className="flex justify-center items-center gap-4 p-4 w-full">
           <RewardsButton
             centralWalletAddress={centralWalletAddress as Address}
             lang={lang}

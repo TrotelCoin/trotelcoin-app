@@ -176,10 +176,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                             lang={lang}
                             setMobileMenuOpen={setMobileMenuOpen}
                           />
-                          <PendingRewardsMobile
-                            lang={lang}
-                            setMobileMenuOpen={setMobileMenuOpen}
-                          />
+                          <PendingRewardsMobile lang={lang} />
                           <StreakMobile lang={lang} />
                           <LifeMobile
                             lang={lang}
