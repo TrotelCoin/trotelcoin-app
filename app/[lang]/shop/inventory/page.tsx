@@ -46,6 +46,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const handleRefresh = async () => {
     if (!refreshing && address && totalItems) {
       setRefreshing(true);
+      setInventories(null);
 
       await fetchInventory(totalItems, address)
         .then((newInventories) => setInventories(newInventories))
