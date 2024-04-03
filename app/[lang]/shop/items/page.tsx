@@ -150,7 +150,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             {lang === "en" ? "Shop" : "Boutique"}
           </span>
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
           <ul className="flex items-center flex-wrap gap-2">
             <li>
               <button
