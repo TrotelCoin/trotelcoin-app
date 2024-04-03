@@ -86,7 +86,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           </Link>
 
           {isLoggedIn && (
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-full px-4 py-3 hidden lg:block w-96">
+            <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-3 hidden lg:block w-96">
               <UserInformationMobile
                 lang={lang}
                 streak={streak}
@@ -163,7 +163,7 @@ const Header = ({ lang }: { lang: Lang }) => {
       </nav>
 
       {isLoggedIn && (
-        <div className="bg-gray-50 dark:bg-gray-800 px-4 py-3 lg:hidden">
+        <div className="bg-gray-50 dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
           <UserInformationMobile
             lang={lang}
             streak={streak}
