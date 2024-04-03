@@ -72,14 +72,18 @@ const Page = ({
                 </h2>
                 <SeparatorVertical />
                 <span className="text-base leading-7 text-gray-700 dark:text-gray-300">
-                  <CountUp start={0} end={lesson.courses.length} />{" "}
+                  <CountUp
+                    start={0}
+                    end={
+                      lesson.courses.filter((course) => course.available).length
+                    }
+                  />{" "}
                   {lang === "en" ? "lessons" : "leçons"}
                 </span>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {lesson.courses
-                .slice()
                 .filter((course) => course.available)
                 .map((course, index) =>
                   renderCourses(

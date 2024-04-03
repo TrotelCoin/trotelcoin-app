@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 
-const Card = ({ text }: { text: string | JSX.Element }) => {
-  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+const Card = ({
+  text,
+  currentIndex,
+  setCurrentIndex,
+  pause,
+}: {
+  text: string | JSX.Element;
+  currentIndex: number;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  pause: boolean;
+}) => {
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
   const delay: number = 10;
 
   useEffect(() => {
-    if (isTyping && typeof text === "string") {
+    if (isTyping && typeof text === "string" && !pause) {
       if (currentIndex < text.length) {
         const timeout = setTimeout(() => {
           setCurrentIndex((prev) => prev + 1);
@@ -18,7 +27,7 @@ const Card = ({ text }: { text: string | JSX.Element }) => {
         setIsTyping(false);
       }
     }
-  }, [currentIndex, text, isTyping]);
+  }, [currentIndex, text, isTyping, pause]);
 
   useEffect(() => {
     setCurrentIndex(0);
