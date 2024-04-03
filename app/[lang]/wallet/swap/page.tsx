@@ -14,7 +14,7 @@ import {
 } from "wagmi";
 import { polygonChain } from "@/data/web3/chains";
 import { polygon } from "viem/chains";
-import { Address, formatUnits, Hash, parseUnits } from "viem";
+import { Address, formatUnits, Hash } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
@@ -23,18 +23,12 @@ import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
 import FailNotification from "@/app/[lang]/components/modals/failNotification";
 import { ArrowPathIcon, ArrowsUpDownIcon } from "@heroicons/react/20/solid";
 import {
-  getQuote,
-  getRouteTransactionData,
   getBridgeStatus,
   getFromTokenList,
   getToTokenList,
   getChainList,
 } from "@/lib/socket/socket";
-import {
-  usdcPolygon,
-  trotelCoinPolygon,
-  nativeAddress,
-} from "@/data/web3/tokens";
+import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
 import { useDebounce } from "use-debounce";
@@ -46,6 +40,7 @@ import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
 import allowanceAbi from "@/abi/allowance";
+import { fetchQuote } from "@/lib/socket/socket";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -247,83 +242,47 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
 
-  useEffect(() => {
-    const fetchQuote = async () => {
-      setIsLoading(true);
-
-      const fromAmountDecimals: number = fromAmount
-        ? Number(parseUnits(String(fromAmount), fromToken.decimals))
-        : 0;
-
-      const quote = await getQuote(
-        fromChain.chainId,
-        fromToken.address,
-        toChain.chainId,
-        toToken.address,
-        fromAmountDecimals,
-        userAddress as Address,
-        uniqueRoutesPerBridge,
-        sort,
-        singleTxOnly,
-        enableRefuel,
-        slippage
-      );
-
-      if (!quote) {
-        setIsLoading(false);
-        setNoQuoteNotification(true);
-        setQuoteFetched(false);
-        setIsApproved(false);
-        return;
-      }
-
-      const route = quote.result.routes[0];
-
-      if (!route) {
-        setIsLoading(false);
-        setNoQuoteNotification(true);
-        setQuoteFetched(false);
-        setIsApproved(false);
-        return;
-      }
-
-      setGasPrice(route.totalGasFeesInUsd);
-      setFromPrice(route.inputValueInUsd);
-      setToPrice(route.outputValueInUsd);
-      setSwapSlippage(route.userTxs[0]?.steps?.swapSlippage);
-      setBridgeSlippage(route.userTxs[0]?.steps?.bridgeSlippage);
-      setProtocolName(route.userTxs[0]?.protocol?.displayName);
-      setProtocolIcon(route.userTxs[0]?.protocol?.icon);
-      setMinimumAmountOut(route.userTxs[0]?.minAmountOut);
-
-      const apiReturnData = await getRouteTransactionData(route, enableRefuel);
-
-      setApiReturnData(apiReturnData);
-
-      if (fromToken.address !== nativeAddress) {
-        const approvalData = apiReturnData.result?.approvalData;
-
-        if (!approvalData) {
-          setIsLoading(false);
-          setNoQuoteNotification(true);
-          setQuoteFetched(false);
-          setIsApproved(false);
-          return;
-        }
-
-        setApprovalData(approvalData);
-        setAllowanceTarget(approvalData.allowanceTarget);
-      }
-
-      const toAmount = Number(Number(route?.toAmount).toFixed(0));
-
-      setToAmount(route ? toAmount : 0);
-      setQuoteFetched(true);
+  const handleRefresh = async () => {
+    await fetchQuote(
+      fromAmount as number,
+      fromToken,
+      toToken,
+      fromChain,
+      toChain,
+      userAddress as Address,
+      uniqueRoutesPerBridge,
+      sort,
+      singleTxOnly,
+      enableRefuel,
+      slippage,
+      setIsLoading,
+      setNoQuoteNotification,
+      setQuoteFetched,
+      setIsApproved,
+      setGasPrice,
+      setFromPrice,
+      setToPrice,
+      setSwapSlippage,
+      setBridgeSlippage,
+      setProtocolName,
+      setProtocolIcon,
+      setMinimumAmountOut,
+      setApiReturnData,
+      setApprovalData,
+      setAllowanceTarget,
+      setToAmount
+    ).catch((error) => {
+      console.error(error);
       setIsLoading(false);
-    };
+      setNoQuoteNotification(true);
+      setQuoteFetched(false);
+      setIsApproved(false);
+    });
+  };
 
+  useEffect(() => {
     if (userAddress && fromAmount && fromAmount > 0) {
-      fetchQuote();
+      handleRefresh();
     } else {
       setToAmount(0);
       setQuoteFetched(false);
