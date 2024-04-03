@@ -134,6 +134,11 @@ const Header = ({ lang }: { lang: Lang }) => {
         {/* Right section with Wallet component */}
         <div className="hidden lg:flex justify-end flex-1 items-center">
           <div className="items-center flex gap-2">
+            <div className="items-center gap-2 hidden lg:flex">
+              <AudioSelector />
+              <LanguageSelector lang={lang} />
+              <ThemeSwitcher />
+            </div>
             <div className="relative">
               <BlueButton
                 lang={lang}
@@ -203,7 +208,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                             </Dialog.Title>
                           </div>
                           <div className="flex flex-1 items-center justify-end gap-2">
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 lg:hidden">
                               <AudioSelector />
                               <LanguageSelector lang={lang} />
                               <ThemeSwitcher />
