@@ -29,6 +29,7 @@ const TokenList = ({
   tokenList,
   openTokenList,
   setOpenTokenList,
+  setIsLoadingTokensBalance,
 }: {
   lang: Lang;
   setFromToken: React.Dispatch<React.SetStateAction<Token>>;
@@ -38,6 +39,7 @@ const TokenList = ({
   tokenList: TokenSource;
   openTokenList: boolean;
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoadingTokensBalance: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [query, setQuery] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -48,6 +50,8 @@ const TokenList = ({
 
   useEffect(() => {
     if (address) {
+      setIsLoadingTokensBalance(true);
+
       tokens.map(async (token: Token, index: number) => {
         if (token.address === nativeAddress) {
           const balance: GetBalanceReturnType = await getBalance(config, {
@@ -66,6 +70,7 @@ const TokenList = ({
           if (balance) token.balance = Number(balance?.formatted);
         }
 
+        setIsLoadingTokensBalance(false);
         return token;
       });
     } else {

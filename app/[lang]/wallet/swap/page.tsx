@@ -91,6 +91,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [isLoadingChains, setIsLoadingChains] = useState<boolean>(false);
   const [isLoadingBlockchain, setIsLoadingBlockchain] =
     useState<boolean>(false);
+  const [isLoadingTokensBalance, setIsLoadingTokensBalance] =
+    useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -424,12 +426,22 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [allowance, fromAmount]);
 
   useEffect(() => {
-    if (isLoadingChains || isLoadingTokens || isLoadingBlockchain) {
+    if (
+      isLoadingChains ||
+      isLoadingTokens ||
+      isLoadingBlockchain ||
+      isLoadingTokensBalance
+    ) {
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
-  }, [isLoadingTokens, isLoadingChains, isLoadingBlockchain]);
+  }, [
+    isLoadingTokens,
+    isLoadingChains,
+    isLoadingBlockchain,
+    isLoadingTokensBalance,
+  ]);
 
   return (
     <>
@@ -563,6 +575,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           tokenList={tokenList}
           openTokenList={openTokenList}
           setOpenTokenList={setOpenTokenList}
+          setIsLoadingTokensBalance={setIsLoadingTokensBalance}
         />
         <ChainList
           lang={lang}
