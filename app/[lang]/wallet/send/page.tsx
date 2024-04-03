@@ -248,8 +248,11 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       {showScanner && (
         <div className="flex justify-center items-center h-screen">
           <ScannerComponent
+            lang={lang}
             setRecipient={setRecipient}
+            errorMessage={errorMessage}
             setErrorMessage={setErrorMessage}
+            showScanner={showScanner}
             setShowScanner={setShowScanner}
           />
         </div>
