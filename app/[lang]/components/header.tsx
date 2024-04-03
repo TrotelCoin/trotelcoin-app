@@ -17,6 +17,7 @@ import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import PendingRewardsMobile from "@/app/[lang]/components/header/pendingRewardsMobile";
+import UserInformationMobile from "@/app/[lang]/components/header/userInformationMobile";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -135,6 +136,10 @@ const Header = ({ lang }: { lang: Lang }) => {
           </div>
         </div>
       </nav>
+
+      <div className="bg-gray-50 dark:bg-gray-800 p-4 md:hidden">
+        <UserInformationMobile lang={lang} />
+      </div>
 
       {/* Mobile menu */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>
