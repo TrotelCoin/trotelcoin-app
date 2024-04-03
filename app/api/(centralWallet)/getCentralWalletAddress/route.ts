@@ -2,6 +2,8 @@ import { ethers } from "ethers";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
 const centralWallet = new ethers.Wallet(
   process.env.PRIVATE_KEY_WALLET as Address
 );

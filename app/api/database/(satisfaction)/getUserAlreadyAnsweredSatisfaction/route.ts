@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase/db";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");
@@ -17,7 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       return NextResponse.json(false, { status: 500 });
     }
 
-    if (!data.length) {
+    if (data.length > 0) {
       return NextResponse.json(true, { status: 200 });
     } else {
       return NextResponse.json(false, { status: 200 });

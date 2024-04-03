@@ -25,7 +25,10 @@ export const updateStatistics = async (
   statsName: StatisticsType,
   value: number
 ) => {
-  await axios.post(
-    `/api/statistics/updateStatistics?stats=${statsName}&value=${value}`
-  );
+  await axios
+    .post(`/api/statistics/updateStatistics?stats=${statsName}&value=${value}`)
+    .catch((error) => {
+      console.error(error);
+      return;
+    });
 };

@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");
@@ -26,6 +28,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     const currentStreak = result[0]?.current_streak;
+    const lostStreakAt = result[0]?.streak_lost_at;
     let lastUpdated = result[0]?.last_streak_at;
     let disabled = false;
 
@@ -36,7 +39,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const { error: updateError } = await supabase
       .from("streak")
-      .update({ current_streak: 0 })
+      .update({ current_streak: 0, streak_lost_at: new Date().toISOString() })
       .lte("last_streak_at", twoDaysAgo.toISOString())
       .eq("wallet", wallet as Address);
 
@@ -76,7 +79,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         );
       }
 
-      if (!oneDay.length) {
+      if (oneDay.length === 0) {
         disabled = true;
       }
     }
@@ -88,7 +91,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     return NextResponse.json(
-      { currentStreak, lastUpdated, disabled },
+      { currentStreak, lastUpdated, disabled, lostStreakAt },
       { status: 200 }
     );
   } catch (error) {

@@ -1,6 +1,8 @@
 import lessons from "@/data/lessons/lessonsData";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const availableCourses = lessons.flatMap((lesson) =>
     lesson.courses.filter((course) => course.available)

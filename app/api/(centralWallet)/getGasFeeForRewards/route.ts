@@ -4,6 +4,8 @@ import trotelCoinABI from "@/abi/trotelCoin";
 import { Address, parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const userAddress = searchParams.get("address");

@@ -25,6 +25,7 @@ const StreakProvider = ({
   const [isStreakLoading, setIsStreakLoading] = useState<boolean>(false);
   const [streakResetMessage, setStreakResetMessage] = useState<boolean>(false);
   const [streakMessage, setStreakMessage] = useState<boolean>(false);
+  const [lostStreakAt, setLostStreakAt] = useState<Date | null>(null);
 
   const { address } = useAccount();
 
@@ -44,6 +45,8 @@ const StreakProvider = ({
       setStreak(userStreak.currentStreak);
       setLastUpdatedStreak(userStreak.lastUpdated);
       setDisabled(userStreak.disabled);
+      const lostStreakAtDate = new Date(userStreak.lostStreakAt);
+      setLostStreakAt(lostStreakAtDate);
     } else {
       setStreak(0);
       setMaxStreak(0);
@@ -135,6 +138,7 @@ const StreakProvider = ({
       setIsStreakLoading,
       streakResetMessage,
       streakMessage,
+      lostStreakAt,
     }),
     [
       streak,
@@ -152,6 +156,7 @@ const StreakProvider = ({
       setIsStreakLoading,
       streakResetMessage,
       streakMessage,
+      lostStreakAt,
     ]
   );
 

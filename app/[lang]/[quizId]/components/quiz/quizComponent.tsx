@@ -11,7 +11,10 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
 import ReCAPTCHA from "react-google-recaptcha";
-import { CheckIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
+import useSWR from "swr";
+import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { useAccount } from "wagmi";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -43,12 +46,53 @@ const QuizComponent = ({
   const [optionClass, setOptionClass] = useState<string>(
     "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
   );
+  const [shieldEnabled, setShieldEnabled] = useState<boolean>(false);
+  const [shieldTimeLeft, setShieldTimeLeft] = useState<number | null>(null);
+
+  const { address } = useAccount();
 
   const { updateLife, life } = useContext(LifeContext);
   const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { playAudio } = useContext(AudioContext);
   const { theme } = useContext(ThemeContext);
+
+  const { data } = useSWR(
+    address ? `/api/items/getUserShieldEnabled?wallet=${address}` : null,
+    fetcher,
+    {
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
+    }
+  );
+
+  useEffect(() => {
+    console.log(data);
+    if (data) {
+      setShieldEnabled(data.shieldEnabled);
+      setShieldTimeLeft(data.timeLeft);
+    } else {
+      setShieldEnabled(false);
+      setShieldTimeLeft(null);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (shieldTimeLeft && shieldTimeLeft > 0) {
+      timer = setInterval(() => {
+        setShieldTimeLeft((prevTime) => (prevTime ? prevTime - 1 : prevTime));
+      }, 60000);
+    } else {
+      if (timer) {
+        clearInterval(timer);
+      }
+      setShieldEnabled(false);
+    }
+
+    return () => clearInterval(timer);
+  }, [shieldTimeLeft]);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -85,7 +129,7 @@ const QuizComponent = ({
       );
       setIsCorrect(false);
       setShowMessage(true);
-      if (!isIntermediate && !isExpert && life > 0) {
+      if (!isIntermediate && !isExpert && life > 0 && !shieldEnabled) {
         updateLife();
       }
       playAudio("badAnswer");
@@ -144,21 +188,34 @@ const QuizComponent = ({
           {shuffledQuestions &&
             shuffledQuestions[currentQuestion] &&
             isLoggedIn && (
-              <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
-                <span className="flex items-center gap-2">
-                  {lang === "en"
-                    ? shuffledQuestions[currentQuestion].question.en
-                    : shuffledQuestions[currentQuestion].question.fr}
-                </span>
-                <span>
-                  {currentQuestion + 1}/{shuffledQuestions.length}
-                </span>
-              </h3>
+              <>
+                <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
+                  <span className="flex items-center gap-2">
+                    {lang === "en"
+                      ? shuffledQuestions[currentQuestion].question.en
+                      : shuffledQuestions[currentQuestion].question.fr}
+                  </span>
+                  <span>
+                    {currentQuestion + 1}/{shuffledQuestions.length}
+                  </span>
+                </h3>
+                {shieldEnabled && shieldTimeLeft && (
+                  <>
+                    <div className="inline-flex items-center gap-1 rainbow-text">
+                      <ShieldCheckIcon className="w-4 h-4" />
+                      <span className="text-sm">
+                        {lang === "en" ? "Shield enabled" : "Bouclier activé"}{" "}
+                        for {Math.floor(shieldTimeLeft)} mins left.
+                      </span>
+                    </div>
+                  </>
+                )}
+              </>
             )}
           {shuffledQuestions &&
           shuffledQuestions[currentQuestion] &&
           shuffledQuestions[currentQuestion].options ? (
-            <ul className="mt-3 pt-6 flex flex-col gap-4">
+            <ul className="pt-6 flex flex-col gap-4">
               {lang === "en"
                 ? shuffledQuestions[currentQuestion].options.en.map(
                     (option: string, index: number) => (

@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");
@@ -21,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (!userExists.length) {
+    if (userExists.length === 0) {
       // wallet does not exist in the database
       const { error: insertError } = await supabase.from("learners").insert([
         {

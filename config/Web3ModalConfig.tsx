@@ -1,6 +1,6 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
-import { cookieStorage, createStorage } from "wagmi";
+import { cookieStorage, createStorage, http } from "wagmi";
 import {
   mainnet,
   polygon,
@@ -60,4 +60,22 @@ export const config = defaultWagmiConfig({
   storage: createStorage({
     storage: cookieStorage,
   }),
+  transports: {
+    [mainnet.id]: http(),
+    [polygon.id]: http(),
+    [polygonMumbai.id]: http(),
+    [optimism.id]: http(),
+    [bsc.id]: http(),
+    [base.id]: http(),
+    [avalanche.id]: http(),
+    [aurora.id]: http(),
+    [gnosis.id]: http(),
+    [mantle.id]: http(),
+    [linea.id]: http(),
+    [blast.id]: http(),
+    [fantom.id]: http(),
+    [zkSync.id]: http(),
+    [polygonZkEvm.id]: http(),
+    [arbitrum.id]: http(),
+  },
 });

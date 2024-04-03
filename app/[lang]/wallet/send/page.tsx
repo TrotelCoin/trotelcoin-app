@@ -17,6 +17,8 @@ import trotelCoinABI from "@/abi/trotelCoin";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import { CameraIcon } from "@heroicons/react/24/solid";
+import ScannerComponent from "../components/send/scanner";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -27,6 +29,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
+  const [showScanner, setShowScanner] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -118,9 +121,20 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       <div className="mx-auto max-w-md flex flex-col gap-4">
         <div className="w-full flex flex-col flex-wrap bg-gray-50 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="flex flex-col gap-2 px-4 pb-4">
-            <span className="text-2xl font-bold">
-              {lang === "en" ? "Send" : "Envoyer"}
-            </span>
+            <div className="flex justify-between items-center">
+              <span className="text-2xl font-bold">
+                {lang === "en" ? "Send" : "Envoyer"}
+              </span>
+              <button
+                type="button"
+                className="inline-flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
+                onClick={() => {
+                  setShowScanner(true);
+                }}
+              >
+                <CameraIcon className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+              </button>
+            </div>
 
             <div className="flex items-end gap-2">
               <div className="flex flex-col gap-1">
@@ -230,6 +244,19 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <Wallet lang={lang} isFull={true} isCentered={true} />
         )}
       </div>
+
+      {showScanner && (
+        <div className="flex justify-center items-center h-screen">
+          <ScannerComponent
+            lang={lang}
+            setRecipient={setRecipient}
+            errorMessage={errorMessage}
+            setErrorMessage={setErrorMessage}
+            showScanner={showScanner}
+            setShowScanner={setShowScanner}
+          />
+        </div>
+      )}
 
       <Success
         show={successMessage}

@@ -1,6 +1,8 @@
 import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
@@ -21,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (!walletExists.length) {
+    if (walletExists.length === 0) {
       // wallet does not exist in the "learners" table
       const { error: insertError } = await supabase.from("learners").insert([
         {
@@ -57,7 +59,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    if (!streakExists.length) {
+    if (streakExists.length === 0) {
       // create a new streak if the wallet does not exist
       const { error: insertStreakError } = await supabase
         .from("streak")
@@ -120,7 +122,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     // update only if the last streak was more than 1 day ago
-    if (oneDay.length !== 0) {
+    if (oneDay.length > 0) {
       const nowMidnight = new Date();
       nowMidnight.setHours(0, 0, 0, 0);
 

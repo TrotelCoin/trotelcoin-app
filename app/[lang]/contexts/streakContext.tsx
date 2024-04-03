@@ -18,6 +18,7 @@ const StreakContext = React.createContext({
   setIsStreakLoading: {} as Dispatch<React.SetStateAction<boolean>>,
   streakResetMessage: false as boolean,
   streakMessage: false as boolean,
+  lostStreakAt: null as Date | null,
 });
 
 export default StreakContext;

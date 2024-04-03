@@ -4,6 +4,8 @@ import remainingRewards from "@/data/constants/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
@@ -279,10 +281,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    return NextResponse.json(
-      { success: true },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

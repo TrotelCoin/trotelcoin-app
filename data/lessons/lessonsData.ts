@@ -25,14 +25,14 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Claim your NFTs",
-          fr: "Réclamez vos NFTs",
+          en: "Buy the NFTs",
+          fr: "Achetez les NFTs",
         },
         description: {
-          en: "Learn how to claim your NFTs.",
-          fr: "Apprenez à réclamer vos NFTs.",
+          en: "Learn how to buy the NFTs.",
+          fr: "Apprenez à achetez les NFTs.",
         },
-        href: "/trotelcoin/claim-your-nfts",
+        href: "/trotelcoin/buy-the-nfts",
         tier: {
           en: "Beginner",
           fr: "Débutant",

@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import { calculateRewards } from "@/utils/calculateRewards";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // get remaining rewards

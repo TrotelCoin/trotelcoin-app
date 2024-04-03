@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import type { StatisticsType } from "@/types/statistics/statistics";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const stats = searchParams.get("stats");

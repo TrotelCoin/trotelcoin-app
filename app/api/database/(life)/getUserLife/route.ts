@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/db";
 import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");

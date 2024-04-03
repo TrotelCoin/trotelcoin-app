@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.8.4";
+const version = "1.9.1";
 
 interface ChangelogItem {
   title: string;
@@ -73,12 +73,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       content: [
         {
           text:
-            lang === "en"
-              ? "- Introduction to Ethereum"
-              : "- Introduction à Ethereum",
-        },
-        {
-          text:
             lang === "en" ? "- Smart Contracts" : "- Les Contrats Intelligents",
         },
       ],
@@ -89,20 +83,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We fixed some bugs with staking"
-              : "- Nous avons corrigé quelques bugs avec le staking",
+              ? "- Shop is now available"
+              : "- La boutique est maintenant disponible",
         },
         {
           text:
             lang === "en"
-              ? "- We fixed some bugs for swapping and bridging"
-              : "- Nous avons corrigé quelques bugs pour le swap et le bridge",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Send & Receive TROTEL"
-              : "- Envoyer & Recevoir des TROTEL",
+              ? "- Native tokens support for swapping"
+              : "- Support des tokens natifs pour le swap",
         },
       ],
     },
@@ -115,6 +103,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- We launched a Liquid Bootstrapping Pool"
               : "- Nous avons lancé une Liquid Bootstrapping Pool",
         },
+        {
+          text:
+            lang === "en"
+              ? "- We have been audited"
+              : "- Nous avons été audités",
+        },
       ],
     },
     {
@@ -126,14 +120,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- The shop will be available in the next month"
-              : "- La boutique sera disponible le mois prochain",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Support native tokens for swapping"
-              : "- Support des tokens natifs pour le swap",
+              ? "- We are working on Proof of Collective Intelligence"
+              : "- Nous travaillons sur la Preuve d'Intelligence Collective",
         },
       ],
     },
