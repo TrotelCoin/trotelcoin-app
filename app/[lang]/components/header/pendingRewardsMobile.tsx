@@ -77,7 +77,7 @@ const PendingRewardsMobile = ({
           className="flex justify-center items-center gap-4 p-4 w-full"
         >
           <RewardsButton
-            centralWalletAddress={centralWalletAddress}
+            centralWalletAddress={centralWalletAddress as Address}
             lang={lang}
             chainError={chainError}
             setChainError={setChainError}
