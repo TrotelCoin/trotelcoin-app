@@ -13,6 +13,7 @@ import { translateItemsName, useItem } from "@/lib/inventory/inventory";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
+import WarningConfirmation from "@/app/[lang]/components/modals/warningConfirmation";
 
 const InventoryItem = ({
   lang,
@@ -33,6 +34,8 @@ const InventoryItem = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [displayedName, setDisplayedName] = useState<string | null>(null);
   const [hourglassDisabled, setHourglassDisabled] = useState<boolean>(false);
+  const [useItemConfirmation, setUseItemConfirmation] =
+    useState<boolean>(false);
 
   const { address } = useAccount();
   const { lostStreakAt } = useContext(StreakContext);
@@ -153,14 +156,7 @@ const InventoryItem = ({
                   !address || isLoading || quantity === 0 || hourglassDisabled
                 }
                 onClick={() => {
-                  useItem(
-                    item.name,
-                    address as Address,
-                    setErrorMessage,
-                    setItemsUsedMessage,
-                    setIsLoading,
-                    setQuantity
-                  );
+                  setUseItemConfirmation(true);
                 }}
                 text={lang === "en" ? "Use" : "Utiliser"}
               />
@@ -169,6 +165,27 @@ const InventoryItem = ({
         </div>
       </Tilt>
 
+      <WarningConfirmation
+        lang={lang}
+        show={useItemConfirmation}
+        title={lang === "en" ? "Use the item" : "Utiliser l'objet"}
+        message={
+          lang === "en"
+            ? "You will use the selected item. Refund is not possible so make sure that you want to use it"
+            : "Vous allez utiliser l'objet sélectionné. Le remboursement n'est pas possible donc soyez sûr de vouloir l'utiliser"
+        }
+        onClose={() => setUseItemConfirmation(false)}
+        onConfirm={() => {
+          useItem(
+            item.name,
+            address as Address,
+            setErrorMessage,
+            setItemsUsedMessage,
+            setIsLoading,
+            setQuantity
+          );
+        }}
+      />
       <Fail
         show={errorMessage}
         onClose={() => setErrorMessage(false)}

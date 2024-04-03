@@ -22,6 +22,7 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -85,8 +86,8 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          {isLoggedIn && (
-            <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-3 hidden lg:block w-96">
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-96">
+            {isLoggedIn ? (
               <UserInformationMobile
                 lang={lang}
                 streak={streak}
@@ -95,8 +96,14 @@ const Header = ({ lang }: { lang: Lang }) => {
                 isPremium={isPremium}
                 life={life}
               />
-            </div>
-          )}
+            ) : (
+              <span
+                className={`text-gray-900 dark:text-gray-100 font-semibold text-center flex justify-center items-center ${loadingFlashClass}`}
+              >
+                {lang === "en" ? "Not connected" : "Non connecté"}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Desktop navigation links */}
@@ -162,8 +169,8 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
       </nav>
 
-      {isLoggedIn && (
-        <div className="bg-gray-50 dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
+      <div className="bg-gray-50 dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
+        {isLoggedIn ? (
           <UserInformationMobile
             lang={lang}
             streak={streak}
@@ -172,8 +179,14 @@ const Header = ({ lang }: { lang: Lang }) => {
             isPremium={isPremium}
             life={life}
           />
-        </div>
-      )}
+        ) : (
+          <span
+            className={`text-gray-900 dark:text-gray-100 font-semibold text-center flex justify-center items-center ${loadingFlashClass}`}
+          >
+            {lang === "en" ? "Not connected" : "Non connecté"}
+          </span>
+        )}
+      </div>
 
       {/* Mobile menu */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>

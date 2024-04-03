@@ -19,6 +19,7 @@ const StreakContext = React.createContext({
   streakResetMessage: false as boolean,
   streakMessage: false as boolean,
   lostStreakAt: null as Date | null,
+  lostStreak: false as boolean,
 });
 
 export default StreakContext;

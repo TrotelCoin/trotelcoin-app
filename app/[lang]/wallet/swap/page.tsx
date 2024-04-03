@@ -87,6 +87,10 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
   const [allowance, setAllowance] = useState<number | null>(null);
   const [allowanceTarget, setAllowanceTarget] = useState<Address | null>(null);
+  const [isLoadingTokens, setIsLoadingTokens] = useState<boolean>(false);
+  const [isLoadingChains, setIsLoadingChains] = useState<boolean>(false);
+  const [isLoadingBlockchain, setIsLoadingBlockchain] =
+    useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -135,12 +139,12 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoadingBlockchain(true);
     refetchFrom();
     refetchTo();
     refetchFromNative();
     refetchToNative();
-    setIsLoading(false);
+    setIsLoadingBlockchain(false);
   }, [
     blockNumber,
     userAddress,
@@ -309,6 +313,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     const fetchTokensList = async () => {
+      setIsLoadingTokens(true);
+
       const fromTokens = await getFromTokenList(
         fromChain.chainId,
         toChain.chainId
@@ -333,6 +339,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       if (toChain.chainId === polygon.id) {
         toTokens.result.unshift(trotelCoinPolygon);
       }
+
+      setIsLoadingTokens(false);
     };
 
     if (fromChain.chainId && toChain.chainId) {
@@ -342,7 +350,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     const fetchChainsList = async () => {
-      setIsLoading(true);
+      setIsLoadingChains(true);
+
       const fromChains = await getChainList();
       const toChains = await getChainList();
 
@@ -354,7 +363,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setToChains(toChains.result);
       }
 
-      setIsLoading(false);
+      setIsLoadingChains(false);
     };
 
     fetchChainsList();
@@ -414,6 +423,14 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }
   }, [allowance, fromAmount]);
 
+  useEffect(() => {
+    if (isLoadingChains || isLoadingTokens || isLoadingBlockchain) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [isLoadingTokens, isLoadingChains, isLoadingBlockchain]);
+
   return (
     <>
       <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
@@ -425,7 +442,9 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <div className="flex items-center gap-2">
             <BlueSimpleButton
               onClick={() => refetchQuote()}
-              disabled={isLoading || !userAddress || !fromAmount}
+              disabled={
+                isLoading || !userAddress || !fromAmount || fromAmount <= 0
+              }
             >
               <ArrowPathIcon
                 className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${

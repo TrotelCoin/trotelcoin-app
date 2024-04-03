@@ -26,7 +26,8 @@ const NotificationProvider = ({
     useState<boolean>(false);
 
   const { lifeResetMessage } = useContext(LifeContext);
-  const { streakResetMessage, streakMessage } = useContext(StreakContext);
+  const { streakResetMessage, streakMessage, lostStreak } =
+    useContext(StreakContext);
   const { isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
@@ -45,6 +46,9 @@ const NotificationProvider = ({
     }
     if (!isLoggedIn) {
       addNotificationToQueue("notLoggedIn");
+    }
+    if (lostStreak) {
+      addNotificationToQueue("lostStreak");
     }
     if (lifeResetMessage) {
       addNotificationToQueue("lifeResetMessage");
@@ -103,6 +107,17 @@ const NotificationProvider = ({
         display={currentNotification === "notLoggedIn"}
         onDismiss={() => setIsNotificationShowing(false)}
       />
+      <WarningNotification
+        title={lang === "en" ? "Streak lost" : "Série perdue"}
+        message={
+          lang === "en"
+            ? "You have lost your streak."
+            : "Vous avez perdu votre série."
+        }
+        lang={lang}
+        display={currentNotification === "lostStreak"}
+        onDismiss={() => setIsNotificationShowing(false)}
+      />
       <SuccessNotification
         title={lang === "en" ? "Connected" : "Connecté"}
         message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
@@ -111,10 +126,10 @@ const NotificationProvider = ({
         onDismiss={() => setIsNotificationShowing(false)}
       />
       <SuccessNotification
-        title={lang === "en" ? "Streak updated" : "Série mise à jour"}
+        title={lang === "en" ? "Streak updated" : "Série mise ) jour"}
         message={
           lang === "en"
-            ? "Your streak has been updated."
+            ? "Your streak have been updated."
             : "Votre série a été mise à jour."
         }
         lang={lang}

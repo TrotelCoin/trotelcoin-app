@@ -8,6 +8,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet = searchParams.get("wallet");
 
+  let lostStreak: boolean = false;
+
   try {
     // get streak information for the specified wallet
     const { data: result, error } = await supabase
@@ -22,6 +24,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
           currentStreak: 0,
           lastUpdated: new Date().toISOString(),
           disabled: false,
+          lostStreak: false,
         },
         { status: 500 }
       );
@@ -50,6 +53,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
           currentStreak: 0,
           lastUpdated: new Date().toISOString(),
           disabled: false,
+          lostStreak: false,
         },
         { status: 500 }
       );
@@ -74,6 +78,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
             currentStreak: 0,
             lastUpdated: oneDayAgo.toISOString(),
             disabled: false,
+            lostStreak: false,
           },
           { status: 500 }
         );
@@ -84,6 +89,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
       }
     }
 
+    if (lostStreakAt && lostStreakAt >= twoDaysAgo.toISOString()) {
+      lostStreak = true;
+    }
+
     if (lastUpdated) {
       const date = new Date(lastUpdated);
       date.setHours(0, 0, 0, 0);
@@ -91,7 +100,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     return NextResponse.json(
-      { currentStreak, lastUpdated, disabled, lostStreakAt },
+      { currentStreak, lastUpdated, disabled, lostStreakAt, lostStreak },
       { status: 200 }
     );
   } catch (error) {
@@ -101,6 +110,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         currentStreak: 0,
         lastUpdated: new Date().toISOString(),
         disabled: false,
+        lostStreak: false,
       },
       { status: 500 }
     );
