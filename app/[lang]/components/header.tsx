@@ -16,6 +16,7 @@ import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioSelector from "@/app/[lang]/components/selectors/audioSelector";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import PendingRewardsMobile from "@/app/[lang]/components/header/pendingRewardsMobile";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -172,6 +173,10 @@ const Header = ({ lang }: { lang: Lang }) => {
                         </div>
                         <div className="flex flex-col gap-4 mt-10">
                           <AccountMobile
+                            lang={lang}
+                            setMobileMenuOpen={setMobileMenuOpen}
+                          />
+                          <PendingRewardsMobile
                             lang={lang}
                             setMobileMenuOpen={setMobileMenuOpen}
                           />
