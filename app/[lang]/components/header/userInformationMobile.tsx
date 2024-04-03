@@ -1,9 +1,10 @@
 "use client";
 
 import { Lang } from "@/types/lang";
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const UserInformationMobile = ({
   lang,
@@ -20,10 +21,27 @@ const UserInformationMobile = ({
   userNumberOfQuizzesAnswered: number;
   isPremium: boolean;
 }) => {
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
+
   return (
     <>
       <Marquee>
         <div className="flex rounded-full items-center gap-16 w-full text-gray-900 dark:text-gray-100 font-semibold mx-8">
+          <div className="flex items-center">
+            <span className={`${isPremium && "rainbow-text"}`}>
+              {isExpert
+                ? lang === "en"
+                  ? "Expert 🦊"
+                  : "Expert 🦊"
+                : isIntermediate
+                ? lang === "en"
+                  ? "Intermediate 🙈"
+                  : "Intermédiaire 🙈"
+                : lang === "en"
+                ? "Beginner 🐣"
+                : "Débutant 🐣"}
+            </span>
+          </div>
           <div className="flex items-center">{streak} 🔥</div>
           <div className="flex items-center">
             {isPremium ? <span className="text-xl mr-1">&infin;</span> : life}{" "}
