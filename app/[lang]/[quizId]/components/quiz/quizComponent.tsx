@@ -47,6 +47,7 @@ const QuizComponent = ({
     "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
   );
   const [shieldEnabled, setShieldEnabled] = useState<boolean>(false);
+  const [shieldTimeLeft, setShieldTimeLeft] = useState<number | null>(null);
 
   const { address } = useAccount();
 
@@ -63,17 +64,35 @@ const QuizComponent = ({
       revalidateIfStale: true,
       revalidateOnMount: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
     }
   );
 
   useEffect(() => {
+    console.log(data);
     if (data) {
-      setShieldEnabled(data);
+      setShieldEnabled(data.shieldEnabled);
+      setShieldTimeLeft(data.timeLeft);
     } else {
       setShieldEnabled(false);
+      setShieldTimeLeft(null);
     }
   }, [data]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (shieldTimeLeft && shieldTimeLeft > 0) {
+      timer = setInterval(() => {
+        setShieldTimeLeft((prevTime) => (prevTime ? prevTime - 1 : prevTime));
+      }, 60000);
+    } else {
+      if (timer) {
+        clearInterval(timer);
+      }
+      setShieldEnabled(false);
+    }
+
+    return () => clearInterval(timer);
+  }, [shieldTimeLeft]);
 
   const handleAnswer = (answer: string) => {
     const newAnswers = [...answers];
@@ -180,12 +199,13 @@ const QuizComponent = ({
                     {currentQuestion + 1}/{shuffledQuestions.length}
                   </span>
                 </h3>
-                {shieldEnabled && (
+                {shieldEnabled && shieldTimeLeft && (
                   <>
                     <div className="inline-flex items-center gap-1 rainbow-text">
                       <ShieldCheckIcon className="w-4 h-4" />
                       <span className="text-sm">
-                        {lang === "en" ? "Shield enabled" : "Bouclier activé"}
+                        {lang === "en" ? "Shield enabled" : "Bouclier activé"}{" "}
+                        for {Math.floor(shieldTimeLeft)} mins left.
                       </span>
                     </div>
                   </>

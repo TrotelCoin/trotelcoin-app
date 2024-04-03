@@ -24,6 +24,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   if (data.length > 0) {
     let shieldEnabled: boolean = false;
+    let timeLeft: number = 0;
 
     data.forEach((shieldItem) => {
       const now = new Date();
@@ -53,10 +54,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       if (differenceInHours <= hours) {
         shieldEnabled = true;
+        timeLeft += hours * 60 - Math.floor(differenceInMs / (1000 * 60));
       }
     });
 
-    return NextResponse.json(shieldEnabled, { status: 200 });
+    return NextResponse.json(
+      { shieldEnabled: shieldEnabled, timeLeft: timeLeft },
+      { status: 200 }
+    );
   } else {
     return NextResponse.json(false, { status: 200 });
   }
