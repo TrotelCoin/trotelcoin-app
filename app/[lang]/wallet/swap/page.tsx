@@ -89,6 +89,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [allowanceTarget, setAllowanceTarget] = useState<Address | null>(null);
   const [isLoadingTokens, setIsLoadingTokens] = useState<boolean>(false);
   const [isLoadingChains, setIsLoadingChains] = useState<boolean>(false);
+  const [isLoadingBlockchain, setIsLoadingBlockchain] =
+    useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -137,12 +139,12 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
+    setIsLoadingBlockchain(true);
     refetchFrom();
     refetchTo();
     refetchFromNative();
     refetchToNative();
-    setIsLoading(false);
+    setIsLoadingBlockchain(false);
   }, [
     blockNumber,
     userAddress,
@@ -422,12 +424,12 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [allowance, fromAmount]);
 
   useEffect(() => {
-    if (isLoadingChains || isLoadingTokens) {
+    if (isLoadingChains || isLoadingTokens || isLoadingBlockchain) {
       setIsLoading(true);
     } else {
       setIsLoading(false);
     }
-  }, [isLoadingTokens, isLoadingChains]);
+  }, [isLoadingTokens, isLoadingChains, isLoadingBlockchain]);
 
   return (
     <>
