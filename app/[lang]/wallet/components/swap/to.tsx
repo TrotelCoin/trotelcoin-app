@@ -88,7 +88,7 @@ const To = ({
             onWheel={(e) => e.preventDefault()}
             value={
               toAmount
-                ? Number((toAmount * 10 ** -toToken.decimals).toFixed(2))
+                ? Number((toAmount * 10 ** -toToken.decimals).toFixed(5))
                 : 0
             }
             disabled={true}
