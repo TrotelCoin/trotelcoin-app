@@ -153,6 +153,8 @@ const Header = ({ lang }: { lang: Lang }) => {
         <div className="flex gap-2 items-center lg:hidden">
           <div className="flex items-center">
             <div className="flex items-center gap-2">
+              <LanguageSelector lang={lang} />
+              <ThemeSwitcher />
               <div className="relative">
                 <BlueButton
                   lang={lang}
@@ -210,8 +212,6 @@ const Header = ({ lang }: { lang: Lang }) => {
                           <div className="flex flex-1 items-center justify-end gap-2">
                             <div className="flex items-center gap-2 lg:hidden">
                               <AudioSelector />
-                              <LanguageSelector lang={lang} />
-                              <ThemeSwitcher />
                             </div>
                             <BlueSimpleButton
                               onClick={() => setMobileMenuOpen(false)}
