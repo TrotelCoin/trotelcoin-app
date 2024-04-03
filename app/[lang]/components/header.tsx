@@ -85,23 +85,18 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          {isLoggedIn &&
-            Boolean(streak) &&
-            Boolean(userNumberOfQuizzesAnswered) &&
-            Boolean(userTotalRewardsPending) &&
-            Boolean(life) &&
-            isPremium && (
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-full px-4 py-3 hidden lg:block w-96">
-                <UserInformationMobile
-                  lang={lang}
-                  streak={streak}
-                  userNumberOfQuizzesAnswered={userNumberOfQuizzesAnswered}
-                  userTotalRewardsPending={userTotalRewardsPending}
-                  isPremium={isPremium}
-                  life={life}
-                />
-              </div>
-            )}
+          {isLoggedIn && (
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-full px-4 py-3 hidden lg:block w-96">
+              <UserInformationMobile
+                lang={lang}
+                streak={streak}
+                userNumberOfQuizzesAnswered={userNumberOfQuizzesAnswered}
+                userTotalRewardsPending={userTotalRewardsPending}
+                isPremium={isPremium}
+                life={life}
+              />
+            </div>
+          )}
         </div>
 
         {/* Desktop navigation links */}
@@ -167,23 +162,18 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
       </nav>
 
-      {isLoggedIn &&
-        Boolean(streak) &&
-        Boolean(userNumberOfQuizzesAnswered) &&
-        Boolean(userTotalRewardsPending) &&
-        Boolean(life) &&
-        isPremium && (
-          <div className="bg-gray-50 dark:bg-gray-800 px-4 py-3 lg:hidden">
-            <UserInformationMobile
-              lang={lang}
-              streak={streak}
-              userNumberOfQuizzesAnswered={userNumberOfQuizzesAnswered}
-              userTotalRewardsPending={userTotalRewardsPending}
-              isPremium={isPremium}
-              life={life}
-            />
-          </div>
-        )}
+      {isLoggedIn && (
+        <div className="bg-gray-50 dark:bg-gray-800 px-4 py-3 lg:hidden">
+          <UserInformationMobile
+            lang={lang}
+            streak={streak}
+            userNumberOfQuizzesAnswered={userNumberOfQuizzesAnswered}
+            userTotalRewardsPending={userTotalRewardsPending}
+            isPremium={isPremium}
+            life={life}
+          />
+        </div>
+      )}
 
       {/* Mobile menu */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>
