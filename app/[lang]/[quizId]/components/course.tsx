@@ -26,17 +26,29 @@ const Course = ({
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [pause, setPause] = useState<boolean>(false);
 
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
   const { playAudio } = useContext(AudioContext);
 
   const handleNext = () => {
-    setCurrentCardIndex((prev) => prev + 1);
+    setCurrentIndex(-1);
+    setPause(true);
+    setTimeout(() => {
+      setCurrentCardIndex((prev) => prev + 1);
+      setPause(false);
+    }, 400);
   };
 
   const handlePrevious = () => {
     if (currentCardIndex > 0) {
-      setCurrentCardIndex((prev) => prev - 1);
+      setCurrentIndex(-1);
+      setPause(true);
+      setTimeout(() => {
+        setCurrentCardIndex((prev) => prev - 1);
+        setPause(false);
+      }, 400);
     }
   };
 
@@ -109,9 +121,19 @@ const Course = ({
           >
             <div className="max-w-xl mx-auto text-center w-full">
               {lang === "en" ? (
-                <Card text={cards.en[currentCardIndex].text} />
+                <Card
+                  text={cards.en[currentCardIndex].text}
+                  currentIndex={currentIndex}
+                  setCurrentIndex={setCurrentIndex}
+                  pause={pause}
+                />
               ) : (
-                <Card text={cards.fr[currentCardIndex].text} />
+                <Card
+                  text={cards.fr[currentCardIndex].text}
+                  currentIndex={currentIndex}
+                  setCurrentIndex={setCurrentIndex}
+                  pause={pause}
+                />
               )}
             </div>
           </div>
