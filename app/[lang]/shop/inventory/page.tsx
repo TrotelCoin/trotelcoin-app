@@ -141,9 +141,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {inventories.map(
                 (item: InventoryItemTypeFinal, index: number) => (
-                  <div key={index}>
-                    <InventoryItem lang={lang} item={item} />
-                  </div>
+                  <InventoryItem lang={lang} item={item} key={index} />
                 )
               )}
             </div>
