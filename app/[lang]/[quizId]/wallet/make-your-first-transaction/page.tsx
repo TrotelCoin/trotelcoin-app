@@ -116,7 +116,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <BlueButton
                   isLoading={isLoading}
                   lang={lang}
-                  text="Send transaction"
+                  text="Envoyer la transaction"
                   onClick={async () => {
                     await sendTransactionAsync({
                       chainId: polygon.id,
