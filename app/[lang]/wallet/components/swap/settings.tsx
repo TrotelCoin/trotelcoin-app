@@ -25,6 +25,7 @@ const Settings = ({
   sort,
   slippage,
   setSlippage,
+  disableRefuel,
 }: {
   lang: Lang;
   enableRefuel: boolean;
@@ -33,6 +34,7 @@ const Settings = ({
   sort: Sort;
   slippage: Slippage;
   setSlippage: React.Dispatch<React.SetStateAction<Slippage>>;
+  disableRefuel: boolean;
 }) => {
   const { playAudio } = useContext(AudioContext);
 
@@ -237,6 +239,7 @@ const Settings = ({
                 </div>
                 <Switch.Root
                   checked={enableRefuel}
+                  disabled={disableRefuel}
                   onCheckedChange={() => {
                     setEnableRefuel(!enableRefuel);
                     playAudio("blueButton");
