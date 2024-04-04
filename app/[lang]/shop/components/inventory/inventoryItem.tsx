@@ -65,7 +65,7 @@ const InventoryItem = ({
     if (item && numberOfUsedItems) {
       setQuantity(item.quantity - numberOfUsedItems);
     } else {
-      setTimeout(() => setQuantity(item.quantity), 2000);
+      setQuantity(null);
     }
   }, [item, numberOfUsedItems]);
 
