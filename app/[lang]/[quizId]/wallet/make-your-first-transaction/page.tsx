@@ -2,25 +2,24 @@
 
 import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { useAccount, useSendTransaction } from "wagmi";
+import { useSendTransaction } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinDAOAddress } from "@/data/web3/addresses";
 import { parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Wallet from "@/app/[lang]/components/header/wallet";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
-  const [disabled, setDisabled] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { address } = useAccount();
+  const { isLoggedIn } = useContext(UserContext);
   const { sendTransactionAsync } = useSendTransaction({
     mutation: {
       onSuccess: () => {
@@ -38,14 +37,6 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
     },
   });
-
-  useEffect(() => {
-    if (address) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [address]);
 
   const cards = {
     en: [
@@ -89,9 +80,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Make your first transaction
             </span>
             <div className="mt-4">
-              {address ? (
+              {isLoggedIn ? (
                 <BlueButton
-                  disabled={disabled}
                   isLoading={isLoading}
                   lang={lang}
                   text="Send transaction"
@@ -167,9 +157,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               Faîtes votre première transaction
             </span>
             <div className="mt-4">
-              {address ? (
+              {isLoggedIn ? (
                 <BlueButton
-                  disabled={disabled}
                   isLoading={isLoading}
                   lang={lang}
                   text="Send transaction"
@@ -185,6 +174,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <Wallet lang={lang} isCentered={true} />
               )}
             </div>
+
             <Success
               title="Succès"
               message="La transaction a été effectuée. Félicitations!"
