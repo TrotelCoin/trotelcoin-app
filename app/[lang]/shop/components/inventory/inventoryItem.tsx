@@ -126,97 +126,106 @@ const InventoryItem = ({
 
   return (
     <>
-      <Tilt
-        glareEnable={true}
-        tiltMaxAngleX={5}
-        tiltMaxAngleY={5}
-        glareMaxOpacity={0.15}
-        perspective={800}
-      >
-        <div
-          className={`overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
-        >
-          <div className="px-4 py-5 sm:p-6">
-            <div className="flex items-center justify-between">
-              <div className={`font-semibold rainbow-text text-2xl`}>
-                {displayedName}
+      {quantity && quantity > 0 ? (
+        <>
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <div
+              className={`overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
+            >
+              <div className="px-4 py-5 sm:p-6">
+                <div className="flex items-center justify-between">
+                  <div className={`font-semibold rainbow-text text-2xl`}>
+                    {displayedName}
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
+                    {quantity}
+                  </div>
+                </div>
+                <div className="flex items-center justify-center my-8">
+                  <span className="text-6xl">{emoji}</span>
+                </div>
+                <div className="flex flex-col">
+                  <BlueButton
+                    lang={lang}
+                    isLoading={isLoading}
+                    disabled={
+                      !address ||
+                      isLoading ||
+                      quantity === 0 ||
+                      hourglassDisabled
+                    }
+                    onClick={() => {
+                      setUseItemConfirmation(true);
+                    }}
+                    text={lang === "en" ? "Use" : "Utiliser"}
+                  />
+                </div>
               </div>
-              <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
-                {quantity}
-              </div>
             </div>
-            <div className="flex items-center justify-center my-8">
-              <span className="text-6xl">{emoji}</span>
-            </div>
-            <div className="flex flex-col">
-              <BlueButton
-                lang={lang}
-                isLoading={isLoading}
-                disabled={
-                  !address || isLoading || quantity === 0 || hourglassDisabled
-                }
-                onClick={() => {
-                  setUseItemConfirmation(true);
-                }}
-                text={lang === "en" ? "Use" : "Utiliser"}
-              />
-            </div>
-          </div>
-        </div>
-      </Tilt>
+          </Tilt>
 
-      <WarningConfirmation
-        lang={lang}
-        show={useItemConfirmation}
-        title={lang === "en" ? "Use the item" : "Utiliser l'objet"}
-        message={
-          lang === "en"
-            ? "You will use the selected item. Refund is not possible so make sure that you want to use it"
-            : "Vous allez utiliser l'objet sélectionné. Le remboursement n'est pas possible donc soyez sûr de vouloir l'utiliser"
-        }
-        onClose={() => setUseItemConfirmation(false)}
-        onConfirm={() => {
-          useItem(
-            item.name,
-            address as Address,
-            setErrorMessage,
-            setItemsUsedMessage,
-            setIsLoading,
-            setQuantity
-          );
-        }}
-      />
-      <Fail
-        show={errorMessage}
-        onClose={() => setErrorMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "An error occured, please try again"
-            : "Une erreur est survenue, veuillez réessayer"
-        }
-      />
-      <Fail
-        show={notConnectedMessage}
-        onClose={() => setNotConnectedMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "Please connect your wallet"
-            : "Veuillez connecter votre portefeuille"
-        }
-      />
-      <Success
-        show={itemsUsedMessage}
-        onClose={() => setItemsUsedMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Success" : "Succès"}
-        message={
-          lang === "en" ? "You have used the item" : "Vous avez utilisé l'objet"
-        }
-      />
+          <WarningConfirmation
+            lang={lang}
+            show={useItemConfirmation}
+            title={lang === "en" ? "Use the item" : "Utiliser l'objet"}
+            message={
+              lang === "en"
+                ? "You will use the selected item. Refund is not possible so make sure that you want to use it"
+                : "Vous allez utiliser l'objet sélectionné. Le remboursement n'est pas possible donc soyez sûr de vouloir l'utiliser"
+            }
+            onClose={() => setUseItemConfirmation(false)}
+            onConfirm={() => {
+              useItem(
+                item.name,
+                address as Address,
+                setErrorMessage,
+                setItemsUsedMessage,
+                setIsLoading,
+                setQuantity
+              );
+            }}
+          />
+          <Fail
+            show={errorMessage}
+            onClose={() => setErrorMessage(false)}
+            lang={lang}
+            title={lang === "en" ? "Error" : "Erreur"}
+            message={
+              lang === "en"
+                ? "An error occured, please try again"
+                : "Une erreur est survenue, veuillez réessayer"
+            }
+          />
+          <Fail
+            show={notConnectedMessage}
+            onClose={() => setNotConnectedMessage(false)}
+            lang={lang}
+            title={lang === "en" ? "Error" : "Erreur"}
+            message={
+              lang === "en"
+                ? "Please connect your wallet"
+                : "Veuillez connecter votre portefeuille"
+            }
+          />
+          <Success
+            show={itemsUsedMessage}
+            onClose={() => setItemsUsedMessage(false)}
+            lang={lang}
+            title={lang === "en" ? "Success" : "Succès"}
+            message={
+              lang === "en"
+                ? "You have used the item"
+                : "Vous avez utilisé l'objet"
+            }
+          />
+        </>
+      ) : null}
     </>
   );
 };
