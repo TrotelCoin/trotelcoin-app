@@ -33,26 +33,27 @@ const Course = ({
   const { playAudio } = useContext(AudioContext);
 
   const handleNext = () => {
-    if (currentCardIndex === cards.en.length - 1) {
+    if (currentCardIndex >= cards.en.length - 1) {
       return;
     }
     setCurrentIndex(-1);
     setPause(true);
     setTimeout(() => {
-      setCurrentCardIndex((prev) => prev + 1);
+      setCurrentCardIndex((prev) => Math.min(prev + 1, cards.en.length - 1));
       setPause(false);
     }, 400);
   };
 
   const handlePrevious = () => {
-    if (currentCardIndex > 0) {
-      setCurrentIndex(-1);
-      setPause(true);
-      setTimeout(() => {
-        setCurrentCardIndex((prev) => prev - 1);
-        setPause(false);
-      }, 400);
+    if (currentCardIndex <= 0) {
+      return;
     }
+    setCurrentIndex(-1);
+    setPause(true);
+    setTimeout(() => {
+      setCurrentCardIndex((prev) => Math.max(prev - 1, 0));
+      setPause(false);
+    }, 400);
   };
 
   useEffect(() => {
