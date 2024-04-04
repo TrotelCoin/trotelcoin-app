@@ -9,8 +9,9 @@ import {
   useSwitchChain,
   useBlockNumber,
   useBlock,
+  useTransactionConfirmations,
 } from "wagmi";
-import { Address } from "viem";
+import { Address, Hash } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
@@ -38,6 +39,7 @@ const ClaimingButton = ({
   const [disabled, setDisabled] = useState<boolean>(true);
   const [timestamp, setTimestamp] = useState<number | null>(null);
   const [blockFetched, setBlockFetched] = useState<boolean>(false);
+  const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
@@ -50,16 +52,32 @@ const ClaimingButton = ({
     blockNumber: blockNumber,
   });
 
-  const { writeContractAsync, isPending } = useWriteContract({
+  const {
+    writeContractAsync,
+    isPending,
+    data: claimHash,
+  } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setClaimMessage(true);
+        setClaimConfirmed(false);
       },
       onError: () => {
         setErrorMessage(true);
       },
     },
   });
+
+  const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: claimHash as Hash,
+    });
+
+  useEffect(() => {
+    if (claimConfirmation && Number(claimConfirmation) > 0 && !claimConfirmed) {
+      setClaimMessage(true);
+    }
+  }, [claimConfirmation]);
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
@@ -72,6 +90,7 @@ const ClaimingButton = ({
 
   useEffect(() => {
     refetchStakings();
+    refetchClaimConfirmation();
   }, [blockNumber, address]);
 
   useEffect(() => {

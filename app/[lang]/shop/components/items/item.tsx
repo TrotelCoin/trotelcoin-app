@@ -13,13 +13,14 @@ import {
   useChainId,
   useReadContract,
   useSwitchChain,
+  useTransactionConfirmations,
   useWriteContract,
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinShopV1 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
 import trotelCoinABI from "@/abi/trotelCoin";
-import { formatEther, parseEther } from "viem";
+import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { Items } from "@/types/inventory/inventory";
@@ -39,6 +40,8 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
     null
   );
   const [displayedName, setDisplayedName] = useState<string | null>(null);
+  const [approveConfirmed, setApproveConfirmed] = useState<boolean>(false);
+  const [purchaseConfirmed, setPurchaseConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
   const chainId = useChainId();
@@ -98,12 +101,10 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
     }
   }, [allowance]);
 
-  const { writeContractAsync: approve } = useWriteContract({
+  const { writeContractAsync: approve, data: approveHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setApproveMessage(true);
-        setApproved(true);
-        setIsLoading(false);
+        setApproveConfirmed(false);
       },
       onMutate: () => {
         setIsLoading(true);
@@ -116,6 +117,25 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
     },
   });
 
+  const { data: approveConfirmation, refetch: refetchApprovedConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: approveHash as Hash,
+    });
+
+  useEffect(() => {
+    if (
+      approveConfirmation &&
+      Number(approveConfirmation) > 0 &&
+      !approveConfirmed
+    ) {
+      setApproveMessage(true);
+      setApproved(true);
+      setIsLoading(false);
+      setApproveConfirmed(true);
+    }
+  }, [approveConfirmation]);
+
   useEffect(() => {
     if (isLoading || !address) {
       setDisabled(true);
@@ -124,11 +144,10 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
     }
   }, [isLoading, address]);
 
-  const { writeContractAsync: buyItem } = useWriteContract({
+  const { writeContractAsync: buyItem, data: purchaseHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setIsLoading(false);
-        setBuyMessage(true);
+        setPurchaseConfirmed(false);
       },
       onMutate: () => {
         setIsLoading(true);
@@ -139,6 +158,24 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
       },
     },
   });
+
+  const { data: purchaseConfirmation, refetch: refetchPurchaseConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: purchaseHash as Hash,
+    });
+
+  useEffect(() => {
+    if (
+      purchaseConfirmation &&
+      Number(purchaseConfirmation) > 0 &&
+      !purchaseConfirmed
+    ) {
+      setIsLoading(false);
+      setBuyMessage(true);
+      setPurchaseConfirmed(true);
+    }
+  }, [purchaseConfirmation]);
 
   useEffect(() => {
     if (shopItem && shopItem.discount && !discountDisabled) {
@@ -160,6 +197,11 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
       );
     }
   }, [shopItem, lang]);
+
+  useEffect(() => {
+    refetchApprovedConfirmation();
+    refetchPurchaseConfirmation();
+  }, [blockNumber]);
 
   return (
     <>

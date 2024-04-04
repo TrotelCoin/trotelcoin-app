@@ -39,9 +39,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
 
     // make transaction
-    await walletClient.writeContract(request);
+    const hash = await walletClient.writeContract(request);
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ success: true, hash: hash }, { status: 200 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

@@ -4,28 +4,35 @@ import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import { useContext, useEffect, useState } from "react";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { useSendTransaction } from "wagmi";
+import { useBlockNumber, useSendTransaction } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinDAOAddress } from "@/data/web3/addresses";
-import { parseEther } from "viem";
+import { Hash, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/app/[lang]/contexts/userContext";
+import { useTransactionConfirmations } from "wagmi";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [transactionConfirmed, setTransactionConfirmed] =
+    useState<boolean>(false);
 
   const { isLoggedIn } = useContext(UserContext);
-  const { sendTransactionAsync } = useSendTransaction({
+
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const { sendTransactionAsync, data: transactionHash } = useSendTransaction({
     mutation: {
       onSuccess: () => {
-        setCondition(true);
-        setSuccessMessage(true);
-        setIsLoading(false);
+        setTransactionConfirmed(false);
       },
       onMutate: () => {
         setIsLoading(true);
@@ -37,6 +44,31 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
     },
   });
+
+  const {
+    data: transactionConfirmation,
+    refetch: refetchTransactionConfirmation,
+  } = useTransactionConfirmations({
+    chainId: polygon.id,
+    hash: transactionHash as Hash,
+  });
+
+  useEffect(() => {
+    if (
+      transactionConfirmation &&
+      Number(transactionConfirmation) > 0 &&
+      !transactionConfirmed
+    ) {
+      setCondition(true);
+      setSuccessMessage(true);
+      setIsLoading(false);
+      setTransactionConfirmed(true);
+    }
+  }, [transactionConfirmation]);
+
+  useEffect(() => {
+    refetchTransactionConfirmation();
+  }, [blockNumber]);
 
   const cards = {
     en: [
