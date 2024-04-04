@@ -24,9 +24,6 @@ const InventoryItem = ({
 }) => {
   const [emoji, setEmoji] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number | null>(null);
-  const [numberOfUsedItems, setNumberOfUsedItems] = useState<number | null>(
-    null
-  );
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnectedMessage, setNotConnectedMessage] =
     useState<boolean>(false);
@@ -54,20 +51,13 @@ const InventoryItem = ({
   );
 
   useEffect(() => {
-    if (numberOfUsedItemsData) {
-      setNumberOfUsedItems(numberOfUsedItemsData);
-    } else {
-      setNumberOfUsedItems(null);
-    }
-  }, [numberOfUsedItemsData]);
-
-  useEffect(() => {
-    if (item && numberOfUsedItems) {
+    if (item && numberOfUsedItemsData) {
+      const numberOfUsedItems = numberOfUsedItemsData;
       setQuantity(item.quantity - numberOfUsedItems);
     } else {
-      setQuantity(null);
+      setQuantity(item.quantity);
     }
-  }, [item, numberOfUsedItems]);
+  }, [item, numberOfUsedItemsData]);
 
   useEffect(() => {
     if (item) {
