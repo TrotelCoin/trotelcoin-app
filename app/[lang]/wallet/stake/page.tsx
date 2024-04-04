@@ -18,8 +18,9 @@ import {
   useBlockNumber,
   useChainId,
   useWriteContract,
+  useTransactionConfirmations,
 } from "wagmi";
-import { Address, formatEther } from "viem";
+import { Address, formatEther, Hash } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
 
@@ -35,6 +36,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
     useState<boolean>(false);
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [isMax, setIsMax] = useState<boolean>(false);
+  const [approveConfirmed, setApproveConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
   const chainId = useChainId();
@@ -79,19 +81,39 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
     args: [address, trotelCoinStakingV1],
   });
 
-  const { writeContractAsync: approvingAsync, isPending: isPendingApproving } =
-    useWriteContract({
-      mutation: {
-        onSuccess: () => {
-          setApproveMessage(true);
-          setIsApproved(true);
-        },
-        onError: () => {
-          setErrorApproveMessage(true);
-          setIsApproved(false);
-        },
+  const {
+    writeContractAsync: approvingAsync,
+    isPending: isPendingApproving,
+    data: approveHash,
+  } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setApproveConfirmed(false);
       },
+      onError: () => {
+        setErrorApproveMessage(true);
+        setIsApproved(false);
+      },
+    },
+  });
+
+  const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: approveHash as Hash,
     });
+
+  useEffect(() => {
+    if (
+      approveConfirmation &&
+      Number(approveConfirmation) > 0 &&
+      !approveConfirmed
+    ) {
+      setApproveMessage(true);
+      setIsApproved(true);
+      setApproveConfirmed(true);
+    }
+  }, [approveConfirmation]);
 
   useEffect(() => {
     if (allowanceData) {

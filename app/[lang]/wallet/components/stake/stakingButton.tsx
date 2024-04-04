@@ -8,12 +8,13 @@ import {
   useReadContract,
   useSwitchChain,
   useBlockNumber,
+  useTransactionConfirmations,
 } from "wagmi";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { Address, parseEther } from "viem";
+import { Address, Hash, parseEther } from "viem";
 import "animate.css";
 import { polygon } from "wagmi/chains";
 import BlueButton from "@/app/[lang]/components/blueButton";
@@ -44,21 +45,39 @@ const StakingButton = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnected, setNotConnected] = useState<boolean>(false);
   const [disabledStaking, setDisabledStaking] = useState<boolean>(true);
+  const [stakeConfirmed, setStakeConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
   const { switchChain } = useSwitchChain();
 
-  const { writeContractAsync, isPending } = useWriteContract({
+  const {
+    writeContractAsync,
+    isPending,
+    data: stakeHash,
+  } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setStakeMessage(true);
+        setStakeConfirmed(false);
       },
       onError: () => {
         setErrorMessage(true);
       },
     },
   });
+
+  const { data: stakeConfirmation, refetch: refetchStakeConfirmation } =
+    useTransactionConfirmations({
+      hash: stakeHash as Hash,
+      chainId: polygon.id,
+    });
+
+  useEffect(() => {
+    if (stakeConfirmation && Number(stakeConfirmation) > 0 && !stakeConfirmed) {
+      setStakeMessage(true);
+      setStakeConfirmed(true);
+    }
+  }, [stakeConfirmation]);
 
   const { data: getStakingDataNoTyped, refetch } = useReadContract({
     chainId: polygon.id,
@@ -70,6 +89,7 @@ const StakingButton = ({
 
   useEffect(() => {
     refetch();
+    refetchStakeConfirmation();
   }, [blockNumber, address]);
 
   useEffect(() => {

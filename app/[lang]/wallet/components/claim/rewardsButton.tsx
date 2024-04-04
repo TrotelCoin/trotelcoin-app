@@ -1,10 +1,16 @@
 "use client";
 
 import type { Lang } from "@/types/lang";
-import { useAccount, useSwitchChain, useSendTransaction } from "wagmi";
+import {
+  useAccount,
+  useSwitchChain,
+  useSendTransaction,
+  useTransactionConfirmations,
+  useBlockNumber,
+} from "wagmi";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { Address, parseEther } from "viem";
+import { Address, Hash, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
 import { polygon } from "viem/chains";
@@ -35,10 +41,30 @@ const RewardsButton = ({
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [errorHappened, setErrorHappened] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
+  const [transactionHash, setTransactionHash] = useState<Hash | null>(null);
+  const [transactionConfimed, setTransactionConfirmed] =
+    useState<boolean>(false);
 
   const { address } = useAccount();
+
+  const { data: blockNumber } = useBlockNumber({
+    watch: true,
+    chainId: polygon.id,
+  });
+
+  const {
+    data: transactionConfirmation,
+    refetch: refetchTransactionConfirmation,
+  } = useTransactionConfirmations({
+    chainId: polygon.id,
+    hash: transactionHash as Hash,
+  });
+
   const { sendTransactionAsync, isError } = useSendTransaction({
     mutation: {
+      onSuccess: () => {
+        setTransactionConfirmed(false);
+      },
       onError: () => {
         setErrorMessage(true);
         setIsLoading(false);
@@ -46,6 +72,24 @@ const RewardsButton = ({
       },
     },
   });
+
+  useEffect(() => {
+    refetchTransactionConfirmation();
+  }, [blockNumber]);
+
+  useEffect(() => {
+    if (
+      transactionConfirmation &&
+      Number(transactionConfirmation) > 0 &&
+      !transactionConfimed
+    ) {
+      setSuccessMessage(true);
+      setIsLoading(false);
+      setClaimed(true);
+      setTransactionConfirmed(true);
+    }
+  }, [transactionConfirmation]);
+
   const { switchChain } = useSwitchChain();
 
   useEffect(() => {
@@ -102,15 +146,18 @@ const RewardsButton = ({
       setAvailableToClaim(0);
 
       // make minting transaction
-      await axios
+      const hash = await axios
         .post(
           `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
         )
+        .then((response) => response.data.hash)
         .catch((error) => {
           console.error(error);
           setErrorMessage(true);
           setIsLoading(false);
         });
+
+      setTransactionHash(hash);
 
       // reset database pending rewards
       await axios
@@ -126,10 +173,6 @@ const RewardsButton = ({
           setErrorMessage(true);
           setIsLoading(false);
         });
-
-      setSuccessMessage(true);
-      setIsLoading(false);
-      setClaimed(true);
     } else {
       setNothingToClaimMessage(true);
       setIsLoading(false);

@@ -2,13 +2,14 @@
 
 import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
 import React, { useContext, useEffect, useState } from "react";
-import { Address, formatEther } from "viem";
+import { Address, formatEther, Hash } from "viem";
 import {
   useAccount,
   useBalance,
   useReadContract,
   useWriteContract,
   useBlockNumber,
+  useTransactionConfirmations,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -22,7 +23,6 @@ import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import axios from "axios";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
 
@@ -36,18 +36,23 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [transactionConfirmed, setTransactionConfirmed] =
+    useState<boolean>(false);
 
   const { address } = useAccount();
   const { isExpert } = useContext(PremiumContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
   });
+
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
+
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
       address: trotelCoinExpertAddress,
@@ -57,28 +62,42 @@ const Expert = ({ lang }: { lang: Lang }) => {
       account: address as Address,
     }
   );
-  const { isPending, writeContractAsync } = useWriteContract({
+
+  const {
+    isPending,
+    writeContractAsync,
+    data: transactionHash,
+  } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setIsClaimed(true);
-        setIsClaimedMessage(true);
-
-        const postClaimExpert = async () => {
-          await axios
-            .post(`/api/database/claimExpert?wallet=${address}`)
-            .catch((error) => {
-              console.error(error);
-              setErrorMessage(true);
-            });
-        };
-
-        postClaimExpert();
+        setTransactionConfirmed(false);
       },
       onError: () => {
         setErrorMessage(true);
       },
     },
   });
+
+  const {
+    data: transactionConfirmation,
+    refetch: refetchTransactionConfirmation,
+  } = useTransactionConfirmations({
+    chainId: polygon.id,
+    hash: transactionHash as Hash,
+  });
+
+  useEffect(() => {
+    if (
+      transactionConfirmation &&
+      Number(transactionConfirmation) > 0 &&
+      !transactionConfirmed
+    ) {
+      setIsClaimed(true);
+      setIsClaimedMessage(true);
+      setTransactionConfirmed(true);
+    }
+  }, [transactionConfirmation]);
+
   const { data: claimed, refetch: refetchBalanceExpert } = useReadContract({
     address: trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
@@ -93,6 +112,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
       refetchBalance();
       refetchBalanceExpert();
       refetchHolding();
+      refetchTransactionConfirmation();
     } else {
       setIsClaimed(false);
     }

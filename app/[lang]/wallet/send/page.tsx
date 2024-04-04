@@ -8,11 +8,12 @@ import {
   useAccount,
   useBalance,
   useBlockNumber,
+  useTransactionConfirmations,
   useWriteContract,
 } from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { isAddress, parseEther } from "viem";
+import { Hash, isAddress, parseEther } from "viem";
 import trotelCoinABI from "@/abi/trotelCoin";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -30,6 +31,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
   const [showScanner, setShowScanner] = useState<boolean>(false);
+  const [sendConfirmed, setSendConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -44,11 +46,10 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
     address: address,
   });
 
-  const { writeContractAsync } = useWriteContract({
+  const { writeContractAsync, data: sendHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        setIsLoading(false);
-        setSuccessMessage(true);
+        setSendConfirmed(false);
       },
       onMutate: () => {
         setIsLoading(true);
@@ -59,6 +60,20 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
     },
   });
+
+  const { data: sendConfirmation, refetch: refetchSendConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: sendHash as Hash,
+    });
+
+  useEffect(() => {
+    if (sendConfirmation && Number(sendConfirmation) > 0 && !sendConfirmed) {
+      setIsLoading(false);
+      setSuccessMessage(true);
+      setSendConfirmed(true);
+    }
+  }, [sendConfirmation]);
 
   useEffect(() => {
     if (amount && address) {

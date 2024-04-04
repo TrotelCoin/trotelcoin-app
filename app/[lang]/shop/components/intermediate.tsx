@@ -2,13 +2,14 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
-import { Address, formatEther } from "viem";
+import { Address, formatEther, Hash } from "viem";
 import {
   useAccount,
   useBalance,
   useReadContract,
   useWriteContract,
   useBlockNumber,
+  useTransactionConfirmations,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -37,18 +38,23 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligibleMessageSuccess, setIsEligibleMessageSuccess] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const [transactionConfirmed, setTransactionConfirmed] =
+    useState<boolean>(false);
 
   const { address } = useAccount();
   const { isIntermediate } = useContext(PremiumContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
   });
+
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
+
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
       address: trotelCoinIntermediateAddress,
@@ -58,28 +64,42 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       account: address as Address,
     }
   );
-  const { isPending, writeContractAsync } = useWriteContract({
+
+  const {
+    isPending,
+    writeContractAsync,
+    data: transactionHash,
+  } = useWriteContract({
     mutation: {
+      onSuccess: () => {
+        setTransactionConfirmed(false);
+      },
       onError: () => {
         setErrorMessage(true);
       },
-      onSuccess: () => {
-        setIsClaimed(true);
-        setIsClaimedMessage(true);
-
-        const postClaimIntermediate = async () => {
-          await axios
-            .post(`/api/database/claimIntermediate?wallet=${address}`)
-            .catch((error) => {
-              console.error(error);
-              setErrorMessage(true);
-            });
-        };
-
-        postClaimIntermediate();
-      },
     },
   });
+
+  const {
+    data: transactionConfirmation,
+    refetch: refetchTransactionConfirmation,
+  } = useTransactionConfirmations({
+    chainId: polygon.id,
+    hash: transactionHash as Hash,
+  });
+
+  useEffect(() => {
+    if (
+      transactionConfirmation &&
+      Number(transactionConfirmation) > 0 &&
+      !transactionConfirmed
+    ) {
+      setIsClaimed(true);
+      setIsClaimedMessage(true);
+      setTransactionConfirmed(true);
+    }
+  }, [transactionConfirmation]);
+
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
       address: trotelCoinIntermediateAddress,
@@ -95,6 +115,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       refetchBalance();
       refetchBalanceIntermediate();
       refetchHolding();
+      refetchTransactionConfirmation();
     } else {
       setIsClaimed(false);
     }
@@ -199,9 +220,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                         return;
                       }
                     }}
-                    text={
-                      lang === "en" ? "Buy the NFT" : "Achetez le NFT"
-                    }
+                    text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
                   />
                 </>
               )}

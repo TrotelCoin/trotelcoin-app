@@ -2,13 +2,14 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
-import { Address, formatEther } from "viem";
+import { Address, formatEther, Hash } from "viem";
 import {
   useAccount,
   useBalance,
   useReadContract,
   useWriteContract,
   useBlockNumber,
+  useTransactionConfirmations,
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -39,13 +40,17 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const [needApproval, setNeedApproval] = useState<boolean>(true);
   const [approved, setApproved] = useState<boolean>(false);
   const [approvedMessage, setApprovedMessage] = useState<boolean>(false);
+  const [approveConfirmed, setApproveConfirmed] = useState<boolean>(false);
+  const [claimConfirmed, setClaimedConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { isIntermediate } = useContext(PremiumContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id,
   });
+
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
     address: trotelCoinAddress,
     abi: trotelCoinABI,
@@ -54,24 +59,47 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     args: [address, trotelCoinIntermediateAddress],
     account: address as Address,
   });
-  const { isPending: isLoadingApproval, writeContractAsync: approvingAsync } =
-    useWriteContract({
-      mutation: {
-        onError: (error) => {
-          console.error(error);
-          setErrorMessage(true);
-        },
-        onSuccess: () => {
-          setApproved(true);
-          setApprovedMessage(true);
-        },
+
+  const {
+    isPending: isLoadingApproval,
+    writeContractAsync: approvingAsync,
+    data: approveHash,
+  } = useWriteContract({
+    mutation: {
+      onError: () => {
+        setErrorMessage(true);
       },
+      onSuccess: () => {
+        setApproved(true);
+        setApprovedMessage(true);
+      },
+    },
+  });
+
+  const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
+    useTransactionConfirmations({
+      hash: approveHash as Hash,
+      chainId: polygon.id,
     });
+
+  useEffect(() => {
+    if (
+      approveConfirmation &&
+      Number(approveConfirmation) > 0 &&
+      !approveConfirmed
+    ) {
+      setApproved(true);
+      setApprovedMessage(true);
+      setApproveConfirmed(true);
+    }
+  }, [approveConfirmation]);
+
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
     token: trotelCoinAddress,
   });
+
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
       address: trotelCoinIntermediateAddress,
@@ -81,18 +109,36 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       account: address as Address,
     }
   );
-  const { isPending, writeContractAsync } = useWriteContract({
+
+  const {
+    isPending,
+    writeContractAsync,
+    data: claimHash,
+  } = useWriteContract({
     mutation: {
-      onError: (error) => {
-        console.error(error);
+      onError: () => {
         setErrorMessage(true);
       },
       onSuccess: () => {
-        setIsClaimed(true);
-        setIsClaimedMessage(true);
+        setClaimedConfirmed(false);
       },
     },
   });
+
+  const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: claimHash as Hash,
+    });
+
+  useEffect(() => {
+    if (claimConfirmation && Number(claimConfirmation) > 0 && !claimConfirmed) {
+      setIsClaimed(true);
+      setIsClaimedMessage(true);
+      setClaimedConfirmed(true);
+    }
+  }, [claimConfirmation]);
+
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
       address: trotelCoinIntermediateAddress,
@@ -109,6 +155,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
       refetchBalanceIntermediate();
       refetchHolding();
       refetchAllowance();
+      refetchApproveConfirmation();
+      refetchClaimConfirmation();
     } else {
       setIsClaimed(false);
     }
@@ -246,9 +294,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                         args: [address],
                       });
                     }}
-                    text={
-                      lang === "en" ? "Buy the NFT" : "Achetez le NFT"
-                    }
+                    text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
                   />
                 </>
               )}

@@ -11,6 +11,7 @@ import {
   useReadContract,
   useWriteContract,
   useSwitchChain,
+  useTransactionConfirmations,
 } from "wagmi";
 import { polygonChain } from "@/data/web3/chains";
 import { polygon } from "viem/chains";
@@ -95,6 +96,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [isLoadingTokensBalance, setIsLoadingTokensBalance] =
     useState<boolean>(false);
   const [disableRefuel, setDisableRefuel] = useState<boolean>(false);
+  const [swappedConfirmed, setSwappedConfirmed] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -143,26 +145,6 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   };
 
   useEffect(() => {
-    setIsLoadingBlockchain(true);
-    refetchFrom();
-    refetchTo();
-    refetchFromNative();
-    refetchToNative();
-    setIsLoadingBlockchain(false);
-  }, [
-    blockNumber,
-    userAddress,
-    fromToken,
-    toToken,
-    refetchFrom,
-    refetchTo,
-    refetchFromNative,
-    refetchToNative,
-    fromChain,
-    toChain,
-  ]);
-
-  useEffect(() => {
     if (fromBalanceData && fromToken.address !== fromChain.currency.address) {
       const balance = Number(fromBalanceData?.formatted);
       setFromBalance(balance);
@@ -192,30 +174,62 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     toNativeBalanceData,
   ]);
 
-  const { writeContractAsync: approvingAsync, isPending: isPendingApproving } =
-    useWriteContract({
+  const {
+    writeContractAsync: approvingAsync,
+    isPending: isPendingApproving,
+    data: approveHash,
+  } = useWriteContract({
+    mutation: {
+      onError: () => {
+        setErrorMessage(true);
+        setIsApproved(false);
+      },
+    },
+  });
+
+  const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
+    useTransactionConfirmations({
+      chainId: polygon.id,
+      hash: approveHash,
+    });
+
+  useEffect(() => {
+    if (
+      approveConfirmation &&
+      Number(approveConfirmation) > 0 &&
+      !swappedConfirmed
+    ) {
+      setApproveMessage(true);
+      setIsApproved(true);
+      setSwappedConfirmed(true);
+    }
+  }, [approveConfirmation]);
+
+  const { sendTransactionAsync: swappingAsync, data: swappedHash } =
+    useSendTransaction({
       mutation: {
         onSuccess: () => {
-          setApproveMessage(true);
-          setIsApproved(true);
+          setSwappedConfirmed(false);
         },
         onError: () => {
           setErrorMessage(true);
-          setIsApproved(false);
         },
       },
     });
 
-  const { sendTransactionAsync: swappingAsync } = useSendTransaction({
-    mutation: {
-      onSuccess: () => {
-        setSwappedMessage(true);
-      },
-      onError: () => {
-        setErrorMessage(true);
-      },
-    },
+  const {
+    data: transactionConfirmation,
+    refetch: refetchTransactionConfirmation,
+  } = useTransactionConfirmations({
+    chainId: polygon.id,
+    hash: swappedHash as Hash,
   });
+
+  useEffect(() => {
+    if (transactionConfirmation && Number(transactionConfirmation) > 0) {
+      setSwappedMessage(true);
+    }
+  }, [transactionConfirmation]);
 
   const refetchQuote = () => {
     setQuoteFetched(false);
@@ -464,6 +478,17 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setDisableRefuel(true);
     }
   }, [fromChain, toChain]);
+
+  useEffect(() => {
+    setIsLoadingBlockchain(true);
+    refetchFrom();
+    refetchTo();
+    refetchFromNative();
+    refetchToNative();
+    refetchApproveConfirmation();
+    refetchTransactionConfirmation();
+    setIsLoadingBlockchain(false);
+  }, [blockNumber, userAddress, fromToken, toToken, fromChain, toChain]);
 
   return (
     <>
