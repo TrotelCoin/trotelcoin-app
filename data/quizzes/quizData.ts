@@ -370,6 +370,25 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 6,
+    title: "Make your first transaction",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "Did you enjoy making your first transaction?",
+          fr: "Avez-vous aimé faire votre première transaction?",
+        },
+        options: {
+          en: ["Yes! So simple to send money using the blockchain."],
+          fr: [
+            "Oui ! C'est si simple d'envoyer de l'argent grâce à a blockchain.",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 7,
     title: "Introduction to blockchains",
     questions: [
