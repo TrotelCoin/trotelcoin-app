@@ -4,6 +4,7 @@ import axios from "axios";
 import { Token } from "@/types/web3/token";
 import { Chain } from "@/types/web3/chain";
 import { nativeAddress } from "@/data/web3/tokens";
+import { SocketChain } from "@/types/socket/socket";
 
 export const getQuote = async (
   fromChainId: number,
@@ -289,4 +290,39 @@ export const fetchQuote = async (
   setToAmount(route ? toAmount : 0);
   setQuoteFetched(true);
   setIsLoading(false);
+};
+
+export const fetchSupportedChains = async () => {
+  const response = await axios
+    .get("https://api.socket.tech/v2/supported/chains", {
+      headers: {
+        "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error(error);
+    });
+
+  return response;
+};
+
+export const isRefuelSupported = async (fromChain: Chain, toChain: Chain) => {
+  const { result: chains } = await fetchSupportedChains();
+
+  const fromChainResponse = chains.filter((chain: SocketChain) => {
+    return chain.chainId === fromChain.chainId;
+  });
+
+  const toChainResponse = chains.filter((chain: SocketChain) => {
+    return chain.chainId === toChain.chainId;
+  });
+
+  const refuelEnabled: boolean =
+    fromChainResponse[0].refuel.sendingEnabled &&
+    toChainResponse[0].refuel.receivingEnabled;
+
+  return refuelEnabled;
 };

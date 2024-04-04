@@ -27,6 +27,7 @@ import {
   getFromTokenList,
   getToTokenList,
   getChainList,
+  isRefuelSupported,
 } from "@/lib/socket/socket";
 import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
@@ -93,6 +94,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     useState<boolean>(false);
   const [isLoadingTokensBalance, setIsLoadingTokensBalance] =
     useState<boolean>(false);
+  const [disableRefuel, setDisableRefuel] = useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -443,6 +445,26 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     isLoadingTokensBalance,
   ]);
 
+  useEffect(() => {
+    if (fromChain && toChain) {
+      const fetchIsRefuelSupported = async () => {
+        const refuelEnabled = await isRefuelSupported(fromChain, toChain);
+
+        if (refuelEnabled) {
+          setDisableRefuel(false);
+        } else {
+          setEnableRefuel(false);
+          setDisableRefuel(true);
+        }
+      };
+
+      fetchIsRefuelSupported();
+    } else {
+      setEnableRefuel(false);
+      setDisableRefuel(true);
+    }
+  }, [fromChain, toChain]);
+
   return (
     <>
       <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
@@ -473,6 +495,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
               sort={sort}
               setSlippage={setSlippage}
               slippage={slippage}
+              disableRefuel={disableRefuel}
             />
           </div>
         </div>
