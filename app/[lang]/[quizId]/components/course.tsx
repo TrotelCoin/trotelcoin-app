@@ -33,6 +33,9 @@ const Course = ({
   const { playAudio } = useContext(AudioContext);
 
   const handleNext = () => {
+    if (currentCardIndex === cards.en.length - 1) {
+      return;
+    }
     setCurrentIndex(-1);
     setPause(true);
     setTimeout(() => {
