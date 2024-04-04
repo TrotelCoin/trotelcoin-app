@@ -29,7 +29,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     });
 
     const netPromoterScore: number = Math.floor(
-      promoters / total - detractors / total
+      (promoters / total - detractors / total) * 100
     );
 
     return NextResponse.json(netPromoterScore, { status: 200 });
