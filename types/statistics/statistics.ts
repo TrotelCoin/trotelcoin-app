@@ -8,7 +8,8 @@ export type StatisticsType =
   | "expert"
   | "intermediate"
   | "early"
-  | "courses_count";
+  | "courses_count"
+  | "net_promoter_score";
 
 export type StatisticsDataType = {
   id: number;
