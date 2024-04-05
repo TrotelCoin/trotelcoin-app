@@ -250,7 +250,7 @@ const QuizComponent = ({
                     (option: string, index: number) => (
                       <li key={index} className="items-center">
                         <div
-                          className={`cursor-pointer px-4 py-2 rounded-xl ${
+                          className={`cursor-pointer justify-between flex items-center px-4 py-2 rounded-xl ${
                             answers[currentQuestion] === option
                               ? optionClass
                               : "bg-gray-100 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
