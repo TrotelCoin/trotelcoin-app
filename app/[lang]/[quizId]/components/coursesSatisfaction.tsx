@@ -7,6 +7,8 @@ import axios from "axios";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import { StarIcon as StarIconSolid } from "@heroicons/react/20/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
+import FailNotification from "@/app/[lang]/components/modals/failNotification";
+import SuccessNotification from "@/app/[lang]/components/modals/successNotification";
 
 const CoursesSatisfaction = ({
   quizId,
@@ -95,22 +97,31 @@ const CoursesSatisfaction = ({
               </>
             )}
           </div>
-          {satisfactionMessage && (
-            <p className="mt-2 text-green-500 dark:text-green-300 animate__animated animate__fadeIn">
-              {lang === "en"
-                ? "Thank you for rating this course."
-                : "Merci d'avoir noté ce cours."}
-            </p>
-          )}
-          {errorMessage && (
-            <p className="mt-2 text-red-500 dark:text-red-300 animate__animated animate__fadeIn">
-              {lang === "en"
-                ? "An error occured. Please try again later."
-                : "Une erreur est survenue. Veuillez réessayer plus tard."}
-            </p>
-          )}
         </div>
       )}
+
+      <SuccessNotification
+        lang={lang}
+        display={satisfactionMessage}
+        onDismiss={() => setSatisfactionMessage(false)}
+        title={lang === "en" ? "Thank you!" : "Merci !"}
+        message={
+          lang === "en"
+            ? "Thank you for rating this course."
+            : "Merci d'avoir noté ce cours."
+        }
+      />
+      <FailNotification
+        lang={lang}
+        display={errorMessage}
+        onDismiss={() => setErrorMessage(false)}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "An error occured. Please try again later."
+            : "Une erreur est survenue. Veuillez essayer plus tard."
+        }
+      />
     </>
   );
 };
