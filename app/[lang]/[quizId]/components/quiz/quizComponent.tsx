@@ -285,7 +285,7 @@ const QuizComponent = ({
         </>
       )}
       {!isTotallyCorrect && !isCaptchaVerified && questions && (
-        <div className="mt-6">
+        <>
           <ReCAPTCHA
             sitekey={
               process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
@@ -293,7 +293,7 @@ const QuizComponent = ({
             onChange={handleCaptchaVerify}
             theme={theme}
           />
-        </div>
+        </>
       )}
 
       <Fail
