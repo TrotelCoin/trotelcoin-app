@@ -13,8 +13,10 @@ import ThemeContext from "@/app/[lang]/contexts/themeContext";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
 import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher } from "@/lib/axios/fetcher";
 import { useAccount } from "wagmi";
+import Fail from "@/app/[lang]/components/modals/fail";
+import Success from "@/app/[lang]/components/modals/success";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -48,6 +50,7 @@ const QuizComponent = ({
   );
   const [shieldEnabled, setShieldEnabled] = useState<boolean>(false);
   const [shieldTimeLeft, setShieldTimeLeft] = useState<number | null>(null);
+  const [showCorrectMessage, setShowCorrectMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -68,7 +71,6 @@ const QuizComponent = ({
   );
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       setShieldEnabled(data.shieldEnabled);
       setShieldTimeLeft(data.timeLeft);
@@ -95,6 +97,10 @@ const QuizComponent = ({
   }, [shieldTimeLeft]);
 
   const handleAnswer = (answer: string) => {
+    if (isLoading) {
+      return;
+    }
+
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
@@ -121,6 +127,7 @@ const QuizComponent = ({
         }, 2000);
         if (currentQuestion === questions.length - 1) {
           setIsTotallyCorrect(true);
+          setShowCorrectMessage(true);
         }
       }
     } else {
@@ -183,7 +190,7 @@ const QuizComponent = ({
 
   return (
     <>
-      {isCaptchaVerified || debug ? (
+      {(isCaptchaVerified || debug) && !isTotallyCorrect && (
         <>
           {shuffledQuestions &&
             shuffledQuestions[currentQuestion] &&
@@ -229,11 +236,12 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
-                          {isLoading && option === correctAnswer && (
-                            <CheckIcon
-                              className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
-                            />
-                          )}
+                          {isLoading &&
+                            option === correctAnswers[currentQuestion] && (
+                              <CheckIcon
+                                className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
+                              />
+                            )}
                         </div>
                       </li>
                     )
@@ -250,11 +258,12 @@ const QuizComponent = ({
                           onClick={() => handleAnswer(option)}
                         >
                           {option}
-                          {isLoading && (
-                            <CheckIcon
-                              className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
-                            />
-                          )}
+                          {isLoading &&
+                            option === correctAnswers[currentQuestion] && (
+                              <CheckIcon
+                                className={`h-5 w-5 text-gray-100 ${loadingFlashClass}`}
+                              />
+                            )}
                         </div>
                       </li>
                     )
@@ -268,14 +277,6 @@ const QuizComponent = ({
             </span>
           )}
         </>
-      ) : (
-        <>
-          <span className="text-red-500 dark:text-red-300">
-            {lang === "en"
-              ? "Complete the captcha first."
-              : "Complètez le captcha d'abord."}
-          </span>
-        </>
       )}
       {!isTotallyCorrect && !isCaptchaVerified && questions && (
         <div className="mt-6">
@@ -288,44 +289,50 @@ const QuizComponent = ({
           />
         </div>
       )}
-      {captchaMessage && (
-        <div
-          className={`${
-            !captchaMessage && "hidden"
-          } mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-red-500 dark:text-red-300`}
-        >
-          {lang === "en"
-            ? "You didn't do the captcha."
-            : "Vous n'avez pas fait le captcha."}
-        </div>
-      )}
-      {isTotallyCorrect && isCorrect && (
-        <div
-          className={`mt-6 flex flex-col gap-2 animate__animated animate__fadeIn text-green-500 dark:text-green-300`}
-        >
-          {lang === "en"
+
+      <Success
+        show={isTotallyCorrect && isCorrect && showCorrectMessage}
+        onClose={() => setShowCorrectMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Congratulations!" : "Félicitations !"}
+        message={
+          lang === "en"
             ? "You answered correctly to all the questions!"
-            : "Vous avez répondu correctement à toutes les questions !"}
-        </div>
-      )}
-      {showMessage && !isCorrect && (
-        <div
-          className={`mt-4 flex flex-col gap-2 animate__animated animate__fadeIn text-red-500 dark:text-red-300`}
-        >
-          {lang === "en"
-            ? "Oups. You answered incorrectly. Try again!"
-            : "Mince. Vous avez répondu incorrectement. Essayez encore !"}
-          {life >= 0 && life <= 3 && !isIntermediate && !isExpert && (
-            <span className="text-red-500 dark:text-red-300">
-              {lang === "en" ? (
-                <>You have {life} lives left.</>
-              ) : (
-                <>Il vous reste {life} vies restantes.</>
-              )}
-            </span>
-          )}
-        </div>
-      )}
+            : "Vous avez répondu correctement à toutes les questions !"
+        }
+      />
+      <Fail
+        show={
+          showMessage && !isCorrect && !isIntermediate && !isExpert && life > 0
+        }
+        onClose={() => setShowMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Wrong answer!" : "Mauvaise réponse !"}
+        message={
+          lang === "en"
+            ? `Oups! You answered incorrectly. Try again! ${
+                life >= 0 && life <= 3 && !isIntermediate && !isExpert
+                  ? `You have ${life} HP left.`
+                  : ""
+              }`
+            : `Mince ! Vous avez répondu incorrectement. Essayez encore ! ${
+                life >= 0 && life <= 3 && !isIntermediate && !isExpert
+                  ? `Vous avez ${life} HP restants.`
+                  : ""
+              }`
+        }
+      />
+      <Fail
+        show={captchaMessage}
+        onClose={() => setCaptchaMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Missing captcha" : "Captcha manquant"}
+        message={
+          lang === "en"
+            ? "The captcha is missing. You must complete it to continue."
+            : "Le captcha est manquant. Vous devez le compléter pour continuer."
+        }
+      />
     </>
   );
 };
