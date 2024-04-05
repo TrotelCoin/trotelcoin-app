@@ -23,7 +23,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
 
   if (life === 0 && !isIntermediate && !isExpert) {
     return (
-      <div className="mx-auto flex flex-col border-t text-center border-gray-900/10 dark:border-gray-100/10 py-10">
+      <div className="mx-auto flex flex-col border-t text-center md:px-12 border-gray-900/10 dark:border-gray-100/10 py-10">
         <span className={`text-4xl ${loadingFlashClass}`}>💔</span>
         <span className="font-semibold mt-2">{lifeCooldown}</span>
         <p className={`text-gray-900 dark:text-gray-100`}>
