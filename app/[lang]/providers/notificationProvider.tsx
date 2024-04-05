@@ -24,6 +24,8 @@ const NotificationProvider = ({
     useState<NotificationType | null>(null);
   const [isNotificationShowing, setIsNotificationShowing] =
     useState<boolean>(false);
+  const [connectNotification, setConnectNotification] =
+    useState<boolean>(false);
 
   const { lifeResetMessage } = useContext(LifeContext);
   const { streakResetMessage, streakMessage, lostStreak } =
@@ -41,11 +43,13 @@ const NotificationProvider = ({
       });
     };
 
-    if (isLoggedIn) {
+    if (isLoggedIn && !connectNotification) {
       addNotificationToQueue("loggedIn");
+      setConnectNotification(true);
     }
-    if (!isLoggedIn) {
+    if (!isLoggedIn && !connectNotification) {
       addNotificationToQueue("notLoggedIn");
+      setConnectNotification(true);
     }
     if (lostStreak) {
       addNotificationToQueue("lostStreak");
@@ -59,7 +63,13 @@ const NotificationProvider = ({
     if (streakMessage) {
       addNotificationToQueue("streakUpdated");
     }
-  }, [lifeResetMessage, streakResetMessage, isLoggedIn]);
+  }, [
+    lifeResetMessage,
+    streakResetMessage,
+    isLoggedIn,
+    streakMessage,
+    lostStreak,
+  ]);
 
   useEffect(() => {
     const interval = setInterval(() => {
