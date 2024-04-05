@@ -8,6 +8,7 @@ import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import Success from "@/app/[lang]/components/modals/success";
 
 interface QuizProps {
   quizId: number;
@@ -16,6 +17,8 @@ interface QuizProps {
 
 const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
+  const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [showCorrectMessage, setShowCorrectMessage] = useState<boolean>(false);
 
   const { life, lifeCooldown } = useContext(LifeContext);
   const { isLoggedIn } = useContext(UserContext);
@@ -38,7 +41,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   return (
     <>
       {/* QuizComponent */}
-
       {isLoggedIn && !isTotallyCorrect && (
         <>
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10">
@@ -47,6 +49,10 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               isTotallyCorrect={isTotallyCorrect}
               setIsTotallyCorrect={setIsTotallyCorrect}
               quizId={quizId}
+              isCorrect={isCorrect}
+              setIsCorrect={setIsCorrect}
+              showCorrectMessage={showCorrectMessage}
+              setShowCorrectMessage={setShowCorrectMessage}
             />
           </div>
         </>
@@ -60,6 +66,18 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
           isTotallyCorrect={isTotallyCorrect}
         />
       )}
+
+      <Success
+        show={isTotallyCorrect && showCorrectMessage}
+        onClose={() => setShowCorrectMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Congratulations!" : "Félicitations !"}
+        message={
+          lang === "en"
+            ? "You answered correctly to all the questions!"
+            : "Vous avez répondu correctement à toutes les questions !"
+        }
+      />
     </>
   );
 };

@@ -25,11 +25,19 @@ const QuizComponent = ({
   isTotallyCorrect,
   setIsTotallyCorrect,
   quizId,
+  isCorrect,
+  setIsCorrect,
+  showCorrectMessage,
+  setShowCorrectMessage,
 }: {
   lang: Lang;
   isTotallyCorrect: boolean;
   setIsTotallyCorrect: React.Dispatch<SetStateAction<boolean>>;
   quizId: number;
+  isCorrect: boolean;
+  setIsCorrect: React.Dispatch<SetStateAction<boolean>>;
+  showCorrectMessage: boolean;
+  setShowCorrectMessage: React.Dispatch<SetStateAction<boolean>>;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
@@ -44,13 +52,11 @@ const QuizComponent = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<string>("");
-  const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [optionClass, setOptionClass] = useState<string>(
     "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
   );
   const [shieldEnabled, setShieldEnabled] = useState<boolean>(false);
   const [shieldTimeLeft, setShieldTimeLeft] = useState<number | null>(null);
-  const [showCorrectMessage, setShowCorrectMessage] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -290,17 +296,6 @@ const QuizComponent = ({
         </div>
       )}
 
-      <Success
-        show={isTotallyCorrect && isCorrect && showCorrectMessage}
-        onClose={() => setShowCorrectMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Congratulations!" : "Félicitations !"}
-        message={
-          lang === "en"
-            ? "You answered correctly to all the questions!"
-            : "Vous avez répondu correctement à toutes les questions !"
-        }
-      />
       <Fail
         show={
           showMessage && !isCorrect && !isIntermediate && !isExpert && life > 0
