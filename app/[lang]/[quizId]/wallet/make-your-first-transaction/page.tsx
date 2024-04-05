@@ -4,7 +4,11 @@ import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import { useContext, useEffect, useState } from "react";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { useBlockNumber, useSendTransaction } from "wagmi";
+import {
+  useBlockNumber,
+  useSendTransaction,
+  useTransactionConfirmations,
+} from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinDAOAddress } from "@/data/web3/addresses";
 import { Hash, parseEther } from "viem";
@@ -12,7 +16,7 @@ import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { useTransactionConfirmations } from "wagmi";
+import Link from "next/link";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
@@ -21,7 +25,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [transactionConfirmed, setTransactionConfirmed] =
     useState<boolean>(false);
-
+  const [showHash, setShowHash] = useState<boolean>(false);
   const { isLoggedIn } = useContext(UserContext);
 
   const { data: blockNumber } = useBlockNumber({
@@ -36,11 +40,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
       onMutate: () => {
         setIsLoading(true);
+        setShowHash(true);
       },
       onError: () => {
         setErrorMessage(true);
         setCondition(false);
         setIsLoading(false);
+        setShowHash(false);
       },
     },
   });
@@ -111,11 +117,12 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <span className="text-xl font-semibold text-gray-900 dark:text-gray-100">
               Make your first transaction
             </span>
-            <div className="mt-4">
+            <div className="my-4">
               {isLoggedIn ? (
                 <BlueButton
                   isLoading={isLoading}
                   lang={lang}
+                  disabled={isLoading}
                   text="Send transaction"
                   onClick={async () => {
                     await sendTransactionAsync({
@@ -129,6 +136,18 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <Wallet lang={lang} isCentered={true} />
               )}
             </div>
+            {showHash && transactionHash && (
+              <>
+                <Link
+                  href={`https://polygonscan.com/tx/${transactionHash}`}
+                  target="_blank"
+                >
+                  <span className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400">
+                    Click to see the transaction
+                  </span>
+                </Link>
+              </>
+            )}
 
             <Success
               title="Success"
@@ -188,12 +207,13 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <span className="text-xl font-semibold text-gray-900 dark:text-gray-100">
               Faîtes votre première transaction
             </span>
-            <div className="mt-4">
+            <div className="my-4">
               {isLoggedIn ? (
                 <BlueButton
                   isLoading={isLoading}
                   lang={lang}
-                  text="Send transaction"
+                  disabled={isLoading}
+                  text="Envoyer la transaction"
                   onClick={async () => {
                     await sendTransactionAsync({
                       chainId: polygon.id,
@@ -206,6 +226,18 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <Wallet lang={lang} isCentered={true} />
               )}
             </div>
+            {showHash && transactionHash && (
+              <>
+                <Link
+                  href={`https://polygonscan.com/tx/${transactionHash}`}
+                  target="_blank"
+                >
+                  <span className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400">
+                    Cliquez pour voir la transaction
+                  </span>
+                </Link>
+              </>
+            )}
 
             <Success
               title="Succès"

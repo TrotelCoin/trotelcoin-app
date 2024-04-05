@@ -76,7 +76,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
       description:
         lang === "en"
           ? "Protects from losing lives during 1 hour"
-          : "Protège de la parte de points de vie pendant 1 heure",
+          : "Protège de la perte de points de vie pendant 1 heure",
       price: 100,
       emoji: "🔒",
       quantity: 1,
