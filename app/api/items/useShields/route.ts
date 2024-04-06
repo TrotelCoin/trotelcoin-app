@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase/db";
-import { Items } from "@/types/inventory/inventory";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
@@ -8,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
-  const shieldName: Items = searchParams.get("shieldName") as Items;
+  const shieldName = searchParams.get("shieldName");
 
   if (!wallet || !shieldName) {
     return NextResponse.json("Parameters not found", { status: 400 });

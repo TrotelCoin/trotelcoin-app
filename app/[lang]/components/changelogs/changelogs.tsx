@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.1";
+const version = "1.9.3";
 
 interface ChangelogItem {
   title: string;
@@ -83,8 +83,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Shop is now available"
-              : "- La boutique est maintenant disponible",
+              ? "- Shop is now available 🛍️"
+              : "- La boutique est maintenant disponible 🛍️",
+          isNew: true,
         },
         {
           text:
