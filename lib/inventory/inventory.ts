@@ -1,7 +1,6 @@
-import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
+import trotelCoinShopABI from "@/abi/trotelCoinShop";
 import { config } from "@/config/Web3ModalConfig";
-import { trotelCoinShopV1 } from "@/data/web3/addresses";
-import type { InventoryItemType, Items } from "@/types/inventory/inventory";
+import { trotelCoinShop } from "@/data/web3/addresses";
 import { Lang } from "@/types/lang";
 import { readContract } from "@wagmi/core";
 import axios from "axios";
@@ -10,7 +9,7 @@ import { Address, formatEther } from "viem";
 import { polygon } from "wagmi/chains";
 
 export const useItem = async (
-  item: Items,
+  item: string,
   address: Address,
   setErrorMessage: React.Dispatch<React.SetStateAction<boolean>>,
   setItemsUsedMessage: React.Dispatch<React.SetStateAction<boolean>>,
@@ -36,6 +35,16 @@ export const useItem = async (
       case "Castle":
         await axios
           .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+          });
+        break;
+      case "Watch":
+        await axios
+          .post(`/api/items/useWatch?wallet=${address}`)
           .catch((error) => {
             console.error(error);
             setErrorMessage(true);
@@ -121,10 +130,9 @@ export const useItem = async (
 };
 
 export const translateItemsName = (
-  name: Items,
+  name: string,
   lang: Lang,
-  setDisplayedName: React.Dispatch<SetStateAction<string | null>>,
-  quantity: number
+  setDisplayedName: React.Dispatch<SetStateAction<string | null>>
 ) => {
   switch (name) {
     case "Potion":
@@ -164,26 +172,38 @@ export const translateItemsName = (
 export const fetchInventory = async (totalItems: number, address: Address) => {
   let newInventories = [];
 
-  for (let item = 0; item < totalItems; item++) {
+  for (let item = 1; item <= totalItems; item++) {
     try {
-      const userItem = (await readContract(config, {
-        address: trotelCoinShopV1,
-        abi: trotelCoinShopV1ABI,
-        functionName: "inventories",
+      const userQuantity = (await readContract(config, {
+        address: trotelCoinShop,
+        abi: trotelCoinShopABI,
+        functionName: "getItemQuantity",
         chainId: polygon.id,
         account: address,
         args: [address, item],
-      })) as InventoryItemType;
+      })) as bigint;
 
-      const itemInfo = userItem[0];
-      const itemQuantity = Number(userItem[1]);
-      const price = Number(formatEther(itemInfo.price));
-      const discount = Number(itemInfo.discount);
+      const userItem = (await readContract(config, {
+        address: trotelCoinShop,
+        abi: trotelCoinShopABI,
+        functionName: "getItemInformations",
+        chainId: polygon.id,
+        account: address,
+        args: [item],
+      })) as any;
+
+      const itemQuantity = Number(userQuantity);
+      const name = userItem?.name;
+      const price = Number(formatEther(userItem?.price));
+      const discount = Number(formatEther(userItem?.discount));
+      const emoji = userItem?.emoji;
+
       const itemFormatted = {
-        name: itemInfo.name as Items,
+        name: name,
         price: price,
         discount: discount,
         quantity: itemQuantity,
+        emoji: emoji,
       };
 
       newInventories.push(itemFormatted);

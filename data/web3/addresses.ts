@@ -16,5 +16,5 @@ export const usdcAddress: Address =
   "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";
 export const trotelCoinDAOAddress: Address =
   "0x804BCfe2cF0C9d363fE2D85FF29CF0A8FfcBB8db";
-export const trotelCoinShopV1: Address =
-  "0xBe27963c26FCA5dc4440a1DDe3870A7dbdcb4D43";
+export const trotelCoinShop: Address =
+  "0xE5DafF84A4F01AE83f8F1F987cC4140E3B7cd639";

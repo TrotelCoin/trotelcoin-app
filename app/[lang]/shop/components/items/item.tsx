@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import * as Popover from "@radix-ui/react-popover";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
-import type { ShopItemType } from "@/types/shop/shop";
+import type { ItemTypeFinal } from "@/types/shop/shop";
 import BlueButton from "@/app/[lang]/components/blueButton";
-import { translateItemsName } from "@/lib/inventory/inventory";
 import Image from "next/image";
 import {
   useAccount,
@@ -16,18 +15,15 @@ import {
   useTransactionConfirmations,
   useWriteContract,
 } from "wagmi";
-import { trotelCoinAddress, trotelCoinShopV1 } from "@/data/web3/addresses";
+import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
+import trotelCoinShopABI from "@/abi/trotelCoinShop";
 import trotelCoinABI from "@/abi/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
-import { Items } from "@/types/inventory/inventory";
 
-const discountDisabled: boolean = true;
-
-const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
+const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
   const [needApproval, setNeedApproval] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -39,7 +35,6 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
   const [priceAfterDiscount, setPriceAfterDiscount] = useState<number | null>(
     null
   );
-  const [displayedName, setDisplayedName] = useState<string | null>(null);
   const [approveConfirmed, setApproveConfirmed] = useState<boolean>(false);
   const [purchaseConfirmed, setPurchaseConfirmed] = useState<boolean>(false);
 
@@ -73,7 +68,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
     functionName: "allowance",
     chainId: polygon.id,
     account: address,
-    args: [address, trotelCoinShopV1],
+    args: [address, trotelCoinShop],
   });
 
   useEffect(() => {
@@ -178,25 +173,21 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
   }, [purchaseConfirmation]);
 
   useEffect(() => {
-    if (shopItem && shopItem.discount && !discountDisabled) {
-      const priceAfterDiscount =
-        shopItem.price - (shopItem.price * shopItem.discount) / 100;
+    if (
+      shopItem &&
+      shopItem.discount &&
+      shopItem.quantity &&
+      shopItem.quantity > 1
+    ) {
+      const discountAmount = shopItem.discount * (shopItem.quantity - 1);
+      const totalAmount = shopItem.price * shopItem.quantity;
+      const priceAfterDiscount = totalAmount - discountAmount;
+
       setPriceAfterDiscount(priceAfterDiscount);
     } else {
       setPriceAfterDiscount(null);
     }
   }, [shopItem]);
-
-  useEffect(() => {
-    if (shopItem) {
-      translateItemsName(
-        shopItem.name as Items,
-        lang,
-        setDisplayedName,
-        shopItem.quantity
-      );
-    }
-  }, [shopItem, lang]);
 
   useEffect(() => {
     refetchApprovedConfirmation();
@@ -221,7 +212,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
                 <div
                   className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl`}
                 >
-                  {displayedName}
+                  {shopItem.name}
                 </div>
                 <Popover.Trigger asChild>
                   <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
@@ -243,14 +234,12 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
               <div className="inline-flex items-center gap-1">
                 <span className="text-gray-700 dark:text-gray-300 text-sm">
                   <span className={`${priceAfterDiscount && "line-through"}`}>
-                    {shopItem.price * shopItem.quantity}
+                    {shopItem.price * (shopItem.quantity as number)}
                   </span>{" "}
                   {priceAfterDiscount && (
                     <>
                       <span className="rainbow-text font-semibold">
-                        {priceAfterDiscount
-                          ? priceAfterDiscount * shopItem.quantity
-                          : null}
+                        {priceAfterDiscount ?? null}
                       </span>
                     </>
                   )}
@@ -291,7 +280,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: polygon.id,
-                        args: [trotelCoinShopV1, amount],
+                        args: [trotelCoinShop, amount],
                       });
                     }}
                     isLoading={isLoading || approved}
@@ -303,8 +292,8 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
                     text={lang === "en" ? `Buy` : `Acheter`}
                     onClick={() => {
                       buyItem({
-                        address: trotelCoinShopV1,
-                        abi: trotelCoinShopV1ABI,
+                        address: trotelCoinShop,
+                        abi: trotelCoinShopABI,
                         functionName: "buyItem",
                         chainId: polygon.id,
                         args: [shopItem.id, shopItem.quantity],

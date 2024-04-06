@@ -1,24 +1,15 @@
-export type InventoryItemType = [
-  {
-    name: string;
-    price: bigint;
-    discount: bigint;
-  },
-  bigint
-];
-
-export type Items =
-  | "Potion"
-  | "Hourglass"
-  | "Clock"
-  | "Closed Lock"
-  | "Shield"
-  | "Castle"
-  | "King";
+export type InventoryItemType = {
+  name: string;
+  price: bigint;
+  discount: bigint;
+  quantity: bigint;
+  emoji: string;
+};
 
 export type InventoryItemTypeFinal = {
-  name: Items;
+  name: string;
   price: number;
   discount: number;
   quantity: number;
+  emoji: string;
 };
