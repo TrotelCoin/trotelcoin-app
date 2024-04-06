@@ -51,7 +51,6 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               quizId={quizId}
               isCorrect={isCorrect}
               setIsCorrect={setIsCorrect}
-              showCorrectMessage={showCorrectMessage}
               setShowCorrectMessage={setShowCorrectMessage}
             />
           </div>

@@ -28,7 +28,9 @@ const LifeMobile = ({
                 <span className="font-bold text-xl mr-1">&infin;</span>💙
               </span>
             ) : (
-              <span>{life} 💙</span>
+              <span>
+                {life} {life > 0 ? "💙" : "💔"}
+              </span>
             )}
           </div>
         </div>

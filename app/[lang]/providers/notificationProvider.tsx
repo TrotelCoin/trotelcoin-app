@@ -9,6 +9,7 @@ import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { NotificationType } from "@/types/notifications/notifications";
+import { addNotificationToQueue } from "@/lib/notifications/notifications";
 
 const NotificationProvider = ({
   children,
@@ -24,8 +25,7 @@ const NotificationProvider = ({
     useState<NotificationType | null>(null);
   const [isNotificationShowing, setIsNotificationShowing] =
     useState<boolean>(false);
-  const [connectNotification, setConnectNotification] =
-    useState<boolean>(false);
+  const [initialDelay, setInitialDelay] = useState<boolean>(false);
 
   const { lifeResetMessage } = useContext(LifeContext);
   const { streakResetMessage, streakMessage, lostStreak } =
@@ -33,35 +33,35 @@ const NotificationProvider = ({
   const { isLoggedIn } = useContext(UserContext);
 
   useEffect(() => {
-    const addNotificationToQueue = (notification: NotificationType) => {
-      setNotificationQueue((prevQueue) => {
-        if (!prevQueue.includes(notification)) {
-          return [...prevQueue, notification];
-        } else {
-          return prevQueue;
-        }
-      });
-    };
+    const delayTimer = setTimeout(() => {
+      setInitialDelay(true);
+    }, 1000);
 
-    if (isLoggedIn && !connectNotification) {
-      addNotificationToQueue("loggedIn");
-      setConnectNotification(true);
+    return () => clearTimeout(delayTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!initialDelay) {
+      return;
     }
-    if (!isLoggedIn && !connectNotification) {
-      addNotificationToQueue("notLoggedIn");
-      setConnectNotification(true);
+
+    if (isLoggedIn) {
+      addNotificationToQueue("loggedIn", setNotificationQueue);
+    } else {
+      addNotificationToQueue("notLoggedIn", setNotificationQueue);
     }
+
     if (lostStreak) {
-      addNotificationToQueue("lostStreak");
+      addNotificationToQueue("lostStreak", setNotificationQueue);
     }
     if (lifeResetMessage) {
-      addNotificationToQueue("lifeResetMessage");
+      addNotificationToQueue("lifeResetMessage", setNotificationQueue);
     }
     if (streakResetMessage) {
-      addNotificationToQueue("streakResetMessage");
+      addNotificationToQueue("streakResetMessage", setNotificationQueue);
     }
     if (streakMessage) {
-      addNotificationToQueue("streakUpdated");
+      addNotificationToQueue("streakUpdated", setNotificationQueue);
     }
   }, [
     lifeResetMessage,
@@ -69,6 +69,7 @@ const NotificationProvider = ({
     isLoggedIn,
     streakMessage,
     lostStreak,
+    initialDelay,
   ]);
 
   useEffect(() => {

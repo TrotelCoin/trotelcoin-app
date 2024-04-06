@@ -16,7 +16,6 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 import { useAccount } from "wagmi";
 import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "@/app/[lang]/components/modals/success";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -27,7 +26,7 @@ const QuizComponent = ({
   quizId,
   isCorrect,
   setIsCorrect,
-  showCorrectMessage,
+
   setShowCorrectMessage,
 }: {
   lang: Lang;
@@ -36,7 +35,6 @@ const QuizComponent = ({
   quizId: number;
   isCorrect: boolean;
   setIsCorrect: React.Dispatch<SetStateAction<boolean>>;
-  showCorrectMessage: boolean;
   setShowCorrectMessage: React.Dispatch<SetStateAction<boolean>>;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
@@ -284,7 +282,7 @@ const QuizComponent = ({
           )}
         </>
       )}
-      {!isTotallyCorrect && !isCaptchaVerified && questions && (
+      {!isTotallyCorrect && !isCaptchaVerified && questions && !debug && (
         <>
           <ReCAPTCHA
             sitekey={
