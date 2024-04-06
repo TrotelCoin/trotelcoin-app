@@ -114,8 +114,8 @@ const Rewards = ({
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
-              ? "Sign in to claim rewards."
-              : "Connectez-vous pour réclamer vos récompenses."}
+              ? "Sign in to claim rewards"
+              : "Connectez-vous pour réclamer vos récompenses"}
           </h2>
           <div className="mt-4">
             <Wallet isFull={false} lang={lang} />

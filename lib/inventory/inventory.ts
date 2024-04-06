@@ -1,4 +1,4 @@
-import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
+import trotelCoinShopABI from "@/abi/trotelCoinShop";
 import { config } from "@/config/Web3ModalConfig";
 import { trotelCoinShopV1 } from "@/data/web3/addresses";
 import type { InventoryItemType, Items } from "@/types/inventory/inventory";
@@ -168,7 +168,7 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
     try {
       const userItem = (await readContract(config, {
         address: trotelCoinShopV1,
-        abi: trotelCoinShopV1ABI,
+        abi: trotelCoinShopABI,
         functionName: "inventories",
         chainId: polygon.id,
         account: address,

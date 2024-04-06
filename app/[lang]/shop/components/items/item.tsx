@@ -18,7 +18,7 @@ import {
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinShopV1 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
+import trotelCoinShopABI from "@/abi/trotelCoinShop";
 import trotelCoinABI from "@/abi/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -304,7 +304,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ShopItemType }) => {
                     onClick={() => {
                       buyItem({
                         address: trotelCoinShopV1,
-                        abi: trotelCoinShopV1ABI,
+                        abi: trotelCoinShopABI,
                         functionName: "buyItem",
                         chainId: polygon.id,
                         args: [shopItem.id, shopItem.quantity],

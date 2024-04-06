@@ -5,7 +5,7 @@ import { Lang } from "@/types/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinShopV1 } from "@/data/web3/addresses";
-import trotelCoinShopV1ABI from "@/abi/trotelCoinShopV1";
+import trotelCoinShopABI from "@/abi/trotelCoinShop";
 import { fetchInventory } from "@/lib/inventory/inventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem";
@@ -81,7 +81,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: totalItemsData, refetch: refetchTotalItems } = useReadContract({
     address: trotelCoinShopV1,
-    abi: trotelCoinShopV1ABI,
+    abi: trotelCoinShopABI,
     functionName: "totalItems",
     chainId: polygon.id,
     account: address,
