@@ -28,9 +28,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const differenceInMs = now.getTime() - date.getTime();
     const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 
-    if (differenceInDays > 3) {
-      console.error("Hourglass can't be use");
-      return NextResponse.json("Hourglass can't be use", { status: 500 });
+    if (differenceInDays > 7) {
+      console.error("Watch can't be use");
+      return NextResponse.json("Watch can't be use", { status: 500 });
     }
   }
 

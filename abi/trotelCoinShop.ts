@@ -550,6 +550,16 @@ const trotelCoinShopABI = [
     type: "function",
   },
   {
+    inputs: [
+      { internalType: "address", name: "_address", type: "address" },
+      { internalType: "uint256", name: "_itemId", type: "uint256" },
+    ],
+    name: "getItemQuantity",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "_categoryId", type: "uint256" }],
     name: "getItemsInCategory",
     outputs: [
