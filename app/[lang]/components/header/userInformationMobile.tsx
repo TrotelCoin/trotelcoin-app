@@ -45,7 +45,7 @@ const UserInformationMobile = ({
           <div className="flex items-center">{streak} 🔥</div>
           <div className="flex items-center">
             {isPremium ? <span className="text-xl mr-1">&infin;</span> : life}{" "}
-            💙
+            {life > 0 ? "💙" : "💔"}
           </div>
           <div className="flex items-center gap-1">
             {Number(userTotalRewardsPending.toFixed(2)).toLocaleString("en-US")}{" "}
