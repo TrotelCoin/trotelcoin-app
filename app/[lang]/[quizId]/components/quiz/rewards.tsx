@@ -92,13 +92,13 @@ const Rewards = ({
         isLoggedIn &&
         !claimedRewards &&
         !claimingLoading && (
-          <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
               {lang === "en"
-                ? "Claim your rewards."
-                : "Récupérez vos récompenses."}
+                ? "Claim your rewards"
+                : "Récupérez vos récompenses"}
             </h3>
-            <div className="mt-6 items-center">
+            <div className="mt-4 items-center">
               <BlueButton
                 onClick={handleClaimRewards}
                 lang={lang}
@@ -109,8 +109,9 @@ const Rewards = ({
             </div>
           </div>
         )}
+
       {!isLoggedIn && !hasAlreadyAnswered && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
               ? "Sign in to claim rewards."
@@ -122,7 +123,7 @@ const Rewards = ({
         </div>
       )}
       {claimingLoading && !claimingError && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
           <span
             className={`font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
           >
@@ -131,7 +132,7 @@ const Rewards = ({
         </div>
       )}
       {(hasAlreadyAnswered || claimedRewards) && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
               ? "You have already claimed your rewards."
@@ -139,15 +140,18 @@ const Rewards = ({
           </h2>
         </div>
       )}
-      {claimingError && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 pt-10 animate__animated animate__FadeIn">
-          <h2 className="text-red-500 dark:text-red-300">
-            {lang === "en"
-              ? "An error occured while claiming your rewards."
-              : "Une erreur est survenue lors de la réclamation de vos récompenses."}
-          </h2>
-        </div>
-      )}
+
+      <Fail
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "An error occured while claiming your rewards."
+            : "Une erreur est survenue lors de la réclamation de vos récompenses."
+        }
+        show={claimingError}
+        onClose={() => setClaimingError(false)}
+        lang={lang}
+      />
       <Fail
         title={lang === "en" ? "Sign in" : "Connectez-vous"}
         message={

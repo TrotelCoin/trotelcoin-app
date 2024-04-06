@@ -70,7 +70,7 @@ const CoursesSatisfaction = ({
             <div className="flex items-center">
               {!coursesSatisfactionAnswered?.answered && (
                 <>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                  <h2 className="font-semibold text-gray-900 dark:text-gray-100">
                     {lang === "en" ? "Rate this course:" : "Notez ce cours:"}
                   </h2>
                   <div className="flex items-center">
