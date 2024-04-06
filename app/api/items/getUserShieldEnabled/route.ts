@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase/db";
-import { Items } from "@/types/inventory/inventory";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +34,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       let hours: number = 0;
 
-      switch (shieldItem.shield_name as Items) {
+      switch (shieldItem.shield_name) {
         case "Closed Lock":
           hours = 1;
           break;

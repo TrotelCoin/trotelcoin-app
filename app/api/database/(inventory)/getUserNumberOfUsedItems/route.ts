@@ -1,5 +1,4 @@
 import { supabase } from "@/lib/supabase/db";
-import { Items } from "@/types/inventory/inventory";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
@@ -8,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, res: NextResponse) {
   const searchParams = new URL(req.url);
   const address: Address = searchParams.searchParams.get("address") as Address;
-  const item: Items = searchParams.searchParams.get("item") as Items;
+  const item = searchParams.searchParams.get("item");
 
   if (!address || !item) {
     return NextResponse.json("Missing address or item", { status: 400 });
