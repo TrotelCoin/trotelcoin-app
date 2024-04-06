@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
-import { translateItemsName, useItem } from "@/lib/inventory/inventory";
+import { useItem } from "@/lib/inventory/inventory";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
@@ -22,14 +22,12 @@ const InventoryItem = ({
   lang: Lang;
   item: InventoryItemTypeFinal;
 }) => {
-  const [emoji, setEmoji] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnectedMessage, setNotConnectedMessage] =
     useState<boolean>(false);
   const [itemsUsedMessage, setItemsUsedMessage] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [displayedName, setDisplayedName] = useState<string | null>(null);
   const [hourglassDisabled, setHourglassDisabled] = useState<boolean>(false);
   const [useItemConfirmation, setUseItemConfirmation] =
     useState<boolean>(false);
@@ -58,40 +56,6 @@ const InventoryItem = ({
       setQuantity(item.quantity);
     }
   }, [item, numberOfUsedItemsData]);
-
-  useEffect(() => {
-    if (item) {
-      switch (item.name) {
-        case "Potion":
-          setEmoji("🧪");
-          break;
-        case "Hourglass":
-          setEmoji("⏳");
-          break;
-        case "Clock":
-          setEmoji("⏰");
-          break;
-        case "Closed Lock":
-          setEmoji("🔒");
-          break;
-        case "Shield":
-          setEmoji("🛡️");
-          break;
-        case "Castle":
-          setEmoji("🏰");
-          break;
-        case "King":
-          setEmoji("🤴");
-          break;
-      }
-    }
-  }, [item]);
-
-  useEffect(() => {
-    if (item) {
-      translateItemsName(item.name, lang, setDisplayedName, item.quantity);
-    }
-  }, [item, lang]);
 
   useEffect(() => {
     if (item.name === "Hourglass") {
@@ -131,14 +95,14 @@ const InventoryItem = ({
               <div className="px-4 py-5 sm:p-6">
                 <div className="flex items-center justify-between">
                   <div className={`font-semibold rainbow-text text-2xl`}>
-                    {displayedName}
+                    {item.name}
                   </div>
                   <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
                     {quantity}
                   </div>
                 </div>
                 <div className="flex items-center justify-center my-8">
-                  <span className="text-6xl">{emoji}</span>
+                  <span className="text-6xl">{item.emoji}</span>
                 </div>
                 <div className="flex flex-col">
                   <BlueButton

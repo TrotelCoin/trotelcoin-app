@@ -3,6 +3,7 @@ export type InventoryItemType = {
   price: bigint;
   discount: bigint;
   quantity: bigint;
+  emoji: string;
 };
 
 export type InventoryItemTypeFinal = {
@@ -10,4 +11,5 @@ export type InventoryItemTypeFinal = {
   price: number;
   discount: number;
   quantity: number;
+  emoji: string;
 };

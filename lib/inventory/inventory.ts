@@ -42,6 +42,16 @@ export const useItem = async (
             errorEncountered = true;
           });
         break;
+      case "Watch":
+        await axios
+          .post(`/api/items/useWatch?wallet=${address}`)
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+          });
+        break;
       case "Clock":
         await axios
           .post(`/api/items/useClock?wallet=${address}`)
@@ -122,8 +132,7 @@ export const useItem = async (
 export const translateItemsName = (
   name: string,
   lang: Lang,
-  setDisplayedName: React.Dispatch<SetStateAction<string | null>>,
-  quantity: number
+  setDisplayedName: React.Dispatch<SetStateAction<string | null>>
 ) => {
   switch (name) {
     case "Potion":
@@ -187,15 +196,15 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
       const name = userItem?.name;
       const price = Number(formatEther(userItem?.price));
       const discount = Number(formatEther(userItem?.discount));
+      const emoji = userItem?.emoji;
 
       const itemFormatted = {
         name: name,
         price: price,
         discount: discount,
         quantity: itemQuantity,
+        emoji: emoji,
       };
-
-      console.log("items", itemFormatted);
 
       newInventories.push(itemFormatted);
     } catch (error) {
