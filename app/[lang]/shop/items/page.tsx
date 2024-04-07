@@ -195,7 +195,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : (
           <>
-            <div className="flex justify-center items-center text-center p-32">
+            <div className="flex justify-center items-center text-center md:p-32">
               <span
                 className={`text-gray-700 dark:text-gray-300 ${
                   refreshing && loadingFlashClass
