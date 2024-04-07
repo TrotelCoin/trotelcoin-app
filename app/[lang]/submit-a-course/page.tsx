@@ -14,7 +14,8 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string | undefined>(undefined);
   const [category, setCategory] = useState<Category>("Web3");
-  const [subcategory, setSubcategory] = useState<Subcategory>("Crypto");
+  const [subcategory, setSubcategory] =
+    useState<Subcategory>("Cryptocurrencies");
   const [tier, setTier] = useState<Tiers>("Beginner");
 
   const { address } = useAccount();
