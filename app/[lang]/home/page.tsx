@@ -88,7 +88,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               </div>
             </div>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Link href={`/${lang}/submit-a-course`}>
+              <Link href={`/${lang}/submit-a-course`} className="h-full">
                 <Action
                   title={
                     lang === "en" ? "Submit a course" : "Proposer un cours"
@@ -96,7 +96,11 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   color={"Blue"}
                 />
               </Link>
-              <Link href={"https://tally.so/r/nP6ZOQ"} target="_blank">
+              <Link
+                href={"https://tally.so/r/nP6ZOQ"}
+                target="_blank"
+                className="h-full"
+              >
                 <Action
                   title={
                     lang === "en" ? "Give your feedback" : "Donner votre avis"
@@ -104,7 +108,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   color={"Green"}
                 />
               </Link>
-              <Link href={`/${lang}/shop/items`}>
+              <Link href={`/${lang}/shop/items`} className="h-full">
                 <Action
                   title={
                     lang === "en" ? "Buy items in the shop" : "Faire des achats"

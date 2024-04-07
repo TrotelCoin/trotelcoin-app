@@ -16,7 +16,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-blue-500 dark:bg-blue-500 shadow-xl active:border-gray-900 active:bg-blue-400 dark:active:bg-blue-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full bg-blue-500 dark:bg-blue-500 shadow-xl active:border-gray-900 active:bg-blue-400 dark:active:bg-blue-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -37,7 +37,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -58,7 +58,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-green-500 dark:bg-green-500 shadow-xl active:border-gray-900 active:bg-green-400 dark:active:bg-green-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full bg-green-500 dark:bg-green-500 shadow-xl active:border-gray-900 active:bg-green-400 dark:active:bg-green-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -79,7 +79,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-red-500 dark:bg-red-500 shadow-xl active:border-gray-900 active:bg-red-400 dark:active:bg-red-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full bg-red-500 dark:bg-red-500 shadow-xl active:border-gray-900 active:bg-red-400 dark:active:bg-red-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -100,7 +100,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-purple-500 dark:bg-purple-500 shadow-xl active:border-gray-900 active:bg-purple-400 dark:active:bg-purple-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full bg-purple-500 dark:bg-purple-500 shadow-xl active:border-gray-900 active:bg-purple-400 dark:active:bg-purple-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -121,7 +121,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-orange-500 dark:bg-orange-500 shadow-xl active:border-gray-900 active:bg-orange-400 dark:active:bg-orange-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full bg-orange-500 dark:bg-orange-500 shadow-xl active:border-gray-900 active:bg-orange-400 dark:active:bg-orange-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -129,7 +129,8 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </h2>
               <span className="text-gray-100">
                 {lang === "en"
-                  ? "Receive TROTEL from your friends, from anywhere" : "Recevez des TROTEL de vos amis, à partir de n'importe où"}
+                  ? "Receive TROTEL from your friends, from anywhere"
+                  : "Recevez des TROTEL de vos amis, à partir de n'importe où"}
               </span>
             </div>
           </Tilt>

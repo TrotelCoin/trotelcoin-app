@@ -62,6 +62,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           tiltMaxAngleY={5}
           glareMaxOpacity={0.15}
           perspective={800}
+          className="h-full"
         >
           <Balance lang={lang} />
         </Tilt>
@@ -72,6 +73,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           tiltMaxAngleY={5}
           glareMaxOpacity={0.15}
           perspective={800}
+          className="h-full"
         >
           <NumberOfQuizzesAnswered lang={lang} />
         </Tilt>
@@ -82,6 +84,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           tiltMaxAngleY={5}
           glareMaxOpacity={0.15}
           perspective={800}
+          className="h-full"
         >
           <TotalRewardsPending lang={lang} />
         </Tilt>
@@ -92,6 +95,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           tiltMaxAngleY={5}
           glareMaxOpacity={0.15}
           perspective={800}
+          className="h-full"
         >
           <MaxStreak lang={lang} />
         </Tilt>

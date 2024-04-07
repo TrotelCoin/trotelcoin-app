@@ -54,7 +54,7 @@ const renderCourses = (
       : "";
 
   return (
-    <Link href={`${courseLink}`} key={index}>
+    <Link href={`${courseLink}`} key={index} className="h-full">
       <Tilt
         glareEnable={true}
         tiltMaxAngleX={5}
@@ -66,9 +66,7 @@ const renderCourses = (
           className={`rounded-xl p-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
         >
           <div className="flex">
-            <div
-              className={`font-semibold text-gray-900 dark:text-gray-100`}
-            >
+            <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
               {title}
             </div>
           </div>

@@ -67,6 +67,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <TrotelCoinsDistributed
               lang={lang}
@@ -80,6 +81,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <TrotelCoinsPending
               lang={lang}
@@ -93,6 +95,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <NumberOfQuizzesAnswered
               lang={lang}
@@ -106,6 +109,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <RemainingRewards
               lang={lang}
@@ -119,6 +123,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <EstimatedRewards lang={lang} />
           </Tilt>
@@ -142,6 +147,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <NumberOfLearners
               lang={lang}
@@ -155,6 +161,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <Early
               lang={lang}
@@ -168,6 +175,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <Intermediate
               lang={lang}
@@ -181,6 +189,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <Expert
               lang={lang}
@@ -194,6 +203,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <CoursesCount
               lang={lang}
@@ -207,6 +217,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <NetPromoterScore
               lang={lang}
@@ -220,6 +231,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
+            className="h-full"
           >
             <AverageMark
               lang={lang}

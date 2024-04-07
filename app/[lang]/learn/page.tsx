@@ -9,7 +9,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Link href={`/${lang}/learn/chapters`}>
+        <Link href={`/${lang}/learn/chapters`} className="h-full">
           <Tilt
             glareEnable={true}
             tiltMaxAngleX={5}
@@ -30,7 +30,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </div>
           </Tilt>
         </Link>
-        <Link href={`/${lang}/learn/vocabulary`}>
+        <Link href={`/${lang}/learn/vocabulary`} className="h-full">
           <Tilt
             glareEnable={true}
             tiltMaxAngleX={5}

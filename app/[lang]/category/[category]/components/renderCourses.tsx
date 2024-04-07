@@ -56,6 +56,7 @@ const renderCourses = (
         tiltMaxAngleY={5}
         glareMaxOpacity={0.15}
         perspective={800}
+        className="h-full"
       >
         <div
           className={`rounded-xl px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}

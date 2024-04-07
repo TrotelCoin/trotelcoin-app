@@ -19,6 +19,7 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
               tiltMaxAngleY={5}
               glareMaxOpacity={0.15}
               perspective={800}
+              className="h-full"
             >
               <div
                 className={`bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-xl py-10 px-2 text-center ${

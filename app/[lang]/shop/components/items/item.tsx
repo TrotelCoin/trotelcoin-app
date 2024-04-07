@@ -202,6 +202,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         tiltMaxAngleY={5}
         glareMaxOpacity={0.15}
         perspective={800}
+        className="h-full"
       >
         <Popover.Root>
           <div
