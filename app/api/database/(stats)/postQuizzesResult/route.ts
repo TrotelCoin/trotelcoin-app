@@ -12,7 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     number_of_wrong_answers: Number(numberOfWrongAnswers),
     total_questions: Number(totalQuestions),
     answered_at: new Date().toISOString(),
-    marks: (Number(numberOfWrongAnswers) / Number(totalQuestions)) * 100,
+    marks: (Number(numberOfWrongAnswers) / Number(totalQuestions)) * 20,
   });
 
   if (error) {
