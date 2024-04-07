@@ -22,13 +22,13 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
               className="h-full"
             >
               <div
-                className={`bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col rounded-xl py-10 px-2 text-center ${
+                className={`h-full bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col items-center justify-center rounded-xl py-10 px-2 text-center ${
                   badge.condition
                     ? "rainbow-border"
                     : "border border-gray-900/10 dark:border-gray-100/10"
                 }`}
               >
-                <div className="flex gap-4 text-center items-center px-4">
+                <div className="flex w-full gap-4 text-center items-center px-4">
                   <span
                     className={`text-gray-900 dark:text-gray-100 text-4xl ${
                       isNotPremium && "blur hover:blur-none duration-500"

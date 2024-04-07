@@ -8,8 +8,7 @@ import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { useToken } from "wagmi";
-import { updateEvolution } from "@/lib/statistics/evolution";
-import { updateStatistics } from "@/lib/statistics/evolution";
+import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "distributed_trotelcoins";
