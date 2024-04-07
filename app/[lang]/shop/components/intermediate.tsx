@@ -21,10 +21,8 @@ import {
 } from "@/data/web3/addresses";
 import type { Lang } from "@/types/lang";
 import Tilt from "react-parallax-tilt";
-import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import UserContext from "@/app/[lang]/contexts/userContext";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 
@@ -160,9 +158,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         tiltMaxAngleY={5}
         glareMaxOpacity={0.15}
         perspective={800}
+        className="h-full"
       >
         <div
-          className={`overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 ${
+          className={`overflow-hidden h-full flex items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-800 ${
             isClaimed
               ? "rainbow-border"
               : "border border-gray-900/10 dark:border-gray-100/10"

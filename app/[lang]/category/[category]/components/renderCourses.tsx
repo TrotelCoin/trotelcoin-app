@@ -15,19 +15,24 @@ const renderCourses = (
 ) => {
   let tier = "";
   let title = "";
+  let description = "";
 
   switch (lang) {
     case "en":
       tier = course.tier.en;
       title = course.title.en;
+      description = course.description.en;
       break;
     case "fr":
       tier = course.tier.fr;
       title = course.title.fr;
+      description = course.description.fr;
       break;
     default:
       tier = course.tier.en;
       title = course.title.en;
+      description = course.description.en;
+      break;
   }
 
   const courseLink =
@@ -49,27 +54,30 @@ const renderCourses = (
       : "";
 
   return (
-    <Link href={`${courseLink}`} key={index}>
+    <Link href={`${courseLink}`} key={index} className="h-full">
       <Tilt
         glareEnable={true}
         tiltMaxAngleX={5}
         tiltMaxAngleY={5}
         glareMaxOpacity={0.15}
         perspective={800}
+        className="h-full"
       >
         <div
-          className={`rounded-xl px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
+          className={`rounded-xl h-full flex flex-col justify-between px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
         >
-          <div className="flex">
-            <div
-              className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
-            >
-              {title}
-            </div>
-          </div>
           <div>
-            <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
-              {category}
+            <div className="flex">
+              <div
+                className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
+              >
+                {title}
+              </div>
+            </div>
+            <div>
+              <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
+                {description}
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap mt-4 gap-2 items-center">

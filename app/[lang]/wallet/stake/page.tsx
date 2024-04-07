@@ -197,10 +197,10 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   <StakingButton
                     lang={lang}
                     stakingPeriod={stakingPeriod}
-                    amount={amount as number}
+                    amount={amount}
                     chainError={chainError}
                     setChainError={setChainError}
-                    allowance={allowance as number}
+                    allowance={allowance}
                     disabled={disabled}
                   />
                 )}

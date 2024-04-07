@@ -14,11 +14,12 @@ const Action = ({ title, color }: { title: string; color: Colors }) => {
         tiltMaxAngleY={5}
         glareMaxOpacity={0.15}
         perspective={800}
+        className="h-full"
       >
         <div
           className={`${colorClass(
             color
-          )} text-center shadow-xl cursor-pointer active:border-gray-900 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl py-8 px-12`}
+          )} text-center h-full shadow-xl flex items-center justify-center cursor-pointer active:border-gray-900 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-8`}
         >
           <div className={`font-semibold text-4xl text-gray-100`}>{title}</div>
         </div>

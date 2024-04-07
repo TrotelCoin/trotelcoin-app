@@ -54,27 +54,28 @@ const renderCourses = (
       : "";
 
   return (
-    <Link href={`${courseLink}`} key={index}>
+    <Link href={`${courseLink}`} key={index} className="h-full">
       <Tilt
         glareEnable={true}
         tiltMaxAngleX={5}
         tiltMaxAngleY={5}
         glareMaxOpacity={0.15}
         perspective={800}
+        className="h-full"
       >
         <div
-          className={`rounded-xl p-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
+          className={`rounded-xl h-full flex flex-col justify-between items-start p-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
         >
-          <div className="flex">
-            <div
-              className={`font-semibold text-gray-900 dark:text-gray-100`}
-            >
-              {title}
-            </div>
-          </div>
           <div>
-            <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
-              {category}
+            <div className="flex items-center">
+              <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
+                {title}
+              </div>
+            </div>
+            <div>
+              <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
+                {description}
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap mt-4 gap-2 items-center">

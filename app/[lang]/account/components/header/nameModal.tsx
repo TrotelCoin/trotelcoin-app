@@ -86,7 +86,6 @@ const NameModal = ({
 
   return (
     <>
-      {" "}
       <Transition.Root show={nameModal} as={Fragment}>
         <Dialog
           as="div"
