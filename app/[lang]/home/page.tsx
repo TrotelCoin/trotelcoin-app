@@ -77,7 +77,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           filteredLessons={filteredLessons}
         />
         <div className="flex flex-col">
-          <div className="my-10">
+          <div className="mb-10">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">

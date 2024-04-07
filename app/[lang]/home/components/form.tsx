@@ -15,7 +15,7 @@ const Form = ({
 }) => {
   return (
     <>
-      <form className="mb-10">
+      <form className="mb-12 lg:mb-18">
         <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
           {lang === "en"
             ? "What do you want to learn?"
