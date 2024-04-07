@@ -16,7 +16,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-blue-500 dark:bg-blue-500 shadow-xl active:border-gray-900 active:bg-blue-400 dark:active:bg-blue-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full flex items-center justify-center bg-blue-500 dark:bg-blue-500 shadow-xl active:border-gray-900 active:bg-blue-400 dark:active:bg-blue-400 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
@@ -37,7 +37,7 @@ const Learn = ({ params: { lang } }: { params: { lang: Lang } }) => {
             tiltMaxAngleY={5}
             glareMaxOpacity={0.15}
             perspective={800}
-            className="bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400  border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
+            className="h-full flex items-center justify-center bg-yellow-500 dark:bg-yellow-500 shadow-xl active:border-gray-900 active:bg-yellow-400 dark:active:bg-yellow-400  border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-12"
           >
             <div className="flex flex-col items-center text-center justify-center gap-2">
               <h2 className="text-gray-100 font-semibold text-4xl">
