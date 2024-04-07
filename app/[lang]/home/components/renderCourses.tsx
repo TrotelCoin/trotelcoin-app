@@ -63,11 +63,11 @@ const renderCourses = (
         perspective={800}
       >
         <div
-          className={`rounded-xl px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
+          className={`rounded-xl p-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
         >
           <div className="flex">
             <div
-              className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
+              className={`font-semibold text-gray-900 dark:text-gray-100`}
             >
               {title}
             </div>

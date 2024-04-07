@@ -8,6 +8,8 @@ export interface Modals {
   lang: Lang;
 }
 
+export type Colors = "Blue" | "Red" | "Green" | "Yellow" | "Purple" | "Orange";
+
 export type FooterItem = {
   name: string | false | undefined;
   href: string;
