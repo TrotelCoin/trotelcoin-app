@@ -10,6 +10,8 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "net_promoter_score";
+
 const NetPromoterScore = ({
   lang,
   statsMap,
@@ -31,17 +33,12 @@ const NetPromoterScore = ({
   );
 
   useEffect(() => {
-    if (
-      netPromoterScore &&
-      statsMap instanceof Map &&
-      statsMap.has("net_promoter_score")
-    ) {
-      updateStatistics("courses_count", netPromoterScore);
+    if (netPromoterScore && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, netPromoterScore);
       updateEvolution(
         netPromoterScore as number,
-        "coursesCount",
         setEvolution,
-        statsMap.get("courses_count") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

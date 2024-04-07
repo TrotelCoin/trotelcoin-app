@@ -10,6 +10,8 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateStatistics, updateEvolution } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "remaining_rewards";
+
 const RemainingRewards = ({
   lang,
   statsMap,
@@ -31,17 +33,12 @@ const RemainingRewards = ({
   );
 
   useEffect(() => {
-    if (
-      remainingRewards &&
-      statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
-    ) {
-      updateStatistics("remaining_rewards", remainingRewards as number);
+    if (remainingRewards && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, remainingRewards as number);
       updateEvolution(
         remainingRewards as number,
-        "remainingReward",
         setEvolution,
-        statsMap.get("remaining_rewards") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

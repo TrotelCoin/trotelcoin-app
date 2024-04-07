@@ -10,6 +10,8 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "max_streak";
+
 const MaxStreak = ({
   lang,
   statsMap,
@@ -31,17 +33,12 @@ const MaxStreak = ({
   );
 
   useEffect(() => {
-    if (
-      maxStreak &&
-      statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
-    ) {
-      updateStatistics("max_streak", maxStreak as number);
+    if (maxStreak && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, maxStreak as number);
       updateEvolution(
         maxStreak as number,
-        "maxStreak",
         setEvolution,
-        statsMap.get("max_streak") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

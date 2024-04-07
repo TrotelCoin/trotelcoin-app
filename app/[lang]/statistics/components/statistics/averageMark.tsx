@@ -10,9 +10,9 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
-const stat: StatisticsType = "learners";
+const stat: StatisticsType = "average_mark";
 
-const NumberOfLearners = ({
+const AverageMark = ({
   lang,
   statsMap,
 }: {
@@ -21,8 +21,8 @@ const NumberOfLearners = ({
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
-  const { data: numberOfLearners } = useSWR(
-    "/api/database/getTotalNumberOfLearners",
+  const { data: averageMark } = useSWR(
+    "/api/database/getAverageMark",
     fetcher,
     {
       revalidateOnMount: true,
@@ -33,16 +33,16 @@ const NumberOfLearners = ({
   );
 
   useEffect(() => {
-    if (numberOfLearners && statsMap instanceof Map && statsMap.has(stat)) {
-      updateStatistics(stat, numberOfLearners as number);
+    if (averageMark && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, averageMark as number);
       updateEvolution(
-        numberOfLearners as number,
+        averageMark as number,
         setEvolution,
         statsMap.get(stat) as number,
         true
       );
     }
-  }, [numberOfLearners, statsMap]);
+  }, [averageMark, statsMap]);
 
   return (
     <>
@@ -51,22 +51,22 @@ const NumberOfLearners = ({
       >
         <Evolution evolution={evolution as number} percentage={true} />
         <span className="font-semibold text-2xl md:text-4xl">
-          {numberOfLearners ? (
+          {averageMark ? (
             <>
-              <CountUp start={0} end={numberOfLearners} />{" "}
-              <span className="hidden md:inline">👨‍💻</span>
+              <CountUp start={0} end={averageMark} suffix="%" />{" "}
+              <span className="hidden md:inline">🎓</span>
             </>
           ) : (
             <span className={`${loadingFlashClass}`}>
-              0 <span className="hidden md:inline">👨‍💻</span>
+              0% <span className="hidden md:inline">🎓</span>
             </span>
           )}
         </span>
 
-        <span>{lang === "en" ? "Learners" : "Apprenants"}</span>
+        <span>{lang === "en" ? "Average mark" : "Note moyenne"}</span>
       </div>
     </>
   );
 };
 
-export default NumberOfLearners;
+export default AverageMark;

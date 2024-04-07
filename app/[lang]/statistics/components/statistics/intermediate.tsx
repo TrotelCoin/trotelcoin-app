@@ -12,6 +12,8 @@ import { useReadContract, useBlockNumber } from "wagmi";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "intermediate";
+
 const Intermediate = ({
   lang,
   statsMap,
@@ -38,17 +40,12 @@ const Intermediate = ({
   }, [blockNumber]);
 
   useEffect(() => {
-    if (
-      intermediate &&
-      statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
-    ) {
-      updateStatistics("intermediate", intermediate as number);
+    if (intermediate && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, intermediate as number);
       updateEvolution(
         intermediate as number,
-        "intermediate",
         setEvolution,
-        statsMap.get("intermediate") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

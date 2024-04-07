@@ -1,5 +1,6 @@
 import type { Quiz, Question } from "@/types/courses/quiz";
 import type { Lang } from "@/types/lang";
+import axios from "axios";
 
 export const getQuestionsByLanguage = (quiz: Quiz, lang: Lang) => {
   switch (lang) {
@@ -22,4 +23,18 @@ export const getQuestionsByLanguage = (quiz: Quiz, lang: Lang) => {
         options: q.options,
       }));
   }
+};
+
+export const postQuizzesResult = async (
+  quizId: number,
+  numberOfWrongAnswers: number,
+  totalQuestions: number
+) => {
+  await axios
+    .post(
+      `/api/database/postQuizzesResult?quizId=${quizId}&numberOfWrongAnswers=${numberOfWrongAnswers}&totalQuestions=${totalQuestions}`
+    )
+    .catch((error) => {
+      console.error(error);
+    });
 };

@@ -12,6 +12,8 @@ import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "early";
+
 const Early = ({
   lang,
   statsMap,
@@ -38,17 +40,12 @@ const Early = ({
   }, [blockNumber]);
 
   useEffect(() => {
-    if (
-      early &&
-      statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
-    ) {
-      updateStatistics("early", early as number);
+    if (early && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, early as number);
       updateEvolution(
         early as number,
-        "early",
         setEvolution,
-        statsMap.get("early") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

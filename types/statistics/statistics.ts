@@ -9,7 +9,8 @@ export type StatisticsType =
   | "intermediate"
   | "early"
   | "courses_count"
-  | "net_promoter_score";
+  | "net_promoter_score"
+  | "average_mark";
 
 export type StatisticsDataType = {
   id: number;

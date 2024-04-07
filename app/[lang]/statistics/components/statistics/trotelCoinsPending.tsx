@@ -10,6 +10,8 @@ import CountUp from "react-countup";
 import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "pending_trotelcoins";
+
 const TrotelCoinsPending = ({
   lang,
   statsMap,
@@ -31,17 +33,12 @@ const TrotelCoinsPending = ({
   );
 
   useEffect(() => {
-    if (
-      trotelCoinsPending &&
-      statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
-    ) {
-      updateStatistics("pending_trotelcoins", trotelCoinsPending as number);
+    if (trotelCoinsPending && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, trotelCoinsPending as number);
       updateEvolution(
         trotelCoinsPending as number,
-        "trotelCoinsPending",
         setEvolution,
-        statsMap.get("pending_trotelcoins") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

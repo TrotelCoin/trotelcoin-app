@@ -16,6 +16,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 import { useAccount } from "wagmi";
 import Fail from "@/app/[lang]/components/modals/fail";
+import { postQuizzesResult } from "@/lib/quizzes/quizzes";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -49,12 +50,12 @@ const QuizComponent = ({
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
-  const [correctAnswer, setCorrectAnswer] = useState<string>("");
   const [optionClass, setOptionClass] = useState<string>(
     "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
   );
   const [shieldEnabled, setShieldEnabled] = useState<boolean>(false);
   const [shieldTimeLeft, setShieldTimeLeft] = useState<number | null>(null);
+  const [numberOfWrongAnswers, setNumberOfWrongAnswers] = useState<number>(0);
 
   const { address } = useAccount();
 
@@ -100,7 +101,7 @@ const QuizComponent = ({
     return () => clearInterval(timer);
   }, [shieldTimeLeft]);
 
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = async (answer: string) => {
     if (isLoading) {
       return;
     }
@@ -130,8 +131,13 @@ const QuizComponent = ({
           setIsLoading(false);
         }, 2000);
         if (currentQuestion === questions.length - 1) {
-          setIsTotallyCorrect(true);
-          setShowCorrectMessage(true);
+          setTimeout(() => {
+            setIsTotallyCorrect(true);
+            setShowCorrectMessage(true);
+          }, 2000);
+
+          const totalQuestions = questions.length;
+          await postQuizzesResult(quizId, numberOfWrongAnswers, totalQuestions);
         }
       }
     } else {
@@ -140,6 +146,7 @@ const QuizComponent = ({
       );
       setIsCorrect(false);
       setShowMessage(true);
+      setNumberOfWrongAnswers((prev) => prev + 1);
       if (!isIntermediate && !isExpert && life > 0 && !shieldEnabled) {
         updateLife();
       }
@@ -160,7 +167,6 @@ const QuizComponent = ({
 
       setQuestions(quiz);
       setCorrectAnswers(answers);
-      setCorrectAnswer(answers[currentQuestion]);
     };
 
     if (quizId && lang) {

@@ -10,6 +10,8 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "number_of_quizzes_answered";
+
 const NumberOfQuizzesAnswered = ({
   lang,
   statsMap,
@@ -34,17 +36,13 @@ const NumberOfQuizzesAnswered = ({
     if (
       numberOfQuizzesAnswered &&
       statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
+      statsMap.has(stat)
     ) {
-      updateStatistics(
-        "number_of_quizzes_answered",
-        numberOfQuizzesAnswered as number
-      );
+      updateStatistics(stat, numberOfQuizzesAnswered as number);
       updateEvolution(
         numberOfQuizzesAnswered as number,
-        "numberOfQuizzesAnswered",
         setEvolution,
-        statsMap.get("number_of_quizzes_answered") as number,
+        statsMap.get(stat) as number,
         true
       );
     }
