@@ -150,7 +150,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : refreshing ? (
           <>
-            <div className="flex justify-center items-center text-center md:p-32">
+            <div className="flex justify-center items-center text-center py-32 md:px-32">
               <span
                 className={`text-gray-700 dark:text-gray-300 ${
                   refreshing && loadingFlashClass
@@ -164,7 +164,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : (
           <>
-            <div className="flex flex-col justify-center gap-4 text-center items-center p-32">
+            <div className="flex flex-col justify-center gap-4 text-center items-center py-32 md:px-32">
               <span className="text-gray-700 dark:text-gray-300">
                 {lang === "en"
                   ? "You don't have any items."
