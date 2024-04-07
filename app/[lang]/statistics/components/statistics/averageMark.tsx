@@ -53,12 +53,12 @@ const AverageMark = ({
         <span className="font-semibold text-2xl md:text-4xl">
           {averageMark ? (
             <>
-              <CountUp start={0} end={averageMark} suffix="%" />{" "}
+              <CountUp start={0} end={averageMark} suffix="/20" />{" "}
               <span className="hidden md:inline">🎓</span>
             </>
           ) : (
             <span className={`${loadingFlashClass}`}>
-              0% <span className="hidden md:inline">🎓</span>
+              0/20 <span className="hidden md:inline">🎓</span>
             </span>
           )}
         </span>

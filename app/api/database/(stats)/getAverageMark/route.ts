@@ -18,7 +18,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       sum += mark.marks;
     });
 
-    average = 100 - sum / data.length;
+    average = 20 - sum / data.length;
   }
 
   return NextResponse.json(average, { status: 200 });
