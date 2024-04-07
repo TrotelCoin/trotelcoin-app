@@ -140,7 +140,7 @@ const NotificationProvider = ({
         title={lang === "en" ? "Streak updated" : "Série mise ) jour"}
         message={
           lang === "en"
-            ? "Your streak have been updated."
+            ? "Your streak has been updated."
             : "Votre série a été mise à jour."
         }
         lang={lang}
