@@ -19,6 +19,7 @@ import {
   StatisticsType,
 } from "@/types/statistics/statistics";
 import NetPromoterScore from "@/app/[lang]/statistics/components/statistics/netPromoterScore";
+import AverageMark from "@/app/[lang]/statistics/components/statistics/averageMark";
 
 const TheAlgorithm = ({ lang }: { lang: Lang }) => {
   const [statsMap, setStatsMap] = useState<Map<StatisticsType, number> | null>(
@@ -208,6 +209,19 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             perspective={800}
           >
             <NetPromoterScore
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
+          </Tilt>
+
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+          >
+            <AverageMark
               lang={lang}
               statsMap={statsMap as unknown as Map<StatisticsType, number>}
             />
