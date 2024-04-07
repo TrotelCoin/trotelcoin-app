@@ -12,6 +12,8 @@ import { updateEvolution } from "@/lib/statistics/evolution";
 import { updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "distributed_trotelcoins";
+
 const TrotelCoinsDistributed = ({
   lang,
   statsMap,
@@ -40,16 +42,12 @@ const TrotelCoinsDistributed = ({
   }, [data]);
 
   useEffect(() => {
-    if (statsMap instanceof Map && statsMap.has("distributed_trotelcoins")) {
-      updateStatistics(
-        "distributed_trotelcoins",
-        trotelCoinsDistributed as number
-      );
+    if (statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, trotelCoinsDistributed as number);
       updateEvolution(
         trotelCoinsDistributed as number,
-        "trotelCoinsDistributed",
         setEvolution,
-        statsMap.get("distributed_trotelcoins") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

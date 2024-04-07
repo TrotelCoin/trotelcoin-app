@@ -10,6 +10,8 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
+const stat: StatisticsType = "courses_count";
+
 const CoursesCount = ({
   lang,
   statsMap,
@@ -27,17 +29,12 @@ const CoursesCount = ({
   });
 
   useEffect(() => {
-    if (
-      coursesCount &&
-      statsMap instanceof Map &&
-      statsMap.has("distributed_trotelcoins")
-    ) {
-      updateStatistics("courses_count", coursesCount);
+    if (coursesCount && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, coursesCount);
       updateEvolution(
         coursesCount as number,
-        "coursesCount",
         setEvolution,
-        statsMap.get("courses_count") as number,
+        statsMap.get(stat) as number,
         true
       );
     }

@@ -3,7 +3,6 @@ import axios from "axios";
 
 export const updateEvolution = (
   statistics: number,
-  statisticsName: string,
   setEvolution: React.Dispatch<React.SetStateAction<number | null>>,
   storedStatistics: number,
   percentage: boolean
