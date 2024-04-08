@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.4";
+const version = "1.9.5";
 
 interface ChangelogItem {
   title: string;
@@ -93,6 +93,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Some courses need conditions to claim rewards"
               : "- Certains cours ont des conditions pour récupérer les récompenses",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Multipliers are now live so you can get even more rewards"
+              : "- Les multiplicateurs sont en ligne donc vous pouvez augmentez vos récompenses",
         },
       ],
     },
