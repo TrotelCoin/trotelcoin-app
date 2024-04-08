@@ -1163,6 +1163,138 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 14,
+    title: "Introduction to DAOs",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What are DAOs?",
+          fr: "Qu'est-ce que sont les DAO ?",
+        },
+        options: {
+          en: [
+            "Entities governed by smart contracts and run on blockchain technology.",
+            "Centralized organizations controlled by governments.",
+            "Autonomous entities without any governance structure.",
+            "Entities managed by traditional banking systems.",
+          ],
+          fr: [
+            "Des entités gouvernées par des contrats intelligents et fonctionnant sur la technologie de la blockchain.",
+            "Des organisations centralisées contrôlées par les gouvernements.",
+            "Des entités autonomes sans aucune structure de gouvernance.",
+            "Des entités gérées par des systèmes bancaires traditionnels.",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How do DAOs operate?",
+          fr: "Comment fonctionnent les DAO ?",
+        },
+        options: {
+          en: [
+            "By relying on consensus mechanisms for decision-making.",
+            "With centralized control.",
+            "Without any decision-making mechanisms.",
+            "By avoiding transparency.",
+          ],
+          fr: [
+            "En s'appuyant sur des mécanismes de consensus pour la prise de décision.",
+            "Avec un contrôle centralisé.",
+            "Sans aucun mécanisme de prise de décision.",
+            "En évitant la transparence.",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What can participants do in DAOs?",
+          fr: "Que peuvent faire les participants dans les DAO ?",
+        },
+        options: {
+          en: [
+            "Vote on proposals.",
+            "Only watch without any participation.",
+            "Modify smart contracts without consensus.",
+            "Access centralized control.",
+          ],
+          fr: [
+            "Voter sur des propositions.",
+            "Seulement observer sans aucune participation.",
+            "Modifier des contrats intelligents sans consensus.",
+            "Accéder à un contrôle centralisé.",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What are the benefits of DAOs?",
+          fr: "Quels sont les avantages des DAO ?",
+        },
+        options: {
+          en: [
+            "Promise for various decentralized applications across industries.",
+            "Increased centralization.",
+            "Decreased transparency.",
+            "Limited autonomy.",
+          ],
+          fr: [
+            "Promesse pour diverses applications décentralisées dans différents secteurs industriels.",
+            "Augmentation de la centralisation.",
+            "Diminution de la transparence.",
+            "Autonomie limitée.",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What happened to The DAO?",
+          fr: "Qu'est-il arrivé à The DAO ?",
+        },
+        options: {
+          en: [
+            "It got hacked and lost $50 million worth of cryptocurrency.",
+            "It became the largest DAO in history.",
+            "It was never hacked.",
+            "It was unaffected by any security breaches.",
+          ],
+          fr: [
+            "Elle a été piraté et a perdu l'équivalent de 50 millions de dollars en cryptomonnaie.",
+            "Elle est devenu le plus grand DAO de l'histoire.",
+            "Elle n'a jamais été piraté.",
+            "Elle n'a pas été affecté par des violations de sécurité.",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "How was the issue with The DAO resolved?",
+          fr: "Comment le problème avec The DAO a-t-il été résolu ?",
+        },
+        options: {
+          en: [
+            "By hardforking the Ethereum blockchain and restoring the funds.",
+            "By abandoning the Ethereum blockchain.",
+            "By splitting the Ethereum blockchain.",
+            "By ignoring the security breach.",
+          ],
+          fr: [
+            "En forkant la blockchain Ethereum et en restaurant les fonds.",
+            "En abandonnant la blockchain Ethereum.",
+            "En divisant la blockchain Ethereum.",
+            "En ignorant la violation de sécurité.",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 16,
     title: "Stake your TrotelCoins",
     questions: [

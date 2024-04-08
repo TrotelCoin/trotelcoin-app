@@ -6,11 +6,11 @@ import CountUp from "react-countup";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
 
-const AverageMark = ({ lang }: { lang: Lang }) => {
+const LearningTime = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
-  const { data: averageMark } = useSWR(
-    `/api/database/getUserAverageMark?wallet=${address}`,
+  const { data: learningTime } = useSWR(
+    `/api/database/getUserQuizzesTime?wallet=${address}`,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,
@@ -29,23 +29,29 @@ const AverageMark = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {averageMark ? (
+                {learningTime ? (
                   <span>
-                    <CountUp start={0} end={averageMark} suffix="/20 🎓" />
+                    <CountUp
+                      start={0}
+                      end={Math.floor((learningTime * 1e-3) / 60)}
+                      suffix="m ⏳"
+                    />
                   </span>
                 ) : (
                   <span>
-                    <span className={`${loadingFlashClass}`}>0/20</span> 🎓
+                    <span className={`${loadingFlashClass}`}>0</span>m ⏳
                   </span>
                 )}
               </span>
             </>
           </span>
-          <span>{lang === "en" ? "Average mark" : "Note moyenne"}</span>
+          <span>
+            {lang === "en" ? "Learning time" : "Temps d'apprentissage"}
+          </span>
         </div>
       </div>
     </>
   );
 };
 
-export default AverageMark;
+export default LearningTime;

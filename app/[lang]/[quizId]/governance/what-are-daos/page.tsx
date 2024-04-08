@@ -1,65 +1,67 @@
 "use client";
 
-import React from "react";
+import type { Lang } from "@/types/lang";
+import Course from "@/app/[lang]/[quizId]/components/course";
 
-const CoursePage = () => {
+const cards = {
+  en: [
+    {
+      title: "What are DAOs?",
+      text: "Decentralized Autonomous Organizations are entities governed by smart contracts and run on blockchain technology.",
+    },
+    {
+      title: "How they operate?",
+      text: "They operate without centralized control, relying on consensus mechanisms for decision-making.",
+    },
+    {
+      title: "What can you do?",
+      text: "DAOs enable participants to vote on proposals and manage funds transparently, often used for community-driven projects.",
+    },
+    {
+      title: "Benefits",
+      text: "Their autonomy and transparency make them promising for various decentralized applications across industries.",
+    },
+    {
+      title: "The DAO",
+      text: "The DAO was one of the biggest DAO at the beginning and got hacked. The hackers drained worth of $50 million in cryptocurrency.",
+    },
+    {
+      title: "Solution",
+      text: "Then, the Ethereum blockchain was hardforked making it easier to support DAOs on the network. The funds were restored at the same time.",
+    },
+  ],
+  fr: [
+    {
+      title: "Qu'est-ce que sont les DAO ?",
+      text: "Les organisations autonomes décentralisées sont des entités gouvernées par des contrats intelligents et fonctionnent sur la technologie de la blockchain.",
+    },
+    {
+      title: "Comment fonctionnent-elles ?",
+      text: "Elles fonctionnent sans contrôle centralisé, en s'appuyant sur des mécanismes de consensus pour la prise de décision.",
+    },
+    {
+      title: "Que pouvez-vous faire ?",
+      text: "Les DAO permettent aux participants de voter sur des propositions et de gérer les fonds de manière transparente, souvent utilisées pour des projets pilotés par la communauté.",
+    },
+    {
+      title: "Avantages",
+      text: "Leur autonomie et leur transparence les rendent prometteuses pour diverses applications décentralisées dans différents secteurs industriels.",
+    },
+    {
+      title: "The DAO",
+      text: "The DAO était l'un des plus grandes DAO au début et a été piraté. Les pirates ont dérobé l'équivalent de 50 millions de dollars en cryptomonnaie.",
+    },
+    {
+      title: "Solution",
+      text: "Ensuite, la blockchain Ethereum a été forkée pour faciliter le support des DAOs sur le réseau. Les fonds ont été restaurés en même temps.",
+    },
+  ],
+};
+
+const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-        Install your first wallet
-      </h2>
-      <p className="mt-6">
-        Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in.
-        Convallis arcu ipsum urna nibh. Pharetra, euismod vitae interdum mauris
-        enim, consequat vulputate nibh. Maecenas pellentesque id sed tellus
-        mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi.
-        Pellentesque nam sed nullam sed diam turpis ipsum eu a sed convallis
-        diam.
-      </p>
-      <figure className="mt-10 border-l border-blue-500 dark:border-blue-300 pl-9">
-        <blockquote className="font-semibold text-gray-900 dark:text-gray-100">
-          <p>
-            “Vel ultricies morbi odio facilisi ultrices accumsan donec lacus
-            purus. Lectus nibh ullamcorper ac dictum justo in euismod. Risus
-            aenean ut elit massa. In amet aliquet eget cras. Sem volutpat enim
-            tristique.”
-          </p>
-        </blockquote>
-        <figcaption className="mt-6 flex gap-x-4">
-          <div className="text-sm leading-6">
-            <strong className="font-semibold text-gray-900 dark:text-gray-100">
-              Alexandre Trotel
-            </strong>{" "}
-            – CEO & Founder
-          </div>
-        </figcaption>
-      </figure>
-      <p className="mt-10">
-        Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
-        Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent
-        donec est. Odio penatibus risus viverra tellus varius sit neque erat
-        velit.
-      </p>
-
-      <div className="mt-16 mx-auto">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
-          Configure your wallet
-        </h2>
-        <p className="mt-6">
-          Purus morbi dignissim senectus mattis adipiscing. Amet, massa quam
-          varius orci dapibus volutpat cras. In amet eu ridiculus leo sodales
-          cursus tristique. Tincidunt sed tempus ut viverra ridiculus non
-          molestie. Gravida quis fringilla amet eget dui tempor dignissim.
-          Facilisis auctor venenatis varius nunc, congue erat ac. Cras fermentum
-          convallis quam.
-        </p>
-        <p className="mt-8">
-          Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus
-          enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor
-          praesent donec est. Odio penatibus risus viverra tellus varius sit
-          neque erat velit.
-        </p>
-      </div>
+      <Course cards={cards} lang={lang} conditionIsOkay={true} />
     </>
   );
 };

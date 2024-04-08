@@ -14,7 +14,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   const { data, error } = await supabase
     .from("quizzes_times")
-    .select("time")
+    .select("diffTime")
     .eq("quiz_id", quizId)
     .eq("wallet", wallet);
 

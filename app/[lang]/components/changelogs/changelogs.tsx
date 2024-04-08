@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.3";
+const version = "1.9.4";
 
 interface ChangelogItem {
   title: string;
@@ -73,7 +73,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       content: [
         {
           text:
-            lang === "en" ? "- Smart Contracts" : "- Les Contrats Intelligents",
+            lang === "en"
+              ? "- Introduction to DAOs"
+              : "- Introduction aux DAOs",
         },
       ],
     },
@@ -85,25 +87,18 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Shop is now available 🛍️"
               : "- La boutique est maintenant disponible 🛍️",
-          isNew: true,
         },
         {
           text:
             lang === "en"
-              ? "- Native tokens support for swapping"
-              : "- Support des tokens natifs pour le swap",
+              ? "- Some courses need conditions to claim rewards"
+              : "- Certains cours ont des conditions pour récupérer les récompenses",
         },
       ],
     },
     {
       title: lang === "en" ? "Community 🦊" : "Communauté 🦊",
       content: [
-        {
-          text:
-            lang === "en"
-              ? "- We launched a Liquid Bootstrapping Pool"
-              : "- Nous avons lancé une Liquid Bootstrapping Pool",
-        },
         {
           text:
             lang === "en"

@@ -56,7 +56,7 @@ const TotalLearningTime = ({
               <CountUp
                 start={0}
                 end={Math.floor((totalLearningTime * 1e-3) / 60)}
-                suffix="mins"
+                suffix="m"
               />{" "}
               <span className="hidden md:inline">⏳</span>
             </>
