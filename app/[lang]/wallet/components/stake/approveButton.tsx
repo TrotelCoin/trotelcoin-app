@@ -76,17 +76,13 @@ const ApproveButton = ({
       approveAmount = parseEther(String(amount));
     }
 
-    try {
-      await approvingAsync({
-        args: [trotelCoinStakingV1, approveAmount],
-        address: trotelCoinAddress,
-        functionName: "approve",
-        chainId: polygon.id,
-        abi: trotelCoinABI,
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await approvingAsync({
+      args: [trotelCoinStakingV1, approveAmount],
+      address: trotelCoinAddress,
+      functionName: "approve",
+      chainId: polygon.id,
+      abi: trotelCoinABI,
+    }).catch((error: any) => console.error(error));
   };
 
   useEffect(() => {

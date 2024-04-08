@@ -200,7 +200,7 @@ const BasicInformations = ({
                       : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                   } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
                 >
-                  {lang === "en" ? "> Beginner 🐣" : "> Débutant 🐣"}
+                  {lang === "en" ? "Beginner 🐣" : "Débutant 🐣"}
                 </div>
               )}
             </RadioGroup.Option>
@@ -213,7 +213,7 @@ const BasicInformations = ({
                       : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                   } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
                 >
-                  {lang === "en" ? "> Intermediate 🙈" : "> Intermédiaire 🙈"}
+                  {lang === "en" ? "Intermediate 🙈" : "Intermédiaire 🙈"}
                 </div>
               )}
             </RadioGroup.Option>
@@ -226,7 +226,7 @@ const BasicInformations = ({
                       : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                   } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
                 >
-                  {lang === "en" ? "> Expert 🦊" : "> Expert 🦊"}
+                  {lang === "en" ? "Expert 🦊" : "Expert 🦊"}
                 </div>
               )}
             </RadioGroup.Option>

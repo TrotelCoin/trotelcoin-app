@@ -74,7 +74,7 @@ const SwapButton = ({
                     fromToken.decimals
                   ),
                 ],
-              });
+              }).catch((error: any) => console.error(error));
             }}
           />
         ) : (

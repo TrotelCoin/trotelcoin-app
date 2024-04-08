@@ -16,7 +16,7 @@ import useSWR from "swr";
 import { fetcher } from "@/lib/axios/fetcher";
 import { useAccount } from "wagmi";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { postQuizzesResult } from "@/lib/quizzes/quizzes";
+import { postQuizzesResult, postQuizzesTime } from "@/lib/quizzes/quizzes";
 import { Address } from "viem";
 
 const debug = process.env.NODE_ENV !== "production";
@@ -28,8 +28,8 @@ const QuizComponent = ({
   quizId,
   isCorrect,
   setIsCorrect,
-
   setShowCorrectMessage,
+  startTime,
 }: {
   lang: Lang;
   isTotallyCorrect: boolean;
@@ -38,6 +38,7 @@ const QuizComponent = ({
   isCorrect: boolean;
   setIsCorrect: React.Dispatch<SetStateAction<boolean>>;
   setShowCorrectMessage: React.Dispatch<SetStateAction<boolean>>;
+  startTime: number;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
@@ -138,11 +139,20 @@ const QuizComponent = ({
           }, 2000);
 
           const totalQuestions = questions.length;
+
           await postQuizzesResult(
             quizId,
             address as Address,
             numberOfWrongAnswers,
             totalQuestions
+          ).catch((error) => console.error(error));
+
+          const endTime = new Date().getTime();
+
+          const diffTime = endTime - startTime; // in ms
+
+          await postQuizzesTime(quizId, address as Address, diffTime).catch(
+            (error) => console.error(error)
           );
         }
       }

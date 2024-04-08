@@ -148,17 +148,13 @@ const StakingButton = ({
 
     const stakingAmount = parseEther(amount.toString());
 
-    try {
-      await writeContractAsync({
-        address: trotelCoinStakingV1,
-        functionName: "stake",
-        chainId: polygon.id,
-        abi: trotelCoinStakingV1ABI,
-        args: [stakingAmount, stakingDuration],
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await writeContractAsync({
+      address: trotelCoinStakingV1,
+      functionName: "stake",
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI,
+      args: [stakingAmount, stakingDuration],
+    }).catch((error) => console.error(error));
   };
 
   useEffect(() => {

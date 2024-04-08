@@ -242,7 +242,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 functionName: "transfer",
                 args: [recipient, amountDecimals],
                 chainId: polygon.id,
-              });
+              }).catch((error) => console.error(error));
             }}
           >
             <span className={`${isLoading && loadingFlashClass}`}>

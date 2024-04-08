@@ -40,3 +40,15 @@ export const postQuizzesResult = async (
       console.error(error);
     });
 };
+
+export const postQuizzesTime = async (
+  quizId: number,
+  address: Address,
+  diffTime: number
+) => {
+  await axios
+    .post(
+      `/api/database/postQuizzesTime?quizId=${quizId}&wallet=${address}&diffTime=${diffTime}`
+    )
+    .catch((error) => console.error(error));
+};

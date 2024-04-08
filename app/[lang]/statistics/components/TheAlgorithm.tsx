@@ -20,6 +20,7 @@ import {
 } from "@/types/statistics/statistics";
 import NetPromoterScore from "@/app/[lang]/statistics/components/statistics/netPromoterScore";
 import AverageMark from "@/app/[lang]/statistics/components/statistics/averageMark";
+import TotalLearningTime from "@/app/[lang]/statistics/components/statistics/totalLearningTime";
 
 const TheAlgorithm = ({ lang }: { lang: Lang }) => {
   const [statsMap, setStatsMap] = useState<Map<StatisticsType, number> | null>(
@@ -234,6 +235,20 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
             className="h-full"
           >
             <AverageMark
+              lang={lang}
+              statsMap={statsMap as unknown as Map<StatisticsType, number>}
+            />
+          </Tilt>
+
+          <Tilt
+            glareEnable={true}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
+            glareMaxOpacity={0.15}
+            perspective={800}
+            className="h-full"
+          >
+            <TotalLearningTime
               lang={lang}
               statsMap={statsMap as unknown as Map<StatisticsType, number>}
             />

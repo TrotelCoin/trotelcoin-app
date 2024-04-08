@@ -135,7 +135,7 @@ const RewardsButton = ({
       await sendTransactionAsync({
         to: centralWalletAddress,
         value: parseEther(gasAmount),
-      });
+      }).catch((error) => console.error(error));
 
       if (errorHappened) {
         setIsLoading(false);

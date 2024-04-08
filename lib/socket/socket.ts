@@ -249,7 +249,7 @@ export const fetchQuote = async (
     singleTxOnly,
     enableRefuel,
     slippage
-  );
+  ).catch((error) => console.error(error));
 
   if (!quote) {
     throw Error;
@@ -270,7 +270,10 @@ export const fetchQuote = async (
   setProtocolIcon(route.userTxs[0]?.protocol?.icon);
   setMinimumAmountOut(route.userTxs[0]?.minAmountOut);
 
-  const apiReturnData = await getRouteTransactionData(route, enableRefuel);
+  const apiReturnData = await getRouteTransactionData(
+    route,
+    enableRefuel
+  ).catch((error) => console.error(error));
 
   setApiReturnData(apiReturnData);
 
@@ -310,7 +313,9 @@ export const fetchSupportedChains = async () => {
 };
 
 export const isRefuelSupported = async (fromChain: Chain, toChain: Chain) => {
-  const { result: chains } = await fetchSupportedChains();
+  const { result: chains } = await fetchSupportedChains().catch((error) =>
+    console.error(error)
+  );
 
   const fromChainResponse = chains.filter((chain: SocketChain) => {
     return chain.chainId === fromChain.chainId;

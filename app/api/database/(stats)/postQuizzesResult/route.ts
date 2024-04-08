@@ -9,6 +9,21 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const totalQuestions = searchParams.get("totalQuestions");
   const wallet = searchParams.get("wallet");
 
+  const { data, error: existsError } = await supabase
+    .from("quizzes_results")
+    .select("marks")
+    .eq("quiz_id", quizId)
+    .eq("wallet", wallet);
+
+  if (existsError) {
+    console.error(existsError);
+    return NextResponse.json(existsError, { status: 500 });
+  }
+
+  if (data.length > 0) {
+    return NextResponse.json("Already exists", { status: 200 });
+  }
+
   const numberOfGoodAnswers =
     Number(totalQuestions) - Number(numberOfWrongAnswers);
 

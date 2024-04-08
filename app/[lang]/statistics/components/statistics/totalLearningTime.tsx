@@ -2,17 +2,17 @@
 
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import useSWR from "swr";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import { updateStatistics, updateEvolution } from "@/lib/statistics/evolution";
+import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
-const stat: StatisticsType = "remaining_rewards";
+const stat: StatisticsType = "total_learning_time";
 
-const RemainingRewards = ({
+const TotalLearningTime = ({
   lang,
   statsMap,
 }: {
@@ -21,8 +21,8 @@ const RemainingRewards = ({
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
-  const { data: remainingRewards } = useSWR(
-    "/api/database/getRemainingRewards",
+  const { data: totalLearningTime } = useSWR(
+    "/api/database/getTotalLearningTime",
     fetcher,
     {
       revalidateOnMount: true,
@@ -33,16 +33,16 @@ const RemainingRewards = ({
   );
 
   useEffect(() => {
-    if (remainingRewards && statsMap instanceof Map && statsMap.has(stat)) {
-      updateStatistics(stat, remainingRewards as number);
+    if (totalLearningTime && statsMap instanceof Map && statsMap.has(stat)) {
+      updateStatistics(stat, totalLearningTime as number);
       updateEvolution(
-        remainingRewards as number,
+        totalLearningTime as number,
         setEvolution,
         statsMap.get(stat) as number,
         true
       );
     }
-  }, [remainingRewards, statsMap]);
+  }, [totalLearningTime, statsMap]);
 
   return (
     <>
@@ -51,22 +51,26 @@ const RemainingRewards = ({
       >
         <Evolution evolution={evolution as number} percentage={true} />
         <span className="font-semibold text-2xl md:text-4xl">
-          {remainingRewards ? (
+          {totalLearningTime ? (
             <>
-              <CountUp start={0} end={Math.floor(remainingRewards)} />{" "}
-              <span className="hidden md:inline">✨</span>
+              <CountUp
+                start={0}
+                end={Math.floor((totalLearningTime * 1e-3) / 60)}
+                suffix="mins"
+              />{" "}
+              <span className="hidden md:inline">⏳</span>
             </>
           ) : (
             <span className={`${loadingFlashClass}`}>
-              0 <span className="hidden md:inline">✨</span>
+              0 <span className="hidden md:inline">⏳</span>
             </span>
           )}
         </span>
 
-        <span>{lang === "en" ? "Current cycle" : "Cycle en cours"}</span>
+        <span>{lang === "en" ? "Learning time" : "Temps d'apprentissage"}</span>
       </div>
     </>
   );
 };
 
-export default RemainingRewards;
+export default TotalLearningTime;

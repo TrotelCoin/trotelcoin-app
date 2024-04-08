@@ -89,7 +89,6 @@ const Rewards = ({
     <>
       {isTotallyCorrect &&
         !hasAlreadyAnswered &&
-        isLoggedIn &&
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
@@ -110,18 +109,6 @@ const Rewards = ({
           </div>
         )}
 
-      {!isLoggedIn && !hasAlreadyAnswered && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
-          <h2 className="text-gray-900 dark:text-gray-100">
-            {lang === "en"
-              ? "Sign in to claim rewards"
-              : "Connectez-vous pour réclamer vos récompenses"}
-          </h2>
-          <div className="mt-4">
-            <Wallet isFull={false} lang={lang} />
-          </div>
-        </div>
-      )}
       {claimingLoading && !claimingError && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
           <span
@@ -131,6 +118,7 @@ const Rewards = ({
           </span>
         </div>
       )}
+
       {(hasAlreadyAnswered || claimedRewards) && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
           <h2 className="text-gray-900 dark:text-gray-100">
