@@ -33,10 +33,46 @@ const Rewards = ({
     useState<boolean>(false);
   const [claimedRewardsMessage, setClaimedRewardsMessage] =
     useState<boolean>(false);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [formattedTimeLeft, setFormattedTimeLeft] = useState<string | null>(
+    null
+  );
 
   const { address } = useAccount();
   const { playAudio } = useContext(AudioContext);
-  const { multipliers } = useContext(UserContext);
+  const { multipliers, multipliersItemTimeLeft } = useContext(UserContext);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (multipliersItemTimeLeft && multipliersItemTimeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => (prevTime ? prevTime - 1 : prevTime));
+      }, 1000);
+    } else {
+      if (timer) {
+        clearInterval(timer);
+      }
+    }
+
+    return () => clearInterval(timer);
+  }, [multipliersItemTimeLeft]);
+
+  useEffect(() => {
+    if (timeLeft) {
+      const totalSeconds = Math.floor(timeLeft / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      const formattedTimeLeft = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+      setFormattedTimeLeft(formattedTimeLeft);
+    } else {
+      setFormattedTimeLeft("00:00:00");
+    }
+  }, [timeLeft]);
 
   const { data: hasAlreadyAnswered } = useSWR(
     address && quizId
@@ -82,6 +118,12 @@ const Rewards = ({
                       {lang === "en" ? `x${multipliers}` : `x${multipliers}`}
                     </span>
                   </div>
+                  {Boolean(formattedTimeLeft) && (
+                    <>
+                      <SeparatorVertical />
+                      <span>{formattedTimeLeft}</span>
+                    </>
+                  )}
                 </>
               )}
             </div>

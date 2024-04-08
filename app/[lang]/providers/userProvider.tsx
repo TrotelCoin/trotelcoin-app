@@ -27,6 +27,9 @@ const UserProvider = ({
   const [multipliers, setMultipliers] = useState<number>(1);
   const [learningTime, setLearningTime] = useState<number>(0);
   const [averageMark, setAverageMark] = useState<number>(0);
+  const [multipliersItem, setMultipliersItem] = useState<number>(1);
+  const [multipliersItemTimeLeft, setMultipliersItemTimeLeft] =
+    useState<number>(0);
 
   const { address } = useAccount();
   const { data: session } = useSession();
@@ -141,15 +144,44 @@ const UserProvider = ({
     }
   }, [userNumberOfQuizzesAnsweredData]);
 
+  const { data: userMultipliersData } = useSWR(
+    address ? `/api/items/getUserMultipliers?wallet=${address}` : null,
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: refreshIntervalTime,
+    }
+  );
+
   useEffect(() => {
+    if (userMultipliersData) {
+      setMultipliersItem(userMultipliersData.multipliers);
+      setMultipliersItemTimeLeft(userMultipliersData.timeLeft);
+    } else {
+      setMultipliersItem(1);
+      setMultipliersItemTimeLeft(0);
+    }
+  }, [userMultipliersData]);
+
+  useEffect(() => {
+    let multipliers: number = 1;
+
     if (isIntermediate) {
-      setMultipliers(3);
+      multipliers = 3;
     }
 
     if (isExpert) {
-      setMultipliers(5);
+      multipliers = 5;
     }
-  }, [isIntermediate, isExpert]);
+
+    if (multipliersItem && multipliersItemTimeLeft > 0) {
+      multipliers *= multipliersItem;
+    }
+
+    setMultipliers(multipliers);
+  }, [isIntermediate, isExpert, multipliersItem, multipliersItemTimeLeft]);
 
   const contextValue = useMemo(
     () => ({
@@ -161,6 +193,8 @@ const UserProvider = ({
       multipliers,
       learningTime,
       averageMark,
+      multipliersItem,
+      multipliersItemTimeLeft,
     }),
     [
       userTotalRewardsPending,
@@ -171,6 +205,8 @@ const UserProvider = ({
       multipliers,
       learningTime,
       averageMark,
+      multipliersItem,
+      multipliersItemTimeLeft,
     ]
   );
 

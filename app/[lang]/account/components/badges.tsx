@@ -319,7 +319,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const badgesMarks: Badges = [
     {
       id: 1,
-      name: lang === "en" ? "5/20 min." : "5/20 min.",
+      name: lang === "en" ? "> 5/20" : "> 5/20",
       image: "🫠",
       condition: averageMark ? averageMark >= 5 : null,
       progress: averageMark ?? 0,
@@ -327,7 +327,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     },
     {
       id: 2,
-      name: lang === "en" ? "10/20 min." : "10/20 min.",
+      name: lang === "en" ? "> 10/20" : "> 10/20",
       image: "😣",
       condition: averageMark ? averageMark >= 10 : null,
       progress: averageMark ?? 0,
@@ -335,7 +335,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     },
     {
       id: 3,
-      name: lang === "en" ? "15/20 min." : "15/20 min.",
+      name: lang === "en" ? "> 15/20" : "> 15/20",
       image: "🫨",
       condition: averageMark ? averageMark >= 15 : null,
       progress: averageMark ?? 0,
@@ -343,7 +343,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     },
     {
       id: 4,
-      name: lang === "en" ? "18/20 min." : "18/20 min.",
+      name: lang === "en" ? "> 18/20" : "> 18/20",
       image: "🫡",
       condition: averageMark ? averageMark >= 18 : null,
       progress: averageMark ?? 0,
@@ -351,7 +351,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     },
     {
       id: 5,
-      name: lang === "en" ? "20/20 min." : "20/20 min.",
+      name: lang === "en" ? "20/20" : "20/20",
       image: "🤓",
       condition: averageMark ? averageMark >= 20 : null,
       progress: averageMark ?? 0,

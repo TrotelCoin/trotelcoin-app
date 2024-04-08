@@ -11,6 +11,8 @@ const UserContext = React.createContext({
   multipliers: 1 as number,
   learningTime: 0 as number,
   averageMark: 0 as number,
+  multipliersItem: 1 as number,
+  multipliersItemTimeLeft: 0 as number,
 });
 
 export default UserContext;

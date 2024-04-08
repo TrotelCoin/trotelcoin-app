@@ -49,17 +49,17 @@ const UserInformationMobile = ({
             {isPremium ? <span className="text-xl mr-1">&infin;</span> : life}{" "}
             {life > 0 ? "💙" : "💔"}
           </div>
+          <div
+            className={`flex items-center ${multipliers > 1 && "rainbow-text"}`}
+          >
+            x{multipliers} 🤑
+          </div>
           <div className="flex items-center gap-1">
             {Number(userTotalRewardsPending.toFixed(2)).toLocaleString("en-US")}{" "}
             <TrotelCoinLogo />
           </div>
           <div className="flex items-center">
             {userNumberOfQuizzesAnswered} 📚
-          </div>
-          <div
-            className={`flex items-center ${multipliers > 1 && "rainbow-text"}`}
-          >
-            x{multipliers} 🤑
           </div>
         </div>
       </Marquee>
