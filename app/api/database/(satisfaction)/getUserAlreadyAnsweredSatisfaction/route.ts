@@ -6,26 +6,25 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet = searchParams.get("wallet");
+  const wallet: Address = searchParams.get("wallet") as Address;
 
-  try {
-    const { data, error } = await supabase
-      .from("net_promoter_scores")
-      .select("net_promoter_score")
-      .eq("wallet", wallet as Address);
+  if (!wallet) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
-    if (error) {
-      console.error(error);
-      return NextResponse.json(false, { status: 500 });
-    }
+  const { data, error } = await supabase
+    .from("net_promoter_scores")
+    .select("net_promoter_score")
+    .eq("wallet", wallet as Address);
 
-    if (data.length > 0) {
-      return NextResponse.json(true, { status: 200 });
-    } else {
-      return NextResponse.json(false, { status: 200 });
-    }
-  } catch (error) {
+  if (error) {
     console.error(error);
     return NextResponse.json(false, { status: 500 });
+  }
+
+  if (data.length > 0) {
+    return NextResponse.json(true, { status: 200 });
+  } else {
+    return NextResponse.json(false, { status: 200 });
   }
 }

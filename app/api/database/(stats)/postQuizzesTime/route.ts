@@ -4,9 +4,9 @@ import { Address } from "viem";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const quizId = Number(searchParams.get("quizId"));
-  const wallet = searchParams.get("wallet") as Address;
-  const diffTime = Number(searchParams.get("diffTime"));
+  const quizId: number = Number(searchParams.get("quizId"));
+  const wallet: Address = searchParams.get("wallet") as Address;
+  const diffTime: number = Number(searchParams.get("diffTime"));
 
   if (!quizId || !wallet || !diffTime) {
     return NextResponse.json("Parameters not found", { status: 400 });

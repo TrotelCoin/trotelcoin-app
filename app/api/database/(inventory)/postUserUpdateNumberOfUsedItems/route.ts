@@ -5,9 +5,9 @@ import { Address } from "viem";
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const searchParams = new URL(req.url);
-  const address: Address = searchParams.searchParams.get("address") as Address;
-  const item = searchParams.searchParams.get("item");
+  const { searchParams } = new URL(req.url);
+  const address: Address = searchParams.get("address") as Address;
+  const item = searchParams.get("item");
 
   if (!address || !item) {
     return NextResponse.json("Missing address or item", { status: 400 });

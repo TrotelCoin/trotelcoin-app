@@ -7,9 +7,13 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
-    const wallet = searchParams.get("wallet");
-    const rating = searchParams.get("rating");
-    const quizId = searchParams.get("quizId");
+    const wallet: Address = searchParams.get("wallet") as Address;
+    const rating: number = Number(searchParams.get("rating"));
+    const quizId: number = Number(searchParams.get("quizId"));
+
+    if (!wallet || !rating || !quizId) {
+      return NextResponse.json("Parameters not found", { status: 400 });
+    }
 
     const { data: verification, error: verificationError } = await supabase
       .from("courses_satisfaction")

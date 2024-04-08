@@ -6,7 +6,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet = searchParams.get("wallet");
+  const wallet: Address = searchParams.get("wallet") as Address;
+
+  if (!wallet) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
   try {
     // get courses completed by user

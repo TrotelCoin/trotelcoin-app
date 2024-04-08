@@ -7,19 +7,20 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+  const quizId: number = Number(searchParams.get("quizId"));
+  const lang: Lang = searchParams.get("lang") as Lang;
 
-  const quizId = searchParams.get("quizId");
-  const lang = searchParams.get("lang");
+  if (!quizId || !lang) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
-  const quiz = quizzes.find(
-    (quiz) => quiz.quizId === parseFloat(quizId as string)
-  );
+  const quiz = quizzes.find((quiz) => quiz.quizId === quizId);
 
   if (!quiz) {
     return NextResponse.json({ error: "Quiz not found" }, { status: 404 });
   }
 
-  const questionsInLanguage = getQuestionsByLanguage(quiz, lang as Lang);
+  const questionsInLanguage = getQuestionsByLanguage(quiz, lang);
 
   if (!questionsInLanguage) {
     return NextResponse.json({ error: "Language not found" }, { status: 404 });

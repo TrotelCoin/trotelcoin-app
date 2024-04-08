@@ -6,41 +6,38 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet = searchParams.get("wallet");
-  const quizId = searchParams.get("quizId");
+  const wallet: Address = searchParams.get("wallet") as Address;
+  const quizId: number = Number(searchParams.get("quizId"));
 
-  try {
-    // select answered from "quizzes_answered"
-    const { data: result, error } = await supabase
-      .from("quizzes_answered")
-      .select("answered, quiz_id")
-      .eq("wallet", wallet as Address);
+  if (!wallet || !quizId) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
-    if (error) {
-      console.error(error);
-      return NextResponse.json(false, { status: 500 });
-    }
+  // select answered from "quizzes_answered"
+  const { data: result, error } = await supabase
+    .from("quizzes_answered")
+    .select("answered, quiz_id")
+    .eq("wallet", wallet as Address);
 
-    if (!Array.isArray(result)) {
-      return NextResponse.json(false, { status: 500 });
-    }
-
-    const matchingResult = result.find(
-      (object) => object.quiz_id === parseFloat(quizId as string)
-    );
-
-    let answeredValue = false;
-
-    if (matchingResult) {
-      answeredValue = matchingResult.answered;
-    }
-
-    return NextResponse.json(answeredValue, {
-      status: 200,
-      headers: { "Cache-Control": "no-store" },
-    });
-  } catch (error) {
+  if (error) {
     console.error(error);
     return NextResponse.json(false, { status: 500 });
   }
+
+  if (!Array.isArray(result)) {
+    return NextResponse.json(false, { status: 500 });
+  }
+
+  const matchingResult = result.find((object) => object.quiz_id === quizId);
+
+  let answeredValue = false;
+
+  if (matchingResult) {
+    answeredValue = matchingResult.answered;
+  }
+
+  return NextResponse.json(answeredValue, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

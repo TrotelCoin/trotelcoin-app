@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const stats: StatisticsType = searchParams.get("stats") as StatisticsType;
-  const value = searchParams.get("value");
+  const value: number = Number(searchParams.get("value"));
 
   if (!stats || !value) {
     return NextResponse.json("Invalid statistics type or value", {

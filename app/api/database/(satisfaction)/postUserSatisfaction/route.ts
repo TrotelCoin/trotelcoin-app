@@ -6,35 +6,31 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const satisfaction = searchParams.get("number");
-  const wallet = searchParams.get("wallet");
+  const satisfaction: number = Number(searchParams.get("number"));
+  const wallet: Address = searchParams.get("wallet") as Address;
 
-  try {
-    const { error } = await supabase.from("net_promoter_scores").insert([
-      {
-        net_promoter_score: parseFloat(satisfaction as string),
-        answered_at: new Date().toISOString(),
-        wallet: wallet as Address,
-      },
-    ]);
+  if (!wallet) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
-    if (error) {
-      console.error(error);
-      return NextResponse.json(
-        { error: "Something went wrong." },
-        { status: 500 }
-      );
-    }
+  const { error } = await supabase.from("net_promoter_scores").insert([
+    {
+      net_promoter_score: satisfaction,
+      answered_at: new Date().toISOString(),
+      wallet: wallet as Address,
+    },
+  ]);
 
-    return NextResponse.json(
-      { success: "Satisfaction recorded." },
-      { status: 200 }
-    );
-  } catch (error) {
+  if (error) {
     console.error(error);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 }
     );
   }
+
+  return NextResponse.json(
+    { success: "Satisfaction recorded." },
+    { status: 200 }
+  );
 }

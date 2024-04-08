@@ -11,8 +11,12 @@ const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const userAddress = searchParams.get("address");
-  const amount = searchParams.get("amount");
+  const userAddress: Address = searchParams.get("address") as Address;
+  const amount: number = Number(searchParams.get("amount"));
+
+  if (!userAddress || !amount) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
   try {
     if (!userAddress) {
@@ -35,7 +39,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       abi: trotelCoinABI,
       functionName: "mint",
       account: account,
-      args: [userAddress as Address, parseEther(amount)],
+      args: [userAddress as Address, parseEther(String(amount))],
     });
 
     // make transaction
