@@ -35,7 +35,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     ]);
 
-    return NextResponse.json(1, { status: 200 });
+    return NextResponse.json(1, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   } else {
     alreadyUsed = alreadyUsedData[0].number_of_use;
   }
@@ -51,5 +54,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(error, { status: 500 });
   }
 
-  return NextResponse.json(data, { status: 200 });
+  return NextResponse.json(data, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

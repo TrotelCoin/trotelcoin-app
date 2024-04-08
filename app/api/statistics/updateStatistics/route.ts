@@ -59,10 +59,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
         });
       }
 
-      return NextResponse.json("Statistics updated", { status: 200 });
+      return NextResponse.json("Statistics updated", {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
     } else {
       return NextResponse.json("No need to update", {
         status: 200,
+        headers: { "Cache-Control": "no-store" },
       });
     }
   } else {

@@ -29,7 +29,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (data.length > 0) {
       return NextResponse.json(
         { claimed: "You have already claimed this." },
-        { status: 200 }
+        { status: 200, headers: { "Cache-Control": "no-store" } }
       );
     } else {
       const { data, error } = await supabase.from("subscriptions").upsert([
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       if (data) {
         return NextResponse.json(
           { claimed: "Claimed successfully." },
-          { status: 200 }
+          { status: 200, headers: { "Cache-Control": "no-store" } }
         );
       }
     }

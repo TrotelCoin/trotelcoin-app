@@ -60,9 +60,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       { shieldEnabled: shieldEnabled, timeLeft: timeLeft },
-      { status: 200 }
+      { status: 200, headers: { "Cache-Control": "no-store" } }
     );
   } else {
-    return NextResponse.json(false, { status: 200 });
+    return NextResponse.json(false, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 }

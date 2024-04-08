@@ -32,5 +32,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     average = sum / data.length;
   }
 
-  return NextResponse.json(average, { status: 200 });
+  return NextResponse.json(average, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

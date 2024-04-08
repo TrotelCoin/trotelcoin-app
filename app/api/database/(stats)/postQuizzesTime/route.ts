@@ -24,7 +24,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   if (data.length > 0) {
-    return NextResponse.json("Already exists", { status: 200 });
+    return NextResponse.json("Already exists", {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   } else {
     const { error } = await supabase.from("quizzes_times").insert({
       quiz_id: quizId,
@@ -37,6 +40,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json(error, { status: 500 });
     }
 
-    return NextResponse.json("Time computed", { status: 200 });
+    return NextResponse.json("Time computed", {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 }

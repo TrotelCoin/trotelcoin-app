@@ -32,7 +32,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
       (promoters / total - detractors / total) * 100
     );
 
-    return NextResponse.json(netPromoterScore, { status: 200 });
+    return NextResponse.json(netPromoterScore, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   } else {
     return NextResponse.json("Not found", { status: 400 });
   }

@@ -53,5 +53,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   return NextResponse.json(`Shield ${shieldName} has been activated`, {
     status: 200,
+    headers: { "Cache-Control": "no-store" },
   });
 }

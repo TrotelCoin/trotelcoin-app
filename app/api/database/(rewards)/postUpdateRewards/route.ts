@@ -274,5 +274,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
   }
 
-  return NextResponse.json({ success: true }, { status: 200 });
+  return NextResponse.json(
+    { success: true },
+    { status: 200, headers: { "Cache-Control": "no-store" } }
+  );
 }

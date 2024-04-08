@@ -38,5 +38,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json("Max streak not found", { status: 400 });
   }
 
-  return NextResponse.json("Max streak restored", { status: 200 });
+  return NextResponse.json("Max streak restored", {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

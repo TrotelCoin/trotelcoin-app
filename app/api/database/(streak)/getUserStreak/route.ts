@@ -104,6 +104,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   return NextResponse.json(
     { currentStreak, lastUpdated, disabled, lostStreakAt, lostStreak },
-    { status: 200 }
+    { status: 200, headers: { "Cache-Control": "no-store" } }
   );
 }
