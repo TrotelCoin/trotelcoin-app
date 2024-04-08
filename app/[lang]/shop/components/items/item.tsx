@@ -206,10 +206,10 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       >
         <Popover.Root>
           <div
-            className={`overflow-hidden h-full flex items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+            className={`overflow-hidden w-full h-full flex items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
           >
-            <div className="px-4 py-5 sm:p-6">
-              <div className="flex items-center justify-between">
+            <div className="px-4 py-5 sm:p-6 w-full">
+              <div className="flex items-center justify-between w-full">
                 <div
                   className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl`}
                 >

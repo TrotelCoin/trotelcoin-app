@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { data: updated_at, error: updatedAtError } = await supabase
     .from("statistics_evolution")
     .select("updated_at")
-    .eq("id", 1)
+    .eq("statistics", stats)
     .single();
 
   if (updatedAtError) {
@@ -38,10 +38,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "distributed_trotelcoins");
 
         if (distributedTrotelCoinsError) {
+          console.error(distributedTrotelCoinsError);
           return NextResponse.json(distributedTrotelCoinsError, {
             status: 500,
           });
@@ -53,10 +55,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "pending_trotelcoins");
 
         if (pendingTrotelCoinsError) {
+          console.error(pendingTrotelCoinsError);
           return NextResponse.json(pendingTrotelCoinsError, { status: 500 });
         }
         break;
@@ -66,10 +70,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "number_of_quizzes_answered");
 
         if (numberOfQuizzesAnsweredError) {
+          console.error(numberOfQuizzesAnsweredError);
           return NextResponse.json(numberOfQuizzesAnsweredError, {
             status: 500,
           });
@@ -81,10 +87,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "max_streak");
 
         if (maxStreakError) {
+          console.error(maxStreakError);
           return NextResponse.json(maxStreakError, { status: 500 });
         }
         break;
@@ -94,10 +102,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "learners");
 
         if (learnersError) {
+          console.error(learnersError);
           return NextResponse.json(learnersError, { status: 500 });
         }
         break;
@@ -107,10 +117,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "remaining_rewards");
 
         if (remainingRewardsError) {
+          console.error(remainingRewardsError);
           return NextResponse.json(remainingRewardsError, { status: 500 });
         }
         break;
@@ -120,10 +132,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "expert");
 
         if (expertError) {
+          console.error(expertError);
           return NextResponse.json(expertError, { status: 500 });
         }
         break;
@@ -133,10 +147,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "intermediate");
 
         if (intermediateError) {
+          console.error(intermediateError);
           return NextResponse.json(intermediateError, { status: 500 });
         }
         break;
@@ -146,10 +162,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "early");
 
         if (earlyError) {
+          console.error(earlyError);
           return NextResponse.json(earlyError, { status: 500 });
         }
         break;
@@ -159,14 +177,47 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "courses_count");
 
         if (coursesCountError) {
+          console.error(coursesCountError);
           return NextResponse.json(coursesCountError, { status: 500 });
         }
         break;
+      case "average_mark":
+        // update average_mark
+        const { error: averageMarkError } = await supabase
+          .from("statistics_evolution")
+          .update({
+            statistics_number: value,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("statistics", "average_mark");
+
+        if (averageMarkError) {
+          console.error(averageMarkError);
+          return NextResponse.json(averageMarkError, { status: 500 });
+        }
+        break;
+      case "net_promoter_score":
+        // update net_promoter_score
+        const { error: netPromoterScoreError } = await supabase
+          .from("statistics_evolution")
+          .update({
+            statistics_number: value,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("statistics", "net_promoter_score");
+
+        if (netPromoterScoreError) {
+          console.error(netPromoterScoreError);
+          return NextResponse.json(netPromoterScoreError, { status: 500 });
+        }
+        break;
       default:
+        console.error("Invalid statistics type");
         return NextResponse.json("Invalid statistics type", { status: 400 });
     }
 

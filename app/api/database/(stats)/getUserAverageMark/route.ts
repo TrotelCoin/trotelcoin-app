@@ -1,10 +1,15 @@
 import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
+import { Address } from "viem";
 
 export async function GET(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
+  const wallet = searchParams.get("wallet");
+
   const { data, error } = await supabase
     .from("quizzes_results")
-    .select("marks");
+    .select("marks")
+    .eq("wallet", wallet as Address);
 
   if (error) {
     console.error(error);

@@ -17,6 +17,7 @@ import { fetcher } from "@/lib/axios/fetcher";
 import { useAccount } from "wagmi";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { postQuizzesResult } from "@/lib/quizzes/quizzes";
+import { Address } from "viem";
 
 const debug = process.env.NODE_ENV !== "production";
 
@@ -137,7 +138,12 @@ const QuizComponent = ({
           }, 2000);
 
           const totalQuestions = questions.length;
-          await postQuizzesResult(quizId, numberOfWrongAnswers, totalQuestions);
+          await postQuizzesResult(
+            quizId,
+            address as Address,
+            numberOfWrongAnswers,
+            totalQuestions
+          );
         }
       }
     } else {
