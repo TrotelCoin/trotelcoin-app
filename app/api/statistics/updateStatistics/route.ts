@@ -18,7 +18,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { data: updated_at, error: updatedAtError } = await supabase
     .from("statistics_evolution")
     .select("updated_at")
-    .eq("id", 1)
+    .eq("statistics", stats)
     .single();
 
   if (updatedAtError) {
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "distributed_trotelcoins");
 
@@ -54,6 +55,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "pending_trotelcoins");
 
@@ -68,6 +70,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "number_of_quizzes_answered");
 
@@ -84,6 +87,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "max_streak");
 
@@ -98,6 +102,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "learners");
 
@@ -112,6 +117,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "remaining_rewards");
 
@@ -126,6 +132,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "expert");
 
@@ -140,6 +147,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "intermediate");
 
@@ -154,6 +162,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "early");
 
@@ -168,6 +177,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "courses_count");
 
@@ -182,6 +192,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "average_mark");
 
@@ -196,6 +207,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
+            updated_at: new Date().toISOString(),
           })
           .eq("statistics", "net_promoter_score");
 
