@@ -3,6 +3,7 @@ import { calculateRewards } from "@/utils/calculateRewards";
 import remainingRewards from "@/data/constants/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { checkIfCourseIsAvailable } from "@/lib/quizzes/quizzes";
 
 export const dynamic = "force-dynamic";
 
@@ -121,13 +122,26 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   // if quiz doesn't exist return error
   if (!quizExistence || quizExistence.length === 0) {
-    console.error("Quiz not found with the specified quizId");
-    return NextResponse.json(
-      { error: "Quiz not found." },
-      {
-        status: 404,
+    const isCourseAvailable = checkIfCourseIsAvailable(quizId);
+
+    if (isCourseAvailable) {
+      const { error } = await supabase.from("quizzes").insert({
+        quiz_id: quizId,
+      });
+
+      if (error) {
+        console.error(error);
+        return NextResponse.json(error, { status: 500 });
       }
-    );
+    } else {
+      console.error("Quiz not found with the specified quizId");
+      return NextResponse.json(
+        { error: "Quiz not found." },
+        {
+          status: 404,
+        }
+      );
+    }
   }
 
   // calculate rewards
