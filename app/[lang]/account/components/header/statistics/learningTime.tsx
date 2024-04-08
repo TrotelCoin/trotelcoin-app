@@ -1,22 +1,22 @@
-import type { Lang } from "@/types/lang";
-import { useAccount } from "wagmi";
-import React from "react";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { loadingFlashClass } from "@/lib/tailwind/loading";
+import type { Lang } from "@/types/lang";
+import React from "react";
 import CountUp from "react-countup";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { useAccount } from "wagmi";
 
-const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
+const LearningTime = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
-  const { data: totalRewardsPending } = useSWR(
-    `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+  const { data: learningTime } = useSWR(
+    `/api/database/getUserQuizzesTime?wallet=${address}`,
     fetcher,
     {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
       refreshInterval: refreshIntervalTime,
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
     }
   );
 
@@ -29,27 +29,29 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {totalRewardsPending ? (
+                {learningTime ? (
                   <span>
                     <CountUp
                       start={0}
-                      end={Math.floor(totalRewardsPending) ?? 0}
-                      suffix=" 💰"
+                      end={Math.floor((learningTime * 1e-3) / 60)}
+                      suffix="m ⏳"
                     />
                   </span>
                 ) : (
                   <span>
-                    <span className={`${loadingFlashClass}`}>0</span> 💰
+                    <span className={`${loadingFlashClass}`}>0</span>m ⏳
                   </span>
                 )}
               </span>
             </>
           </span>
-          <span>{lang === "en" ? "To claim" : "À réclamer"}</span>
+          <span>
+            {lang === "en" ? "Learning time" : "Temps d'apprentissage"}
+          </span>
         </div>
       </div>
     </>
   );
 };
 
-export default TotalRewardsPending;
+export default LearningTime;

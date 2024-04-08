@@ -293,13 +293,15 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setApprovalData,
       setAllowanceTarget,
       setToAmount
-    ).catch((error) => {
-      console.error(error);
-      setIsLoading(false);
-      setNoQuoteNotification(true);
-      setQuoteFetched(false);
-      setIsApproved(false);
-    });
+    )
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        setIsApproved(false);
+      })
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -336,8 +338,11 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       const fromTokens = await getFromTokenList(
         fromChain.chainId,
         toChain.chainId
-      );
-      const toTokens = await getToTokenList(fromChain.chainId, toChain.chainId);
+      ).catch((error) => console.error(error));
+      const toTokens = await getToTokenList(
+        fromChain.chainId,
+        toChain.chainId
+      ).catch((error) => console.error(error));
 
       if (fromTokens && toTokens) {
         setFromTokens(fromTokens.result);
@@ -370,8 +375,12 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     const fetchChainsList = async () => {
       setIsLoadingChains(true);
 
-      const fromChains = await getChainList();
-      const toChains = await getChainList();
+      const fromChains = await getChainList().catch((error) =>
+        console.error(error)
+      );
+      const toChains = await getChainList().catch((error) =>
+        console.error(error)
+      );
 
       if (fromChains) {
         setFromChains(fromChains.result);
@@ -394,7 +403,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           txHash,
           fromChain.chainId,
           toChain.chainId
-        );
+        ).catch((error) => console.error(error));
 
         if (!status) {
           return;
@@ -462,7 +471,9 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   useEffect(() => {
     if (fromChain && toChain) {
       const fetchIsRefuelSupported = async () => {
-        const refuelEnabled = await isRefuelSupported(fromChain, toChain);
+        const refuelEnabled = await isRefuelSupported(fromChain, toChain).catch(
+          (error) => console.error(error)
+        );
 
         if (refuelEnabled) {
           setDisableRefuel(false);

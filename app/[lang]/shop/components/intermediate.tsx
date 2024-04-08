@@ -206,18 +206,15 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     lang={lang}
                     isLoading={isPending}
                     onClick={async () => {
-                      try {
-                        await writeContractAsync({
-                          address: trotelCoinIntermediateAddress,
-                          abi: trotelCoinIntermediateABI,
-                          functionName: "claim",
-                          chainId: polygon.id,
-                        });
-                      } catch (error) {
+                      await writeContractAsync({
+                        address: trotelCoinIntermediateAddress,
+                        abi: trotelCoinIntermediateABI,
+                        functionName: "claim",
+                        chainId: polygon.id,
+                      }).catch((error) => {
                         console.error(error);
                         setErrorMessage(true);
-                        return;
-                      }
+                      });
                     }}
                     text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
                   />

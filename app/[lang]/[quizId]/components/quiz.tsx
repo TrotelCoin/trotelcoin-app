@@ -9,13 +9,17 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import Success from "@/app/[lang]/components/modals/success";
+import Wallet from "@/app/[lang]/components/header/wallet";
 
-interface QuizProps {
+const Quiz = ({
+  quizId,
+  lang,
+  startTime,
+}: {
   quizId: number;
   lang: Lang;
-}
-
-const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
+  startTime: number;
+}) => {
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [showCorrectMessage, setShowCorrectMessage] = useState<boolean>(false);
@@ -41,7 +45,7 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
   return (
     <>
       {/* QuizComponent */}
-      {isLoggedIn && !isTotallyCorrect && (
+      {!isTotallyCorrect && isLoggedIn && (
         <>
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10">
             <QuizComponent
@@ -52,18 +56,32 @@ const Quiz: React.FC<QuizProps> = ({ quizId, lang }) => {
               isCorrect={isCorrect}
               setIsCorrect={setIsCorrect}
               setShowCorrectMessage={setShowCorrectMessage}
+              startTime={startTime}
             />
           </div>
         </>
       )}
 
       {/* Reward */}
-      {isTotallyCorrect && (
+      {isTotallyCorrect && isLoggedIn && (
         <Rewards
           lang={lang}
           quizId={quizId}
           isTotallyCorrect={isTotallyCorrect}
         />
+      )}
+
+      {!isLoggedIn && (
+        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
+          <h2 className="text-gray-900 dark:text-gray-100">
+            {lang === "en"
+              ? "Sign in to claim rewards"
+              : "Connectez-vous pour réclamer vos récompenses"}
+          </h2>
+          <div className="mt-4">
+            <Wallet isFull={false} lang={lang} />
+          </div>
+        </div>
       )}
 
       <Success

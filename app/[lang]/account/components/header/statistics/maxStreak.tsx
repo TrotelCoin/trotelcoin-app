@@ -18,10 +18,12 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
               <span className="font-semibold">
                 {maxStreak ? (
                   <span>
-                    <CountUp start={0} end={maxStreak} />
+                    <CountUp start={0} end={maxStreak} suffix=" 🔥" />
                   </span>
                 ) : (
-                  <span className={`${loadingFlashClass}`}>0</span>
+                  <span>
+                    <span className={`${loadingFlashClass}`}>0</span> 🔥
+                  </span>
                 )}
               </span>
             </>

@@ -5,7 +5,15 @@ import CoursesSatisfaction from "@/app/[lang]/[quizId]/components/coursesSatisfa
 import Quiz from "@/app/[lang]/[quizId]/components/quiz";
 import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
 
-const CourseFinished = ({ lang, quizId }: { lang: Lang; quizId: number }) => {
+const CourseFinished = ({
+  lang,
+  quizId,
+  startTime,
+}: {
+  lang: Lang;
+  quizId: number;
+  startTime: number;
+}) => {
   const { isCourseFinished } = useContext(CourseFinishedContext);
 
   return (
@@ -15,7 +23,7 @@ const CourseFinished = ({ lang, quizId }: { lang: Lang; quizId: number }) => {
           <div className="mt-10">
             <CoursesSatisfaction lang={lang} quizId={quizId} />
 
-            <Quiz quizId={quizId} lang={lang} />
+            <Quiz quizId={quizId} lang={lang} startTime={startTime} />
 
             <GoHomeButton lang={lang} />
           </div>

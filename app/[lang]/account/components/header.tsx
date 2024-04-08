@@ -15,6 +15,7 @@ import "animate.css";
 import { useContext, useEffect } from "react";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
 import AverageMark from "@/app/[lang]/account/components/header/statistics/averageMark";
+import LearningTime from "@/app/[lang]/account/components/header/statistics/learningTime";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
@@ -52,7 +53,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         </h2>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
         <Satisfaction lang={lang} />
 
         <Rank lang={lang} />
@@ -110,6 +111,17 @@ const Header = ({ lang }: { lang: Lang }) => {
           className="h-full"
         >
           <AverageMark lang={lang} />
+        </Tilt>
+
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.15}
+          perspective={800}
+          className="h-full"
+        >
+          <LearningTime lang={lang} />
         </Tilt>
       </div>
     </>

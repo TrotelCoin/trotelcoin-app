@@ -135,16 +135,12 @@ const ClaimingButton = ({
       return;
     }
 
-    try {
-      await writeContractAsync({
-        address: trotelCoinStakingV1,
-        functionName: "unstake",
-        chainId: polygon.id,
-        abi: trotelCoinStakingV1ABI,
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    await writeContractAsync({
+      address: trotelCoinStakingV1,
+      functionName: "unstake",
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI,
+    }).catch((error) => console.error(error));
   };
 
   useEffect(() => {

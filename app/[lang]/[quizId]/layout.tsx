@@ -31,6 +31,13 @@ const CoursePage = ({
 }) => {
   const [answered, setAnswered] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
+
+  useEffect(() => {
+    const startTime = new Date().getTime();
+
+    setStartTime(startTime);
+  }, []);
 
   const pathname = usePathname();
   const origin =
@@ -133,7 +140,11 @@ const CoursePage = ({
             {/* Course */}
             <div className="flex justify-start">{children}</div>
 
-            <CourseFinished lang={lang} quizId={quizId} />
+            <CourseFinished
+              lang={lang}
+              quizId={quizId}
+              startTime={startTime as number}
+            />
           </div>
         </CourseFinishedProvider>
 

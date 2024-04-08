@@ -74,8 +74,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const handleRefresh = async () => {
     setRefreshing(true);
 
-    await refetchCategories();
-    await refetchItems();
+    await refetchCategories().catch((error) => console.error(error));
+    await refetchItems().catch((error) => console.error(error));
 
     setRefreshing(false);
   };

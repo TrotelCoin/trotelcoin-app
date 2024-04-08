@@ -35,7 +35,7 @@ const Satisfaction = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div
-        className={`col-span-2 md:col-span-4 bg-gray-50 h-full flex items-center justify-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-8 dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
+        className={`col-span-2 md:col-span-3 bg-gray-50 h-full flex items-center justify-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-8 dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
           alreadyAnsweredSatisfaction &&
           "hidden animate__animated animate__fadeOut"
         }`}

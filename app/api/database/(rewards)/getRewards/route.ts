@@ -19,7 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const remainingRewards = result[0]?.remaining_rewards;
 
     // reset rewards if 24h has passed
-    const { data: updateResult, error: updateError } = await supabase
+    const { error: updateError } = await supabase
       .from("algorithm")
       .upsert(
         [
