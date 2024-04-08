@@ -102,6 +102,54 @@ export const useItem = async (
             errorEncountered = true;
           });
         break;
+      case "x2":
+        await axios
+          .post(
+            `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
+          )
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+          });
+        break;
+      case "x5":
+        await axios
+          .post(
+            `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
+          )
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+          });
+        break;
+      case "x10":
+        await axios
+          .post(
+            `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
+          )
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+          });
+        break;
+      case "x25":
+        await axios
+          .post(
+            `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
+          )
+          .catch((error) => {
+            console.error(error);
+            setErrorMessage(true);
+            setIsLoading(false);
+            errorEncountered = true;
+          });
+        break;
       default:
         break;
     }

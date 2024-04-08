@@ -1,3 +1,4 @@
+import lessons from "@/data/lessons/lessonsData";
 import type { Quiz, Question } from "@/types/courses/quiz";
 import type { Lang } from "@/types/lang";
 import axios from "axios";
@@ -51,4 +52,14 @@ export const postQuizzesTime = async (
       `/api/database/postQuizzesTime?quizId=${quizId}&wallet=${address}&diffTime=${diffTime}`
     )
     .catch((error) => console.error(error));
+};
+
+export const checkIfCourseIsAvailable = (quizId: number): boolean => {
+  const isCourseAvailable = lessons.some((category) => {
+    category.courses.some((lesson) => {
+      return lesson.quizId && lesson.available;
+    });
+  });
+
+  return isCourseAvailable;
 };

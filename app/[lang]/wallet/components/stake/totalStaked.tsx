@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import CountUp from "react-countup";
+import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 
 const TotalStaked = ({ lang }: { lang: Lang }) => {
   const [totalStaked, setTotalStaked] = useState<number>(0);
@@ -36,9 +37,9 @@ const TotalStaked = ({ lang }: { lang: Lang }) => {
       <div className="flex flex-col flex-wrap gap-2">
         <div className="flex justify-between">
           <span>{lang === "en" ? "Total locked" : "Total verrouillé"}</span>
-          <div>
-            <CountUp start={0} end={totalStaked} />{" "}
-            <span className="font-semibold">TROTEL</span>
+          <div className="flex items-center gap-1">
+            <CountUp start={0} end={totalStaked} />
+            <TrotelCoinLogo />
           </div>
         </div>
       </div>

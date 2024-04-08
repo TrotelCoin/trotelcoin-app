@@ -1,24 +1,15 @@
+import UserContext from "@/app/[lang]/contexts/userContext";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
 import type { Lang } from "@/types/lang";
-import React from "react";
+import React, { useContext } from "react";
 import CountUp from "react-countup";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
 
 const LearningTime = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
-
-  const { data: learningTime } = useSWR(
-    `/api/database/getUserQuizzesTime?wallet=${address}`,
-    fetcher,
-    {
-      refreshInterval: refreshIntervalTime,
-      revalidateIfStale: true,
-      revalidateOnMount: true,
-      revalidateOnReconnect: true,
-    }
-  );
+  const { learningTime } = useContext(UserContext);
 
   return (
     <>

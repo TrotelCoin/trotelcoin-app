@@ -8,9 +8,15 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const userAddress = searchParams.get("address");
-  const amount = searchParams.get("amount");
-  const centralWalletAddress = searchParams.get("centralWalletAddress");
+  const userAddress: Address = searchParams.get("address") as Address;
+  const amount: number = Number(searchParams.get("amount"));
+  const centralWalletAddress: Address = searchParams.get(
+    "centralWalletAddress"
+  ) as Address;
+
+  if (!userAddress || !amount || !centralWalletAddress) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
   try {
     if (!userAddress) {
@@ -32,7 +38,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       abi: trotelCoinABI,
       functionName: "mint",
       account: centralWalletAddress as Address,
-      args: [userAddress, parseEther(amount)],
+      args: [userAddress, parseEther(String(amount))],
     });
 
     return NextResponse.json(parseFloat(gas.toString()), {

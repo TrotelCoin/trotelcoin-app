@@ -23,8 +23,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   if (data.length > 0) {
-    return NextResponse.json(data, { status: 200 });
+    return NextResponse.json(data, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 
-  return NextResponse.json(null, { status: 200 });
+  return NextResponse.json(null, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

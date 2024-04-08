@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase/db";
+import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet = searchParams.get("wallet");
+  const wallet: Address = searchParams.get("wallet") as Address;
 
   if (!wallet) {
     return NextResponse.json("No wallet", { status: 400 });
@@ -60,5 +61,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json("Max streak not found", { status: 400 });
   }
 
-  return NextResponse.json("Max streak restored", { status: 200 });
+  return NextResponse.json("Max streak restored", {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

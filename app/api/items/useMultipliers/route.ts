@@ -7,17 +7,36 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
-  const shieldName = searchParams.get("shieldName");
+  const multipliersName = searchParams.get("multipliersName");
 
-  if (!wallet || !shieldName) {
+  let multipliers: number = 1;
+
+  switch (multipliersName) {
+    case "x2":
+      multipliers = 2;
+      break;
+    case "x5":
+      multipliers = 5;
+      break;
+    case "x10":
+      multipliers = 10;
+      break;
+    case "x25":
+      multipliers = 25;
+      break;
+    default:
+      break;
+  }
+
+  if (!wallet || !multipliersName) {
     return NextResponse.json("Parameters not found", { status: 400 });
   }
 
   const { data: walletData, error: walletError } = await supabase
-    .from("shields")
+    .from("multipliers")
     .select("wallet")
     .eq("wallet", wallet)
-    .eq("shield_name", shieldName);
+    .eq("multipliers", multipliers);
 
   if (walletError) {
     console.error(walletError);
@@ -25,9 +44,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   if (walletData.length === 0) {
-    const { error } = await supabase.from("shields").insert({
+    const { error } = await supabase.from("multipliers").insert({
       wallet: wallet,
-      shield_name: shieldName,
+      multipliers: multipliers,
       start_time: new Date().toISOString(),
     });
 
@@ -38,20 +57,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   const { error } = await supabase
-    .from("shields")
+    .from("multipliers")
     .update({
-      shield_name: shieldName,
+      multipliers: multipliers,
       start_time: new Date().toISOString(),
     })
     .eq("wallet", wallet)
-    .eq("shield_name", shieldName);
+    .eq("multipliers", multipliers);
 
   if (error) {
     console.error(error);
     return NextResponse.json(error, { status: 500 });
   }
 
-  return NextResponse.json(`Shield ${shieldName} has been activated`, {
+  return NextResponse.json(`Multipliers ${multipliers} has been activated`, {
     status: 200,
     headers: { "Cache-Control": "no-store" },
   });

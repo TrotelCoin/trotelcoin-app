@@ -7,9 +7,13 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
-    const wallet = searchParams.get("wallet");
-    const rating = searchParams.get("rating");
-    const quizId = searchParams.get("quizId");
+    const wallet: Address = searchParams.get("wallet") as Address;
+    const rating: number = Number(searchParams.get("rating"));
+    const quizId: number = Number(searchParams.get("quizId"));
+
+    if (!wallet || !rating || !quizId) {
+      return NextResponse.json("Parameters not found", { status: 400 });
+    }
 
     const { data: verification, error: verificationError } = await supabase
       .from("courses_satisfaction")
@@ -28,7 +32,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (verification.length > 0) {
       return NextResponse.json(
         { answered: "You have already answered this." },
-        { status: 200 }
+        { status: 200, headers: { "Cache-Control": "no-store" } }
       );
     }
 
@@ -49,7 +53,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json(
+      { success: true },
+      { status: 200, headers: { "Cache-Control": "no-store" } }
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json(

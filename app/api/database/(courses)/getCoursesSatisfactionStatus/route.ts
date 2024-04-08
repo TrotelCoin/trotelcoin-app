@@ -7,8 +7,12 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
-    const wallet = searchParams.get("wallet");
-    const quizId = searchParams.get("quizId");
+    const wallet: Address = searchParams.get("wallet") as Address;
+    const quizId: number = Number(searchParams.get("quizId"));
+
+    if (!wallet || !quizId) {
+      return NextResponse.json("Parameters not found", { status: 400 });
+    }
 
     const { data, error } = await supabase
       .from("courses_satisfaction")
@@ -24,7 +28,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (data.length > 0) {
       return NextResponse.json(
         { answered: "You have already answered this." },
-        { status: 200 }
+        { status: 200, headers: { "Cache-Control": "no-store" } }
       );
     } else {
       return NextResponse.json(

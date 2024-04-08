@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
+  const multipliers: number = 1;
+
   try {
     // get remaining rewards
     const { data: result, error: selectError } = await supabase
@@ -41,7 +43,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
 
     // calculate rewards
-    const calculatedRewards = calculateRewards(remainingRewards);
+    const calculatedRewards = calculateRewards(remainingRewards, multipliers);
 
     return NextResponse.json(calculatedRewards, {
       status: 200,

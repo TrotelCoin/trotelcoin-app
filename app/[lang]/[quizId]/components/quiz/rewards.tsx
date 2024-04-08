@@ -7,13 +7,15 @@ import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
-import axios from "axios";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
-import Wallet from "@/app/[lang]/components/header/wallet";
-import UserContext from "@/app/[lang]/contexts/userContext";
 import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { handleClaimRewards } from "@/lib/rewards/rewards";
+import { Address } from "viem";
+import UserContext from "@/app/[lang]/contexts/userContext";
+import { BoltIcon } from "@heroicons/react/24/solid";
+import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
 
 const Rewards = ({
   lang,
@@ -31,38 +33,46 @@ const Rewards = ({
     useState<boolean>(false);
   const [claimedRewardsMessage, setClaimedRewardsMessage] =
     useState<boolean>(false);
-
-  const { playAudio } = useContext(AudioContext);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [formattedTimeLeft, setFormattedTimeLeft] = useState<string | null>(
+    null
+  );
 
   const { address } = useAccount();
-  const { isLoggedIn } = useContext(UserContext);
+  const { playAudio } = useContext(AudioContext);
+  const { multipliers, multipliersItemTimeLeft } = useContext(UserContext);
 
-  const handleClaimRewards = async () => {
-    if (!address) {
-      setIsLearnerDisconnected(true);
-      return;
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (multipliersItemTimeLeft && multipliersItemTimeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => (prevTime ? prevTime - 1 : prevTime));
+      }, 1000);
+    } else {
+      if (timer) {
+        clearInterval(timer);
+      }
     }
 
-    setClaimingLoading(true);
+    return () => clearInterval(timer);
+  }, [multipliersItemTimeLeft]);
 
-    // update database rewards by calling api and if success
-    await axios
-      .post(
-        `/api/database/postUpdateRewards?wallet=${address}&quizId=${quizId}`
-      )
-      .then(() => {
-        setClaimedRewards(true);
-        setClaimedRewardsMessage(true);
-      })
-      .catch((error) => {
-        console.error(error);
-        setClaimingError(true);
-      });
+  useEffect(() => {
+    if (timeLeft) {
+      const totalSeconds = Math.floor(timeLeft / 1000);
+      const hours = Math.floor(totalSeconds / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
 
-    playAudio("claimedRewards");
+      const formattedTimeLeft = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 
-    setClaimingLoading(false);
-  };
+      setFormattedTimeLeft(formattedTimeLeft);
+    } else {
+      setFormattedTimeLeft("00:00:00");
+    }
+  }, [timeLeft]);
 
   const { data: hasAlreadyAnswered } = useSWR(
     address && quizId
@@ -92,14 +102,46 @@ const Rewards = ({
         !claimedRewards &&
         !claimingLoading && (
           <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-              {lang === "en"
-                ? "Claim your rewards"
-                : "Récupérez vos récompenses"}
-            </h3>
+            <div className="flex items-center gap-2">
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                {lang === "en"
+                  ? "Claim your rewards"
+                  : "Récupérez vos récompenses"}
+              </h3>
+
+              {Boolean(multipliers) && multipliers > 1 && (
+                <>
+                  <SeparatorVertical />
+                  <div className="flex items-center gap-1 rainbow-text">
+                    <BoltIcon className="w-4 h-4" />
+                    <span>
+                      {lang === "en" ? `x${multipliers}` : `x${multipliers}`}
+                    </span>
+                  </div>
+                  {Boolean(formattedTimeLeft) && (
+                    <>
+                      <SeparatorVertical />
+                      <span>{formattedTimeLeft}</span>
+                    </>
+                  )}
+                </>
+              )}
+            </div>
             <div className="mt-4 items-center">
               <BlueButton
-                onClick={handleClaimRewards}
+                onClick={() =>
+                  handleClaimRewards(
+                    address as Address,
+                    quizId,
+                    multipliers,
+                    setIsLearnerDisconnected,
+                    setClaimingLoading,
+                    setClaimedRewards,
+                    setClaimedRewardsMessage,
+                    setClaimingError,
+                    playAudio
+                  )
+                }
                 lang={lang}
                 text={
                   lang === "en" ? "Claim rewards" : "Réclamez vos récompenses"

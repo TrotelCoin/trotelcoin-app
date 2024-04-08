@@ -147,7 +147,7 @@ const From = ({
                         src={fromToken.lightLogoURI as string}
                       />
                     </div>
-                    <div className="hidden dark:block w-w-4 h-4">
+                    <div className="hidden dark:block w-4 h-4">
                       <Image
                         width={16}
                         height={16}

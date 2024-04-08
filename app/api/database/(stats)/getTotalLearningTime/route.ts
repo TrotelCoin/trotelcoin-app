@@ -21,5 +21,8 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return NextResponse.json(time, { status: 400 });
   }
 
-  return NextResponse.json(time, { status: 200 });
+  return NextResponse.json(time, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

@@ -6,7 +6,11 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
-    const quizId = searchParams.get("quizId");
+    const quizId: number = Number(searchParams.get("quizId"));
+
+    if (!quizId) {
+      return NextResponse.json("Parameters not found", { status: 400 });
+    }
 
     const { data, error } = await supabase
       .from("quizzes")

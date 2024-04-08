@@ -2,9 +2,10 @@
 
 import { Lang } from "@/types/lang";
 import React, { useContext } from "react";
-import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
+import UserContext from "@/app/[lang]/contexts/userContext";
 
 const UserInformationMobile = ({
   lang,
@@ -22,6 +23,7 @@ const UserInformationMobile = ({
   isPremium: boolean;
 }) => {
   const { isIntermediate, isExpert } = useContext(PremiumContext);
+  const { multipliers } = useContext(UserContext);
 
   return (
     <>
@@ -47,28 +49,14 @@ const UserInformationMobile = ({
             {isPremium ? <span className="text-xl mr-1">&infin;</span> : life}{" "}
             {life > 0 ? "💙" : "💔"}
           </div>
+          <div
+            className={`flex items-center ${multipliers > 1 && "rainbow-text"}`}
+          >
+            x{multipliers} 🤑
+          </div>
           <div className="flex items-center gap-1">
             {Number(userTotalRewardsPending.toFixed(2)).toLocaleString("en-US")}{" "}
-            <div className="block dark:hidden w-4 h-4">
-              <Image
-                width={16}
-                height={16}
-                className="rounded-full"
-                aria-hidden="true"
-                alt="Token logo"
-                src="/assets/logo/trotelcoin.svg"
-              />
-            </div>
-            <div className="hidden dark:block w-4 h-4">
-              <Image
-                width={16}
-                height={16}
-                className="rounded-full"
-                aria-hidden="true"
-                alt="Token logo"
-                src="/assets/logo/trotelcoin-dark.jpg"
-              />
-            </div>
+            <TrotelCoinLogo />
           </div>
           <div className="flex items-center">
             {userNumberOfQuizzesAnswered} 📚

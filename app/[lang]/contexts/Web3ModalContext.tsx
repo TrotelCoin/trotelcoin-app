@@ -4,7 +4,7 @@ import React, { ReactNode, useContext } from "react";
 import { config, projectId } from "@/config/Web3ModalConfig";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { WagmiProvider } from "wagmi";
+import { State, WagmiProvider } from "wagmi";
 import { polygon } from "viem/chains";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
 
@@ -14,8 +14,10 @@ if (!projectId) throw new Error("Project ID is not defined");
 
 export default function Web3ModalProvider({
   children,
+  initialState,
 }: {
   children: ReactNode;
+  initialState?: State;
 }) {
   const { theme } = useContext(ThemeContext);
 
@@ -30,7 +32,7 @@ export default function Web3ModalProvider({
   });
 
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config} initialState={initialState}>
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </WagmiProvider>
   );

@@ -7,7 +7,11 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
-    const wallet = searchParams.get("wallet");
+    const wallet: Address = searchParams.get("wallet") as Address;
+
+    if (!wallet) {
+      return NextResponse.json("Parameters not found", { status: 400 });
+    }
 
     const { data, error } = await supabase
       .from("subscriptions")
@@ -25,7 +29,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (data.length > 0) {
       return NextResponse.json(
         { claimed: "You have already claimed this." },
-        { status: 200 }
+        { status: 200, headers: { "Cache-Control": "no-store" } }
       );
     } else {
       const { data, error } = await supabase.from("subscriptions").upsert([
@@ -46,7 +50,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       if (data) {
         return NextResponse.json(
           { claimed: "Claimed successfully." },
-          { status: 200 }
+          { status: 200, headers: { "Cache-Control": "no-store" } }
         );
       }
     }

@@ -4,10 +4,16 @@ import { Address } from "viem";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const quizId = searchParams.get("quizId");
-  const numberOfWrongAnswers = searchParams.get("numberOfWrongAnswers");
-  const totalQuestions = searchParams.get("totalQuestions");
-  const wallet = searchParams.get("wallet");
+  const quizId: number = Number(searchParams.get("quizId"));
+  const numberOfWrongAnswers: number = Number(
+    searchParams.get("numberOfWrongAnswers")
+  );
+  const totalQuestions: number = Number(searchParams.get("totalQuestions"));
+  const wallet: Address = searchParams.get("wallet") as Address;
+
+  if (!quizId || !numberOfWrongAnswers || !totalQuestions || !wallet) {
+    return NextResponse.json("Parameters not found", { status: 400 });
+  }
 
   const { data, error: existsError } = await supabase
     .from("quizzes_results")
@@ -21,7 +27,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   if (data.length > 0) {
-    return NextResponse.json("Already exists", { status: 200 });
+    return NextResponse.json("Already exists", {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 
   const numberOfGoodAnswers =
@@ -41,5 +50,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(error, { status: 500 });
   }
 
-  return NextResponse.json("Results submitted", { status: 200 });
+  return NextResponse.json("Results submitted", {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

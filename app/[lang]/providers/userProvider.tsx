@@ -1,13 +1,14 @@
 "use client";
 
 import { useAccount } from "wagmi";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import { useSession } from "next-auth/react";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const UserProvider = ({
   children,
@@ -23,9 +24,16 @@ const UserProvider = ({
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [multipliers, setMultipliers] = useState<number>(1);
+  const [learningTime, setLearningTime] = useState<number>(0);
+  const [averageMark, setAverageMark] = useState<number>(0);
+  const [multipliersItem, setMultipliersItem] = useState<number>(1);
+  const [multipliersItemTimeLeft, setMultipliersItemTimeLeft] =
+    useState<number>(0);
 
   const { address } = useAccount();
   const { data: session } = useSession();
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   useEffect(() => {
     if (session && address) {
@@ -48,6 +56,14 @@ const UserProvider = ({
     }
   );
 
+  useEffect(() => {
+    if (userTotalRewardsPendingData) {
+      setUserTotalRewardsPending(userTotalRewardsPendingData);
+    } else {
+      setUserTotalRewardsPending(0);
+    }
+  }, [userTotalRewardsPendingData]);
+
   const { data: alreadyAnsweredSatisfactionData } = useSWR(
     address
       ? `/api/database/getUserAlreadyAnsweredSatisfaction?wallet=${address}`
@@ -69,13 +85,43 @@ const UserProvider = ({
     }
   }, [alreadyAnsweredSatisfactionData]);
 
-  useEffect(() => {
-    if (userTotalRewardsPendingData) {
-      setUserTotalRewardsPending(userTotalRewardsPendingData);
-    } else {
-      setUserTotalRewardsPending(0);
+  const { data: learningTimeData } = useSWR(
+    `/api/database/getUserQuizzesTime?wallet=${address}`,
+    fetcher,
+    {
+      refreshInterval: refreshIntervalTime,
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
     }
-  }, [userTotalRewardsPendingData]);
+  );
+
+  useEffect(() => {
+    if (learningTimeData) {
+      setLearningTime(learningTimeData);
+    } else {
+      setLearningTime(0);
+    }
+  }, [learningTimeData]);
+
+  const { data: averageMarkData } = useSWR(
+    `/api/database/getUserAverageMark?wallet=${address}`,
+    fetcher,
+    {
+      refreshInterval: refreshIntervalTime,
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
+    }
+  );
+
+  useEffect(() => {
+    if (averageMarkData) {
+      setAverageMark(averageMarkData);
+    } else {
+      setAverageMark(0);
+    }
+  }, [averageMarkData]);
 
   const { data: userNumberOfQuizzesAnsweredData } = useSWR(
     address
@@ -98,6 +144,45 @@ const UserProvider = ({
     }
   }, [userNumberOfQuizzesAnsweredData]);
 
+  const { data: userMultipliersData } = useSWR(
+    address ? `/api/items/getUserMultipliers?wallet=${address}` : null,
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: refreshIntervalTime,
+    }
+  );
+
+  useEffect(() => {
+    if (userMultipliersData) {
+      setMultipliersItem(userMultipliersData.multipliers);
+      setMultipliersItemTimeLeft(userMultipliersData.timeLeft);
+    } else {
+      setMultipliersItem(1);
+      setMultipliersItemTimeLeft(0);
+    }
+  }, [userMultipliersData]);
+
+  useEffect(() => {
+    let multipliers: number = 1;
+
+    if (isIntermediate) {
+      multipliers = 3;
+    }
+
+    if (isExpert) {
+      multipliers = 5;
+    }
+
+    if (multipliersItem && multipliersItemTimeLeft > 0) {
+      multipliers *= multipliersItem;
+    }
+
+    setMultipliers(multipliers);
+  }, [isIntermediate, isExpert, multipliersItem, multipliersItemTimeLeft]);
+
   const contextValue = useMemo(
     () => ({
       userTotalRewardsPending,
@@ -105,6 +190,11 @@ const UserProvider = ({
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
       isLoggedIn,
+      multipliers,
+      learningTime,
+      averageMark,
+      multipliersItem,
+      multipliersItemTimeLeft,
     }),
     [
       userTotalRewardsPending,
@@ -112,6 +202,11 @@ const UserProvider = ({
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
       isLoggedIn,
+      multipliers,
+      learningTime,
+      averageMark,
+      multipliersItem,
+      multipliersItemTimeLeft,
     ]
   );
 

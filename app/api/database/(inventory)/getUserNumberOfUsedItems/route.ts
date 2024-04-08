@@ -5,9 +5,9 @@ import { Address } from "viem";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const searchParams = new URL(req.url);
-  const address: Address = searchParams.searchParams.get("address") as Address;
-  const item = searchParams.searchParams.get("item");
+  const { searchParams } = new URL(req.url);
+  const address: Address = searchParams.get("address") as Address;
+  const item = searchParams.get("item");
 
   if (!address || !item) {
     return NextResponse.json("Missing address or item", { status: 400 });
@@ -25,8 +25,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   if (data.length > 0) {
-    return NextResponse.json(data[0]?.number_of_use, { status: 200 });
+    return NextResponse.json(data[0]?.number_of_use, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 
-  return NextResponse.json(0, { status: 200 });
+  return NextResponse.json(0, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

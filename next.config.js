@@ -27,7 +27,7 @@ module.exports = withMDX(
         "gnosisscan.io",
         "bscscan.com",
         "tokens.1inch.io",
-        "bridgelogos.s3.ap-south-1.amazonaws.com"
+        "bridgelogos.s3.ap-south-1.amazonaws.com",
       ],
     },
 
