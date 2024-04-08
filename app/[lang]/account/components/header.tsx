@@ -52,7 +52,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         </h2>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
+      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
         <Satisfaction lang={lang} />
 
         <Rank lang={lang} />
