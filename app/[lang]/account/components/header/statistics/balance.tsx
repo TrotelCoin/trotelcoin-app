@@ -39,10 +39,13 @@ const Balance = ({ lang }: { lang: Lang }) => {
                     <CountUp
                       start={0}
                       end={Math.floor(Number(balance.formatted))}
+                      suffix=" 💸"
                     />
                   </span>
                 ) : (
-                  <span className={`${loadingFlashClass}`}>0</span>
+                  <span>
+                    <span className={`${loadingFlashClass}`}>0</span> 💸
+                  </span>
                 )}
               </span>
             </>

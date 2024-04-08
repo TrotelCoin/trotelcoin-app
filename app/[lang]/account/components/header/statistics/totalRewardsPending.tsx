@@ -34,10 +34,13 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
                     <CountUp
                       start={0}
                       end={Math.floor(totalRewardsPending) ?? 0}
+                      suffix=" 💰"
                     />
                   </span>
                 ) : (
-                  <span className={`${loadingFlashClass}`}>0</span>
+                  <span>
+                    <span className={`${loadingFlashClass}`}>0</span> 💰
+                  </span>
                 )}
               </span>
             </>

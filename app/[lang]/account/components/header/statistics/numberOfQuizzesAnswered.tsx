@@ -19,10 +19,16 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
               <span className="font-semibold">
                 {numberOfQuizzesAnswered ? (
                   <span>
-                    <CountUp start={0} end={numberOfQuizzesAnswered} />
+                    <CountUp
+                      start={0}
+                      end={numberOfQuizzesAnswered}
+                      suffix=" 📚"
+                    />
                   </span>
                 ) : (
-                  <span className={`${loadingFlashClass}`}>0</span>
+                  <span>
+                    <span className={`${loadingFlashClass}`}>0</span> 📚
+                  </span>
                 )}
               </span>
             </>

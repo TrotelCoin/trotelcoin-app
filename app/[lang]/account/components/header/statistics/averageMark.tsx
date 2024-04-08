@@ -32,10 +32,12 @@ const AverageMark = ({ lang }: { lang: Lang }) => {
               <span className="font-semibold">
                 {averageMark ? (
                   <span>
-                    <CountUp start={0} end={averageMark} suffix="/20" />
+                    <CountUp start={0} end={averageMark} suffix="/20 🎓" />
                   </span>
                 ) : (
-                  <span className={`${loadingFlashClass}`}>0/20</span>
+                  <span>
+                    <span className={`${loadingFlashClass}`}>0/20</span> 🎓
+                  </span>
                 )}
               </span>
             </>
