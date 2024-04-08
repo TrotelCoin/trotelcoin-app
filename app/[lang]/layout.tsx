@@ -31,6 +31,9 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import BlockNumber from "@/app/[lang]/components/blockNumber";
 import NotificationProvider from "@/app/[lang]/providers/notificationProvider";
+import { cookieToInitialState } from "wagmi";
+import { config } from "@/config/Web3ModalConfig";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -88,10 +91,11 @@ export default function Layout({
   children: React.ReactNode;
   params: { lang: Lang };
 }) {
+  const initialState = cookieToInitialState(config, headers().get("cookie"));
+
   return (
     <>
       {/* Use Suspense for loading fallback */}
-
       <html lang={lang}>
         <head>
           <link
@@ -133,7 +137,7 @@ export default function Layout({
           />
           <ThemeProvider>
             <AudioProvider>
-              <Web3ModalProvider>
+              <Web3ModalProvider initialState={initialState}>
                 <SessionProviderComponent session={session}>
                   <UserProvider lang={lang}>
                     <PremiumProvider>

@@ -142,7 +142,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <span className="text-4xl font-bold text-green-500 dark:text-green-300">
                 {APY}%{" "}
                 <span className="text-base text-gray-700 dark:text-gray-300">
-                  ROI
+                  APR
                 </span>
               </span>
 
