@@ -8,6 +8,7 @@ const UserContext = React.createContext({
     React.SetStateAction<boolean>
   >,
   isLoggedIn: false as boolean,
+  multipliers: 1 as number,
 });
 
 export default UserContext;

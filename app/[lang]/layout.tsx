@@ -139,8 +139,8 @@ export default function Layout({
             <AudioProvider>
               <Web3ModalProvider initialState={initialState}>
                 <SessionProviderComponent session={session}>
-                  <UserProvider lang={lang}>
-                    <PremiumProvider>
+                  <PremiumProvider>
+                    <UserProvider lang={lang}>
                       <LifeProvider lang={lang}>
                         <StreakProvider lang={lang}>
                           <LanguageProvider>
@@ -160,8 +160,8 @@ export default function Layout({
                           </LanguageProvider>
                         </StreakProvider>
                       </LifeProvider>
-                    </PremiumProvider>
-                  </UserProvider>
+                    </UserProvider>
+                  </PremiumProvider>
                 </SessionProviderComponent>
               </Web3ModalProvider>
             </AudioProvider>

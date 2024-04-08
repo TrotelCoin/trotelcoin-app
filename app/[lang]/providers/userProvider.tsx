@@ -1,13 +1,14 @@
 "use client";
 
 import { useAccount } from "wagmi";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import { useSession } from "next-auth/react";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const UserProvider = ({
   children,
@@ -23,9 +24,11 @@ const UserProvider = ({
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [multipliers, setMultipliers] = useState<number>(1);
 
   const { address } = useAccount();
   const { data: session } = useSession();
+  const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   useEffect(() => {
     if (session && address) {
@@ -98,6 +101,16 @@ const UserProvider = ({
     }
   }, [userNumberOfQuizzesAnsweredData]);
 
+  useEffect(() => {
+    if (isIntermediate) {
+      setMultipliers(3);
+    }
+
+    if (isExpert) {
+      setMultipliers(5);
+    }
+  }, [isIntermediate, isExpert]);
+
   const contextValue = useMemo(
     () => ({
       userTotalRewardsPending,
@@ -105,6 +118,7 @@ const UserProvider = ({
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
       isLoggedIn,
+      multipliers,
     }),
     [
       userTotalRewardsPending,
@@ -112,6 +126,7 @@ const UserProvider = ({
       alreadyAnsweredSatisfaction,
       setAlreadyAnsweredSatisfaction,
       isLoggedIn,
+      multipliers,
     ]
   );
 
