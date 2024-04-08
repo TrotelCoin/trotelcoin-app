@@ -19,6 +19,8 @@ import {
   thirstyDays,
   threeMonths,
 } from "@/data/staking/duration";
+import Image from "next/image";
+import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 
 const staking =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -139,34 +141,31 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         </span>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
-          <div>
-            {availableTrotelCoins.toLocaleString("en-US")}{" "}
-            <span className="font-semibold">TROTEL</span>
+          <div className="flex items-center gap-1">
+            {availableTrotelCoins.toLocaleString("en-US")} <TrotelCoinLogo />
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
-          <div>
-            {(stakedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
-            <span className="font-semibold">TROTEL</span>
+          <div className="flex items-center gap-1">
+            {Math.floor(stakedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
+            <TrotelCoinLogo />
           </div>
         </div>
         <div className="flex justify-between">
           <span>
             {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
           </span>
-          <div>
-            {(earnedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
-            <span className="font-semibold">TROTEL</span>
+          <div className="flex items-center gap-1">
+            {Math.floor(earnedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
+            <TrotelCoinLogo />
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
           <div>
-            {timeLeft.toLocaleString("en-US")}{" "}
-            <span className="font-semibold">
-              {lang === "en" ? "seconds" : "secondes"}
-            </span>
+            {Math.floor(timeLeft / 60).toLocaleString("en-US")}{" "}
+            <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
           </div>
         </div>
         <div className="flex justify-between">

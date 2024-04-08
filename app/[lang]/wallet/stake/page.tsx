@@ -23,6 +23,9 @@ import {
 import { Address, formatEther, Hash } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
+import * as Popover from "@radix-ui/react-popover";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import type { StakingVersion } from "@/types/web3/staking";
 
 const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
@@ -37,6 +40,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [isApproved, setIsApproved] = useState<boolean>(false);
   const [isMax, setIsMax] = useState<boolean>(false);
   const [approveConfirmed, setApproveConfirmed] = useState<boolean>(false);
+  const [version, setVersion] = useState<StakingVersion>("v2");
 
   const { address } = useAccount();
   const chainId = useChainId();
@@ -134,12 +138,60 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
       <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
         <div className="w-full flex flex-col flex-wrap bg-gray-50 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="px-4 flex flex-col gap-4">
-            <span className="text-4xl font-bold text-green-500 dark:text-green-300">
-              {APY}%{" "}
-              <span className="text-base text-gray-700 dark:text-gray-300">
-                ROI
+            <div className="flex items-center justify-between">
+              <span className="text-4xl font-bold text-green-500 dark:text-green-300">
+                {APY}%{" "}
+                <span className="text-base text-gray-700 dark:text-gray-300">
+                  ROI
+                </span>
               </span>
-            </span>
+
+              <Popover.Root>
+                <Popover.Trigger asChild>
+                  <button className="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 text-sm flex items-center gap-1">
+                    Staking {version}
+                    <span>
+                      <ChevronDownIcon className="w-4 h-4" />
+                    </span>
+                  </button>
+                </Popover.Trigger>
+                <Popover.Portal>
+                  <Popover.Content
+                    sideOffset={5}
+                    align="center"
+                    side="bottom"
+                    className="rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 w-36 shadow-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
+                  >
+                    <div className="p-2">
+                      <ul>
+                        <li>
+                          <button
+                            onClick={() => setVersion("v1")}
+                            className={`hover:bg-gray-100 dark:hover:bg-gray-700 p-2 flex items-center justify-between text-sm w-full text-left rounded-xl`}
+                          >
+                            {lang === "en" ? "Staking v1" : "Staking v1"}{" "}
+                            {version === "v1" && (
+                              <CheckIcon className="w-4 h-4" />
+                            )}
+                          </button>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => setVersion("v2")}
+                            className={`hover:bg-gray-100 dark:hover:bg-gray-700 p-2 flex items-center justify-between text-sm w-full text-left rounded-xl`}
+                          >
+                            {lang === "en" ? "Staking v2" : "Staking v2"}{" "}
+                            {version === "v2" && (
+                              <CheckIcon className="w-4 h-4" />
+                            )}
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </Popover.Content>
+                </Popover.Portal>
+              </Popover.Root>
+            </div>
 
             <div>
               <Period
