@@ -25,6 +25,8 @@ const UserProvider = ({
     useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [multipliers, setMultipliers] = useState<number>(1);
+  const [learningTime, setLearningTime] = useState<number>(0);
+  const [averageMark, setAverageMark] = useState<number>(0);
 
   const { address } = useAccount();
   const { data: session } = useSession();
@@ -51,6 +53,14 @@ const UserProvider = ({
     }
   );
 
+  useEffect(() => {
+    if (userTotalRewardsPendingData) {
+      setUserTotalRewardsPending(userTotalRewardsPendingData);
+    } else {
+      setUserTotalRewardsPending(0);
+    }
+  }, [userTotalRewardsPendingData]);
+
   const { data: alreadyAnsweredSatisfactionData } = useSWR(
     address
       ? `/api/database/getUserAlreadyAnsweredSatisfaction?wallet=${address}`
@@ -72,13 +82,43 @@ const UserProvider = ({
     }
   }, [alreadyAnsweredSatisfactionData]);
 
-  useEffect(() => {
-    if (userTotalRewardsPendingData) {
-      setUserTotalRewardsPending(userTotalRewardsPendingData);
-    } else {
-      setUserTotalRewardsPending(0);
+  const { data: learningTimeData } = useSWR(
+    `/api/database/getUserQuizzesTime?wallet=${address}`,
+    fetcher,
+    {
+      refreshInterval: refreshIntervalTime,
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
     }
-  }, [userTotalRewardsPendingData]);
+  );
+
+  useEffect(() => {
+    if (learningTimeData) {
+      setLearningTime(learningTimeData);
+    } else {
+      setLearningTime(0);
+    }
+  }, [learningTimeData]);
+
+  const { data: averageMarkData } = useSWR(
+    `/api/database/getUserAverageMark?wallet=${address}`,
+    fetcher,
+    {
+      refreshInterval: refreshIntervalTime,
+      revalidateIfStale: true,
+      revalidateOnMount: true,
+      revalidateOnReconnect: true,
+    }
+  );
+
+  useEffect(() => {
+    if (averageMarkData) {
+      setAverageMark(averageMarkData);
+    } else {
+      setAverageMark(0);
+    }
+  }, [averageMarkData]);
 
   const { data: userNumberOfQuizzesAnsweredData } = useSWR(
     address
@@ -119,6 +159,8 @@ const UserProvider = ({
       setAlreadyAnsweredSatisfaction,
       isLoggedIn,
       multipliers,
+      learningTime,
+      averageMark,
     }),
     [
       userTotalRewardsPending,
@@ -127,6 +169,8 @@ const UserProvider = ({
       setAlreadyAnsweredSatisfaction,
       isLoggedIn,
       multipliers,
+      learningTime,
+      averageMark,
     ]
   );
 

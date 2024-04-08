@@ -22,6 +22,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [badgesName, setBadgesName] = useState<BadgesNames>("ranks");
 
   const { address } = useAccount();
+  const { averageMark, learningTime } = useContext(UserContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -315,6 +316,84 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     },
   ];
 
+  const badgesMarks: Badges = [
+    {
+      id: 1,
+      name: lang === "en" ? "5/20 min." : "5/20 min.",
+      image: "🫠",
+      condition: averageMark ? averageMark >= 5 : null,
+      progress: averageMark ?? 0,
+      maxProgress: 5,
+    },
+    {
+      id: 2,
+      name: lang === "en" ? "10/20 min." : "10/20 min.",
+      image: "😣",
+      condition: averageMark ? averageMark >= 10 : null,
+      progress: averageMark ?? 0,
+      maxProgress: 10,
+    },
+    {
+      id: 3,
+      name: lang === "en" ? "15/20 min." : "15/20 min.",
+      image: "🫨",
+      condition: averageMark ? averageMark >= 15 : null,
+      progress: averageMark ?? 0,
+      maxProgress: 15,
+    },
+    {
+      id: 4,
+      name: lang === "en" ? "18/20 min." : "18/20 min.",
+      image: "🫡",
+      condition: averageMark ? averageMark >= 18 : null,
+      progress: averageMark ?? 0,
+      maxProgress: 18,
+    },
+    {
+      id: 5,
+      name: lang === "en" ? "20/20 min." : "20/20 min.",
+      image: "🤓",
+      condition: averageMark ? averageMark >= 20 : null,
+      progress: averageMark ?? 0,
+      maxProgress: 20,
+    },
+  ];
+
+  const badgesLearningTime: Badges = [
+    {
+      id: 1,
+      name: lang === "en" ? "1 hour" : "1 heure",
+      image: "⌛️",
+      condition: learningTime ? learningTime >= 3600000 : null,
+      progress: learningTime ?? 0,
+      maxProgress: 3600000,
+    },
+    {
+      id: 2,
+      name: lang === "en" ? "1 day" : "1 jour",
+      image: "⏳",
+      condition: learningTime ? learningTime >= 86400000 : null,
+      progress: learningTime ?? 0,
+      maxProgress: 86400000,
+    },
+    {
+      id: 3,
+      name: lang === "en" ? "1 week" : "1 semaine",
+      image: "🕰️",
+      condition: learningTime ? learningTime >= 604800000 : null,
+      progress: learningTime ?? 0,
+      maxProgress: 604800000,
+    },
+    {
+      id: 4,
+      name: lang === "en" ? "1 month" : "1 mois",
+      image: "⌚️",
+      condition: learningTime ? learningTime >= 2629746000 : null,
+      progress: learningTime ?? 0,
+      maxProgress: 2629746000,
+    },
+  ];
+
   const [badges, setBadges] = useState<Badge[]>(badgesRanks);
 
   return (
@@ -400,6 +479,32 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Staking duration" : "Durée de staking"}
+        </button>
+        <button
+          onClick={() => {
+            setBadges(badgesMarks);
+            setBadgesName("marks");
+          }}
+          className={`${
+            badgesName === "marks"
+              ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
+              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+        >
+          {lang === "en" ? "Marks" : "Marks"}
+        </button>
+        <button
+          onClick={() => {
+            setBadges(badgesLearningTime);
+            setBadgesName("learningTime");
+          }}
+          className={`${
+            badgesName === "learningTime"
+              ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
+              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+        >
+          {lang === "en" ? "Learning time" : "Learning time"}
         </button>
       </div>
       <BadgesList badges={badges} lang={lang} />

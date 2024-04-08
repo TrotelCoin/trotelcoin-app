@@ -9,6 +9,8 @@ const UserContext = React.createContext({
   >,
   isLoggedIn: false as boolean,
   multipliers: 1 as number,
+  learningTime: 0 as number,
+  averageMark: 0 as number,
 });
 
 export default UserContext;
