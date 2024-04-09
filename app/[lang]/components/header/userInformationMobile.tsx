@@ -23,7 +23,7 @@ const UserInformationMobile = ({
   isPremium: boolean;
 }) => {
   const { isIntermediate, isExpert } = useContext(PremiumContext);
-  const { multipliers } = useContext(UserContext);
+  const { multipliers, userLevel, averageMark } = useContext(UserContext);
 
   return (
     <>
@@ -60,6 +60,12 @@ const UserInformationMobile = ({
           </div>
           <div className="flex items-center">
             {userNumberOfQuizzesAnswered} 📚
+          </div>
+          <div className="flex items-center">
+            {lang === "en" ? "Level" : "Niveau"} {userLevel} 💊
+          </div>
+          <div className="flex items-center">
+            {Math.floor(averageMark)}/20 🤓
           </div>
         </div>
       </Marquee>

@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.5";
+const version = "1.9.6";
 
 interface ChangelogItem {
   title: string;
@@ -85,14 +85,8 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Shop is now available 🛍️"
-              : "- La boutique est maintenant disponible 🛍️",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Some courses need conditions to claim rewards"
-              : "- Certains cours ont des conditions pour récupérer les récompenses",
+              ? "- Staking v2 is live"
+              : "- Le staking v2 est disponible",
         },
         {
           text:

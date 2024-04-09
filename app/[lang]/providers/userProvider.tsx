@@ -9,6 +9,7 @@ import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import { useSession } from "next-auth/react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import { calculateUserLevel } from "@/utils/level";
 
 const UserProvider = ({
   children,
@@ -30,6 +31,7 @@ const UserProvider = ({
   const [multipliersItem, setMultipliersItem] = useState<number>(1);
   const [multipliersItemTimeLeft, setMultipliersItemTimeLeft] =
     useState<number>(0);
+  const [userLevel, setUserLevel] = useState<number>(1);
 
   const { address } = useAccount();
   const { data: session } = useSession();
@@ -183,6 +185,15 @@ const UserProvider = ({
     setMultipliers(multipliers);
   }, [isIntermediate, isExpert, multipliersItem, multipliersItemTimeLeft]);
 
+  useEffect(() => {
+    if (userNumberOfQuizzesAnswered) {
+      const level = calculateUserLevel(userNumberOfQuizzesAnswered);
+      setUserLevel(level.userLevel);
+    } else {
+      setUserLevel(1);
+    }
+  }, [userNumberOfQuizzesAnswered]);
+
   const contextValue = useMemo(
     () => ({
       userTotalRewardsPending,
@@ -195,6 +206,7 @@ const UserProvider = ({
       averageMark,
       multipliersItem,
       multipliersItemTimeLeft,
+      userLevel,
     }),
     [
       userTotalRewardsPending,
@@ -207,6 +219,7 @@ const UserProvider = ({
       averageMark,
       multipliersItem,
       multipliersItemTimeLeft,
+      userLevel,
     ]
   );
 
