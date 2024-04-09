@@ -2,13 +2,19 @@
 
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
-import { useAccount, useBalance, useBlockNumber, useSwitchChain } from "wagmi";
-import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
+import {
+  useAccount,
+  useBalance,
+  useBlockNumber,
+  useReadContract,
+  useSwitchChain,
+  useWriteContract,
+} from "wagmi";
+import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
 import "animate.css";
-import Success from "@/app/[lang]/components/modals/success";
 import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/blueButton";
 
@@ -17,33 +23,17 @@ const ApproveButton = ({
   amount,
   chainError,
   setChainError,
-  allowance,
-  setDisabled,
-  approvingAsync,
-  approveMessage,
-  setApproveMessage,
-  errorApproveMessage,
-  setErrorApproveMessage,
-  isApproved,
-  isPendingApproving,
   isMax,
 }: {
   lang: Lang;
   amount: number;
   chainError: boolean;
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
-  allowance: number;
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  approvingAsync: any;
-  approveMessage: boolean;
-  setApproveMessage: React.Dispatch<React.SetStateAction<boolean>>;
-  errorApproveMessage: boolean;
-  setErrorApproveMessage: React.Dispatch<React.SetStateAction<boolean>>;
-  isPendingApproving: boolean;
-  isApproved: boolean;
   isMax: boolean;
 }) => {
-  const [disabledApprove, setDisabledApprove] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
@@ -59,12 +49,24 @@ const ApproveButton = ({
     address: address,
   });
 
-  useEffect(() => {
-    refetchBalance();
-  }, [blockNumber]);
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setIsLoading(true);
+      },
+      onMutate: () => {
+        setIsLoading(true);
+      },
+      onError: () => {
+        setErrorMessage(true);
+        setIsLoading(false);
+      },
+    },
+  });
 
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
+      setErrorMessage(true);
       return;
     }
 
@@ -76,8 +78,8 @@ const ApproveButton = ({
       approveAmount = parseEther(String(amount));
     }
 
-    await approvingAsync({
-      args: [trotelCoinStakingV1, approveAmount],
+    await writeContractAsync({
+      args: [trotelCoinStakingV2, approveAmount],
       address: trotelCoinAddress,
       functionName: "approve",
       chainId: polygon.id,
@@ -86,45 +88,30 @@ const ApproveButton = ({
   };
 
   useEffect(() => {
-    if (amount && address && allowance < amount) {
-      setDisabledApprove(false);
-    } else {
-      setDisabledApprove(true);
-    }
-  }, [amount, address, allowance]);
-
-  useEffect(() => {
-    if (chainError && isPendingApproving) {
+    if (!Boolean(amount) || isLoading) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [chainError, isPendingApproving]);
+  }, [amount, isLoading]);
+
+  useEffect(() => {
+    refetchBalance();
+  }, [blockNumber]);
 
   return (
     <>
       <BlueButton
         lang={lang}
         onClick={() => approve(amount)}
-        disabled={disabledApprove}
+        disabled={disabled}
         text={lang === "en" ? "Approve" : "Approuver"}
-        isLoading={isPendingApproving || isApproved}
+        isLoading={isLoading}
       />
 
-      <Success
-        show={approveMessage}
-        onClose={() => setApproveMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Success" : "Succès"}
-        message={
-          lang === "en"
-            ? "You approved the amount"
-            : "Vous avez approuvé le montant"
-        }
-      />
       <Fail
-        show={errorApproveMessage}
-        onClose={() => setErrorApproveMessage(false)}
+        show={errorMessage}
+        onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={

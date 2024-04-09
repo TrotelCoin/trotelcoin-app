@@ -19,7 +19,6 @@ import {
   thirstyDays,
   threeMonths,
 } from "@/data/staking/duration";
-import Image from "next/image";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 
 const staking =

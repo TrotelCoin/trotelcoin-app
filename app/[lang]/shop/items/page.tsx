@@ -178,7 +178,6 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   ))}
               </ul>
               <span className="text-gray-700 dark:text-gray-300 text-sm">
-                {lang === "en" ? "Balance:" : "Solde:"}{" "}
                 {balance?.toLocaleString("en-US") ?? "0"} TROTEL
               </span>
             </div>
