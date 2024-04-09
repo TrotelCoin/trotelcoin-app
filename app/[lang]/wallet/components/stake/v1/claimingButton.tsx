@@ -40,6 +40,7 @@ const ClaimingButton = ({
   const [timestamp, setTimestamp] = useState<number | null>(null);
   const [blockFetched, setBlockFetched] = useState<boolean>(false);
   const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
@@ -60,9 +61,14 @@ const ClaimingButton = ({
     mutation: {
       onSuccess: () => {
         setClaimConfirmed(false);
+        setIsLoading(true);
+      },
+      onMutate: () => {
+        setIsLoading(true);
       },
       onError: () => {
         setErrorMessage(true);
+        setIsLoading(false);
       },
     },
   });
@@ -76,6 +82,7 @@ const ClaimingButton = ({
   useEffect(() => {
     if (claimConfirmation && Number(claimConfirmation) > 0 && !claimConfirmed) {
       setClaimMessage(true);
+      setIsLoading(false);
     }
   }, [claimConfirmation]);
 
@@ -126,12 +133,12 @@ const ClaimingButton = ({
 
   const claim = async () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
-      setNoStakedMessage(true);
+      setErrorMessage(true);
       return;
     }
 
     if (timeLeft > 0) {
-      setTimeNotFinishedMessage(true);
+      setErrorMessage(true);
       return;
     }
 
@@ -156,8 +163,8 @@ const ClaimingButton = ({
       <BlueButton
         lang={lang}
         onClick={() => claim()}
-        isLoading={isPending}
-        disabled={disabled}
+        isLoading={isPending || isLoading}
+        disabled={disabled || isLoading}
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
 
@@ -173,37 +180,11 @@ const ClaimingButton = ({
         }
       />
       <Fail
-        show={timeNotFinishedMessage}
-        lang={lang}
-        onClose={() => setTimeNotFinishedMessage(false)}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "You can't claim your rewards yet"
-            : "Vous ne pouvez pas encore réclamer vos récompenses"
-        }
-      />
-      <Fail
-        show={noStakedMessage}
-        lang={lang}
-        onClose={() => setNoStakedMessage(false)}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "You have no staked TrotelCoins"
-            : "Vous n'avez pas de TrotelCoins en staking"
-        }
-      />
-      <Fail
         show={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "There was an error claiming your rewards, you should have at least 0.02 MATIC"
-            : "Il y a eu une erreur en réclamant vos récompenses, vous devez avoir au moins 0.02 MATIC"
-        }
+        message={lang === "en" ? "There was an error" : "Il y a eu une erreur"}
       />
       <Fail
         show={chainError && Boolean(address)}

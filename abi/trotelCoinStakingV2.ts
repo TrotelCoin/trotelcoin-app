@@ -10,6 +10,20 @@ const trotelCoinStakingV2ABI = [
   {
     anonymous: false,
     inputs: [
+      { indexed: true, internalType: "address", name: "user", type: "address" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "IncreasedStaking",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
       { indexed: true, internalType: "bytes32", name: "role", type: "bytes32" },
       {
         indexed: true,
@@ -79,9 +93,9 @@ const trotelCoinStakingV2ABI = [
       },
       {
         indexed: false,
-        internalType: "uint256",
+        internalType: "uint32",
         name: "duration",
-        type: "uint256",
+        type: "uint32",
       },
     ],
     name: "Staked",
@@ -116,6 +130,19 @@ const trotelCoinStakingV2ABI = [
   },
   {
     inputs: [
+      {
+        internalType: "uint256",
+        name: "newMultiplierVotingPower",
+        type: "uint256",
+      },
+    ],
+    name: "changeMultiplierVotingPower",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
       { internalType: "uint256", name: "duration", type: "uint256" },
       { internalType: "uint256", name: "newAPR", type: "uint256" },
     ],
@@ -142,6 +169,13 @@ const trotelCoinStakingV2ABI = [
     inputs: [],
     name: "getDurations",
     outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getMultiplierVotingPower",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
@@ -232,7 +266,7 @@ const trotelCoinStakingV2ABI = [
   {
     inputs: [
       { internalType: "uint256", name: "amount", type: "uint256" },
-      { internalType: "uint256", name: "duration", type: "uint256" },
+      { internalType: "uint32", name: "duration", type: "uint32" },
     ],
     name: "stake",
     outputs: [],
@@ -243,9 +277,9 @@ const trotelCoinStakingV2ABI = [
     inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "stakings",
     outputs: [
-      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint256", name: "totalAmount", type: "uint256" },
       { internalType: "uint256", name: "startTime", type: "uint256" },
-      { internalType: "uint256", name: "duration", type: "uint256" },
+      { internalType: "uint32", name: "duration", type: "uint32" },
     ],
     stateMutability: "view",
     type: "function",
