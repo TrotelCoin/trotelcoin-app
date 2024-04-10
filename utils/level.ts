@@ -3,7 +3,6 @@ import { useEffect } from "react";
 export const calculateUserLevel = (quizzesCompleted: number) => {
   let userLevel = 1;
   let quizzesRequired = 1;
-  const quizzesInitiallyCompleted = quizzesCompleted;
 
   while (quizzesCompleted >= quizzesRequired) {
     quizzesCompleted -= quizzesRequired;
@@ -11,10 +10,7 @@ export const calculateUserLevel = (quizzesCompleted: number) => {
     quizzesRequired++;
   }
 
-  const quizzesRemaining =
-    userLevel > 1
-      ? (userLevel * (userLevel + 1)) / 2 - quizzesInitiallyCompleted
-      : 1;
+  const quizzesRemaining = quizzesRequired + 1 - quizzesCompleted;
 
   return {
     userLevel,
@@ -26,7 +22,6 @@ export const calculateUserLevel = (quizzesCompleted: number) => {
 export const calculateProgressPercentage = (quizzesCompleted: number) => {
   let userLevel = 1;
   let quizzesRequired = 1;
-  const quizzesInitiallyCompleted = quizzesCompleted;
 
   while (quizzesCompleted >= quizzesRequired) {
     quizzesCompleted -= quizzesRequired;
@@ -34,12 +29,7 @@ export const calculateProgressPercentage = (quizzesCompleted: number) => {
     quizzesRequired++;
   }
 
-  const quizzesRemaining =
-    userLevel > 1
-      ? (userLevel * (userLevel + 1)) / 2 - quizzesInitiallyCompleted
-      : 1;
-
-  return (quizzesRemaining / quizzesRequired) * 100;
+  return ((quizzesCompleted / quizzesRequired) * 100) % 100;
 };
 
 export const incrementWidth = (

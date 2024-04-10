@@ -57,7 +57,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
                 <li>
                   <button
                     onClick={() => onChangeLanguage(language)}
-                    className={`hover:bg-gray-100 dark:hover:bg-gray-700 block p-2 text-sm w-full text-left rounded-xl`}
+                    className={`hover:bg-gray-200 dark:hover:bg-gray-700 block p-2 text-sm w-full text-left rounded-xl`}
                   >
                     {language.label}
                   </button>
