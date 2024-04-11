@@ -120,7 +120,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
   }
 
-  // if quiz doesn't exist return error
+  // if quiz doesn't exist, create it if available
   if (!quizExistence || quizExistence.length === 0) {
     const isCourseAvailable = checkIfCourseIsAvailable(quizId);
 
