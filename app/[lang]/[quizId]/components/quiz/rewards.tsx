@@ -40,7 +40,8 @@ const Rewards = ({
 
   const { address } = useAccount();
   const { playAudio } = useContext(AudioContext);
-  const { multipliers, multipliersItemTimeLeft } = useContext(UserContext);
+  const { multipliers, multipliersItemTimeLeft, multipliersEnabled } =
+    useContext(UserContext);
 
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined;
@@ -118,7 +119,7 @@ const Rewards = ({
                       {lang === "en" ? `x${multipliers}` : `x${multipliers}`}
                     </span>
                   </div>
-                  {Boolean(formattedTimeLeft) && (
+                  {Boolean(formattedTimeLeft) && multipliersEnabled && (
                     <>
                       <SeparatorVertical />
                       <span>{formattedTimeLeft}</span>
