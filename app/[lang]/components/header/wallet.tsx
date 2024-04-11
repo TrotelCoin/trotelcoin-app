@@ -42,10 +42,6 @@ const Wallet = ({
   };
 
   const handleLogin = async () => {
-    await axios.post(`/api/postNewLearner?wallet=${address}`).catch((error) => {
-      console.error(error);
-    });
-
     try {
       const callbackUrl = "/protected";
       const message = new SiweMessage({
@@ -70,6 +66,10 @@ const Wallet = ({
     } catch (error) {
       window.alert(error);
     }
+
+    await axios.post(`/api/postNewLearner?wallet=${address}`).catch((error) => {
+      console.error(error);
+    });
   };
 
   return (

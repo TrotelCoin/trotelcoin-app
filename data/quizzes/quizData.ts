@@ -1295,6 +1295,86 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 15,
+    title: "EVM",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the EVM's role within the Ethereum network?",
+          fr: "Quel est le rôle de l'EVM au sein du réseau Ethereum ?",
+        },
+        options: {
+          en: [
+            "Executing smart contracts",
+            "Mining Ethereum",
+            "Securing transactions",
+            "Managing wallets",
+          ],
+          fr: [
+            "Exécuter les contrats intelligents",
+            "Miner Ethereum",
+            "Sécuriser les transactions",
+            "Gérer les portefeuilles",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What term is used to describe the unit of computation on the EVM?",
+          fr: "Quel terme est utilisé pour décrire l'unité de calcul sur l'EVM ?",
+        },
+        options: {
+          en: ["Gas", "Electricity", "Tokens", "Blocks"],
+          fr: ["Gas", "Électricité", "Jetons", "Blocs"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "Which type of applications can run on the Ethereum network using the EVM?",
+          fr: "Quel type d'applications peut fonctionner sur le réseau Ethereum en utilisant l'EVM ?",
+        },
+        options: {
+          en: [
+            "Decentralized applications (dApps)",
+            "Centralized applications",
+            "Mobile applications",
+            "Web applications",
+          ],
+          fr: [
+            "Applications décentralisées (dApps)",
+            "Applications centralisées",
+            "Applications mobiles",
+            "Applications Web",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What feature of the EVM makes it capable of executing any computation a Turing machine can?",
+          fr: "Quelle fonctionnalité de l'EVM lui permet d'exécuter n'importe quel calcul qu'une machine de Turing peut effectuer ?",
+        },
+        options: {
+          en: [
+            "Turing-complete",
+            "Turing-incomplete",
+            "Fast execution",
+            "Parallel processing",
+          ],
+          fr: [
+            "Complétude de Turing",
+            "Incomplétude de Turing",
+            "Exécution rapide",
+            "Traitement parallèle",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 16,
     title: "Stake your TrotelCoins",
     questions: [
