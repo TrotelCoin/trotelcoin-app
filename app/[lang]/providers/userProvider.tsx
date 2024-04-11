@@ -32,6 +32,7 @@ const UserProvider = ({
   const [multipliersItemTimeLeft, setMultipliersItemTimeLeft] =
     useState<number>(0);
   const [userLevel, setUserLevel] = useState<number>(1);
+  const [multipliersEnabled, setMultipliersEnabled] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { data: session } = useSession();
@@ -161,9 +162,11 @@ const UserProvider = ({
     if (userMultipliersData) {
       setMultipliersItem(userMultipliersData.multipliers);
       setMultipliersItemTimeLeft(userMultipliersData.timeLeft);
+      setMultipliersEnabled(userMultipliersData.multipliersEnabled);
     } else {
       setMultipliersItem(1);
       setMultipliersItemTimeLeft(0);
+      setMultipliersEnabled(false);
     }
   }, [userMultipliersData]);
 
@@ -207,6 +210,7 @@ const UserProvider = ({
       multipliersItem,
       multipliersItemTimeLeft,
       userLevel,
+      multipliersEnabled,
     }),
     [
       userTotalRewardsPending,
@@ -220,6 +224,7 @@ const UserProvider = ({
       multipliersItem,
       multipliersItemTimeLeft,
       userLevel,
+      multipliersEnabled,
     ]
   );
 
