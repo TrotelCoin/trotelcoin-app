@@ -46,6 +46,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }
   } else {
     try {
+      const { error: insertLearnerError } = await supabase
+        .from("learners")
+        .insert({
+          wallet: wallet as Address,
+          number_of_quizzes_answered: 0,
+          number_of_quizzes_created: 0,
+          total_rewards_pending: 0,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        });
+
+      if (insertLearnerError) {
+        console.error(insertLearnerError);
+        return NextResponse.json(3, { status: 500 });
+      }
+
       const { error } = await supabase.from("life").insert({ wallet, life });
 
       if (error) {
