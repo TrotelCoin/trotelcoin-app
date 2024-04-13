@@ -285,7 +285,7 @@ const Waitlist = ({
                           </div>
                         </>
                       ) : (
-                        <div className="flex gap-x-4">
+                        <div className="flex flex-col md:flex-row gap-4">
                           <label htmlFor="email-address" className="sr-only">
                             Email address
                           </label>
@@ -296,7 +296,7 @@ const Waitlist = ({
                             autoComplete="email"
                             required
                             onChange={(e) => setMail(e.target.value)}
-                            className="min-w-0 flex-auto rounded-xl border-0 px-3 py-2 text-gray-900 dark:text-gray-100 shadow ring-1 ring-inset ring-gray-900/10 dark:ring-gray-100/10 placeholder:text-gray-300 dark:placeholder:text-gray-700 focus:ring-2 focus:ring-inset focus:ring-blue-500 dark:focus:ring-blue-300 sm:text-sm sm:leading-6"
+                            className="min-w-0 flex-auto bg-gray-50 dark:bg-gray-800 rounded-xl px-3 py-2 text-gray-900 dark:text-gray-100 shadow border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-300 dark:placeholder:text-gray-700 focus:outline-none sm:text-sm sm:leading-6"
                             placeholder={
                               lang === "en"
                                 ? "Enter your email"
