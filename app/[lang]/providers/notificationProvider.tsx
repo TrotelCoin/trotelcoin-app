@@ -10,6 +10,7 @@ import StreakContext from "@/app/[lang]/contexts/streakContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { NotificationType } from "@/types/notifications/notifications";
 import { addNotificationToQueue } from "@/lib/notifications/notifications";
+import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const NotificationProvider = ({
   children,
@@ -31,6 +32,7 @@ const NotificationProvider = ({
   const { streakResetMessage, streakMessage, lostStreak } =
     useContext(StreakContext);
   const { isLoggedIn } = useContext(UserContext);
+  const { isEarly } = useContext(PremiumContext);
 
   useEffect(() => {
     const delayTimer = setTimeout(() => {
@@ -87,66 +89,75 @@ const NotificationProvider = ({
   return (
     <>
       <>{children}</>
-      <SuccessNotification
-        title={lang === "en" ? "Your lives" : "Vos vies"}
-        display={currentNotification === "lifeResetMessage"}
-        message={
-          lang === "en"
-            ? "You have all your lives!"
-            : "Vous avez toutes vos vies!"
-        }
-        lang={lang}
-        onDismiss={() => setIsNotificationShowing(false)}
-      />
-      <SuccessNotification
-        title={lang === "en" ? "Your streak" : "Votre série"}
-        display={currentNotification === "streakResetMessage"}
-        message={
-          lang === "en"
-            ? "You can do your streak!"
-            : "Vous pouvez faire vos flammes!"
-        }
-        lang={lang}
-        onDismiss={() => setIsNotificationShowing(false)}
-      />
-      <WarningNotification
-        title={lang === "en" ? "Not connected" : "Non connecté"}
-        message={
-          lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
-        }
-        lang={lang}
-        display={currentNotification === "notLoggedIn"}
-        onDismiss={() => setIsNotificationShowing(false)}
-      />
-      <WarningNotification
-        title={lang === "en" ? "Streak lost" : "Série perdue"}
-        message={
-          lang === "en"
-            ? "You have lost your streak."
-            : "Vous avez perdu votre série."
-        }
-        lang={lang}
-        display={currentNotification === "lostStreak"}
-        onDismiss={() => setIsNotificationShowing(false)}
-      />
-      <SuccessNotification
-        title={lang === "en" ? "Connected" : "Connecté"}
-        message={lang === "en" ? "You are connected." : "Vous êtes connecté."}
-        lang={lang}
-        display={currentNotification === "loggedIn"}
-        onDismiss={() => setIsNotificationShowing(false)}
-      />
-      <SuccessNotification
-        title={lang === "en" ? "Streak updated" : "Série mise ) jour"}
-        message={
-          lang === "en"
-            ? "Your streak has been updated."
-            : "Votre série a été mise à jour."
-        }
-        lang={lang}
-        display={currentNotification === "streakUpdated"}
-        onDismiss={() => setIsNotificationShowing(false)}
-      />
+
+      {isEarly && ( // to change
+        <>
+          <SuccessNotification
+            title={lang === "en" ? "Your lives" : "Vos vies"}
+            display={currentNotification === "lifeResetMessage"}
+            message={
+              lang === "en"
+                ? "You have all your lives!"
+                : "Vous avez toutes vos vies!"
+            }
+            lang={lang}
+            onDismiss={() => setIsNotificationShowing(false)}
+          />
+          <SuccessNotification
+            title={lang === "en" ? "Your streak" : "Votre série"}
+            display={currentNotification === "streakResetMessage"}
+            message={
+              lang === "en"
+                ? "You can do your streak!"
+                : "Vous pouvez faire vos flammes!"
+            }
+            lang={lang}
+            onDismiss={() => setIsNotificationShowing(false)}
+          />
+          <WarningNotification
+            title={lang === "en" ? "Not connected" : "Non connecté"}
+            message={
+              lang === "en"
+                ? "You are not connected."
+                : "Vous n'êtes pas connecté."
+            }
+            lang={lang}
+            display={currentNotification === "notLoggedIn"}
+            onDismiss={() => setIsNotificationShowing(false)}
+          />
+          <WarningNotification
+            title={lang === "en" ? "Streak lost" : "Série perdue"}
+            message={
+              lang === "en"
+                ? "You have lost your streak."
+                : "Vous avez perdu votre série."
+            }
+            lang={lang}
+            display={currentNotification === "lostStreak"}
+            onDismiss={() => setIsNotificationShowing(false)}
+          />
+          <SuccessNotification
+            title={lang === "en" ? "Connected" : "Connecté"}
+            message={
+              lang === "en" ? "You are connected." : "Vous êtes connecté."
+            }
+            lang={lang}
+            display={currentNotification === "loggedIn"}
+            onDismiss={() => setIsNotificationShowing(false)}
+          />
+          <SuccessNotification
+            title={lang === "en" ? "Streak updated" : "Série mise ) jour"}
+            message={
+              lang === "en"
+                ? "Your streak has been updated."
+                : "Votre série a été mise à jour."
+            }
+            lang={lang}
+            display={currentNotification === "streakUpdated"}
+            onDismiss={() => setIsNotificationShowing(false)}
+          />
+        </>
+      )}
     </>
   );
 };

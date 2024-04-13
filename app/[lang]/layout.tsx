@@ -34,6 +34,7 @@ import NotificationProvider from "@/app/[lang]/providers/notificationProvider";
 import { cookieToInitialState } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
 import { headers } from "next/headers";
+import Waitlist from "@/app/[lang]/components/waitlist";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -146,15 +147,19 @@ export default function Layout({
                           <LanguageProvider>
                             <NotificationProvider lang={lang}>
                               <Suspense fallback={<Loading lang={lang} />}>
-                                <Banner lang={lang} />
-                                <Changelogs lang={lang} />
-                                <Header lang={lang} />
-                                <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
-                                  {children}
-                                </main>
-                                <Footer lang={lang} />
-                                <MobileFooter lang={lang} />
-                                <BlockNumber lang={lang} />
+                                <Waitlist lang={lang}>
+                                  <Banner lang={lang} />
+                                  <Changelogs lang={lang} />
+                                  <Header lang={lang} />
+
+                                  <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                                    {children}
+                                  </main>
+
+                                  <Footer lang={lang} />
+                                  <MobileFooter lang={lang} />
+                                  <BlockNumber lang={lang} />
+                                </Waitlist>
                               </Suspense>
                             </NotificationProvider>
                           </LanguageProvider>
