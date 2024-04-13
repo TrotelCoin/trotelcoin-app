@@ -223,7 +223,7 @@ const Waitlist = ({
                 <div className="flex flex-col gap-4 max-w-4xl mx-8">
                   {!isWaiting && (
                     <div className="flex justify-center">
-                      <div className="relative rounded-full px-3 py-1 text-xs leading-6 text-gray-700 dark:text-gray-300 ring-1 ring-gray-900 hover:ring-gray-700 dark:ring-gray-100 dark:hover:ring-gray-300 animate__animated animate__bounceIn">
+                      <div className="relative rounded-full px-3 py-1 text-xs leading-6 text-gray-700 dark:text-gray-300 ring-1 ring-gray-700 dark:ring-gray-300 animate__animated animate__bounceIn">
                         <span className="font-semibold">
                           {early ? (
                             <>
