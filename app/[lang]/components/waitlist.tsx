@@ -233,9 +233,7 @@ const Waitlist = ({
                             <>0+</>
                           )}
                         </span>{" "}
-                        {lang === "en"
-                          ? "learners joined"
-                          : "étudiants ont rejoint"}
+                        {lang === "en" ? "learners already" : "étudiants déjà"}
                       </div>
                     </div>
                   )}
@@ -339,14 +337,14 @@ const Waitlist = ({
                 {lang === "en" ? (
                   <>
                     <span className="text-blue-500 dark:text-blue-300">
-                      learners
+                      future learners
                     </span>{" "}
                     in the waitlist
                   </>
                 ) : (
                   <>
                     <span className="text-blue-500 dark:text-blue-300">
-                      étudiants
+                      futurs étudiants
                     </span>{" "}
                     dans la liste d'attente
                   </>
