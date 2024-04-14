@@ -2,14 +2,20 @@ import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const { count, error: learnerWaitlistErrorLength } = await supabase
+  const { data, error: learnerWaitlistErrorLength } = await supabase
     .from("waitlist")
-    .select("*", { count: "exact", head: true });
+    .select("*");
 
   if (learnerWaitlistErrorLength) {
     console.error(learnerWaitlistErrorLength);
     return NextResponse.json(learnerWaitlistErrorLength, { status: 500 });
   }
 
-  return NextResponse.json(count ?? 0, { status: 200 });
+  let length: number = 0;
+
+  if (data.length > 0) {
+    length = data.filter((entry) => !entry.granted).length;
+  }
+
+  return NextResponse.json(length, { status: 200 });
 }

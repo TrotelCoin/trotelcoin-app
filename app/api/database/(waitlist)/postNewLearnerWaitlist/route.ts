@@ -44,14 +44,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
   // anticipate user position
   let position: number = 0;
   const { data: learnerWaitlistLength, error: learnerWaitlistErrorLength } =
-    await supabase.from("waitlist").select("wallet");
+    await supabase.from("waitlist").select("wallet, granted");
 
   if (learnerWaitlistErrorLength) {
     console.error(learnerWaitlistErrorLength);
     return NextResponse.json(learnerWaitlistErrorLength, { status: 500 });
   }
 
-  position = learnerWaitlistLength.length + 1;
+  position = learnerWaitlistLength.filter((entry) => !entry.granted).length + 1;
 
   // add user to waitlist if doesn't exist
   const { data: learnerWaitlist, error: learnerWaitlistError } = await supabase
