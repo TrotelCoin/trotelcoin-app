@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   const { data: learnerWaitlist, error: learnerWaitlistError } = await supabase
     .from("waitlist")
-    .select("created_at, wallet")
+    .select("created_at, wallet, granted")
     .order("created_at", { ascending: true });
 
   if (learnerWaitlistError) {
@@ -24,10 +24,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
   let position: number = 0;
 
   if (learnerWaitlist.length > 0) {
-    learnerWaitlist.sort(
-      (a, b) =>
-        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-    );
+    learnerWaitlist
+      .filter((entry) => !entry.granted)
+      .sort(
+        (a, b) =>
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
 
     position = learnerWaitlist.findIndex((entry) => entry.wallet === wallet);
     if (position !== -1) {
