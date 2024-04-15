@@ -145,15 +145,13 @@ const QuizComponent = ({
             address as Address,
             numberOfWrongAnswers,
             totalQuestions
-          ).catch((error) => console.error(error));
+          );
 
           const endTime = new Date().getTime();
 
           const diffTime = endTime - startTime; // in ms
 
-          await postQuizzesTime(quizId, address as Address, diffTime).catch(
-            (error) => console.error(error)
-          );
+          await postQuizzesTime(quizId, address as Address, diffTime);
         }
       }
     } else {

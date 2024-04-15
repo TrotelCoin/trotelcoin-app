@@ -103,6 +103,7 @@ const StreakProvider = ({
 
   const updateStreak = async (address: Address) => {
     setIsStreakLoading(true);
+
     await axios
       .post(`/api/database/postUpdateStreak?wallet=${address}`)
       .then(() => {

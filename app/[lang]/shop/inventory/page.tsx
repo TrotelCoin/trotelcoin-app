@@ -48,11 +48,9 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setRefreshing(true);
       setInventories(null);
 
-      await fetchInventory(totalItems, address)
-        .then((newInventories) => {
-          setInventories(newInventories);
-        })
-        .catch((error) => console.error(error));
+      await fetchInventory(totalItems, address).then((newInventories) => {
+        setInventories(newInventories);
+      });
 
       setRefreshing(false);
     }

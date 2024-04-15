@@ -27,18 +27,19 @@ const CoursesSatisfaction = ({
 
   const postSatisfaction = (rating: number) => {
     if (rating) {
-      axios
-        .post(
-          `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
-        )
-        .then(() => {
-          setSatisfactionMessage(true);
-          setRated(true);
-        })
-        .catch((error) => {
-          console.error(error);
-          setErrorMessage(true);
-        });
+      try {
+        axios
+          .post(
+            `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
+          )
+          .then(() => {
+            setSatisfactionMessage(true);
+            setRated(true);
+          });
+      } catch (error) {
+        console.error(error);
+        setErrorMessage(true);
+      }
     }
   };
 

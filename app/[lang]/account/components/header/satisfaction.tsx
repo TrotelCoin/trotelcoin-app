@@ -18,13 +18,10 @@ const Satisfaction = ({ lang }: { lang: Lang }) => {
   const satisfactionResult = async (number: number) => {
     setIsResultLoading(true);
     if (number && address) {
-      await axios
-        .post(
-          `/api/database/postUserSatisfaction?number=${number}&wallet=${address}`
-        )
-        .catch((error) => {
-          console.error(error);
-        });
+      await axios.post(
+        `/api/database/postUserSatisfaction?number=${number}&wallet=${address}`
+      );
+
       setAlreadyAnsweredSatisfaction(true);
     } else {
       setAlreadyAnsweredSatisfaction(false);

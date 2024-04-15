@@ -26,11 +26,7 @@ const LifeProvider = ({
   const { isNotPremium } = useContext(PremiumContext);
 
   const updateLife = async () => {
-    await axios
-      .post(`/api/database/postUpdateLife?wallet=${address}`)
-      .catch((error) => {
-        console.error(error);
-      });
+    await axios.post(`/api/database/postUpdateLife?wallet=${address}`);
 
     setLife(life - 1);
   };

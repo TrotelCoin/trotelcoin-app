@@ -21,11 +21,7 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = async () => {
-      await axios
-        .post(`/api/database/postNewLearner?wallet=${address}`)
-        .catch((error) => {
-          console.error(error);
-        });
+      await axios.post(`/api/database/postNewLearner?wallet=${address}`);
     };
 
     if (address) {
