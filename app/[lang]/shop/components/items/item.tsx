@@ -81,10 +81,6 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   }, [allowanceData]);
 
   useEffect(() => {
-    refetchAllowance();
-  }, [address, blockNumber]);
-
-  useEffect(() => {
     if (allowance) {
       if (allowance >= shopItem.price) {
         setNeedApproval(false);
@@ -190,6 +186,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   }, [shopItem]);
 
   useEffect(() => {
+    refetchAllowance();
     refetchApprovedConfirmation();
     refetchPurchaseConfirmation();
   }, [blockNumber]);

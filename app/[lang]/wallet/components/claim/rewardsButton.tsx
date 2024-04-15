@@ -171,12 +171,12 @@ const RewardsButton = ({
   };
 
   useEffect(() => {
-    if (address && availableToClaim > 0) {
+    if (address && availableToClaim > 0 && !isLoading) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [address, availableToClaim]);
+  }, [address, availableToClaim, isLoading]);
 
   return (
     <>
