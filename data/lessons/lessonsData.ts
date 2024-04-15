@@ -380,6 +380,27 @@ const lessons: Lessons[] = [
       },
     ],
   },
+  {
+    category: "Trading",
+    courses: [
+      {
+        title: { en: "Day Trading", fr: "Day Trading" },
+        description: {
+          en: "Discover the notion of Day Trading.",
+          fr: "Découvrez la notion de Day Trading.",
+        },
+        href: "/trading/day-trading",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 19,
+        available: true,
+      },
+    ],
+  },
 ];
 
 export default lessons;
