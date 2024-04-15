@@ -82,7 +82,8 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
 
   useEffect(() => {
     if (allowance) {
-      if (allowance >= shopItem.price) {
+      const quantity = shopItem.quantity ? shopItem.quantity : 1;
+      if (allowance >= shopItem.price * quantity) {
         setNeedApproval(false);
       } else {
         setNeedApproval(true);
@@ -90,7 +91,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     } else {
       setNeedApproval(true);
     }
-  }, [allowance]);
+  }, [allowance, shopItem]);
 
   const { writeContractAsync: approve, data: approveHash } = useWriteContract({
     mutation: {
