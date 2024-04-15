@@ -131,48 +131,39 @@ const RewardsButton = ({
     if (availableToClaim && availableToClaim > 0) {
       const gasAmount: string = "0.02";
 
-      // make transaction to pay central wallet
-      await sendTransactionAsync({
-        to: centralWalletAddress,
-        value: parseEther(gasAmount),
-      }).catch((error) => console.error(error));
+      try {
+        // make transaction to pay central wallet
+        await sendTransactionAsync({
+          to: centralWalletAddress,
+          value: parseEther(gasAmount),
+        });
 
-      if (errorHappened) {
-        setIsLoading(false);
+        setAvailableToClaim(0);
+
+        // make minting transaction
+        const hash = await axios
+          .post(
+            `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
+          )
+          .then((response) => response.data.hash);
+
+        setTransactionHash(hash);
+
+        // reset database pending rewards
+        await axios
+          .post(`/api/database/postResetRewardsPending?wallet=${address}`)
+          .then((response) => {
+            if (!response.data.success) {
+              setErrorMessage(true);
+              setIsLoading(false);
+            }
+          });
+      } catch (error) {
+        console.error(error);
         setErrorMessage(true);
-        return;
+      } finally {
+        setIsLoading(false);
       }
-
-      setAvailableToClaim(0);
-
-      // make minting transaction
-      const hash = await axios
-        .post(
-          `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
-        )
-        .then((response) => response.data.hash)
-        .catch((error) => {
-          console.error(error);
-          setErrorMessage(true);
-          setIsLoading(false);
-        });
-
-      setTransactionHash(hash);
-
-      // reset database pending rewards
-      await axios
-        .post(`/api/database/postResetRewardsPending?wallet=${address}`)
-        .then((response) => {
-          if (!response.data.success) {
-            setErrorMessage(true);
-            setIsLoading(false);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          setErrorMessage(true);
-          setIsLoading(false);
-        });
     } else {
       setNothingToClaimMessage(true);
       setIsLoading(false);
