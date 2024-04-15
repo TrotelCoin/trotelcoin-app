@@ -177,7 +177,7 @@ const QuizComponent = ({
     const fetchQuizData = async () => {
       const result = await loadQuizData(quizId, lang);
 
-      const { quiz, answers } = JSON.parse(result);
+      const { quiz, answers } = JSON.parse(result as string);
 
       setQuestions(quiz);
       setCorrectAnswers(answers);
