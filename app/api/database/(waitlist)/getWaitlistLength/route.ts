@@ -17,5 +17,5 @@ export async function GET(req: NextRequest, res: NextResponse) {
     length = data.filter((entry) => !entry.granted).length;
   }
 
-  return NextResponse.json(length, { status: 200 });
+  return NextResponse.json(length, { status: 200, headers: { "Cache-Control": "no-store" } });
 }

@@ -79,5 +79,5 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
   }
 
-  return NextResponse.json(position, { status: 200 });
+  return NextResponse.json(position, { status: 200, headers: { "Cache-Control": "no-store" } });
 }

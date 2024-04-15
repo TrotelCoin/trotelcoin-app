@@ -40,6 +40,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   return NextResponse.json(
     { isWaiting: isWaiting, position: position },
-    { status: 200 }
+    { status: 200, headers: { "Cache-Control": "no-store" } }
   );
 }
