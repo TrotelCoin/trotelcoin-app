@@ -1692,6 +1692,138 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 19,
+    title: "Day Trading",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the primary activity in day trading?",
+          fr: "Quelle est l'activité principale dans le day trading ?",
+        },
+        options: {
+          en: [
+            "Making multiple trades within a single day",
+            "Long-term investing",
+            "Holding assets indefinitely",
+            "Speculating on future trends",
+          ],
+          fr: [
+            "Effectuer de multiples transactions en une seule journée",
+            "Investissement à long terme",
+            "Détenir des actifs indéfiniment",
+            "Spéculer sur les tendances futures",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is the main goal of day traders?",
+          fr: "Quel est l'objectif principal des day traders ?",
+        },
+        options: {
+          en: [
+            "Profiting from small price fluctuations",
+            "Holding assets for years",
+            "Predicting long-term market trends",
+            "Avoiding short-term trades",
+          ],
+          fr: [
+            "Tirer profit des petites fluctuations de prix",
+            "Détenir des actifs pendant des années",
+            "Prédire les tendances du marché à long terme",
+            "Éviter les transactions à court terme",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What historical change has impacted participation in stock trading?",
+          fr: "Quel changement historique a impacté la participation au trading boursier ?",
+        },
+        options: {
+          en: [
+            "Advancements in technology democratizing access",
+            "Increased regulation by governments",
+            "Decrease in market volatility",
+            "Rise of traditional banking institutions",
+          ],
+          fr: [
+            "Les progrès technologiques démocratisant l'accès",
+            "Augmentation de la réglementation par les gouvernements",
+            "Baisse de la volatilité du marché",
+            "Montée des institutions bancaires traditionnelles",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What caution should beginners consider before starting day trading?",
+          fr: "Quelle prudence les débutants doivent-ils considérer avant de commencer le day trading ?",
+        },
+        options: {
+          en: [
+            "Gaining knowledge before starting",
+            "Jumping into trading without research",
+            "Using all available funds for trading",
+            "Ignoring market trends",
+          ],
+          fr: [
+            "Acquérir des connaissances avant de commencer",
+            "Se lancer dans le trading sans recherche",
+            "Utiliser tous les fonds disponibles pour le trading",
+            "Ignorer les tendances du marché",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What advantage does the cryptocurrency market offer for day trading?",
+          fr: "Quel avantage le marché des cryptomonnaies offre-t-il pour le day trading ?",
+        },
+        options: {
+          en: [
+            "Operates 24/7 and high volatility",
+            "Operates only during business hours",
+            "Stable prices with minimal fluctuations",
+            "Predictable market movements",
+          ],
+          fr: [
+            "Fonctionne 24h/24 et 7j/7 et haute volatilité",
+            "Fonctionne uniquement pendant les heures de travail",
+            "Prix stables avec des fluctuations minimales",
+            "Mouvements de marché prévisibles",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "What is a key feature of cryptocurrency exchanges for day traders?",
+          fr: "Quelle est une caractéristique clé des plateformes d'échange de cryptomonnaies pour les day traders ?",
+        },
+        options: {
+          en: [
+            "Transparency and no hidden fees",
+            "High fees and lack of transparency",
+            "Limited trading hours",
+            "Complex trading interfaces",
+          ],
+          fr: [
+            "Transparence et absence de frais cachés",
+            "Frais élevés et manque de transparence",
+            "Heures de trading limitées",
+            "Interfaces de trading complexes",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

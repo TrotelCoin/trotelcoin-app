@@ -77,6 +77,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Introduction to DAOs"
               : "- Introduction aux DAOs",
         },
+        {
+          text: lang === "en" ? "- Day Trading" : "- Day Trading",
+        },
       ],
     },
     {
@@ -104,6 +107,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We have been audited"
               : "- Nous avons été audités",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We started some marketing operations"
+              : "- Nous avons commencé les opérations marketing",
         },
       ],
     },

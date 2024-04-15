@@ -12,8 +12,24 @@ export interface Lesson {
   available: boolean;
 }
 
+export type LessonCategory =
+  | "TrotelCoin"
+  | "Wallet"
+  | "Blockchain"
+  | "Bitcoin"
+  | "Ethereum"
+  | "Governance"
+  | "Stablecoins"
+  | "Web3"
+  | "DeFi"
+  | "GameFi"
+  | "Metaverse"
+  | "NFTs"
+  | "Altcoins"
+  | "Trading";
+
 export interface Lessons {
-  category: string;
+  category: LessonCategory;
   courses: Lesson[];
 }
 
