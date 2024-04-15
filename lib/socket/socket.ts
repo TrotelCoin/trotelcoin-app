@@ -30,8 +30,7 @@ export const getQuote = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -52,8 +51,7 @@ export const getRouteTransactionData = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -75,8 +73,7 @@ export const checkAllowance = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -99,8 +96,7 @@ export const getApprovalTransactionData = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -121,8 +117,7 @@ export const getBridgeStatus = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -142,8 +137,7 @@ export const getFromTokenList = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -163,8 +157,7 @@ export const getToTokenList = async (
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -181,8 +174,7 @@ export const getTokenPrice = async (tokenAddress: Address, chainId: number) => {
         },
       }
     )
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -196,8 +188,7 @@ export const getChainList = async () => {
         "Content-Type": "application/json",
       },
     })
-    .then((response) => response.data)
-    .catch((error) => console.error(error));
+    .then((response) => response.data);
 
   return response;
 };
@@ -243,13 +234,13 @@ export const fetchQuote = async (
     toChain.chainId,
     toToken.address,
     fromAmountDecimals,
-    userAddress as Address,
+    userAddress,
     uniqueRoutesPerBridge,
     sort,
     singleTxOnly,
     enableRefuel,
     slippage
-  ).catch((error) => console.error(error));
+  );
 
   if (!quote) {
     throw Error;
@@ -270,10 +261,7 @@ export const fetchQuote = async (
   setProtocolIcon(route.userTxs[0]?.protocol?.icon);
   setMinimumAmountOut(route.userTxs[0]?.minAmountOut);
 
-  const apiReturnData = await getRouteTransactionData(
-    route,
-    enableRefuel
-  ).catch((error) => console.error(error));
+  const apiReturnData = await getRouteTransactionData(route, enableRefuel);
 
   setApiReturnData(apiReturnData);
 
@@ -304,18 +292,13 @@ export const fetchSupportedChains = async () => {
         "Content-Type": "application/json",
       },
     })
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-    });
+    .then((response) => response.data);
 
   return response;
 };
 
 export const isRefuelSupported = async (fromChain: Chain, toChain: Chain) => {
-  const { result: chains } = await fetchSupportedChains().catch((error) =>
-    console.error(error)
-  );
+  const { result: chains } = await fetchSupportedChains();
 
   const fromChainResponse = chains.filter((chain: SocketChain) => {
     return chain.chainId === fromChain.chainId;

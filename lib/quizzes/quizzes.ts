@@ -33,13 +33,9 @@ export const postQuizzesResult = async (
   numberOfWrongAnswers: number,
   totalQuestions: number
 ) => {
-  await axios
-    .post(
-      `/api/database/postQuizzesResult?quizId=${quizId}&wallet=${address}&numberOfWrongAnswers=${numberOfWrongAnswers}&totalQuestions=${totalQuestions}`
-    )
-    .catch((error) => {
-      console.error(error);
-    });
+  await axios.post(
+    `/api/database/postQuizzesResult?quizId=${quizId}&wallet=${address}&numberOfWrongAnswers=${numberOfWrongAnswers}&totalQuestions=${totalQuestions}`
+  );
 };
 
 export const postQuizzesTime = async (
@@ -47,11 +43,9 @@ export const postQuizzesTime = async (
   address: Address,
   diffTime: number
 ) => {
-  await axios
-    .post(
-      `/api/database/postQuizzesTime?quizId=${quizId}&wallet=${address}&diffTime=${diffTime}`
-    )
-    .catch((error) => console.error(error));
+  await axios.post(
+    `/api/database/postQuizzesTime?quizId=${quizId}&wallet=${address}&diffTime=${diffTime}`
+  );
 };
 
 export const checkIfCourseIsAvailable = (quizId: number): boolean => {

@@ -18,157 +18,76 @@ export const useItem = async (
 ) => {
   setIsLoading(true);
 
-  let errorEncountered: boolean = false;
-
   if (address && item) {
-    switch (item) {
-      case "Potion":
-        await axios
-          .post(`/api/items/usePotion?wallet=${address}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "Castle":
-        await axios
-          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "Watch":
-        await axios
-          .post(`/api/items/useWatch?wallet=${address}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "Clock":
-        await axios
-          .post(`/api/items/useClock?wallet=${address}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "Closed Lock":
-        await axios
-          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "Hourglass":
-        await axios
-          .post(`/api/items/useHourglass?wallet=${address}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "King":
-        await axios
-          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "Shield":
-        await axios
-          .post(`/api/items/useShields?wallet=${address}&shieldName=${item}`)
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "x2":
-        await axios
-          .post(
+    try {
+      switch (item) {
+        case "Potion":
+          await axios.post(`/api/items/usePotion?wallet=${address}`);
+          break;
+        case "Castle":
+          await axios.post(
+            `/api/items/useShields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "Watch":
+          await axios.post(`/api/items/useWatch?wallet=${address}`);
+          break;
+        case "Clock":
+          await axios.post(`/api/items/useClock?wallet=${address}`);
+          break;
+        case "Closed Lock":
+          await axios.post(
+            `/api/items/useShields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "Hourglass":
+          await axios.post(`/api/items/useHourglass?wallet=${address}`);
+          break;
+        case "King":
+          await axios.post(
+            `/api/items/useShields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "Shield":
+          await axios.post(
+            `/api/items/useShields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "x2":
+          await axios.post(
             `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
-          )
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "x5":
-        await axios
-          .post(
+          );
+          break;
+        case "x5":
+          await axios.post(
             `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
-          )
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "x10":
-        await axios
-          .post(
+          );
+          break;
+        case "x10":
+          await axios.post(
             `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
-          )
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      case "x25":
-        await axios
-          .post(
+          );
+          break;
+        case "x25":
+          await axios.post(
             `/api/items/useMultipliers?wallet=${address}&multipliersName=${item}`
-          )
-          .catch((error) => {
-            console.error(error);
-            setErrorMessage(true);
-            setIsLoading(false);
-            errorEncountered = true;
-          });
-        break;
-      default:
-        break;
-    }
+          );
+          break;
+        default:
+          break;
+      }
 
-    await axios
-      .post(
+      await axios.post(
         `/api/database/postUserUpdateNumberOfUsedItems?address=${address}&item=${item}`
-      )
-      .catch((error) => {
-        console.error(error);
-        setErrorMessage(true);
-        setIsLoading(false);
-      });
+      );
 
-    if (!errorEncountered) {
       setItemsUsedMessage(true);
       setQuantity((prev) => (prev ? prev - 1 : null));
-    } else {
+    } catch (error) {
+      console.error(error);
       setErrorMessage(true);
+    } finally {
+      setIsLoading(false);
     }
   } else {
     setErrorMessage(true);

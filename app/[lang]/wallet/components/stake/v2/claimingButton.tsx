@@ -143,7 +143,7 @@ const ClaimingButton = ({
       functionName: "unstake",
       chainId: polygon.id,
       abi: trotelCoinStakingV2ABI,
-    }).catch((error) => console.error(error));
+    });
   };
 
   useEffect(() => {

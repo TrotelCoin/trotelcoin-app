@@ -129,7 +129,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       chainId: polygon.id,
                       to: trotelCoinDAOAddress,
                       value: parseEther("0.01"),
-                    }).catch((error) => console.error(error));
+                    });
                   }}
                 />
               ) : (
@@ -219,7 +219,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       chainId: polygon.id,
                       to: trotelCoinDAOAddress,
                       value: parseEther("0.01"),
-                    }).catch((error) => console.error(error));
+                    });
                   }}
                 />
               ) : (

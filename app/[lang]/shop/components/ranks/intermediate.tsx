@@ -274,7 +274,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                           trotelCoinIntermediateAddress,
                           holdingRequirement,
                         ],
-                      }).catch((error) => console.error(error));
+                      });
                     }}
                     text={lang === "en" ? "Approve" : "Approuver"}
                   />
@@ -292,7 +292,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                         functionName: "mint",
                         chainId: polygon.id,
                         args: [address],
-                      }).catch((error) => console.error(error));
+                      });
                     }}
                     text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
                   />

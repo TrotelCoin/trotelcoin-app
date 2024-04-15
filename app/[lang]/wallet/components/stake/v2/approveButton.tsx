@@ -84,7 +84,7 @@ const ApproveButton = ({
       functionName: "approve",
       chainId: polygon.id,
       abi: trotelCoinABI,
-    }).catch((error: any) => console.error(error));
+    });
   };
 
   useEffect(() => {

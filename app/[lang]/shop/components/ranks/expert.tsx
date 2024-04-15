@@ -268,7 +268,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         functionName: "approve",
                         chainId: polygon.id,
                         args: [trotelCoinExpertAddress, holdingRequirement],
-                      }).catch((error) => console.error(error));
+                      });
                     }}
                     text={lang === "en" ? "Approve" : "Approuver"}
                   />
@@ -286,7 +286,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         functionName: "mint",
                         chainId: polygon.id,
                         args: [address],
-                      }).catch((error) => console.error(error));
+                      });
                     }}
                     text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
                   />

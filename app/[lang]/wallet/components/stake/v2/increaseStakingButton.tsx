@@ -141,7 +141,7 @@ const IncreaseStakingButton = ({
       chainId: polygon.id,
       abi: trotelCoinStakingV2ABI,
       args: [stakingAmount],
-    }).catch((error) => console.error(error));
+    });
   };
 
   useEffect(() => {

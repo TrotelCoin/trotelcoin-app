@@ -211,9 +211,6 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                         abi: trotelCoinIntermediateABI,
                         functionName: "claim",
                         chainId: polygon.id,
-                      }).catch((error) => {
-                        console.error(error);
-                        setErrorMessage(true);
                       });
                     }}
                     text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
