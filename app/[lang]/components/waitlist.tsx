@@ -245,9 +245,9 @@ const Waitlist = ({
                         </span>{" "}
                         &{" "}
                         <span className="text-yellow-500 dark:text-yellow-300">
-                          earn
+                          Earn
                         </span>{" "}
-                        crypto.
+                        Crypto.
                       </>
                     </span>
                   )}
