@@ -9,6 +9,7 @@ export type Category = {
   name: string;
   categoryItems?: number[];
   id: number;
+  disabled: boolean;
 };
 
 export type ItemType = {
@@ -17,6 +18,7 @@ export type ItemType = {
   discount: bigint;
   emoji: string;
   description: string;
+  disabled: boolean;
 };
 
 export type ItemTypeFinal = {
@@ -28,4 +30,5 @@ export type ItemTypeFinal = {
   id: number;
   categoryId: number;
   quantity?: number;
+  disabled: boolean;
 };
