@@ -85,8 +85,8 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                           ? shortenAddress(entry.wallet)
                           : entry.wallet}
                       </div>
-                      <div className="flex items-center gap-2 text-lg">
-                        <span>
+                      <div className="flex items-center md:gap-2 text-lg">
+                        <span className="hidden md:block">
                           <CountUp
                             start={0}
                             end={

@@ -110,8 +110,8 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
                         : "Connectez votre portefeuille"}
                     </div>
 
-                    <div className="flex items-center gap-2 text-lg">
-                      <span>
+                    <div className="flex items-center md:gap-2 text-lg">
+                      <span className="hidden md:block">
                         <CountUp start={0} end={numberOfQuizzesAnswered ?? 0} />{" "}
                         📚
                       </span>
