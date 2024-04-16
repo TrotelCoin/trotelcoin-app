@@ -370,6 +370,88 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 5,
+    title: "Web3 authentication",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What does Web3 authentication allow you to do?",
+          fr: "Que permet l'authentification Web3 ?",
+        },
+        options: {
+          en: [
+            "Sign in to any website or app with a single digital identity",
+            "Create multiple accounts for different websites",
+            "Use different usernames and passwords for each website",
+          ],
+          fr: [
+            "Se connecter à n'importe quel site web ou application avec une seule identité numérique",
+            "Créer plusieurs comptes pour différents sites web",
+            "Utiliser différents noms d'utilisateur et mots de passe pour chaque site web",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How do you verify your identity with Web3 authentication?",
+          fr: "Comment vérifiez-vous votre identité avec l'authentification Web3 ?",
+        },
+        options: {
+          en: [
+            "By using the private key of your cryptocurrency wallet",
+            "By creating multiple accounts with different passwords",
+            "By connecting your social media accounts",
+          ],
+          fr: [
+            "En utilisant la clé privée de votre portefeuille de cryptomonnaie",
+            "En créant plusieurs comptes avec des mots de passe différents",
+            "En connectant vos comptes de médias sociaux",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is one advantage of Web3 authentication?",
+          fr: "Quel est un avantage de l'authentification Web3 ?",
+        },
+        options: {
+          en: [
+            "Easier interaction with websites and apps, and protection from phishing attacks",
+            "More complex onboarding process for beginners",
+            "Sharing your private key with websites",
+          ],
+          fr: [
+            "Interaction plus facile avec les sites web et les applications, et protection contre les attaques de phishing",
+            "Processus d'intégration plus complexe pour les débutants",
+            "Partager votre clé privée avec les sites web",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is one disadvantage of Web3 authentication?",
+          fr: "Quel est un inconvénient de l'authentification Web3 ?",
+        },
+        options: {
+          en: [
+            "Can be confusing for beginners, especially when creating a wallet",
+            "Simplifies the process for beginners",
+            "Requires sharing your private key with websites",
+          ],
+          fr: [
+            "Peut être déroutant pour les débutants, surtout lors de la création d'un portefeuille",
+            "Simplifie le processus pour les débutants",
+            "Nécessite de partager votre clé privée avec les sites web",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 6,
     title: "Make your first transaction",
     questions: [
