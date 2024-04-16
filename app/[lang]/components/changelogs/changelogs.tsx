@@ -80,6 +80,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text: lang === "en" ? "- Day Trading" : "- Day Trading",
         },
+        {
+          text:
+            lang === "en" ? "- Web3 authentication" : "- Authentification Web3",
+        },
       ],
     },
     {

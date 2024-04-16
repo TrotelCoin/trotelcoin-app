@@ -119,9 +119,9 @@ const lessons: Lessons[] = [
           fr: "Débutant",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 5,
-        available: false,
+        available: true,
       },
       {
         title: {
