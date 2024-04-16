@@ -315,7 +315,7 @@ const Waitlist = ({
                               setPosition(position);
                             }}
                             lang={lang}
-                            text={lang === "en" ? "Notify me" : "Notifier moi"}
+                            text={lang === "en" ? "Notify me" : "Me notifier"}
                           />
                         </div>
                       )

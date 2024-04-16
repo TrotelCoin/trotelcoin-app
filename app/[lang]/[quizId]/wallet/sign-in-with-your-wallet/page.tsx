@@ -83,7 +83,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         text: (
           <>
             <span className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-              Connect
+              Se connecter
             </span>
             <div className="my-4">
               {isLoggedIn ? (

@@ -101,6 +101,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Multipliers are now live so you can get even more rewards"
               : "- Les multiplicateurs sont en ligne donc vous pouvez augmentez vos récompenses",
         },
+        {
+          text:
+            lang === "en"
+              ? "- Adding marks to calculate user's position in the leaderboard"
+              : "- Ajout des notes pour calculer la position d'un utilisateur dans le classement",
+        },
       ],
     },
     {

@@ -85,8 +85,8 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                           ? shortenAddress(entry.wallet)
                           : entry.wallet}
                       </div>
-                      <div className="flex items-center gap-2 text-lg">
-                        <span>
+                      <div className="flex items-center md:gap-2 text-lg">
+                        <span className="hidden md:block">
                           <CountUp
                             start={0}
                             end={
@@ -102,12 +102,13 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                           <CountUp
                             start={0}
                             end={
-                              leaderboard && leaderboard[index].current_streak
-                                ? leaderboard[index].current_streak
+                              leaderboard && leaderboard[index].average_marks
+                                ? leaderboard[index].average_marks
                                 : 0
                             }
-                          />{" "}
-                          🔥
+                            decimals={0}
+                          />
+                          /20 🤓
                         </span>
                       </div>
                     </li>
