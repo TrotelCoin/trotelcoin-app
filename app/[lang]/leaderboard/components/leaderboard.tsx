@@ -102,12 +102,13 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                           <CountUp
                             start={0}
                             end={
-                              leaderboard && leaderboard[index].current_streak
-                                ? leaderboard[index].current_streak
+                              leaderboard && leaderboard[index].average_marks
+                                ? leaderboard[index].average_marks
                                 : 0
                             }
-                          />{" "}
-                          🔥
+                            decimals={0}
+                          />
+                          /20 🤓
                         </span>
                       </div>
                     </li>

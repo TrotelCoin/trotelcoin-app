@@ -17,7 +17,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
     number | null
   >(null);
-  const [streak, setStreak] = useState<number | null>(null);
+  const [averageMarks, setAverageMarks] = useState<number | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
 
   const { address } = useAccount();
@@ -60,11 +60,11 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
       setNumberOfQuizzesAnswered(
         filteredLeaderboard[0]?.number_of_quizzes_answered
       );
-      setStreak(filteredLeaderboard[0]?.current_streak);
+      setAverageMarks(filteredLeaderboard[0]?.average_marks);
     } else {
       setPosition(null);
       setNumberOfQuizzesAnswered(null);
-      setStreak(null);
+      setAverageMarks(null);
     }
   }, [address, data]);
 
@@ -116,7 +116,12 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
                         📚
                       </span>
                       <span>
-                        <CountUp start={0} end={streak ?? 0} /> 🔥
+                        <CountUp
+                          start={0}
+                          end={averageMarks ?? 0}
+                          decimals={0}
+                        />
+                        /20 🤓
                       </span>
                     </div>
                   </div>
