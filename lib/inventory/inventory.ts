@@ -137,7 +137,14 @@ export const translateItemsName = (
 };
 
 export const fetchInventory = async (totalItems: number, address: Address) => {
-  let newInventories = [];
+  let newInventories: {
+    name: string;
+    price: number;
+    discount: number;
+    quantity: number;
+    emoji: string;
+    disabled: boolean;
+  }[] = [];
 
   for (let item = 1; item <= totalItems; item++) {
     try {
@@ -160,10 +167,11 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
       })) as any;
 
       const itemQuantity = Number(userQuantity);
-      const name = userItem?.name;
-      const price = Number(formatEther(userItem?.price));
-      const discount = Number(formatEther(userItem?.discount));
-      const emoji = userItem?.emoji;
+      const name: string = userItem?.name;
+      const price: number = Number(formatEther(userItem?.price));
+      const discount: number = Number(formatEther(userItem?.discount));
+      const emoji: string = userItem?.emoji;
+      const disabled: boolean = userItem?.disabled;
 
       const itemFormatted = {
         name: name,
@@ -171,6 +179,7 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
         discount: discount,
         quantity: itemQuantity,
         emoji: emoji,
+        disabled: disabled,
       };
 
       newInventories.push(itemFormatted);

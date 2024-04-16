@@ -27,6 +27,7 @@ const potions: ItemTypeFinal[] = [
     id: 1,
     categoryId: 1,
     quantity: 3,
+    disabled: false,
   },
   {
     name: "10 Potions",
@@ -37,6 +38,7 @@ const potions: ItemTypeFinal[] = [
     id: 1,
     categoryId: 1,
     quantity: 10,
+    disabled: false,
   },
 ];
 
@@ -89,6 +91,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
           name: category.name,
           id: index + 1,
           categoryItems: category.categoryItems?.map((id) => Number(id)),
+          disabled: category.disabled,
         })
       );
       setCategories(updatedCategories);
@@ -162,20 +165,22 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
               <ul className="flex items-center flex-wrap gap-2">
                 {categories &&
-                  categories.map((cat, index) => (
-                    <li key={index}>
-                      <button
-                        onClick={() => setCategory(cat as ShopCategories)}
-                        className={`${
-                          category.id === cat.id
-                            ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
-                            : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
-                        } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
-                      >
-                        {cat.name}
-                      </button>
-                    </li>
-                  ))}
+                  categories
+                    .filter((category) => !category.disabled)
+                    .map((cat, index) => (
+                      <li key={index}>
+                        <button
+                          onClick={() => setCategory(cat as ShopCategories)}
+                          className={`${
+                            category.id === cat.id
+                              ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
+                              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                          } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+                        >
+                          {cat.name}
+                        </button>
+                      </li>
+                    ))}
               </ul>
               <span className="text-gray-700 dark:text-gray-300 text-sm">
                 {balance?.toLocaleString("en-US") ?? "0"} TROTEL
@@ -185,7 +190,10 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {items &&
                   items
-                    .filter((item) => item.categoryId === category.id)
+                    .filter(
+                      (item) =>
+                        item.categoryId === category.id && !item.disabled
+                    )
                     .map((item, index) => (
                       <Item key={index} lang={lang} shopItem={item} />
                     ))}
