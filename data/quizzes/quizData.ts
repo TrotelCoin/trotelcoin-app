@@ -370,6 +370,117 @@ const quizzes: QuizData = [
     ],
   },
   {
+    quizId: 4,
+    title: "Secure your wallet",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What step is crucial in securing your crypto wallet?",
+          fr: "Quelle étape est cruciale pour sécuriser votre portefeuille de crypto ?",
+        },
+        options: {
+          en: [
+            "Using reputable exchanges",
+            "Sharing passwords publicly",
+            "Ignoring security updates",
+            "Storing passwords in plain text",
+          ],
+          fr: [
+            "Utiliser des échanges réputés",
+            "Partager des mots de passe publiquement",
+            "Ignorer les mises à jour de sécurité",
+            "Stocker les mots de passe en texte clair",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What type of wallet is considered one of the safest?",
+          fr: "Quel type de portefeuille est considéré comme l'un des plus sûrs ?",
+        },
+        options: {
+          en: [
+            "Cold hardware wallet",
+            "Hot online wallet",
+            "Mobile wallet",
+            "Paper wallet",
+          ],
+          fr: [
+            "Portefeuille matériel froid",
+            "Portefeuille en ligne chaud",
+            "Portefeuille mobile",
+            "Portefeuille papier",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "Which internet connection should you avoid for transactions?",
+          fr: "Quelle connexion Internet devez-vous éviter pour les transactions ?",
+        },
+        options: {
+          en: [
+            "Public wifi",
+            "Private network",
+            "VPN connection",
+            "Mobile data",
+          ],
+          fr: [
+            "Wifi public",
+            "Réseau privé",
+            "Connexion VPN",
+            "Données mobiles",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is a recommended security measure for protecting your passwords?",
+          fr: "Quelle est une mesure de sécurité recommandée pour protéger vos mots de passe ?",
+        },
+        options: {
+          en: [
+            "Two-factor authentication",
+            "Sharing passwords with friends",
+            "Writing passwords on sticky notes",
+            "Using common passwords",
+          ],
+          fr: [
+            "Authentification à deux facteurs",
+            "Partager les mots de passe avec des amis",
+            "Écrire les mots de passe sur des notes autocollantes",
+            "Utiliser des mots de passe courants",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What should you avoid disclosing about your crypto wallet?",
+          fr: "Que devez-vous éviter de divulguer sur votre portefeuille de crypto ?",
+        },
+        options: {
+          en: [
+            "Passwords and private keys",
+            "Cryptocurrency investment amounts",
+            "Social media posts about crypto",
+            "Crypto wallet address to strangers",
+          ],
+          fr: [
+            "Mots de passe et clés privées",
+            "Montants d'investissement en crypto-monnaie",
+            "Publications sur les médias sociaux sur la crypto",
+            "Adresse de portefeuille crypto aux étrangers",
+          ],
+        },
+      },
+    ],
+  },
+  {
     quizId: 5,
     title: "Web3 authentication",
     questions: [

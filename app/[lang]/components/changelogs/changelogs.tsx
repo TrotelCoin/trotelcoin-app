@@ -84,6 +84,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text:
             lang === "en" ? "- Web3 authentication" : "- Authentification Web3",
         },
+        {
+          text:
+            lang === "en"
+              ? "- Secure your wallet"
+              : "- Sécurisez votre wallet",
+        },
       ],
     },
     {
