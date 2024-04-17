@@ -100,9 +100,9 @@ const lessons: Lessons[] = [
           fr: "Expert",
         },
         sponsored: false,
-        new: false,
+        new: true,
         quizId: 4,
-        available: false,
+        available: true,
       },
       {
         title: {
