@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.6";
+const version = "1.9.7";
 
 interface ChangelogItem {
   title: string;
