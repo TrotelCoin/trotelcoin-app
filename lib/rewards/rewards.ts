@@ -21,13 +21,14 @@ export const handleClaimRewards = async (
   setClaimingLoading(true);
 
   // update database rewards by calling api and if success
-  await axios
+  const rewards = await axios
     .post(
       `/api/database/postUpdateRewards?wallet=${address}&quizId=${quizId}&multipliers=${multipliers}`
     )
-    .then(() => {
+    .then((response) => {
       setClaimedRewards(true);
       setClaimedRewardsMessage(true);
+      return response.data.rewards;
     })
     .catch((error) => {
       console.error(error);
@@ -37,4 +38,6 @@ export const handleClaimRewards = async (
   playAudio("claimedRewards");
 
   setClaimingLoading(false);
+
+  return rewards;
 };

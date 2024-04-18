@@ -3,7 +3,6 @@
 import type { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
 import useSWR from "swr";
@@ -16,6 +15,7 @@ import { Address } from "viem";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import { BoltIcon } from "@heroicons/react/24/solid";
 import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
+import RewardsModal from "@/app/[lang]/components/modals/rewardsModal";
 
 const Rewards = ({
   lang,
@@ -37,6 +37,7 @@ const Rewards = ({
   const [formattedTimeLeft, setFormattedTimeLeft] = useState<string | null>(
     null
   );
+  const [rewards, setRewards] = useState<number>(0);
 
   const { address } = useAccount();
   const { playAudio } = useContext(AudioContext);
@@ -49,10 +50,8 @@ const Rewards = ({
       timer = setInterval(() => {
         setTimeLeft((prevTime) => (prevTime ? prevTime - 1 : prevTime));
       }, 1000);
-    } else {
-      if (timer) {
-        clearInterval(timer);
-      }
+    } else if (timer) {
+      clearInterval(timer);
     }
 
     return () => clearInterval(timer);
@@ -130,8 +129,8 @@ const Rewards = ({
             </div>
             <div className="mt-4 items-center">
               <BlueButton
-                onClick={() =>
-                  handleClaimRewards(
+                onClick={async () => {
+                  const rewards: number = await handleClaimRewards(
                     address as Address,
                     quizId,
                     multipliers,
@@ -141,8 +140,9 @@ const Rewards = ({
                     setClaimedRewardsMessage,
                     setClaimingError,
                     playAudio
-                  )
-                }
+                  );
+                  setRewards(rewards);
+                }}
                 lang={lang}
                 text={
                   lang === "en" ? "Claim rewards" : "Réclamez vos récompenses"
@@ -192,13 +192,8 @@ const Rewards = ({
         onClose={() => setIsLearnerDisconnected(false)}
         lang={lang}
       />
-      <Success
-        title={lang === "en" ? "Claimed rewards" : "Récompenses réclamées"}
-        message={
-          lang === "en"
-            ? "You have successfully claimed your rewards."
-            : "Vous avez réclamé vos récompenses avec succès."
-        }
+      <RewardsModal
+        rewards={rewards}
         show={claimedRewardsMessage}
         onClose={() => setClaimedRewardsMessage(false)}
         lang={lang}

@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.6";
+const version = "1.9.7";
 
 interface ChangelogItem {
   title: string;
@@ -96,12 +96,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Staking v2 is live"
-              : "- Le staking v2 est disponible",
-        },
-        {
-          text:
-            lang === "en"
               ? "- Multipliers are now live so you can get even more rewards"
               : "- Les multiplicateurs sont en ligne donc vous pouvez augmentez vos récompenses",
         },
@@ -110,6 +104,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Adding marks to calculate user's position in the leaderboard"
               : "- Ajout des notes pour calculer la position d'un utilisateur dans le classement",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Showing your rewards after quiz completion"
+              : "- Affichage de vos récompenses après la fin d'un quiz",
         },
       ],
     },
