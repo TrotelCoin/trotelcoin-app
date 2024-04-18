@@ -72,12 +72,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text:
-            lang === "en"
-              ? "- Introduction to DAOs"
-              : "- Introduction aux DAOs",
-        },
-        {
           text: lang === "en" ? "- Day Trading" : "- Day Trading",
         },
         {
@@ -86,9 +80,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         },
         {
           text:
+            lang === "en" ? "- Secure your wallet" : "- Sécurisez votre wallet",
+        },
+        {
+          text:
             lang === "en"
-              ? "- Secure your wallet"
-              : "- Sécurisez votre wallet",
+              ? "- Censorship resistance"
+              : "- Résistance à la censure",
         },
       ],
     },
