@@ -9,10 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const name = searchParams.get("name");
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  if (!name || !wallet) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   await supabase
     .from("learners")
     .update({ username: name })

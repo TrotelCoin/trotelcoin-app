@@ -9,10 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const wallet: Address = searchParams.get("wallet") as Address;
   const mail: string = searchParams.get("mail") as string;
 
-  if (!wallet || !mail) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   // check if learners exist
   const { data: learner, error: learnerError } = await supabase
     .from("learners")
@@ -81,5 +77,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
   }
 
-  return NextResponse.json(position, { status: 200, headers: { "Cache-Control": "no-store" } });
+  return NextResponse.json(position, {
+    status: 200,
+    headers: { "Cache-Control": "no-store" },
+  });
 }

@@ -9,10 +9,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const address: Address = searchParams.get("address") as Address;
   const item = searchParams.get("item");
 
-  if (!address || !item) {
-    return NextResponse.json("Missing address or item", { status: 400 });
-  }
-
   const { data, error } = await supabase
     .from("items")
     .select("number_of_use")

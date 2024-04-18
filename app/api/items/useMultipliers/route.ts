@@ -28,10 +28,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       break;
   }
 
-  if (!wallet || !multipliersName) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   const { data: walletData, error: walletError } = await supabase
     .from("multipliers")
     .select("wallet")

@@ -37,6 +37,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       headers: { "Cache-Control": "no-store" },
     });
   } else {
-    return NextResponse.json("Not found", { status: 400 });
+    return NextResponse.json("Not found", { status: 404 });
   }
 }

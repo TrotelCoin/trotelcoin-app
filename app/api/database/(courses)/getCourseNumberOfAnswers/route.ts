@@ -8,10 +8,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { searchParams } = new URL(req.url);
     const quizId: number = Number(searchParams.get("quizId"));
 
-    if (!quizId) {
-      return NextResponse.json("Parameters not found", { status: 400 });
-    }
-
     const { data, error } = await supabase
       .from("quizzes")
       .select("number_of_answers")

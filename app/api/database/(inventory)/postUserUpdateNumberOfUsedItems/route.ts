@@ -9,10 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const address: Address = searchParams.get("address") as Address;
   const item = searchParams.get("item");
 
-  if (!address || !item) {
-    return NextResponse.json("Missing address or item", { status: 400 });
-  }
-
   let alreadyUsed = 0;
 
   const { data: alreadyUsedData, error: alreadyUsedError } = await supabase

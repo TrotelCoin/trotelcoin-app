@@ -9,10 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const wallet: Address = searchParams.get("wallet") as Address;
   const shieldName = searchParams.get("shieldName");
 
-  if (!wallet || !shieldName) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   const { data: walletData, error: walletError } = await supabase
     .from("shields")
     .select("wallet")

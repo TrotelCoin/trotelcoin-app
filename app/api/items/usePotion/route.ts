@@ -9,7 +9,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const wallet: Address = searchParams.get("wallet") as Address;
 
   if (!wallet) {
-    return NextResponse.json("No wallet", { status: 400 });
+    return NextResponse.json("No wallet", { status: 404 });
   }
 
   const { data: life, error: errorGetLife } = await supabase
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json(error, { status: 500 });
     }
   } else {
-    return NextResponse.json("Learner not found", { status: 400 });
+    return NextResponse.json("Learner not found", { status: 404 });
   }
 
   return NextResponse.json("Life updated", {

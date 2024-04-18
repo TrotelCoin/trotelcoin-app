@@ -9,10 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const wallet: Address = searchParams.get("wallet") as Address;
   const diffTime: number = Number(searchParams.get("diffTime"));
 
-  if (!quizId || !wallet || !diffTime) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   // check if quiz exists
   const { data: quizExistence, error: quizExistenceError } = await supabase
     .from("quizzes")

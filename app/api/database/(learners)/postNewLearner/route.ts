@@ -8,10 +8,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  if (!wallet) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   // check if the wallet exists in the database
   const { data: userExists, error: userExistsError } = await supabase
     .from("learners")

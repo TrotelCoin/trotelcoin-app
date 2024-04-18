@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const wallet: Address = searchParams.get("wallet") as Address;
 
   if (!wallet) {
-    return NextResponse.json("No wallet", { status: 400 });
+    return NextResponse.json("No wallet", { status: 404 });
   }
 
   const { data, error } = await supabase

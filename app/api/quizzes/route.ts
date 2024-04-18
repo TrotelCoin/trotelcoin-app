@@ -10,10 +10,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const quizId: number = Number(searchParams.get("quizId"));
   const lang: Lang = searchParams.get("lang") as Lang;
 
-  if (!quizId || !lang) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   const quiz = quizzes.find((quiz) => quiz.quizId === quizId);
 
   if (!quiz) {
