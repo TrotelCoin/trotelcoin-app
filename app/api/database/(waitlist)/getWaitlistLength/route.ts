@@ -1,6 +1,8 @@
 import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { data, error: learnerWaitlistErrorLength } = await supabase
     .from("waitlist")
