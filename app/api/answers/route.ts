@@ -16,13 +16,21 @@ const getAnswersByLanguage = (quiz: QuizAnswer, lang: string) => {
   }
 };
 
+export interface Quiz {
+  quizId: number;
+  correctAnswers: {
+    en: string[];
+    fr: string[];
+  };
+}
+
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
   const quizId: number = Number(searchParams.get("quizId"));
   const lang: Lang = searchParams.get("lang") as Lang;
 
-  const quiz = answers.find((answer) => answer.quizId === quizId);
+  const quiz: Quiz = answers.find((answer) => answer.quizId === quizId) as Quiz;
 
   const answersInLanguage = getAnswersByLanguage(quiz, lang as string);
 
