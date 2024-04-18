@@ -88,7 +88,7 @@ const RewardsModal = ({
                         <div
                           key={page}
                           className={`${
-                            currentPage === page
+                            currentPage >= page
                               ? "bg-blue-500"
                               : "bg-gray-200 dark:bg-gray-700"
                           } rounded-lg py-1`}
