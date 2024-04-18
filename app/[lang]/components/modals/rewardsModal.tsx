@@ -113,9 +113,9 @@ const RewardsModal = ({
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
                               ? "You have now"
-                              : "Vos avez maintenant"}{" "}
+                              : "Vous avez maintenant"}{" "}
                             {Math.floor(userTotalRewardsPending)} TROTEL{" "}
-                            {lang === "en" ? "pending" : "en attente"}
+                            {lang === "en" ? "pending." : "en attente."}
                           </p>
                         </div>
                       </>
@@ -139,7 +139,7 @@ const RewardsModal = ({
                             {lang === "en"
                               ? "With an average mark of"
                               : "Avec une note moyenne de"}{" "}
-                            {Math.floor(averageMark)}/20
+                            {Math.floor(averageMark)}/20.
                           </p>
                         </div>
                       </>
@@ -156,8 +156,8 @@ const RewardsModal = ({
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {quizzesLeft}{" "}
                             {lang === "en"
-                              ? "quizzes left until next level"
-                              : "quiz restant avant le prochain niveau"}
+                              ? "quizzes left until next level."
+                              : "quiz restant avant le prochain niveau."}
                           </p>
                         </div>
                       </>
@@ -179,8 +179,8 @@ const RewardsModal = ({
                           </span>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
-                              ? "Keep learning to get more rewards"
-                              : "Continuez à apprendre pour obtenir plus de récompenses"}
+                              ? "Keep learning to get more rewards!"
+                              : "Continuez à apprendre pour obtenir plus de récompenses !"}
                           </p>
                         </div>
                       </>
