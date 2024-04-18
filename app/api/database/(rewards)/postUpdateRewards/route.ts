@@ -14,10 +14,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const quizId: number = Number(searchParams.get("quizId"));
   const multipliers: number = Number(searchParams.get("multipliers"));
 
-  if (!wallet || !quizId || !multipliers) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   // reset rewards if 24h has passed
   const { error } = await supabase
     .from("algorithm")
@@ -88,7 +84,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(
       { error: "User already answered the quiz." },
       {
-        status: 400,
+        status: 404,
       }
     );
   }

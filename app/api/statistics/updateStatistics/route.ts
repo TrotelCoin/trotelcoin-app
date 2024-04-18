@@ -11,7 +11,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   if (!stats || !value) {
     return NextResponse.json("Invalid statistics type or value", {
-      status: 400,
+      status: 404,
     });
   }
 

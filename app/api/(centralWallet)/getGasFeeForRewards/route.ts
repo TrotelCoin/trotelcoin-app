@@ -14,30 +14,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     "centralWalletAddress"
   ) as Address;
 
-  if (!userAddress || !amount || !centralWalletAddress) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   try {
-    if (!userAddress) {
-      return NextResponse.json(
-        { error: "Please provide a valid user address." },
-        { status: 400 }
-      );
-    }
-
-    if (!amount) {
-      return NextResponse.json(
-        { error: "Please provide a valid amount." },
-        { status: 400 }
-      );
-    }
-
     const gas = await publicClient.estimateContractGas({
       address: trotelCoinAddress,
       abi: trotelCoinABI,
       functionName: "mint",
-      account: centralWalletAddress as Address,
+      account: centralWalletAddress,
       args: [userAddress, parseEther(String(amount))],
     });
 

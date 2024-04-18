@@ -14,32 +14,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const userAddress: Address = searchParams.get("address") as Address;
   const amount: number = Number(searchParams.get("amount"));
 
-  if (!userAddress || !amount) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   try {
-    if (!userAddress) {
-      return NextResponse.json(
-        { error: "Please provide a valid user address." },
-        { status: 400 }
-      );
-    }
-
-    if (!amount) {
-      return NextResponse.json(
-        { error: "Please provide a valid amount." },
-        { status: 400 }
-      );
-    }
-
     // prepare transaction
     const { request } = await publicClient.simulateContract({
       address: trotelCoinAddress,
       abi: trotelCoinABI,
       functionName: "mint",
       account: account,
-      args: [userAddress as Address, parseEther(String(amount))],
+      args: [userAddress, parseEther(String(amount))],
     });
 
     // make transaction

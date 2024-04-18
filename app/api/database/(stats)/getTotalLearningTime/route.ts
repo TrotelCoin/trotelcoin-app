@@ -18,7 +18,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       time += diffTime.diffTime;
     });
   } else {
-    return NextResponse.json(time, { status: 400 });
+    return NextResponse.json(time, { status: 404 });
   }
 
   return NextResponse.json(time, {

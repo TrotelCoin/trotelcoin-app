@@ -9,10 +9,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const wallet: Address = searchParams.get("wallet") as Address;
   const quizId: number = Number(searchParams.get("quizId"));
 
-  if (!wallet || !quizId) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   // select answered from "quizzes_answered"
   const { data: result, error } = await supabase
     .from("quizzes_answered")

@@ -12,10 +12,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const totalQuestions: number = Number(searchParams.get("totalQuestions"));
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  if (!quizId || !numberOfWrongAnswers || !totalQuestions || !wallet) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   // check if quiz exists
   const { data: quizExistence, error: quizExistenceError } = await supabase
     .from("quizzes")
@@ -77,7 +73,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   const { error } = await supabase.from("quizzes_results").insert({
     quiz_id: Number(quizId),
-    wallet: wallet as Address,
+    wallet: wallet,
     number_of_wrong_answers: Number(numberOfWrongAnswers),
     total_questions: Number(totalQuestions),
     answered_at: new Date().toISOString(),

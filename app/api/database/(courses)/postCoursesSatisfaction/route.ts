@@ -11,10 +11,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const rating: number = Number(searchParams.get("rating"));
     const quizId: number = Number(searchParams.get("quizId"));
 
-    if (!wallet || !rating || !quizId) {
-      return NextResponse.json("Parameters not found", { status: 400 });
-    }
-
     const { data: verification, error: verificationError } = await supabase
       .from("courses_satisfaction")
       .select("*")

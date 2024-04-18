@@ -9,10 +9,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const satisfaction: number = Number(searchParams.get("number"));
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  if (!wallet) {
-    return NextResponse.json("Parameters not found", { status: 400 });
-  }
-
   const { error } = await supabase.from("net_promoter_scores").insert([
     {
       net_promoter_score: satisfaction,

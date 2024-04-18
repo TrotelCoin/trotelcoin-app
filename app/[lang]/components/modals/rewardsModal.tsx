@@ -20,7 +20,7 @@ const RewardsModal = ({
   lang: Lang;
   rewards: number;
 }) => {
-  const [pages, setPages] = React.useState(3);
+  const [pages, setPages] = React.useState(4);
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const { playAudio } = useContext(AudioContext);
@@ -30,6 +30,7 @@ const RewardsModal = ({
     quizzesLeft,
     averageMark,
     userTotalRewardsPending,
+    learningTime,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ const RewardsModal = ({
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
                 <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-4 gap-2">
                     {Array.from({ length: pages }, (_, i) => i + 1).map(
                       (page) => (
                         <div
@@ -157,6 +158,29 @@ const RewardsModal = ({
                             {lang === "en"
                               ? "quizzes left until next level"
                               : "quiz restant avant le prochain niveau"}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                    {currentPage === 4 && (
+                      <>
+                        <div className="mt-2 text-center flex flex-col items-center gap-2 justify-center">
+                          <h2 className="text-gray-900 dark:text-gray-100 font-bold">
+                            {lang === "en"
+                              ? "Learning time"
+                              : "Temps d'apprentissage"}
+                          </h2>
+                          <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+                            <CountUp
+                              start={0}
+                              end={Math.floor((learningTime * 1e-3) / 60)}
+                              suffix="m ⏳"
+                            />{" "}
+                          </span>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">
+                            {lang === "en"
+                              ? "Keep learning to get more rewards"
+                              : "Continuez à apprendre pour obtenir plus de récompenses"}
                           </p>
                         </div>
                       </>
