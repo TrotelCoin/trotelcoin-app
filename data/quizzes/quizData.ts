@@ -2017,6 +2017,97 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 20,
+    title: "Censorship Resistance",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What does censorship resistance ensure?",
+          fr: "Que garantit la résistance à la censure ?",
+        },
+        options: {
+          en: [
+            "Freedom of expression and financial autonomy",
+            "Government control over digital transactions",
+            "Centralized authority in blockchain networks",
+            "Increased censorship by intermediaries",
+          ],
+          fr: [
+            "La liberté d'expression et l'autonomie financière",
+            "Le contrôle gouvernemental sur les transactions numériques",
+            "L'autorité centralisée dans les réseaux blockchain",
+            "Une censure accrue par les intermédiaires",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What aspect of blockchain determines its censorship resistance?",
+          fr: "Quel aspect de la blockchain détermine sa résistance à la censure ?",
+        },
+        options: {
+          en: [
+            "Decentralization, immutability, and security",
+            "Centralization and flexibility",
+            "Government oversight",
+            "Public keys",
+          ],
+          fr: [
+            "La décentralisation, l'immutabilité et la sécurité",
+            "La centralisation et la flexibilité",
+            "La surveillance gouvernementale",
+            "Les clés publiques",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is the term for the computational power of the network used by miners?",
+          fr: "Quel est le terme désignant la puissance de calcul du réseau utilisée par les mineurs ?",
+        },
+        options: {
+          en: ["Hashrate", "Flexibility", "Immutability", "Decentralization"],
+          fr: ["Hashrate", "Flexibilité", "Immuabilité", "Décentralisation"],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What risk does a 51% attack pose to a blockchain network?",
+          fr: "Quel risque une attaque des 51% pose-t-elle à un réseau blockchain ?",
+        },
+        options: {
+          en: [
+            "Compromising transaction integrity",
+            "Enhancing network security",
+            "Increasing transaction speed",
+            "Improving decentralization",
+          ],
+          fr: [
+            "Compromettre l'intégrité des transactions",
+            "Améliorer la sécurité du réseau",
+            "Augmenter la vitesse des transactions",
+            "Améliorer la décentralisation",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Which blockchain has the highest hashrate, making it highly secure?",
+          fr: "Quelle blockchain a le hashrate le plus élevé, la rendant très sécurisée ?",
+        },
+        options: {
+          en: ["Bitcoin", "Ethereum", "Ripple", "Litecoin"],
+          fr: ["Bitcoin", "Ethereum", "Ripple", "Litecoin"],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

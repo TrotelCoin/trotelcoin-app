@@ -185,6 +185,25 @@ const lessons: Lessons[] = [
         quizId: 8,
         available: true,
       },
+      {
+        title: {
+          en: "Censorship resistance",
+          fr: "Résistance à la censure",
+        },
+        description: {
+          en: "Learn what is censorship resistance.",
+          fr: "Apprenez ce qu'est la résistance à la censure.",
+        },
+        href: "/blockchain/censorship-resistance",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 20,
+        available: true,
+      },
     ],
   },
   {
