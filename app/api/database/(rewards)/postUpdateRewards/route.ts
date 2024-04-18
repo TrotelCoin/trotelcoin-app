@@ -36,7 +36,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { data: userExistence, error: userExistenceError } = await supabase
     .from("learners")
     .select("wallet")
-    .eq("wallet", wallet as Address);
+    .eq("wallet", wallet);
 
   if (userExistenceError) {
     console.error(userExistenceError);
@@ -52,7 +52,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .from("learners")
       .insert([
         {
-          wallet: wallet as Address,
+          wallet: wallet,
           total_rewards_pending: 0,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { data: quizAnswered, error: quizAnsweredError } = await supabase
     .from("quizzes_answered")
     .select("wallet")
-    .eq("wallet", wallet as Address)
+    .eq("wallet", wallet)
     .eq("quiz_id", quizId);
 
   if (quizAnsweredError) {
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     await supabase
       .from("learners")
       .select("total_rewards_pending")
-      .eq("wallet", wallet as Address);
+      .eq("wallet", wallet);
 
   if (totalRewardsPendingError) {
     console.error(totalRewardsPendingError);
@@ -170,7 +170,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   } = await supabase
     .from("learners")
     .select("number_of_quizzes_answered")
-    .eq("wallet", wallet as Address);
+    .eq("wallet", wallet);
 
   if (numberOfQuizzesAnsweredError) {
     console.error(numberOfQuizzesAnsweredError);
@@ -194,7 +194,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       updated_at: new Date().toISOString(),
       number_of_quizzes_answered: numberOfQuizzesAnswered + 1,
     })
-    .eq("wallet", wallet as Address);
+    .eq("wallet", wallet);
 
   if (updateLearnersError) {
     console.error(updateLearnersError);
@@ -209,7 +209,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     .from("quizzes_answered")
     .insert([
       {
-        wallet: wallet as Address,
+        wallet: wallet,
         quiz_id: quizId,
         answered: true,
         answered_at: new Date().toISOString(),
@@ -289,7 +289,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   return NextResponse.json(
-    { success: true },
+    { success: true, rewards: rewards },
     { status: 200, headers: { "Cache-Control": "no-store" } }
   );
 }

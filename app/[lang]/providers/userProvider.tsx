@@ -33,6 +33,7 @@ const UserProvider = ({
     useState<number>(0);
   const [userLevel, setUserLevel] = useState<number>(1);
   const [multipliersEnabled, setMultipliersEnabled] = useState<boolean>(false);
+  const [quizzesLeft, setQuizzesLeft] = useState<number>(0);
 
   const { address } = useAccount();
   const { data: session } = useSession();
@@ -192,8 +193,10 @@ const UserProvider = ({
     if (userNumberOfQuizzesAnswered) {
       const level = calculateUserLevel(userNumberOfQuizzesAnswered);
       setUserLevel(level.userLevel);
+      setQuizzesLeft(level.quizzesRemaining);
     } else {
       setUserLevel(1);
+      setQuizzesLeft(0);
     }
   }, [userNumberOfQuizzesAnswered]);
 
@@ -211,6 +214,7 @@ const UserProvider = ({
       multipliersItemTimeLeft,
       userLevel,
       multipliersEnabled,
+      quizzesLeft,
     }),
     [
       userTotalRewardsPending,
@@ -225,6 +229,7 @@ const UserProvider = ({
       multipliersItemTimeLeft,
       userLevel,
       multipliersEnabled,
+      quizzesLeft,
     ]
   );
 
