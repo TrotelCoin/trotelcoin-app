@@ -23,6 +23,8 @@ const Quiz = ({
   const [isTotallyCorrect, setIsTotallyCorrect] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [showCorrectMessage, setShowCorrectMessage] = useState<boolean>(false);
+  const [courseTime, setCourseTime] = useState<number>(0);
+  const [courseMark, setCourseMark] = useState<number>(0);
 
   const { life, lifeCooldown } = useContext(LifeContext);
   const { isLoggedIn } = useContext(UserContext);
@@ -57,6 +59,8 @@ const Quiz = ({
               setIsCorrect={setIsCorrect}
               setShowCorrectMessage={setShowCorrectMessage}
               startTime={startTime}
+              setCourseTime={setCourseTime}
+              setCourseMark={setCourseMark}
             />
           </div>
         </>
@@ -68,6 +72,8 @@ const Quiz = ({
           lang={lang}
           quizId={quizId}
           isTotallyCorrect={isTotallyCorrect}
+          courseTime={courseTime}
+          courseMark={courseMark}
         />
       )}
 

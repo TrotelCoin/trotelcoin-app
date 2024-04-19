@@ -30,6 +30,8 @@ const QuizComponent = ({
   setIsCorrect,
   setShowCorrectMessage,
   startTime,
+  setCourseMark,
+  setCourseTime,
 }: {
   lang: Lang;
   isTotallyCorrect: boolean;
@@ -39,6 +41,8 @@ const QuizComponent = ({
   setIsCorrect: React.Dispatch<SetStateAction<boolean>>;
   setShowCorrectMessage: React.Dispatch<SetStateAction<boolean>>;
   startTime: number;
+  setCourseMark: React.Dispatch<SetStateAction<number>>;
+  setCourseTime: React.Dispatch<SetStateAction<number>>;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
@@ -58,6 +62,7 @@ const QuizComponent = ({
   const [shieldEnabled, setShieldEnabled] = useState<boolean>(false);
   const [shieldTimeLeft, setShieldTimeLeft] = useState<number | null>(null);
   const [numberOfWrongAnswers, setNumberOfWrongAnswers] = useState<number>(0);
+  const [wrongAnswers, setWrongAnswers] = useState<number[]>([]);
 
   const { address } = useAccount();
 
@@ -140,18 +145,37 @@ const QuizComponent = ({
 
           const totalQuestions = questions.length;
 
-          await postQuizzesResult(
-            quizId,
-            address as Address,
-            numberOfWrongAnswers,
-            totalQuestions
+          const numberOfGoodAnswers = Math.max(
+            0,
+            totalQuestions - numberOfWrongAnswers
           );
 
-          const endTime = new Date().getTime();
+          const mark = Math.floor((numberOfGoodAnswers / totalQuestions) * 20);
 
-          const diffTime = endTime - startTime; // in ms
+          setCourseMark(mark);
 
-          await postQuizzesTime(quizId, address as Address, diffTime);
+          try {
+            await postQuizzesResult(
+              quizId,
+              address as Address,
+              numberOfWrongAnswers,
+              totalQuestions
+            );
+          } catch (error) {
+            console.error(error);
+          } finally {
+            const endTime = new Date().getTime();
+
+            const diffTime = endTime - startTime; // in ms
+
+            setCourseTime(diffTime);
+
+            try {
+              await postQuizzesTime(quizId, address as Address, diffTime);
+            } catch (error) {
+              console.error(error);
+            }
+          }
         }
       }
     } else {
@@ -160,7 +184,10 @@ const QuizComponent = ({
       );
       setIsCorrect(false);
       setShowMessage(true);
-      setNumberOfWrongAnswers((prev) => prev + 1);
+      if (!wrongAnswers.includes(currentQuestion)) {
+        setNumberOfWrongAnswers((prev) => prev + 1);
+        setWrongAnswers((prev) => [...prev, currentQuestion]);
+      }
       if (!isIntermediate && !isExpert && life > 0 && !shieldEnabled) {
         updateLife();
       }

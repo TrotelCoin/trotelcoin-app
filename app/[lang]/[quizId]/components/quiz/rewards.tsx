@@ -21,10 +21,14 @@ const Rewards = ({
   lang,
   quizId,
   isTotallyCorrect,
+  courseTime,
+  courseMark,
 }: {
   lang: Lang;
   quizId: number;
   isTotallyCorrect: boolean;
+  courseTime: number;
+  courseMark: number;
 }) => {
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [claimingError, setClaimingError] = useState<boolean>(false);
@@ -193,10 +197,12 @@ const Rewards = ({
         lang={lang}
       />
       <RewardsModal
-        rewards={rewards}
         show={claimedRewardsMessage}
         onClose={() => setClaimedRewardsMessage(false)}
         lang={lang}
+        rewards={rewards}
+        courseMark={courseMark}
+        courseTime={courseTime}
       />
     </>
   );

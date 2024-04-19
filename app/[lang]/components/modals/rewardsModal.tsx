@@ -9,18 +9,23 @@ import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import UserContext from "@/app/[lang]/contexts/userContext";
 
+const pages = 4;
+
 const RewardsModal = ({
   show,
   onClose,
   lang,
   rewards,
+  courseTime,
+  courseMark,
 }: {
   show: boolean;
   onClose: () => void;
   lang: Lang;
   rewards: number;
+  courseTime: number;
+  courseMark: number;
 }) => {
-  const [pages, setPages] = React.useState(4);
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const { playAudio } = useContext(AudioContext);
@@ -28,9 +33,7 @@ const RewardsModal = ({
     userNumberOfQuizzesAnswered,
     userLevel,
     quizzesLeft,
-    averageMark,
     userTotalRewardsPending,
-    learningTime,
   } = useContext(UserContext);
 
   useEffect(() => {
@@ -38,12 +41,6 @@ const RewardsModal = ({
       playAudio("successModal");
     }
   }, [show]);
-
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   const handleNext = () => {
     if (currentPage < pages) {
@@ -136,10 +133,11 @@ const RewardsModal = ({
                             📚
                           </p>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
+                            {lang === "en" ? "You scored" : "Vous avez obtenu"}{" "}
+                            {Math.floor(courseMark)}/20{" "}
                             {lang === "en"
-                              ? "With an average mark of"
-                              : "Avec une note moyenne de"}{" "}
-                            {Math.floor(averageMark)}/20.
+                              ? "on this course."
+                              : "sur ce cours."}{" "}
                           </p>
                         </div>
                       </>
@@ -173,14 +171,14 @@ const RewardsModal = ({
                           <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
                             <CountUp
                               start={0}
-                              end={Math.floor((learningTime * 1e-3) / 60)}
-                              suffix="m ⏳"
+                              end={Math.floor(courseTime * 1e-3)}
+                              suffix="s ⏳"
                             />{" "}
                           </span>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
-                              ? "Keep learning to get more rewards!"
-                              : "Continuez à apprendre pour obtenir plus de récompenses !"}
+                              ? "You took this time to complete the course."
+                              : "Vous avez pris ce temps pour compléter le cours."}
                           </p>
                         </div>
                       </>
