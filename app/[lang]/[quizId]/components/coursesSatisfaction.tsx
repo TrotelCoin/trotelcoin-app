@@ -25,10 +25,10 @@ const CoursesSatisfaction = ({
 
   const { address } = useAccount();
 
-  const postSatisfaction = (rating: number) => {
+  const postSatisfaction = async (rating: number) => {
     if (rating) {
       try {
-        axios
+        await axios
           .post(
             `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
           )

@@ -1,4 +1,3 @@
-import { checkIfCourseIsAvailable } from "@/lib/quizzes/quizzes";
 import { supabase } from "@/lib/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
@@ -8,44 +7,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const quizId: number = Number(searchParams.get("quizId"));
   const wallet: Address = searchParams.get("wallet") as Address;
   const diffTime: number = Number(searchParams.get("diffTime"));
-
-  // check if quiz exists
-  const { data: quizExistence, error: quizExistenceError } = await supabase
-    .from("quizzes")
-    .select("quiz_id")
-    .eq("quiz_id", quizId);
-
-  if (quizExistenceError) {
-    console.error(quizExistenceError);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
-  }
-
-  // if quiz doesn't exist, create it if available
-  if (!quizExistence || quizExistence.length === 0) {
-    const isCourseAvailable = checkIfCourseIsAvailable(quizId);
-
-    if (isCourseAvailable) {
-      const { error } = await supabase.from("quizzes").insert({
-        quiz_id: quizId,
-      });
-
-      if (error) {
-        console.error(error);
-        return NextResponse.json(error, { status: 500 });
-      }
-    } else {
-      console.error("Quiz not found with the specified quizId");
-      return NextResponse.json(
-        { error: "Quiz not found." },
-        {
-          status: 404,
-        }
-      );
-    }
-  }
 
   const { data, error } = await supabase
     .from("quizzes_times")
