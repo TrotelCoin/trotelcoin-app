@@ -178,7 +178,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       id: 3,
       name: lang === "en" ? "90 days of streaks" : "90 jours de série",
       image: "🔥",
-      condition: maxStreak ? maxStreak >= 60 : null,
+      condition: maxStreak ? maxStreak >= 90 : null,
       progress: maxStreak ?? 0,
       maxProgress: 90,
     },
