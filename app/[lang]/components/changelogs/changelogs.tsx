@@ -88,6 +88,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Censorship resistance"
               : "- Résistance à la censure",
         },
+        {
+          text:
+            lang === "en"
+              ? "- Introduction to NFTs"
+              : "- Introduction aux NFTs",
+        },
       ],
     },
     {
