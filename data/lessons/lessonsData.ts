@@ -331,6 +331,30 @@ const lessons: Lessons[] = [
     ],
   },
   {
+    category: "NFTs",
+    courses: [
+      {
+        title: {
+          en: "Introduction to NFTs",
+          fr: "Introduction aux NFTs",
+        },
+        description: {
+          en: "Learn about the basics of NFTs.",
+          fr: "Apprenez les bases des NFTs.",
+        },
+        href: "/nfts/introduction-to-nfts",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 21,
+        available: true,
+      },
+    ],
+  },
+  {
     category: "Governance",
     courses: [
       {

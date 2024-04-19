@@ -2108,6 +2108,97 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 21,
+    title: "Introduction to NFTs",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What do NFTs stand for?",
+          fr: "Que signifient les NFTs ?",
+        },
+        options: {
+          en: [
+            "Non-Fungible Tokens",
+            "Non-Friendly Tokens",
+            "New Found Treasures",
+            "Never-Fading Tags",
+          ],
+          fr: [
+            "Jetons Non Fongibles",
+            "Jetons Non Amicaux",
+            "Nouveaux Trésors Trouvés",
+            "Étiquettes Jamais Fanées",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What makes NFTs unique?",
+          fr: "Qu'est-ce qui rend les NFTs uniques ?",
+        },
+        options: {
+          en: ["Indivisible", "Divisible", "Interchangeable", "Homogeneous"],
+          fr: ["Indivisibles", "Divisibles", "Interchangeables", "Homogènes"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "Which standard is used for NFTs on the Ethereum blockchain?",
+          fr: "Quelle norme est utilisée pour les NFTs sur la blockchain Ethereum ?",
+        },
+        options: {
+          en: ["ERC-721", "ERC-20", "ERC-1155", "ERC-666"],
+          fr: ["ERC-721", "ERC-20", "ERC-1155", "ERC-666"],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What problem do NFTs solve regarding digital ownership?",
+          fr: "Quel problème les NFTs résolvent-ils concernant la propriété numérique ?",
+        },
+        options: {
+          en: [
+            "Replication of digital assets",
+            "Decrease in digital assets",
+            "Loss of digital assets",
+            "Leveraging digital assets",
+          ],
+          fr: [
+            "Réplication des actifs numériques",
+            "Diminution des actifs numériques",
+            "Perte des actifs numériques",
+            "Utilisation des actifs numériques",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What can NFTs be used for?",
+          fr: "À quoi peuvent servir les NFTs ?",
+        },
+        options: {
+          en: [
+            "All of the answers available",
+            "Physical art, payment processing, legal contracts",
+            "Social media posts, email encryption, online shopping",
+            "Text messaging, video calls, file sharing",
+          ],
+          fr: [
+            "Toutes les réponses disponibles",
+            "Art physique, traitement des paiements, contrats juridiques",
+            "Publications sur les réseaux sociaux, chiffrement des emails, shopping en ligne",
+            "Messages textes, appels vidéo, partage de fichiers",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
