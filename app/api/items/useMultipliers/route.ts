@@ -28,46 +28,36 @@ export async function POST(req: NextRequest, res: NextResponse) {
       break;
   }
 
-  const { data: walletData, error: walletError } = await supabase
-    .from("multipliers")
-    .select("wallet")
-    .eq("wallet", wallet)
-    .eq("multipliers", multipliers);
+  try {
+    const { data: walletData } = await supabase
+      .from("multipliers")
+      .select("wallet")
+      .eq("wallet", wallet)
+      .eq("multipliers", multipliers);
 
-  if (walletError) {
-    console.error(walletError);
-    return NextResponse.json(walletError, { status: 500 });
-  }
-
-  if (walletData.length === 0) {
-    const { error } = await supabase.from("multipliers").insert({
-      wallet: wallet,
-      multipliers: multipliers,
-      start_time: new Date().toISOString(),
-    });
-
-    if (error) {
-      console.error(error);
-      return NextResponse.json(error, { status: 500 });
+    if (walletData && walletData.length === 0) {
+      await supabase.from("multipliers").insert({
+        wallet: wallet,
+        multipliers: multipliers,
+        start_time: new Date().toISOString(),
+      });
     }
-  }
 
-  const { error } = await supabase
-    .from("multipliers")
-    .update({
-      multipliers: multipliers,
-      start_time: new Date().toISOString(),
-    })
-    .eq("wallet", wallet)
-    .eq("multipliers", multipliers);
+    await supabase
+      .from("multipliers")
+      .update({
+        multipliers: multipliers,
+        start_time: new Date().toISOString(),
+      })
+      .eq("wallet", wallet)
+      .eq("multipliers", multipliers);
 
-  if (error) {
+    return NextResponse.json(`Multipliers ${multipliers} has been activated`, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
     console.error(error);
-    return NextResponse.json(error, { status: 500 });
+    return NextResponse.json(null, { status: 500 });
   }
-
-  return NextResponse.json(`Multipliers ${multipliers} has been activated`, {
-    status: 200,
-    headers: { "Cache-Control": "no-store" },
-  });
 }

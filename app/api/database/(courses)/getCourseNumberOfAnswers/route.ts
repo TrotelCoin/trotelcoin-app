@@ -4,18 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const quizId: number = Number(searchParams.get("quizId"));
+  const { searchParams } = new URL(req.url);
+  const quizId: number = Number(searchParams.get("quizId"));
 
-    const { data, error } = await supabase
+  try {
+    const { data } = await supabase
       .from("quizzes")
       .select("number_of_answers")
       .eq("quiz_id", quizId);
 
-    if (error) {
-      console.error(error);
-      return NextResponse.json({ answered: false }, { status: 500 });
+    if (!data) {
+      return NextResponse.json(0, { status: 404 });
     }
 
     if (data.length > 0) {
