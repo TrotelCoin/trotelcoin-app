@@ -10,16 +10,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     // get courses completed by user
-    const { data: courses, error } = await supabase
+    const { data: courses } = await supabase
       .from("quizzes_answered")
       .select("quiz_id, answered")
-      .eq("wallet", wallet as Address)
+      .eq("wallet", wallet)
       .eq("answered", true);
-
-    if (error) {
-      console.error(error);
-      return NextResponse.json([], { status: 500 });
-    }
 
     // return courses
     if (courses) {

@@ -9,24 +9,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const satisfaction: number = Number(searchParams.get("number"));
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  const { error } = await supabase.from("net_promoter_scores").insert([
-    {
-      net_promoter_score: satisfaction,
-      answered_at: new Date().toISOString(),
-      wallet: wallet as Address,
-    },
-  ]);
+  try {
+    await supabase.from("net_promoter_scores").insert([
+      {
+        net_promoter_score: satisfaction,
+        answered_at: new Date().toISOString(),
+        wallet: wallet,
+      },
+    ]);
 
-  if (error) {
+    return NextResponse.json(
+      { success: "Satisfaction recorded." },
+      { status: 200, headers: { "Cache-Control": "no-store" } }
+    );
+  } catch (error) {
     console.error(error);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 }
     );
   }
-
-  return NextResponse.json(
-    { success: "Satisfaction recorded." },
-    { status: 200, headers: { "Cache-Control": "no-store" } }
-  );
 }

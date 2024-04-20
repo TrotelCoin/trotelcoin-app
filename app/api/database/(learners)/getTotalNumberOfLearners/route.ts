@@ -5,14 +5,9 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const { count, error } = await supabase
+    const { count } = await supabase
       .from("learners")
       .select("*", { count: "exact", head: true });
-
-    if (error) {
-      console.error(error);
-      return NextResponse.json(0, { status: 500 });
-    }
 
     if (count) {
       return NextResponse.json(count, {

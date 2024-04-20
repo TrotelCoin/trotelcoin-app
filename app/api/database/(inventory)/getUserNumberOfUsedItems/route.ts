@@ -9,26 +9,26 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const address: Address = searchParams.get("address") as Address;
   const item = searchParams.get("item");
 
-  const { data, error } = await supabase
-    .from("items")
-    .select("number_of_use")
-    .eq("wallet", address)
-    .eq("name", item);
+  try {
+    const { data } = await supabase
+      .from("items")
+      .select("number_of_use")
+      .eq("wallet", address)
+      .eq("name", item);
 
-  if (error) {
-    console.error(error);
-    return NextResponse.json(error, { status: 500 });
-  }
+    if (data && data.length > 0) {
+      return NextResponse.json(data[0]?.number_of_use, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
+    }
 
-  if (data.length > 0) {
-    return NextResponse.json(data[0]?.number_of_use, {
+    return NextResponse.json(0, {
       status: 200,
       headers: { "Cache-Control": "no-store" },
     });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(0, { status: 500 });
   }
-
-  return NextResponse.json(0, {
-    status: 200,
-    headers: { "Cache-Control": "no-store" },
-  });
 }

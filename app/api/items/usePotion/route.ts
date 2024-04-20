@@ -8,38 +8,34 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  if (!wallet) {
-    return NextResponse.json("No wallet", { status: 404 });
-  }
-
-  const { data: life, error: errorGetLife } = await supabase
-    .from("life")
-    .select("life")
-    .eq("wallet", wallet);
-
-  if (errorGetLife) {
-    console.error(errorGetLife);
-    return NextResponse.json(errorGetLife, { status: 500 });
-  }
-
-  if (life.length > 0) {
-    const { error } = await supabase
+  try {
+    const { data: life } = await supabase
       .from("life")
-      .update({
-        life: life[0].life + 1,
-      })
+      .select("life")
       .eq("wallet", wallet);
 
-    if (error) {
-      console.error(error);
-      return NextResponse.json(error, { status: 500 });
-    }
-  } else {
-    return NextResponse.json("Learner not found", { status: 404 });
-  }
+    if (life && life.length > 0) {
+      const { error } = await supabase
+        .from("life")
+        .update({
+          life: life[0].life + 1,
+        })
+        .eq("wallet", wallet);
 
-  return NextResponse.json("Life updated", {
-    status: 200,
-    headers: { "Cache-Control": "no-store" },
-  });
+      if (error) {
+        console.error(error);
+        return NextResponse.json(error, { status: 500 });
+      }
+    } else {
+      return NextResponse.json("Learner not found", { status: 404 });
+    }
+
+    return NextResponse.json("Life updated", {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(null, { status: 500 });
+  }
 }

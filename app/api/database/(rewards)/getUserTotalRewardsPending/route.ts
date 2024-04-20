@@ -8,21 +8,24 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  const { data: result, error } = await supabase
-    .from("learners")
-    .select("total_rewards_pending")
-    .eq("wallet", wallet as Address);
+  try {
+    const { data: result } = await supabase
+      .from("learners")
+      .select("total_rewards_pending")
+      .eq("wallet", wallet);
 
-  if (error) {
+    if (result && result[0] && "total_rewards_pending" in result[0]) {
+      return NextResponse.json(result[0].total_rewards_pending, {
+        status: 200,
+        headers: { "Cache-Control": "no-store" },
+      });
+    } else {
+      return NextResponse.json(0, {
+        status: 404,
+      });
+    }
+  } catch (error) {
+    console.error(error);
     return NextResponse.json(0, { status: 500 });
-  } else if (result[0] && "total_rewards_pending" in result[0]) {
-    return NextResponse.json(result[0].total_rewards_pending, {
-      status: 200,
-      headers: { "Cache-Control": "no-store" },
-    });
-  } else {
-    return NextResponse.json(0, {
-      status: 404,
-    });
   }
 }

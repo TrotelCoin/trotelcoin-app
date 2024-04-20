@@ -17,6 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 }

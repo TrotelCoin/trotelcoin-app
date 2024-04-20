@@ -8,38 +8,34 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  if (!wallet) {
-    return NextResponse.json("No wallet", { status: 404 });
-  }
-
-  const { data: maxStreak, error: getMaxStreakError } = await supabase
-    .from("streak")
-    .select("max_streak")
-    .eq("wallet", wallet);
-
-  if (getMaxStreakError) {
-    console.error(getMaxStreakError);
-    return NextResponse.json(getMaxStreakError, { status: 500 });
-  }
-
-  if (maxStreak.length > 0) {
-    const { error } = await supabase
+  try {
+    const { data: maxStreak } = await supabase
       .from("streak")
-      .update({
-        current_streak: maxStreak[0].max_streak,
-      })
+      .select("max_streak")
       .eq("wallet", wallet);
 
-    if (error) {
-      console.error(error);
-      return NextResponse.json(error, { status: 500 });
-    }
-  } else {
-    return NextResponse.json("Max streak not found", { status: 404 });
-  }
+    if (maxStreak && maxStreak.length > 0) {
+      const { error } = await supabase
+        .from("streak")
+        .update({
+          current_streak: maxStreak[0].max_streak,
+        })
+        .eq("wallet", wallet);
 
-  return NextResponse.json("Max streak restored", {
-    status: 200,
-    headers: { "Cache-Control": "no-store" },
-  });
+      if (error) {
+        console.error(error);
+        return NextResponse.json(error, { status: 500 });
+      }
+    } else {
+      return NextResponse.json("Max streak not found", { status: 404 });
+    }
+
+    return NextResponse.json("Max streak restored", {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(error, { status: 500 });
+  }
 }

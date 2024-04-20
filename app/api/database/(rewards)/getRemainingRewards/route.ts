@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // Reset rewards if 24h has passed
-    const { error: updateError } = await supabase
+    await supabase
       .from("algorithm")
       .update({
         remaining_rewards: remainingRewards,
@@ -18,21 +18,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
         new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
       );
 
-    if (updateError) {
-      console.error(updateError);
-      return NextResponse.json(0, { status: 500 });
-    }
-
-    const { data: result, error: selectError } = await supabase
+    const { data: result } = await supabase
       .from("algorithm")
       .select("remaining_rewards");
 
-    if (selectError) {
-      console.error(selectError);
-      return NextResponse.json(0, { status: 500 });
-    }
-
-    if (result[0] && "remaining_rewards" in result[0]) {
+    if (result && result[0] && "remaining_rewards" in result[0]) {
       return NextResponse.json(result[0].remaining_rewards, {
         status: 200,
         headers: { "Cache-Control": "no-store" },

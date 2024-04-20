@@ -9,19 +9,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     // get remaining rewards
-    const { data: result, error: selectError } = await supabase
+    const { data: result } = await supabase
       .from("algorithm")
       .select("remaining_rewards");
 
-    if (selectError) {
-      console.error(selectError);
-      return NextResponse.json(0, { status: 500 });
+    if (!result) {
+      return NextResponse.json(0, { status: 404 });
     }
 
     const remainingRewards = result[0]?.remaining_rewards;
 
     // reset rewards if 24h has passed
-    const { error: updateError } = await supabase
+    await supabase
       .from("algorithm")
       .update({
         remaining_rewards: remainingRewards,
@@ -31,11 +30,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
         "updated_at",
         new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
       );
-
-    if (updateError) {
-      console.error(updateError);
-      return NextResponse.json(0, { status: 500 });
-    }
 
     // calculate rewards
     const calculatedRewards = calculateRewards(remainingRewards, multipliers);

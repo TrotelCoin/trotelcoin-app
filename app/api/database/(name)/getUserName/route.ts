@@ -8,20 +8,25 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
 
-  const { data: result, error } = await supabase
-    .from("learners")
-    .select("username")
-    .eq("wallet", wallet);
+  try {
+    const { data: result } = await supabase
+      .from("learners")
+      .select("username")
+      .eq("wallet", wallet);
 
-  if (error) {
-    console.error(error);
-    return NextResponse.json(wallet, {
-      status: 500,
+    if (!result) {
+      return new NextResponse("No username for this user", {
+        status: 404,
+        headers: { "Cache-Control": "no-store" },
+      });
+    }
+
+    return new NextResponse(JSON.stringify(result[0].username), {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
     });
+  } catch (error) {
+    console.error(error);
+    return new NextResponse(new Date().toISOString(), { status: 500 });
   }
-
-  return new NextResponse(JSON.stringify(result[0].username), {
-    status: 200,
-    headers: { "Cache-Control": "no-store" },
-  });
 }
