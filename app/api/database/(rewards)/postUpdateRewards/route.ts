@@ -17,8 +17,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
   // reset rewards if 24h has passed
   const { error } = await supabase
     .from("algorithm")
-    .update({ remaining_rewards: remainingRewards })
-    .lt("updated_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+    .update({
+      remaining_rewards: remainingRewards,
+      updated_at: new Date().toISOString(),
+    })
+    .lte(
+      "updated_at",
+      new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+    );
 
   if (error) {
     console.error(error);
@@ -230,21 +236,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   if (updateAlgorithmError) {
     console.error(updateAlgorithmError);
-    return NextResponse.json(
-      { error: "Something went wrong." },
-      { status: 500 }
-    );
-  }
-
-  const { error: updateAlgorithmDateError } = await supabase
-    .from("algorithm")
-    .update({
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", 1);
-
-  if (updateAlgorithmDateError) {
-    console.error(updateAlgorithmDateError);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 }

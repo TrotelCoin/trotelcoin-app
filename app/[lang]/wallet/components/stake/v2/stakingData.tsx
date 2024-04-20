@@ -13,12 +13,6 @@ import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
 import { Address, formatEther } from "viem";
 import trotelCoinStakingV2ABI from "@/abi/trotelCoinStakingV2";
 import { polygon } from "viem/chains";
-import {
-  oneYear,
-  sixMonths,
-  thirstyDays,
-  threeMonths,
-} from "@/data/staking/duration";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 
 const staking =
@@ -115,7 +109,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       const duration = Number(getStakingData[2]);
       let timeLeft: number = 0;
       if (startTime && duration && timestamp) {
-        timeLeft = startTime + duration - (timestamp as number);
+        timeLeft = startTime + duration - timestamp;
       }
       const isStaking = getStakingData[0] > 0 && timeLeft > 0;
 
@@ -159,7 +153,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
             {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
           </span>
           <div className="flex items-center gap-1">
-            {Number(earnedTrotelCoins.toFixed(2)).toLocaleString("en-US")}{" "}
+            {Number(earnedTrotelCoins).toLocaleString("en-US")}{" "}
             <TrotelCoinLogo />
           </div>
         </div>
