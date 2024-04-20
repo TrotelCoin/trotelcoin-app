@@ -23,15 +23,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
     // reset rewards if 24h has passed
     const { error: updateError } = await supabase
       .from("algorithm")
-      .upsert(
-        [
-          {
-            remaining_rewards: remainingRewards,
-            updated_at: new Date().toISOString(),
-          },
-        ],
-        { onConflict: "updated_at" }
-      )
+      .update({
+        remaining_rewards: remainingRewards,
+        updated_at: new Date().toISOString(),
+      })
       .lte(
         "updated_at",
         new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
