@@ -2199,6 +2199,107 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 22,
+    title: "The halving",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is Bitcoin?",
+          fr: "Qu'est-ce que Bitcoin ?",
+        },
+        options: {
+          en: [
+            "A digital currency",
+            "A physical coin",
+            "A bank account",
+            "A stock market",
+          ],
+          fr: [
+            "Une monnaie numérique",
+            "Une pièce physique",
+            "Un compte bancaire",
+            "Un marché boursier",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How many Bitcoins will ever exist?",
+          fr: "Combien de Bitcoins existeront-ils ?",
+        },
+        options: {
+          en: ["21 million", "Unlimited", "100 million", "10 million"],
+          fr: ["21 millions", "Illimité", "100 millions", "10 millions"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is the purpose of Bitcoin halving?",
+          fr: "Quel est le but du halving de Bitcoin ?",
+        },
+        options: {
+          en: [
+            "Control the rate of new Bitcoins",
+            "Increase inflation",
+            "Reduce transaction fees",
+            "Boost mining rewards",
+          ],
+          fr: [
+            "Contrôler le taux de nouveaux Bitcoins",
+            "Augmenter l'inflation",
+            "Réduire les frais de transaction",
+            "Augmenter les récompenses minières",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "How often does Bitcoin halving occur?",
+          fr: "À quelle fréquence le halving de Bitcoin se produit-il ?",
+        },
+        options: {
+          en: [
+            "Approximately every four years",
+            "Every year",
+            "Every month",
+            "Every ten years",
+          ],
+          fr: [
+            "Environ tous les quatre ans",
+            "Chaque année",
+            "Chaque mois",
+            "Tous les dix ans",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What happens to the mining reward during halving?",
+          fr: "Que se passe-t-il avec la récompense minière pendant le halving ?",
+        },
+        options: {
+          en: [
+            "It halves",
+            "It doubles",
+            "It remains the same",
+            "It increases",
+          ],
+          fr: [
+            "Elle est réduite de moitié",
+            "Elle double",
+            "Elle reste la même",
+            "Elle augmente",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

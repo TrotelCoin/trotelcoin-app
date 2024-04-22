@@ -94,6 +94,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Introduction to NFTs"
               : "- Introduction aux NFTs",
         },
+        {
+          text: lang === "en" ? "- The halving" : "- Le halving",
+        },
       ],
     },
     {

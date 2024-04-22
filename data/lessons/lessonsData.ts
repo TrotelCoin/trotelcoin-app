@@ -247,6 +247,25 @@ const lessons: Lessons[] = [
         quizId: 10,
         available: true,
       },
+      {
+        title: {
+          en: "The halving",
+          fr: "Le halving",
+        },
+        description: {
+          en: "Learn about what is the Bitcoing halving.",
+          fr: "Apprenez ce qu'est le halving de Bitcoin.",
+        },
+        href: "/bitcoin/the-halving",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 22,
+        available: true,
+      },
     ],
   },
   {
