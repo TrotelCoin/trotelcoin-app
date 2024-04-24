@@ -2300,6 +2300,75 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 23,
+    title: "Price floor",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is a price floor?",
+          fr: "Qu'est-ce qu'un prix plancher?",
+        },
+        options: {
+          en: [
+            "The minimum price a seller is willing to accept for an NFT",
+            "The maximum price a buyer is willing to pay for an NFT",
+            "The average price of an NFT",
+            "The fluctuating price of an NFT",
+          ],
+          fr: [
+            "Le prix minimum qu'un vendeur est prêt à accepter pour un NFT",
+            "Le prix maximum qu'un acheteur est prêt à payer pour un NFT",
+            "Le prix moyen d'un NFT",
+            "Le prix fluctuant d'un NFT",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Why set a price floor for NFTs?",
+          fr: "Pourquoi fixer un prix plancher pour les NFTs?",
+        },
+        options: {
+          en: [
+            "To protect the value of an NFT",
+            "To increase the supply of NFTs",
+            "To lower the demand for NFTs",
+            "To encourage price fluctuations of NFTs",
+          ],
+          fr: [
+            "Pour protéger la valeur d'un NFT",
+            "Pour augmenter l'offre de NFTs",
+            "Pour diminuer la demande de NFTs",
+            "Pour encourager les fluctuations de prix des NFTs",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What analogy can be used to explain a price floor?",
+          fr: "Quelle analogie peut être utilisée pour expliquer un prix plancher?",
+        },
+        options: {
+          en: [
+            "Setting a minimum price to your house to protect its value",
+            "Playing a game of cards with friends on the beach",
+            "Buying and selling stocks on the stock market",
+            "Choosing the best NFT to invest in",
+          ],
+          fr: [
+            "Fixer un prix minimum à votre maison pour protéger sa valeur",
+            "Jouer à un jeu de cartes avec des amis sur la plage",
+            "Acheter et vendre des actions sur le marché boursier",
+            "Choisir le meilleur NFT dans lequel investir",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
