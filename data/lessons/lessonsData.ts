@@ -371,6 +371,25 @@ const lessons: Lessons[] = [
         quizId: 21,
         available: true,
       },
+      {
+        title: {
+          en: "Price floor",
+          fr: "Le prix plancher",
+        },
+        description: {
+          en: "Learn about the notion of price floor.",
+          fr: "Apprenez la notion de prix plancher.",
+        },
+        href: "/nfts/price-floor",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 23,
+        available: true,
+      },
     ],
   },
   {
