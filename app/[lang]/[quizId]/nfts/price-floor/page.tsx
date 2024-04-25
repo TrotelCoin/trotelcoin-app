@@ -49,7 +49,7 @@ const cards = {
     },
     {
       title: "Exemple d'un jeu de cartes",
-      text: "Imaginez que vous avez une jeu de cartes à échanger, comme des cartes Pokémon. Chaque carte est unique et a sa propre valeur.",
+      text: "Imaginez que vous avez un jeu de cartes à échanger, comme des cartes Pokémon. Chaque carte est unique et a sa propre valeur.",
     },
     {
       title: "Prix plancher",

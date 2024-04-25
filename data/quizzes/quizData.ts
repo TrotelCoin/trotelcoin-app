@@ -909,12 +909,17 @@ const quizzes: QuizData = [
           fr: "Quel est le problème avec les monnaies traditionnelles?",
         },
         options: {
-          en: ["Inflation", "Deflation", "No issue", "They are not digital"],
+          en: [
+            "Trust",
+            "No problem",
+            "They are not digital",
+            "They are not scarce",
+          ],
           fr: [
-            "L'inflation",
-            "La déflation",
+            "Confiance",
             "Pas de problème",
-            "Elles ne sont pas digitales",
+            "Elles ne sont pas numériques",
+            "Elles ne sont pas rares",
           ],
         },
       },
@@ -936,48 +941,6 @@ const quizzes: QuizData = [
             "C'est un moyen d'échange",
             "C'est une unité de compte",
             "C'est un standard de paiement différé",
-          ],
-        },
-      },
-      {
-        questionId: 5,
-        question: {
-          en: "Why Bitcoin uses blockchain technology?",
-          fr: "Pourquoi Bitcoin utilise la technologie blockchain?",
-        },
-        options: {
-          en: [
-            "Transparency, decentralization and security",
-            "Speed and scalability",
-            "Low fees",
-            "It's the only technology available",
-          ],
-          fr: [
-            "Transparence, décentralisation et sécurité",
-            "Vitesse et scalabilité",
-            "Frais bas",
-            "C'est la seule technologie disponible",
-          ],
-        },
-      },
-      {
-        questionId: 6,
-        question: {
-          en: "Why Bitcoin encounters political issues?",
-          fr: "Pourquoi Bitcoin rencontre des problèmes politiques?",
-        },
-        options: {
-          en: [
-            "Government sees it as a threat",
-            "Government sees it as an opportunity",
-            "Government doesn't care",
-            "It uses the same technology as the government",
-          ],
-          fr: [
-            "Le gouvernement le voit comme une menace",
-            "Le gouvernement le voit comme une opportunité",
-            "Le gouvernement s'en fiche",
-            "Il utilise la même technologie que le gouvernement",
           ],
         },
       },
