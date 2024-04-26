@@ -7,27 +7,23 @@ const cards = {
   en: [
     {
       title: "Introduction",
-      text: "A blockchain is decentralized, secure and scalable. But, there's a problem called the blockchain trilemma saying that a basic blockchain can only have two of those things, not all three.",
+      text: "A blockchain is decentralized, secure, and scalable. But, the blockchain trilemma states that a base blockchain can only have two of these properties, not all three.",
     },
     {
       title: "Ethereum Layer 2s",
-      text: "Layer 2 blockchains, which are built on Ethereum, make transactions faster and cheaper for the main Ethereum network. They handle the hard work of processing transactions that Ethereum can't handle quickly because it wasn't made to be fast.",
+      text: "Layer 2 blockchains, which are built on Ethereum, make transactions faster and cheaper for the main Ethereum network. They handle the hard work of processing transactions that Ethereum can't handle quickly.",
     },
     {
       title: "A Layer 2",
       text: "A Layer 2 solution is like a helper network for a main blockchain. It helps ease the burden on the main chain by taking care of some of its tasks.",
     },
     {
-      title: "Illustration",
-      text: "Think of a Layer 2 solution as friends who helps you carry a heavy backpack (the main blockchain). They take some of the weight off your shoulders by carrying part of the load themselves, making it easier for you to move around.",
-    },
-    {
-      title: "Illustration",
-      text: "If you want to add something to the backpack, you give it to your friends, who add them to their own backpack. When you need it, they give it back to you. This way, you don't have to carry everything yourself.",
+      title: "Layer 2 example",
+      text: "Imagine a Layer 2 solution as friends helping you carry a heavy backpack (the main blockchain). They take some of the weight off your shoulders by carrying part of the load themselves, making it easier to move.",
     },
     {
       title: "Context",
-      text: "Back to the blockchain trilemna, when we sacrifice scalability, it causes some clear problems: transactions become slow and costly. Right now, Ethereum can only handle about 15 to 30 transactions per second. To understand this better, VISA manages around 1,700 transactions per second.",
+      text: "Back to the blockchain trilemna, when we sacrifice scalability, it causes some clear problems: transactions become slow and costly. Right now, Ethereum can only handle about 15 to 30 transactions per second. In comparison, VISA manages around 1,700 transactions per second.",
     },
     {
       title: "Finality",
@@ -35,23 +31,19 @@ const cards = {
     },
     {
       title: "Sidechains",
-      text: "Sidechains are like separate groups of blocks with their own money and rules. They're made to help the main network work better. They link to the main blocks using a special bridge that lets people move their things back and forth between them and Ethereum.",
+      text: "There are also sidechains, which are blockchains with their own properties and rules. They are designed to help the main network run better. Plus, they are linked to the main blocks using a special bridge that lets people move their belongings between them and Ethereum.",
     },
     {
       title: "Two-pegged sidechains",
       text: "But, no actual moving of belongings happens between the two chains. Sidechains work by using a method called a two-way peg. A special kind of contract locks away belongings on the main chain and creates a copy of the tokens on the sidechain. The worth of these new belongings is tied to the belongings on the first chain.",
     },
     {
-      title: "Illustration",
-      text: "In this scenario, imagine the backpack carrier (representing Ethereum) giving a heavy bag to his friend (the sidechain). The friend works with a duplicate bag (pegged assets) to handle tasks. After finishing, the friend returns the duplicate bag and the carrier unlocks the original heavy bag on Ethereum.",
-    },
-    {
       title: "Rollups",
-      text: "Blockchain rollups are like bundles of transactions. They group lots of transactions together and send them to Ethereum all at once. Ethereum then adds these bundles to its blocks and confirms them.",
+      text: "Rollups are like bundles of transactions. They group lots of transactions together and send them to Ethereum all at once. Ethereum then adds these bundles to its blocks and confirms them.",
     },
     {
-      title: "Illustration",
-      text: "For rollups, the friend (the rollup) takes a lot of small bags (transactions) and puts them into a big bag (a rollup). Then, he gives the big bag to the carrier (Ethereum) to add to the backpack. This way, the carrier doesn't have to carry all the small bags himself.",
+      title: "Rollups example",
+      text: "Rollups are like buses that take lots of people (transactions) to the city (Ethereum). They pick up people at different stops (transactions) and drop them off at the city all at once.",
     },
     {
       title: "Optimistic rollups",
@@ -69,27 +61,23 @@ const cards = {
   fr: [
     {
       title: "Introduction",
-      text: "Une blockchain est décentralisée, sécurisée et évolutive. Mais, il y a un problème appelé le trilemme de la blockchain stipulant qu'une blockchain de base ne peut avoir que deux de ces éléments, pas les trois.",
+      text: "Une blockchain est décentralisée, sécurisée et scalable. Mais, le trilemme de la blockchain stipule qu'une blockchain de base ne peut avoir que deux de ces propriétés, pas les trois.",
     },
     {
       title: "Ethereum Layer 2s",
-      text: "Les blockchains de couche 2, qui sont construites sur Ethereum, rendent les transactions plus rapides et moins chères pour le réseau principal Ethereum. Elles gèrent le travail difficile de traitement des transactions qu'Ethereum ne peut pas traiter rapidement parce qu'il n'a pas été conçu pour être rapide.",
+      text: "Les blockchains de couche 2, qui sont construites sur Ethereum, rendent les transactions plus rapides et moins chères pour le réseau principal Ethereum. Elles gèrent le travail difficile de traitement des transactions qu'Ethereum ne peut pas traiter rapidement.",
     },
     {
       title: "Une couche 2",
       text: "Une solution de couche 2 est comme un réseau auxiliaire pour une blockchain principale. Elle aide à alléger la charge sur la chaîne principale en s'occupant de certaines de ses tâches.",
     },
     {
-      title: "Illustration",
-      text: "Pensez à une solution de couche 2 comme à des amis qui vous aide à porter un sac à dos lourd (la blockchain principale). Ils prennent une partie du poids de vos épaules en portant une partie de la charge eux-mêmes, ce qui vous facilite le déplacement.",
-    },
-    {
-      title: "Illustration",
-      text: "Si vous voulez ajouter quelque chose au sac à dos, vous le donnez à vos amis, qui l'ajoutent à leur propre sac à dos. Quand vous en avez besoin, ils vous le rendent. De cette façon, vous n'avez pas à tout porter vous-même.",
+      title: "Layer 2 exemple",
+      text: "Imagine une solution de couche 2 comme des amis qui t'aide à porter un sac à dos lourd (la blockchain principale). Ils prennent une partie du poids de tes épaules en portant une partie de la charge eux-mêmes, ce qui facilite le déplacement.",
     },
     {
       title: "Contexte",
-      text: "Revenons au trilemme de la blockchain, lorsque nous sacrifions l'évolutivité, cela pose des problèmes évidents : les transactions deviennent lentes et coûteuses. En ce moment, Ethereum ne peut gérer que 15 à 30 transactions par seconde. Pour mieux comprendre cela, VISA gère environ 1 700 transactions par seconde.",
+      text: "Revenons au trilemme de la blockchain, lorsque nous sacrifions la scalabilité, cela pose des problèmes évidents : les transactions deviennent lentes et coûteuses. En ce moment, Ethereum ne peut gérer que 15 à 30 transactions par seconde. En comparaison, VISA gère environ 1 700 transactions par seconde.",
     },
     {
       title: "Finalité",
@@ -97,23 +85,19 @@ const cards = {
     },
     {
       title: "Sidechains",
-      text: "Les sidechains sont comme des groupes de blocs séparés avec leur propre argent et leurs propres règles. Elles sont conçues pour aider le réseau principal à mieux fonctionner. Elles se connectent aux blocs principaux à l'aide d'un pont spécial qui permet aux gens de déplacer leurs biens de va-et-vient entre eux et Ethereum.",
+      text: "On a aussi les sidechains qui sont des blockchains avec leurs propres propriétés et règles. Elles sont conçues pour aider le réseau principal à mieux fonctionner. De plus, elles sont liées aux blocs principaux en utilisant un pont spécial qui permet aux gens de déplacer leurs biens entre eux et Ethereum.",
     },
     {
       title: "Sidechains à deux jetons",
       text: "Mais, aucun déplacement réel de biens ne se produit entre les deux chaînes. Les sidechains fonctionnent en utilisant une méthode appelée two-way peg. Un contrat spécial enferme les biens sur la chaîne principale et crée une copie des jetons sur la sidechain. La valeur de ces nouveaux biens est liée aux biens sur la première chaîne.",
     },
     {
-      title: "Illustration",
-      text: "Dans ce scénario, imaginez le porteur de sac à dos (représentant Ethereum) donnant un sac lourd à son ami (la sidechain). L'ami travaille avec un sac en double (des actifs liés) pour effectuer des tâches. Après avoir terminé, l'ami rend le sac en double et le porteur déverrouille le sac lourd original sur Ethereum.",
-    },
-    {
       title: "Rollups",
-      text: "Les rollups blockchain sont comme des paquets de transactions. Ils regroupent beaucoup de transactions et les envoient à Ethereum en une seule fois. Ethereum ajoute ensuite ces paquets à ses blocs et les confirme.",
+      text: "Les rollups sont comme des paquets de transactions. Ils regroupent beaucoup de transactions et les envoient à Ethereum en une seule fois. Ethereum ajoute ensuite ces paquets à ses blocs et les confirme.",
     },
     {
-      title: "Illustration",
-      text: "Pour les rollups, l'ami (le rollup) prend beaucoup de petits sacs (transactions) et les met dans un gros sac (un rollup). Il donne ensuite le gros sac au porteur (Ethereum) pour l'ajouter au sac à dos. De cette façon, le porteur n'a pas à porter tous les petits sacs lui-même.",
+      title: "Rollups exemple",
+      text: "Les rollups sont comme des bus qui emmènent beaucoup de gens (transactions) à la ville (Ethereum). Ils ramassent des gens à différents arrêts (transactions) et les déposent à la ville en une seule fois.",
     },
     {
       title: "Rollups optimistes",

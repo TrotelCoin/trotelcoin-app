@@ -6,10 +6,6 @@ import Course from "@/app/[lang]/[quizId]/components/course";
 const cards = {
   en: [
     {
-      title: "Introduction to Ethereum",
-      text: "Let's dive into the world of Ethereum and explore its groundbreaking features in Web3.",
-    },
-    {
       title: "What is Ethereum?",
       text: "Ethereum is a decentralized platform that enables the creation of smart contracts and decentralized applications (dApps).",
     },
@@ -19,15 +15,15 @@ const cards = {
     },
     {
       title: "Use Cases of Ethereum",
-      text: "Ethereum's use cases include decentralized finance (DeFi), non-fungible tokens (NFTs), supply chain management, and more.",
+      text: "Ethereum's use cases include decentralized finance (DeFi), non-fungible tokens (NFTs) and more.",
     },
     {
       title: "Smart Contracts",
-      text: "Smart contracts are self-executing contracts with the terms directly written into code.",
+      text: "Smart contracts are self-executing contracts. Terms are directly written into code.",
     },
     {
       title: "Tokens on Ethereum",
-      text: "Tokens on Ethereum can represent assets, voting power, or any other form of value, enabling various functionalities within dApps.",
+      text: "Tokens on Ethereum can represent assets, a voting power, or any other form of value, enabling various functionalities within dApps.",
     },
     {
       title: "No Control Over Data",
@@ -44,10 +40,6 @@ const cards = {
   ],
   fr: [
     {
-      title: "Introduction à Ethereum !",
-      text: "Plongeons dans le monde d'Ethereum et explorons ses fonctionnalités révolutionnaires dans le Web3.",
-    },
-    {
       title: "Qu'est-ce qu'Ethereum ?",
       text: "Ethereum est une plateforme décentralisée qui permet la création de contrats intelligents et d'applications décentralisées (dApps).",
     },
@@ -57,15 +49,15 @@ const cards = {
     },
     {
       title: "Cas d'utilisation d'Ethereum",
-      text: "Les cas d'utilisation d'Ethereum incluent la finance décentralisée (DeFi), les jetons non fongibles (NFT), la gestion de supply chains, et plus encore.",
+      text: "Les cas d'utilisation d'Ethereum incluent la finance décentralisée (DeFi), les jetons non fongibles (NFT) et plus encore.",
     },
     {
       title: "Contrats Intelligents",
-      text: "Les contrats intelligents sont des contrats qui s'exécutent automatiquement avec les termes directement écrits dans le code.",
+      text: "Les contrats intelligents sont des contrats qui s'exécutent automatiquement. Les termes sont directement écrits dans le code.",
     },
     {
       title: "Jetons sur Ethereum",
-      text: "Les jetons sur Ethereum peuvent représenter des actifs, du pouvoir de vote, ou toute autre forme de valeur, permettant diverses fonctionnalités au sein des dApps.",
+      text: "Les jetons sur Ethereum peuvent représenter des actifs, un pouvoir de vote, ou toute autre forme de valeur, permettant diverses fonctionnalités au sein des dApps.",
     },
     {
       title: "Aucun Contrôle sur les Données",

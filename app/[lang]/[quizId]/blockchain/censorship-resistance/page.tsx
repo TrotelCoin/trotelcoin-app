@@ -11,7 +11,7 @@ const cards = {
     },
     {
       title: "Freedom of expression",
-      text: "Eliminating intermediaries allows for the free exchange of ideas and information. As an example, a media outlet can publish content without fear of censorship and this in any country.",
+      text: "Eliminating intermediaries allows for the free exchange of ideas and information. As an example, a media can publish content without fear of censorship in any country.",
     },
     {
       title: "Financial autonomy",
@@ -49,7 +49,7 @@ const cards = {
     },
     {
       title: "Liberté d'expression",
-      text: "L'élimination des intermédiaires permet l'échange libre d'idées et d'informations. Par exemple, un média peut publier du contenu sans craindre la censure et ce peu importe le pays.",
+      text: "L'élimination des intermédiaires permet l'échange libre d'idées et d'informations. Par exemple, un média peut publier du contenu sans craindre la censure peu importe le pays.",
     },
     {
       title: "Autonomie financière",

@@ -76,10 +76,6 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         text: "There are several risks associated with stablecoins, including regulatory risks, counterparty risks, and smart contract risks.",
       },
       {
-        title: "Tax Implications of Stablecoins",
-        text: "Swapping from a cryptocurrency to a stablecoin is not considered a taxable event because it is still a cryptocurrency. However, you should consult the law or a tax professional for advice on your specific situation.",
-      },
-      {
         title: "Practical Uses of Stablecoins",
         text: "Stablecoins have several practical uses, including remittances, trading, and as a store of value. For instance, they can be used to send money across borders quickly and cheaply.",
       },
@@ -160,10 +156,6 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       {
         title: "Risques des stablecoins",
         text: "Il existe plusieurs risques associés aux stablecoins, notamment les risques réglementaires, les risques de contrepartie et les risques de contrats intelligents.",
-      },
-      {
-        title: "Implications fiscales des stablecoins",
-        text: "Le passage d'une cryptomonnaie à un stablecoin n'est pas considéré comme un événement imposable car il s'agit toujours d'une cryptomonnaie. Cependant, vous devriez consulter la loi ou un professionnel de la fiscalité pour obtenir des conseils sur votre situation spécifique.",
       },
       {
         title: "Utilisations pratiques des stablecoins",

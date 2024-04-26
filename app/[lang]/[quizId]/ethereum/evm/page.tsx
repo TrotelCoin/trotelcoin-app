@@ -14,8 +14,12 @@ const cards = {
       text: "The Ethereum Virtual Machine (EVM) is a decentralized virtual machine that executes scripts on the Ethereum network. It is a Turing-complete virtual machine.",
     },
     {
+      title: "Turing-complete",
+      text: "A Turing-complete machine means that it can simulate any computable algorithm.",
+    },
+    {
       title: "dApps",
-      text: "This makes the EVM incredibly powerful, enabling developers to build complex decentralized applications (dApps) and execute smart contracts securely and efficiently.",
+      text: "Developers can build complex decentralized applications (dApps) and execute smart contracts securely and efficiently.",
     },
     {
       title: "Bytecode",
@@ -26,12 +30,8 @@ const cards = {
       text: "Each instruction consumes a certain amount of gas, which serves as the unit of computation and prevents infinite loops or resource exhaustion.",
     },
     {
-      title: "Importance of EVM",
-      text: "The Ethereum Virtual Machine plays a vital role in enabling the functionality and interoperability of the Ethereum blockchain. It facilitates the execution of smart contracts.",
-    },
-    {
       title: "Applications",
-      text: "This programmability enables a wide range of applications, including DeFi, NFTs, DEXs, and more, all running on the Ethereum network.",
+      text: "This enables a wide range of applications, including DeFi, NFTs, DEXs, and more, all running on the Ethereum network.",
     },
     {
       title: "Conclusion",
@@ -48,8 +48,12 @@ const cards = {
       text: "La Machine Virtuelle Ethereum (EVM) est une machine virtuelle décentralisée qui exécute des scripts sur le réseau Ethereum. C'est une machine virtuelle complète de Turing.",
     },
     {
+      title: "Turing-complet",
+      text: "Une machine de Turing complète signifie qu'elle peut simuler n'importe quel algorithme calculable.",
+    },
+    {
       title: "dApps",
-      text: "Cela rend l'EVM incroyablement puissant, permettant aux développeurs de construire des applications décentralisées complexes (dApps) et d'exécuter des contrats intelligents de manière sécurisée et efficace.",
+      text: "Les développeurs peuvent construire des applications décentralisées complexes (dApps) et d'exécuter des contrats intelligents de manière sécurisée et efficace.",
     },
     {
       title: "Bytecode",
@@ -60,12 +64,8 @@ const cards = {
       text: "Chaque instruction consomme une certaine quantité de gaz, qui sert d'unité de calcul et empêche les boucles infinies ou l'épuisement des ressources.",
     },
     {
-      title: "Importance de l'EVM",
-      text: "La Machine Virtuelle Ethereum joue un rôle vital en permettant la fonctionnalité et l'interopérabilité de la blockchain Ethereum. Elle facilite l'exécution de contrats intelligents.",
-    },
-    {
       title: "Applications",
-      text: "Cette programmabilité permet une large gamme d'applications, y compris DeFi, NFTs, DEXs, et plus encore, toutes fonctionnant sur le réseau Ethereum.",
+      text: "Ceci permet une large gamme d'applications, y compris DeFi, NFTs, DEXs, et plus encore, toutes fonctionnant sur le réseau Ethereum.",
     },
     {
       title: "Conclusion",
