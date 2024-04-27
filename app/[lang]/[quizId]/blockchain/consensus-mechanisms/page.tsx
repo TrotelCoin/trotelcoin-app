@@ -19,11 +19,7 @@ const cards = {
     },
     {
       title: "Consensus Mechanism",
-      text: "There are differents consensus mechanisms to agree on the state of the network. The most known are Proof of Work and Proof of Stake.",
-    },
-    {
-      title: "Proof of Work",
-      text: "Bitcoin uses a Proof-of-Work consensus mechanism. In the past, Ethereum was using it too.",
+      text: "There are differents consensus mechanisms to agree on the state of the network. The most known are Proof of Work used by Bitcoin and Proof of Stake by Ethereum.",
     },
     {
       title: "Block Creation",
@@ -54,14 +50,6 @@ const cards = {
       text: "In addition, a protocol governs the way honest validators are selected to propose or validate blocks, process transactions and vote.",
     },
     {
-      title: "Multiple blocks",
-      text: "Sometimes, there can be multiple blocks at the same spot in the front of the blockchain. To pick which blocks should form the main chain, we use a fork-choice method.",
-    },
-    {
-      title: "Fork-Choice Method",
-      text: "This method looks at how many validators supported each block based on how much ether they have. Then, it selects the blocks that have the most support to build the main chain.",
-    },
-    {
       title: "Fake Identities",
       text: "Proof-of-work and proof-of-stake aren't exactly consensus protocols, even though people often call them that for simplicity. They're really about preventing fake identities and choosing who gets to create the newest block.",
     },
@@ -76,26 +64,6 @@ const cards = {
     {
       title: "Chain Selection Rule",
       text: "In Bitcoin, there's a rule called the \"longest chain\" rule that helps decide which chain is right. Basically, the chain that's the longest is the one everyone agrees on and uses.",
-    },
-    {
-      title: "Bitcoin Selection Rule",
-      text: "In Proof-of-Work chains, the longest chain is decided by how much hard work has been put into making the chain.",
-    },
-    {
-      title: "Proof of History",
-      text: 'Lastly, Solana uses Proof-of-History to secure its network. It does this by using a special tool called a hash function to make a "fingerprint" of a group of information (like previous actions).',
-    },
-    {
-      title: "Hash Function",
-      text: "Since the hash function always gives the same result for the same data, if you change the data even a little, the fingerprint will be different. Nodes can tell this difference and think it's fake, so they throw away the block.",
-    },
-    {
-      title: "Byzantine Fault Tolerance",
-      text: 'Firstly, Solana\'s design uses a type of agreement algorithm called "Tower BFT", which is a version of Practical Byzantine Fault Tolerance (PBFT).',
-    },
-    {
-      title: "Towers",
-      text: "This helps to handle transactions simultaneously and greatly boosts how much the system can handle by splitting it into different groups called \"towers.\" Each tower can handle a part of Solana's transactions that haven't been confirmed yet.",
     },
   ],
   fr: [
@@ -114,10 +82,6 @@ const cards = {
     {
       title: "Mécanisme de consensus",
       text: "Il existe différents mécanismes de consensus pour s'accorder sur l'état du réseau. Les plus connus sont la Preuve de Travail et la Preuve d'Enjeu.",
-    },
-    {
-      title: "Preuve de Travail",
-      text: "Bitcoin utilise un mécanisme de consensus appelé Preuve de Travail. Dans le passé, Ethereum l'utilisait également.",
     },
     {
       title: "Création de blocs",
@@ -148,14 +112,6 @@ const cards = {
       text: "De plus, un protocole régit la manière dont les validateurs honnêtes sont sélectionnés pour proposer ou valider des blocs, traiter des transactions et voter.",
     },
     {
-      title: "Multiples blocs",
-      text: "Parfois, il peut y avoir plusieurs blocs au même endroit au début de la blockchain. Pour choisir quels blocs doivent former la chaîne principale, nous utilisons une méthode Fork-Choice.",
-    },
-    {
-      title: "Méthode de choix de fourche",
-      text: "Cette méthode examine combien de validateurs ont soutenu chaque bloc en fonction de la quantité d'ether qu'ils possèdent. Ensuite, elle sélectionne les blocs qui ont le plus de soutien pour construire la chaîne principale.",
-    },
-    {
       title: "Identités frauduleuses",
       text: "La Preuve de Travail et la Preuve d'Enjeu ne sont pas exactement des protocoles de consensus, même si les gens les appellent souvent ainsi par simplicité. Elles visent vraiment à empêcher les identités frauduleuses et à choisir qui peut créer le dernier bloc.",
     },
@@ -170,26 +126,6 @@ const cards = {
     {
       title: "Règle de sélection de chaîne",
       text: "Dans Bitcoin, il existe une règle appelée la règle de la \"chaîne la plus longue\" qui aide à décider quelle chaîne est correcte. Fondamentalement, la chaîne la plus longue est celle sur laquelle tout le monde est d'accord et qu'il utilise.",
-    },
-    {
-      title: "Règle de sélection Bitcoin",
-      text: "Dans les chaînes de Preuve de Travail, la chaîne la plus longue est déterminée par le travail acharné mis en œuvre pour la construire.",
-    },
-    {
-      title: "Preuve d'Histoire",
-      text: "Enfin, Solana utilise la Preuve d'Histoire pour sécuriser son réseau. Elle le fait en utilisant un outil spécial appelé une fonction de hachage pour créer une \"empreinte digitale\" d'un groupe d'informations (comme des actions précédentes).",
-    },
-    {
-      title: "Fonction de hachage",
-      text: "Comme la fonction de hachage donne toujours le même résultat pour les mêmes données, si vous modifiez légèrement les données, l'empreinte digitale sera différente. Les nœuds peuvent détecter cette différence et la considérer comme une falsification, donc ils rejettent le bloc.",
-    },
-    {
-      title: "Tolérance aux fautes byzantines",
-      text: "Tout d'abord, la conception de Solana utilise un type d'algorithme d'accord appelé \"Tower BFT\", qui est une autre version de la tolérance aux fautes byzantines pratiques (PBFT).",
-    },
-    {
-      title: "Tours",
-      text: 'Cela permet de gérer les transactions simultanément et améliore considérablement la capacité du système en le divisant en différents groupes appelés "tours". Chaque tour peut gérer une partie des transactions de Solana qui n\'ont pas encore été confirmées.',
     },
   ],
 };

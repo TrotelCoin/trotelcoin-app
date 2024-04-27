@@ -651,48 +651,6 @@ const quizzes: QuizData = [
       {
         questionId: 4,
         question: {
-          en: "Why is Blockchain needs to be decentralized?",
-          fr: "Pourquoi la blockchain doit être décentralisée?",
-        },
-        options: {
-          en: [
-            "To make the blockchain secure and censorship-resistant",
-            "To make transactions faster",
-            "To allow governments to control the blockchain",
-            "To simplify the consensus mechanism",
-          ],
-          fr: [
-            "Pour rendre la blockchain sécurisée et résistante à la censure",
-            "Pour rendre les transactions plus rapides",
-            "Pour permettre aux gouvernements de contrôler la blockchain",
-            "Pour simplifier le mécanisme de consensus",
-          ],
-        },
-      },
-      {
-        questionId: 5,
-        question: {
-          en: "Why blockchain is transparent?",
-          fr: "Pourquoi la blockchain est-elle transparente?",
-        },
-        options: {
-          en: [
-            "Everyone can verify the state of the blockchain",
-            "Only validators can verify the state of the blockchain",
-            "It's not transparent",
-            "It's transparent only for the developers",
-          ],
-          fr: [
-            "Tout le monde peut vérifier l'état de la blockchain",
-            "Seuls les validateurs peuvent vérifier l'état de la blockchain",
-            "Elle n'est pas transparente",
-            "Elle est transparente uniquement pour les développeurs",
-          ],
-        },
-      },
-      {
-        questionId: 6,
-        question: {
           en: "What are cryptocurrencies?",
           fr: "Qu'est-ce que sont les cryptomonnaies?",
         },
@@ -822,48 +780,6 @@ const quizzes: QuizData = [
           ],
         },
       },
-      {
-        questionId: 6,
-        question: {
-          en: "What is Sybil Resistance?",
-          fr: "Qu'est-ce que la résistance Sybil?",
-        },
-        options: {
-          en: [
-            "A feature of Proof-of-Work and Proof-of-Stake mechanisms to prevent Sybil attacks",
-            "A protocol for selecting honest validators in a blockchain network",
-            "A method for validating transactions in a blockchain",
-            "A mechanism for creating a fingerprint of information in a blockchain",
-          ],
-          fr: [
-            "Une caractéristique des mécanismes de Preuve de travail et de Preuve d'enjeu pour prévenir les attaques Sybil",
-            "Un protocole pour sélectionner les validateurs honnêtes dans un réseau de blockchain",
-            "Une méthode pour valider les transactions dans une blockchain",
-            "Un mécanisme pour créer une empreinte digitale d'informations dans une blockchain",
-          ],
-        },
-      },
-      {
-        questionId: 7,
-        question: {
-          en: "What is the role of Tower BFT in Solana's design?",
-          fr: "Quel est le rôle de Tower BFT dans la conception de Solana?",
-        },
-        options: {
-          en: [
-            "To handle transactions simultaneously and improve scalability",
-            "To prevent Sybil attacks",
-            "To decide the longest chain in a blockchain",
-            "To select honest validators in a blockchain network",
-          ],
-          fr: [
-            "Pour gérer les transactions simultanément et améliorer la scalabilité",
-            "Pour prévenir les attaques Sybil",
-            "Pour décider de la plus longue chaîne dans une blockchain",
-            "Pour sélectionner les validateurs honnêtes dans un réseau de blockchain",
-          ],
-        },
-      },
     ],
   },
   {
@@ -909,12 +825,17 @@ const quizzes: QuizData = [
           fr: "Quel est le problème avec les monnaies traditionnelles?",
         },
         options: {
-          en: ["Inflation", "Deflation", "No issue", "They are not digital"],
+          en: [
+            "Trust",
+            "No problem",
+            "They are not digital",
+            "They are not scarce",
+          ],
           fr: [
-            "L'inflation",
-            "La déflation",
+            "Confiance",
             "Pas de problème",
-            "Elles ne sont pas digitales",
+            "Elles ne sont pas numériques",
+            "Elles ne sont pas rares",
           ],
         },
       },
@@ -936,48 +857,6 @@ const quizzes: QuizData = [
             "C'est un moyen d'échange",
             "C'est une unité de compte",
             "C'est un standard de paiement différé",
-          ],
-        },
-      },
-      {
-        questionId: 5,
-        question: {
-          en: "Why Bitcoin uses blockchain technology?",
-          fr: "Pourquoi Bitcoin utilise la technologie blockchain?",
-        },
-        options: {
-          en: [
-            "Transparency, decentralization and security",
-            "Speed and scalability",
-            "Low fees",
-            "It's the only technology available",
-          ],
-          fr: [
-            "Transparence, décentralisation et sécurité",
-            "Vitesse et scalabilité",
-            "Frais bas",
-            "C'est la seule technologie disponible",
-          ],
-        },
-      },
-      {
-        questionId: 6,
-        question: {
-          en: "Why Bitcoin encounters political issues?",
-          fr: "Pourquoi Bitcoin rencontre des problèmes politiques?",
-        },
-        options: {
-          en: [
-            "Government sees it as a threat",
-            "Government sees it as an opportunity",
-            "Government doesn't care",
-            "It uses the same technology as the government",
-          ],
-          fr: [
-            "Le gouvernement le voit comme une menace",
-            "Le gouvernement le voit comme une opportunité",
-            "Le gouvernement s'en fiche",
-            "Il utilise la même technologie que le gouvernement",
           ],
         },
       },
@@ -1103,7 +982,7 @@ const quizzes: QuizData = [
         questionId: 2,
         question: {
           en: "What are smart contracts?",
-          fr: "Quels sont les contrats intelligents ?",
+          fr: "Que sont les contrats intelligents ?",
         },
         options: {
           en: [
@@ -1171,8 +1050,8 @@ const quizzes: QuizData = [
       {
         questionId: 1,
         question: {
-          en: "What are the three good things about a blockchain?",
-          fr: "Quels sont les trois bons aspects d'une blockchain ?",
+          en: "What are the three properties of a blockchain?",
+          fr: "Quels sont les trois propriétés d'une blockchain ?",
         },
         options: {
           en: [
@@ -1182,7 +1061,7 @@ const quizzes: QuizData = [
             "Scalable, private, cheap",
           ],
           fr: [
-            "Décentralisée, sécurisée, évolutive",
+            "Décentralisée, sécurisée, scalable",
             "Rapide, privée, bon marché",
             "Centralisée, non sécurisée, lente",
             "Évolutive, privée, bon marché",
@@ -1224,27 +1103,6 @@ const quizzes: QuizData = [
       {
         questionId: 4,
         question: {
-          en: "What analogy is used to explain a Layer 2 solution?",
-          fr: "Quelle analogie est utilisée pour expliquer une solution de couche 2 ?",
-        },
-        options: {
-          en: [
-            "Friends helping carry a heavy backpack",
-            "Fish swimming in the sea",
-            "Cars racing on a track",
-            "Birds flying in the sky",
-          ],
-          fr: [
-            "Des amis aidant à porter un sac à dos lourd",
-            "Des poissons nageant dans la mer",
-            "Des voitures courant sur une piste",
-            "Des oiseaux volant dans le ciel",
-          ],
-        },
-      },
-      {
-        questionId: 5,
-        question: {
           en: "What are some popular Layer 2 solutions mentioned in the course?",
           fr: "Quelles sont quelques solutions de couche 2 populaires mentionnées dans le cours ?",
         },
@@ -1273,7 +1131,7 @@ const quizzes: QuizData = [
         questionId: 1,
         question: {
           en: "What are Smart Contracts?",
-          fr: "Qu'est-ce que les Contrats Intelligents ?",
+          fr: "Qu'est-ce que sont les Contrats Intelligents ?",
         },
         options: {
           en: [
@@ -1440,48 +1298,6 @@ const quizzes: QuizData = [
             "Augmentation de la centralisation",
             "Diminution de la transparence",
             "Autonomie limitée",
-          ],
-        },
-      },
-      {
-        questionId: 5,
-        question: {
-          en: "What happened to The DAO?",
-          fr: "Qu'est-il arrivé à The DAO ?",
-        },
-        options: {
-          en: [
-            "It got hacked and lost $50 million worth of cryptocurrency",
-            "It became the largest DAO in history",
-            "It was never hacked",
-            "It was unaffected by any security breaches",
-          ],
-          fr: [
-            "Elle a été piraté et a perdu l'équivalent de 50 millions de dollars en cryptomonnaie",
-            "Elle est devenu le plus grand DAO de l'histoire",
-            "Elle n'a jamais été piraté",
-            "Elle n'a pas été affecté par des violations de sécurité",
-          ],
-        },
-      },
-      {
-        questionId: 6,
-        question: {
-          en: "How was the issue with The DAO resolved?",
-          fr: "Comment le problème avec The DAO a-t-il été résolu ?",
-        },
-        options: {
-          en: [
-            "By hardforking the Ethereum blockchain and restoring the funds",
-            "By abandoning the Ethereum blockchain",
-            "By splitting the Ethereum blockchain",
-            "By ignoring the security breach",
-          ],
-          fr: [
-            "En forkant la blockchain Ethereum et en restaurant les fonds",
-            "En abandonnant la blockchain Ethereum",
-            "En divisant la blockchain Ethereum",
-            "En ignorant la violation de sécurité",
           ],
         },
       },

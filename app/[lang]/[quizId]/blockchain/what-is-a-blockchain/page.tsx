@@ -19,15 +19,15 @@ const cards = {
     },
     {
       title: "Decentralized",
-      text: "The blockchain is decentralized, meaning that it is not controlled by any single entity. Instead, it is maintained by a network of computers, making it secure and resistant to censorship.",
+      text: "Moreover, the blockchain is decentralized, meaning that it is not controlled by any single entity. Indeed, it is maintained by a network of computers, making it secure and resistant to censorship.",
     },
     {
       title: "Transparent",
-      text: "The blockchain is transparent, meaning that all transactions are publicly available. This transparency helps to prevent fraud and corruption.",
+      text: "Also, the blockchain is transparent, meaning that all transactions are publicly available. This transparency helps to prevent fraud and corruption.",
     },
     {
       title: "Secure",
-      text: "The blockchain uses cryptographic techniques to secure transactions and prevent unauthorized access. This makes the blockchain secure and resistant to hacking.",
+      text: "Lastly, the blockchain uses cryptographic techniques to secure transactions. This makes the blockchain secure and resistant to hacking.",
     },
     {
       title: "Consensus Mechanisms",
@@ -57,15 +57,15 @@ const cards = {
     },
     {
       title: "Décentralisé",
-      text: "La blockchain est décentralisée, ce qui signifie qu'elle n'est pas contrôlée par une seule entité. Au lieu de cela, elle est entretenue par un réseau d'ordinateurs, ce qui la rend sécurisée et résistante à la censure.",
+      text: "De plus, la blockchain est décentralisée, ce qui signifie qu'elle n'est pas contrôlée par une seule entité. En effet, elle est entretenue par un réseau d'ordinateurs, ce qui la rend sécurisée et résistante à la censure.",
     },
     {
       title: "Transparent",
-      text: "La blockchain est transparente, ce qui signifie que toutes les transactions sont publiquement disponibles. Cette transparence contribue à prévenir la fraude et la corruption.",
+      text: "Aussi, la blockchain est transparente, ce qui signifie que toutes les transactions sont publiquement disponibles. Cette transparence contribue à prévenir la fraude et la corruption.",
     },
     {
       title: "Sécurisé",
-      text: "La blockchain utilise des techniques cryptographiques pour sécuriser les transactions et empêcher l'accès non autorisé. Cela rend la blockchain sécurisée et résistante au piratage.",
+      text: "Enfin, la blockchain utilise des techniques cryptographiques pour sécuriser les transactions. Cela rend la blockchain sécurisée et résistante au piratage.",
     },
     {
       title: "Mécanismes de consensus",
@@ -77,7 +77,7 @@ const cards = {
     },
     {
       title: "Cas d'utilisation",
-      text: "La technologie blockchain a une large gamme de cas d'utilisation, y compris la gestion de la chaîne d'approvisionnement, les systèmes de vote, la vérification d'identité, et plus encore.",
+      text: "La technologie blockchain a une large gamme de cas d'utilisation, y compris la gestion des chaînes d'approvisionnement, les systèmes de vote, la vérification d'identité, et plus encore.",
     },
   ],
 };
