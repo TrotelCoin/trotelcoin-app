@@ -15,17 +15,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .eq("wallet", wallet);
 
     if (maxStreak && maxStreak.length > 0) {
-      const { error } = await supabase
+      await supabase
         .from("streak")
         .update({
           current_streak: maxStreak[0].max_streak,
+          last_streak_at: new Date().toISOString(),
         })
         .eq("wallet", wallet);
-
-      if (error) {
-        console.error(error);
-        return NextResponse.json(error, { status: 500 });
-      }
     } else {
       return NextResponse.json("Max streak not found", { status: 404 });
     }

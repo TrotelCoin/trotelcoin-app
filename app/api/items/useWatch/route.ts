@@ -37,6 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         .from("streak")
         .update({
           current_streak: maxStreak[0].max_streak,
+          last_streak_at: new Date().toISOString(),
         })
         .eq("wallet", wallet);
     } else {

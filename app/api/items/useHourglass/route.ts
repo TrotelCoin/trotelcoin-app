@@ -27,28 +27,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
       }
     }
 
-    const { data: maxStreak, error: getMaxStreakError } = await supabase
+    const { data: maxStreak } = await supabase
       .from("streak")
       .select("max_streak")
       .eq("wallet", wallet);
 
-    if (getMaxStreakError) {
-      console.error(getMaxStreakError);
-      return NextResponse.json(getMaxStreakError, { status: 500 });
-    }
-
-    if (maxStreak.length > 0) {
-      const { error } = await supabase
+    if (maxStreak && maxStreak.length > 0) {
+      await supabase
         .from("streak")
         .update({
           current_streak: maxStreak[0].max_streak,
+          last_streak_at: new Date().toISOString(),
         })
         .eq("wallet", wallet);
-
-      if (error) {
-        console.error(error);
-        return NextResponse.json(error, { status: 500 });
-      }
     } else {
       return NextResponse.json("Max streak not found", { status: 404 });
     }
