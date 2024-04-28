@@ -154,7 +154,7 @@ const StakingButton = ({
   };
 
   useEffect(() => {
-    if (!isLoading && address && !Boolean(amount) && stakedTrotelCoins <= 0) {
+    if (!isLoading && address && !amount && stakedTrotelCoins <= 0) {
       setDisabled(false);
     } else {
       setDisabled(true);

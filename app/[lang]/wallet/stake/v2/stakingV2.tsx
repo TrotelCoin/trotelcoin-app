@@ -2,7 +2,7 @@ import { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useChainId, useReadContract } from "wagmi";
 import Amount from "@/app/[lang]/wallet/components/stake/amount";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
 import { polygon } from "viem/chains";
 import Period from "@/app/[lang]/wallet/components/stake/v2/period";
 import StakingData from "@/app/[lang]/wallet/components/stake/v2/stakingData";
@@ -13,10 +13,8 @@ import ApproveButton from "@/app/[lang]/wallet/components/stake/v2/approveButton
 import IncreaseStakingButton from "@/app/[lang]/wallet/components/stake/v2/increaseStakingButton";
 import StakingButton from "@/app/[lang]/wallet/components/stake/v2/stakingButton";
 import trotelCoinStakingV2ABI from "@/abi/trotelCoinStakingV2";
-import { trotelCoinStakingV2 } from "@/data/web3/addresses";
-import { formatEther } from "viem";
+import { trotelCoinStakingV2, trotelCoinAddress } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
-import { trotelCoinAddress } from "@/data/web3/addresses";
 
 const StakingV2 = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);
