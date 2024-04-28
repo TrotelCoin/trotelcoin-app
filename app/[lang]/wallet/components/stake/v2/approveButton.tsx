@@ -6,14 +6,13 @@ import {
   useAccount,
   useBalance,
   useBlockNumber,
-  useReadContract,
   useSwitchChain,
   useWriteContract,
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelCoin";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { formatEther, parseEther } from "viem";
+import { parseEther } from "viem";
 import "animate.css";
 import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/blueButton";
@@ -88,7 +87,7 @@ const ApproveButton = ({
   };
 
   useEffect(() => {
-    if (!Boolean(amount) || isLoading) {
+    if (!amount || isLoading) {
       setDisabled(true);
     } else {
       setDisabled(false);
