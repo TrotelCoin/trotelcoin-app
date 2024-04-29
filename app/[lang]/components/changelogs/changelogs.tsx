@@ -97,6 +97,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text: lang === "en" ? "- The halving" : "- Le halving",
         },
+        {
+          text: lang === "en" ? "- Soulbound tokens" : "- Jetons soulbound",
+        },
       ],
     },
     {
