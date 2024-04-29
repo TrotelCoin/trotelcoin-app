@@ -390,6 +390,25 @@ const lessons: Lessons[] = [
         quizId: 23,
         available: true,
       },
+      {
+        title: {
+          en: "Soulbound tokens",
+          fr: "Les jetons soulbound",
+        },
+        description: {
+          en: "Learn about the notion of soulbound tokens.",
+          fr: "Apprenez la notion de jetons soulbound.",
+        },
+        href: "/nfts/soulbound-tokens",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 24,
+        available: true,
+      },
     ],
   },
   {

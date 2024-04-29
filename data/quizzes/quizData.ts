@@ -2185,6 +2185,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 24,
+    title: "Soulbound tokens",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What are soulbound tokens?",
+          fr: "Qu'est-ce que les jetons soulbound ?",
+        },
+        options: {
+          en: [
+            "NFTs locked to a specific account or wallet",
+            "Fungible tokens with market value",
+            "Cryptocurrencies with high liquidity",
+            "Tokens transferable across multiple accounts",
+          ],
+          fr: [
+            "Des NFTs verrouillés sur un compte ou un portefeuille spécifique",
+            "Des jetons fongibles avec une valeur marchande",
+            "Des cryptomonnaies avec une grande liquidité",
+            "Des jetons transférables entre plusieurs comptes",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What does it mean for a token to be soulbound?",
+          fr: "Que signifie pour un jeton d'être soulbound ?",
+        },
+        options: {
+          en: [
+            "It cannot be transferred to another account or wallet",
+            "It can be freely traded on exchanges",
+            "It has high market volatility",
+            "It is centrally controlled by an authority",
+          ],
+          fr: [
+            "Il ne peut pas être transféré vers un autre compte ou portefeuille",
+            "Il peut être échangé librement sur des plateformes",
+            "Il a une forte volatilité sur le marché",
+            "Il est contrôlé de manière centralisée par une autorité",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "Why are soulbound tokens used?",
+          fr: "Pourquoi utilise-t-on des jetons soulbound ?",
+        },
+        options: {
+          en: [
+            "To prevent fraud and protect the value of NFTs",
+            "To increase market speculation",
+            "To centralize ownership of cryptocurrencies",
+            "To facilitate token transfers between accounts",
+          ],
+          fr: [
+            "Pour prévenir la fraude et protéger la valeur des NFTs",
+            "Pour augmenter la spéculation sur le marché",
+            "Pour centraliser la propriété des cryptomonnaies",
+            "Pour faciliter les transferts de jetons entre les comptes",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "How are soulbound tokens created?",
+          fr: "Comment sont créés les jetons soulbound ?",
+        },
+        options: {
+          en: [
+            "By overriding the transfer function in the smart contract",
+            "By minting them on centralized exchanges",
+            "By conducting airdrops to token holders",
+            "By distributing them through decentralized governance",
+          ],
+          fr: [
+            "En remplaçant la fonction de transfert dans le smart contract",
+            "En les émettant sur des plateformes centralisées",
+            "En effectuant des airdrops aux détenteurs de jetons",
+            "En les distribuant via la gouvernance décentralisée",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
