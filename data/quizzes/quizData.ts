@@ -2275,6 +2275,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 25,
+    title: "Types of DAOs",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the main responsibility of Operating system DAOs?",
+          fr: "Quelle est la principale responsabilité des DAOs de système d'exploitation?",
+        },
+        options: {
+          en: [
+            "Creating, managing, and executing smart contracts",
+            "Creating and managing decentralized applications",
+            "Creating the underlying protocol of the blockchain",
+            "Collecting data for investment decisions",
+          ],
+          fr: [
+            "Créer, gérer et exécuter des contrats intelligents",
+            "Créer et gérer des applications décentralisées",
+            "Créer le protocole sous-jacent de la blockchain",
+            "Collecter des données pour les décisions d'investissement",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which DAO type is responsible for creating dApps?",
+          fr: "Quel type de DAO est responsable de la création de dApps?",
+        },
+        options: {
+          en: [
+            "Application DAOs",
+            "Operating system DAOs",
+            "Protocol DAOs",
+            "Media DAOs",
+          ],
+          fr: [
+            "DAOs d'application",
+            "DAOs de système d'exploitation",
+            "DAOs de protocole",
+            "DAOs de médias",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What do Collector DAOs collect?",
+          fr: "Que collectent les DAOs de collecte?",
+        },
+        options: {
+          en: [
+            "Data from surveys or social media",
+            "Funds for investment",
+            "Content for collaboration",
+            "Decisions affecting the community",
+          ],
+          fr: [
+            "Des données provenant d'enquêtes ou de réseaux sociaux",
+            "Des fonds pour l'investissement",
+            "Du contenu pour la collaboration",
+            "Des décisions affectant la communauté",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is the main purpose of Social DAOs?",
+          fr: "Quel est le but principal des DAOs sociaux?",
+        },
+        options: {
+          en: [
+            "Allowing community voting on decisions",
+            "Creating decentralized applications",
+            "Managing investment funds",
+            "Collecting data for product investment",
+          ],
+          fr: [
+            "Permettre le vote communautaire sur les décisions",
+            "Créer des applications décentralisées",
+            "Gérer les fonds d'investissement",
+            "Collecter des données pour l'investissement produit",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
