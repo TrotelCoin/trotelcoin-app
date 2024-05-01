@@ -36,24 +36,26 @@ const Course = ({
     if (currentCardIndex >= cards.en.length - 1) {
       return;
     }
-    setCurrentIndex(-1);
     setPause(true);
+    setCurrentIndex(-1);
+
     setTimeout(() => {
       setCurrentCardIndex((prev) => Math.min(prev + 1, cards.en.length - 1));
       setPause(false);
-    }, 400);
+    }, 600);
   };
 
   const handlePrevious = () => {
     if (currentCardIndex <= 0) {
       return;
     }
-    setCurrentIndex(-1);
     setPause(true);
+    setCurrentIndex(-1);
+
     setTimeout(() => {
       setCurrentCardIndex((prev) => Math.max(prev - 1, 0));
       setPause(false);
-    }, 400);
+    }, 600);
   };
 
   useEffect(() => {
@@ -126,6 +128,7 @@ const Course = ({
             <div className="max-w-xl mx-auto text-center w-full">
               {lang === "en" ? (
                 <Card
+                  title={cards.en[currentCardIndex].title}
                   text={cards.en[currentCardIndex].text}
                   currentIndex={currentIndex}
                   setCurrentIndex={setCurrentIndex}
@@ -133,6 +136,7 @@ const Course = ({
                 />
               ) : (
                 <Card
+                  title={cards.fr[currentCardIndex].title}
                   text={cards.fr[currentCardIndex].text}
                   currentIndex={currentIndex}
                   setCurrentIndex={setCurrentIndex}
