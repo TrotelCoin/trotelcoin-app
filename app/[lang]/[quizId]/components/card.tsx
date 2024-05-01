@@ -45,6 +45,7 @@ const Card = ({
       </span>
       <p className="text-xl text-gray-700 dark:text-gray-300 break-words whitespace-normal w-full mt-2">
         {typeof text === "string" &&
+          !pause &&
           text.split("").map((char, index) => (
             <span
               key={index}
