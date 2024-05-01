@@ -72,33 +72,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text: lang === "en" ? "- Day Trading" : "- Day Trading",
-        },
-        {
-          text:
-            lang === "en" ? "- Web3 authentication" : "- Authentification Web3",
-        },
-        {
-          text:
-            lang === "en" ? "- Secure your wallet" : "- Sécurisez votre wallet",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Censorship resistance"
-              : "- Résistance à la censure",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Introduction to NFTs"
-              : "- Introduction aux NFTs",
-        },
-        {
           text: lang === "en" ? "- The halving" : "- Le halving",
         },
         {
           text: lang === "en" ? "- Soulbound tokens" : "- Jetons soulbound",
+        },
+        {
+          text: lang === "en" ? "- Types of DAOs" : "- Les types de DAOs",
         },
       ],
     },
