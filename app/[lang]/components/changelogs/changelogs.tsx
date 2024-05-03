@@ -80,6 +80,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text: lang === "en" ? "- Types of DAOs" : "- Les types de DAOs",
         },
+        {
+          text: lang === "en" ? "- Terra Luna crash" : "- Le crash de Terra Luna",
+        },
       ],
     },
     {

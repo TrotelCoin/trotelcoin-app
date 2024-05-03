@@ -476,6 +476,25 @@ const lessons: Lessons[] = [
         quizId: 17,
         available: true,
       },
+      {
+        title: {
+          en: "Terra Luna crash",
+          fr: "Le crash de Terra Luna",
+        },
+        description: {
+          en: "Learn about the Terra Luna crash.",
+          fr: "Apprenez en sur le crash de Terra Luna.",
+        },
+        href: "/stablecoins/terra-luna-crash",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 26,
+        available: true,
+      },
     ],
   },
   {

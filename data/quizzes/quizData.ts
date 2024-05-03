@@ -2365,6 +2365,66 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 26,
+    title: "Terra Luna crash",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What was Terra Luna primarily used for?",
+          fr: "Pour quoi Terra Luna était principalement utilisée?",
+        },
+        options: {
+          en: [
+            "Algorithmic stablecoin issuance",
+            "Decentralized finance trading",
+            "Smart contract development",
+            "Cloud computing services",
+          ],
+          fr: [
+            "L'émission de stablecoins algorithmiques",
+            "Le trading dans la finance décentralisée",
+            "Le développement de contrats intelligents",
+            "Les services d'informatique cloud",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Who was one of the founders of Terra Luna?",
+          fr: "Qui était un des fondateurs de Terra Luna?",
+        },
+        options: {
+          en: ["Do Kwon", "Satoshi Nakamoto", "Vitalik Buterin", "Charlie Lee"],
+          fr: ["Do Kwon", "Satoshi Nakamoto", "Vitalik Buterin", "Charlie Lee"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What was the native token of Terra Luna?",
+          fr: "Quel était le jeton natif de Terra Luna?",
+        },
+        options: {
+          en: ["LUNA", "BTC", "UST", "ADA"],
+          fr: ["LUNA", "BTC", "UST", "ADA"],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Which protocol had over $2 billion worth of UST unstaked on 7th May?",
+          fr: "Quel protocole avait plus de 2 milliards de dollars d'UST retirés le 7 mai?",
+        },
+        options: {
+          en: ["Anchor Protocol", "Mirror Protocol", "Pylon", "MakerDAO"],
+          fr: ["Anchor Protocol", "Mirror Protocol", "Pylon", "MakerDAO"],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
