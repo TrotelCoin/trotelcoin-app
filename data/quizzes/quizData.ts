@@ -2425,6 +2425,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 27,
+    title: "5 Cognitive Biases",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the Confirmation Bias?",
+          fr: "Qu'est-ce que le Biais de confirmation ?",
+        },
+        options: {
+          en: [
+            "Seeking and interpreting information to confirm existing beliefs",
+            "Seeking and interpreting information to challenge existing beliefs",
+            "Ignoring all evidence",
+            "Randomly selecting information",
+          ],
+          fr: [
+            "Chercher et interpréter l'information pour confirmer ses croyances existantes",
+            "Chercher et interpréter l'information pour remettre en question ses croyances existantes",
+            "Ignorer toutes les preuves",
+            "Sélectionner l'information au hasard",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is Overconfidence Bias?",
+          fr: "Qu'est-ce que le Biais de surconfiance ?",
+        },
+        options: {
+          en: [
+            "Overestimating predictive abilities and decision-making skills",
+            "Underestimating predictive abilities and decision-making skills",
+            "Avoiding making any decisions",
+            "Relying solely on others' decisions",
+          ],
+          fr: [
+            "Surestimer ses capacités prédictives et ses compétences en matière de prise de décision",
+            "Sous-estimer ses capacités prédictives et ses compétences en matière de prise de décision",
+            "Éviter de prendre des décisions",
+            "Se fier uniquement aux décisions des autres",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is Anchoring Bias?",
+          fr: "Qu'est-ce que le Biais d'ancrage ?",
+        },
+        options: {
+          en: [
+            "Excessively relying on the first information received",
+            "Ignoring all information received",
+            "Randomly selecting information",
+            "Selecting the last information received",
+          ],
+          fr: [
+            "S'appuyer excessivement sur les premières informations reçues",
+            "Ignorer toutes les informations reçues",
+            "Sélectionner l'information au hasard",
+            "Sélectionner la dernière information reçue",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is Loss Aversion Bias?",
+          fr: "Qu'est-ce que le Biais d'aversion aux pertes ?",
+        },
+        options: {
+          en: [
+            "Tendency to avoid losses more than seeking gains",
+            "Tendency to seek gains more than avoiding losses",
+            "Tendency to ignore both gains and losses",
+            "Tendency to randomly choose between gains and losses",
+          ],
+          fr: [
+            "Tendance à éviter les pertes plutôt qu'à rechercher des gains",
+            "Tendance à rechercher des gains plutôt qu'à éviter les pertes",
+            "Tendance à ignorer à la fois les gains et les pertes",
+            "Tendance à choisir au hasard entre les gains et les pertes",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

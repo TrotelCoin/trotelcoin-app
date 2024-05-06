@@ -537,6 +537,25 @@ const lessons: Lessons[] = [
         quizId: 19,
         available: true,
       },
+      {
+        title: {
+          en: "5 Cognitive Biases",
+          fr: "5 Biais Cognitifs",
+        },
+        description: {
+          en: "Learn about the 5 cognitive biases.",
+          fr: "Apprenez sur les 5 biais cognitifs.",
+        },
+        href: "/trading/5-cognitive-biases",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 27,
+        available: true,
+      },
     ],
   },
 ];
