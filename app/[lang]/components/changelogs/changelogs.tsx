@@ -81,7 +81,11 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text: lang === "en" ? "- Types of DAOs" : "- Les types de DAOs",
         },
         {
-          text: lang === "en" ? "- Terra Luna crash" : "- Le crash de Terra Luna",
+          text:
+            lang === "en" ? "- Terra Luna crash" : "- Le crash de Terra Luna",
+        },
+        {
+          text: lang === "en" ? "- 5 Cognitive Biases" : "- 5 Biais Cognitifs",
         },
       ],
     },
