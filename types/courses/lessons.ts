@@ -26,7 +26,8 @@ export type LessonCategory =
   | "Metaverse"
   | "NFTs"
   | "Altcoins"
-  | "Trading";
+  | "Trading"
+  | "Investing";
 
 export interface Lessons {
   category: LessonCategory;
