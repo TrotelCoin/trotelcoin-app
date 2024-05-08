@@ -2515,6 +2515,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 28,
+    title: "Dollar Cost Averaging",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is Dollar Cost Averaging?",
+          fr: "Qu'est-ce que le Dollar Cost Averaging?",
+        },
+        options: {
+          en: [
+            "An investment strategy where you invest regardless of the price of the asset",
+            "A strategy of timing the market to maximize profits",
+            "An approach that requires constant monitoring of market fluctuations",
+            "A method that involves investing only when prices are high",
+          ],
+          fr: [
+            "Une stratégie d'investissement où vous investissez indépendamment du prix de l'actif",
+            "Une stratégie de timing du marché pour maximiser les profits",
+            "Une approche qui nécessite une surveillance constante des fluctuations du marché",
+            "Une méthode qui implique d'investir uniquement lorsque les prix sont élevés",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How does Dollar Cost Averaging work?",
+          fr: "Comment fonctionne le Dollar Cost Averaging?",
+        },
+        options: {
+          en: [
+            "Instead of trying to time the market, you invest consistently",
+            "By waiting for the perfect moment to invest, irrespective of market conditions",
+            "By investing randomly without any fixed schedule",
+            "By investing only when prices are at their peak",
+          ],
+          fr: [
+            "Au lieu d'essayer de timer le marché, vous investissez de manière constante",
+            "En attendant le moment parfait pour investir, indépendamment des conditions du marché",
+            "En investissant de manière aléatoire sans aucun calendrier fixe",
+            "En investissant uniquement lorsque les prix sont au plus haut",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "How can DCA help?",
+          fr: "Comment le DCA peut-il aider?",
+        },
+        options: {
+          en: [
+            "The idea is to reduce the impact of market volatility",
+            "To maximize short-term gains",
+            "To minimize long-term investment growth",
+            "To increase exposure to market fluctuations",
+          ],
+          fr: [
+            "L'idée est de réduire l'impact de la volatilité du marché",
+            "Pour maximiser les gains à court terme",
+            "Pour minimiser la croissance des investissements à long terme",
+            "Pour augmenter l'exposition aux fluctuations du marché",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "How to start with DCA?",
+          fr: "Comment commencer avec le DCA?",
+        },
+        options: {
+          en: [
+            "Determine how much you want to invest and how often",
+            "Start investing without any planning",
+            "Invest only when market conditions seem favorable",
+            "Wait for the market to stabilize before making any investment",
+          ],
+          fr: [
+            "Déterminez combien vous voulez investir et à quelle fréquence",
+            "Commencez à investir sans aucune planification",
+            "Investissez uniquement lorsque les conditions du marché semblent favorables",
+            "Attendez que le marché se stabilise avant de faire un investissement",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

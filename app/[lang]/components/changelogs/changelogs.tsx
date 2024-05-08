@@ -87,6 +87,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text: lang === "en" ? "- 5 Cognitive Biases" : "- 5 Biais Cognitifs",
         },
+        {
+          text:
+            lang === "en"
+              ? "- Dollar Cost Averaging"
+              : "- Dollar Cost Averaging",
+        },
       ],
     },
     {

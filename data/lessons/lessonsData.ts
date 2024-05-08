@@ -558,6 +558,30 @@ const lessons: Lessons[] = [
       },
     ],
   },
+  {
+    category: "Investing",
+    courses: [
+      {
+        title: {
+          en: "Dollar Cost Averaging",
+          fr: "Dollar Cost Averaging",
+        },
+        description: {
+          en: "Learn about the Dollar Cost Averaging.",
+          fr: "Apprenez sur le Dollar Cost Averaging.",
+        },
+        href: "/investing/dollar-cost-averaging",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 28,
+        available: true,
+      },
+    ],
+  },
 ];
 
 export default lessons;
