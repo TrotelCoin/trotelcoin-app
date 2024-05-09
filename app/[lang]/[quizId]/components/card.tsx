@@ -44,19 +44,20 @@ const Card = ({
         {!pause && title}
       </span>
       <p className="text-xl text-gray-700 dark:text-gray-300 break-words whitespace-normal w-full mt-2">
-        {typeof text === "string" &&
-          !pause &&
-          text.split("").map((char, index) => (
-            <span
-              key={index}
-              style={{
-                transition: "opacity 0.1s",
-                opacity: index < currentIndex ? 1 : 0,
-              }}
-            >
-              {char}
-            </span>
-          ))}
+        {typeof text === "string"
+          ? !pause &&
+            text.split("").map((char, index) => (
+              <span
+                key={index}
+                style={{
+                  transition: "opacity 0.1s",
+                  opacity: index < currentIndex ? 1 : 0,
+                }}
+              >
+                {char}
+              </span>
+            ))
+          : text}
       </p>
     </>
   );
