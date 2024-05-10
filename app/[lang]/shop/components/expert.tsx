@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {

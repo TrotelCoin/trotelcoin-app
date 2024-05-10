@@ -14,7 +14,7 @@ import {
 import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Hash, isAddress, parseEther } from "viem";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { loadingFlashClass } from "@/utils/tailwind/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";

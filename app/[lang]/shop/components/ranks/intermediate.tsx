@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {
@@ -25,7 +25,7 @@ import BlueButton from "@/app/[lang]/components/blueButton";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);

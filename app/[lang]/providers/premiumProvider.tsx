@@ -4,15 +4,15 @@ import { useAccount, useReadContract, useBlockNumber } from "wagmi";
 import React, { useEffect, useMemo } from "react";
 import type { ReactNode } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
+import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import {
   trotelCoinIntermediateAddress,
   trotelCoinExpertAddress,
   trotelCoinEarlyAddress,
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
+import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
   const { address } = useAccount();

@@ -4,7 +4,7 @@ import type { Lang } from "@/types/lang";
 import Course from "@/app/[lang]/[quizId]/components/course";
 import { useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { polygon } from "wagmi/chains";
 

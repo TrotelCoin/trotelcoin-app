@@ -12,7 +12,7 @@ import type {
 import { useAccount, useBalance, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/trotelCoinShop";
+import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
 import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/utils/tailwind/loading";

@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
+import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
 import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
 import { loadingFlashClass } from "@/utils/tailwind/loading";

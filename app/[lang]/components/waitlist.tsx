@@ -8,7 +8,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
-import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
+import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
 import { trotelCoinEarlyAddress } from "@/data/web3/addresses";
 import CountUp from "react-countup/";
 import Link from "next/link";

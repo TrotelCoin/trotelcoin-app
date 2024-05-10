@@ -1,4 +1,4 @@
-import trotelCoinShopABI from "@/abi/trotelCoinShop";
+import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
 import { config } from "@/config/Web3ModalConfig";
 import { trotelCoinShop } from "@/data/web3/addresses";
 import { Lang } from "@/types/lang";

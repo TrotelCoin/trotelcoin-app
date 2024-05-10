@@ -5,7 +5,7 @@ import { Lang } from "@/types/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinShop } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/trotelCoinShop";
+import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
 import { fetchInventory } from "@/utils/inventory/inventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem";

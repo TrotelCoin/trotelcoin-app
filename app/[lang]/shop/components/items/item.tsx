@@ -17,8 +17,8 @@ import {
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import trotelCoinShopABI from "@/abi/trotelCoinShop";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";

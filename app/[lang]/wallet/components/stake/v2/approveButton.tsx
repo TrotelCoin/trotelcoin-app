@@ -10,7 +10,7 @@ import {
   useWriteContract,
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";

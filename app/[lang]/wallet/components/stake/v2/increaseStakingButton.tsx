@@ -12,7 +12,7 @@ import {
   useReadContract,
 } from "wagmi";
 import { trotelCoinStakingV2 } from "@/data/web3/addresses";
-import trotelCoinStakingV2ABI from "@/abi/trotelCoinStakingV2";
+import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, Hash, parseEther } from "viem";

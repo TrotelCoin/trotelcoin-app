@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
 import { trotelCoinExpertAddress } from "@/data/web3/addresses";
 import { loadingFlashClass } from "@/utils/tailwind/loading";
 import type { Lang } from "@/types/lang";

@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import { Address } from "viem";
-import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
 import { polygon } from "viem/chains";
 import {
   oneYear,

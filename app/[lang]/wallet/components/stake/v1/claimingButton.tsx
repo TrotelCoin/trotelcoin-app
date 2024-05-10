@@ -13,7 +13,7 @@ import {
 } from "wagmi";
 import { Address, Hash } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
-import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";

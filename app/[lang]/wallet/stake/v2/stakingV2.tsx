@@ -12,9 +12,9 @@ import ClaimingButton from "@/app/[lang]/wallet/components/stake/v2/claimingButt
 import ApproveButton from "@/app/[lang]/wallet/components/stake/v2/approveButton";
 import IncreaseStakingButton from "@/app/[lang]/wallet/components/stake/v2/increaseStakingButton";
 import StakingButton from "@/app/[lang]/wallet/components/stake/v2/stakingButton";
-import trotelCoinStakingV2ABI from "@/abi/trotelCoinStakingV2";
+import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import { trotelCoinStakingV2, trotelCoinAddress } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 
 const StakingV2 = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);

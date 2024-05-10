@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
+import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
 import { trotelCoinEarlyAddress } from "@/data/web3/addresses";
 import { loadingFlashClass } from "@/utils/tailwind/loading";
 import type { Lang } from "@/types/lang";

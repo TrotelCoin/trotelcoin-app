@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinExpertABI from "@/abi/trotelCoinExpert";
+import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {
@@ -25,7 +25,7 @@ import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 
 const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);

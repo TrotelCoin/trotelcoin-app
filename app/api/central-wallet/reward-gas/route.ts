@@ -1,6 +1,6 @@
 import { publicClient } from "@/utils/viem/client";
 import { NextRequest, NextResponse } from "next/server";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 

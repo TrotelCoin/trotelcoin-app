@@ -6,7 +6,7 @@ import { polygon } from "viem/chains";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 import { useContext, useEffect, useState } from "react";
-import trotelCoinStakingV1ABI from "@/abi/trotelCoinStakingV1";
+import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
