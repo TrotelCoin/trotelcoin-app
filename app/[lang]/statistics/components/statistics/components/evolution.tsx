@@ -2,7 +2,7 @@ import {
   neutralTextClass,
   negativeTextClass,
   positiveTextClass,
-} from "@/lib/tailwind/evolution";
+} from "@/utils/tailwind/evolution";
 import React from "react";
 import "animate.css";
 

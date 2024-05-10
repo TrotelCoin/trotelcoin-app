@@ -2,8 +2,8 @@ import type { Lang } from "@/types/lang";
 import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {
@@ -12,9 +12,7 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
   const { data: totalRewardsPending } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import { useSession } from "next-auth/react";
@@ -48,9 +48,7 @@ const UserProvider = ({
   }, [session, address]);
 
   const { data: userTotalRewardsPendingData } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -69,9 +67,7 @@ const UserProvider = ({
   }, [userTotalRewardsPendingData]);
 
   const { data: alreadyAnsweredSatisfactionData } = useSWR(
-    address
-      ? `/api/database/getUserAlreadyAnsweredSatisfaction?wallet=${address}`
-      : null,
+    address ? `/api/user/satisfaction/status?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -90,7 +86,7 @@ const UserProvider = ({
   }, [alreadyAnsweredSatisfactionData]);
 
   const { data: learningTimeData } = useSWR(
-    `/api/database/getUserQuizzesTime?wallet=${address}`,
+    `/api/user/quizzes/time?wallet=${address}`,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,
@@ -109,7 +105,7 @@ const UserProvider = ({
   }, [learningTimeData]);
 
   const { data: averageMarkData } = useSWR(
-    `/api/database/getUserAverageMark?wallet=${address}`,
+    `/api/user/marks/average-mark?wallet=${address}`,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,
@@ -128,9 +124,7 @@ const UserProvider = ({
   }, [averageMarkData]);
 
   const { data: userNumberOfQuizzesAnsweredData } = useSWR(
-    address
-      ? `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`
-      : null,
+    address ? `/api/user/quizzes/answered/count?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -149,7 +143,7 @@ const UserProvider = ({
   }, [userNumberOfQuizzesAnsweredData]);
 
   const { data: userMultipliersData } = useSWR(
-    address ? `/api/items/getUserMultipliers?wallet=${address}` : null,
+    address ? `/api/user/multipliers?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

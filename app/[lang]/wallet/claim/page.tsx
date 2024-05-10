@@ -9,7 +9,7 @@ import { Address } from "viem";
 import { useAccount, useChainId } from "wagmi";
 import Status from "@/app/[lang]/wallet/components/claim/status";
 import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
@@ -27,9 +27,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const chainId = useChainId();
 
   const { data: userTotalRewardsPendingData } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -54,7 +52,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [chainId]);
 
   const { data: centralWalletAddressData } = useSWR(
-    "/api/getCentralWalletAddress",
+    "/api/central-wallet/address",
     fetcher,
     {
       revalidateOnMount: true,
@@ -82,7 +80,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <AvailableToClaim
                 lang={lang}
                 availableToClaim={availableToClaim as number}
-                claimed={claimed as boolean}
+                claimed={claimed}
               />
             </div>
             <div>

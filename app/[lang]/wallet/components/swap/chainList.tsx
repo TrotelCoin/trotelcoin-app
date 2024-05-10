@@ -3,7 +3,6 @@ import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Lang } from "@/types/lang";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
 import type { Chain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import { CheckIcon } from "@heroicons/react/24/solid";

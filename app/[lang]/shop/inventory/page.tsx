@@ -6,14 +6,14 @@ import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinShop } from "@/data/web3/addresses";
 import trotelCoinShopABI from "@/abi/trotelCoinShop";
-import { fetchInventory } from "@/lib/inventory/inventory";
+import { fetchInventory } from "@/utils/inventory/inventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
@@ -33,7 +33,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   });
 
   const { data: numberOfUsedItemsData } = useSWR(
-    address ? `/api/database/getUserAllUsedItems?wallet=${address}` : null,
+    address ? `/api/user/items/all-used-items?wallet=${address}` : null,
     fetcher,
     {
       revalidateIfStale: true,

@@ -1,7 +1,7 @@
 import type { Lang } from "@/types/lang";
 import React from "react";
 import "animate.css";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";

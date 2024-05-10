@@ -2,12 +2,12 @@
 
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
+import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "learners";
@@ -22,7 +22,7 @@ const NumberOfLearners = ({
   const [evolution, setEvolution] = useState<number | null>(null);
 
   const { data: numberOfLearners } = useSWR(
-    "/api/database/getTotalNumberOfLearners",
+    "/api/learners/count",
     fetcher,
     {
       revalidateOnMount: true,

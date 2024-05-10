@@ -3,11 +3,14 @@
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import { updateStatistics, updateEvolution } from "@/lib/statistics/evolution";
+import {
+  updateStatistics,
+  updateEvolution,
+} from "@/utils/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "remaining_rewards";
@@ -21,16 +24,12 @@ const RemainingRewards = ({
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
-  const { data: remainingRewards } = useSWR(
-    "/api/database/getRemainingRewards",
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
-    }
-  );
+  const { data: remainingRewards } = useSWR("/api/rewards/remaining", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime,
+  });
 
   useEffect(() => {
     if (remainingRewards && statsMap instanceof Map && statsMap.has(stat)) {

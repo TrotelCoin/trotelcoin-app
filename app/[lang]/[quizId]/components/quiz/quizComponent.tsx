@@ -8,15 +8,15 @@ import "animate.css";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import ThemeContext from "@/app/[lang]/contexts/themeContext";
 import ReCAPTCHA from "react-google-recaptcha";
 import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
 import useSWR from "swr";
-import { fetcher } from "@/lib/axios/fetcher";
+import { fetcher } from "@/utils/axios/fetcher";
 import { useAccount } from "wagmi";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { postQuizzesResult, postQuizzesTime } from "@/lib/quizzes/quizzes";
+import { postQuizzesResult, postQuizzesTime } from "@/utils/quizzes/quizzes";
 import { Address } from "viem";
 
 const debug = process.env.NODE_ENV !== "production";
@@ -73,7 +73,7 @@ const QuizComponent = ({
   const { theme } = useContext(ThemeContext);
 
   const { data } = useSWR(
-    address ? `/api/items/getUserShieldEnabled?wallet=${address}` : null,
+    address ? `/api/user/items/shield-enabled?wallet=${address}` : null,
     fetcher,
     {
       revalidateIfStale: true,

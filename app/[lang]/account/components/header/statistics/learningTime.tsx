@@ -1,14 +1,10 @@
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useContext } from "react";
 import CountUp from "react-countup";
-import useSWR from "swr";
-import { useAccount } from "wagmi";
 
 const LearningTime = ({ lang }: { lang: Lang }) => {
-  const { address } = useAccount();
   const { learningTime } = useContext(UserContext);
 
   return (

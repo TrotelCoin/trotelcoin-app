@@ -2,8 +2,8 @@
 
 import trotelCoinIntermediateABI from "@/abi/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
-import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";

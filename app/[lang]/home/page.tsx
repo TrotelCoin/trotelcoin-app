@@ -14,9 +14,8 @@ import {
 } from "@/utils/courses";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import Link from "next/link";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import Action from "@/app/[lang]/home/components/action";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -39,7 +38,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   const { data: lessonsCompleted } = useSWR(
-    address ? `/api/database/getUserCoursesCompleted?wallet=${address}` : null,
+    address ? `/api/user/courses/courses-completed?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

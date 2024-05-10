@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Address } from "viem";
 import useSWR from "swr";
 import axios from "axios";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { StarIcon as StarIconSolid } from "@heroicons/react/20/solid";
 import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
 import FailNotification from "@/app/[lang]/components/modals/failNotification";
@@ -30,7 +30,7 @@ const CoursesSatisfaction = ({
       try {
         await axios
           .post(
-            `/api/database/postCoursesSatisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
+            `/api/course/satisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
           )
           .then(() => {
             setSatisfactionMessage(true);
@@ -45,7 +45,7 @@ const CoursesSatisfaction = ({
 
   const { data: coursesSatisfactionAnswered, error } = useSWR(
     address && quizId
-      ? `/api/database/getCoursesSatisfactionStatus?wallet=${address}&quizId=${quizId}`
+      ? `/api/course/satisfaction-status?wallet=${address}&quizId=${quizId}`
       : null,
     fetcher,
     {

@@ -2,14 +2,14 @@
 
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import { Lang } from "@/types/lang";
 import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
-import { useItem } from "@/lib/inventory/inventory";
+import { useItem } from "@/utils/inventory/inventory";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
@@ -37,7 +37,7 @@ const InventoryItem = ({
 
   const { data: numberOfUsedItemsData } = useSWR(
     address && item
-      ? `/api/database/getUserNumberOfUsedItems?address=${address}&item=${item.name}`
+      ? `/api/user/items/count?address=${address}&item=${item.name}`
       : null,
     fetcher,
     {

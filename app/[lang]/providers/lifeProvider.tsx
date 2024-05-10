@@ -5,7 +5,7 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import type { ReactNode } from "react";
 import axios from "axios";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
@@ -26,13 +26,13 @@ const LifeProvider = ({
   const { isNotPremium } = useContext(PremiumContext);
 
   const updateLife = async () => {
-    await axios.post(`/api/database/postUpdateLife?wallet=${address}`);
+    await axios.post(`/api/user/life?wallet=${address}`);
 
     setLife(life - 1);
   };
 
   const { data: lifeData } = useSWR(
-    address ? `/api/database/getUserLife?wallet=${address}` : null,
+    address ? `/api/user/life?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -57,7 +57,7 @@ const LifeProvider = ({
   }, [life, isNotPremium, address]);
 
   const { data: lifeLastReset } = useSWR(
-    address ? `/api/database/getUserLifeLastReset?wallet=${address}` : null,
+    address ? `/api/user/life/last-reset?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

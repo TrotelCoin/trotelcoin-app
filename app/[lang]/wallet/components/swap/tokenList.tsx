@@ -12,7 +12,7 @@ import { useAccount } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
 import Pagination from "@/app/[lang]/components/pagination";
 import { nativeAddress } from "@/data/web3/tokens";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");

@@ -14,7 +14,7 @@ import { Address, Hash, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
 import { polygon } from "viem/chains";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/blueButton";
@@ -99,9 +99,7 @@ const RewardsButton = ({
   }, [isError]);
 
   const { data: userTotalRewardsPendingData } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -143,7 +141,7 @@ const RewardsButton = ({
         // make minting transaction
         const hash = await axios
           .post(
-            `/api/claimRewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
+            `/api/central-wallet/claim-rewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
           )
           .then((response) => response.data.hash);
 
@@ -151,7 +149,7 @@ const RewardsButton = ({
 
         // reset database pending rewards
         await axios
-          .post(`/api/database/postResetRewardsPending?wallet=${address}`)
+          .post(`/api/user/rewards/reset?wallet=${address}`)
           .then((response) => {
             if (!response.data.success) {
               setErrorMessage(true);

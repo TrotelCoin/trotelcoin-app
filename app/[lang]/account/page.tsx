@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { useAccount } from "wagmi";
 import type { Lang } from "@/types/lang";
@@ -21,7 +21,7 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = async () => {
-      await axios.post(`/api/database/postNewLearner?wallet=${address}`);
+      await axios.post(`/api/learner?wallet=${address}`);
     };
 
     if (address) {

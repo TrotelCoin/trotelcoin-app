@@ -7,7 +7,7 @@ import Rewards from "@/app/[lang]/[quizId]/components/quiz/rewards";
 import QuizComponent from "@/app/[lang]/[quizId]/components/quiz/quizComponent";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import Success from "@/app/[lang]/components/modals/success";
 import Wallet from "@/app/[lang]/components/header/wallet";
 

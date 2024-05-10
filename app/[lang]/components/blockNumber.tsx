@@ -3,7 +3,7 @@
 import React from "react";
 import { polygon } from "viem/chains";
 import { useBlockNumber } from "wagmi";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Lang } from "@/types/lang";
 

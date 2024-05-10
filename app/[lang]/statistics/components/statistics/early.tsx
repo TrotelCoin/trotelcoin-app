@@ -2,13 +2,13 @@
 
 import trotelCoinEarlyABI from "@/abi/trotelCoinEarly";
 import { trotelCoinEarlyAddress } from "@/data/web3/addresses";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import { useReadContract, useBlockNumber } from "wagmi";
-import { updateEvolution, updateStatistics } from "@/lib/statistics/evolution";
+import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 

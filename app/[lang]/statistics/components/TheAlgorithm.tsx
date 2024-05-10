@@ -13,7 +13,7 @@ import Early from "@/app/[lang]/statistics/components/statistics/early";
 import CoursesCount from "@/app/[lang]/statistics/components/statistics/coursesCount";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import {
   StatisticsDataType,
   StatisticsType,
@@ -27,7 +27,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
     null
   );
 
-  const { data: evolution } = useSWR("/api/statistics/getStatistics", fetcher, {
+  const { data: evolution } = useSWR("/api/statistics", fetcher, {
     refreshInterval: refreshIntervalTime,
     revalidateIfStale: true,
     revalidateOnMount: true,

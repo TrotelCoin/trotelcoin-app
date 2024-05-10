@@ -16,9 +16,9 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import BlueButton from "@/app/[lang]/components/blueButton";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address } from "viem";
-import { handleNotify, isMailCorrect } from "@/lib/waitlist/waitlist";
+import { handleNotify, isMailCorrect } from "@/utils/waitlist/waitlist";
 import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import "animate.css";
 import Loading from "@/app/[lang]/components/loading";
 
@@ -105,7 +105,7 @@ const Waitlist = ({
   });
 
   const { data: userWaitlistData, isLoading: isFetching } = useSWR(
-    address ? `/api/database/getUserWaitlist?wallet=${address}` : null,
+    address ? `/api/user/waitlist?wallet=${address}` : null,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,
@@ -129,16 +129,12 @@ const Waitlist = ({
     }
   }, [userWaitlistData]);
 
-  const { data: waitlistLengthData } = useSWR(
-    `/api/database/getWaitlistLength`,
-    fetcher,
-    {
-      refreshInterval: refreshIntervalTime,
-      revalidateOnMount: true,
-      revalidateOnReconnect: true,
-      revalidateIfStale: true,
-    }
-  );
+  const { data: waitlistLengthData } = useSWR(`/api/waitlist/count`, fetcher, {
+    refreshInterval: refreshIntervalTime,
+    revalidateOnMount: true,
+    revalidateOnReconnect: true,
+    revalidateIfStale: true,
+  });
 
   useEffect(() => {
     if (waitlistLengthData) {

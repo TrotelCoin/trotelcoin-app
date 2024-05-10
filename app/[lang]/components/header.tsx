@@ -22,7 +22,7 @@ import UserContext from "@/app/[lang]/contexts/userContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

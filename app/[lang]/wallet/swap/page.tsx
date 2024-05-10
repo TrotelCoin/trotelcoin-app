@@ -29,7 +29,8 @@ import {
   getToTokenList,
   getChainList,
   isRefuelSupported,
-} from "@/lib/socket/socket";
+  fetchQuote,
+} from "@/utils/socket/socket";
 import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
 import From from "@/app/[lang]/wallet/components/swap/from";
 import To from "@/app/[lang]/wallet/components/swap/to";
@@ -42,7 +43,6 @@ import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
 import allowanceAbi from "@/abi/allowance";
-import { fetchQuote } from "@/lib/socket/socket";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);

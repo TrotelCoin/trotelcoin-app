@@ -7,7 +7,7 @@ import WarningNotification from "@/app/[lang]/components/modals/warningNotificat
 import LifeContext from "@/app/[lang]/contexts/lifeContext";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import type { NotificationType } from "@/types/notifications/notifications";
-import { addNotificationToQueue } from "@/lib/notifications/notifications";
+import { addNotificationToQueue } from "@/utils/notifications/notifications";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 
 const NotificationProvider = ({

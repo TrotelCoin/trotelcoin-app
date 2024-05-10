@@ -32,7 +32,7 @@
     "pages/api/auth/[...nextauth].js",
     ".next/types/**/*.ts",
     "app/404.js",
-    "lib/walletContext.js",
+    "utils/walletContext.js",
     "middleware.js",
     "app/api/captcha/create"
   ],

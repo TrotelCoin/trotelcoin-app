@@ -1,21 +1,17 @@
 import type { Lang } from "@/types/lang";
 import React from "react";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 
 const EstimatedRewards = ({ lang }: { lang: Lang }) => {
-  const { data: remainingRewards } = useSWR(
-    "/api/database/getRemainingRewards",
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
-    }
-  );
+  const { data: remainingRewards } = useSWR("/api/rewards/remaining", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime,
+  });
 
   return (
     <>

@@ -3,7 +3,7 @@
 import { Colors } from "@/types/components/components";
 import React from "react";
 import Tilt from "react-parallax-tilt";
-import { colorClass } from "@/lib/tailwind/colors";
+import { colorClass } from "@/utils/tailwind/colors";
 
 const Action = ({ title, color }: { title: string; color: Colors }) => {
   return (
