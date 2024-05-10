@@ -7,7 +7,10 @@ import useSWR from "swr";
 import { loadingFlashClass } from "@/utils/tailwind/loading";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import CountUp from "react-countup";
-import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
+import {
+  updateEvolution,
+  updateStatistics,
+} from "@/utils/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "pending_trotelcoins";
@@ -21,16 +24,12 @@ const TrotelCoinsPending = ({
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
-  const { data: trotelCoinsPending } = useSWR(
-    "/api/database/getTotalTrotelCoinsPending",
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
-    }
-  );
+  const { data: trotelCoinsPending } = useSWR("/api/rewards", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime,
+  });
 
   useEffect(() => {
     if (trotelCoinsPending && statsMap instanceof Map && statsMap.has(stat)) {

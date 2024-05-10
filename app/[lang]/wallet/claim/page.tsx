@@ -27,9 +27,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const chainId = useChainId();
 
   const { data: userTotalRewardsPendingData } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

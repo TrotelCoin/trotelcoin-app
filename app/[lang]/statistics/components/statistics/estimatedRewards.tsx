@@ -6,16 +6,12 @@ import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 
 const EstimatedRewards = ({ lang }: { lang: Lang }) => {
-  const { data: remainingRewards } = useSWR(
-    "/api/database/getRemainingRewards",
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
-    }
-  );
+  const { data: remainingRewards } = useSWR("/api/rewards/remaining", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime,
+  });
 
   return (
     <>

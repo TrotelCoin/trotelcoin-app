@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { useAccount } from "wagmi";
 import type { Lang } from "@/types/lang";

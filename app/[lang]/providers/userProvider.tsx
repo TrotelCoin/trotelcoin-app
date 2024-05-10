@@ -48,9 +48,7 @@ const UserProvider = ({
   }, [session, address]);
 
   const { data: userTotalRewardsPendingData } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -69,9 +67,7 @@ const UserProvider = ({
   }, [userTotalRewardsPendingData]);
 
   const { data: alreadyAnsweredSatisfactionData } = useSWR(
-    address
-      ? `/api/database/getUserAlreadyAnsweredSatisfaction?wallet=${address}`
-      : null,
+    address ? `/api/user/satisfaction/status?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -128,9 +124,7 @@ const UserProvider = ({
   }, [averageMarkData]);
 
   const { data: userNumberOfQuizzesAnsweredData } = useSWR(
-    address
-      ? `/api/database/getUserNumberOfQuizzesAnswered?wallet=${address}`
-      : null,
+    address ? `/api/user/quizzes/answered/count?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

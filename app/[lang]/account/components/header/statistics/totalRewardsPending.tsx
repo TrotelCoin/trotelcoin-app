@@ -10,7 +10,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
   const { data: totalRewardsPending } = useSWR(
-    `/api/database/getUserTotalRewardsPending?wallet=${address}`,
+    `/api/user/rewards?wallet=${address}`,
     fetcher,
     {
       revalidateOnMount: true,

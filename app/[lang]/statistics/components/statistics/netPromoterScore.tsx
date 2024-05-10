@@ -7,7 +7,10 @@ import useSWR from "swr";
 import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
+import {
+  updateEvolution,
+  updateStatistics,
+} from "@/utils/statistics/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "net_promoter_score";
@@ -22,7 +25,7 @@ const NetPromoterScore = ({
   const [evolution, setEvolution] = useState<number | null>(null);
 
   const { data: netPromoterScore } = useSWR(
-    "/api/database/getNetPromoterScore",
+    "/api/satisfaction/net-promoter-score",
     fetcher,
     {
       revalidateOnMount: true,

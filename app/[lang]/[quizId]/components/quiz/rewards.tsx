@@ -80,7 +80,7 @@ const Rewards = ({
 
   const { data: hasAlreadyAnswered } = useSWR(
     address && quizId
-      ? `/api/database/getUserAlreadyAnsweredQuiz?wallet=${address}&quizId=${quizId}`
+      ? `/api/user/quiz/answered?wallet=${address}&quizId=${quizId}`
       : null,
     fetcher,
     {

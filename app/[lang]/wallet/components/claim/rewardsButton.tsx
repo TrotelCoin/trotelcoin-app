@@ -99,9 +99,7 @@ const RewardsButton = ({
   }, [isError]);
 
   const { data: userTotalRewardsPendingData } = useSWR(
-    address
-      ? `/api/database/getUserTotalRewardsPending?wallet=${address}`
-      : null,
+    address ? `/api/user/rewards?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -151,7 +149,7 @@ const RewardsButton = ({
 
         // reset database pending rewards
         await axios
-          .post(`/api/database/postResetRewardsPending?wallet=${address}`)
+          .post(`/api/user/rewards/reset?wallet=${address}`)
           .then((response) => {
             if (!response.data.success) {
               setErrorMessage(true);

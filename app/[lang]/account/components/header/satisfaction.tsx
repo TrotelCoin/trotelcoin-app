@@ -19,7 +19,7 @@ const Satisfaction = ({ lang }: { lang: Lang }) => {
     setIsResultLoading(true);
     if (number && address) {
       await axios.post(
-        `/api/database/postUserSatisfaction?number=${number}&wallet=${address}`
+        `/api/user/satisfaction?number=${number}&wallet=${address}`
       );
 
       setAlreadyAnsweredSatisfaction(true);
