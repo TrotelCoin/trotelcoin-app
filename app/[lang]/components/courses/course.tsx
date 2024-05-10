@@ -1,3 +1,5 @@
+"use client";
+
 import PremiumContext from "@/contexts/premium";
 import lessons from "@/data/lessons/lessons";
 import CourseFinishedProvider from "@/providers/courseFinished";
@@ -65,25 +67,32 @@ const Course = ({
   };
 
   const renderCourseContent = (children: React.ReactNode) => {
-    <>
-      {!address && tier !== "Beginner" ? (
-        renderUnauthorizedContent()
-      ) : !foundAvailability ||
-        (tier !== "Beginner" &&
-          (((tier === "Intermediate" || tier === "Intermédiaire") &&
-            !isIntermediate) ||
-            (tier === "Expert" && !isExpert))) ? (
-        renderUnauthorizedContent()
-      ) : (
-        <>
-          <CourseFinishedProvider>
-            <CourseContent lang={lang} quizId={quizId} title={title} URL={URL}>
-              {children}
-            </CourseContent>
-          </CourseFinishedProvider>
-        </>
-      )}
-    </>;
+    return (
+      <>
+        {!address && tier !== "Beginner" ? (
+          renderUnauthorizedContent()
+        ) : !foundAvailability ||
+          (tier !== "Beginner" &&
+            (((tier === "Intermediate" || tier === "Intermédiaire") &&
+              !isIntermediate) ||
+              (tier === "Expert" && !isExpert))) ? (
+          renderUnauthorizedContent()
+        ) : (
+          <>
+            <CourseFinishedProvider>
+              <CourseContent
+                lang={lang}
+                quizId={quizId}
+                title={title}
+                URL={URL}
+              >
+                {children}
+              </CourseContent>
+            </CourseFinishedProvider>
+          </>
+        )}
+      </>
+    );
   };
 
   return (

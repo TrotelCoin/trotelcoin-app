@@ -32,6 +32,8 @@ const Course = ({
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
   const { playAudio } = useContext(AudioContext);
 
+  const delay = typeof cards.en[currentIndex]?.text === "string" ? 600 : 0;
+
   const handleNext = () => {
     if (currentCardIndex >= cards.en.length - 1) {
       return;
@@ -42,7 +44,7 @@ const Course = ({
     setTimeout(() => {
       setCurrentCardIndex((prev) => Math.min(prev + 1, cards.en.length - 1));
       setPause(false);
-    }, 600);
+    }, delay);
   };
 
   const handlePrevious = () => {
@@ -55,7 +57,7 @@ const Course = ({
     setTimeout(() => {
       setCurrentCardIndex((prev) => Math.max(prev - 1, 0));
       setPause(false);
-    }, 600);
+    }, delay);
   };
 
   useEffect(() => {
@@ -133,6 +135,7 @@ const Course = ({
                   currentIndex={currentIndex}
                   setCurrentIndex={setCurrentIndex}
                   pause={pause}
+                  video={cards.en[currentCardIndex].video}
                 />
               ) : (
                 <Card
@@ -141,6 +144,7 @@ const Course = ({
                   currentIndex={currentIndex}
                   setCurrentIndex={setCurrentIndex}
                   pause={pause}
+                  video={cards.fr[currentCardIndex].video}
                 />
               )}
             </div>

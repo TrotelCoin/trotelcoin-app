@@ -32,7 +32,7 @@ export async function generateMetadata(
   }
 
   return {
-    title: title,
+    title: `TrotelCoin | ${title}`,
     description: description,
     generator: "Next.js",
     manifest: "/manifest.json",
@@ -73,11 +73,13 @@ const CoursePage = ({
   params: { lang: Lang; quizId: number };
   children: React.ReactNode;
 }) => {
-  <>
-    <Course quizId={quizId} lang={lang}>
-      {children}
-    </Course>
-  </>;
+  return (
+    <>
+      <Course quizId={quizId} lang={lang}>
+        {children}
+      </Course>
+    </>
+  );
 };
 
 export default CoursePage;
