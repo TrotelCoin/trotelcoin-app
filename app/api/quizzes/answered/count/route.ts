@@ -6,7 +6,6 @@ export const dynamic = "force-dynamic";
 /* GET /api/quizzes/answered/count
  * Returns the number of quizzes answered.
  * @returns {number} count - The number of quizzes answered.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns all the items used by a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {Array<{item_id: number, wallet: string}>} items - The items used by the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

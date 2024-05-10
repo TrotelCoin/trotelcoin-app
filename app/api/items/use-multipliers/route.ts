@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
  * @param {string} wallet - The wallet address of the user.
  * @param {string} multipliersName - The name of the multipliers to activate.
  * @returns {string} message - Indicates the result of the operation.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

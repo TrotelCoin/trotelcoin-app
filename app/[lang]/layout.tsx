@@ -35,6 +35,7 @@ import { cookieToInitialState } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
 import { headers } from "next/headers";
 import Waitlist from "@/app/[lang]/components/waitlist/waitlist";
+import { refreshIntervalTime } from "@/utils/axios/fetcher";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   appleWebApp: true,
   keywords:
-    "trotelcoin, learn, earn, crypto, bitcoin, ethereum, trotelcoin app, trotelcoin.com, trotelcoin app, trotelcoin app",
+    "trotelcoin, learn, earn, learn & earn, crypto, bitcoin, ethereum, trotelcoin app, trotelcoin.com, trotelcoin app, trotelcoin app",
   authors: [{ name: "TrotelCoin" }],
   robots: "index, follow",
   openGraph: {
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
       "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
     images: [
       {
-        url: "/assets/banner/trotelcoin-banner.png",
+        url: "https://app.trotelcoin.com/assets/banner/trotelcoin-banner.png",
         width: 800,
         height: 600,
         alt: "TrotelCoin App",
@@ -81,7 +82,7 @@ export const jsonLd = {
     "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
 };
 
-export const revalidate = 0;
+export const revalidate = refreshIntervalTime;
 
 export default function Layout({
   session,

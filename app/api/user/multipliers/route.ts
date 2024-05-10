@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns the username of a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} username - The username of the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

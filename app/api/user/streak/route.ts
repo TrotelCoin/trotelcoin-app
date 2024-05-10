@@ -11,7 +11,6 @@ export const dynamic = "force-dynamic";
  * @returns {string} lastUpdated - The date of the last streak.
  * @returns {boolean} disabled - Whether the user can update the streak.
  * @returns {boolean} lostStreak - Whether the user lost the streak.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -104,7 +103,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * Updates the user's streak.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} success - Indicates the result of the operation.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

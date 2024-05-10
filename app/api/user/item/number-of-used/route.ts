@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
  * @param {string} address - The wallet address of the user.
  * @param {string} item - The name of the item.
  * @returns {number} number_of_use - The number of times the item has been used by the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

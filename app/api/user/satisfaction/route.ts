@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
  * @param {number} number - The satisfaction of the user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {object} success - The success message.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

@@ -12,7 +12,6 @@ export const dynamic = "force-dynamic";
  * @param {number} amount - The amount of TrotelCoin to mint.
  * @param {string} centralWalletAddress - The address of the central wallet.
  * @returns {number} gas - The estimated gas required to mint the TrotelCoin.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

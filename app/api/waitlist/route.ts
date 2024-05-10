@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
  * @param {string} wallet - The wallet address of the user.
  * @returns {boolean} isWaiting - Whether the user is in the waitlist.
  * @returns {number} position - The position of the user in the waitlist.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -58,7 +57,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * @param {string} wallet - The wallet address of the user.
  * @param {string} mail - The email address of the user.
  * @returns {number} position - The position of the user in the waitlist.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

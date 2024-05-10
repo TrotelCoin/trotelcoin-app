@@ -6,7 +6,6 @@ export const dynamic = "force-dynamic";
 /* GET /api/learners/count
  * Returns the number of learners.
  * @returns {number} count - The number of learners.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

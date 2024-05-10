@@ -11,7 +11,6 @@ export const dynamic = "force-dynamic";
  * @param {number} totalQuestions - The total number of questions.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} message - The message.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
