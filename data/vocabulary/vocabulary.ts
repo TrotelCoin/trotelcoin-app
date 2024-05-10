@@ -1,4 +1,4 @@
-import type { Vocabulary } from "@/types/components/cards";
+import type { Vocabulary } from "@/types/vocabulary/vocabulary";
 
 export const vocabulary: Vocabulary = [
   {

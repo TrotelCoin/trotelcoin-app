@@ -1,7 +1,7 @@
 "use client";
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import {
@@ -11,11 +11,11 @@ import {
   useTransactionConfirmations,
   useWriteContract,
 } from "wagmi";
-import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
+import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Hash, isAddress, parseEther } from "viem";
-import trotelCoinABI from "@/abi/trotelCoin";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import { loadingFlashClass } from "@/style/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { CameraIcon } from "@heroicons/react/24/solid";

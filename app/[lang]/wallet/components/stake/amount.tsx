@@ -1,5 +1,5 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import type { Address } from "viem";
 import { polygon } from "viem/chains";

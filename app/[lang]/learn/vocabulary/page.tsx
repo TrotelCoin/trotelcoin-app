@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,9 +8,9 @@ import "swiper/css/effect-cards";
 import { EffectCards } from "swiper/modules";
 import { vocabulary } from "@/data/vocabulary/vocabulary";
 import Image from "next/image";
-import getRandomVocabulary from "@/utils/vocabulary";
-import BlueButton from "@/app/[lang]/components/blueButton";
-import type { Vocabulary, VocabularyItem } from "@/types/components/cards";
+import getRandomVocabulary from "@/utils/vocabulary/getRandomVocabulary";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
+import type { Vocabulary, VocabularyItem } from "@/types/vocabulary/vocabulary";
 
 const VocabularyPage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [randomVocabulary, setRandomVocabulary] = useState<Vocabulary>(

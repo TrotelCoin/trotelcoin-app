@@ -1,6 +1,6 @@
-import UserContext from "@/app/[lang]/contexts/userContext";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
-import type { Lang } from "@/types/lang";
+import UserContext from "@/contexts/user";
+import { loadingFlashClass } from "@/style/loading";
+import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import CountUp from "react-countup";
 

@@ -1,4 +1,4 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React from "react";
 
 const Period = ({

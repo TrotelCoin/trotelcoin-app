@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { ChainSource, Slippage, Sort, TokenSource } from "@/types/web3/swap";
 import {
   useAccount,
@@ -20,29 +20,27 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import WidgetTitle from "@/app/[lang]/wallet/components/widgetTitle";
 import "animate.css";
-import SwapButton from "@/app/[lang]/wallet/components/swap/swapButton";
-import FailNotification from "@/app/[lang]/components/modals/failNotification";
+import SwapButton from "@/app/[lang]/wallet/components/swap/buttons/swapButton";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { ArrowPathIcon, ArrowsUpDownIcon } from "@heroicons/react/20/solid";
-import {
-  getBridgeStatus,
-  getFromTokenList,
-  getToTokenList,
-  getChainList,
-  isRefuelSupported,
-  fetchQuote,
-} from "@/utils/socket/socket";
+import { getBridgeStatus } from "@/utils/socket/getBridgeStatus";
 import { usdcPolygon, trotelCoinPolygon } from "@/data/web3/tokens";
-import From from "@/app/[lang]/wallet/components/swap/from";
-import To from "@/app/[lang]/wallet/components/swap/to";
+import From from "@/app/[lang]/wallet/components/swap/direction/from";
+import To from "@/app/[lang]/wallet/components/swap/direction/to";
 import { useDebounce } from "use-debounce";
 import { Token } from "@/types/web3/token";
-import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
+import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import SwapData from "@/app/[lang]/wallet/components/swap/swapData";
-import TokenList from "@/app/[lang]/wallet/components/swap/tokenList";
+import TokenList from "@/app/[lang]/wallet/components/swap/lists/tokenList";
 import Settings from "@/app/[lang]/wallet/components/swap/settings";
 import { Chain } from "@/types/web3/chain";
-import ChainList from "@/app/[lang]/wallet/components/swap/chainList";
-import allowanceAbi from "@/abi/allowance";
+import ChainList from "@/app/[lang]/wallet/components/swap/lists/chainList";
+import allowanceAbi from "@/abi/misc/erc20/allowance";
+import { fetchQuote } from "@/utils/socket/fetchQuote";
+import { getFromTokenList } from "@/utils/socket/getFromTokenList";
+import { getChainList } from "@/utils/socket/getChainList";
+import { getToTokenList } from "@/utils/socket/getToTokenList";
+import { isRefuelSupported } from "@/utils/socket/isRefuelSupported";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);

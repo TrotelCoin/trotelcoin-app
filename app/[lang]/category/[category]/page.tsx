@@ -1,17 +1,17 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import type { Lessons } from "@/types/courses/lessons";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
-import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
+import SeparatorVertical from "@/app/[lang]/components/separator/vertical";
 import renderCourses from "@/app/[lang]/category/[category]/components/renderCourses";
-import lessons from "@/data/lessons/lessonsData";
-import { lessonsLength } from "@/utils/courses";
+import lessons from "@/data/lessons/lessons";
+import { lessonsLength } from "@/utils/courses/lessonsLength";
 import { useAccount } from "wagmi";
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import GoHomeButton from "@/app/[lang]/[quizId]/components/goHomeButton";
+import PremiumContext from "@/contexts/premium";
+import GoHomeButton from "@/app/[lang]/components/buttons/goHome";
 import CountUp from "react-countup";
 
 const Page = ({

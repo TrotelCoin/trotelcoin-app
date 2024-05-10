@@ -1,10 +1,10 @@
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import * as Popover from "@radix-ui/react-popover";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
-import type { ItemTypeFinal } from "@/types/shop/shop";
-import BlueButton from "@/app/[lang]/components/blueButton";
+import type { ItemTypeFinal } from "@/types/items/items";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
 import Image from "next/image";
 import {
   useAccount,
@@ -17,8 +17,8 @@ import {
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
-import trotelCoinShopABI from "@/abi/trotelCoinShop";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";

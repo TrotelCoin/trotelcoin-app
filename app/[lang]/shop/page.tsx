@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 
 const Subscription = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (

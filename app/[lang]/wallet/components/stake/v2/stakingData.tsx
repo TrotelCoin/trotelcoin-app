@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import {
   useBalance,
   useAccount,
@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
 import { Address, formatEther } from "viem";
-import trotelCoinStakingV2ABI from "@/abi/trotelCoinStakingV2";
+import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import { polygon } from "viem/chains";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 

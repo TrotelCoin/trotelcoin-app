@@ -1,4 +1,4 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import TrotelCoinsDistributed from "@/app/[lang]/statistics/components/statistics/trotelCoinsDistributed";
 import TrotelCoinsPending from "@/app/[lang]/statistics/components/statistics/trotelCoinsPending";

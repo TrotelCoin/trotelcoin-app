@@ -1,8 +1,8 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 
 const EstimatedRewards = ({ lang }: { lang: Lang }) => {

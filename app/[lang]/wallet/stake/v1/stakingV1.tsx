@@ -1,9 +1,9 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import Period from "@/app/[lang]/wallet/components/stake/v1/period";
 import StakingData from "@/app/[lang]/wallet/components/stake/v1/stakingData";
 import Amount from "@/app/[lang]/wallet/components/stake/amount";
-import ClaimingButton from "@/app/[lang]/wallet/components/stake/v1/claimingButton";
+import ClaimingButton from "@/app/[lang]/wallet/components/stake/v1/buttons/claimingButton";
 import TotalStaked from "@/app/[lang]/wallet/components/stake/v1/totalStaked";
 import { polygon } from "viem/chains";
 import { useAccount, useChainId } from "wagmi";

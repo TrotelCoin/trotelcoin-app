@@ -1,0 +1,90 @@
+import axios from "axios";
+import { Address } from "viem";
+
+export const useItem = async (
+  item: string,
+  address: Address,
+  setErrorMessage: React.Dispatch<React.SetStateAction<boolean>>,
+  setItemsUsedMessage: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setQuantity: React.Dispatch<React.SetStateAction<number | null>>
+) => {
+  setIsLoading(true);
+
+  if (address && item) {
+    try {
+      switch (item) {
+        case "Potion":
+          await axios.post(`/api/items/use-potion?wallet=${address}`);
+          break;
+        case "Castle":
+          await axios.post(
+            `/api/items/use-shields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "Watch":
+          await axios.post(`/api/items/use-watch?wallet=${address}`);
+          break;
+        case "Clock":
+          await axios.post(`/api/items/use-clock?wallet=${address}`);
+          break;
+        case "Closed Lock":
+          await axios.post(
+            `/api/items/use-shields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "Hourglass":
+          await axios.post(`/api/items/use-hourglass?wallet=${address}`);
+          break;
+        case "King":
+          await axios.post(
+            `/api/items/use-shields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "Shield":
+          await axios.post(
+            `/api/items/use-shields?wallet=${address}&shieldName=${item}`
+          );
+          break;
+        case "x2":
+          await axios.post(
+            `/api/items/use-multipliers?wallet=${address}&multipliersName=${item}`
+          );
+          break;
+        case "x5":
+          await axios.post(
+            `/api/items/use-multipliers?wallet=${address}&multipliersName=${item}`
+          );
+          break;
+        case "x10":
+          await axios.post(
+            `/api/items/use-multipliers?wallet=${address}&multipliersName=${item}`
+          );
+          break;
+        case "x25":
+          await axios.post(
+            `/api/items/use-multipliers?wallet=${address}&multipliersName=${item}`
+          );
+          break;
+        default:
+          break;
+      }
+
+      await axios.post(
+        `/api/user/item/number-of-used?address=${address}&item=${item}`
+      );
+
+      setItemsUsedMessage(true);
+      setQuantity((prev) => (prev ? prev - 1 : null));
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(true);
+    } finally {
+      setIsLoading(false);
+    }
+  } else {
+    setErrorMessage(true);
+  }
+
+  setIsLoading(false);
+};

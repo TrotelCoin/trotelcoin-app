@@ -1,7 +1,7 @@
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import React, { useState } from "react";
 import { BoltIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { Token } from "@/types/web3/token";
 import Image from "next/image";

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import type { Lang } from "@/types/lang";
-import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
+import type { Lang } from "@/types/language/lang";
+import RewardsButton from "@/app/[lang]/wallet/components/claim/buttons/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
 import Balance from "@/app/[lang]/wallet/components/claim/balance";
 import { Address } from "viem";

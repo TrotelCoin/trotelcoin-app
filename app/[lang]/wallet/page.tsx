@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import Link from "next/link";
 import Tilt from "react-parallax-tilt";
 

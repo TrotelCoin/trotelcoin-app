@@ -1,4 +1,4 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React from "react";
 
 const canClaim =
@@ -18,12 +18,8 @@ const Status = ({
       <div className="flex justify-between">
         <span>{lang === "en" ? "Status" : "Statut"}</span>
         <div>
-          <span
-            className={`${
-              (availableToClaim as number) > 0 ? canClaim : cannotClaim
-            }`}
-          >
-            {(availableToClaim as number) > 0 ? "Claimable" : "Not claimable"}
+          <span className={`${availableToClaim > 0 ? canClaim : cannotClaim}`}>
+            {availableToClaim > 0 ? "Claimable" : "Not claimable"}
           </span>
         </div>
       </div>

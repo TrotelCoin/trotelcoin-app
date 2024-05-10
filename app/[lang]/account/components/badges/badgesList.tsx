@@ -1,6 +1,6 @@
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import PremiumContext from "@/contexts/premium";
 import type { Badges, Badge } from "@/types/components/badges";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import Tilt from "react-parallax-tilt";
 

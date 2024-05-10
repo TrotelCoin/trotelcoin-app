@@ -1,5 +1,5 @@
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import type { Lang } from "@/types/lang";
+import PremiumContext from "@/contexts/premium";
+import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import { ReactTyped } from "react-typed";
 

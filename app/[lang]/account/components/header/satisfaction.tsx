@@ -1,8 +1,8 @@
-import BlueButton from "@/app/[lang]/components/blueButton";
-import type { Lang } from "@/types/lang";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
+import type { Lang } from "@/types/language/lang";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import UserContext from "@/app/[lang]/contexts/userContext";
+import UserContext from "@/contexts/user";
 import { useAccount } from "wagmi";
 import * as Slider from "@radix-ui/react-slider";
 

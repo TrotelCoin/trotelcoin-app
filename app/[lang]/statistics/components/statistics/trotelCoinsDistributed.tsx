@@ -1,14 +1,15 @@
 "use client";
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
-import type { Lang } from "@/types/lang";
+import { loadingFlashClass } from "@/style/loading";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { useToken } from "wagmi";
-import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
+import { updateEvolution } from "@/utils/statistics/updateEvolution";
+import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "distributed_trotelcoins";

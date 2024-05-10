@@ -1,4 +1,4 @@
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useChainId, useReadContract } from "wagmi";
 import Amount from "@/app/[lang]/wallet/components/stake/amount";
@@ -8,13 +8,13 @@ import Period from "@/app/[lang]/wallet/components/stake/v2/period";
 import StakingData from "@/app/[lang]/wallet/components/stake/v2/stakingData";
 import TotalStaked from "@/app/[lang]/wallet/components/stake/v2/totalStaked";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import ClaimingButton from "@/app/[lang]/wallet/components/stake/v2/claimingButton";
-import ApproveButton from "@/app/[lang]/wallet/components/stake/v2/approveButton";
-import IncreaseStakingButton from "@/app/[lang]/wallet/components/stake/v2/increaseStakingButton";
-import StakingButton from "@/app/[lang]/wallet/components/stake/v2/stakingButton";
-import trotelCoinStakingV2ABI from "@/abi/trotelCoinStakingV2";
+import ClaimingButton from "@/app/[lang]/wallet/components/stake/v2/buttons/claimingButton";
+import ApproveButton from "@/app/[lang]/wallet/components/stake/v2/buttons/approveButton";
+import IncreaseStakingButton from "@/app/[lang]/wallet/components/stake/v2/buttons/increaseStakingButton";
+import StakingButton from "@/app/[lang]/wallet/components/stake/v2/buttons/stakingButton";
+import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import { trotelCoinStakingV2, trotelCoinAddress } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelCoin";
+import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 
 const StakingV2 = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);

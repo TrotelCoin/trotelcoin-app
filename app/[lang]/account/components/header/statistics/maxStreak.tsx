@@ -1,6 +1,6 @@
-import StreakContext from "@/app/[lang]/contexts/streakContext";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
-import type { Lang } from "@/types/lang";
+import StreakContext from "@/contexts/streak";
+import { loadingFlashClass } from "@/style/loading";
+import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import CountUp from "react-countup";
 

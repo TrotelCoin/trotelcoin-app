@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import StakingV1 from "@/app/[lang]/wallet/stake/v1/stakingV1";

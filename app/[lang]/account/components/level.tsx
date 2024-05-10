@@ -1,9 +1,10 @@
-import type { Lang } from "@/types/lang";
-import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
+import type { Lang } from "@/types/language/lang";
+import { calculateProgressPercentage } from "@/utils/levels/calculateProgressPercentage";
+import { calculateUserLevel } from "@/utils/levels/calculateUserLevel";
 import { useContext, useEffect, useState } from "react";
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import UserContext from "@/app/[lang]/contexts/userContext";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import PremiumContext from "@/contexts/premium";
+import UserContext from "@/contexts/user";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 
 const LevelSection = ({ lang }: { lang: Lang }) => {

@@ -1,5 +1,5 @@
-import BlueSimplePopover from "@/app/[lang]/components/blueSimplePopover";
-import { Lang } from "@/types/lang";
+import BlueSimplePopover from "@/app/[lang]/components/popovers/blueSimple";
+import { Lang } from "@/types/language/lang";
 import * as Switch from "@radix-ui/react-switch";
 import * as Popover from "@radix-ui/react-popover";
 import {
@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/20/solid";
 import React, { useContext } from "react";
 import { Sort } from "@/types/web3/swap";
-import AudioContext from "@/app/[lang]/contexts/audioContext";
+import AudioContext from "@/contexts/audio";
 import type { Slippage } from "@/types/web3/swap";
 import * as Tooltip from "@radix-ui/react-tooltip";
 

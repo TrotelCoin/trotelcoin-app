@@ -1,10 +1,10 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 
 const Balance = ({ lang }: { lang: Lang }) => {

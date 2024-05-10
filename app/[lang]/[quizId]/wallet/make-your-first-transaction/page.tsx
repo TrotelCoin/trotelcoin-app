@@ -1,9 +1,9 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
-import Course from "@/app/[lang]/[quizId]/components/course";
+import type { Lang } from "@/types/language/lang";
+import Course from "@/app/[lang]/components/courses/courseScreen/course";
 import { useContext, useEffect, useState } from "react";
-import BlueButton from "@/app/[lang]/components/blueButton";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
 import {
   useBlockNumber,
   useSendTransaction,
@@ -15,7 +15,7 @@ import { Hash, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import UserContext from "@/app/[lang]/contexts/userContext";
+import UserContext from "@/contexts/user";
 import Link from "next/link";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {

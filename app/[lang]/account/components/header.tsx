@@ -1,4 +1,4 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { useAccount, useEnsName } from "wagmi";
 import { Address } from "viem";
 import { mainnet } from "viem/chains";
@@ -7,13 +7,13 @@ import Rank from "@/app/[lang]/account/components/header/rank";
 import Balance from "@/app/[lang]/account/components/header/statistics/balance";
 import NumberOfQuizzesAnswered from "@/app/[lang]/account/components/header/statistics/numberOfQuizzesAnswered";
 import TotalRewardsPending from "@/app/[lang]/account/components/header/statistics/totalRewardsPending";
-import shortenAddress from "@/utils/shortenAddress";
+import shortenAddress from "@/utils/addresses/shortenAddress";
 import MaxStreak from "@/app/[lang]/account/components/header/statistics/maxStreak";
 import Tilt from "react-parallax-tilt";
 import { useWeb3Modal, useWeb3ModalTheme } from "@web3modal/wagmi/react";
 import "animate.css";
 import { useContext, useEffect } from "react";
-import ThemeContext from "@/app/[lang]/contexts/themeContext";
+import ThemeContext from "@/contexts/theme";
 import AverageMark from "@/app/[lang]/account/components/header/statistics/averageMark";
 import LearningTime from "@/app/[lang]/account/components/header/statistics/learningTime";
 

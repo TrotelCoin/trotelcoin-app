@@ -1,16 +1,14 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import {
-  updateStatistics,
-  updateEvolution,
-} from "@/utils/statistics/evolution";
+import { updateEvolution } from "@/utils/statistics/updateEvolution";
+import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "remaining_rewards";

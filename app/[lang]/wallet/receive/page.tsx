@@ -3,10 +3,10 @@
 import React, { useState } from "react";
 import { useAccount } from "wagmi";
 import QRCode from "react-qr-code";
-import { Lang } from "@/types/lang";
-import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
+import { Lang } from "@/types/language/lang";
+import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Success from "@/app/[lang]/components/modals/success";
-import shortenAddress from "@/utils/shortenAddress";
+import shortenAddress from "@/utils/addresses/shortenAddress";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 

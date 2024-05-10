@@ -1,17 +1,17 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinShop } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/trotelCoinShop";
-import { fetchInventory } from "@/utils/inventory/inventory";
+import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
+import { fetchInventory } from "@/utils/inventory/fetchInventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import UserContext from "@/app/[lang]/contexts/userContext";
+import UserContext from "@/contexts/user";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";

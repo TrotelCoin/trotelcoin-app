@@ -1,10 +1,10 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { useAccount } from "wagmi";
 import React from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import CountUp from "react-countup";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 
 const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
