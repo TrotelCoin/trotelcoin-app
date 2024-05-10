@@ -5,7 +5,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import StreakContext from "@/app/[lang]/contexts/streakContext";
 import type { ReactNode } from "react";
 import { Address } from "viem";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import type { Lang } from "@/types/lang";
@@ -31,7 +31,7 @@ const StreakProvider = ({
   const { address } = useAccount();
 
   const { data: userStreak } = useSWR(
-    address ? `/api/database/getUserStreak?wallet=${address}` : null,
+    address ? `/api/user/streak?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -77,7 +77,7 @@ const StreakProvider = ({
   }, [lastUpdatedStreak, disabled, address]);
 
   const { data: userMaxStreak } = useSWR(
-    address ? `/api/database/getUserMaxStreak?wallet=${address}` : null,
+    address ? `/api/user/streak/max-streak?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,
@@ -105,7 +105,7 @@ const StreakProvider = ({
     setIsStreakLoading(true);
 
     await axios
-      .post(`/api/database/postUpdateStreak?wallet=${address}`)
+      .post(`/api/user/streak?wallet=${address}`)
       .then(() => {
         setStreak((streak: number) => streak + 1);
         setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));

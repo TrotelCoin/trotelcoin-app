@@ -15,7 +15,7 @@ import BlueSimpleButton from "@/app/[lang]/components/blueSimpleButton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Hash, isAddress, parseEther } from "viem";
 import trotelCoinABI from "@/abi/trotelCoin";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { CameraIcon } from "@heroicons/react/24/solid";

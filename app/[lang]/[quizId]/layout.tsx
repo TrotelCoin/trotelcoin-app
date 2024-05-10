@@ -14,7 +14,7 @@ import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import { usePathname } from "next/navigation";
 import Success from "@/app/[lang]/components/modals/success";
 import CountUp from "react-countup";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import CourseFinishedProvider from "@/app/[lang]/providers/courseFinishedProvider";
 import useSWR from "swr";
 import { ShareIcon } from "@heroicons/react/20/solid";
@@ -48,7 +48,7 @@ const CoursePage = ({
   const URL = `${origin}${pathname}`;
 
   const { data: numberOfAnswers } = useSWR(
-    quizId ? `/api/database/getCourseNumberOfAnswers?quizId=${quizId}` : null,
+    quizId ? `/api/course/number-of-answers?quizId=${quizId}` : null,
     fetcher,
     {
       revalidateOnMount: true,

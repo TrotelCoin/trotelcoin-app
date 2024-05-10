@@ -5,10 +5,10 @@ import { isAddress, Address } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { getEnsName } from "@wagmi/core";
 import { mainnet } from "viem/chains";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { config } from "@/config/Web3ModalConfig";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {
@@ -17,7 +17,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
   );
 
   const { data: leaderboardData, isLoading: isLoadingLeaderboard } = useSWR(
-    `/api/database/getLeaderboard`,
+    `/api/leaderboard`,
     fetcher,
     {
       revalidateOnMount: true,

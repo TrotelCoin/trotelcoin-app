@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/db";
+import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 

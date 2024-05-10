@@ -5,7 +5,7 @@ import { Session } from "next-auth";
 import type { Lang } from "@/types/lang";
 import type { Metadata } from "next";
 import Script from "next/script";
-import { poppins } from "@/lib/fonts/poppins";
+import { poppins } from "@/utils/fonts/poppins";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";

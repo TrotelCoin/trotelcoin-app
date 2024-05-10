@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/db";
+import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     await supabase
       .from("learners")
       .update({ total_rewards_pending: 0 })
-      .eq("wallet", wallet as Address);
+      .eq("wallet", wallet);
     return NextResponse.json(
       { success: true },
       { status: 200, headers: { "Cache-Control": "no-store" } }

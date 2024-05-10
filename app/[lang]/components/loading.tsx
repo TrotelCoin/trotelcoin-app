@@ -1,6 +1,6 @@
 "use client";
 
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import type { Lang } from "@/types/lang";
 import "animate.css";
 import React from "react";

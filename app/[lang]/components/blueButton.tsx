@@ -5,7 +5,7 @@ import "animate.css";
 import type { Lang } from "@/types/lang";
 import AudioContext from "@/app/[lang]/contexts/audioContext";
 import Confetti from "react-dom-confetti";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 
 const BlueButton = ({
   text,

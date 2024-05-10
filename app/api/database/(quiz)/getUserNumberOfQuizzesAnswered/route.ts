@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/db";
+import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { data: result } = await supabase
       .from("learners")
       .select("number_of_quizzes_answered")
-      .eq("wallet", wallet as Address);
+      .eq("wallet", wallet);
 
     if (result && result.length > 0) {
       return NextResponse.json(result[0].number_of_quizzes_answered, {

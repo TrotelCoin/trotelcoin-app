@@ -1,10 +1,9 @@
 import type { Lang } from "@/types/lang";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import RewardsButton from "@/app/[lang]/wallet/components/claim/rewardsButton";
 import Image from "next/image";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
-import { useEffect } from "react";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import { Address } from "viem";
 
@@ -17,7 +16,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const { userTotalRewardsPending } = useContext(UserContext);
 
   const { data: centralWalletAddressData } = useSWR(
-    "/api/getCentralWalletAddress",
+    "/api/central-wallet/address",
     fetcher,
     {
       revalidateOnMount: true,

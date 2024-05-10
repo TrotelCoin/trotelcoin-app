@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { Lang } from "@/types/lang";
 import { type Address } from "viem";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";

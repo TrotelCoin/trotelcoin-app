@@ -21,7 +21,7 @@ export default function Account({
 
   useEffect(() => {
     const fetchNewLearner = async () => {
-      await axios.post(`/api/database/postNewLearner?wallet=${address}`);
+      await axios.post(`/api/learner?wallet=${address}`);
     };
 
     if (address) {

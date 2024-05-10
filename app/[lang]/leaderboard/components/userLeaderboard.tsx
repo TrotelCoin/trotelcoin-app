@@ -6,9 +6,9 @@ import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/shortenAddress";
 import { mainnet } from "viem/chains";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 import type { UserLeaderboard } from "@/types/leaderboard/leaderboard";
 
@@ -23,7 +23,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
   const { data, isLoading: isLoadingUserLeaderboard } = useSWR(
-    address ? `/api/database/getLeaderboard` : null,
+    address ? `/api/leaderboard` : null,
     fetcher,
     {
       revalidateOnMount: true,

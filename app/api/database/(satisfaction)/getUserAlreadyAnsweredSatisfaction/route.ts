@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase/db";
+import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 
 export const dynamic = "force-dynamic";

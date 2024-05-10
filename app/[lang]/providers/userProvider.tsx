@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import UserContext from "@/app/[lang]/contexts/userContext";
 import type { ReactNode } from "react";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import type { Lang } from "@/types/lang";
 import { useSession } from "next-auth/react";
@@ -90,7 +90,7 @@ const UserProvider = ({
   }, [alreadyAnsweredSatisfactionData]);
 
   const { data: learningTimeData } = useSWR(
-    `/api/database/getUserQuizzesTime?wallet=${address}`,
+    `/api/user/quizzes/time?wallet=${address}`,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,
@@ -109,7 +109,7 @@ const UserProvider = ({
   }, [learningTimeData]);
 
   const { data: averageMarkData } = useSWR(
-    `/api/database/getUserAverageMark?wallet=${address}`,
+    `/api/user/marks/average-mark?wallet=${address}`,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,
@@ -149,7 +149,7 @@ const UserProvider = ({
   }, [userNumberOfQuizzesAnsweredData]);
 
   const { data: userMultipliersData } = useSWR(
-    address ? `/api/items/getUserMultipliers?wallet=${address}` : null,
+    address ? `/api/user/multipliers?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

@@ -4,7 +4,7 @@ import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 
 const Balance = ({ lang }: { lang: Lang }) => {

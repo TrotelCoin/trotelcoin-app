@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/db";
+import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { data: result } = await supabase
       .from("quizzes_answered")
       .select("answered, quiz_id")
-      .eq("wallet", wallet as Address);
+      .eq("wallet", wallet);
 
     if (!Array.isArray(result)) {
       return NextResponse.json(false, { status: 500 });

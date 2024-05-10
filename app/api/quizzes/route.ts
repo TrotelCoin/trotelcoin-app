@@ -1,6 +1,6 @@
 import quizzes from "@/data/quizzes/quizData";
 import { NextRequest, NextResponse } from "next/server";
-import { getQuestionsByLanguage } from "@/lib/quizzes/quizzes";
+import { getQuestionsByLanguage } from "@/utils/quizzes/quizzes";
 import { Lang } from "@/types/lang";
 
 export const dynamic = "force-dynamic";

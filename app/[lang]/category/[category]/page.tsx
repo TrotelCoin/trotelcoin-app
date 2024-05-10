@@ -2,7 +2,7 @@
 
 import type { Lang } from "@/types/lang";
 import type { Lessons } from "@/types/courses/lessons";
-import { fetcher, refreshIntervalTime } from "@/lib/axios/fetcher";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
 import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
@@ -32,7 +32,7 @@ const Page = ({
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   const { data: lessonsCompleted } = useSWR(
-    address ? `/api/database/getUserCoursesCompleted?wallet=${address}` : null,
+    address ? `/api/user/courses/courses-completed?wallet=${address}` : null,
     fetcher,
     {
       revalidateOnMount: true,

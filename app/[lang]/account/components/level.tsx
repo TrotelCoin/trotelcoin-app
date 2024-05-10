@@ -3,7 +3,7 @@ import { calculateUserLevel, calculateProgressPercentage } from "@/utils/level";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/app/[lang]/contexts/premiumContext";
 import UserContext from "@/app/[lang]/contexts/userContext";
-import { loadingFlashClass } from "@/lib/tailwind/loading";
+import { loadingFlashClass } from "@/utils/tailwind/loading";
 import CountUp from "react-countup";
 
 const LevelSection = ({ lang }: { lang: Lang }) => {
