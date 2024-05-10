@@ -2605,6 +2605,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 29,
+    title: "Airdrops",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What are airdrops?",
+          fr: "Qu'est-ce que les airdrops ?",
+        },
+        options: {
+          en: [
+            "Free token distributions to users",
+            "Weather phenomena",
+            "Discounts on online purchases",
+            "Airplane package deliveries",
+          ],
+          fr: [
+            "Distributions gratuites de tokens aux utilisateurs",
+            "Phénomènes météorologiques",
+            "Réductions sur les achats en ligne",
+            "Livraisons de colis par avion",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Why do projects conduct airdrops?",
+          fr: "Pourquoi les projets organisent-ils des airdrops ?",
+        },
+        options: {
+          en: [
+            "To reward loyal users and increase visibility",
+            "To predict weather patterns",
+            "To reduce project expenses",
+            "To increase the token price",
+          ],
+          fr: [
+            "Pour récompenser les utilisateurs fidèles et augmenter la visibilité",
+            "Pour prédire les modèles météorologiques",
+            "Pour réduire les dépenses du projet",
+            "Pour augmenter le prix du token",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What was the Uniswap airdrop?",
+          fr: "Quel était l'airdrop de Uniswap ?",
+        },
+        options: {
+          en: [
+            "Distribution of 400 UNI tokens to platform users",
+            "Launching metaverse event",
+            "Jumping from an airplane called Uniswap",
+            "Creating a Uniswap-themed video game",
+          ],
+          fr: [
+            "Distribution de 400 tokens UNI aux utilisateurs de la plateforme",
+            "Lancement d'un événement métavers",
+            "Sauter d'un avion appelé Uniswap",
+            "Création d'un jeu vidéo sur le thème de Uniswap",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What should users be cautious of regarding airdrops?",
+          fr: "Sur quoi les utilisateurs devraient-ils être prudents concernant les airdrops ?",
+        },
+        options: {
+          en: [
+            "Scams and valueless tokens",
+            "Overwhelming generosity",
+            "Predictable weather forecasts",
+            "Indiscriminate airdrop acceptance",
+          ],
+          fr: [
+            "Les scams et les tokens sans valeur",
+            "La générosité écrasante",
+            "Les prévisions météorologiques prévisibles",
+            "L'acceptation indiscriminée des airdrops",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

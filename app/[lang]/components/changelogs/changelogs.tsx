@@ -93,6 +93,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Dollar Cost Averaging"
               : "- Dollar Cost Averaging",
         },
+        {
+          text: lang === "en" ? "- Airdrops" : "- Airdrops",
+        },
       ],
     },
     {
