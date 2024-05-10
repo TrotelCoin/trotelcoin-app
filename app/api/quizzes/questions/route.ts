@@ -10,7 +10,6 @@ export const dynamic = "force-dynamic";
  * @param {number} quizId - The ID of the quiz.
  * @param {string} lang - The language of the questions.
  * @returns {string[]} questions - The questions for the quiz in the specified language.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

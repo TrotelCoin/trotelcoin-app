@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns the status of the user's satisfaction.
  * @param {string} wallet - The wallet address of the user.
  * @returns {boolean} status - The status of the user's satisfaction.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

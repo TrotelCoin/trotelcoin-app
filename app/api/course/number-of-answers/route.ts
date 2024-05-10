@@ -7,7 +7,6 @@ export const dynamic = "force-dynamic";
  * Returns the number of answers for a quiz.
  * @param {number} quizId - The ID of the quiz.
  * @returns {number} numberOfAnswers - The number of answers for the quiz.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

@@ -10,7 +10,6 @@ export const dynamic = "force-dynamic";
  * @returns {boolean} multipliersEnabled - The multipliers enabled.
  * @returns {number} timeLeft - The time left for the multipliers.
  * @returns {number} multipliers - The multipliers of the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

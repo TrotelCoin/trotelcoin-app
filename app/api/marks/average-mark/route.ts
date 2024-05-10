@@ -6,7 +6,6 @@ export const dynamic = "force-dynamic";
 /* GET /api/marks/average-mark
  * Returns the average mark of all quizzes.
  * @returns {number} average - The average mark of all quizzes.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

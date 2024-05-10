@@ -13,7 +13,6 @@ const centralWalletAddress: Address = centralWallet.address as Address;
 /* GET /api/central-wallet/address
  * Returns the address of the central wallet.
  * @returns {string} centralWalletAddress - The address of the central wallet.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

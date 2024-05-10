@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Claims the expert subscription.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} claimed - Indicates the result of the operation.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

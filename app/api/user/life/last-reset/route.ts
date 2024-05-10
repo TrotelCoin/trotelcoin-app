@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns the last reset life countdown.
  * @param {string} wallet - The wallet address of the user.
  * @returns {Date} last_reset_at - The last reset life countdown.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

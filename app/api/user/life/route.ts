@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns the life of a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {number} life - The life of the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -70,7 +69,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * Updates the life of a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {number} life - The life of the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

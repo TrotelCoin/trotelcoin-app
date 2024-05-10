@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns the courses completed by a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {Array<{quiz_id: number, answered: boolean}>} courses - The courses completed by the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

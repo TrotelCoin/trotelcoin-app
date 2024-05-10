@@ -9,7 +9,6 @@ export const dynamic = "force-dynamic";
  * @param {string} wallet - The wallet address of the user.
  * @returns {boolean} shieldEnabled - Whether the shield is enabled for the user.
  * @returns {number} timeLeft - The time left for the shield to expire.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {

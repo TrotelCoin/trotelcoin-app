@@ -11,7 +11,6 @@ export const dynamic = "force-dynamic";
  * @param {number} quizId - The ID of the quiz.
  * @returns {boolean} success - Indicates whether the rating was saved successfully.
  * @returns {string} answered - Indicates that the user has already answered this.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

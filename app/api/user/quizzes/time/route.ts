@@ -8,7 +8,6 @@ export const dynamic = "force-dynamic";
  * Returns the total time spent on quizzes by a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {number} time - The total time spent on quizzes by the user.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -47,7 +46,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * @param {string} wallet - The wallet address of the user.
  * @param {number} diffTime - The time spent on the quiz by the user.
  * @returns {string} message - The message.
- * @security None
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {

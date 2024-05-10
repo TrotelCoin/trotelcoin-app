@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 /* GET /api/satisfaction/net-promoter-score
  * Returns the Net Promoter Score.
  * @returns {number} netPromoterScore - The Net Promoter Score.
- * @security None
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
