@@ -4,6 +4,14 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/quiz/answered
+ * Returns whether a user has answered a quiz.
+ * @param {string} wallet - The wallet address of the user.
+ * @param {number} quizId - The ID of the quiz.
+ * @returns {boolean} answered - Whether the user has answered the quiz.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

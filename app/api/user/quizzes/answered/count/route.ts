@@ -4,6 +4,15 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/multipliers
+ * Returns the multipliers of a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {boolean} multipliersEnabled - The multipliers enabled.
+ * @returns {number} timeLeft - The time left for the multipliers.
+ * @returns {number} multipliers - The multipliers of the user.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

@@ -4,6 +4,13 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* POST /api/user/rewards/reset
+ * Resets the pending rewards of a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {boolean} success - Whether the rewards were reset successfully.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

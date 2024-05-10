@@ -4,6 +4,13 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/multipliers
+ * Returns the username of a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {string} username - The username of the user.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

@@ -4,6 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/rewards/remaining
+ * Returns the remaining rewards.
+ * @returns {number} remainingRewards - The remaining rewards.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // Reset rewards if 24h has passed

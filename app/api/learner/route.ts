@@ -4,6 +4,13 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* POST /api/learner
+ * Adds a new learner to the database.
+ * @param {string} wallet - The wallet address of the learner.
+ * @returns {string} success - Indicates the result of the operation.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

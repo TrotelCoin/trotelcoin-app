@@ -2,6 +2,15 @@ import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
+/* GET /api/user/quizzes/time
+ * Returns the total time spent on quizzes by a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {number} time - The total time spent on quizzes by the user.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
@@ -32,6 +41,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
+/* POST /api/user/quizzes/time
+ * Computes the time spent on a quiz by a user.
+ * @param {number} quizId - The quiz id.
+ * @param {string} wallet - The wallet address of the user.
+ * @param {number} diffTime - The time spent on the quiz by the user.
+ * @returns {string} message - The message.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const quizId: number = Number(searchParams.get("quizId"));

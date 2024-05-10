@@ -30,7 +30,7 @@ const CoursesSatisfaction = ({
       try {
         await axios
           .post(
-            `/api/course/satisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
+            `/api/user/course/satisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
           )
           .then(() => {
             setSatisfactionMessage(true);
@@ -45,7 +45,7 @@ const CoursesSatisfaction = ({
 
   const { data: coursesSatisfactionAnswered, error } = useSWR(
     address && quizId
-      ? `/api/course/satisfaction-status?wallet=${address}&quizId=${quizId}`
+      ? `/api/user/course/satisfaction-status?wallet=${address}&quizId=${quizId}`
       : null,
     fetcher,
     {

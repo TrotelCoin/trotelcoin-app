@@ -4,6 +4,12 @@ import { Address, isAddress } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/leaderboard
+ * Returns the leaderboard of learners.
+ * @returns {Array} updatedLeaderboard - The leaderboard of learners.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     // get leaderboard all of learners depending of total rewards

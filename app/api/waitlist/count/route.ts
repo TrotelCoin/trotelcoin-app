@@ -3,6 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/waitlist/count
+ * Returns the number of entries in the waitlist that have not been granted.
+ * @returns {number} count - The number of entries in the waitlist that have not been granted.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data } = await supabase.from("waitlist").select("*");

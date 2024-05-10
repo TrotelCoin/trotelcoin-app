@@ -4,6 +4,13 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/items/all-used-items
+ * Returns all the items used by a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {Array<{item_id: number, wallet: string}>} items - The items used by the user.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const searchParams = new URL(req.url);
   const address: Address = searchParams.searchParams.get("wallet") as Address;

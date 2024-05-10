@@ -4,6 +4,12 @@ import { StatisticsType } from "@/types/statistics/statistics";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/statistics/evolution
+ * Returns the statistics evolution.
+ * @returns {object} statistics_evolution - The statistics evolution.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data } = await supabase.from("statistics_evolution").select("*");
@@ -23,6 +29,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
+/* POST /api/statistics/evolution
+ * Updates the statistics evolution.
+ * @returns {string} message - The message.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const stats: StatisticsType = searchParams.get("stats") as StatisticsType;

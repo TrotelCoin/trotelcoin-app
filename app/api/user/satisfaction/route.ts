@@ -4,6 +4,14 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* POST /api/user/satisfaction
+ * Records the satisfaction of a user.
+ * @param {number} number - The satisfaction of the user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {object} success - The success message.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const satisfaction: number = Number(searchParams.get("number"));

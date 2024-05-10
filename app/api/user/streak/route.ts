@@ -4,6 +4,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/streak
+ * Returns the user's current streak.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {number} currentStreak - The user's current streak.
+ * @returns {string} lastUpdated - The date of the last streak.
+ * @returns {boolean} disabled - Whether the user can update the streak.
+ * @returns {boolean} lostStreak - Whether the user lost the streak.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
@@ -90,6 +100,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
+/* POST /api/user/streak
+ * Updates the user's streak.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {string} success - Indicates the result of the operation.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

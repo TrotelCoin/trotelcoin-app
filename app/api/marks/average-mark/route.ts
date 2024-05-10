@@ -1,6 +1,14 @@
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
+/* GET /api/marks/average-mark
+ * Returns the average mark of all quizzes.
+ * @returns {number} average - The average mark of all quizzes.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data } = await supabase.from("quizzes_results").select("marks");

@@ -4,6 +4,13 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/name
+ * Returns the username of a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {string} username - The username of the user.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
@@ -31,6 +38,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
+/* POST /api/user/name
+ * Updates the username of a user.
+ * @param {string} wallet - The wallet address of the user.
+ * @param {string} name - The new username of the user.
+ * @returns {string} username - The username of the user.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const name = searchParams.get("name");
