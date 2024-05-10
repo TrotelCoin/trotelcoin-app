@@ -4,7 +4,7 @@ import axios from "axios";
 export const loadQuizData = async (quizId: number, lang: Lang) => {
   try {
     const quizData = await axios
-      .get(`/api/quizzes?lang=${lang}&quizId=${quizId}`)
+      .get(`/api/quizzes/questions?lang=${lang}&quizId=${quizId}`)
       .then((response) => {
         return response.data;
       });

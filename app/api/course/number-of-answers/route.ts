@@ -3,6 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/course/number-of-answers?quizId=1
+ * Returns the number of answers for a quiz.
+ * @param {number} quizId - The ID of the quiz.
+ * @returns {number} numberOfAnswers - The number of answers for the quiz.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const quizId: number = Number(searchParams.get("quizId"));

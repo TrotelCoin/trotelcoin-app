@@ -6,6 +6,15 @@ import { trotelCoinAddress } from "@/data/web3/addresses";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/central-wallet/reward-gas
+ * Estimates the gas required to mint a specific amount of TrotelCoin to a user's address.
+ * @param {string} address - The address of the user.
+ * @param {number} amount - The amount of TrotelCoin to mint.
+ * @param {string} centralWalletAddress - The address of the central wallet.
+ * @returns {number} gas - The estimated gas required to mint the TrotelCoin.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const userAddress: Address = searchParams.get("address") as Address;

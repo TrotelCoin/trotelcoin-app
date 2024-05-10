@@ -4,6 +4,13 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/user/life/last-reset
+ * Returns the last reset life countdown.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {Date} last_reset_at - The last reset life countdown.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;

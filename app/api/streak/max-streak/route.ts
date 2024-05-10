@@ -3,6 +3,12 @@ import { supabase } from "@/utils/supabase/db";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/streak/max-streak
+ * Returns the maximum streak.
+ * @returns {number} max_streak - The maximum streak.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data: result } = await supabase

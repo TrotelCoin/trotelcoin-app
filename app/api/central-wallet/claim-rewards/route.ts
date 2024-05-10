@@ -9,6 +9,14 @@ export const dynamic = "force-dynamic";
 
 const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
+/* POST /api/central-wallet/claim-rewards
+ * Mints a specific amount of TrotelCoin to a user's address.
+ * @param {string} address - The address of the user.
+ * @param {number} amount - The amount of TrotelCoin to mint.
+ * @returns {string} hash - The hash of the transaction.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const userAddress: Address = searchParams.get("address") as Address;

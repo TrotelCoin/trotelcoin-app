@@ -3,6 +3,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
+/* GET /api/rewards/total-rewards-pending
+ * Returns the total rewards pending.
+ * @returns {number} total_rewards_pending - The total rewards pending.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data } = await supabase

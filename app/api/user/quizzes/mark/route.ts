@@ -2,6 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 
+export const dynamic = "force-dynamic";
+
+/* POST /api/user/quizzes/mark
+ * Submit the results of a quiz.
+ * @param {number} quizId - The ID of the quiz.
+ * @param {number} numberOfWrongAnswers - The number of wrong answers.
+ * @param {number} totalQuestions - The total number of questions.
+ * @param {string} wallet - The wallet address of the user.
+ * @returns {string} message - The message.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const quizId: number = Number(searchParams.get("quizId"));

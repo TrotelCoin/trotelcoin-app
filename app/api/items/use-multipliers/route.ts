@@ -4,6 +4,14 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
+/* POST /api/items/use-multipliers
+ * Activates multipliers for the user.
+ * @param {string} wallet - The wallet address of the user.
+ * @param {string} multipliersName - The name of the multipliers to activate.
+ * @returns {string} message - Indicates the result of the operation.
+ * @security None
+ * @example response - 200 - application/json
+ */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   const wallet: Address = searchParams.get("wallet") as Address;
