@@ -516,6 +516,25 @@ const lessons: Lessons[] = [
         quizId: 18,
         available: true,
       },
+      {
+        title: {
+          en: "Airdrops",
+          fr: "Airdrops",
+        },
+        description: {
+          en: "Learn about the notion of airdrops.",
+          fr: "Apprenez la notion d'airdrops.",
+        },
+        href: "/web3/airdrops",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 29,
+        available: true,
+      },
     ],
   },
   {
