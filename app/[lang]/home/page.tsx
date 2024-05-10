@@ -77,47 +77,6 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           filteredLessons={filteredLessons}
         />
         <div className="flex flex-col">
-          <div className="mb-10">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                  {lang === "en"
-                    ? "Recommended actions"
-                    : "Actions recommandées"}
-                </h2>
-              </div>
-            </div>
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Link href={`/${lang}/submit-a-course`} className="h-full">
-                <Action
-                  title={
-                    lang === "en" ? "Submit a course" : "Proposer un cours"
-                  }
-                  color={"Blue"}
-                />
-              </Link>
-              <Link
-                href={"https://tally.so/r/nP6ZOQ"}
-                target="_blank"
-                className="h-full"
-              >
-                <Action
-                  title={
-                    lang === "en" ? "Give your feedback" : "Donner votre avis"
-                  }
-                  color={"Green"}
-                />
-              </Link>
-              <Link href={`/${lang}/shop/items`} className="h-full">
-                <Action
-                  title={
-                    lang === "en" ? "Buy items in the shop" : "Faire des achats"
-                  }
-                  color={"Yellow"}
-                />
-              </Link>
-            </div>
-          </div>
           {filteredLessons
             .filter((lesson) =>
               lesson.courses.some(
