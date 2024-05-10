@@ -1,5 +1,5 @@
-import { loadingFlashClass } from "@/utils/tailwind/loading";
-import type { Lang } from "@/types/lang";
+import { loadingFlashClass } from "@/style/loading";
+import type { Lang } from "@/types/language/lang";
 import React from "react";
 import { useAccount } from "wagmi";
 

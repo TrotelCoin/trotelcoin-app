@@ -1,18 +1,16 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import lessons from "@/data/lessons/lessonsData";
+import lessons from "@/data/lessons/lessons";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { Lesson, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";
-import {
-  filterByCategory,
-  filterByTitleOrDescription,
-  lessonsLength,
-} from "@/utils/courses";
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import { lessonsLength } from "@/utils/courses/lessonsLength";
+import { filterByCategory } from "@/utils/courses/filterByCategory";
+import { filterByTitleOrDescription } from "@/utils/courses/filterByTitleOrDescription";
+import PremiumContext from "@/contexts/premium";
 import Link from "next/link";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";

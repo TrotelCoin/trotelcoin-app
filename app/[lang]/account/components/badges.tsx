@@ -1,15 +1,15 @@
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
 import type { Badge, Badges, BadgesNames } from "@/types/components/badges";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { Address, formatEther } from "viem";
 import { polygon } from "viem/chains";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 import { useContext, useEffect, useState } from "react";
 import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
-import StreakContext from "@/app/[lang]/contexts/streakContext";
-import UserContext from "@/app/[lang]/contexts/userContext";
+import PremiumContext from "@/contexts/premium";
+import StreakContext from "@/contexts/streak";
+import UserContext from "@/contexts/user";
 
 const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(

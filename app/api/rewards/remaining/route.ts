@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supabase/db";
-import remainingRewards from "@/data/constants/remainingRewards";
+import remainingRewards from "@/data/rewards/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

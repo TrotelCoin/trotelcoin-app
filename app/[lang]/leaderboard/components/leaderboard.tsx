@@ -1,14 +1,14 @@
-import type { Lang } from "@/types/lang";
-import { LeaderboardItem } from "@/types/components/components";
+import type { Lang } from "@/types/language/lang";
+import { LeaderboardItem } from "@/types/components/leaderboard";
 import React, { useEffect, useState } from "react";
 import { isAddress, Address } from "viem";
-import shortenAddress from "@/utils/shortenAddress";
+import shortenAddress from "@/utils/addresses/shortenAddress";
 import { getEnsName } from "@wagmi/core";
 import { mainnet } from "viem/chains";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { config } from "@/config/Web3ModalConfig";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 
 const Leaderboard = ({ lang }: { lang: Lang }) => {

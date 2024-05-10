@@ -3,9 +3,9 @@
 import React from "react";
 import { polygon } from "viem/chains";
 import { useBlockNumber } from "wagmi";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 
 const BlockNumber = ({ lang }: { lang: Lang }) => {
   const { data: blockNumber } = useBlockNumber({

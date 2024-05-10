@@ -1,4 +1,4 @@
-import { Category, Subcategory } from "@/types/courses/courses";
+import { Category, Subcategory } from "@/types/courses/categories";
 
 export type Categories = {
   category: Category;

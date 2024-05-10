@@ -2,20 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import Item from "@/app/[lang]/shop/components/items/item";
-import { Lang } from "@/types/lang";
-import type {
-  ShopCategories,
-  Category,
-  ItemType,
-  ItemTypeFinal,
-} from "@/types/shop/shop";
+import { Lang } from "@/types/language/lang";
+import type { ShopCategories, Category } from "@/types/shop/shop";
 import { useAccount, useBalance, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
 import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
 import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
+import { ItemType, ItemTypeFinal } from "@/types/items/items";
 
 const potions: ItemTypeFinal[] = [
   {

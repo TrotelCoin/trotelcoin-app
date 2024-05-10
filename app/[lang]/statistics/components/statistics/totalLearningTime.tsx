@@ -1,16 +1,14 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import {
-  updateEvolution,
-  updateStatistics,
-} from "@/utils/statistics/evolution";
+import { updateEvolution } from "@/utils/statistics/updateEvolution";
+import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
 
 const stat: StatisticsType = "total_learning_time";

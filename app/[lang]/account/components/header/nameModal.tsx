@@ -1,10 +1,10 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { Transition, Dialog } from "@headlessui/react";
 import { useAccount } from "wagmi";
 import React, { Fragment, useEffect, useState } from "react";
 import "animate.css";
 import axios from "axios";
-import BlueButton from "@/app/[lang]/components/blueButton";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
 
 const NameModal = ({
   lang,

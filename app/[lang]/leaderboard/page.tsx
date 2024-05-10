@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import UserLeaderboard from "@/app/[lang]/leaderboard/components/userLeaderboard";
 import Leaderboard from "@/app/[lang]/leaderboard/components/leaderboard";
 

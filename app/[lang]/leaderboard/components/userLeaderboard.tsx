@@ -1,14 +1,14 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { useAccount, useEnsName } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { Address, isAddress } from "viem";
-import shortenAddress from "@/utils/shortenAddress";
+import shortenAddress from "@/utils/addresses/shortenAddress";
 import { mainnet } from "viem/chains";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 import type { UserLeaderboard } from "@/types/leaderboard/leaderboard";
 

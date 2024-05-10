@@ -2,7 +2,7 @@
 
 import React from "react";
 import ComingSoon from "@/app/[lang]/components/comingSoon/comingSoon";
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 
 const Chapters = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (

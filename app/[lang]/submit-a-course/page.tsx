@@ -1,11 +1,12 @@
 "use client";
 
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import Link from "next/link";
 import React, { useState } from "react";
 import BasicInformations from "./components/basicInformations";
 import { Transition } from "@headlessui/react";
-import type { Tiers, Category, Subcategory } from "@/types/courses/courses";
+import type { Category, Subcategory } from "@/types/courses/categories";
+import type { Tiers } from "@/types/premium/premium";
 import { useAccount } from "wagmi";
 import { Address } from "viem";
 
@@ -91,11 +92,11 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   setTitle={setTitle}
                   description={description as string}
                   setDescription={setDescription}
-                  category={category as Category}
+                  category={category}
                   setCategory={setCategory}
-                  subcategory={subcategory as Subcategory}
+                  subcategory={subcategory}
                   setSubcategory={setSubcategory}
-                  tier={tier as Tiers}
+                  tier={tier}
                   setTier={setTier}
                 />
               </div>

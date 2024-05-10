@@ -1,10 +1,13 @@
-export type Category = "Web3" | "Finance";
+import { LanguageStrings } from "@/types/language/lang";
 
-export type Subcategory =
-  | "Trading"
-  | "DeFi"
-  | "Investment"
-  | "Cryptocurrencies"
-  | "Stocks";
+export interface Course {
+  title: LanguageStrings;
+  one: LanguageStrings;
+  two: LanguageStrings;
+  three: LanguageStrings;
+}
 
-export type Tiers = "Beginner" | "Intermediate" | "Expert";
+export type Courses = {
+  quiz_id: any;
+  answered: any;
+}[];

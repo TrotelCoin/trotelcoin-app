@@ -2,9 +2,10 @@
 
 import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
-import { updateEvolution, updateStatistics } from "@/utils/statistics/evolution";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
-import type { Lang } from "@/types/lang";
+import { updateEvolution } from "@/utils/statistics/updateEvolution";
+import { updateStatistics } from "@/utils/statistics/updateStatistics";
+import { loadingFlashClass } from "@/style/loading";
+import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import { polygon } from "viem/chains";

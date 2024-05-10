@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import {
   useBalance,
   useAccount,

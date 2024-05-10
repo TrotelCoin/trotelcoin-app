@@ -1,6 +1,6 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { XMarkIcon } from "@heroicons/react/20/solid";

@@ -1,13 +1,13 @@
 import { useWeb3Modal, useWeb3ModalTheme } from "@web3modal/wagmi/react";
 import React, { useContext, useEffect } from "react";
-import BlueButton from "@/app/[lang]/components/blueButton";
-import type { Lang } from "@/types/lang";
-import AudioContext from "@/app/[lang]/contexts/audioContext";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
+import type { Lang } from "@/types/language/lang";
+import AudioContext from "@/contexts/audio";
 import { useAccount, useDisconnect, useChainId, useSignMessage } from "wagmi";
 import { getCsrfToken, signIn, useSession } from "next-auth/react";
 import { SiweMessage } from "siwe";
-import UserContext from "@/app/[lang]/contexts/userContext";
-import ThemeContext from "@/app/[lang]/contexts/themeContext";
+import UserContext from "@/contexts/user";
+import ThemeContext from "@/contexts/theme";
 import axios from "axios";
 
 const Wallet = ({

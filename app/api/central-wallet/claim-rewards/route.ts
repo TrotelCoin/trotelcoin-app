@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { walletClient, publicClient } from "@/utils/viem/client";
+import { walletClient, publicClient } from "@/utils/viem/clients";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";

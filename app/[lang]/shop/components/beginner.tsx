@@ -3,7 +3,7 @@
 import React from "react";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import "animate.css";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
 import Link from "next/link";
 

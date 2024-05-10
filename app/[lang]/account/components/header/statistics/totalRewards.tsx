@@ -1,9 +1,9 @@
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import { loadingFlashClass } from "@/utils/tailwind/loading";
+import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {

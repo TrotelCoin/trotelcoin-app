@@ -1,7 +1,7 @@
 "use client";
 
-import type { Lang } from "@/types/lang";
-import Course from "@/app/[lang]/[quizId]/components/course";
+import type { Lang } from "@/types/language/lang";
+import Course from "@/app/[lang]/components/courses/courseScreen/course";
 import { useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";

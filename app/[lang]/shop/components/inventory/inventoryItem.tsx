@@ -1,19 +1,19 @@
 "use client";
 
-import BlueButton from "@/app/[lang]/components/blueButton";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { InventoryItemTypeFinal } from "@/types/inventory/inventory";
-import { Lang } from "@/types/lang";
+import { Lang } from "@/types/language/lang";
 import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
-import { useItem } from "@/utils/inventory/inventory";
+import { useItem } from "@/utils/inventory/useItem";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
-import StreakContext from "@/app/[lang]/contexts/streakContext";
-import WarningConfirmation from "@/app/[lang]/components/modals/warningConfirmation";
+import StreakContext from "@/contexts/streak";
+import WarningConfirmation from "@/app/[lang]/components/modals/confirmation/warning";
 
 const InventoryItem = ({
   lang,

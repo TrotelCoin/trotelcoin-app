@@ -1,5 +1,6 @@
-import { Category, Subcategory, Tiers } from "@/types/courses/courses";
-import { Lang } from "@/types/lang";
+import { Category, Subcategory } from "@/types/courses/categories";
+import { Tiers } from "@/types/premium/premium";
+import { Lang } from "@/types/language/lang";
 import { RadioGroup } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import { categories } from "@/data/courses/categories";

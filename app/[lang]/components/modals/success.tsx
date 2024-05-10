@@ -3,9 +3,9 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useContext, useEffect } from "react";
-import { Modals } from "@/types/components/components";
-import BlueButton from "@/app/[lang]/components/blueButton";
-import AudioContext from "@/app/[lang]/contexts/audioContext";
+import type { Modals } from "@/types/components/modals";
+import BlueButton from "@/app/[lang]/components/buttons/blue";
+import AudioContext from "@/contexts/audio";
 
 const Success: React.FC<Modals> = ({ title, show, message, onClose, lang }) => {
   const { playAudio } = useContext(AudioContext);

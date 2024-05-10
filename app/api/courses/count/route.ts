@@ -1,4 +1,4 @@
-import lessons from "@/data/lessons/lessonsData";
+import lessons from "@/data/lessons/lessons";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";

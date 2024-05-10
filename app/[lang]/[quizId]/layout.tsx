@@ -1,26 +1,27 @@
 "use client";
 
 import "animate.css";
-import type { Lang } from "@/types/lang";
+import type { Lang } from "@/types/language/lang";
 import type { Lesson } from "@/types/courses/lessons";
 import React, { useEffect, useState, useContext } from "react";
-import lessons from "@/data/lessons/lessonsData";
-import CourseFinished from "@/app/[lang]/[quizId]/components/courseFinished";
+import lessons from "@/data/lessons/lessons";
+import CourseFinished from "@/app/[lang]/components/courses/courseFinished";
 import { useAccount } from "wagmi";
-import UnauthorizedContent from "@/app/[lang]/[quizId]/components/unauthorizedContent";
-import Disclaimer from "@/app/[lang]/[quizId]/components/disclaimer";
-import { getTierByQuizId, getAvailabilityByQuizId } from "@/utils/getByquizId";
-import PremiumContext from "@/app/[lang]/contexts/premiumContext";
+import UnauthorizedContent from "@/app/[lang]/components/courses/unauthorizedContent";
+import Disclaimer from "@/app/[lang]/components/courses/disclaimer";
+import { getTierByQuizId } from "@/utils/quizzes/getTierByquizId";
+import { getAvailabilityByQuizId } from "@/utils/quizzes/getAvailabilityByQuizId";
+import PremiumContext from "@/contexts/premium";
 import { usePathname } from "next/navigation";
 import Success from "@/app/[lang]/components/modals/success";
 import CountUp from "react-countup";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import CourseFinishedProvider from "@/app/[lang]/providers/courseFinishedProvider";
+import CourseFinishedProvider from "@/providers/courseFinished";
 import useSWR from "swr";
 import { ShareIcon } from "@heroicons/react/20/solid";
-import CourseFinishedContext from "@/app/[lang]/contexts/courseFinishedContext";
-import CourseTitle from "@/app/[lang]/[quizId]/components/courseTitle";
-import SeparatorVertical from "@/app/[lang]/components/separator/seperatorVertical";
+import CourseFinishedContext from "@/contexts/courseFinished";
+import CourseTitle from "@/app/[lang]/components/courses/courseTitle";
+import SeparatorVertical from "@/app/[lang]/components/separator/vertical";
 
 const CoursePage = ({
   params: { lang, quizId },
