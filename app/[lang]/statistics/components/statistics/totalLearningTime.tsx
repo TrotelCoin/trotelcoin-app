@@ -22,16 +22,12 @@ const TotalLearningTime = ({
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
-  const { data: totalLearningTime } = useSWR(
-    "/api/user/learning-time",
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
-    }
-  );
+  const { data: totalLearningTime } = useSWR("/api/quizzes/time", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime,
+  });
 
   useEffect(() => {
     if (totalLearningTime && statsMap instanceof Map && statsMap.has(stat)) {
