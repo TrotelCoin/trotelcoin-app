@@ -18,7 +18,7 @@ export default function sitemap({
       priority: 0.9,
     },
     {
-      url: `https://app.trotelcoin.com/${lang}/wallet`,
+      url: `https://app.trotelcoin.com/${lang}/leaderboard`,
       lastModified: new Date(),
       priority: 0.5,
     },

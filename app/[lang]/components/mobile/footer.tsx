@@ -46,8 +46,8 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       id: 2,
     },
     {
-      name: lang === "en" ? "Wallet" : "Wallet",
-      href: `/${lang}/wallet`,
+      name: lang === "en" ? "Leaderboard" : "Classement",
+      href: `/${lang}/leaderboard`,
       id: 3,
     },
     {

@@ -10,7 +10,7 @@ import { getBalance } from "@wagmi/core";
 import { type GetBalanceReturnType } from "@wagmi/core";
 import { useAccount } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
-import Pagination from "@/app/[lang]/wallet/components/swap/pagination";
+import Pagination from "@/app/[lang]/swap/components/pagination";
 import { nativeAddress } from "@/data/web3/tokens";
 import { loadingFlashClass } from "@/style/loading";
 

@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import type { Lang } from "@/types/language/lang";
-import RewardsButton from "@/app/[lang]/wallet/components/claim/buttons/rewardsButton";
-import AvailableToClaim from "@/app/[lang]/wallet/components/claim/availableToClaim";
-import Balance from "@/app/[lang]/wallet/components/claim/balance";
+import RewardsButton from "@/app/[lang]/claim/components/buttons/rewardsButton";
+import AvailableToClaim from "@/app/[lang]/claim/components/availableToClaim";
+import Balance from "@/app/[lang]/claim/components/balance";
 import { Address } from "viem";
 import { useAccount, useChainId } from "wagmi";
-import Status from "@/app/[lang]/wallet/components/claim/status";
-import AddToken from "@/app/[lang]/wallet/components/claim/addToken";
+import Status from "@/app/[lang]/claim/components/status";
+import AddToken from "@/app/[lang]/claim/components/addToken";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";

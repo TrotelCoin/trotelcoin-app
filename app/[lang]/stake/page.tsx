@@ -3,8 +3,8 @@
 import type { Lang } from "@/types/language/lang";
 import React, { useState } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
-import StakingV1 from "@/app/[lang]/wallet/stake/v1/stakingV1";
-import StakingV2 from "@/app/[lang]/wallet/stake/v2/stakingV2";
+import StakingV1 from "@/app/[lang]/stake/v1/stakingV1";
+import StakingV2 from "@/app/[lang]/stake/v2/stakingV2";
 import { StakingVersion } from "@/types/web3/staking";
 
 const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
