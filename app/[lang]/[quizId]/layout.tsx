@@ -32,7 +32,7 @@ export async function generateMetadata(
   }
 
   return {
-    title: `TrotelCoin | ${title}`,
+    title: title,
     description: description,
     generator: "Next.js",
     manifest: "/manifest.json",
