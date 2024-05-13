@@ -47,8 +47,8 @@ const Header = ({ lang }: { lang: Lang }) => {
       id: 2,
     },
     {
-      name: lang === "en" ? "Wallet" : "Portefeuille",
-      href: "/wallet",
+      name: lang === "en" ? "Leaderboard" : "Classement",
+      href: "/leaderboard",
       id: 3,
     },
     {
@@ -86,7 +86,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-96">
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-80">
             {isLoggedIn ? (
               <UserInformationMobile
                 lang={lang}

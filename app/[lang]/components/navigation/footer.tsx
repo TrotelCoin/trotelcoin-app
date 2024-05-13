@@ -4,7 +4,6 @@ import { JSX, SVGProps } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Lang } from "@/types/language/lang";
-import { FooterItem } from "@/types/components/footer";
 import { ArrowUpRightIcon } from "@heroicons/react/20/solid";
 
 const discordIcon = (
@@ -39,132 +38,175 @@ const githubIcon = (
 );
 
 export default function Footer({ lang }: { lang: Lang }) {
-  const navigation = {
-    main: [
-      {
-        name: lang === "en" ? "Governance" : "Gouvernance",
-        href: "https://vote.trotelcoin.com",
-        display: true,
-        id: 1,
-        anotherWindow: true,
-      },
-      {
-        name: lang === "en" ? "Documentation" : "Documentation",
-        href: "https://docs.trotelcoin.com",
-        display: false,
-        id: 2,
-        anotherWindow: true,
-      },
-      {
-        name: lang === "en" ? "Statistics" : "Statistiques",
-        href: `/${lang}/statistics`,
-        display: true,
-        id: 3,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Leaderboard" : "Classement",
-        href: `/${lang}/leaderboard`,
-        display: true,
-        id: 4,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Shop" : "Boutique",
-        href: `/${lang}/shop`,
-        display: false,
-        id: 5,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Business" : "Entreprise",
-        href: "mailto:hello@trotelcoin.com",
-        display: true,
-        id: 6,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Partners" : "Partenaires",
-        href: "#",
-        display: false,
-        id: 7,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Jobs" : "Métiers",
-        href: "#",
-        display: false,
-        id: 8,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Blog" : "Blog",
-        href: "#",
-        display: false,
-        id: 9,
-        anotherWindow: true,
-      },
-      {
-        name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
-        href: `/${lang}/terms-of-service`,
-        display: true,
-        id: 10,
-        anotherWindow: false,
-      },
-      {
-        name: lang === "en" ? "Privacy policy" : "Politique de confidentialité",
-        href: `/${lang}/privacy-policy`,
-        display: false,
-        id: 11,
-        anotherWindow: false,
-      },
-    ],
-    social: [
-      {
-        name: "Discord",
-        href: "https://discord.gg/QaJafduNWC",
-        icon: discordIcon,
-      },
-      {
-        name: "Twitter",
-        href: "https://twitter.com/TrotelCoin",
-        icon: twitterIcon,
-      },
-      {
-        name: "GitHub",
-        href: "https://github.com/TrotelCoin",
-        icon: githubIcon,
-      },
-    ],
-  };
+  const navigation = [
+    {
+      title: lang === "en" ? "TrotelCoin" : "TrotelCoin",
+      items: [
+        {
+          name: lang === "en" ? "Statistics" : "Statistiques",
+          href: `/${lang}/statistics`,
+          display: true,
+          id: 1,
+          anotherWindow: false,
+        },
+        {
+          name:
+            lang === "en" ? "Discover vocabulary" : "Découvrir le vocabulaire",
+          href: `/${lang}/vocabulary`,
+          display: true,
+          id: 2,
+          anotherWindow: false,
+        },
+        {
+          name: lang === "en" ? "For businesses" : "Pour les entreprises",
+          href: "mailto:hello@trotelcoin.com",
+          display: true,
+          id: 3,
+          anotherWindow: false,
+        },
+        {
+          name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
+          href: `/${lang}/terms-of-service`,
+          display: true,
+          id: 4,
+          anotherWindow: false,
+        },
+        {
+          name:
+            lang === "en" ? "Privacy policy" : "Politique de confidentialité",
+          href: `/${lang}/privacy-policy`,
+          display: false,
+          id: 3,
+          anotherWindow: false,
+        },
+      ],
+    },
+    {
+      title: lang === "en" ? "Products" : "Produits",
+      items: [
+        {
+          name: lang === "en" ? "Swap & Bridge" : "Swap & Bridge",
+          href: `/${lang}/swap`,
+          display: true,
+          id: 1,
+          anotherWindow: false,
+        },
+        {
+          name: lang === "en" ? "Claim your TROTEL" : "Réclamez vos TROTEL",
+          href: `/${lang}/claim`,
+          display: true,
+          id: 2,
+          anotherWindow: false,
+        },
+        {
+          name: lang === "en" ? "Buy TROTEL" : "Achetez des TROTEL",
+          href: `/${lang}/buy`,
+          display: true,
+          id: 3,
+          anotherWindow: false,
+        },
+        {
+          name: lang === "en" ? "Stake TROTEL" : "Stakez vos TROTEL",
+          href: `/${lang}/stake`,
+          display: true,
+          id: 4,
+          anotherWindow: false,
+        },
+        {
+          name: lang === "en" ? "Send TROTEL" : "Envoyez vos TROTEL",
+          href: `/${lang}/send`,
+          display: true,
+          id: 5,
+        },
+        {
+          name: lang === "en" ? "Receive TROTEL" : "Recevez des TROTEL",
+          href: `/${lang}/receive`,
+          display: true,
+          id: 6,
+        },
+      ],
+    },
+    {
+      title: lang === "en" ? "Ressources" : "Ressources",
+      items: [
+        {
+          name: lang === "en" ? "Governance" : "Gouvernance",
+          href: "https://vote.trotelcoin.com",
+          display: true,
+          id: 1,
+          anotherWindow: true,
+        },
+        {
+          name: lang === "en" ? "Documentation" : "Documentation",
+          href: "https://docs.trotelcoin.com",
+          display: true,
+          id: 2,
+          anotherWindow: true,
+        },
+      ],
+    },
+  ];
 
-  const displayedItems = navigation.main.filter((item) => item.display);
+  const social = [
+    {
+      name: "Discord",
+      href: "https://discord.gg/QaJafduNWC",
+      icon: discordIcon,
+    },
+    {
+      name: "Twitter",
+      href: "https://twitter.com/TrotelCoin",
+      icon: twitterIcon,
+    },
+    {
+      name: "GitHub",
+      href: "https://github.com/TrotelCoin",
+      icon: githubIcon,
+    },
+  ];
+
+  const displayedItems = navigation.map((item) => {
+    const displayedItems = item.items.filter((item) => item.display);
+    return {
+      name: item.title,
+      items: displayedItems,
+    };
+  });
 
   return (
     <footer className="bg-white dark:bg-gray-900 mx-10">
-      <div className="mx-auto flex justify-between max-w-5xl overflow-hidden px-6 py-10 sm:py-12 border-t border-gray-900/10 dark:border-gray-100/10">
+      <div className="mx-auto flex justify-between max-w-5xl sm:gap-32 overflow-hidden px-6 py-10 sm:py-12 border-t border-gray-900/10 dark:border-gray-100/10">
         <nav
-          className="-mb-6 sm:flex sm:justify-center sm:space-x-12"
+          className="-mb-6 sm:flex sm:justify-center sm:space-x-12 w-full"
           aria-label="Footer"
         >
-          {displayedItems.map((item: FooterItem, index: number) => (
-            <div key={index} className="pb-6 flex items-center">
-              {item.display && (
-                <Link
-                  href={item.href}
-                  target={item.anotherWindow ? "_blank" : "_self"}
-                  className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
-                >
-                  {item.name as string}
-                </Link>
-              )}
-              {item.anotherWindow && (
-                <span className="ml-1 text-gray-900 dark:text-gray-100">
-                  <ArrowUpRightIcon className="w-4 h-4" />
+          <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 justify-between pb-6 w-full">
+            {displayedItems.map((list, index) => (
+              <div key={index} className="flex flex-col">
+                <span className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
+                  {list.name}
                 </span>
-              )}
-            </div>
-          ))}
+                {list.items.map((item, index) => (
+                  <div key={index} className="flex items-center">
+                    {item.display && (
+                      <Link
+                        href={item.href}
+                        target={item.anotherWindow ? "_blank" : "_self"}
+                        className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
+                      >
+                        {item.name}
+                      </Link>
+                    )}
+                    {item.anotherWindow && (
+                      <span className="ml-1 text-gray-900 dark:text-gray-100">
+                        <ArrowUpRightIcon className="w-4 h-4" />
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </nav>
         <div>
           <Link href={`/${lang}/home`}>
@@ -184,7 +226,7 @@ export default function Footer({ lang }: { lang: Lang }) {
             />
           </Link>
           <div className="flex justify-center space-x-10">
-            {navigation.social.map((item, index) => (
+            {social.map((item, index) => (
               <Link
                 key={index}
                 href={item.href}

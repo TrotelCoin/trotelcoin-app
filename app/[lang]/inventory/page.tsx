@@ -8,7 +8,7 @@ import { trotelCoinShop } from "@/data/web3/addresses";
 import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
 import { fetchInventory } from "@/utils/inventory/fetchInventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
-import InventoryItem from "@/app/[lang]/shop/components/inventory/inventoryItem";
+import InventoryItem from "@/app/[lang]/inventory/components/inventoryItem";
 import { loadingFlashClass } from "@/style/loading";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";

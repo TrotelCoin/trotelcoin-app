@@ -19,7 +19,7 @@ import { loadingFlashClass } from "@/style/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { CameraIcon } from "@heroicons/react/24/solid";
-import ScannerComponent from "../components/send/scanner";
+import ScannerComponent from "./components/scanner";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);

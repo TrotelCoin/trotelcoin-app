@@ -1,7 +1,7 @@
 import type { Lang } from "@/types/language/lang";
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from "@/contexts/user";
-import RewardsButton from "@/app/[lang]/wallet/components/claim/buttons/rewardsButton";
+import RewardsButton from "@/app/[lang]/claim/components/buttons/rewardsButton";
 import Image from "next/image";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
