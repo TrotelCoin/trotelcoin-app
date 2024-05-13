@@ -190,7 +190,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 justify-between pb-6 w-full">
             {displayedItems.map((list, index) => (
               <div key={index} className="flex flex-col gap-2">
-                <span className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {list.name}
                 </span>
                 {list.items.map((item, index) => (
