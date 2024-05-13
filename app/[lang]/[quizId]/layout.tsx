@@ -32,7 +32,7 @@ export async function generateMetadata(
   }
 
   return {
-    title: `TrotelCoin | ${title}`,
+    title: `${title} - TrotelCoin`,
     description: description,
     generator: "Next.js",
     manifest: "/manifest.json",
@@ -42,7 +42,7 @@ export async function generateMetadata(
     authors: [{ name: "TrotelCoin" }],
     robots: "index, follow",
     openGraph: {
-      title: title,
+      title: `${title} - TrotelCoin`,
       type: "website",
       locale: "en_US",
       url: `https://app.trotelcoin.com/${lang}/${quizId}`,
@@ -61,7 +61,7 @@ export async function generateMetadata(
       card: "summary",
       site: "@trotelcoin",
       creator: "@trotelcoin",
-      title: title,
+      title: `${title} - TrotelCoin`,
     },
   };
 }

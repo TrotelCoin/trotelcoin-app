@@ -72,22 +72,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text: lang === "en" ? "- The halving" : "- Le halving",
-        },
-        {
-          text: lang === "en" ? "- Soulbound tokens" : "- Jetons soulbound",
-        },
-        {
-          text: lang === "en" ? "- Types of DAOs" : "- Les types de DAOs",
-        },
-        {
-          text:
-            lang === "en" ? "- Terra Luna crash" : "- Le crash de Terra Luna",
-        },
-        {
-          text: lang === "en" ? "- 5 Cognitive Biases" : "- 5 Biais Cognitifs",
-        },
-        {
           text:
             lang === "en"
               ? "- Dollar Cost Averaging"
@@ -95,6 +79,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         },
         {
           text: lang === "en" ? "- Airdrops" : "- Airdrops",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- ENS - Ethereum Name Service"
+              : "- ENS - Ethereum Name Service",
         },
       ],
     },

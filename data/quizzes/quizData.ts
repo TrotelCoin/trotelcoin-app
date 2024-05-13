@@ -2695,6 +2695,107 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 30,
+    title: "ENS - Ethereum Name Service",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What does ENS stand for?",
+          fr: "Que signifie ENS ?",
+        },
+        options: {
+          en: [
+            "Ethereum Name Service",
+            "Ethereum Naming System",
+            "Ethereum Network Service",
+            "Ethereum Naming Software",
+          ],
+          fr: [
+            "Ethereum Name Service",
+            "Ethereum Naming System",
+            "Ethereum Network Service",
+            "Ethereum Naming Software",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What does ENS protocol do?",
+          fr: "Que fait le protocole ENS ?",
+        },
+        options: {
+          en: [
+            "Link Ethereum addresses with domain names",
+            "Replaces domain names with Ethereum addresses",
+            "Encrypts Ethereum addresses",
+            "Sends funds to IP addresses",
+          ],
+          fr: [
+            "Lie les adresses Ethereum avec des noms de domaine",
+            "Remplace les noms de domaine par des adresses Ethereum",
+            "Crypte les adresses Ethereum",
+            "Envoie des fonds aux adresses IP",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is an analogy for ENS?",
+          fr: "Quelle est l'analogie pour ENS ?",
+        },
+        options: {
+          en: ["DNS", "HTTP", "TCP", "IP"],
+          fr: ["DNS", "HTTP", "TCP", "IP"],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is the main benefit of using ENS?",
+          fr: "Quel est le principal avantage d'utiliser ENS ?",
+        },
+        options: {
+          en: [
+            "Easier to remember and write domain names",
+            "Increased security",
+            "Faster transaction times",
+            "Higher transaction fees",
+          ],
+          fr: [
+            "Plus facile à retenir et à écrire des noms de domaine",
+            "Sécurité accrue",
+            "Temps de transaction plus rapide",
+            "Frais de transaction plus élevés",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "How can you receive funds using ENS?",
+          fr: "Comment pouvez-vous recevoir des fonds en utilisant ENS ?",
+        },
+        options: {
+          en: [
+            "By linking an ENS domain name to your Ethereum address",
+            "By encrypting your Ethereum address",
+            "By sharing your IP address",
+            "By using HTTP protocol",
+          ],
+          fr: [
+            "En liant un nom de domaine ENS à votre adresse Ethereum",
+            "En cryptant votre adresse Ethereum",
+            "En partageant votre adresse IP",
+            "En utilisant le protocole HTTP",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
