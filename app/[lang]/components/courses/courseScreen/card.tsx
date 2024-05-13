@@ -47,10 +47,12 @@ const Card = ({
       </span>
       {video ? (
         <>
-          <div className="flex items-center justify-center w-full mt-4">{text}</div>
+          <div className="flex items-center justify-center w-full mt-4">
+            {text}
+          </div>
         </>
       ) : (
-        <p className="text-xl text-gray-700 dark:text-gray-300 break-words whitespace-normal w-full mt-2">
+        <div className="text-xl text-gray-700 dark:text-gray-300 break-words whitespace-normal w-full mt-2">
           {typeof text === "string"
             ? !pause &&
               text.split("").map((char, index) => (
@@ -65,7 +67,7 @@ const Card = ({
                 </span>
               ))
             : text}
-        </p>
+        </div>
       )}
     </>
   );
