@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Item from "@/app/[lang]/shop/components/items/item";
+import Item from "@/app/[lang]/shop/components/item";
 import { Lang } from "@/types/language/lang";
 import type { ShopCategories, Category } from "@/types/shop/shop";
 import { useAccount, useBalance, useBlockNumber, useReadContract } from "wagmi";
@@ -12,9 +12,6 @@ import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/style/loading";
 import { ItemType, ItemTypeFinal } from "@/types/items/items";
-import Beginner from "@/app/[lang]/shop/components/beginner";
-import Expert from "@/app/[lang]/shop/components/expert";
-import Intermediate from "@/app/[lang]/shop/components/intermediate";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -141,17 +138,6 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
       <div className="mx-auto max-w-4xl flex flex-col gap-8">
-        <div className="flex flex-col gap-2">
-          <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
-            {lang === "en" ? "Ranks" : "Rangs"}
-          </span>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Beginner lang={lang} />
-            <Intermediate lang={lang} />
-            <Expert lang={lang} />
-          </div>
-        </div>
-
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
