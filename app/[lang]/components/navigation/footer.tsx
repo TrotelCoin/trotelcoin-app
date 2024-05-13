@@ -43,10 +43,17 @@ export default function Footer({ lang }: { lang: Lang }) {
       title: lang === "en" ? "TrotelCoin" : "TrotelCoin",
       items: [
         {
+          name: lang === "en" ? "Become Premium" : "Devenez Premium",
+          href: `/${lang}/premium`,
+          display: true,
+          id: 1,
+          anotherWindow: false,
+        },
+        {
           name: lang === "en" ? "Statistics" : "Statistiques",
           href: `/${lang}/statistics`,
           display: true,
-          id: 1,
+          id: 2,
           anotherWindow: false,
         },
         {
@@ -54,21 +61,21 @@ export default function Footer({ lang }: { lang: Lang }) {
             lang === "en" ? "Discover vocabulary" : "Découvrir le vocabulaire",
           href: `/${lang}/vocabulary`,
           display: true,
-          id: 2,
+          id: 3,
           anotherWindow: false,
         },
         {
           name: lang === "en" ? "For businesses" : "Pour les entreprises",
           href: "mailto:hello@trotelcoin.com",
           display: true,
-          id: 3,
+          id: 4,
           anotherWindow: false,
         },
         {
           name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
           href: `/${lang}/terms-of-service`,
           display: true,
-          id: 4,
+          id: 5,
           anotherWindow: false,
         },
         {
