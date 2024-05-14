@@ -4,11 +4,16 @@ import { Lang } from "@/types/language/lang";
 import Link from "next/link";
 import React, { useState } from "react";
 import BasicInformations from "./components/basicInformations";
-import { Transition } from "@headlessui/react";
 import type { Category, Subcategory } from "@/types/courses/categories";
 import type { Tiers } from "@/types/premium/premium";
 import { useAccount } from "wagmi";
 import { Address } from "viem";
+import type { SubmitQuizData } from "@/types/courses/quiz";
+import CourseData from "@/app/[lang]/submit-a-course/components/courseData";
+import QuizData from "@/app/[lang]/submit-a-course/components/quizData";
+import type { CourseJSON, SubmitCourseData } from "@/types/courses/courses";
+import PreviewCourseData from "@/app/[lang]/submit-a-course/components/preview";
+import { loadingFlashClass } from "@/style/loading";
 
 const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -18,6 +23,24 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [subcategory, setSubcategory] =
     useState<Subcategory>("Cryptocurrencies");
   const [tier, setTier] = useState<Tiers>("Beginner");
+  const [course, setCourse] = useState<SubmitCourseData[] | null>(
+    Array(4).fill(null)
+  ); // only support text for now
+  const [quiz, setQuiz] = useState<SubmitQuizData>({
+    title: "",
+    questions: Array(4).fill({
+      question: null,
+      options: Array(4).fill(null),
+      correctAnswer: 0,
+    }),
+  });
+  const [error, setError] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+  const [json, setJson] = useState<CourseJSON | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [cid, setCid] = useState<string | null>(null);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [tx, setTx] = useState<string | null>(null);
 
   const { address } = useAccount();
 
@@ -34,92 +57,380 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
       return;
     }
 
+    if (error) {
+      setShowError(true);
+      return;
+    }
+
     setCurrentPage((prev) => prev + 1);
+
+    if (currentPage === 2 || currentPage === 3) {
+      createCourseJson();
+    }
+  };
+
+  const createCourseJson = () => {
+    const courseJson: CourseJSON = {
+      title: title as string,
+      description: description as string,
+      category: category,
+      subcategory: subcategory,
+      tier: tier,
+      course: course as SubmitCourseData[],
+      quiz: quiz,
+    };
+
+    setJson(courseJson);
+  };
+
+  const uploadFile = async (file: File) => {
+    try {
+      const data = new FormData();
+      data.set("file", file);
+      const res = await fetch("/api/files", {
+        method: "POST",
+        body: data,
+      });
+      const resData = await res.json();
+      setCid(resData.IpfsHash);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const submit = async () => {
+    setIsLoading(true);
+
+    // check if json is available
+
+    if (!json) {
+      return;
+    }
+
+    // upload to ipfs
+
+    const file = new File([JSON.stringify(json)], "course.json", {
+      type: "application/json",
+    });
+
+    uploadFile(file);
+
+    setCid(cid as string);
+
+    // get the cid
+
+    // submit to the blockchain (json and cid)
+
+    // show success message
+
+    setIsLoading(false);
+    setSubmitted(true);
   };
 
   return (
     <>
       <div className="mx-auto flex flex-col justify-center max-w-xl w-full items-center text-gray-900 dark:text-gray-100">
-        <Transition
-          show={currentPage === 0}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="flex flex-col w-full">
+        {submitted ? (
+          <>
             <div className="flex flex-col gap-2">
               <span className="text-4xl font-semibold">
-                {lang === "en"
-                  ? "Let's start with some informations."
-                  : "Commençons par quelques informations."}
+                {lang === "en" ? "Course submitted!" : "Cours soumis!"}
               </span>
               <span className="text-sm text-gray-700 dark:text-gray-300">
-                {lang === "en" ? (
-                  <>
-                    Learn more about submitting a course by clicking{" "}
-                    <Link
-                      className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                      href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                      target="_blank"
-                    >
-                      here
-                    </Link>
-                    .
-                  </>
-                ) : (
-                  <>
-                    Apprenez-en plus sur comment proposer un cours en cliquant{" "}
-                    <Link
-                      className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                      href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                      target="_blank"
-                    >
-                      ici
-                    </Link>
-                    .
-                  </>
-                )}
+                {lang === "en"
+                  ? "Your course has been successfully submitted to the blockchain."
+                  : "Votre cours a été soumis avec succès à la blockchain."}
               </span>
-
-              <div className="flex flex-col mt-8">
-                <BasicInformations
-                  address={address as Address}
-                  lang={lang}
-                  title={title as string}
-                  setTitle={setTitle}
-                  description={description as string}
-                  setDescription={setDescription}
-                  category={category}
-                  setCategory={setCategory}
-                  subcategory={subcategory}
-                  setSubcategory={setSubcategory}
-                  tier={tier}
-                  setTier={setTier}
-                />
-              </div>
+              <span className="text-sm text-gray-700 dark:text-gray-300">
+                {lang === "en"
+                  ? "You can view the course on IPFS by clicking"
+                  : "Vous pouvez voir le cours sur IPFS en cliquant"}
+                <Link
+                  className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                  href={`https://ipfs.io/ipfs/${cid}`}
+                  target="_blank"
+                >
+                  {lang === "en" ? " here." : " ici."}
+                </Link>
+                {lang === "en"
+                  ? "You can also see the blockchain transaction by clicking"
+                  : "Vous pouvez également voir la transaction sur la blockchain en cliquant"}{" "}
+                <Link
+                  className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                  href={`https://polygonscan.com/tx/${tx}`}
+                  target="_blank"
+                >
+                  {lang === "en" ? " here." : " ici."}
+                </Link>
+              </span>
             </div>
-          </div>
-        </Transition>
+          </>
+        ) : (
+          <>
+            {currentPage === 0 && (
+              <div className="flex flex-col w-full">
+                <div className="flex flex-col gap-2">
+                  <span className="text-4xl font-semibold">
+                    {lang === "en"
+                      ? "Let's start with some informations."
+                      : "Commençons par quelques informations."}
+                  </span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {lang === "en" ? (
+                      <>
+                        Learn more about submitting a course by clicking{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          here
+                        </Link>
+                        .
+                      </>
+                    ) : (
+                      <>
+                        Apprenez-en plus sur comment proposer un cours en
+                        cliquant{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          ici
+                        </Link>
+                        .
+                      </>
+                    )}
+                  </span>
 
-        <div className="flex justify-between items-center w-full mt-12">
-          <button
-            disabled={currentPage <= 0}
-            onClick={() => handlePrevious()}
-            className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-          >
-            {lang === "en" ? "Previous" : "Précédent"}
-          </button>
-          <button
-            disabled={currentPage >= 3}
-            onClick={() => handleNext()}
-            className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-          >
-            {lang === "en" ? "Next" : "Suivant"}
-          </button>
-        </div>
+                  <div className="flex flex-col mt-8">
+                    <BasicInformations
+                      address={address as Address}
+                      lang={lang}
+                      title={title as string}
+                      setTitle={setTitle}
+                      description={description as string}
+                      setDescription={setDescription}
+                      category={category}
+                      setCategory={setCategory}
+                      subcategory={subcategory}
+                      setSubcategory={setSubcategory}
+                      tier={tier}
+                      setTier={setTier}
+                      setError={setError}
+                      showError={showError}
+                      setShowError={setShowError}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentPage === 1 && (
+              <div className="flex flex-col w-full">
+                <div className="flex flex-col gap-2">
+                  <span className="text-4xl font-semibold">
+                    {lang === "en"
+                      ? "It is now time to build the course."
+                      : "Il est désormais temps de construire le cours."}
+                  </span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {lang === "en" ? (
+                      <>
+                        Learn more about submitting a course by clicking{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          here
+                        </Link>
+                        .
+                      </>
+                    ) : (
+                      <>
+                        Apprenez-en plus sur comment proposer un cours en
+                        cliquant{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          ici
+                        </Link>
+                        .
+                      </>
+                    )}
+                  </span>
+
+                  <div className="flex flex-col mt-8">
+                    <CourseData
+                      lang={lang}
+                      course={course as SubmitCourseData[]}
+                      setCourse={setCourse}
+                      setError={setError}
+                      showError={showError}
+                      setShowError={setShowError}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentPage === 2 && (
+              <div className="flex flex-col w-full">
+                <div className="flex flex-col gap-2">
+                  <span className="text-4xl font-semibold">
+                    {lang === "en"
+                      ? "Finally, let's build the quiz."
+                      : "Finalement, construisons le quiz."}
+                  </span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {lang === "en" ? (
+                      <>
+                        Learn more about submitting a course by clicking{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          here
+                        </Link>
+                        .
+                      </>
+                    ) : (
+                      <>
+                        Apprenez-en plus sur comment proposer un cours en
+                        cliquant{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          ici
+                        </Link>
+                        .
+                      </>
+                    )}
+                  </span>
+
+                  <div className="flex flex-col mt-8">
+                    <QuizData
+                      lang={lang}
+                      quiz={quiz}
+                      setQuiz={setQuiz}
+                      setError={setError}
+                      showError={showError}
+                      setShowError={setShowError}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {currentPage === 3 && (
+              <div className="flex flex-col w-full">
+                <div className="flex flex-col gap-2">
+                  <span className="text-4xl font-semibold">
+                    {lang === "en"
+                      ? "Verify that everything is right on track and educate others."
+                      : "Vérifiez que tout est en ordre et éduquez les autres."}
+                  </span>
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {lang === "en" ? (
+                      <>
+                        Learn more about submitting a course by clicking{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          here
+                        </Link>
+                        .
+                      </>
+                    ) : (
+                      <>
+                        Apprenez-en plus sur comment proposer un cours en
+                        cliquant{" "}
+                        <Link
+                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                          target="_blank"
+                        >
+                          ici
+                        </Link>
+                        .
+                      </>
+                    )}
+                  </span>
+
+                  <div className="flex flex-col mt-8">
+                    {isLoading ? (
+                      <>
+                        <div className="flex flex-col gap-2 text-center">
+                          <span
+                            className={`font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
+                          >
+                            {lang === "en"
+                              ? "Submitting the course to the blockchain."
+                              : "Soumission du cours à la blockchain."}
+                          </span>
+                          <span className="text-sm text-gray-700 dark:text-gray-300">
+                            {lang === "en"
+                              ? "This process may take a few seconds."
+                              : "Ce processus peut prendre quelques secondes."}
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <PreviewCourseData
+                          lang={lang}
+                          json={json as CourseJSON}
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="flex justify-between items-center w-full mt-12">
+              <button
+                disabled={currentPage <= 0}
+                onClick={() => handlePrevious()}
+                className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
+              >
+                {lang === "en" ? "Previous" : "Précédent"}
+              </button>
+              {currentPage >= 3 ? (
+                <>
+                  <button
+                    disabled={currentPage < 3 || isLoading}
+                    onClick={() => submit()}
+                    className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
+                  >
+                    <span className={`${isLoading && loadingFlashClass}`}>
+                      {lang === "en" ? "Submit" : "Soumettre"}
+                    </span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    disabled={currentPage >= 3}
+                    onClick={() => handleNext()}
+                    className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
+                  >
+                    {lang === "en" ? "Next" : "Suivant"}
+                  </button>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </>
   );

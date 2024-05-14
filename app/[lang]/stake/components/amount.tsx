@@ -1,6 +1,6 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import type { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useBalance, useBlockNumber } from "wagmi";
@@ -62,7 +62,7 @@ const Amount = ({
           className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
             !address && "cursor-not-allowed"
           }`}
-          value={amount ? amount : ""}
+          value={amount ?? ""}
           onChange={(e) => {
             setAmount(Number(e.target.value));
           }}

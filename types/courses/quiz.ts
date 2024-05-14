@@ -43,3 +43,14 @@ export type QuizData = {
     };
   }[];
 }[];
+
+export type SubmitQuestionData = {
+  question: string;
+  options: string[];
+  correctAnswer: number;
+};
+
+export type SubmitQuizData = {
+  title: string;
+  questions: SubmitQuestionData[];
+};
