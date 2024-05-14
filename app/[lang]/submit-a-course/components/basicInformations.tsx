@@ -2,7 +2,7 @@ import { Category, Subcategory } from "@/types/courses/categories";
 import { Tiers } from "@/types/premium/premium";
 import { Lang } from "@/types/language/lang";
 import { RadioGroup } from "@headlessui/react";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { categories } from "@/data/courses/categories";
 import { Address } from "viem";
 import Required from "@/app/[lang]/submit-a-course/components/required";
@@ -20,6 +20,9 @@ const BasicInformations = ({
   setSubcategory,
   tier,
   setTier,
+  setError,
+  showError,
+  setShowError,
 }: {
   address: Address;
   lang: Lang;
@@ -33,6 +36,9 @@ const BasicInformations = ({
   setSubcategory: React.Dispatch<React.SetStateAction<Subcategory>>;
   tier: Tiers;
   setTier: React.Dispatch<React.SetStateAction<Tiers>>;
+  setError: React.Dispatch<React.SetStateAction<boolean>>;
+  showError: boolean;
+  setShowError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [categoryIndex, setCategoryIndex] = useState<number>(0);
 
@@ -43,6 +49,45 @@ const BasicInformations = ({
 
     setCategoryIndex(index);
   }, [category]);
+
+  useEffect(() => {
+    if (categoryIndex === -1) {
+      setCategory(categories[0].category);
+    }
+  }, [categoryIndex]);
+
+  const isInformationsError = (
+    title: string,
+    description: string,
+    category: Category,
+    subcategory: Subcategory,
+    tier: Tiers
+  ) => {
+    const isTitleEmpty = title === "" || title === undefined || title === null;
+    const isDescriptionEmpty =
+      description === "" || description === undefined || description === null;
+    const isCategoryEmpty = category === null || category === undefined;
+    const isSubcategoryEmpty =
+      subcategory === null || subcategory === undefined;
+    const isTierEmpty = tier === null || tier === undefined;
+
+    return (
+      isTitleEmpty ||
+      isDescriptionEmpty ||
+      isCategoryEmpty ||
+      isSubcategoryEmpty ||
+      isTierEmpty
+    );
+  };
+
+  useEffect(() => {
+    if (!isInformationsError(title, description, category, subcategory, tier)) {
+      setError(false);
+      setShowError(false);
+    } else {
+      setError(true);
+    }
+  }, [title, description, category, subcategory, tier]);
 
   return (
     <>
@@ -233,6 +278,14 @@ const BasicInformations = ({
             </RadioGroup.Option>
           </RadioGroup>
         </div>
+
+        {showError && (
+          <p className="text-red-500 dark:text-red-300">
+            {lang === "en"
+              ? "Please fill in all the required fields."
+              : "Veuillez remplir tous les champs obligatoires."}
+          </p>
+        )}
       </div>
     </>
   );
