@@ -47,14 +47,14 @@ const Header = ({ lang }: { lang: Lang }) => {
       id: 2,
     },
     {
-      name: lang === "en" ? "Leaderboard" : "Classement",
-      href: "/leaderboard",
+      name: lang === "en" ? "Shop" : "Boutique",
+      href: "/shop",
       id: 3,
     },
     {
-      name: lang === "en" ? "Shop" : "Boutique",
-      href: "/shop",
-      id: 4,
+      name: lang === "en" ? "Account" : "Compte",
+      href: "/account",
+      id: 3,
     },
   ];
 
