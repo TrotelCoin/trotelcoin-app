@@ -2,7 +2,7 @@
 
 import { Lang } from "@/types/language/lang";
 import Link from "next/link";
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import BasicInformations from "./components/basicInformations";
 import type { Category, Subcategory } from "@/types/courses/categories";
 import type { Tiers } from "@/types/premium/premium";
@@ -115,7 +115,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     uploadFile(file);
 
-    setCid(cid);
+    setCid(cid as string);
 
     // get the cid
 
@@ -318,7 +318,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   <div className="flex flex-col mt-8">
                     <QuizData
                       lang={lang}
-                      quiz={quiz as SubmitQuizData}
+                      quiz={quiz}
                       setQuiz={setQuiz}
                       setError={setError}
                       showError={showError}

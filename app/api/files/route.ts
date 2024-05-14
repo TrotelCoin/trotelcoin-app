@@ -1,11 +1,20 @@
 import { NextResponse, NextRequest } from "next/server";
 
+/*
 export const config = {
   api: {
     bodyParser: false,
   },
 };
+*/
 
+export const dynamic = "force-dynamic";
+
+/* POST /api/files
+ * Uploads a file to IPFS using Pinata.
+ * @returns {string} IpfsHash - The IPFS hash of the uploaded file.
+ * @example response - 200 - application/json
+ */
 export async function POST(request: NextRequest) {
   try {
     const data = await request.formData();
