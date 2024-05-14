@@ -46,13 +46,13 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       id: 2,
     },
     {
-      name: lang === "en" ? "Leaderboard" : "Classement",
-      href: `/${lang}/leaderboard`,
+      name: lang === "en" ? "Shop" : "Boutique",
+      href: `/${lang}/shop`,
       id: 3,
     },
     {
-      name: lang === "en" ? "Shop" : "Boutique",
-      href: `/${lang}/shop`,
+      name: lang === "en" ? "My Account" : "Mon Compte",
+      href: `/${lang}/account`,
       id: 4,
     },
   ];
