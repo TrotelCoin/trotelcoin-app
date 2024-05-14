@@ -51,7 +51,7 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
       id: 3,
     },
     {
-      name: lang === "en" ? "My Account" : "Mon Compte",
+      name: lang === "en" ? "Account" : "Compte",
       href: `/${lang}/account`,
       id: 4,
     },

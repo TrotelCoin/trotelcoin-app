@@ -144,17 +144,31 @@ export default function Footer({ lang }: { lang: Lang }) {
       title: lang === "en" ? "Ressources" : "Ressources",
       items: [
         {
+          name: lang === "en" ? "Blog / Mirror" : "Blog / Mirror",
+          href: "https://mirror.xyz/alexandretrotel.eth",
+          display: true,
+          id: 1,
+          anotherWindow: true,
+        },
+        {
+          name: lang === "en" ? "Whitepaper" : "Livre blanc",
+          href: "https://docs.trotelcoin.com/overview/whitepaper",
+          display: true,
+          id: 2,
+          anotherWindow: true,
+        },
+        {
           name: lang === "en" ? "Governance" : "Gouvernance",
           href: "https://vote.trotelcoin.com",
           display: true,
-          id: 1,
+          id: 3,
           anotherWindow: true,
         },
         {
           name: lang === "en" ? "Documentation" : "Documentation",
           href: "https://docs.trotelcoin.com",
           display: true,
-          id: 2,
+          id: 4,
           anotherWindow: true,
         },
       ],
