@@ -50,10 +50,17 @@ export default function Footer({ lang }: { lang: Lang }) {
           anotherWindow: false,
         },
         {
+          name: lang === "en" ? "Leaderboard" : "Classement",
+          href: `/${lang}/leaderboard`,
+          display: true,
+          id: 2,
+          anotherWindow: false,
+        },
+        {
           name: lang === "en" ? "Statistics" : "Statistiques",
           href: `/${lang}/statistics`,
           display: true,
-          id: 2,
+          id: 3,
           anotherWindow: false,
         },
         {
@@ -61,21 +68,21 @@ export default function Footer({ lang }: { lang: Lang }) {
             lang === "en" ? "Discover vocabulary" : "Découvrir le vocabulaire",
           href: `/${lang}/vocabulary`,
           display: true,
-          id: 3,
+          id: 4,
           anotherWindow: false,
         },
         {
           name: lang === "en" ? "For businesses" : "Pour les entreprises",
           href: "mailto:hello@trotelcoin.com",
           display: true,
-          id: 4,
+          id: 5,
           anotherWindow: false,
         },
         {
           name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
           href: `/${lang}/terms-of-service`,
           display: true,
-          id: 5,
+          id: 6,
           anotherWindow: false,
         },
         {
@@ -83,7 +90,7 @@ export default function Footer({ lang }: { lang: Lang }) {
             lang === "en" ? "Privacy policy" : "Politique de confidentialité",
           href: `/${lang}/privacy-policy`,
           display: false,
-          id: 3,
+          id: 7,
           anotherWindow: false,
         },
       ],
@@ -190,7 +197,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 justify-between pb-6 w-full">
             {displayedItems.map((list, index) => (
               <div key={index} className="flex flex-col gap-2">
-                <span className="mb-2 font-semibold text-gray-900 dark:text-gray-100">
+                <span className="font-semibold text-gray-900 dark:text-gray-100">
                   {list.name}
                 </span>
                 {list.items.map((item, index) => (
