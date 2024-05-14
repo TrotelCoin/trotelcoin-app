@@ -150,7 +150,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   href={`https://ipfs.io/ipfs/${cid}`}
                   target="_blank"
                 >
-                  {lang === "en" ? " here." : " ici."}
+                  {lang === "en" ? " here." : " ici."}{" "}
                 </Link>
                 {lang === "en"
                   ? "You can also see the blockchain transaction by clicking"
