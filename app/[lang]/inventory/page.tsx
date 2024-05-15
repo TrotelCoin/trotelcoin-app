@@ -116,7 +116,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </span>
             <button
               onClick={() => handleRefresh()}
-              className="p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
             >
               <ArrowPathIcon
                 className={`w-5 h-5 text-gray-900 dark:text-gray-100 ${
