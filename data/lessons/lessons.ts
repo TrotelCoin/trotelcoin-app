@@ -44,14 +44,14 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Stake your TrotelCoins",
-          fr: "Misez vos TrotelCoins",
+          en: "Stake your TROTEL",
+          fr: "Misez vos TROTEL",
         },
         description: {
-          en: "Stake your TrotelCoins to earn more.",
-          fr: "Stakez vos TrotelCoins pour gagner plus.",
+          en: "Stake your TROTEL to earn more and help the ecosystem grow.",
+          fr: "Misez vos TROTEL pour en gagner davantage et aider l'écosystème à croître.",
         },
-        href: "/trotelcoin/stake-your-trotelcoins",
+        href: "/trotelcoin/stake-your-trotel",
         tier: {
           en: "Beginner",
           fr: "Débutant",
