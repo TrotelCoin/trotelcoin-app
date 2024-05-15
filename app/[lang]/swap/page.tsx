@@ -95,6 +95,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     useState<boolean>(false);
   const [disableRefuel, setDisableRefuel] = useState<boolean>(false);
   const [swappedConfirmed, setSwappedConfirmed] = useState<boolean>(false);
+  const [isLoadingTransaction, setIsLoadingTransaction] =
+    useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -178,9 +180,16 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     data: approveHash,
   } = useWriteContract({
     mutation: {
+      onMutate: () => {
+        setIsLoadingTransaction(true);
+      },
+      onSuccess: () => {
+        setIsLoadingTransaction(true);
+      },
       onError: () => {
         setErrorMessage(true);
         setIsApproved(false);
+        setIsLoadingTransaction(false);
       },
     },
   });
@@ -199,6 +208,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     ) {
       setApproveMessage(true);
       setIsApproved(true);
+      setIsLoadingTransaction(false);
       setSwappedConfirmed(true);
     }
   }, [approveConfirmation]);
@@ -208,9 +218,14 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       mutation: {
         onSuccess: () => {
           setSwappedConfirmed(false);
+          setIsLoadingTransaction(true);
+        },
+        onMutate: () => {
+          setIsLoadingTransaction(true);
         },
         onError: () => {
           setErrorMessage(true);
+          setIsLoadingTransaction(false);
         },
       },
     });
@@ -226,6 +241,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   useEffect(() => {
     if (transactionConfirmation && Number(transactionConfirmation) > 0) {
       setSwappedMessage(true);
+      setIsLoadingTransaction(false);
     }
   }, [transactionConfirmation]);
 
@@ -444,7 +460,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       isLoadingChains ||
       isLoadingTokens ||
       isLoadingBlockchain ||
-      isLoadingTokensBalance
+      isLoadingTokensBalance ||
+      isLoadingTransaction
     ) {
       setIsLoading(true);
     } else {
@@ -455,6 +472,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     isLoadingChains,
     isLoadingBlockchain,
     isLoadingTokensBalance,
+    isLoadingTransaction,
   ]);
 
   useEffect(() => {
