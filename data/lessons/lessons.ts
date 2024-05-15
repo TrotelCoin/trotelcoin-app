@@ -10,8 +10,8 @@ const lessons: Lessons[] = [
           fr: "Introduction à TrotelCoin",
         },
         description: {
-          en: "Learn about TrotelCoin and its use cases.",
-          fr: "Apprenez en plus sur TrotelCoin et ses cas d'utilisation.",
+          en: "TrotelCoin is an ecosystem focusing on decentralized education.",
+          fr: "TrotelCoin est un écosystème qui se concentre sur l'éducation décentralisée.",
         },
         href: "/trotelcoin/introduction-to-trotelcoin",
         tier: {
@@ -29,8 +29,8 @@ const lessons: Lessons[] = [
           fr: "Achetez les NFTs",
         },
         description: {
-          en: "Learn how to buy the NFTs.",
-          fr: "Apprenez à achetez les NFTs.",
+          en: "Become premium by buying the TrotelCoin NFTs.",
+          fr: "Devenez premium en achetant les NFTs de TrotelCoin.",
         },
         href: "/trotelcoin/buy-the-nfts",
         tier: {
@@ -48,8 +48,8 @@ const lessons: Lessons[] = [
           fr: "Misez vos TrotelCoins",
         },
         description: {
-          en: "Learn how to stake your TrotelCoins to earn more.",
-          fr: "Apprenez comment stakez vos TrotelCoins pour gagner plus.",
+          en: "Stake your TrotelCoins to earn more.",
+          fr: "Stakez vos TrotelCoins pour gagner plus.",
         },
         href: "/trotelcoin/stake-your-trotelcoins",
         tier: {
@@ -72,8 +72,8 @@ const lessons: Lessons[] = [
           fr: "Votre premier wallet",
         },
         description: {
-          en: "Create your first wallet",
-          fr: "Créez votre premier portefeuille",
+          en: "Choose your first wallet and create it.",
+          fr: "Choisissez votre premier portefeuille et créez-le.",
         },
         href: "/wallet/create-your-first-wallet",
         tier: {
@@ -91,13 +91,13 @@ const lessons: Lessons[] = [
           fr: "Sécurisez votre wallet",
         },
         description: {
-          en: "Learn how to secure your wallet.",
-          fr: "Apprenez à sécuriser votre portefeuille.",
+          en: "Secure your wallet with best practices.",
+          fr: "Sécurisez votre portefeuille avec les meilleures pratiques.",
         },
         href: "/wallet/secure-your-wallet",
         tier: {
-          en: "Expert",
-          fr: "Expert",
+          en: "Beginner",
+          fr: "Débutant",
         },
         sponsored: false,
         new: false,
@@ -130,7 +130,7 @@ const lessons: Lessons[] = [
         },
         description: {
           en: "Learn how to make your first transaction.",
-          fr: "Apprenez à effectuer votre première transaction.",
+          fr: "Apprenez à faire votre première transaction.",
         },
         href: "/wallet/make-your-first-transaction",
         tier: {
@@ -153,8 +153,8 @@ const lessons: Lessons[] = [
           fr: "Introduction aux blockchains",
         },
         description: {
-          en: "Learn about the basics of blockchain technology.",
-          fr: "Apprenez les bases de la technologie blockchain.",
+          en: "Blockchains are decentralized databases.",
+          fr: "Les blockchains sont des bases de données décentralisées.",
         },
         href: "/blockchain/what-is-a-blockchain",
         tier: {
@@ -172,8 +172,8 @@ const lessons: Lessons[] = [
           fr: "Les mécanismes de consensus",
         },
         description: {
-          en: "Learn about the different consensus mechanisms.",
-          fr: "Apprenez les mécanismes de consensus.",
+          en: "Consensus mechanisms are the protocols that secure the blockchain.",
+          fr: "Les mécanismes de consensus sont les protocoles qui sécurisent la blockchain.",
         },
         href: "/blockchain/consensus-mechanisms",
         tier: {
@@ -191,8 +191,8 @@ const lessons: Lessons[] = [
           fr: "Résistance à la censure",
         },
         description: {
-          en: "Learn what is censorship resistance.",
-          fr: "Apprenez ce qu'est la résistance à la censure.",
+          en: "Centralized systems can be censored, but decentralized systems are resistant to censorship.",
+          fr: "Les systèmes centralisés peuvent être censurés, mais les systèmes décentralisés sont résistants à la censure.",
         },
         href: "/blockchain/censorship-resistance",
         tier: {
@@ -215,8 +215,8 @@ const lessons: Lessons[] = [
           fr: "Introduction à Bitcoin",
         },
         description: {
-          en: "Learn about the basics of Bitcoin.",
-          fr: "Apprenez les bases de Bitcoin.",
+          en: "Bitcoin is a decentralized digital currency.",
+          fr: "Bitcoin est une monnaie numérique décentralisée.",
         },
         href: "/bitcoin/introduction-to-bitcoin",
         tier: {
@@ -234,8 +234,8 @@ const lessons: Lessons[] = [
           fr: "L'histoire de Bitcoin",
         },
         description: {
-          en: "Learn about the history of Bitcoin.",
-          fr: "Apprenez l'histoire de Bitcoin.",
+          en: "Bitcoin history from its creation to today.",
+          fr: "L'histoire de Bitcoin de sa création à aujourd'hui.",
         },
         href: "/bitcoin/the-history-of-bitcoin",
         tier: {
@@ -253,8 +253,8 @@ const lessons: Lessons[] = [
           fr: "Le halving",
         },
         description: {
-          en: "Learn about what is the Bitcoing halving.",
-          fr: "Apprenez ce qu'est le halving de Bitcoin.",
+          en: "Bitcoin halving is an event that occurs every 210,000 blocks and generally results in a price increase.",
+          fr: "Le halving de Bitcoin est un événement qui se produit tous les 210 000 blocs et entraîne généralement une augmentation du prix.",
         },
         href: "/bitcoin/the-halving",
         tier: {
@@ -277,8 +277,8 @@ const lessons: Lessons[] = [
           fr: "Introduction à Ethereum",
         },
         description: {
-          en: "Learn about the basics of Ethereum.",
-          fr: "Apprenez les bases d'Ethereum.",
+          en: "Ethereum is a decentralized platform that runs smart contracts.",
+          fr: "Ethereum est une plateforme décentralisée qui exécute des contrats intelligents.",
         },
         href: "/ethereum/introduction-to-ethereum",
         tier: {
@@ -296,8 +296,8 @@ const lessons: Lessons[] = [
           fr: "Les Layer 2s",
         },
         description: {
-          en: "Learn about the different layers 2.",
-          fr: "Apprenez les différentes couches de niveau 2.",
+          en: "Layers 2s are solutions that help Ethereum scale.",
+          fr: "Les Layer 2s sont des solutions qui aident Ethereum à scaler.",
         },
         href: "/ethereum/understand-the-layers-2",
         tier: {
@@ -315,8 +315,8 @@ const lessons: Lessons[] = [
           fr: "Les Contrats Intelligents",
         },
         description: {
-          en: "Learn about the basics of smart contracts.",
-          fr: "Apprenez les bases des contrats intelligents.",
+          en: "Smart contracts allow code to be run on the Ethereum blockchain.",
+          fr: "Les contrats intelligents permettent d'exécuter du code sur la blockchain Ethereum.",
         },
         href: "/ethereum/smart-contracts",
         tier: {
@@ -334,8 +334,8 @@ const lessons: Lessons[] = [
           fr: "La Machine Virtuelle d'Ethereum",
         },
         description: {
-          en: "Learn about the basics of the Ethereum Virtual Machine.",
-          fr: "Apprenez les bases de la machine virtuelle Ethereum.",
+          en: "Ethereum Virtual Machine is the runtime environment for smart contracts in Ethereum.",
+          fr: "La Machine Virtuelle d'Ethereum est l'environnement d'exécution des contrats intelligents dans Ethereum.",
         },
         href: "/ethereum/evm",
         tier: {
@@ -358,8 +358,8 @@ const lessons: Lessons[] = [
           fr: "Introduction aux NFTs",
         },
         description: {
-          en: "Learn about the basics of NFTs.",
-          fr: "Apprenez les bases des NFTs.",
+          en: "NFTs are unique digital assets that are stored on the blockchain.",
+          fr: "Les NFTs sont des actifs numériques uniques qui sont stockés sur la blockchain.",
         },
         href: "/nfts/introduction-to-nfts",
         tier: {
@@ -377,8 +377,8 @@ const lessons: Lessons[] = [
           fr: "Le prix plancher",
         },
         description: {
-          en: "Learn about the notion of price floor.",
-          fr: "Apprenez la notion de prix plancher.",
+          en: "The price floor is the minimum price at which an NFT can be sold.",
+          fr: "Le prix plancher est le prix minimum auquel un NFT peut être vendu.",
         },
         href: "/nfts/price-floor",
         tier: {
@@ -396,8 +396,8 @@ const lessons: Lessons[] = [
           fr: "Les jetons soulbound",
         },
         description: {
-          en: "Learn about the notion of soulbound tokens.",
-          fr: "Apprenez la notion de jetons soulbound.",
+          en: "Soulbound tokens are NFTs that are linked to a specific wallet and can't be transferred.",
+          fr: "Les jetons soulbound sont des NFTs liés à un portefeuille spécifique et ne peuvent pas être transférés.",
         },
         href: "/nfts/soulbound-tokens",
         tier: {
@@ -420,8 +420,8 @@ const lessons: Lessons[] = [
           fr: "Introduction aux DAOs",
         },
         description: {
-          en: "Discover what DAOs are.",
-          fr: "Découvrez ce que sont les DAOs.",
+          en: "Decentralized Autonomous Organizations are a new way to build organizations.",
+          fr: "Les Organisations Autonomes Décentralisées sont une nouvelle façon de construire des organisations.",
         },
         href: "/governance/what-are-daos",
         tier: {
@@ -439,8 +439,8 @@ const lessons: Lessons[] = [
           fr: "Les types de DAOs",
         },
         description: {
-          en: "Learn about the different types of DAOs.",
-          fr: "Apprenez les différents types de DAOs.",
+          en: "Decentralized Autonomous Organizations come in many forms.",
+          fr: "Les Organisations Autonomes Décentralisées se présentent sous de nombreuses formes.",
         },
         href: "/governance/types-of-daos",
         tier: {
@@ -463,8 +463,8 @@ const lessons: Lessons[] = [
           fr: "Introduction aux stablecoins",
         },
         description: {
-          en: "Learn about the basics of stablecoins.",
-          fr: "Apprenez les bases des stablecoins.",
+          en: "Stablecoins are cryptocurrencies designed to minimize the volatility of cryptocurrencies.",
+          fr: "Les stablecoins sont des cryptomonnaies conçues pour minimiser la volatilité des cryptomonnaies.",
         },
         href: "/stablecoins/introduction-to-stablecoins",
         tier: {
@@ -482,8 +482,8 @@ const lessons: Lessons[] = [
           fr: "Le crash de Terra Luna",
         },
         description: {
-          en: "Learn about the Terra Luna crash.",
-          fr: "Apprenez en sur le crash de Terra Luna.",
+          en: "Terra Luna was a stablecoin that crashed.",
+          fr: "Terra Luna était un stablecoin qui a crashé.",
         },
         href: "/stablecoins/terra-luna-crash",
         tier: {
@@ -503,8 +503,8 @@ const lessons: Lessons[] = [
       {
         title: { en: "Web3 Essentials", fr: "Les bases du Web3" },
         description: {
-          en: "Learn about the basics of Web3.",
-          fr: "Apprenez les bases de Web3.",
+          en: "Web3 is the next generation of the internet.",
+          fr: "Web3 est la prochaine génération d'internet.",
         },
         href: "/web3/web3-essentials",
         tier: {
@@ -522,8 +522,8 @@ const lessons: Lessons[] = [
           fr: "Airdrops",
         },
         description: {
-          en: "Learn about the notion of airdrops.",
-          fr: "Apprenez la notion d'airdrops.",
+          en: "Airdrops are a way to distribute tokens to a large number of wallets.",
+          fr: "Les airdrops sont un moyen de distribuer des tokens à un grand nombre de portefeuilles.",
         },
         href: "/web3/airdrops",
         tier: {
@@ -541,8 +541,8 @@ const lessons: Lessons[] = [
           fr: "ENS - Ethereum Name Service",
         },
         description: {
-          en: "Learn about the Ethereum Name Service.",
-          fr: "Apprenez sur l'Ethereum Name Service.",
+          en: "ENS is a decentralized domain name service.",
+          fr: "ENS est un service de nom de domaine décentralisé.",
         },
         href: "/web3/ens",
         tier: {
@@ -554,6 +554,25 @@ const lessons: Lessons[] = [
         quizId: 30,
         available: true,
       },
+      {
+        title: {
+          en: "IPFS - InterPlanetary File System",
+          fr: "IPFS - InterPlanetary File System",
+        },
+        description: {
+          en: "IPFS is the backbone of the decentralized web.",
+          fr: "IPFS est la colonne vertébrale du web décentralisé.",
+        },
+        href: "/web3/ipfs",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 31,
+        available: true,
+      },
     ],
   },
   {
@@ -562,8 +581,8 @@ const lessons: Lessons[] = [
       {
         title: { en: "Day Trading", fr: "Day Trading" },
         description: {
-          en: "Discover the notion of Day Trading.",
-          fr: "Découvrez la notion de Day Trading.",
+          en: "Day Trading is a trading style that involves opening and closing positions within the same day.",
+          fr: "Le Day Trading est un style de trading qui consiste à ouvrir et fermer des positions dans la même journée.",
         },
         href: "/trading/day-trading",
         tier: {
@@ -581,8 +600,8 @@ const lessons: Lessons[] = [
           fr: "5 Biais Cognitifs",
         },
         description: {
-          en: "Learn about the 5 cognitive biases.",
-          fr: "Apprenez sur les 5 biais cognitifs.",
+          en: "Main cognitive biases that can affect your trading decisions.",
+          fr: "Les principaux biais cognitifs qui peuvent affecter vos décisions de trading.",
         },
         href: "/trading/5-cognitive-biases",
         tier: {
@@ -605,8 +624,8 @@ const lessons: Lessons[] = [
           fr: "Dollar Cost Averaging",
         },
         description: {
-          en: "Learn about the Dollar Cost Averaging.",
-          fr: "Apprenez sur le Dollar Cost Averaging.",
+          en: "DCA is an investment strategy that involves buying a fixed dollar amount of a particular investment on a regular schedule.",
+          fr: "Le DCA est une stratégie d'investissement qui consiste à acheter un montant fixe d'un investissement particulier à intervalles réguliers.",
         },
         href: "/investing/dollar-cost-averaging",
         tier: {
