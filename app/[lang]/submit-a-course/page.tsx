@@ -186,7 +186,6 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                submit();
               }}
               className="w-full"
             >
@@ -427,15 +426,20 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 onClick={() => handlePrevious()}
                 value={lang === "en" ? "Previous" : "Précédent"}
                 className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-              />
+              >
+                {lang === "en" ? "Previous" : "Précédent"}
+              </button>
               {currentPage >= 3 ? (
                 <>
                   <button
                     type="submit"
                     value={lang === "en" ? "Submit" : "Soumettre"}
                     disabled={currentPage < 3 || isLoading}
+                    onClick={() => submit()}
                     className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-                  />
+                  >
+                    {lang === "en" ? "Submit" : "Soumettre"}
+                  </button>
                 </>
               ) : (
                 <>
@@ -444,7 +448,9 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     onClick={() => handleNext()}
                     value={lang === "en" ? "Next" : "Suivant"}
                     className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-                  />
+                  >
+                    {lang === "en" ? "Next" : "Suivant"}
+                  </button>
                 </>
               )}
             </div>
