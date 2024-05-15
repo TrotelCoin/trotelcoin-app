@@ -44,6 +44,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [tx, setTx] = useState<string | null>(null);
   const [jsonError, setJsonError] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<boolean>(false);
+  const [addressError, setAddressError] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -74,6 +75,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const createCourseJson = () => {
     const courseJson: CourseJSON = {
+      creator: address as Address,
       title: title as string,
       description: description as string,
       category: category,
@@ -111,8 +113,15 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     // check if json is available
 
+    if (!address) {
+      setAddressError(true);
+      setIsLoading(false);
+      return;
+    }
+
     if (!json) {
       setJsonError(true);
+      setIsLoading(false);
       return;
     }
 
@@ -461,6 +470,17 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         }
         onClose={() => setUploadError(false)}
         show={uploadError}
+      />
+      <Fail
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "Your wallet seems to be disconnected."
+            : "Votre portefeuille semble être déconnecté."
+        }
+        onClose={() => setAddressError(false)}
+        show={addressError}
       />
     </>
   );
