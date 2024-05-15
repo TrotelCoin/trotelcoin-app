@@ -43,6 +43,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [tx, setTx] = useState<string | null>(null);
   const [jsonError, setJsonError] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -89,14 +90,19 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
     try {
       const data = new FormData();
       data.set("file", file);
+
       const res = await fetch(`/api/files?title=${title}`, {
         method: "POST",
         body: data,
       });
+
       const resData = await res.json();
       setCid(resData.IpfsHash);
+
+      return resData.IpfsHash;
     } catch (error) {
       console.error(error);
+      setUploadError(true);
     }
   };
 
@@ -112,17 +118,13 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     // pay the fee
 
-    // upload to ipfs
+    // upload to ipfs and get the cid
 
     const file = new File([JSON.stringify(json)], "course.json", {
       type: "application/json",
     });
 
-    await uploadFile(file);
-
-    setCid(cid as string);
-
-    // get the cid
+    const cid = await uploadFile(file);
 
     // submit to the blockchain (json and cid)
 
@@ -448,6 +450,17 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         }
         onClose={() => setJsonError(false)}
         show={jsonError}
+      />
+      <Fail
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "An error occured while uploading the file. Please try again."
+            : "Une erreur est survenue lors de l'envoi du fichier. Veuillez réessayer."
+        }
+        onClose={() => setUploadError(false)}
+        show={uploadError}
       />
     </>
   );
