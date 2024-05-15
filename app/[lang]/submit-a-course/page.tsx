@@ -446,7 +446,8 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             ? "An error occured with the JSON file. Check that you filled every field correctly."
             : "Une erreur est survenue avec le fichier JSON. Vérifiez que vous avez bien rempli chaque champ."
         }
-        onClose={() => setShowError(false)}
+        onClose={() => setJsonError(false)}
+        show={jsonError}
       />
     </>
   );
