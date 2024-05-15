@@ -113,7 +113,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
       type: "application/json",
     });
 
-    uploadFile(file);
+    await uploadFile(file);
 
     setCid(cid as string);
 
