@@ -183,167 +183,175 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : (
           <>
-            {currentPage === 0 && (
-              <div className="flex flex-col w-full">
-                <div className="flex flex-col gap-2">
-                  <span className="text-4xl font-semibold">
-                    {lang === "en"
-                      ? "Let's start with some informations."
-                      : "Commençons par quelques informations."}
-                  </span>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    {lang === "en" ? (
-                      <>
-                        Learn more about submitting a course by clicking{" "}
-                        <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                          target="_blank"
-                        >
-                          here
-                        </Link>
-                        .
-                      </>
-                    ) : (
-                      <>
-                        Apprenez-en plus sur comment proposer un cours en
-                        cliquant{" "}
-                        <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                          target="_blank"
-                        >
-                          ici
-                        </Link>
-                        .
-                      </>
-                    )}
-                  </span>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                submit();
+              }}
+              className="w-full"
+            >
+              {currentPage === 0 && (
+                <div className="flex flex-col w-full">
+                  <div className="flex flex-col gap-2">
+                    <span className="text-4xl font-semibold">
+                      {lang === "en"
+                        ? "Let's start with some informations."
+                        : "Commençons par quelques informations."}
+                    </span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en" ? (
+                        <>
+                          Learn more about submitting a course by clicking{" "}
+                          <Link
+                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                            target="_blank"
+                          >
+                            here
+                          </Link>
+                          .
+                        </>
+                      ) : (
+                        <>
+                          Apprenez-en plus sur comment proposer un cours en
+                          cliquant{" "}
+                          <Link
+                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                            target="_blank"
+                          >
+                            ici
+                          </Link>
+                          .
+                        </>
+                      )}
+                    </span>
 
-                  <div className="flex flex-col mt-8">
-                    <BasicInformations
-                      address={address as Address}
-                      lang={lang}
-                      title={title as string}
-                      setTitle={setTitle}
-                      description={description as string}
-                      setDescription={setDescription}
-                      category={category}
-                      setCategory={setCategory}
-                      subcategory={subcategory}
-                      setSubcategory={setSubcategory}
-                      tier={tier}
-                      setTier={setTier}
-                      setError={setError}
-                      showError={showError}
-                      setShowError={setShowError}
-                    />
+                    <div className="flex flex-col mt-8">
+                      <BasicInformations
+                        address={address as Address}
+                        lang={lang}
+                        title={title as string}
+                        setTitle={setTitle}
+                        description={description as string}
+                        setDescription={setDescription}
+                        category={category}
+                        setCategory={setCategory}
+                        subcategory={subcategory}
+                        setSubcategory={setSubcategory}
+                        tier={tier}
+                        setTier={setTier}
+                        setError={setError}
+                        showError={showError}
+                        setShowError={setShowError}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {currentPage === 1 && (
-              <div className="flex flex-col w-full">
-                <div className="flex flex-col gap-2">
-                  <span className="text-4xl font-semibold">
-                    {lang === "en"
-                      ? "It is now time to build the course."
-                      : "Il est désormais temps de construire le cours."}
-                  </span>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    {lang === "en" ? (
-                      <>
-                        Learn more about submitting a course by clicking{" "}
-                        <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                          target="_blank"
-                        >
-                          here
-                        </Link>
-                        .
-                      </>
-                    ) : (
-                      <>
-                        Apprenez-en plus sur comment proposer un cours en
-                        cliquant{" "}
-                        <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                          target="_blank"
-                        >
-                          ici
-                        </Link>
-                        .
-                      </>
-                    )}
-                  </span>
+              {currentPage === 1 && (
+                <div className="flex flex-col w-full">
+                  <div className="flex flex-col gap-2">
+                    <span className="text-4xl font-semibold">
+                      {lang === "en"
+                        ? "It is now time to build the course."
+                        : "Il est désormais temps de construire le cours."}
+                    </span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en" ? (
+                        <>
+                          Learn more about submitting a course by clicking{" "}
+                          <Link
+                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                            target="_blank"
+                          >
+                            here
+                          </Link>
+                          .
+                        </>
+                      ) : (
+                        <>
+                          Apprenez-en plus sur comment proposer un cours en
+                          cliquant{" "}
+                          <Link
+                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                            target="_blank"
+                          >
+                            ici
+                          </Link>
+                          .
+                        </>
+                      )}
+                    </span>
 
-                  <div className="flex flex-col mt-8">
-                    <CourseData
-                      lang={lang}
-                      course={course as SubmitCourseData[]}
-                      setCourse={setCourse}
-                      setError={setError}
-                      showError={showError}
-                      setShowError={setShowError}
-                    />
+                    <div className="flex flex-col mt-8">
+                      <CourseData
+                        lang={lang}
+                        course={course as SubmitCourseData[]}
+                        setCourse={setCourse}
+                        setError={setError}
+                        showError={showError}
+                        setShowError={setShowError}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {currentPage === 2 && (
-              <div className="flex flex-col w-full">
-                <div className="flex flex-col gap-2">
-                  <span className="text-4xl font-semibold">
-                    {lang === "en"
-                      ? "Finally, let's build the quiz."
-                      : "Finalement, construisons le quiz."}
-                  </span>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    {lang === "en" ? (
-                      <>
-                        Learn more about submitting a course by clicking{" "}
-                        <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                          target="_blank"
-                        >
-                          here
-                        </Link>
-                        .
-                      </>
-                    ) : (
-                      <>
-                        Apprenez-en plus sur comment proposer un cours en
-                        cliquant{" "}
-                        <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
-                          href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
-                          target="_blank"
-                        >
-                          ici
-                        </Link>
-                        .
-                      </>
-                    )}
-                  </span>
+              {currentPage === 2 && (
+                <div className="flex flex-col w-full">
+                  <div className="flex flex-col gap-2">
+                    <span className="text-4xl font-semibold">
+                      {lang === "en"
+                        ? "Finally, let's build the quiz."
+                        : "Finalement, construisons le quiz."}
+                    </span>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                      {lang === "en" ? (
+                        <>
+                          Learn more about submitting a course by clicking{" "}
+                          <Link
+                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                            target="_blank"
+                          >
+                            here
+                          </Link>
+                          .
+                        </>
+                      ) : (
+                        <>
+                          Apprenez-en plus sur comment proposer un cours en
+                          cliquant{" "}
+                          <Link
+                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
+                            target="_blank"
+                          >
+                            ici
+                          </Link>
+                          .
+                        </>
+                      )}
+                    </span>
 
-                  <div className="flex flex-col mt-8">
-                    <QuizData
-                      lang={lang}
-                      quiz={quiz}
-                      setQuiz={setQuiz}
-                      setError={setError}
-                      showError={showError}
-                      setShowError={setShowError}
-                    />
+                    <div className="flex flex-col mt-8">
+                      <QuizData
+                        lang={lang}
+                        quiz={quiz}
+                        setQuiz={setQuiz}
+                        setError={setError}
+                        showError={showError}
+                        setShowError={setShowError}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </form>
 
             {currentPage === 3 && (
               <div className="flex flex-col w-full">
@@ -417,31 +425,26 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <button
                 disabled={currentPage <= 0}
                 onClick={() => handlePrevious()}
+                value={lang === "en" ? "Previous" : "Précédent"}
                 className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-              >
-                {lang === "en" ? "Previous" : "Précédent"}
-              </button>
+              />
               {currentPage >= 3 ? (
                 <>
                   <button
+                    type="submit"
+                    value={lang === "en" ? "Submit" : "Soumettre"}
                     disabled={currentPage < 3 || isLoading}
-                    onClick={() => submit()}
                     className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-                  >
-                    <span className={`${isLoading && loadingFlashClass}`}>
-                      {lang === "en" ? "Submit" : "Soumettre"}
-                    </span>
-                  </button>
+                  />
                 </>
               ) : (
                 <>
                   <button
                     disabled={currentPage >= 3}
                     onClick={() => handleNext()}
+                    value={lang === "en" ? "Next" : "Suivant"}
                     className="flex border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
-                  >
-                    {lang === "en" ? "Next" : "Suivant"}
-                  </button>
+                  />
                 </>
               )}
             </div>

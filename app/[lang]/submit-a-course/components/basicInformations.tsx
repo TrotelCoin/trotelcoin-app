@@ -2,7 +2,7 @@ import { Category, Subcategory } from "@/types/courses/categories";
 import { Tiers } from "@/types/premium/premium";
 import { Lang } from "@/types/language/lang";
 import { RadioGroup } from "@headlessui/react";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { categories } from "@/data/courses/categories";
 import { Address } from "viem";
 import Required from "@/app/[lang]/submit-a-course/components/required";
