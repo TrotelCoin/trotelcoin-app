@@ -18,8 +18,9 @@ const PreviewCourseData = ({
             ? "Here are the details that will be submitted to the blockchain."
             : "Voici les informations qui seront soumises à la blockchain."}
         </span>
+
         <CodeBlock code={JSON.stringify(json, null, 2)} language="json">
-          <CodeBlock.Code className="bg-gray-900 dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-900/10 dark:border-gray-100/10">
+          <CodeBlock.Code className="bg-gray-900 dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-900/10 dark:border-gray-100/10 break-words">
             <div className="table-row">
               <CodeBlock.LineNumber className="table-cell pr-4 text-sm text-gray-500 text-right select-none" />
               <CodeBlock.LineContent className="table-cell">
