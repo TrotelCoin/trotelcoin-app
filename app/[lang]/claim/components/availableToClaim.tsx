@@ -18,7 +18,7 @@ const AvailableToClaim = ({
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
           {availableToClaim && !claimed && typeof availableToClaim === "number"
-            ? availableToClaim.toFixed(2).toLocaleString()
+            ? availableToClaim.toFixed(0).toLocaleString()
             : "0"}{" "}
           <span className="font-semibold">TROTEL</span>
         </div>
