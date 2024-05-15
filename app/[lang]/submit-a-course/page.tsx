@@ -14,6 +14,7 @@ import QuizData from "@/app/[lang]/submit-a-course/components/quizData";
 import type { CourseJSON, SubmitCourseData } from "@/types/courses/courses";
 import PreviewCourseData from "@/app/[lang]/submit-a-course/components/preview";
 import { loadingFlashClass } from "@/style/loading";
+import Fail from "@/app/[lang]/components/modals/fail";
 
 const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -41,6 +42,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [cid, setCid] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [tx, setTx] = useState<string | null>(null);
+  const [jsonError, setJsonError] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -104,8 +106,11 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
     // check if json is available
 
     if (!json) {
+      setJsonError(true);
       return;
     }
+
+    // pay the fee
 
     // upload to ipfs
 
@@ -432,6 +437,17 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         )}
       </div>
+
+      <Fail
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "An error occured with the JSON file. Check that you filled every field correctly."
+            : "Une erreur est survenue avec le fichier JSON. Vérifiez que vous avez bien rempli chaque champ."
+        }
+        onClose={() => setShowError(false)}
+      />
     </>
   );
 };
