@@ -34,7 +34,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
+      <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
         <div className="flex gap-2 items-center justify-between p-4">
           <h3>{lang === "en" ? "Your rewards" : "Vos récompenses"}</h3>
           <div className="flex gap-2 items-center">
