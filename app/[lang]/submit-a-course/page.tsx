@@ -87,7 +87,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
     try {
       const data = new FormData();
       data.set("file", file);
-      const res = await fetch("/api/files", {
+      const res = await fetch(`/api/files?title=${title}`, {
         method: "POST",
         body: data,
       });
