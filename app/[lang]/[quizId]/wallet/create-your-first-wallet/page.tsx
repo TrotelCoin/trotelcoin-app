@@ -24,7 +24,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
       {
         title: "Tutorial",
-        text: <YouTube videoId={videoId} opts={opts} className="w-full" />,
+        text: <YouTube videoId={videoId} opts={opts} />,
         video: true,
       },
       {

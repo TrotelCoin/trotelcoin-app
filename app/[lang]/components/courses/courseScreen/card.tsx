@@ -47,7 +47,7 @@ const Card = ({
       </span>
       {video ? (
         <>
-          <div className="flex items-center justify-center w-full mt-4">
+          <div className="flex items-center justify-center w-[320px] md:w-[640px] mt-4">
             {text}
           </div>
         </>
