@@ -153,7 +153,9 @@ const StakingData = ({ lang }: { lang: Lang }) => {
             {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
           </span>
           <div className="flex items-center gap-1">
-            {Number(earnedTrotelCoins).toLocaleString("en-US")}{" "}
+            {Number(Number(earnedTrotelCoins).toFixed(0)).toLocaleString(
+              "en-US"
+            )}{" "}
             <TrotelCoinLogo />
           </div>
         </div>
