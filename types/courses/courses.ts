@@ -2,6 +2,7 @@ import type { LanguageStrings } from "@/types/language/lang";
 import type { Category, Subcategory } from "@/types/courses/categories";
 import type { Tiers } from "@/types/premium/premium";
 import { SubmitQuizData } from "@/types/courses/quiz";
+import { Address } from "viem";
 
 export interface Course {
   title: LanguageStrings;
@@ -21,6 +22,7 @@ export type SubmitCourseData = {
 };
 
 export type CourseJSON = {
+  creator: Address;
   title: string;
   description: string;
   category: Category;

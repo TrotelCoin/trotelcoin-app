@@ -15,12 +15,18 @@ export const dynamic = "force-dynamic";
  * @returns {string} IpfsHash - The IPFS hash of the uploaded file.
  * @example response - 200 - application/json
  */
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest, response: NextResponse) {
+  const { searchParams } = new URL(request.url);
+  const title: string = searchParams.get("title") ?? "Untitled";
+
   try {
     const data = await request.formData();
     const file: File | null = data.get("file") as unknown as File;
     data.append("file", file);
-    data.append("pinataMetadata", JSON.stringify({ name: "File to upload" }));
+    data.append(
+      "pinataMetadata",
+      JSON.stringify({ name: `TrotelCoin | ${title}` })
+    );
     const res = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
       method: "POST",
       headers: {

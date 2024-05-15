@@ -86,6 +86,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- ENS - Ethereum Name Service"
               : "- ENS - Ethereum Name Service",
         },
+        {
+          text:
+            lang === "en"
+              ? "- IPFS - InterPlanetary File System"
+              : "- IPFS - InterPlanetary File System",
+        },
       ],
     },
     {

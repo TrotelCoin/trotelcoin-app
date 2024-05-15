@@ -2796,6 +2796,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 31,
+    title: "IPFS - InterPlanetary File System",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What does IPFS stand for?",
+          fr: "Que signifie IPFS ?",
+        },
+        options: {
+          en: [
+            "InterPlanetary File System",
+            "Internet Protocol File Storage",
+            "Integrated Personal File System",
+            "International Protocol File Server",
+          ],
+          fr: [
+            "Système de Fichier InterPlanétaire",
+            "Stockage de Fichiers par Protocole Internet",
+            "Système de Fichiers Personnel Intégré",
+            "Serveur de Fichiers par Protocole International",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How are files stored in IPFS?",
+          fr: "Comment les fichiers sont-ils stockés dans IPFS ?",
+        },
+        options: {
+          en: [
+            "By dividing them into pieces and storing on different nodes",
+            "By encrypting them and storing on centralized servers",
+            "By compressing them and storing on cloud servers",
+            "By converting them into binary code and storing on blockchain",
+          ],
+          fr: [
+            "En les divisant en morceaux et en les stockant sur différents nœuds",
+            "En les cryptant et en les stockant sur des serveurs centralisés",
+            "En les compressant et en les stockant sur des serveurs cloud",
+            "En les convertissant en code binaire et en les stockant sur la blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "How do you find a file in IPFS?",
+          fr: "Comment retrouver un fichier dans IPFS ?",
+        },
+        options: {
+          en: [
+            "By knowing its hash",
+            "By searching for its URL",
+            "By entering its filename",
+            "By using its encryption key",
+          ],
+          fr: [
+            "En connaissant son hash",
+            "En recherchant son URL",
+            "En entrant son nom de fichier",
+            "En utilisant sa clé de cryptage",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is the main advantage of using IPFS?",
+          fr: "Quel est le principal avantage d'utiliser IPFS ?",
+        },
+        options: {
+          en: [
+            "Decentralized file storage",
+            "Centralized file storage",
+            "Faster data transfer speed",
+            "Higher encryption level",
+          ],
+          fr: [
+            "Stockage de fichiers décentralisé",
+            "Stockage de fichiers centralisé",
+            "Vitesse de transfert de données plus rapide",
+            "Niveau de cryptage plus élevé",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
