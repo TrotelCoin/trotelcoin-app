@@ -127,7 +127,9 @@ const Course = ({
             className="flex justify-center items-center mx-8"
             style={{ height: "calc(100vh - 185px)" }}
           >
-            <div className="max-w-xl mx-auto text-center w-full">
+            <div
+              className={`max-w-xl flex flex-col gap-2 justify-stretch items-center mx-auto text-center w-full`}
+            >
               {lang === "en" ? (
                 <Card
                   title={cards.en[currentCardIndex].title}

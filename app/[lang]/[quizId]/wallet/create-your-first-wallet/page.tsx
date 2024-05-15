@@ -9,8 +9,8 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const videoId = "SJx8FaoS-AU";
 
   const opts = {
-    height: "390",
-    width: "640",
+    height: "100%",
+    width: "100%",
     playerVars: {
       autoplay: 1,
     },
@@ -24,7 +24,9 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
       {
         title: "Tutorial",
-        text: <YouTube videoId={videoId} opts={opts} />,
+        text: (
+          <YouTube videoId={videoId} opts={opts} className="w-full h-full" />
+        ),
         video: true,
       },
       {
@@ -168,7 +170,10 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       },
       {
         title: "Tutoriel",
-        text: <YouTube videoId={videoId} opts={opts} />,
+        text: (
+          <YouTube videoId={videoId} opts={opts} className="w-full h-full" />
+        ),
+        video: true,
       },
       {
         title: "Portefeuilles chauds",
