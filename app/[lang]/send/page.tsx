@@ -220,7 +220,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
               {lang === "en" ? "Balance" : "Solde"}
               <span>
                 {balance ? (
-                  <span>{Number(balance?.formatted).toFixed(2)}</span>
+                  <span>{Number(balance?.formatted).toFixed(0)}</span>
                 ) : (
                   <span>0</span>
                 )}{" "}

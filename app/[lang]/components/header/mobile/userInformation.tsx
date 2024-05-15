@@ -55,7 +55,7 @@ const UserInformationMobile = ({
             x{multipliers} 🤑
           </div>
           <div className="flex items-center gap-1">
-            {Number(userTotalRewardsPending.toFixed(2)).toLocaleString("en-US")}{" "}
+            {Number(userTotalRewardsPending.toFixed(0)).toLocaleString("en-US")}{" "}
             <TrotelCoinLogo />
           </div>
           <div className="flex items-center">
