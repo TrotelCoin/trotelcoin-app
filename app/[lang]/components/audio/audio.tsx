@@ -29,7 +29,7 @@ const AudioComponent = () => {
         }}
       />
       <button
-        className="p-2 rounded-full bg-white dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+        className="p-2 rounded-full bg-gray-50 dark:bg-gray-900 focus:bg-gray-50 dark:focus:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
         onClick={toggleAudio}
       >
         {isPlaying ? (

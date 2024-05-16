@@ -17,12 +17,12 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
         onValueChange={setVersion}
         className="mx-auto flex flex-col max-w-md justify-center w-full items-center"
       >
-        <Tabs.List className="flex items-center gap-2 justify-between bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full backdrop-blur-xl p-2 w-full font-semibold text-gray-900 dark:text-gray-100">
+        <Tabs.List className="flex items-center gap-2 justify-between bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full backdrop-blur-xl p-2 w-full font-semibold text-gray-900 dark:text-gray-100">
           <Tabs.Trigger
             value={"v1" as StakingVersion}
             className={`mx-auto w-full flex items-center focus:outline-none justify-center p-2 rounded-full ${
               version === "v1"
-                ? "bg-gray-900 dark:bg-white shadow-xl text-gray-100 dark:text-gray-900"
+                ? "bg-gray-900 dark:bg-gray-50 shadow-xl text-gray-100 dark:text-gray-900"
                 : "hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
@@ -32,7 +32,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
             value={"v2" as StakingVersion}
             className={`mx-auto w-full flex items-center focus:outline-none justify-center p-2 rounded-full ${
               version === "v2"
-                ? "bg-gray-900 dark:bg-white shadow-xl text-gray-100 dark:text-gray-900"
+                ? "bg-gray-900 dark:bg-gray-50 shadow-xl text-gray-100 dark:text-gray-900"
                 : "hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >

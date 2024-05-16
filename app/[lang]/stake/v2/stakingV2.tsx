@@ -114,7 +114,7 @@ const StakingV2 = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="w-full flex flex-col flex-wrap bg-gray-50 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="px-4 flex flex-col gap-4">
             <span className="text-4xl font-bold text-green-500 dark:text-green-300">
               {APR}%{" "}
@@ -143,7 +143,7 @@ const StakingV2 = ({ lang }: { lang: Lang }) => {
           </div>
         </div>
 
-        <div className="w-full mt-4 flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="w-full mt-4 flex flex-col flex-wrap bg-gray-50 border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="px-4 pb-4">
             <StakingData lang={lang} />
           </div>

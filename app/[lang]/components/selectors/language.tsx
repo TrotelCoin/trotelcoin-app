@@ -49,7 +49,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
           side="bottom"
           align="end"
           sideOffset={10}
-          className="rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 shadow-lg w-40 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
+          className="rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 shadow-lg w-40 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
         >
           <div className="p-2">
             {languages.map((language, index) => (

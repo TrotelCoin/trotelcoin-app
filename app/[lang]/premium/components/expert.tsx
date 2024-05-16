@@ -160,7 +160,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
         className="h-full"
       >
         <div
-          className={`overflow-hidden h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 ${
+          className={`overflow-hidden h-full flex items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-800 ${
             isClaimed
               ? "rainbow-border"
               : "border border-gray-900/10 dark:border-gray-100/10"

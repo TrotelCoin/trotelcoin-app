@@ -38,7 +38,7 @@ const AccountMobile = ({
             <div className="relative">
               <div
                 className={`flex flex-col border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 active:border-blue-500 dark:active:border-blue-500
-               bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10`}
+               bg-gray-50 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10`}
               >
                 <div className="flex gap-2 items-center justify-between p-4">
                   <div className="flex gap-2 items-center">
@@ -68,7 +68,7 @@ const AccountMobile = ({
         <>
           <div className="relative">
             <div
-              className={`flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10`}
+              className={`flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-gray-50 dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10`}
             >
               <div className="flex gap-2 items-center justify-between p-4">
                 <div className="flex gap-2 items-center">

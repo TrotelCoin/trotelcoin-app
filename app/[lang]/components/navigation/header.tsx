@@ -59,7 +59,7 @@ const Header = ({ lang }: { lang: Lang }) => {
   ];
 
   return (
-    <header className="bg-gray-50 dark:bg-gray-900">
+    <header className="bg-white dark:bg-gray-900">
       {/* Navigation */}
       <nav
         className="mx-auto flex items-center justify-between md:gap-x-8 p-6 lg:px-8"
@@ -86,7 +86,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          <div className="bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-80">
+          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-80">
             {isLoggedIn ? (
               <UserInformationMobile
                 lang={lang}
@@ -115,7 +115,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               "text-gray-100 hover:text-white text-sm font-semibold leading-6 py-1 px-4 rounded-full";
 
             const dynamicClasses =
-              "bg-white dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
+              "bg-gray-50 dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
 
             return (
               <Link
@@ -169,7 +169,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
       </nav>
 
-      <div className="bg-white dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
+      <div className="bg-gray-50 dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
         {isLoggedIn ? (
           <UserInformationMobile
             lang={lang}
@@ -205,7 +205,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                     leaveTo="translate-x-full"
                   >
                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-50 dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
+                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
                         <div className="flex items-center gap-x-6">
                           <div className="p-1">
                             <Dialog.Title className="font-bold text-gray-900 dark:text-gray-100 text-2xl">

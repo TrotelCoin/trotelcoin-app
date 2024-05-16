@@ -104,7 +104,7 @@ const BasicInformations = ({
             type="text"
             disabled={true}
             value={address ?? "Not connected"}
-            className="rounded-xl text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10"
+            className="rounded-xl text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10"
           />
         </div>
 
@@ -123,7 +123,7 @@ const BasicInformations = ({
               setTitle(e.target.value);
             }}
             value={title}
-            className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+            className="rounded-xl bg-gray-50 dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
           />
         </div>
 
@@ -146,7 +146,7 @@ const BasicInformations = ({
               setDescription(e.target.value);
             }}
             value={description}
-            className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+            className="rounded-xl bg-gray-50 dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
           />
         </div>
 
@@ -171,7 +171,7 @@ const BasicInformations = ({
                       className={`cursor-pointer text-sm ${
                         checked
                           ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                          : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
+                          : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                       } rounded-xl backdrop-blur-xl py-1 px-2 text-center`}
                     >
                       {category.category}
@@ -205,7 +205,7 @@ const BasicInformations = ({
                         className={`cursor-pointer text-sm ${
                           checked
                             ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                            : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
+                            : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                         } rounded-xl backdrop-blur-xl py-1 px-2 text-center`}
                       >
                         {subcategory}
@@ -243,7 +243,7 @@ const BasicInformations = ({
                   className={`cursor-pointer ${
                     checked
                       ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                      : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
+                      : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                   } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
                 >
                   {lang === "en" ? "Beginner 🐣" : "Débutant 🐣"}
@@ -256,7 +256,7 @@ const BasicInformations = ({
                   className={`cursor-pointer ${
                     checked
                       ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                      : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
+                      : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                   } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
                 >
                   {lang === "en" ? "Intermediate 🙈" : "Intermédiaire 🙈"}
@@ -269,7 +269,7 @@ const BasicInformations = ({
                   className={`cursor-pointer ${
                     checked
                       ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                      : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
+                      : "bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
                   } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
                 >
                   {lang === "en" ? "Expert 🦊" : "Expert 🦊"}

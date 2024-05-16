@@ -29,7 +29,7 @@ const VocabularyPage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {randomVocabulary.map((item: VocabularyItem, index: number) => (
             <SwiperSlide
               key={index}
-              className="flex flex-col justify-center items-center rounded-xl bg-white dark:bg-gray-800 shadow-xl border border-gray-900/10 dark:border-gray-100/10"
+              className="flex flex-col justify-center items-center rounded-xl bg-gray-50 dark:bg-gray-800 shadow-xl border border-gray-900/10 dark:border-gray-100/10"
             >
               <span className="text-xs font-bold text-gray-900 dark:text-gray-100 top-0 right-0 m-4 absolute">
                 {index + 1} / 10
