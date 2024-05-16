@@ -145,7 +145,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </span>
             <button
               onClick={() => handleRefresh()}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full"
+              className="p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full"
             >
               <ArrowPathIcon
                 className={`w-5 h-5 text-gray-900 dark:text-gray-100 ${
@@ -168,8 +168,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                             onClick={() => setCategory(cat as ShopCategories)}
                             className={`${
                               category.id === cat.id
-                                ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-                                : "bg-white hover:bg-white dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                                ? "bg-gray-900 hover:bg-gray-900 dark:bg-gray-50 dark:hover:bg-gray-50 text-gray-300 dark:text-gray-700"
+                                : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
                             } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                           >
                             {cat.name}

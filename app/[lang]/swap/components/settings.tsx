@@ -52,7 +52,7 @@ const Settings = ({
             side="bottom"
             align="end"
             sideOffset={10}
-            className="max-w-xl flex shadow flex-col bg-white dark:bg-gray-800 divide-y divide-gray-900/10 dark:divide-gray-100/10 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl"
+            className="max-w-xl flex shadow flex-col bg-gray-50 dark:bg-gray-800 divide-y divide-gray-900/10 dark:divide-gray-100/10 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl"
           >
             <div className="px-4 py-4">
               <span className="text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -101,7 +101,7 @@ const Settings = ({
                       align="center"
                       sideOffset={5}
                     >
-                      <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 flex shadow-lg p-2 flex-col bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
+                      <div className="max-w-xl text-sm text-gray-700 dark:text-gray-300 flex shadow-lg p-2 flex-col bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl rounded-xl">
                         <Popover.Close asChild>
                           <ul className="hover:bg-gray-100 dark:hover:bg-gray-700 p-2 rounded-xl">
                             <button onClick={() => setSort("output")}>

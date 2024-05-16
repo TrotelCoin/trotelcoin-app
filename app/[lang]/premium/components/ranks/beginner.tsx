@@ -18,7 +18,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
         perspective={800}
       >
         <div
-          className={`overflow-hidden rounded-xl bg-white dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
+          className={`overflow-hidden rounded-xl bg-gray-50 dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center justify-between">

@@ -64,7 +64,7 @@ const renderCourses = (
         className="h-full"
       >
         <div
-          className={`rounded-xl h-full flex flex-col justify-between px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-white dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
+          className={`rounded-xl h-full flex flex-col justify-between px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-gray-50 dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
         >
           <div>
             <div className="flex">

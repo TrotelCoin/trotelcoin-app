@@ -172,7 +172,7 @@ const QuizData = ({
                 onChange={(e) => handleQuestionChange(index, e.target.value)}
                 value={question?.question}
                 maxLength={100}
-                className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+                className="rounded-xl bg-gray-50 dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
               />
             </div>
 
@@ -189,7 +189,7 @@ const QuizData = ({
                     className={`flex items-center gap-2 p-2 rounded-full w-10 h-10 border border-gray-900/10 dark:border-gray-100/10 ${
                       question.correctAnswer === questionIndex
                         ? "bg-blue-500 dark:bg-blue-300"
-                        : "bg-white dark:bg-gray-800"
+                        : "bg-gray-50 dark:bg-gray-800"
                     }`}
                   >
                     {question.correctAnswer === questionIndex && (
@@ -209,7 +209,7 @@ const QuizData = ({
                     }
                     value={option}
                     maxLength={200}
-                    className="rounded-xl w-full bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+                    className="rounded-xl w-full bg-gray-50 dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
                   />
                 </div>
               ))}

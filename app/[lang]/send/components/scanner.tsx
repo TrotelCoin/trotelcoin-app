@@ -31,7 +31,7 @@ const ScannerComponent = ({
         showScanner={showScanner}
         onClose={() => setShowScanner(false)}
       >
-        <Dialog.Panel className="w-full max-w-md mx-auto z-50 flex flex-col gap-2 bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <Dialog.Panel className="w-full max-w-md mx-auto z-50 flex flex-col gap-2 bg-gray-50 border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="flex flex-col items-start w-full">
             <div className="flex justify-between w-full">
               <span className="text-2xl font-bold">
