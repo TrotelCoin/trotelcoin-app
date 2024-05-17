@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, SVGProps } from "react";
+import { JSX, SVGProps, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Lang } from "@/types/language/lang";
@@ -38,6 +38,8 @@ const githubIcon = (
 );
 
 export default function Footer({ lang }: { lang: Lang }) {
+  const [hoveringLink, setHoveringLink] = useState<string | null>(null);
+
   const navigation = [
     {
       title: lang === "en" ? "TrotelCoin" : "TrotelCoin",
@@ -220,13 +222,20 @@ export default function Footer({ lang }: { lang: Lang }) {
                       <Link
                         href={item.href}
                         target={item.anotherWindow ? "_blank" : "_self"}
+                        onMouseEnter={() => setHoveringLink(item.name)}
+                        onMouseLeave={() => setHoveringLink(null)}
                         className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
                       >
                         {item.name}
                       </Link>
                     )}
                     {item.anotherWindow && (
-                      <span className="ml-1 text-gray-900 dark:text-gray-100">
+                      <span
+                        className={`ml-1 text-gray-900 dark:text-gray-100 duration-100 ${
+                          hoveringLink === item.name &&
+                          "translate-x-0.5 -translate-y-0.5 duration-100"
+                        }`}
+                      >
                         <ArrowUpRightIcon className="w-4 h-4" />
                       </span>
                     )}
