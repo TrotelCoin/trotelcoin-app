@@ -92,7 +92,7 @@ const Form = ({
                         <Link
                           key={index}
                           href={suggestion.href}
-                          className="bg-blue-500 text-sm md:text-base hover:bg-gray-900 dark:hover:bg-gray-100 rounded-xl text-gray-100 dark:hover:text-gray-900 px-3 py-2"
+                          className="z-50 bg-blue-500 text-sm md:text-base hover:bg-gray-900 dark:hover:bg-gray-100 rounded-xl text-gray-100 dark:hover:text-gray-900 px-3 py-2"
                         >
                           {suggestion.title}
                         </Link>
