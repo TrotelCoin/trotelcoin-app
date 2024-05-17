@@ -1,6 +1,8 @@
 import { Lessons } from "@/types/courses/lessons";
+import { Suggestion } from "@/types/courses/suggestion";
 import type { Lang } from "@/types/language/lang";
-import React from "react";
+import Link from "next/link";
+import React, { useEffect } from "react";
 
 const Form = ({
   lang,
@@ -13,6 +15,36 @@ const Form = ({
   searchTerm: string;
   filteredLessons: Lessons[];
 }) => {
+  const [suggestions, setSuggestions] = React.useState<Suggestion[]>([]);
+  const [isActive, setIsActive] = React.useState<boolean>(false);
+
+  const handleSuggestions = (): Suggestion[] => {
+    let suggestions: Suggestion[] = [];
+
+    filteredLessons.forEach((lesson) => {
+      const lessonSuggestions = lesson.courses.map((course) => {
+        switch (lang) {
+          case "en":
+            return { title: course.title.en, href: course.href };
+          case "fr":
+            return { title: course.title.fr, href: course.href };
+          default:
+            return { title: course.title.en, href: course.href };
+        }
+      });
+
+      suggestions = [...suggestions, ...lessonSuggestions];
+    });
+
+    return suggestions;
+  };
+
+  useEffect(() => {
+    const suggestions = handleSuggestions();
+
+    setSuggestions(suggestions.flat());
+  }, [filteredLessons]);
+
   return (
     <>
       <form className="mb-12 lg:mb-18">
@@ -34,12 +66,41 @@ const Form = ({
                 ? "What do you want to learn?"
                 : "Que voulez-vous apprendre ?"
             }
+            onFocus={() => setIsActive(true)}
+            onBlur={() => setIsActive(false)}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
               WebkitAppearance: "none",
               appearance: "none",
             }}
           />
+
+          {isActive && (
+            <div className="absolute flex flex-col mt-4 top-O divide-y divide-gray-900/10 dark:divide-gray-100/10 left-O w-full bg-gray-50 dark:bg-gray-800 shadow-xl rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+              {suggestions.length > 0 ? (
+                <>
+                  <span className="font-semibold text-xl text-gray-900 dark:text-gray-100 p-4">
+                    {lang === "en" ? "Suggestions" : "Suggestions"}
+                  </span>
+                  <div className="flex items-center flex-wrap gap-2 p-4">
+                    {suggestions.map((suggestion, index) => (
+                      <Link
+                        key={index}
+                        href={suggestion.href}
+                        className="bg-blue-500 text-sm md:text-base hover:bg-gray-900 dark:hover:bg-gray-100 rounded-xl text-gray-100 dark:hover:text-gray-900 px-3 py-2"
+                      >
+                        {suggestion.title}
+                      </Link>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <span className="font-semibold text-xl flex items-center justify-center text-center text-gray-900 dark:text-gray-100 p-32">
+                  {lang === "en" ? "No suggestions 🤷‍♂️" : "Aucune suggestion 🤷‍♂️"}
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </form>
     </>
