@@ -2886,6 +2886,97 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 32,
+    title: "The 5 Trading Rules",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the primary purpose of risk management in trading?",
+          fr: "Quel est le but principal de la gestion du risque en trading?",
+        },
+        options: {
+          en: [
+            "To protect your capital and avoid significant losses",
+            "To maximize your trade volume",
+            "To ensure quick profits",
+            "To eliminate all trading risks",
+          ],
+          fr: [
+            "Protéger votre capital et éviter des pertes importantes",
+            "Maximiser votre volume de trade",
+            "Assurer des profits rapides",
+            "Éliminer tous les risques de trading",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is the recommended maximum percentage of your capital to risk per trade?",
+          fr: "Quel est le pourcentage maximum recommandé de votre capital à risquer par trade?",
+        },
+        options: {
+          en: ["2%", "5%", "10%", "15%"],
+          fr: ["2%", "5%", "10%", "15%"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What does a Stop Loss order do?",
+          fr: "Que fait un ordre Stop Loss?",
+        },
+        options: {
+          en: [
+            "Limits losses by automatically selling a position",
+            "Increases profit by buying more shares",
+            "Closes a position at the highest price",
+            "Reopens a closed position",
+          ],
+          fr: [
+            "Limite les pertes en vendant automatiquement une position",
+            "Augmente le profit en achetant plus d'actions",
+            "Ferme une position au prix le plus élevé",
+            "Rouvre une position fermée",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is the benefit of diversification in trading?",
+          fr: "Quel est l'avantage de la diversification en trading?",
+        },
+        options: {
+          en: [
+            "Reduces the impact of a loss on your entire portfolio",
+            "Increases the chance of quick profits",
+            "Focuses your investment on a single asset",
+            "Eliminates all trading risks",
+          ],
+          fr: [
+            "Réduit l'impact d'une perte sur l'ensemble de votre portefeuille",
+            "Augmente la chance de profits rapides",
+            "Concentre votre investissement sur un seul actif",
+            "Élimine tous les risques de trading",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What risk/reward ratio is recommended to limit losses and maximize gains?",
+          fr: "Quel ratio risque/rendement est recommandé pour limiter les pertes et maximiser les gains?",
+        },
+        options: {
+          en: ["1:2", "1:1", "4:1", "1:3"],
+          fr: ["1:2", "1:1", "4:1", "1:3"],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
