@@ -354,8 +354,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "Introduction to NFTs",
-          fr: "Introduction aux NFTs",
+          en: "NFTs - Non-Fungible Tokens",
+          fr: "NFTs - Les Tokens Non Fongibles",
         },
         description: {
           en: "NFTs are unique digital assets that are stored on the blockchain.",
@@ -416,8 +416,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "Introduction to DAOs",
-          fr: "Introduction aux DAOs",
+          en: "DAOs - Decentralized Autonomous Organizations",
+          fr: "DAOs - Les Organisations Autonomes Décentralisées",
         },
         description: {
           en: "Decentralized Autonomous Organizations are a new way to build organizations.",
@@ -611,6 +611,25 @@ const lessons: Lessons[] = [
         sponsored: false,
         new: false,
         quizId: 27,
+        available: true,
+      },
+      {
+        title: {
+          en: "The 5 Trading Rules",
+          fr: "Les 5 Règles de Trading",
+        },
+        description: {
+          en: "The 5 trading rules that every trader should follow.",
+          fr: "Les 5 règles de trading que chaque trader devrait suivre.",
+        },
+        href: "/trading/5-trading-rules",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 32,
         available: true,
       },
     ],

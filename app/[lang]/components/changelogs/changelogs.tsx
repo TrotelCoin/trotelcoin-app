@@ -92,6 +92,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- IPFS - InterPlanetary File System"
               : "- IPFS - InterPlanetary File System",
         },
+        {
+          text:
+            lang === "en"
+              ? "- The 5 Trading Rules"
+              : "- Les 5 règles de trading",
+        },
       ],
     },
     {
