@@ -75,7 +75,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text:
             lang === "en"
               ? "- Dollar Cost Averaging"
-              : "- Dollar Cost Averaging",
+              : "- Le Dollar Cost Averaging",
         },
         {
           text: lang === "en" ? "- Airdrops" : "- Airdrops",

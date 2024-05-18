@@ -640,7 +640,7 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Dollar Cost Averaging",
-          fr: "Dollar Cost Averaging",
+          fr: "Le Dollar Cost Averaging",
         },
         description: {
           en: "DCA is an investment strategy that involves buying a fixed dollar amount of a particular investment on a regular schedule.",
