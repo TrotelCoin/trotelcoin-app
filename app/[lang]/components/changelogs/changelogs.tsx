@@ -98,6 +98,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- The 5 Trading Rules"
               : "- Les 5 règles de trading",
         },
+        {
+          text: lang === "en" ? "- USDC by Circle" : "- USDC par Circle",
+        },
       ],
     },
     {
