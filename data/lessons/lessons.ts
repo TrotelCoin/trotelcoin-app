@@ -495,6 +495,25 @@ const lessons: Lessons[] = [
         quizId: 26,
         available: true,
       },
+      {
+        title: {
+          en: "USDC by Circle",
+          fr: "USDC par Circle",
+        },
+        description: {
+          en: "USDC is a stablecoin that is pegged to the US dollar.",
+          fr: "USDC est un stablecoin qui est adossé au dollar américain.",
+        },
+        href: "/stablecoins/usdc-by-circle",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 33,
+        available: true,
+      },
     ],
   },
   {
@@ -640,7 +659,7 @@ const lessons: Lessons[] = [
       {
         title: {
           en: "Dollar Cost Averaging",
-          fr: "Dollar Cost Averaging",
+          fr: "Le Dollar Cost Averaging",
         },
         description: {
           en: "DCA is an investment strategy that involves buying a fixed dollar amount of a particular investment on a regular schedule.",

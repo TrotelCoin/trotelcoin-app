@@ -34,28 +34,38 @@ const QuizData = ({
     });
   };
 
+  const updateOptions = (
+    question: { question: string; options: string[]; correctAnswer: number },
+    i: number,
+    questionIndex: number,
+    optionIndex: number,
+    value: string
+  ) => {
+    if (i !== questionIndex) return question;
+
+    return {
+      ...question,
+      options: question.options.map((option: any, index: number) =>
+        index === optionIndex ? value : option
+      ),
+      correctAnswer: question.correctAnswer || 0,
+    };
+  };
+
   const handleOptionsChange = (
     questionIndex: number,
     optionIndex: number,
     value: string
   ) => {
     setQuiz((prev) => {
-      if (prev !== null) {
-        return {
-          ...prev,
-          questions: prev.questions.map((question, i) =>
-            i === questionIndex
-              ? {
-                  ...question,
-                  options: question.options.map((option, j) =>
-                    j === optionIndex ? value : option
-                  ),
-                }
-              : question
-          ),
-        };
-      }
-      return prev;
+      if (prev === null) return prev;
+
+      return {
+        ...prev,
+        questions: prev.questions.map((question, i) =>
+          updateOptions(question, i, questionIndex, optionIndex, value)
+        ),
+      };
     });
   };
 
@@ -129,6 +139,14 @@ const QuizData = ({
       setShowError(false);
     }
   }, [quiz]);
+
+  useEffect(() => {
+    if (quiz && quiz.questions.length > 0) {
+      localStorage.setItem("submit_course_quiz", JSON.stringify(quiz));
+    }
+  }, [quiz]);
+
+
 
   return (
     <>

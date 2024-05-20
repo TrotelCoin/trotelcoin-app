@@ -75,7 +75,7 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text:
             lang === "en"
               ? "- Dollar Cost Averaging"
-              : "- Dollar Cost Averaging",
+              : "- Le Dollar Cost Averaging",
         },
         {
           text: lang === "en" ? "- Airdrops" : "- Airdrops",
@@ -97,6 +97,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- The 5 Trading Rules"
               : "- Les 5 règles de trading",
+        },
+        {
+          text: lang === "en" ? "- USDC by Circle" : "- USDC par Circle",
         },
       ],
     },

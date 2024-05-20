@@ -81,6 +81,28 @@ const BasicInformations = ({
   };
 
   useEffect(() => {
+    if (title) {
+      localStorage.setItem("submit_course_title", title);
+    }
+
+    if (description) {
+      localStorage.setItem("submit_course_description", description);
+    }
+
+    if (category) {
+      localStorage.setItem("submit_course_category", category);
+    }
+
+    if (subcategory) {
+      localStorage.setItem("submit_course_subcategory", subcategory);
+    }
+
+    if (tier) {
+      localStorage.setItem("submit_course_tier", tier);
+    }
+  }, [title, description, category, subcategory, tier]);
+
+  useEffect(() => {
     if (!isInformationsError(title, description, category, subcategory, tier)) {
       setError(false);
       setShowError(false);

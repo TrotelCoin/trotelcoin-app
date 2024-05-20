@@ -86,6 +86,12 @@ const CourseData = ({
     }
   }, [course]);
 
+  useEffect(() => {
+    if (course && course.length > 0) {
+      localStorage.setItem("submit_course_course", JSON.stringify(course));
+    }
+  }, [course]);
+
   return (
     <>
       <div className="flex flex-col gap-8">

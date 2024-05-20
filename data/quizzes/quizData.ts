@@ -2977,6 +2977,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 33,
+    title: "USDC by Circle",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is USDC?",
+          fr: "Qu'est-ce que l'USDC ?",
+        },
+        options: {
+          en: [
+            "A stablecoin issued by Circle",
+            "A cryptocurrency mining tool",
+            "A blockchain technology",
+            "A type of financial service",
+          ],
+          fr: [
+            "Un stablecoin émis par Circle",
+            "Un outil de minage de cryptomonnaie",
+            "Une technologie blockchain",
+            "Un type de service financier",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "How is the value of USDC maintained?",
+          fr: "Comment la valeur de l'USDC est-elle maintenue ?",
+        },
+        options: {
+          en: [
+            "Based on a reserve of US dollars and US Treasury bonds",
+            "Through cryptocurrency mining",
+            "By government regulation",
+            "Using a decentralized network",
+          ],
+          fr: [
+            "Basée sur une réserve de dollars américains et de bons du Trésor américain",
+            "Par le minage de cryptomonnaies",
+            "Par la réglementation gouvernementale",
+            "En utilisant un réseau décentralisé",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What can you do with USDC?",
+          fr: "Que pouvez-vous faire avec l'USDC ?",
+        },
+        options: {
+          en: [
+            "Use it for stable, secure, and fast digital payments",
+            "Use it for long-term investments only",
+            "Mine other cryptocurrencies",
+            "Convert it into stocks",
+          ],
+          fr: [
+            "L'utiliser pour des paiements numériques stables, sécurisés et rapides",
+            "L'utiliser uniquement pour des investissements à long terme",
+            "Miner d'autres cryptomonnaies",
+            "Le convertir en actions",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Who manages USDC?",
+          fr: "Qui gère l'USDC ?",
+        },
+        options: {
+          en: [
+            "The Centre consortium, including Circle and Coinbase",
+            "A single central bank",
+            "A decentralized network of miners",
+            "A private investment firm",
+          ],
+          fr: [
+            "Le consortium Centre, incluant Circle et Coinbase",
+            "Une banque centrale unique",
+            "Un réseau décentralisé de mineurs",
+            "Une entreprise d'investissement privée",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

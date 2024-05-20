@@ -17,24 +17,49 @@ import { loadingFlashClass } from "@/style/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 
 const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
+  const storedTitle: string = localStorage.getItem(
+    "submit_course_title"
+  ) as string;
+  const storedDescription: string = localStorage.getItem(
+    "submit_course_description"
+  ) as string;
+  const storedCategory: Category = localStorage.getItem(
+    "submit_course_category"
+  ) as Category;
+  const storedSubcategory: Subcategory = localStorage.getItem(
+    "submit_course_subcategory"
+  ) as Subcategory;
+  const storedTier: Tiers = localStorage.getItem("submit_course_tier") as Tiers;
+  const storedCourse: SubmitCourseData[] = JSON.parse(
+    localStorage.getItem("submit_course_course") as string
+  ) as SubmitCourseData[];
+  const storedQuiz: SubmitQuizData = JSON.parse(
+    localStorage.getItem("submit_course_quiz") as string
+  ) as SubmitQuizData;
+
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [title, setTitle] = useState<string | undefined>(undefined);
-  const [description, setDescription] = useState<string | undefined>(undefined);
-  const [category, setCategory] = useState<Category>("Web3");
-  const [subcategory, setSubcategory] =
-    useState<Subcategory>("Cryptocurrencies");
-  const [tier, setTier] = useState<Tiers>("Beginner");
+  const [title, setTitle] = useState<string | undefined>(storedTitle);
+  const [description, setDescription] = useState<string | undefined>(
+    storedDescription
+  );
+  const [category, setCategory] = useState<Category>(storedCategory ?? "Web3");
+  const [subcategory, setSubcategory] = useState<Subcategory>(
+    storedSubcategory ?? "Cryptocurrencies"
+  );
+  const [tier, setTier] = useState<Tiers>(storedTier ?? "Beginner");
   const [course, setCourse] = useState<SubmitCourseData[] | null>(
-    Array(4).fill(null)
+    storedCourse ?? Array(4).fill(null)
   ); // only support text for now
-  const [quiz, setQuiz] = useState<SubmitQuizData>({
-    title: "",
-    questions: Array(4).fill({
-      question: null,
-      options: Array(4).fill(null),
-      correctAnswer: 0,
-    }),
-  });
+  const [quiz, setQuiz] = useState<SubmitQuizData>(
+    storedQuiz ?? {
+      title: "",
+      questions: Array(4).fill({
+        question: null,
+        options: Array(4).fill(null),
+        correctAnswer: 0,
+      }),
+    }
+  );
   const [error, setError] = useState<boolean>(false);
   const [showError, setShowError] = useState<boolean>(false);
   const [json, setJson] = useState<CourseJSON | null>(null);
@@ -138,6 +163,15 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
     // submit to the blockchain (json and cid)
 
     // show success message
+
+    // remove local storage
+    localStorage.removeItem("submit_course_title");
+    localStorage.removeItem("submit_course_description");
+    localStorage.removeItem("submit_course_category");
+    localStorage.removeItem("submit_course_subcategory");
+    localStorage.removeItem("submit_course_tier");
+    localStorage.removeItem("submit_course_course");
+    localStorage.removeItem("submit_course_quiz");
 
     setIsLoading(false);
     setSubmitted(true);
