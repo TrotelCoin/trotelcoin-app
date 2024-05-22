@@ -3067,6 +3067,117 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 34,
+    title: "Snapshot Protocol",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is Snapshot?",
+          fr: "Qu'est-ce que Snapshot ?",
+        },
+        options: {
+          en: [
+            "A decentralized governance tool for voting on proposals",
+            "A social media platform",
+            "A cryptocurrency exchange",
+            "A blockchain explorer",
+          ],
+          fr: [
+            "Un outil de gouvernance décentralisée pour voter sur des propositions",
+            "Une plateforme de médias sociaux",
+            "Un échange de cryptomonnaie",
+            "Un explorateur de blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Why is Snapshot important?",
+          fr: "Pourquoi Snapshot est-il important ?",
+        },
+        options: {
+          en: [
+            "It gives the community a voice in decision-making in a decentralized way",
+            "It offers free tokens to users",
+            "It tracks cryptocurrency prices",
+            "It provides technical analysis tools",
+          ],
+          fr: [
+            "Il donne la parole à la communauté pour prendre des décisions de manière décentralisée",
+            "Il offre des jetons gratuits aux utilisateurs",
+            "Il suit les prix des cryptomonnaies",
+            "Il fournit des outils d'analyse technique",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "Which projects use Snapshot?",
+          fr: "Quels projets utilisent Snapshot ?",
+        },
+        options: {
+          en: [
+            "Uniswap, Yearn Finance, Aave",
+            "Facebook, Google, Amazon",
+            "Microsoft, Apple, IBM",
+            "Tesla, SpaceX, Blue Origin",
+          ],
+          fr: [
+            "Uniswap, Yearn Finance, Aave",
+            "Facebook, Google, Amazon",
+            "Microsoft, Apple, IBM",
+            "Tesla, SpaceX, Blue Origin",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "How can users follow votes?",
+          fr: "Comment les utilisateurs peuvent-ils suivre les votes ?",
+        },
+        options: {
+          en: [
+            "By subscribing to spaces on the Snapshot website",
+            "By checking their email",
+            "Through a mobile app only",
+            "By attending weekly meetings",
+          ],
+          fr: [
+            "En s'abonnant à des espaces sur le site de Snapshot",
+            "En vérifiant leur e-mail",
+            "Uniquement via une application mobile",
+            "En assistant à des réunions hebdomadaires",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What can a project decide regarding vote privacy?",
+          fr: "Que peut décider un projet concernant la confidentialité des votes ?",
+        },
+        options: {
+          en: [
+            "To hide the vote result until the end of the voting period",
+            "To require ID verification to view results",
+            "To require a password for viewing results",
+            "To send results via SMS",
+          ],
+          fr: [
+            "Cacher le résultat des votes jusqu'à la fin de la période de vote",
+            "Exiger de donner sa carte d'identité pour voir les résultats",
+            "Exiger un mot de passe pour voir les résultats",
+            "Envoyer les résultats par SMS",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

@@ -452,6 +452,25 @@ const lessons: Lessons[] = [
         quizId: 25,
         available: true,
       },
+      {
+        title: {
+          en: "Snapshot Protocol",
+          fr: "Le Protocole Snapshot",
+        },
+        description: {
+          en: "Snapshot is a decentralized voting system.",
+          fr: "Snapshot est un système de vote décentralisé.",
+        },
+        href: "/governance/snapshot-protocol",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 34,
+        available: true,
+      },
     ],
   },
   {
