@@ -102,7 +102,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text: lang === "en" ? "- USDC by Circle" : "- USDC par Circle",
         },
         {
-          text: lang === "en" ? "- Snapshot Protocol" : "- Le protocole Snapshot",
+          text:
+            lang === "en" ? "- Snapshot Protocol" : "- Le protocole Snapshot",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Fundamental Analysis"
+              : "- L'analyse fondamentale",
         },
       ],
     },
