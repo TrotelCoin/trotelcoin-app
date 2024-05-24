@@ -694,6 +694,25 @@ const lessons: Lessons[] = [
         quizId: 28,
         available: true,
       },
+      {
+        title: {
+          en: "Fundamental Analysis",
+          fr: "L'analyse fondamentale",
+        },
+        description: {
+          en: "Fundamental analysis consists to determine the intrinsic value of a company.",
+          fr: "L'analyse fondamentale consiste à déterminer la valeur intrinsèque d'une entreprise.",
+        },
+        href: "/investing/fundamental-analysis",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 35,
+        available: true,
+      },
     ],
   },
 ];

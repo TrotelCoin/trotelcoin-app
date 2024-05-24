@@ -3178,6 +3178,117 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    title: "Fundamental Analysis",
+    quizId: 35,
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is fundamental analysis?",
+          fr: "Qu'est-ce que l'analyse fondamentale?",
+        },
+        options: {
+          en: [
+            "A method of evaluating stocks by studying a company's financial and economic data",
+            "A method of technical chart analysis",
+            "A way to speculate on short-term price movements",
+            "An investment strategy based on market sentiment",
+          ],
+          fr: [
+            "Une méthode d'évaluation des actions en étudiant les données financières et économiques d'une entreprise",
+            "Une méthode d'analyse technique des graphiques",
+            "Un moyen de spéculer sur les mouvements de prix à court terme",
+            "Une stratégie d'investissement basée sur le sentiment du marché",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which of these is a key indicator in fundamental analysis?",
+          fr: "Lequel de ces indicateurs est un indicateur clé dans l'analyse fondamentale?",
+        },
+        options: {
+          en: [
+            "Price-to-earnings ratio",
+            "Moving average",
+            "Relative strength index",
+            "Bollinger bands",
+          ],
+          fr: [
+            "Le ratio cours/bénéfice",
+            "La moyenne mobile",
+            "L'indice de force relative",
+            "Les bandes de Bollinger",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What does revenue represent in fundamental analysis?",
+          fr: "Que représente le chiffre d'affaires dans l'analyse fondamentale?",
+        },
+        options: {
+          en: [
+            "The total amount of sales a company makes over a given period",
+            "The amount of profit after all expenses",
+            "The current market value of the company",
+            "The amount of dividends paid to shareholders",
+          ],
+          fr: [
+            "Le montant total des ventes d'une entreprise sur une période donnée",
+            "Le montant du bénéfice après toutes les dépenses",
+            "La valeur marchande actuelle de l'entreprise",
+            "Le montant des dividendes versés aux actionnaires",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Why is net income important in fundamental analysis?",
+          fr: "Pourquoi le bénéfice net est-il important dans l'analyse fondamentale?",
+        },
+        options: {
+          en: [
+            "It assesses the company's profitability",
+            "It shows the company's revenue growth",
+            "It indicates the company's market value",
+            "It reflects the company's dividend yield",
+          ],
+          fr: [
+            "Il évalue la rentabilité de l'entreprise",
+            "Il montre la croissance des revenus de l'entreprise",
+            "Il indique la valeur marchande de l'entreprise",
+            "Il reflète le rendement des dividendes de l'entreprise",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What is the price-to-earnings ratio used for?",
+          fr: "À quoi sert le ratio cours/bénéfice?",
+        },
+        options: {
+          en: [
+            "To assess if a stock is overvalued or undervalued",
+            "To measure the company's revenue",
+            "To calculate the company's profit margins",
+            "To determine the amount of dividends paid",
+          ],
+          fr: [
+            "Pour évaluer si une action est surévaluée ou sous-évaluée",
+            "Pour mesurer le chiffre d'affaires de l'entreprise",
+            "Pour calculer les marges bénéficiaires de l'entreprise",
+            "Pour déterminer le montant des dividendes versés",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
