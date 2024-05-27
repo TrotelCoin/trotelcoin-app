@@ -713,6 +713,25 @@ const lessons: Lessons[] = [
         quizId: 35,
         available: true,
       },
+      {
+        title: {
+          en: "Bonds vs Stocks",
+          fr: "Obligations vs Actions",
+        },
+        description: {
+          en: "Bonds and stocks are main types of investments. What's the difference?",
+          fr: "Les obligations et les actions sont les principaux types d'investissements. Quelle est la différence?",
+        },
+        href: "/investing/bonds-vs-stocks",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        sponsored: false,
+        new: true,
+        quizId: 36,
+        available: true,
+      },
     ],
   },
 ];
