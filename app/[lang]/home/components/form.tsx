@@ -73,7 +73,7 @@ const Form = ({
           <input
             type="search"
             id="default-search"
-            className="appearance-none block w-full p-4 pl-14 focus:shadow-xl text-sm text-gray-900 border border-gray-900/10 rounded-full bg-gray-50 dark:bg-gray-800 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-transparent focus:border-gray-900/10 dark:focus:border-gray-100/10 transition-all duration-200 ease-in-out"
+            className="appearance-none block w-full p-4 pl-14 focus:shadow-xl text-sm text-gray-900 border border-gray-900/10 rounded-full bg-white dark:bg-gray-800 dark:border-gray-100/10 dark:placeholder-gray-400 dark:text-white focus:outline-none focus:ring-transparent focus:border-gray-900/10 dark:focus:border-gray-100/10 transition-all duration-200 ease-in-out"
             placeholder={
               lang === "en"
                 ? "What do you want to learn?"
@@ -93,7 +93,7 @@ const Form = ({
             onMouseLeave={() => setHovering(false)}
           >
             {(isActive || hovering) && (
-              <div className="absolute flex flex-col mt-4 top-O divide-y divide-gray-900/10 dark:divide-gray-100/10 left-O w-full bg-gray-50 dark:bg-gray-800 shadow-xl rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
+              <div className="absolute flex flex-col mt-4 top-O divide-y divide-gray-900/10 dark:divide-gray-100/10 left-O w-full bg-white dark:bg-gray-800 shadow-xl rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">
                 {suggestions.length > 0 ? (
                   <>
                     <span className="font-semibold text-xl text-gray-900 dark:text-gray-100 p-4">

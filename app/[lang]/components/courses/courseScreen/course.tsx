@@ -26,38 +26,24 @@ const Course = ({
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(-1);
-  const [pause, setPause] = useState<boolean>(false);
 
   const { setIsCourseFinished } = useContext(CourseFinishedContext);
   const { playAudio } = useContext(AudioContext);
-
-  const delay = typeof cards.en[currentIndex]?.text === "string" ? 600 : 0;
 
   const handleNext = () => {
     if (currentCardIndex >= cards.en.length - 1) {
       return;
     }
-    setPause(true);
-    setCurrentIndex(-1);
 
-    setTimeout(() => {
-      setCurrentCardIndex((prev) => Math.min(prev + 1, cards.en.length - 1));
-      setPause(false);
-    }, delay);
+    setCurrentCardIndex((prev) => Math.min(prev + 1, cards.en.length - 1));
   };
 
   const handlePrevious = () => {
     if (currentCardIndex <= 0) {
       return;
     }
-    setPause(true);
-    setCurrentIndex(-1);
 
-    setTimeout(() => {
-      setCurrentCardIndex((prev) => Math.max(prev - 1, 0));
-      setPause(false);
-    }, delay);
+    setCurrentCardIndex((prev) => Math.max(prev - 1, 0));
   };
 
   useEffect(() => {
@@ -134,18 +120,12 @@ const Course = ({
                 <Card
                   title={cards.en[currentCardIndex].title}
                   text={cards.en[currentCardIndex].text}
-                  currentIndex={currentIndex}
-                  setCurrentIndex={setCurrentIndex}
-                  pause={pause}
                   video={cards.en[currentCardIndex].video}
                 />
               ) : (
                 <Card
                   title={cards.fr[currentCardIndex].title}
                   text={cards.fr[currentCardIndex].text}
-                  currentIndex={currentIndex}
-                  setCurrentIndex={setCurrentIndex}
-                  pause={pause}
                   video={cards.fr[currentCardIndex].video}
                 />
               )}

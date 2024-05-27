@@ -65,7 +65,7 @@ const RewardsModal = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 backdrop-blur-sm bg-gray-50/10 dark:bg-gray-700/10 transition-opacity" />
+            <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-700/10 transition-opacity" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
