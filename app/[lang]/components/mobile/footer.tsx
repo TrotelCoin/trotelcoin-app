@@ -11,7 +11,7 @@ const defaultClasses =
   "text-gray-100 hover:text-white text-sm font-semibold leading-6 py-1 px-4 rounded-full";
 
 const dynamicClasses =
-  "bg-gray-50 dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
+  "bg-white dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
 
 const MobileFooter = ({ lang }: { lang: Lang }) => {
   const [scrolling, setScrolling] = useState<boolean>(false);

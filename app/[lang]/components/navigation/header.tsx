@@ -86,7 +86,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-80">
+          <div className="bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-80">
             {isLoggedIn ? (
               <UserInformationMobile
                 lang={lang}
@@ -115,7 +115,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               "text-gray-100 hover:text-white text-sm font-semibold leading-6 py-1 px-4 rounded-full";
 
             const dynamicClasses =
-              "bg-gray-50 dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-gray-50 hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
+              "bg-white dark:bg-gray-900 text-black dark:text-white text-sm font-semibold hover:bg-white hover:text-gray-900 dark:hover:bg-gray-900 dark:hover:text-gray-100 leading-6 py-1 px-4 shadow-lg rounded-full";
 
             return (
               <Link
@@ -169,7 +169,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
       </nav>
 
-      <div className="bg-gray-50 dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
+      <div className="bg-white dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
         {isLoggedIn ? (
           <UserInformationMobile
             lang={lang}
