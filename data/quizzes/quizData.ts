@@ -3289,6 +3289,112 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 36,
+    title: "Bonds vs Stocks",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is a characteristic of stocks?",
+          fr: "Quelle est une caractéristique des actions ?",
+        },
+        options: {
+          en: [
+            "They represent ownership in a company",
+            "They offer fixed interest payments",
+            "They are issued by governments",
+            "They have a maturity date",
+          ],
+          fr: [
+            "Elles représentent une part de propriété dans une entreprise",
+            "Elles offrent des paiements d'intérêts fixes",
+            "Elles sont émises par des gouvernements",
+            "Elles ont une date d'échéance",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which type of investment generally offers higher liquidity?",
+          fr: "Quel type d'investissement offre généralement une plus grande liquidité ?",
+        },
+        options: {
+          en: ["Stocks", "Bonds", "Real Estate", "Commodities"],
+          fr: [
+            "Les actions",
+            "Les obligations",
+            "L'immobilier",
+            "Les matières premières",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is a bond?",
+          fr: "Qu'est-ce qu'une obligation ?",
+        },
+        options: {
+          en: [
+            "A debt security issued by a company or government",
+            "An ownership stake in a company",
+            "A physical asset like property",
+            "A type of insurance policy",
+          ],
+          fr: [
+            "Un titre de créance émis par une entreprise ou un gouvernement",
+            "Une part de propriété dans une entreprise",
+            "Un actif physique comme un bien immobilier",
+            "Un type de police d'assurance",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What happens to bondholders if a company goes bankrupt?",
+          fr: "Que se passe-t-il pour les détenteurs d'obligations si une entreprise fait faillite ?",
+        },
+        options: {
+          en: [
+            "They are repaid first before shareholders",
+            "They lose all their money",
+            "They receive dividends",
+            "They gain ownership of company assets",
+          ],
+          fr: [
+            "Ils sont remboursés en priorité avant les actionnaires",
+            "Ils perdent tout leur argent",
+            "Ils reçoivent des dividendes",
+            "Ils deviennent propriétaires des actifs de l'entreprise",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What is the primary risk associated with stocks?",
+          fr: "Quel est le principal risque associé aux actions ?",
+        },
+        options: {
+          en: [
+            "Market fluctuations",
+            "Fixed interest rates",
+            "Low liquidity",
+            "Government regulations",
+          ],
+          fr: [
+            "Les fluctuations du marché",
+            "Les taux d'intérêt fixes",
+            "La faible liquidité",
+            "Les réglementations gouvernementales",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

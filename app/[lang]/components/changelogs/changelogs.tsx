@@ -111,6 +111,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Fundamental Analysis"
               : "- L'analyse fondamentale",
         },
+        {
+          text:
+            lang === "en" ? "- Bonds vs Stocks" : "- Obligations vs Actions",
+        },
       ],
     },
     {
