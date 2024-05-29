@@ -1,7 +1,8 @@
 import type { Lesson } from "@/types/courses/lessons";
 import type { Lang } from "@/types/language/lang";
-import Tilt from "react-parallax-tilt";
 import Link from "next/link";
+import { useState } from "react";
+import Image from "next/image";
 
 const renderCourses = (
   course: Lesson,
@@ -13,6 +14,8 @@ const renderCourses = (
   index: number,
   category: string
 ) => {
+  const [isHovering, setIsHovering] = useState(false);
+
   let tier = "";
   let title = "";
   let description = "";
@@ -54,23 +57,34 @@ const renderCourses = (
       : "";
 
   return (
-    <Link href={`${courseLink}`} key={index} className="h-full">
-      <Tilt
-        glareEnable={true}
-        tiltMaxAngleX={5}
-        tiltMaxAngleY={5}
-        glareMaxOpacity={0.15}
-        perspective={800}
-        className="h-full"
+    <Link
+      href={`${courseLink}`}
+      key={index}
+      className="h-full"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      <div
+        className={`rounded-xl h-full flex flex-col justify-between overflow-hidden hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-white dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
       >
-        <div
-          className={`rounded-xl h-full flex flex-col justify-between px-4 pb-4 hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-white dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
-        >
+        {course.cover && (
+          <div className="flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700">
+            <Image
+              src={course.cover as string}
+              width={500}
+              height={500}
+              alt={title}
+              className={`object-cover transform transition-transform duration-200 ease-in-out ${
+                isHovering && "scale-105"
+              }`}
+            />
+          </div>
+        )}
+
+        <div className="p-4">
           <div>
             <div className="flex">
-              <div
-                className={`mt-4 font-semibold text-gray-900 dark:text-gray-100`}
-              >
+              <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
                 {title}
               </div>
             </div>
@@ -131,7 +145,7 @@ const renderCourses = (
             )}
           </div>
         </div>
-      </Tilt>
+      </div>
     </Link>
   );
 };

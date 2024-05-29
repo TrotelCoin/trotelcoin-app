@@ -3395,6 +3395,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 37,
+    title: "The Metaverse",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the metaverse?",
+          fr: "Qu'est-ce que le metaverse?",
+        },
+        options: {
+          en: [
+            "A virtual universe with interaction",
+            "A type of cryptocurrency",
+            "A new social media platform",
+            "A virtual reality headset",
+          ],
+          fr: [
+            "Un univers virtuel avec des intéractions",
+            "Un type de cryptomonnaie",
+            "Une nouvelle plateforme de médias sociaux",
+            "Un casque de réalité virtuelle",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What do NFTs allow users to do in the metaverse?",
+          fr: "Que permettent de faire les NFTs dans le metaverse?",
+        },
+        options: {
+          en: [
+            "Own an item in a video game or even virtual land",
+            "Mine cryptocurrency",
+            "Access exclusive social media features",
+            "Control the blockchain",
+          ],
+          fr: [
+            "Posséder un item dans un jeu vidéo ou même un terrain virtuel",
+            "Miner de la cryptomonnaie",
+            "Accéder à des fonctionnalités exclusives des médias sociaux",
+            "Contrôler la blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "How are some companies utilizing the metaverse for work?",
+          fr: "Comment certaines entreprises utilisent-elles le metaverse pour le travail?",
+        },
+        options: {
+          en: [
+            "Creating virtual offices for employees to work",
+            "Developing new email systems",
+            "Building physical office spaces",
+            "Organizing outdoor team-building activities",
+          ],
+          fr: [
+            "Créer des bureaux virtuels où les employés peuvent travailler",
+            "Développer de nouveaux systèmes de messagerie électronique",
+            "Construire des espaces de bureaux physiques",
+            "Organiser des activités de team-building en plein air",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "How is the metaverse blending into the real world?",
+          fr: "Comment le metaverse se fond-il dans le monde réel?",
+        },
+        options: {
+          en: [
+            "Through augmented reality",
+            "By replacing physical stores",
+            "With new social media platforms",
+            "By eliminating physical workspaces",
+          ],
+          fr: [
+            "Grâce à la réalité augmentée",
+            "En remplaçant les magasins physiques",
+            "Avec de nouvelles plateformes de médias sociaux",
+            "En éliminant les espaces de travail physiques",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
