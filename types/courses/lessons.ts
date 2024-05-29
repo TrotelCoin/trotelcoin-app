@@ -1,15 +1,18 @@
 import type { LanguageStrings } from "@/types/language/lang";
 import type { Tier } from "@/types/premium/premium";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export interface Lesson {
   title: LanguageStrings;
   description: LanguageStrings;
   href: string;
   tier: Tier;
+  date: Date;
   sponsored: boolean;
   new: boolean;
   quizId: number;
   available: boolean;
+  cover?: string | StaticImport;
 }
 
 export type LessonCategory =

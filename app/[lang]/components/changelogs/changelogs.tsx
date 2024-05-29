@@ -73,36 +73,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       content: [
         {
           text:
-            lang === "en"
-              ? "- Dollar Cost Averaging"
-              : "- Le Dollar Cost Averaging",
-        },
-        {
-          text: lang === "en" ? "- Airdrops" : "- Airdrops",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- ENS - Ethereum Name Service"
-              : "- ENS - Ethereum Name Service",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- IPFS - InterPlanetary File System"
-              : "- IPFS - InterPlanetary File System",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- The 5 Trading Rules"
-              : "- Les 5 règles de trading",
-        },
-        {
-          text: lang === "en" ? "- USDC by Circle" : "- USDC par Circle",
-        },
-        {
-          text:
             lang === "en" ? "- Snapshot Protocol" : "- Le protocole Snapshot",
         },
         {
@@ -114,6 +84,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en" ? "- Bonds vs Stocks" : "- Obligations vs Actions",
+        },
+        {
+          text: lang === "en" ? "- The Metaverse" : "- Le Metaverse",
         },
       ],
     },
@@ -131,6 +104,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- Adding suggestions when searching for courses"
               : "- Ajout de suggestions lors de la recherche de cours",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Adding images to courses"
+              : "- Ajout d'images aux cours",
         },
       ],
     },
