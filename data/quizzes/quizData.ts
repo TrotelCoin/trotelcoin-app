@@ -3485,6 +3485,86 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 38,
+    title: "Oracles",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the main function of an oracle in the blockchain?",
+          fr: "Quelle est la fonction principale d'un oracle dans la blockchain?",
+        },
+        options: {
+          en: [
+            "To provide external data to the blockchain",
+            "To create new cryptocurrencies",
+            "To verify transactions",
+            "To mine blocks",
+          ],
+          fr: [
+            "Fournir des données externes à la blockchain",
+            "Créer de nouvelles crypto-monnaies",
+            "Vérifier les transactions",
+            "Miner des blocs",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which of the following is a main oracle provider in the market?",
+          fr: "Lequel des suivants est un principal fournisseur d'oracles sur le marché?",
+        },
+        options: {
+          en: ["Chainlink", "Ethereum", "Bitcoin", "Ripple"],
+          fr: ["Chainlink", "Ethereum", "Bitcoin", "Ripple"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is an API in the context of oracles?",
+          fr: "Qu'est-ce qu'une API dans le contexte des oracles?",
+        },
+        options: {
+          en: [
+            "A set of rules that allow programs to communicate and exchange data",
+            "A programming language",
+            "A type of smart contract",
+            "A blockchain consensus algorithm",
+          ],
+          fr: [
+            "Un ensemble de règles permettant aux programmes de communiquer et d'échanger des données",
+            "Un langage de programmation",
+            "Un type de smart contract",
+            "Un algorithme de consensus de la blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What role do oracles play in smart contracts for insurance?",
+          fr: "Quel rôle jouent les oracles dans les smart contracts pour l'assurance?",
+        },
+        options: {
+          en: [
+            "They trigger payments based on detected events like tornadoes",
+            "They create insurance policies",
+            "They verify the identity of policyholders",
+            "They calculate insurance premiums",
+          ],
+          fr: [
+            "Ils déclenchent des paiements en fonction d'événements détectés comme des tornades",
+            "Ils créent des polices d'assurance",
+            "Ils vérifient l'identité des assurés",
+            "Ils calculent les primes d'assurance",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

@@ -88,6 +88,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text: lang === "en" ? "- The Metaverse" : "- Le Metaverse",
         },
+        {
+          text: lang === "en" ? "- Oracles" : "- Les Oracles",
+        },
       ],
     },
     {

@@ -672,6 +672,26 @@ const lessons: Lessons[] = [
         quizId: 31,
         available: true,
       },
+      {
+        title: {
+          en: "Oracles",
+          fr: "Les Oracles",
+        },
+        description: {
+          en: "Oracles are third-party services that provide smart contracts with external information.",
+          fr: "Les oracles sont des services tiers qui fournissent des contrats intelligents avec des informations externes.",
+        },
+        href: "/web3/oracles",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire",
+        },
+        date: new Date("2024-05-31"),
+        sponsored: false,
+        new: new Date("2024-05-31") > twoWeeksAgo,
+        quizId: 38,
+        available: true,
+      },
     ],
   },
   {
