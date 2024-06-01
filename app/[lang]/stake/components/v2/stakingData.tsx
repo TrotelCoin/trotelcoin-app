@@ -150,7 +150,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         </div>
         <div className="flex justify-between">
           <span>
-            {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
+            {lang === "en" ? "Earned" : "Récompenses"}
           </span>
           <div className="flex items-center gap-1">
             {Number(Number(earnedTrotelCoins).toFixed(0)).toLocaleString(
