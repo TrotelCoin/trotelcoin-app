@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
 
 /* POST /api/items/use-watch
  * Restores the user's max streak.
@@ -12,9 +17,12 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: lostStreakData } = await supabase
       .from("streak")
       .select("streak_lost_at")
@@ -56,6 +64,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.json(error, { status: 500 });
   }
 }

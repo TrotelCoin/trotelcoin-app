@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import answers from "@/data/quizzes/quizAnswers";
 import type { QuizAnswer } from "@/types/courses/quiz";
-import { Lang } from "@/types/language/lang";
+import type { Lang } from "@/types/language/lang";
 import { getAnswersByLanguage } from "@/utils/quizzes/getAnswersByLanguage";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+// input schema
+const inputSchema = z.object({
+  quizId: z.number(),
+  lang: z.custom<Lang>(),
+});
 
 /* GET /api/answers?quizId=1&lang=en
  * Returns the correct answers for a quiz in a specific language.
@@ -16,17 +23,26 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
-  const quizId: number = Number(searchParams.get("quizId"));
-  const lang: Lang = searchParams.get("lang") as Lang;
+  try {
+    const { data } = inputSchema.safeParse({
+      quizId: Number(searchParams.get("quizId")),
+      lang: searchParams.get("lang"),
+    });
 
-  const quiz: QuizAnswer = answers.find(
-    (answer) => answer.quizId === quizId
-  ) as QuizAnswer;
+    const { quizId, lang } = data as { quizId: number; lang: Lang };
 
-  const answersInLanguage = getAnswersByLanguage(quiz, lang as string);
+    const quiz: QuizAnswer = answers.find(
+      (answer) => answer.quizId === quizId
+    ) as QuizAnswer;
 
-  return NextResponse.json(answersInLanguage, {
-    status: 200,
-    headers: { "Cache-Control": "no-store" },
-  });
+    const answersInLanguage = getAnswersByLanguage(quiz, lang as string);
+
+    return NextResponse.json(answersInLanguage, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(error, { status: 500 });
+  }
 }

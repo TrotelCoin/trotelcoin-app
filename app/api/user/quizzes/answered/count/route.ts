@@ -4,7 +4,7 @@ import { Address } from "viem";
 
 export const dynamic = "force-dynamic";
 
-/* GET /api/user/multipliers
+/* GET /api/user/quizzes/answered/count
  * Returns the multipliers of a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {boolean} multipliersEnabled - The multipliers enabled.

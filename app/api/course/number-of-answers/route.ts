@@ -1,7 +1,12 @@
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  quizId: z.number(),
+});
 
 /* GET /api/course/number-of-answers?quizId=1
  * Returns the number of answers for a quiz.
@@ -11,9 +16,12 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const quizId: number = Number(searchParams.get("quizId"));
 
   try {
+    const { quizId } = inputSchema.safeParse({
+      quizId: Number(searchParams.get("quizId")),
+    }).data as unknown as { quizId: number };
+
     const { data } = await supabase
       .from("quizzes")
       .select("number_of_answers")

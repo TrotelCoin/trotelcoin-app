@@ -1,8 +1,14 @@
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  quizId: z.number(),
+  wallet: z.custom<Address>(),
+});
 
 /* GET /api/user/course/satisfaction-status
  * Checks if a user has already answered the satisfaction quiz for a course.
@@ -13,10 +19,13 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const quizId: number = Number(searchParams.get("quizId"));
 
   try {
+    const { quizId, wallet } = inputSchema.safeParse({
+      quizId: Number(searchParams.get("quizId")),
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { quizId: number; wallet: Address };
+
     const { data } = await supabase
       .from("courses_satisfaction")
       .select("*")

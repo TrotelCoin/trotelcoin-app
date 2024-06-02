@@ -1,10 +1,15 @@
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-/* GET /api/user/rewards/pending-rewards
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
+
+/* GET /api/user/rewards
  * Returns the pending rewards of a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {number} pending_rewards - The pending rewards of the user.
@@ -12,9 +17,12 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: result } = await supabase
       .from("learners")
       .select("total_rewards_pending")

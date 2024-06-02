@@ -94,7 +94,8 @@
     "use-debounce": "^10.0.0",
     "vercel": "^33.4.1",
     "viem": "^2.9.13",
-    "wagmi": "^2.5.19"
+    "wagmi": "^2.5.19",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",

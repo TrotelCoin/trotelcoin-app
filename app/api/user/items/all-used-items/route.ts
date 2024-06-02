@@ -1,8 +1,13 @@
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  address: z.custom<Address>(),
+});
 
 /* GET /api/user/items/all-used-items
  * Returns all the items used by a user.
@@ -11,10 +16,13 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
-  const searchParams = new URL(req.url);
-  const address: Address = searchParams.searchParams.get("wallet") as Address;
+  const { searchParams } = new URL(req.url);
 
   try {
+    const { address } = inputSchema.safeParse({
+      address: searchParams.get("wallet"),
+    }).data as unknown as { address: Address };
+
     const { data } = await supabase
       .from("items")
       .select("*")
