@@ -47,7 +47,10 @@ const renderCourses = (
     (tier === "Expert" && isExpert) ||
     ((tier === "Intermediate" || tier === "Intermédiaire") && isIntermediate)
       ? "rainbow-border"
-      : "active:border-blue-500 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50";
+      : "active:border-blue-500 border border-gray-900/10 dark:border-gray-100/10" +
+        (course.cover
+          ? ""
+          : "hover:border-gray-900/50 dark:hover:border-gray-100/50");
 
   const statusClass =
     status[quizId - 1] === "Not started"
@@ -65,7 +68,7 @@ const renderCourses = (
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`rounded-xl h-full flex flex-col justify-between overflow-hidden hover:shadow active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-white dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
+        className={`rounded-xl h-full flex flex-col justify-between overflow-hidden active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-white dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
       >
         {course.cover && (
           <div className="flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700">

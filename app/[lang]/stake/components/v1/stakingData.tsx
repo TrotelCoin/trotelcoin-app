@@ -153,7 +153,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         </div>
         <div className="flex justify-between">
           <span>
-            {lang === "en" ? "Earned rewards" : "Récompenses gagnées"}
+            {lang === "en" ? "Earned" : "Récompenses"}
           </span>
           <div className="flex items-center gap-1">
             {Math.floor(earnedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
