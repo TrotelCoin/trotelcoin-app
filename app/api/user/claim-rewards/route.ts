@@ -6,6 +6,7 @@ import { Address, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { z } from "zod";
 import rateLimit from "@/utils/api/rateLimit";
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +38,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
           "Content-Type": "application/json",
         },
       }
+    );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
     );
   }
 

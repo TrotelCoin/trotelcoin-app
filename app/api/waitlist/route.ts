@@ -1,5 +1,6 @@
 import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
@@ -8,6 +9,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
+  mail: z.string().email(),
 });
 
 /* GET /api/waitlist
@@ -82,10 +84,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const mail: string = searchParams.get("mail") as string;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet, mail } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+      mail: searchParams.get("mail"),
+    }).data as unknown as { wallet: Address; mail: string };
+
     // check if learners exist
     const { data: learner } = await supabase
       .from("learners")

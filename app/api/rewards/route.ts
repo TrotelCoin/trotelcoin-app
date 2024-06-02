@@ -3,6 +3,7 @@ import rateLimit from "@/utils/api/rateLimit";
 import { checkIfCourseIsAvailable } from "@/utils/quizzes/checkIfCourseIsAvailable";
 import { calculateRewards } from "@/utils/rewards/calculateRewards";
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
@@ -75,6 +76,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
           "Content-Type": "application/json",
         },
       }
+    );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in to answer quizzes." },
+      { status: 401 }
     );
   }
 

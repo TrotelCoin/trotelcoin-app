@@ -1,5 +1,6 @@
 import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
@@ -30,6 +31,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
           "Content-Type": "application/json",
         },
       }
+    );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
     );
   }
 
@@ -73,6 +83,27 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
     const { quizId, wallet, diffTime } = inputSchema.safeParse({

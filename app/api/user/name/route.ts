@@ -3,6 +3,7 @@ import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import rateLimit from "@/utils/api/rateLimit";
 import { z } from "zod";
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +29,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
           "Content-Type": "application/json",
         },
       }
+    );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
     );
   }
 

@@ -1,5 +1,6 @@
 import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
@@ -11,7 +12,7 @@ const inputSchema = z.object({
   shieldName: z.string(),
 });
 
-/* POST /api/items/use-shields
+/* POST /api/user/items/use-shields
  * Activates a shield for the user.
  * @param {string} wallet - The wallet address of the user.
  * @param {string} shieldName - The name of the shield to activate.
@@ -31,6 +32,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
       }
     );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json("Unauthorized", { status: 401 });
   }
 
   try {

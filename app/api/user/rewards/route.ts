@@ -3,6 +3,7 @@ import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import rateLimit from "@/utils/api/rateLimit";
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -28,6 +29,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
           "Content-Type": "application/json",
         },
       }
+    );
+  }
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
     );
   }
 
