@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
+import { z } from "zod";
+
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
 
 /* GET /api/user/satisfaction/status
  * Returns the status of the user's satisfaction.
@@ -12,9 +19,21 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data } = await supabase
       .from("net_promoter_scores")
       .select("net_promoter_score")

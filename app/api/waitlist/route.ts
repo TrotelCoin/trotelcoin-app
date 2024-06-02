@@ -1,10 +1,21 @@
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-/* GET /api/user/waitlist
+const inputSchemaPost = z.object({
+  wallet: z.custom<Address>(),
+  mail: z.string().email(),
+});
+
+const inputSchemaGet = z.object({
+  wallet: z.custom<Address>(),
+});
+
+/* GET /api/waitlist
  * Returns whether a user is in the waitlist and their position.
  * @param {string} wallet - The wallet address of the user.
  * @returns {boolean} isWaiting - Whether the user is in the waitlist.
@@ -13,9 +24,11 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-
   try {
+    const { wallet } = inputSchemaGet.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: learnerWaitlist } = await supabase
       .from("waitlist")
       .select("created_at, wallet, granted")
@@ -61,10 +74,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const mail: string = searchParams.get("mail") as string;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet, mail } = inputSchemaPost.safeParse({
+      wallet: searchParams.get("wallet"),
+      mail: searchParams.get("mail"),
+    }).data as unknown as { wallet: Address; mail: string };
+
     // check if learners exist
     const { data: learner } = await supabase
       .from("learners")

@@ -1,10 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
+import { z } from "zod";
+
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
 
-/* POST /api/items/use-clock
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
+
+/* POST /api/user/items/use-watch
  * Restores the user's max streak.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} message - Indicates the result of the operation.
@@ -12,9 +19,18 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json("Unauthorized", { status: 401 });
+  }
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: lostStreakData } = await supabase
       .from("streak")
       .select("streak_lost_at")
@@ -27,9 +43,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const differenceInMs = now.getTime() - date.getTime();
       const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 
-      if (differenceInDays > 3) {
-        console.error("Hourglass can't be use");
-        return NextResponse.json("Hourglass can't be use", { status: 500 });
+      if (differenceInDays > 7) {
+        console.error("Watch can't be use");
+        return NextResponse.json("Watch can't be use", { status: 500 });
       }
     }
 

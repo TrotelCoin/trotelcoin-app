@@ -1,3 +1,4 @@
+
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -6,8 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
  * @returns {number} netPromoterScore - The Net Promoter Score.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {
-  try {
+export async function GET(req: NextRequest, res: NextResponse) {try {
     const { data } = await supabase
       .from("net_promoter_scores")
       .select("net_promoter_score");

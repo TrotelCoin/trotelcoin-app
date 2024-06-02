@@ -1,16 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { StatisticsType } from "@/types/statistics/statistics";
+import { z } from "zod";
+
 
 export const dynamic = "force-dynamic";
 
-/* GET /api/statistics/evolution
+/* GET /api/statistics
  * Returns the statistics evolution.
  * @returns {object} statistics_evolution - The statistics evolution.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {
-  try {
+export async function GET(req: NextRequest, res: NextResponse) {try {
     const { data } = await supabase.from("statistics_evolution").select("*");
 
     return NextResponse.json(data, {
@@ -28,6 +29,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
+const inputSchema = z.object({
+  stats: z.string(),
+  value: z.number(),
+});
+
 /* POST /api/statistics/evolution
  * Updates the statistics evolution.
  * @returns {string} message - The message.
@@ -35,10 +41,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const stats: StatisticsType = searchParams.get("stats") as StatisticsType;
-  const value: number = Number(searchParams.get("value"));
+try {
+    const { stats, value } = inputSchema.safeParse({
+      stats: searchParams.get("stats"),
+      value: Number(searchParams.get("value")),
+    }).data as unknown as { stats: StatisticsType; value: number };
 
-  try {
     const { data: stat } = await supabase
       .from("statistics_evolution")
       .select("statistics")

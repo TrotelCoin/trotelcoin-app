@@ -1,8 +1,20 @@
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchemaPost = z.object({
+  quizId: z.number(),
+  wallet: z.custom<Address>(),
+  diffTime: z.number(),
+});
+
+const inputSchemaGet = z.object({
+  wallet: z.custom<Address>(),
+});
 
 /* GET /api/user/quizzes/time
  * Returns the total time spent on quizzes by a user.
@@ -12,9 +24,23 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet } = inputSchemaGet.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
+    console.log("wallet", wallet);
+
     const { data } = await supabase
       .from("quizzes_times")
       .select("diffTime")
@@ -50,11 +76,23 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const quizId: number = Number(searchParams.get("quizId"));
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const diffTime: number = Number(searchParams.get("diffTime"));
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { quizId, wallet, diffTime } = inputSchemaPost.safeParse({
+      quizId: Number(searchParams.get("quizId")),
+      wallet: searchParams.get("wallet"),
+      diffTime: Number(searchParams.get("diffTime")),
+    }).data as unknown as { quizId: number; wallet: Address; diffTime: number };
+
     const { data } = await supabase
       .from("quizzes_times")
       .select("diffTime")

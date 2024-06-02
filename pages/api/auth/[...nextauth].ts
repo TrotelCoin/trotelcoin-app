@@ -3,6 +3,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import { SiweMessage } from "siwe";
 
+export const dynamic = "force-dynamic";
+
 export default async function auth(req: any, res: any) {
   const providers = [
     CredentialsProvider({

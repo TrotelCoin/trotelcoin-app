@@ -1,10 +1,17 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-/* POST /api/items/use-potion
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
+
+/* POST /api/user/items/use-potion
  * Restores the user's life.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} message - Indicates the result of the operation.
@@ -12,9 +19,18 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json("Unauthorized", { status: 401 });
+  }
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: life } = await supabase
       .from("life")
       .select("life")
@@ -42,6 +58,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.json(error, { status: 500 });
   }
 }

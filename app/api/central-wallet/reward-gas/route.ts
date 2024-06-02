@@ -3,8 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  address: z.custom<Address>(),
+  amount: z.number(),
+  centralWalletAddress: z.custom<Address>(),
+});
 
 /* GET /api/central-wallet/reward-gas
  * Estimates the gas required to mint a specific amount of TrotelCoin to a user's address.
@@ -16,13 +23,19 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const userAddress: Address = searchParams.get("address") as Address;
-  const amount: number = Number(searchParams.get("amount"));
-  const centralWalletAddress: Address = searchParams.get(
-    "centralWalletAddress"
-  ) as Address;
-
   try {
+    const { userAddress, amount, centralWalletAddress } = inputSchema.safeParse(
+      {
+        address: searchParams.get("address"),
+        amount: Number(searchParams.get("amount")),
+        centralWalletAddress: searchParams.get("centralWalletAddress"),
+      }
+    ).data as unknown as {
+      userAddress: Address;
+      amount: number;
+      centralWalletAddress: Address;
+    };
+
     const gas = await publicClient.estimateContractGas({
       address: trotelCoinAddress,
       abi: trotelCoinABI,

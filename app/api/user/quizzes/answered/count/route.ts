@@ -1,10 +1,17 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-/* GET /api/user/multipliers
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
+
+/* GET /api/user/quizzes/answered/count
  * Returns the multipliers of a user.
  * @param {string} wallet - The wallet address of the user.
  * @returns {boolean} multipliersEnabled - The multipliers enabled.
@@ -14,9 +21,21 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: result } = await supabase
       .from("learners")
       .select("number_of_quizzes_answered")

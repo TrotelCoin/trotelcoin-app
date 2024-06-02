@@ -1,8 +1,15 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+});
 
 /* GET /api/user/marks/average-mark
  * Returns the average mark of a user.
@@ -12,9 +19,21 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data } = await supabase
       .from("quizzes_results")
       .select("marks")

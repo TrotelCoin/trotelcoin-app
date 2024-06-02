@@ -1,10 +1,18 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-/* POST /api/items/use-shields
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+  shieldName: z.string(),
+});
+
+/* POST /api/user/items/use-shields
  * Activates a shield for the user.
  * @param {string} wallet - The wallet address of the user.
  * @param {string} shieldName - The name of the shield to activate.
@@ -13,10 +21,19 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const shieldName = searchParams.get("shieldName");
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json("Unauthorized", { status: 401 });
+  }
 
   try {
+    const { wallet, shieldName } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+      shieldName: searchParams.get("shieldName"),
+    }).data as unknown as { wallet: Address; shieldName: string };
+
     const { data: walletData } = await supabase
       .from("shields")
       .select("wallet")
@@ -28,6 +45,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
         wallet: wallet,
         shield_name: shieldName,
         start_time: new Date().toISOString(),
+      });
+    }
+
+    if (!shieldName || shieldName.length === 0) {
+      return NextResponse.json(`Shield ${shieldName} is not available`, {
+        status: 404,
       });
     }
 
@@ -46,6 +69,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.json(error, { status: 500 });
   }
 }

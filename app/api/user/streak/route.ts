@@ -1,8 +1,19 @@
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
+
+const inputSchemaPost = z.object({
+  wallet: z.custom<Address>(),
+});
+
+const inputSchemaGet = z.object({
+  wallet: z.custom<Address>(),
+});
 
 /* GET /api/user/streak
  * Returns the user's current streak.
@@ -15,11 +26,23 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   let lostStreak: boolean = false;
 
   try {
+    const { wallet } = inputSchemaGet.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     // get streak information for the specified wallet
     const { data: result } = await supabase
       .from("streak")
@@ -107,9 +130,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
 
   try {
+    const { wallet } = inputSchemaPost.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     // Check if wallet exists in "learners" table
     const { data: walletExists } = await supabase
       .from("learners")

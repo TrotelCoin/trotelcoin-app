@@ -1,8 +1,16 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  address: z.custom<Address>(),
+  item: z.string(),
+});
 
 /* GET /api/user/items/count
  * Returns the number of times an item has been used by a user.
@@ -13,10 +21,22 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const address: Address = searchParams.get("address") as Address;
-  const item = searchParams.get("item");
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { address, item } = inputSchema.safeParse({
+      address: searchParams.get("address"),
+      item: searchParams.get("item"),
+    }).data as unknown as { address: Address; item: string };
+
     const { data } = await supabase
       .from("items")
       .select("number_of_use")

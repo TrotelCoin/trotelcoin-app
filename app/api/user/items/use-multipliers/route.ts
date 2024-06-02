@@ -1,10 +1,18 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-/* POST /api/items/use-multipliers
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+  multipliersName: z.string(),
+});
+
+/* POST /api/user/items/use-multipliers
  * Activates multipliers for the user.
  * @param {string} wallet - The wallet address of the user.
  * @param {string} multipliersName - The name of the multipliers to activate.
@@ -13,29 +21,38 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const multipliersName = searchParams.get("multipliersName");
 
-  let multipliers: number = 1;
+  const session = await getServerSession();
 
-  switch (multipliersName) {
-    case "x2":
-      multipliers = 2;
-      break;
-    case "x5":
-      multipliers = 5;
-      break;
-    case "x10":
-      multipliers = 10;
-      break;
-    case "x25":
-      multipliers = 25;
-      break;
-    default:
-      break;
+  if (!session) {
+    return NextResponse.json("Unauthorized", { status: 401 });
   }
 
   try {
+    const { wallet, multipliersName } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+      multipliersName: searchParams.get("multipliersName"),
+    }).data as unknown as { wallet: Address; multipliersName: string };
+
+    let multipliers: number = 1;
+
+    switch (multipliersName) {
+      case "x2":
+        multipliers = 2;
+        break;
+      case "x5":
+        multipliers = 5;
+        break;
+      case "x10":
+        multipliers = 10;
+        break;
+      case "x25":
+        multipliers = 25;
+        break;
+      default:
+        break;
+    }
+
     const { data: walletData } = await supabase
       .from("multipliers")
       .select("wallet")
@@ -59,12 +76,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .eq("wallet", wallet)
       .eq("multipliers", multipliers);
 
-    return NextResponse.json(`Multipliers ${multipliers} has been activated`, {
+    return NextResponse.json(`Multipliers x${multipliers} has been activated`, {
       status: 200,
       headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
     console.error(error);
-    return NextResponse.json(null, { status: 500 });
+    return NextResponse.json(error, { status: 500 });
   }
 }

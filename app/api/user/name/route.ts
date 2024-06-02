@@ -2,7 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 
+import { z } from "zod";
+import { getServerSession } from "next-auth";
+
 export const dynamic = "force-dynamic";
+
+const inputSchemaGet = z.object({
+  wallet: z.custom<Address>(),
+});
+
+const inputSchemaPost = z.object({
+  wallet: z.custom<Address>(),
+  name: z.string(),
+});
 
 /* GET /api/user/name
  * Returns the username of a user.
@@ -12,9 +24,21 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet } = inputSchemaGet.safeParse({
+      wallet: searchParams.get("wallet"),
+    }).data as unknown as { wallet: Address };
+
     const { data: result } = await supabase
       .from("learners")
       .select("username")
@@ -46,10 +70,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const name = searchParams.get("name");
-  const wallet: Address = searchParams.get("wallet") as Address;
 
   try {
+    const { wallet, name } = inputSchemaPost.safeParse({
+      wallet: searchParams.get("wallet"),
+      name: searchParams.get("name"),
+    }).data as unknown as { wallet: Address; name: string };
+
     await supabase
       .from("learners")
       .update({ username: name })

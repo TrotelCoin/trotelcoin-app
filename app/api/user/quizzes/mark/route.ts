@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
+import { z } from "zod";
+
+import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  quizId: z.number(),
+  numberOfWrongAnswers: z.number(),
+  totalQuestions: z.number(),
+  wallet: z.custom<Address>(),
+});
 
 /* POST /api/user/quizzes/mark
  * Submit the results of a quiz.
@@ -15,14 +25,30 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const quizId: number = Number(searchParams.get("quizId"));
-  const numberOfWrongAnswers: number = Number(
-    searchParams.get("numberOfWrongAnswers")
-  );
-  const totalQuestions: number = Number(searchParams.get("totalQuestions"));
-  const wallet: Address = searchParams.get("wallet") as Address;
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { quizId, numberOfWrongAnswers, totalQuestions, wallet } =
+      inputSchema.safeParse({
+        quizId: Number(searchParams.get("quizId")),
+        numberOfWrongAnswers: Number(searchParams.get("numberOfWrongAnswers")),
+        totalQuestions: Number(searchParams.get("totalQuestions")),
+        wallet: searchParams.get("wallet"),
+      }).data as unknown as {
+        quizId: number;
+        numberOfWrongAnswers: number;
+        totalQuestions: number;
+        wallet: Address;
+      };
+
     const { data } = await supabase
       .from("quizzes_results")
       .select("marks")

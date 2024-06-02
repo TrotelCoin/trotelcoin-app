@@ -1,8 +1,17 @@
+
 import { supabase } from "@/utils/supabase/db";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import { z } from "zod";
 
 export const dynamic = "force-dynamic";
+
+const inputSchema = z.object({
+  wallet: z.custom<Address>(),
+  rating: z.number().min(0).max(5),
+  quizId: z.number(),
+});
 
 /* POST /api/user/course/satisfaction
  * Saves a user's satisfaction rating for a course.
@@ -15,11 +24,23 @@ export const dynamic = "force-dynamic";
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-  const wallet: Address = searchParams.get("wallet") as Address;
-  const rating: number = Number(searchParams.get("rating"));
-  const quizId: number = Number(searchParams.get("quizId"));
+
+  const session = await getServerSession();
+
+  if (!session) {
+    return NextResponse.json(
+      { error: "You need to be logged in." },
+      { status: 401 }
+    );
+  }
 
   try {
+    const { wallet, rating, quizId } = inputSchema.safeParse({
+      wallet: searchParams.get("wallet"),
+      rating: Number(searchParams.get("rating")),
+      quizId: Number(searchParams.get("quizId")),
+    }).data as unknown as { wallet: Address; rating: number; quizId: number };
+
     const { data: verification } = await supabase
       .from("courses_satisfaction")
       .select("*")

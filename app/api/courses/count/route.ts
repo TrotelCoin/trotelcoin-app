@@ -1,4 +1,5 @@
 import lessons from "@/data/lessons/lessons";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -8,8 +9,7 @@ export const dynamic = "force-dynamic";
  * @returns {number} totalCourses - The total number of available courses.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {
-  const availableCourses = lessons.flatMap((lesson) =>
+export async function GET(req: NextRequest, res: NextResponse) {const availableCourses = lessons.flatMap((lesson) =>
     lesson.courses.filter((course) => course.available)
   );
 
