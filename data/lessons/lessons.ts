@@ -94,6 +94,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-06") > twoWeeksAgo,
         quizId: 3,
         available: true,
+        cover: "/assets/courses/wallet/create-your-first-wallet.jpg",
       },
       {
         title: {
@@ -114,6 +115,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-17") > twoWeeksAgo,
         quizId: 4,
         available: true,
+        cover: "/assets/courses/wallet/secure-your-wallet.jpg",
       },
       {
         title: {
@@ -134,6 +136,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-16") > twoWeeksAgo,
         quizId: 5,
         available: true,
+        cover: "/assets/courses/wallet/sign-in-with-your-wallet.jpg",
       },
       {
         title: {
@@ -154,6 +157,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-04") > twoWeeksAgo,
         quizId: 6,
         available: true,
+        cover: "/assets/courses/wallet/make-your-first-transaction.jpg",
       },
     ],
   },
