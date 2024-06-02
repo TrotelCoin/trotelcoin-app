@@ -5,7 +5,7 @@ import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { z } from "zod";
-import rateLimit from "@/utils/api/rateLimit";
+
 import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
@@ -28,18 +28,6 @@ const inputSchema = z.object({
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
 
   const session = await getServerSession();
 

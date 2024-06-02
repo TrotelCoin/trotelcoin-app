@@ -1,7 +1,6 @@
 import { supabase } from "@/utils/supabase/db";
 import remainingRewards from "@/data/rewards/remainingRewards";
 import { NextRequest, NextResponse } from "next/server";
-import rateLimit from "@/utils/api/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -11,18 +10,6 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
   try {
     // Reset rewards if 24h has passed
     await supabase

@@ -86,7 +86,7 @@ const UserProvider = ({
   }, [alreadyAnsweredSatisfactionData]);
 
   const { data: learningTimeData } = useSWR(
-    `/api/user/quizzes/time?wallet=${address}`,
+    address ? `/api/user/quizzes/time?wallet=${address}` : null,
     fetcher,
     {
       refreshInterval: refreshIntervalTime,

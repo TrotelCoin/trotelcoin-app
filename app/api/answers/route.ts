@@ -4,7 +4,6 @@ import type { QuizAnswer } from "@/types/courses/quiz";
 import type { Lang } from "@/types/language/lang";
 import { getAnswersByLanguage } from "@/utils/quizzes/getAnswersByLanguage";
 import { z } from "zod";
-import rateLimit from "@/utils/api/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -23,19 +22,6 @@ const inputSchema = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
   try {
     const { data } = inputSchema.safeParse({
       quizId: Number(searchParams.get("quizId")),

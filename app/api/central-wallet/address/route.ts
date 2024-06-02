@@ -1,4 +1,3 @@
-import rateLimit from "@/utils/api/rateLimit";
 import { ethers } from "ethers";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
@@ -17,18 +16,6 @@ const centralWalletAddress: Address = centralWallet.address as Address;
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
   try {
     return NextResponse.json(centralWalletAddress, {
       status: 200,

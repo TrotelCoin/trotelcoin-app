@@ -1,14 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
-import rateLimit from "@/utils/api/rateLimit";
+
 import { z } from "zod";
 import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";
 
-const inputSchema = z.object({
+const inputSchemaGet = z.object({
   wallet: z.custom<Address>(),
+});
+
+const inputSchemaPost = z.object({
+  wallet: z.custom<Address>(),
+  name: z.string(),
 });
 
 /* GET /api/user/name
@@ -20,18 +25,6 @@ const inputSchema = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
   const session = await getServerSession();
 
   if (!session) {
@@ -42,7 +35,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { wallet } = inputSchema.safeParse({
+    const { wallet } = inputSchemaGet.safeParse({
       wallet: searchParams.get("wallet"),
     }).data as unknown as { wallet: Address };
 
@@ -79,7 +72,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
   try {
-    const { wallet, name } = inputSchema.safeParse({
+    const { wallet, name } = inputSchemaPost.safeParse({
       wallet: searchParams.get("wallet"),
       name: searchParams.get("name"),
     }).data as unknown as { wallet: Address; name: string };

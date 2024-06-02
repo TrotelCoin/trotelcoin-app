@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
-import rateLimit from "@/utils/api/rateLimit";
+
 
 export const dynamic = "force-dynamic";
 
@@ -9,20 +9,7 @@ export const dynamic = "force-dynamic";
  * @returns {number} max_streak - The maximum streak.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
-  try {
+export async function GET(req: NextRequest, res: NextResponse) {try {
     const { data: result } = await supabase
       .from("streak")
       .select("max_streak")

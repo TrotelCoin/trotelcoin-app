@@ -1,4 +1,3 @@
-import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,10 +6,14 @@ import { z } from "zod";
 
 export const dynamic = "force-dynamic";
 
-const inputSchema = z.object({
+const inputSchemaPost = z.object({
   quizId: z.number(),
   wallet: z.custom<Address>(),
   diffTime: z.number(),
+});
+
+const inputSchemaGet = z.object({
+  wallet: z.custom<Address>(),
 });
 
 /* GET /api/user/quizzes/time
@@ -22,18 +25,6 @@ const inputSchema = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
   const session = await getServerSession();
 
   if (!session) {
@@ -44,9 +35,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { wallet } = inputSchema.safeParse({
+    const { wallet } = inputSchemaGet.safeParse({
       wallet: searchParams.get("wallet"),
     }).data as unknown as { wallet: Address };
+
+    console.log("wallet", wallet);
 
     const { data } = await supabase
       .from("quizzes_times")
@@ -84,18 +77,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
-  if (await rateLimit(req, res)) {
-    return new Response(
-      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-      {
-        status: 429,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  }
-
   const session = await getServerSession();
 
   if (!session) {
@@ -106,7 +87,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { quizId, wallet, diffTime } = inputSchema.safeParse({
+    const { quizId, wallet, diffTime } = inputSchemaPost.safeParse({
       quizId: Number(searchParams.get("quizId")),
       wallet: searchParams.get("wallet"),
       diffTime: Number(searchParams.get("diffTime")),
