@@ -1,3 +1,4 @@
+import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,6 +8,18 @@ import { NextRequest, NextResponse } from "next/server";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
   try {
     const { data } = await supabase
       .from("net_promoter_scores")

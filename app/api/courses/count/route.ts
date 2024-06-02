@@ -1,4 +1,5 @@
 import lessons from "@/data/lessons/lessons";
+import rateLimit from "@/utils/api/rateLimit";
 import { NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +10,18 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
   const availableCourses = lessons.flatMap((lesson) =>
     lesson.courses.filter((course) => course.available)
   );

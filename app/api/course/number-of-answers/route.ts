@@ -1,3 +1,4 @@
+import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
@@ -16,6 +17,18 @@ const inputSchema = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   try {
     const { quizId } = inputSchema.safeParse({

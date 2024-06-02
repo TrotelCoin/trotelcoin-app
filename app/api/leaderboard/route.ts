@@ -1,3 +1,4 @@
+import rateLimit from "@/utils/api/rateLimit";
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address, isAddress } from "viem";
@@ -10,6 +11,18 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
   try {
     // get leaderboard all of learners depending of total rewards
     const { data: leaderboard } = await supabase

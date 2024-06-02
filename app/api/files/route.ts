@@ -1,3 +1,4 @@
+import rateLimit from "@/utils/api/rateLimit";
 import { NextResponse, NextRequest } from "next/server";
 
 /*
@@ -15,12 +16,24 @@ export const dynamic = "force-dynamic";
  * @returns {string} IpfsHash - The IPFS hash of the uploaded file.
  * @example response - 200 - application/json
  */
-export async function POST(request: NextRequest, response: NextResponse) {
-  const { searchParams } = new URL(request.url);
+export async function POST(req: NextRequest, res: NextResponse) {
+  const { searchParams } = new URL(req.url);
   const title: string = searchParams.get("title") ?? "Untitled";
 
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
   try {
-    const data = await request.formData();
+    const data = await req.formData();
     const file: File | null = data.get("file") as unknown as File;
     data.append("file", file);
     data.append(

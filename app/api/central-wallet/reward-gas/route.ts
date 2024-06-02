@@ -4,6 +4,7 @@ import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { z } from "zod";
+import rateLimit from "@/utils/api/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,18 @@ const inputSchema = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   try {
     const { userAddress, amount, centralWalletAddress } = inputSchema.safeParse(

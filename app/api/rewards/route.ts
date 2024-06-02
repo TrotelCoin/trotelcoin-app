@@ -1,4 +1,5 @@
 import remainingRewards from "@/data/rewards/remainingRewards";
+import rateLimit from "@/utils/api/rateLimit";
 import { checkIfCourseIsAvailable } from "@/utils/quizzes/checkIfCourseIsAvailable";
 import { calculateRewards } from "@/utils/rewards/calculateRewards";
 import { supabase } from "@/utils/supabase/db";
@@ -14,6 +15,18 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
   try {
     const { data } = await supabase
       .from("learners")
@@ -52,6 +65,18 @@ const inputSchema = z.object({
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   try {
     const { wallet, quizId, multipliers } = inputSchema.safeParse({

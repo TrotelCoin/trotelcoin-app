@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { StatisticsType } from "@/types/statistics/statistics";
 import { z } from "zod";
+import rateLimit from "@/utils/api/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,18 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+
   try {
     const { data } = await supabase.from("statistics_evolution").select("*");
 
@@ -41,6 +54,18 @@ const inputSchema = z.object({
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   try {
     const { stats, value } = inputSchema.safeParse({

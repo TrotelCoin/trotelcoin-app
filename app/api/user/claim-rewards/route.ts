@@ -5,6 +5,7 @@ import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { z } from "zod";
+import rateLimit from "@/utils/api/rateLimit";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ const inputSchema = z.object({
     .max(100000, "Amount exceed the limit of claiming rewards."),
 });
 
-/* POST /api/central-wallet/claim-rewards
+/* POST /api/user/claim-rewards
  * Mints a specific amount of TrotelCoin to a user's address.
  * @param {string} address - The address of the user.
  * @param {number} amount - The amount of TrotelCoin to mint.
@@ -26,6 +27,18 @@ const inputSchema = z.object({
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (await rateLimit(req, res)) {
+    return new Response(
+      JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
 
   try {
     const { userAddress, amount } = inputSchema.safeParse({
