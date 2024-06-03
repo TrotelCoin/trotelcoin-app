@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import { z } from "zod";
-
 import { getServerSession } from "next-auth";
 
 export const dynamic = "force-dynamic";

@@ -45,8 +45,6 @@ const BasicInformations = ({
   useEffect(() => {
     const index = categories.findIndex((cat) => cat.category === category);
 
-    console.log("index", index);
-
     setCategoryIndex(index);
   }, [category]);
 

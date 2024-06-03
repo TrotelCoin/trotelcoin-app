@@ -7,6 +7,7 @@ import { privateKeyToAccount } from "viem/accounts";
 import { z } from "zod";
 
 import { getServerSession } from "next-auth";
+import { getToken } from "next-auth/jwt";
 
 export const dynamic = "force-dynamic";
 
@@ -30,8 +31,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
   const session = await getServerSession();
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  if (!session) {
+  if (!session || !token) {
     return NextResponse.json(
       { error: "You need to be logged in." },
       { status: 401 }

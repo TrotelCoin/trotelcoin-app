@@ -3565,6 +3565,96 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    quizId: 39,
+    title: "Futures Contracts",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is a futures contract?",
+          fr: "Qu'est-ce qu'un contrat à terme ?",
+        },
+        options: {
+          en: [
+            "An agreement to buy or sell an asset at an agreed price on a future date",
+            "A spot market transaction",
+            "A type of insurance policy",
+            "An investment in a company's stock",
+          ],
+          fr: [
+            "Un accord pour acheter ou vendre un actif à un prix convenu à une date ultérieure",
+            "Une transaction sur le marché au comptant",
+            "Un type de police d'assurance",
+            "Un investissement dans les actions d'une entreprise",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is the primary use of futures contracts?",
+          fr: "Quelle est l'utilisation principale des contrats à terme ?",
+        },
+        options: {
+          en: [
+            "To hedge against price fluctuations",
+            "To buy real estate",
+            "To secure bank loans",
+            "To invest in mutual funds",
+          ],
+          fr: [
+            "Pour se protéger contre les fluctuations de prix",
+            "Pour acheter de l'immobilier",
+            "Pour obtenir des prêts bancaires",
+            "Pour investir dans des fonds communs de placement",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is market risk?",
+          fr: "Qu'est-ce que le risque de marché ?",
+        },
+        options: {
+          en: [
+            "The risk arising due to market price fluctuations",
+            "The risk of a counterparty defaulting",
+            "The risk of a natural disaster",
+            "The risk of political instability",
+          ],
+          fr: [
+            "Le risque dû aux fluctuations des prix du marché",
+            "Le risque de défaillance d'une contrepartie",
+            "Le risque de catastrophe naturelle",
+            "Le risque d'instabilité politique",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What does a short position in futures contracts mean?",
+          fr: "Que signifie une position longue dans les contrats à terme ?",
+        },
+        options: {
+          en: [
+            "You have sold a futures contract",
+            "You have bought a futures contract",
+            "You have taken out a loan",
+            "You have bought a put option",
+          ],
+          fr: [
+            "Vous avez  vendu un contrat à terme",
+            "Vous avez acheté un contrat à terme",
+            "Vous avez contracté un prêt",
+            "Vous avez acheté une option de vente",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

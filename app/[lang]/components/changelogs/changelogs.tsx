@@ -72,24 +72,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text:
-            lang === "en" ? "- Snapshot Protocol" : "- Le protocole Snapshot",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Fundamental Analysis"
-              : "- L'analyse fondamentale",
-        },
-        {
-          text:
-            lang === "en" ? "- Bonds vs Stocks" : "- Obligations vs Actions",
-        },
-        {
           text: lang === "en" ? "- The Metaverse" : "- Le Metaverse",
         },
         {
           text: lang === "en" ? "- Oracles" : "- Les Oracles",
+        },
+        {
+          text:
+            lang === "en" ? "- Futures Contracts" : "- Les Contrats à Terme",
         },
       ],
     },
