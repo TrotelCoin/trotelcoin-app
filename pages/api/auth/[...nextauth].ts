@@ -62,9 +62,8 @@ export default async function auth(req: any, res: any) {
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
       async session({ session, token }: { session: any; token: any }) {
-        session.address = token.sub;
+        session.user.address = token.sub;
         session.user.name = token.sub;
-        session.user.image = "";
         return session;
       },
     },

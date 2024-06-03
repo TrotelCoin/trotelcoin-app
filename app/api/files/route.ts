@@ -38,7 +38,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json({ IpfsHash }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return NextResponse.json(error, { status: 500 });
   }
 }

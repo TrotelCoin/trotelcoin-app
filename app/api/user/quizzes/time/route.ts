@@ -39,8 +39,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       wallet: searchParams.get("wallet"),
     }).data as unknown as { wallet: Address };
 
-    console.log("wallet", wallet);
-
     const { data } = await supabase
       .from("quizzes_times")
       .select("diffTime")
