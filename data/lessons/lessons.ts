@@ -758,6 +758,26 @@ const lessons: Lessons[] = [
         quizId: 32,
         available: true,
       },
+      {
+        title: {
+          en: "Futures Contracts",
+          fr: "Les Contrats à Terme",
+        },
+        description: {
+          en: "Futures contracts are agreements to buy or sell an asset at a specific future date and price.",
+          fr: "Les contrats à terme sont des accords pour acheter ou vendre un actif à une date et un prix futurs spécifiques.",
+        },
+        href: "/trading/futures-contracts",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire",
+        },
+        date: new Date("2024-06-03"),
+        sponsored: false,
+        new: new Date("2024-06-03") > twoWeeksAgo,
+        quizId: 39,
+        available: true,
+      },
     ],
   },
   {
