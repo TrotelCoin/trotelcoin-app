@@ -183,6 +183,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-09") > twoWeeksAgo,
         quizId: 7,
         available: true,
+        cover: "/assets/courses/blockchain/what-is-a-blockchain.jpg",
       },
       {
         title: {
@@ -203,6 +204,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-17") > twoWeeksAgo,
         quizId: 8,
         available: true,
+        cover: "/assets/courses/blockchain/consensus-mechanisms.jpg",
       },
       {
         title: {
@@ -223,6 +225,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-18") > twoWeeksAgo,
         quizId: 20,
         available: true,
+        cover: "/assets/courses/blockchain/censorship-resistance.jpg",
       },
     ],
   },
