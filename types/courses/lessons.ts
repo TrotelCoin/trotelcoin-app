@@ -13,6 +13,7 @@ export interface Lesson {
   quizId: number;
   available: boolean;
   cover?: string | StaticImport;
+  category?: LessonCategory;
 }
 
 export type LessonCategory =
@@ -30,7 +31,8 @@ export type LessonCategory =
   | "NFTs"
   | "Altcoins"
   | "Trading"
-  | "Investing";
+  | "Investing"
+  | "New Courses";
 
 export interface Lessons {
   category: LessonCategory;
