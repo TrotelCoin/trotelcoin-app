@@ -96,7 +96,13 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
           text:
             lang === "en"
               ? "- Rebuilding the homepage"
-              : "- Refonte de la page d'accueil",
+              : "- On retravaille la page d'accueil",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Add new courses to the homepage"
+              : "- Ajout de nouveaux cours à la page d'accueil",
         },
       ],
     },
