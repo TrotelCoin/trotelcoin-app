@@ -124,7 +124,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     if (address && balanceData) {
-      const balance = Number(balanceData?.formatted);
+      const balance = Math.floor(Number(balanceData?.formatted));
       setBalance(balance);
     } else {
       setBalance(null);
