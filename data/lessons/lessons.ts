@@ -251,6 +251,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-06") > twoWeeksAgo,
         quizId: 9,
         available: true,
+        cover: "/assets/courses/bitcoin/introduction-to-bitcoin.jpg",
       },
       {
         title: {
@@ -271,6 +272,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-11") > twoWeeksAgo,
         quizId: 10,
         available: true,
+        cover: "/assets/courses/bitcoin/the-history-of-bitcoin.jpg",
       },
       {
         title: {
@@ -291,6 +293,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-22") > twoWeeksAgo,
         quizId: 22,
         available: true,
+        cover: "/assets/courses/bitcoin/the-halving.jpg",
       },
     ],
   },

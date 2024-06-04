@@ -89,20 +89,14 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- Showing your rewards after quiz completion"
-              : "- Affichage de vos récompenses après la fin d'un quiz",
-        },
-        {
-          text:
-            lang === "en"
-              ? "- Adding suggestions when searching for courses"
-              : "- Ajout de suggestions lors de la recherche de cours",
-        },
-        {
-          text:
-            lang === "en"
               ? "- Adding images to courses"
               : "- Ajout d'images aux cours",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Rebuilding the homepage"
+              : "- Refonte de la page d'accueil",
         },
       ],
     },

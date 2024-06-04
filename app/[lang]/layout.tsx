@@ -97,7 +97,6 @@ export default function Layout({
 
   return (
     <>
-      {/* Use Suspense for loading fallback */}
       <html lang={lang}>
         <head>
           <link
