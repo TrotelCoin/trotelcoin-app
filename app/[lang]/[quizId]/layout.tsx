@@ -73,9 +73,13 @@ const CoursePage = ({
   params: { lang: Lang; quizId: number };
   children: React.ReactNode;
 }) => {
+  const currentCourse: Lesson = lessons
+    .flatMap((lesson) => lesson.courses)
+    .find((course) => course.quizId.toString() === quizId.toString()) as Lesson;
+
   return (
     <>
-      <Course quizId={quizId} lang={lang}>
+      <Course quizId={quizId} lang={lang} course={currentCourse}>
         {children}
       </Course>
     </>

@@ -18,12 +18,14 @@ const CourseContent = ({
   title,
   URL,
   children,
+  description,
 }: {
   lang: Lang;
   quizId: number;
   title: string;
   URL: string;
   children: React.ReactNode;
+  description: string;
 }) => {
   const [answered, setAnswered] = useState<number>(0);
   const [copied, setCopied] = useState<boolean>(false);
@@ -81,6 +83,8 @@ const CourseContent = ({
           </button>
         </div>
         <CourseTitle title={title} />
+
+        <div className="mt-4 text-gray-900 dark:text-gray-100">{description}</div>
 
         {/* Disclaimer */}
         <div className="mt-4">

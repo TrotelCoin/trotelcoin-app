@@ -4,7 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { use, useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import {
+  CheckCircleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/solid";
 
 const renderCourses = (
   course: Lesson,
@@ -72,7 +75,7 @@ const renderCourses = (
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`rounded-xl h-64 w-64 overflow-hidden flex flex-col justify-between items-start active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
+        className={`rounded-xl relative h-64 w-64 overflow-hidden flex flex-col justify-between items-start active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
           isHovering
             ? "bg-gray-100 dark:bg-gray-700"
             : "bg-white dark:bg-gray-800"
@@ -85,8 +88,8 @@ const renderCourses = (
               width={500}
               height={500}
               alt={title}
-              className={`object-cover transform transition-transform duration-200 ease-in-out ${
-                isHovering && "scale-105"
+              className={`object-cover transform transition-transform duration-400 ease-in-out ${
+                isHovering && "scale-105 rotate-2 duration-400"
               }`}
             />
           </div>
@@ -94,20 +97,31 @@ const renderCourses = (
 
         <div className="p-4 w-full h-full flex flex-col justify-between">
           <div className="flex flex-col">
-            <div className="flex items-center gap-0.5">
-              <div className="text-xs text-gray-700 dark:text-gray-300">
-                {category}
+            {!isHovering && (
+              <div className="flex items-center gap-0.5">
+                <div className="text-xs text-gray-700 dark:text-gray-300">
+                  {category}
+                </div>
+                {course.available &&
+                  ((status[quizId - 1] === "Finished" && lang === "en") ||
+                    (status[quizId - 1] === "Terminé" && lang === "fr")) && (
+                    <CheckCircleIcon className="h-3 w-3 text-green-500 dark:text-green-300" />
+                  )}
               </div>
-              {course.available &&
-                ((status[quizId - 1] === "Finished" && lang === "en") ||
-                  (status[quizId - 1] === "Terminé" && lang === "fr")) && (
-                  <CheckCircleIcon className="h-3 w-3 text-green-500 dark:text-green-300" />
-                )}
-            </div>
+            )}
+
             <div className="flex items-center">
-              <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
-                {title}
-              </div>
+              {isHovering ? (
+                <p className="text-sm text-gray-900 dark:text-gray-100">
+                  {description}
+                </p>
+              ) : (
+                <div
+                  className={`font-semibold text-gray-900 dark:text-gray-100`}
+                >
+                  {title}
+                </div>
+              )}
             </div>
           </div>
 

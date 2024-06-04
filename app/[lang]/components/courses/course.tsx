@@ -17,10 +17,12 @@ const Course = ({
   quizId,
   lang,
   children,
+  course,
 }: {
   quizId: number;
   lang: Lang;
   children: React.ReactNode;
+  course: Lesson;
 }) => {
   const pathname = usePathname();
   const origin =
@@ -85,6 +87,7 @@ const Course = ({
                 quizId={quizId}
                 title={title}
                 URL={URL}
+                description={currentCourse?.description[lang]}
               >
                 {children}
               </CourseContent>
