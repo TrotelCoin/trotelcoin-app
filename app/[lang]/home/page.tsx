@@ -71,40 +71,54 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const scrollLeft = (index: number) => {
     const currentRef = scrollRefs?.current?.[index];
     if (currentRef) {
-      currentRef.scrollBy({
-        left: -currentRef.clientWidth,
-        behavior: "smooth",
-      });
+      if (currentRef.scrollLeft > 0) {
+        currentRef.scrollBy({
+          left: -currentRef.clientWidth,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
   const scrollRight = (index: number) => {
     const currentRef = scrollRefs?.current?.[index];
     if (currentRef) {
-      currentRef.scrollBy({
-        left: currentRef.clientWidth,
-        behavior: "smooth",
-      });
+      if (
+        currentRef.scrollLeft <
+        currentRef.scrollWidth - currentRef.clientWidth
+      ) {
+        currentRef.scrollBy({
+          left: currentRef.clientWidth,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
   const scrollLeftNewCourses = () => {
     const currentRef = scrollRefNewCourses.current;
     if (currentRef) {
-      currentRef.scrollBy({
-        left: -currentRef.clientWidth,
-        behavior: "smooth",
-      });
+      if (currentRef.scrollLeft > 0) {
+        currentRef.scrollBy({
+          left: -currentRef.clientWidth,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
   const scrollRightNewCourses = () => {
     const currentRef = scrollRefNewCourses.current;
     if (currentRef) {
-      currentRef.scrollBy({
-        left: currentRef.clientWidth,
-        behavior: "smooth",
-      });
+      if (
+        currentRef.scrollLeft <
+        currentRef.scrollWidth - currentRef.clientWidth
+      ) {
+        currentRef.scrollBy({
+          left: currentRef.clientWidth,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
