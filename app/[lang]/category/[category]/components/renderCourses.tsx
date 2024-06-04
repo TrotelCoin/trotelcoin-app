@@ -19,15 +19,13 @@ const renderCourses = (
   const [isHovering, setIsHovering] = useState(false);
   const [marqueePlay, setMarqueePlay] = useState(false);
 
-  const isMobile = window.innerWidth < 768;
-
   useEffect(() => {
-    if (isMobile || isHovering) {
+    if (isHovering) {
       setMarqueePlay(true);
     } else {
       setMarqueePlay(false);
     }
-  }, [isHovering, isMobile]);
+  }, [isHovering]);
 
   let tier = "";
   let title = "";
