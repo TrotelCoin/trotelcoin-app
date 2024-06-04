@@ -86,7 +86,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          <div className="bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-80">
+          <div className="bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-96">
             {isLoggedIn ? (
               <UserInformationMobile
                 lang={lang}

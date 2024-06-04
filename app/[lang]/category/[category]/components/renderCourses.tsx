@@ -1,8 +1,10 @@
 import type { Lesson } from "@/types/courses/lessons";
 import type { Lang } from "@/types/language/lang";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import Marquee from "react-fast-marquee";
 
 const renderCourses = (
   course: Lesson,
@@ -15,6 +17,17 @@ const renderCourses = (
   category: string
 ) => {
   const [isHovering, setIsHovering] = useState(false);
+  const [marqueePlay, setMarqueePlay] = useState(false);
+
+  const isMobile = window.innerWidth < 768;
+
+  useEffect(() => {
+    if (isMobile || isHovering) {
+      setMarqueePlay(true);
+    } else {
+      setMarqueePlay(false);
+    }
+  }, [isHovering, isMobile]);
 
   let tier = "";
   let title = "";
@@ -53,13 +66,6 @@ const renderCourses = (
             : " hover:border-gray-900/50 dark:hover:border-gray-100/50"
         }`;
 
-  const statusClass =
-    status[quizId - 1] === "Not started"
-      ? "bg-gray-500 text-gray-100 hidden"
-      : status[quizId - 1] === "Finished"
-      ? "bg-green-400 text-gray-100"
-      : "";
-
   return (
     <Link
       href={`${courseLink}`}
@@ -69,10 +75,16 @@ const renderCourses = (
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`rounded-xl h-full flex flex-col justify-between overflow-hidden active:border-blue-500 dark:active:border-blue-300 active:shadow-none bg-white dark:bg-gray-800 ${borderClass} backdrop-blur-xl`}
+        className={`rounded-xl h-full flex flex-col justify-between overflow-hidden active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
+          isHovering
+            ? "bg-gray-100 dark:bg-gray-700"
+            : "bg-white dark:bg-gray-800"
+        } ${borderClass} backdrop-blur-xl`}
       >
         {course.cover && (
-          <div className="flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700">
+          <div
+            className={`flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700`}
+          >
             <Image
               src={course.cover as string}
               width={500}
@@ -85,12 +97,17 @@ const renderCourses = (
           </div>
         )}
 
-        <div className="p-4">
+        <div className="p-4 w-full flex flex-col justify-between">
           <div>
-            <div className="flex">
+            <div className="flex items-center gap-1">
               <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
                 {title}
               </div>
+              {course.available &&
+                ((status[quizId - 1] === "Finished" && lang === "en") ||
+                  (status[quizId - 1] === "Terminé" && lang === "fr")) && (
+                  <CheckCircleIcon className="h-4 w-4 text-green-500 dark:text-green-300" />
+                )}
             </div>
             <div>
               <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
@@ -98,7 +115,17 @@ const renderCourses = (
               </div>
             </div>
           </div>
-          <div className="flex flex-wrap mt-4 gap-2 items-center">
+          <Marquee className="flex mt-4 items-center" play={marqueePlay}>
+            {course.sponsored && (
+              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
+                {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
+              </div>
+            )}
+            {course.new && (
+              <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+                {lang === "en" ? "New 👀" : "Nouveau 👀"}
+              </div>
+            )}
             {(tier === "Beginner" || tier === "Débutant") && (
               <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
                 {tier} 🐣
@@ -119,35 +146,7 @@ const renderCourses = (
                 {lang === "en" ? "Not available" : "Non disponible"}
               </div>
             )}
-            {course.available && (
-              <div
-                className={`inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ${statusClass}`}
-              >
-                {status[quizId - 1] === "Not started" && lang === "en" && (
-                  <>Not started 🤔</>
-                )}
-                {status[quizId - 1] === "Not started" && lang === "fr" && (
-                  <>Pas commencé 🤔</>
-                )}
-                {status[quizId - 1] === "Finished" && lang === "en" && (
-                  <>Finished 💪</>
-                )}
-                {status[quizId - 1] === "Finished" && lang === "fr" && (
-                  <>Terminé 💪</>
-                )}
-              </div>
-            )}
-            {course.sponsored && (
-              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
-                {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
-              </div>
-            )}
-            {course.new && (
-              <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
-                {lang === "en" ? "New 👀" : "Nouveau 👀"}
-              </div>
-            )}
-          </div>
+          </Marquee>
         </div>
       </div>
     </Link>

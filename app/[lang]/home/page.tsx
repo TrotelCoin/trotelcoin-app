@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import lessons from "@/data/lessons/lessons";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import type { Lang } from "@/types/language/lang";
@@ -14,12 +14,15 @@ import PremiumContext from "@/contexts/premium";
 import Link from "next/link";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
+
+  const scrollRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   const filterLessons = (lesson: Lessons) => {
     const categoryMatch = filterByCategory(lesson, searchTerm);
@@ -89,15 +92,42 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                     </h2>
                   </div>
 
-                  <Link
-                    href={`/${lang}/category/${lesson.category.toLowerCase()}`}
-                  >
-                    <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
-                      {lang === "en" ? "View all" : "Voir tout"}
+                  <div className="flex items-center gap-2">
+                    <button
+                      className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                      onClick={() => {
+                        if (scrollRefs.current[index]) {
+                          scrollRefs.current[index].scrollLeft -=
+                            scrollRefs.current[index].clientWidth;
+                        }
+                      }}
+                    >
+                      <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
                     </button>
-                  </Link>
+                    <button
+                      className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                      onClick={() => {
+                        if (scrollRefs.current[index]) {
+                          scrollRefs.current[index].scrollLeft +=
+                            scrollRefs.current[index].clientWidth;
+                        }
+                      }}
+                    >
+                      <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
+                    </button>
+                    <Link
+                      href={`/${lang}/category/${lesson.category.toLowerCase()}`}
+                    >
+                      <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
+                        {lang === "en" ? "View all" : "Voir tout"}
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-                <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div
+                  ref={(el) => (scrollRefs.current[index] = el)}
+                  className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth"
+                >
                   {lesson.courses
                     .sort((a: Lesson, b: Lesson) => {
                       const tierOrder = {
@@ -113,7 +143,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                         lowerCaseTitle.includes(searchTerm) && course.available
                       );
                     })
-                    .slice(0, 3)
+                    .slice(0, 10)
                     .map((course: Lesson, index: number) =>
                       renderCourses(
                         course,
