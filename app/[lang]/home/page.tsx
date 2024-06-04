@@ -124,7 +124,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                 </div>
                 <div
                   ref={(el) => (scrollRefs.current[index] = el)}
-                  className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth"
+                  className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
                 >
                   {lesson.courses
                     .sort((a: Lesson, b: Lesson) => {
