@@ -77,8 +77,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "How to create your first crypto wallet?",
-          fr: "Comment créer votre premier portefeuille crypto ?",
+          en: "How to create a crypto wallet?",
+          fr: "Comment créer un portefeuille crypto ?",
         },
         description: {
           en: "A step-by-step guide to choose and set up your first crypto wallet.",
@@ -119,8 +119,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "Web3 authentication: Sign in with your wallet",
-          fr: "Authentification Web3: Connectez-vous avec votre portefeuille",
+          en: "How to sign in with your wallet?",
+          fr: "Comment se connecter avec votre portefeuille ?",
         },
         description: {
           en: "Discover how to use your wallet to sign in to Web3 dApps.",
@@ -344,8 +344,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "What are smart contracts and their use cases?",
-          fr: "Que sont les contrats intelligents et leurs cas d'utilisation ?",
+          en: "What are smart contracts?",
+          fr: "Que sont les contrats intelligents ?",
         },
         description: {
           en: "Understand how smart contracts operate on the Ethereum blockchain.",
@@ -525,8 +525,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "What is the Snapshot Protocol: a decentralized voting platform?",
-          fr: "Qu'est-ce que le Protocole Snapshot : une plateforme de vote décentralisée ?",
+          en: "What is the Snapshot protocol: a decentralized voting platform?",
+          fr: "Qu'est-ce que le protocole Snapshot : une plateforme de vote décentralisée ?",
         },
         description: {
           en: "Understand how Snapshot enables decentralized voting within DAOs.",
@@ -590,8 +590,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "USDC by Circle: a stablecoin overview",
-          fr: "USDC par Circle : vue d'ensemble d'un stablecoin",
+          en: "How does USDC work?",
+          fr: "Comment l'USDC fonctionne ?",
         },
         description: {
           en: "Learn about USDC, a stablecoin pegged to the US dollar.",
@@ -805,8 +805,8 @@ const lessons: Lessons[] = [
     courses: [
       {
         title: {
-          en: "What is the Dollar Cost Averaging (DCA) strategy?",
-          fr: "Qu'est-ce que la stratégie de Dollar Cost Averaging (DCA) ?",
+          en: "What is Dollar Cost Averaging (DCA)?",
+          fr: "Qu'est-ce que le Dollar Cost Averaging (DCA) ?",
         },
         description: {
           en: "Learn about DCA, a strategy that involves buying a fixed dollar amount of a particular investment on a regular schedule.",
