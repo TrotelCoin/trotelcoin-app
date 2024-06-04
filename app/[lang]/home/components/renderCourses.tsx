@@ -2,12 +2,9 @@ import type { Lang } from "@/types/language/lang";
 import { Lesson } from "@/types/courses/lessons";
 import Link from "next/link";
 import Image from "next/image";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
-import {
-  CheckCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/solid";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 const renderCourses = (
   course: Lesson,
@@ -88,8 +85,8 @@ const renderCourses = (
               width={500}
               height={500}
               alt={title}
-              className={`object-cover transform transition-transform duration-400 ease-in-out ${
-                isHovering && "scale-105 rotate-2 duration-400"
+              className={`object-cover transform transition-transform duration-300 ease-in-out ${
+                isHovering && "scale-105 rotate-2 duration-300"
               }`}
             />
           </div>

@@ -88,8 +88,8 @@ const renderCourses = (
               width={400}
               height={400}
               alt={title}
-              className={`object-cover transform transition-transform duration-200 ease-in-out ${
-                isHovering && "scale-105"
+              className={`object-cover transform transition-transform duration-300 ease-in-out ${
+                isHovering && "scale-105 rotate-2 duration-300"
               }`}
             />
           </div>
