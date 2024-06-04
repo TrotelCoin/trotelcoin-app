@@ -94,31 +94,21 @@ const renderCourses = (
 
         <div className="p-4 w-full h-full flex flex-col justify-between">
           <div className="flex flex-col">
-            {!isHovering && (
-              <div className="flex items-center gap-0.5">
-                <div className="text-xs text-gray-700 dark:text-gray-300">
-                  {category}
-                </div>
-                {course.available &&
-                  ((status[quizId - 1] === "Finished" && lang === "en") ||
-                    (status[quizId - 1] === "Terminé" && lang === "fr")) && (
-                    <CheckCircleIcon className="h-3 w-3 text-green-500 dark:text-green-300" />
-                  )}
+            <div className="flex items-center gap-0.5">
+              <div className="text-xs text-gray-700 dark:text-gray-300">
+                {category}
               </div>
-            )}
+              {course.available &&
+                ((status[quizId - 1] === "Finished" && lang === "en") ||
+                  (status[quizId - 1] === "Terminé" && lang === "fr")) && (
+                  <CheckCircleIcon className="h-3 w-3 text-green-500 dark:text-green-300" />
+                )}
+            </div>
 
             <div className="flex items-center">
-              {isHovering ? (
-                <p className="text-sm text-gray-900 dark:text-gray-100">
-                  {description}
-                </p>
-              ) : (
-                <div
-                  className={`font-semibold text-gray-900 dark:text-gray-100`}
-                >
-                  {title}
-                </div>
-              )}
+              <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
+                {title}
+              </div>
             </div>
           </div>
 
