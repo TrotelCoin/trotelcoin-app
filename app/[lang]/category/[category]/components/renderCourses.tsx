@@ -73,7 +73,7 @@ const renderCourses = (
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`rounded-xl h-full flex flex-col justify-between overflow-hidden active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
+        className={`rounded-xl h-full flex flex-col overflow-hidden active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
           isHovering
             ? "bg-gray-100 dark:bg-gray-700"
             : "bg-white dark:bg-gray-800"
@@ -85,8 +85,8 @@ const renderCourses = (
           >
             <Image
               src={course.cover as string}
-              width={500}
-              height={500}
+              width={400}
+              height={400}
               alt={title}
               className={`object-cover transform transition-transform duration-200 ease-in-out ${
                 isHovering && "scale-105"
@@ -95,17 +95,12 @@ const renderCourses = (
           </div>
         )}
 
-        <div className="p-4 w-full flex flex-col justify-between">
-          <div>
+        <div className="p-4 w-full flex flex-col justify-between h-1/2">
+          <div className="flex flex-col">
             <div className="flex items-center gap-1">
               <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
                 {title}
               </div>
-              {course.available &&
-                ((status[quizId - 1] === "Finished" && lang === "en") ||
-                  (status[quizId - 1] === "Terminé" && lang === "fr")) && (
-                  <CheckCircleIcon className="h-4 w-4 text-green-500 dark:text-green-300" />
-                )}
             </div>
             <div>
               <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
