@@ -319,6 +319,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-25") > twoWeeksAgo,
         quizId: 11,
         available: true,
+        cover: "/assets/courses/ethereum/introduction-to-ethereum.jpg",
       },
       {
         title: {
@@ -339,6 +340,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-19") > twoWeeksAgo,
         quizId: 12,
         available: true,
+        cover: "/assets/courses/ethereum/understand-the-layers-2.jpg",
       },
       {
         title: {
@@ -359,6 +361,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-29") > twoWeeksAgo,
         quizId: 13,
         available: true,
+        cover: "/assets/courses/ethereum/smart-contracts.jpg",
       },
       {
         title: {
@@ -379,6 +382,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-11") > twoWeeksAgo,
         quizId: 15,
         available: true,
+        cover: "/assets/courses/ethereum/evm.jpg",
       },
     ],
   },
@@ -404,6 +408,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-19") > twoWeeksAgo,
         quizId: 21,
         available: true,
+        cover: "/assets/courses/nfts/introduction-to-nfts.jpg",
       },
       {
         title: {
@@ -424,6 +429,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-24") > twoWeeksAgo,
         quizId: 23,
         available: true,
+        cover: "/assets/courses/nfts/floor-price.jpg",
       },
       {
         title: {
@@ -444,6 +450,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-29") > twoWeeksAgo,
         quizId: 24,
         available: true,
+        cover: "/assets/courses/nfts/soulbound-tokens.jpg",
       },
     ],
   },
@@ -469,6 +476,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-29") > twoWeeksAgo,
         quizId: 37,
         available: true,
+        cover: "/assets/courses/metaverse/the-metaverse.jpg",
       },
     ],
   },
