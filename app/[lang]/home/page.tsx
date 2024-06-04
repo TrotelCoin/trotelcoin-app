@@ -68,18 +68,20 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   }, [address, lessonsCompleted]);
 
   const scrollLeft = (index: number) => {
-    if (scrollRefs.current[index]) {
-      scrollRefs.current[index].scrollBy({
-        left: -scrollRefs.current[index].clientWidth,
+    const currentRef = scrollRefs?.current?.[index];
+    if (currentRef) {
+      currentRef.scrollBy({
+        left: -currentRef.clientWidth,
         behavior: "smooth",
       });
     }
   };
 
   const scrollRight = (index: number) => {
-    if (scrollRefs.current[index]) {
-      scrollRefs.current[index].scrollBy({
-        left: scrollRefs.current[index].clientWidth,
+    const currentRef = scrollRefs?.current?.[index];
+    if (currentRef) {
+      currentRef.scrollBy({
+        left: currentRef.clientWidth,
         behavior: "smooth",
       });
     }
