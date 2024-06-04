@@ -54,15 +54,11 @@ const renderCourses = (
       ? `/${lang}/${quizId}${course.href}`
       : `/${lang}/not-premium`;
 
-  const borderClass =
-    (tier === "Expert" && isExpert) ||
-    ((tier === "Intermediate" || tier === "Intermédiaire") && isIntermediate)
-      ? "rainbow-border"
-      : `active:border-blue-500 border border-gray-900/10 dark:border-gray-100/10${
-          course.cover
-            ? ""
-            : " hover:border-gray-900/50 dark:hover:border-gray-100/50"
-        }`;
+  const borderClass = `active:border-blue-500 border border-gray-900/10 dark:border-gray-100/10 ${
+    course.cover
+      ? ""
+      : " hover:border-gray-900/50 dark:hover:border-gray-100/50"
+  }`;
 
   return (
     <Link

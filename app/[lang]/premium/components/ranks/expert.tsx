@@ -217,11 +217,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
         perspective={800}
       >
         <div
-          className={`overflow-hidden rounded-xl bg-white dark:bg-gray-800 ${
-            isClaimed
-              ? "rainbow-border"
-              : "border border-gray-900/10 dark:border-gray-100/10"
-          } backdrop-blur-xl`}
+          className={`overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center justify-between">

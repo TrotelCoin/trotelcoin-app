@@ -152,7 +152,7 @@ export default function Layout({
                                   <Changelogs lang={lang} />
                                   <Header lang={lang} />
 
-                                  <main className="px-6 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                                  <main className="px-4 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
                                     {children}
                                   </main>
 

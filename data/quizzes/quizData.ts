@@ -250,13 +250,13 @@ const quizzes: QuizData = [
         },
         options: {
           en: [
-            "Rainbow border around the NFTs 🌈",
+            "Rainbow text with the NFTs 🌈",
             "Get a mail confirmation",
             "Obtain a QR code",
             "Nothing",
           ],
           fr: [
-            "Bordure arc-en-ciel autour des NFTs 🌈",
+            "Texte arc-en-ciel avec les NFTs 🌈",
             "Recevoir une confirmation par mail",
             "Obtenir un QR code",
             "Rien",

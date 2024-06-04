@@ -85,11 +85,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
               <>
                 {position && (
                   <div
-                    className={`mt-4 bg-white flex items-center justify-between ${
-                      position < 4
-                        ? "rainbow-border"
-                        : "border-gray-900/10 dark:border-gray-100/10"
-                    } border backdrop-blur-xl text-center rounded-2xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+                    className={`mt-4 bg-white flex items-center justify-between border-gray-900/10 dark:border-gray-100/10 border backdrop-blur-xl text-center rounded-2xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
                   >
                     <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
                       {position ?? 0}

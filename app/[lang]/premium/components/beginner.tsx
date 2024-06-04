@@ -19,7 +19,7 @@ const Beginner = ({ lang }: { lang: Lang }) => {
         className="h-full"
       >
         <div
-          className={`overflow-hidden h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 rainbow-border backdrop-blur-xl`}
+          className={`overflow-hidden h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
         >
           <div className="px-4 py-5 sm:p-6 w-full">
             <div className="flex items-center justify-between">
