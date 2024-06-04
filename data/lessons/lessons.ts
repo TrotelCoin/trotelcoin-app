@@ -30,8 +30,8 @@ const lessons: Lessons[] = [
       },
       {
         title: {
-          en: "How to buy TrotelCoin NFTs",
-          fr: "Comment acheter les NFTs de TrotelCoin",
+          en: "How to buy TrotelCoin NFTs?",
+          fr: "Comment acheter les NFTs de TrotelCoin ?",
         },
         description: {
           en: "Learn how to become a premium member by buying TrotelCoin NFTs.",
