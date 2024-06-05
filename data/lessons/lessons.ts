@@ -502,6 +502,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-08") > twoWeeksAgo,
         quizId: 14,
         available: true,
+        cover: "/assets/courses/governance/what-are-daos.jpg",
       },
       {
         title: {
@@ -522,6 +523,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-01") > twoWeeksAgo,
         quizId: 25,
         available: true,
+        cover: "/assets/courses/governance/types-of-daos.jpg",
       },
       {
         title: {
@@ -542,6 +544,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-22") > twoWeeksAgo,
         quizId: 34,
         available: true,
+        cover: "/assets/courses/governance/snapshot-protocol.jpg",
       },
     ],
   },
@@ -567,6 +570,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-10") > twoWeeksAgo,
         quizId: 17,
         available: true,
+        cover: "/assets/courses/stablecoins/introduction-to-stablecoins.jpg",
       },
       {
         title: {
@@ -587,6 +591,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-03") > twoWeeksAgo,
         quizId: 26,
         available: true,
+        cover: "/assets/courses/stablecoins/terra-luna-crash.jpg",
       },
       {
         title: {
@@ -607,6 +612,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-20") > twoWeeksAgo,
         quizId: 33,
         available: true,
+        cover: "/assets/courses/stablecoins/usdc-by-circle.jpg",
       },
     ],
   },
@@ -632,6 +638,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-03-14") > twoWeeksAgo,
         quizId: 18,
         available: true,
+        cover: "/assets/courses/web3/web3-essentials.jpg",
       },
       {
         title: {
@@ -652,6 +659,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-10") > twoWeeksAgo,
         quizId: 29,
         available: true,
+        cover: "/assets/courses/web3/airdrops.jpg",
       },
       {
         title: {
