@@ -680,6 +680,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-13") > twoWeeksAgo,
         quizId: 30,
         available: true,
+        cover: "/assets/courses/web3/ens.jpg",
       },
       {
         title: {
@@ -700,6 +701,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-15") > twoWeeksAgo,
         quizId: 31,
         available: true,
+        cover: "/assets/courses/web3/ipfs.jpg",
       },
       {
         title: {
@@ -720,6 +722,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-31") > twoWeeksAgo,
         quizId: 38,
         available: true,
+        cover: "/assets/courses/web3/oracles.jpg",
       },
     ],
   },
@@ -745,6 +748,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-04-15") > twoWeeksAgo,
         quizId: 19,
         available: true,
+        cover: "/assets/courses/trading/day-trading.jpg",
       },
       {
         title: {
@@ -765,6 +769,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-06") > twoWeeksAgo,
         quizId: 27,
         available: true,
+        cover: "/assets/courses/trading/biaises.jpg",
       },
       {
         title: {
@@ -785,6 +790,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-17") > twoWeeksAgo,
         quizId: 32,
         available: true,
+        cover: "/assets/courses/trading/trading-rules.jpg",
       },
       {
         title: {
@@ -805,6 +811,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-06-03") > twoWeeksAgo,
         quizId: 39,
         available: true,
+        cover: "/assets/courses/trading/futures.jpg",
       },
     ],
   },
@@ -830,6 +837,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-08") > twoWeeksAgo,
         quizId: 28,
         available: true,
+        cover: "/assets/courses/investing/dca.jpg",
       },
       {
         title: {
@@ -850,6 +858,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-24") > twoWeeksAgo,
         quizId: 35,
         available: true,
+        cover: "/assets/courses/investing/fundamental-analysis.jpg",
       },
       {
         title: {
@@ -870,6 +879,7 @@ const lessons: Lessons[] = [
         new: new Date("2024-05-27") > twoWeeksAgo,
         quizId: 36,
         available: true,
+        cover: "/assets/courses/investing/bonds-vs-stocks.jpg",
       },
     ],
   },
