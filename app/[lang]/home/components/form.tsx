@@ -101,7 +101,7 @@ const Form = ({
                     </span>
 
                     <div className="flex items-center flex-wrap gap-2 p-4">
-                      {suggestions.map((suggestion, index) => (
+                      {suggestions.slice(0, 10).map((suggestion, index) => (
                         <Link
                           key={index}
                           href={`/${suggestion.quizId}/${suggestion.href}`}
