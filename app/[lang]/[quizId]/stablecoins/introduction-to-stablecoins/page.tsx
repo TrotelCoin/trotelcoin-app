@@ -23,7 +23,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <Link
               href="https://tether.to/en/"
               target="_blank"
-              className="text-blue-500 dark:blue-400 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
             >
               Tether
             </Link>{" "}
@@ -31,7 +31,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <Link
               href="https://www.circle.com/en/usdc"
               target="_blank"
-              className="text-blue-500 dark:blue-400 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
             >
               USD Coin
             </Link>{" "}
@@ -39,7 +39,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <Link
               href="https://makerdao.com/en/"
               target="_blank"
-              className="text-blue-500 dark:blue-400 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
             >
               DAI
             </Link>
@@ -105,7 +105,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <Link
               href="https://tether.to/en/"
               target="_blank"
-              className="text-blue-500 dark:blue-400 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
             >
               Tether
             </Link>{" "}
@@ -113,7 +113,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <Link
               href="https://www.circle.com/en/usdc"
               target="_blank"
-              className="text-blue-500 dark:blue-400 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
             >
               USD Coin
             </Link>{" "}
@@ -121,7 +121,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <Link
               href="https://makerdao.com/en/"
               target="_blank"
-              className="text-blue-500 dark:blue-400 hover:text-blue-400 dark:hover:text-blue-400"
+              className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
             >
               DAI
             </Link>

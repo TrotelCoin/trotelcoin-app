@@ -10,6 +10,7 @@ import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
 import PremiumContext from "@/contexts/premium";
 import StreakContext from "@/contexts/streak";
 import UserContext from "@/contexts/user";
+import { expertStakingBalance, intermediateStakingBalance } from "@/data/staking/premium";
 
 const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
@@ -47,7 +48,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
     }
   }, [balance]);
 
-  const { isEarly, isIntermediate, isExpert } = useContext(PremiumContext);
+  const { isEarly, totalStakingAmount } = useContext(PremiumContext);
 
   const { maxStreak } = useContext(StreakContext);
   const { userNumberOfQuizzesAnswered: quizzesAnswered } =
@@ -92,17 +93,19 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       id: 2,
       name: lang === "en" ? "Intermediate" : "Intermédiaire",
       image: "🙈",
-      condition: isIntermediate,
-      progress: isIntermediate ? 1 : 0,
-      maxProgress: 1,
+      condition: totalStakingAmount
+        ? totalStakingAmount >= intermediateStakingBalance
+        : null,
+      progress: totalStakingAmount ?? 0,
+      maxProgress: intermediateStakingBalance,
     },
     {
       id: 3,
       name: lang === "en" ? "Expert" : "Expert",
       image: "🦊",
-      condition: isExpert,
-      progress: isExpert ? 1 : 0,
-      maxProgress: 1,
+      condition: totalStakingAmount ? totalStakingAmount >= expertStakingBalance : null,
+      progress: totalStakingAmount ?? 0,
+      maxProgress: expertStakingBalance,
     },
     {
       id: 4,

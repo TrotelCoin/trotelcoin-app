@@ -1,20 +1,27 @@
 "use client";
 
 import { useAccount, useReadContract, useBlockNumber } from "wagmi";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import PremiumContext from "@/contexts/premium";
-import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
-import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import {
-  trotelCoinIntermediateAddress,
-  trotelCoinExpertAddress,
   trotelCoinEarlyAddress,
+  trotelCoinStakingV1,
+  trotelCoinStakingV2,
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
+import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
+import { formatEther } from "viem";
+import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
+import {
+  expertStakingBalance,
+  intermediateStakingBalance,
+} from "@/data/staking/premium";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
+  const [totalStakingAmount, setTotalStakingAmount] = useState<number>(0);
+
   const { address } = useAccount();
 
   const { data: blockNumber } = useBlockNumber({
@@ -29,57 +36,75 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
     functionName: "balanceOf",
     args: [address],
   });
-  const { data: intermediate, refetch: refetchIntermediate } = useReadContract({
+  const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
     chainId: polygon.id,
-    abi: trotelCoinIntermediateABI,
-    address: trotelCoinIntermediateAddress,
-    functionName: "balanceOf",
+    abi: trotelCoinStakingV1ABI,
+    address: trotelCoinStakingV1,
+    functionName: "stakings",
     args: [address],
   });
-  const { data: expert, refetch: refetchExpert } = useReadContract({
+
+  const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
     chainId: polygon.id,
-    abi: trotelCoinExpertABI,
-    address: trotelCoinExpertAddress,
-    functionName: "balanceOf",
+    abi: trotelCoinStakingV2ABI,
+    address: trotelCoinStakingV2,
+    functionName: "stakings",
     args: [address],
   });
+
+  useEffect(() => {
+    refetchStakingV1();
+    refetchStakingV2();
+  }, [blockNumber]);
+
+  useEffect(() => {
+    const stakingsV1 = stakingsDataV1 as any[];
+    const stakingsV2 = stakingsDataV2 as any[];
+
+    if (address && (stakingsV1 || stakingsV2)) {
+      const amountV1 = Number(formatEther(stakingsV1[0] as bigint));
+      const amountV2 = Number(formatEther(stakingsV2[0] as bigint));
+
+      const totalStakingAmount = Math.floor(amountV1 + amountV2);
+
+      setTotalStakingAmount(totalStakingAmount);
+    } else {
+      setTotalStakingAmount(0);
+    }
+  }, [address, stakingsDataV1, stakingsDataV2]);
 
   const earlyBalance: number = parseFloat(early as string);
   const isEarly: boolean = earlyBalance > 0;
-  const intermediateBalance: number = parseFloat(intermediate as string);
-  const expertBalance: number = parseFloat(expert as string);
 
-  const isNotPremium = intermediateBalance <= 0 && expertBalance <= 0;
+  const isIntermediate = totalStakingAmount > intermediateStakingBalance; // 10,000 TROTEL
+  const isExpert = totalStakingAmount > expertStakingBalance; // 50,000 TROTEL
+
+  const isNotPremium = !isIntermediate && !isExpert;
   const isPremium = !isNotPremium;
-
-  const isExpert = expertBalance > 0;
-  const isIntermediate = intermediateBalance > 0;
 
   useEffect(() => {
     refetchEarly();
-    refetchIntermediate();
-    refetchExpert();
+    refetchStakingV1();
+    refetchStakingV2();
   }, [blockNumber, address]);
 
   const contextValue = useMemo(
     () => ({
       isPremium,
-      intermediateBalance,
-      expertBalance,
       isEarly,
       earlyBalance,
       isNotPremium,
       isIntermediate,
       isExpert,
+      totalStakingAmount,
     }),
     [
       isNotPremium,
-      intermediateBalance,
-      expertBalance,
       isEarly,
       earlyBalance,
       isExpert,
       isIntermediate,
+      totalStakingAmount,
     ]
   );
 
