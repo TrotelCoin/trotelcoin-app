@@ -57,19 +57,22 @@ const Expert = ({ lang }: { lang: Lang }) => {
               <span className="text-8xl">🦊</span>
             </div>
             <div className="flex flex-col mt-5">
-              <div className="bg-gray-800 text-center dark:bg-gray-100 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
-                {lang === "en" ? (
-                  <>
-                    {totalStakingAmount > expertStakingBalance
-                      ? null
-                      : `${totalStakingAmount.toLocaleString("en-US")} /`}{" "}
-                    {expertStakingBalance.toLocaleString("en-US")}{" "}
-                    {isExpert && "TROTEL"}
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
+              <Link
+                href={isExpert ? `/${lang}/stake` : ""}
+                className={`${isExpert ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <div
+                  className={`bg-gray-800 text-center dark:bg-gray-100 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold ${
+                    !isExpert && "hover:bg-gray-700 dark:hover:bg-gray-200"
+                  }`}
+                >
+                  {totalStakingAmount > expertStakingBalance
+                    ? null
+                    : `${totalStakingAmount.toLocaleString("en-US")} /`}{" "}
+                  {expertStakingBalance.toLocaleString("en-US")}{" "}
+                  {isExpert && "TROTEL"}
+                </div>
+              </Link>
             </div>
           </div>
         </div>

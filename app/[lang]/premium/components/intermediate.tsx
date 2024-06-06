@@ -58,19 +58,23 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
               <span className="text-8xl">🙈</span>
             </div>
             <div className="flex flex-col mt-5">
-              <div className="bg-gray-800 text-center dark:bg-gray-100 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
-                {lang === "en" ? (
-                  <>
-                    {totalStakingAmount > intermediateStakingBalance
-                      ? null
-                      : `${totalStakingAmount.toLocaleString("en-US")} /`}{" "}
-                    {intermediateStakingBalance.toLocaleString("en-US")}{" "}
-                    {isIntermediate && "TROTEL"}
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
+              <Link
+                href={isIntermediate ? `/${lang}/stake` : ""}
+                className={`${isIntermediate ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <div
+                  className={`bg-gray-800 text-center dark:bg-gray-100 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold ${
+                    !isIntermediate &&
+                    "hover:bg-gray-700 dark:hover:bg-gray-200"
+                  }`}
+                >
+                  {totalStakingAmount > intermediateStakingBalance
+                    ? null
+                    : `${totalStakingAmount.toLocaleString("en-US")} /`}{" "}
+                  {intermediateStakingBalance.toLocaleString("en-US")}{" "}
+                  {isIntermediate && "TROTEL"}
+                </div>
+              </Link>
             </div>
           </div>
         </div>
