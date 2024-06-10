@@ -1,4 +1,4 @@
-
+import type { Shield } from "@/types/items/items";
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
-  shieldName: z.string(),
+  shieldName: z.custom<Shield>(),
 });
 
 /* POST /api/user/items/use-shields

@@ -18,3 +18,19 @@ export type ItemTypeFinal = {
   quantity?: number;
   disabled: boolean;
 };
+
+export type Shield = "Closed Lock" | "Shield" | "Castle" | "King";
+
+export type ItemName =
+  | "Potion"
+  | "Castle"
+  | "Watch"
+  | "Clock"
+  | "Closed Lock"
+  | "Hourglass"
+  | "King"
+  | "Shield"
+  | "x2"
+  | "x5"
+  | "x10"
+  | "x25";
