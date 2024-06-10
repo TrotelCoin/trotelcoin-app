@@ -1,4 +1,4 @@
-
+import { Shield } from "@/types/items/items";
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -53,7 +53,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
         let hours: number = 0;
 
-        switch (shieldItem.shield_name) {
+        switch (shieldItem.shield_name as Shield) {
           case "Closed Lock":
             hours = 1;
             break;

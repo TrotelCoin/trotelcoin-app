@@ -1,3 +1,4 @@
+import { ItemName } from "@/types/items/items";
 import axios from "axios";
 import { Address } from "viem";
 
@@ -13,7 +14,7 @@ export const useItem = async (
 
   if (address && item) {
     try {
-      switch (item) {
+      switch (item as ItemName) {
         case "Potion":
           await axios.post(`/api/user/items/use-potion?wallet=${address}`);
           break;

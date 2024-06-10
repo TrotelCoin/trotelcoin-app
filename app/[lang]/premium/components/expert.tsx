@@ -58,7 +58,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
             </div>
             <div className="flex flex-col mt-5">
               <Link
-                href={isExpert ? `/${lang}/stake` : ""}
+                href={!isExpert ? `/${lang}/stake` : ""}
                 className={`${isExpert ? "cursor-default" : "cursor-pointer"}`}
               >
                 <div

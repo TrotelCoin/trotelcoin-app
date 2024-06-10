@@ -1,3 +1,4 @@
+import { ItemName } from "@/types/items/items";
 import { Lang } from "@/types/language/lang";
 import { SetStateAction } from "react";
 
@@ -6,7 +7,7 @@ export const translateItemName = (
   lang: Lang,
   setDisplayedName: React.Dispatch<SetStateAction<string | null>>
 ) => {
-  switch (name) {
+  switch (name as ItemName) {
     case "Potion":
       const potion = lang === "en" ? "Potion" : "Potion";
       setDisplayedName(potion);

@@ -14,7 +14,7 @@ const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", options).format(new Date(date));
 };
 
-const version = "1.9.8";
+const version = "1.9.9";
 
 interface ChangelogItem {
   title: string;
@@ -80,6 +80,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en" ? "- Futures Contracts" : "- Les Contrats à Terme",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- What is Proof of Collective Intelligence?"
+              : "- Qu'est-ce que la Preuve d'Intelligence Collective?",
         },
       ],
     },
