@@ -70,6 +70,28 @@ const lessons: Lessons[] = [
         available: true,
         cover: "/assets/courses/trotelcoin/stake-your-trotel.jpg",
       },
+      {
+        title: {
+          en: "What is Proof of Collective Intelligence?",
+          fr: "Qu'est-ce que la Preuve d'Intelligence Collective ?",
+        },
+        description: {
+          en: "Explore the concept of Proof of Collective Intelligence and its role in decentralized education.",
+          fr: "Explorez le concept de Preuve d'Intelligence Collective et son rôle dans l'éducation décentralisée.",
+        },
+        href: "/trotelcoin/proof-of-collective-intelligence",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        date: new Date("2024-06-10"),
+        sponsored: false,
+        new: new Date("2024-06-10") > twoWeeksAgo,
+        quizId: 40,
+        available: true,
+        cover:
+          "/assets/courses/trotelcoin/proof-of-collective-intelligence.jpg",
+      },
     ],
   },
   {

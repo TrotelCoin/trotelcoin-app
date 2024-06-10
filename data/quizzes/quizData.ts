@@ -3655,6 +3655,123 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    title: "What is Proof of Collective Intelligence?",
+    quizId: 40,
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the Proof of Collective Intelligence?",
+          fr: "Qu'est-ce que la Preuve d'Intelligence Collective?",
+        },
+        options: {
+          en: [
+            "A new concept in decentralized education",
+            "A new cryptocurrency",
+            "A type of blockchain consensus",
+            "A machine learning algorithm",
+          ],
+          fr: [
+            "Un nouveau concept dans l'éducation décentralisée",
+            "Une nouvelle cryptomonnaie",
+            "Un type de consensus blockchain",
+            "Un algorithme d'apprentissage automatique",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Who can contribute to the Proof of Collective Intelligence?",
+          fr: "Qui peut contribuer à la Preuve d'Intelligence Collective?",
+        },
+        options: {
+          en: ["Everyone", "Only experts", "Only educators", "Only students"],
+          fr: [
+            "Tout le monde",
+            "Seuls les experts",
+            "Seuls les éducateurs",
+            "Seuls les étudiants",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What technology is used to store data?",
+          fr: "Quelle technologie est utilisée pour stocker les données?",
+        },
+        options: {
+          en: ["IPFS", "AWS", "Google Cloud", "Microsoft Azure"],
+          fr: ["IPFS", "AWS", "Google Cloud", "Microsoft Azure"],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What determines voting power in the system?",
+          fr: "Qu'est-ce qui détermine le pouvoir de vote dans le système?",
+        },
+        options: {
+          en: [
+            "Number of TROTEL held and staked",
+            "Number of courses created",
+            "Number of students taught",
+            "Number of rewards earned",
+          ],
+          fr: [
+            "Le nombre de TROTEL détenus et en staking",
+            "Le nombre de cours créés",
+            "Le nombre d'étudiants enseignés",
+            "Le nombre de récompenses gagnées",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What must a course creator do to put their course online?",
+          fr: "Que doit faire un créateur de cours pour mettre son cours en ligne?",
+        },
+        options: {
+          en: [
+            "Pay fees",
+            "Complete a training",
+            "Get a certification",
+            "Gain approval from a mentor",
+          ],
+          fr: [
+            "Payer des frais",
+            "Suivre une formation",
+            "Obtenir une certification",
+            "Obtenir l'approbation d'un mentor",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "Who verifies the course once the fees are paid?",
+          fr: "Qui vérifie le cours une fois les frais payés?",
+        },
+        options: {
+          en: [
+            "DAO governance",
+            "Course creator",
+            "Students",
+            "External auditors",
+          ],
+          fr: [
+            "La gouvernance de la DAO",
+            "Le créateur du cours",
+            "Les étudiants",
+            "Les auditeurs externes",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;
