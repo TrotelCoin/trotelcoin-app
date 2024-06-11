@@ -267,6 +267,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   };
                   return tierOrder[a.tier.en] - tierOrder[b.tier.en];
                 })
+                .sort(() => 0.5 - Math.random())
                 .filter((course: Lesson) => {
                   const lowerCaseTitle = course.title[lang].toLowerCase();
                   return (
