@@ -317,6 +317,27 @@ const lessons: Lessons[] = [
         available: true,
         cover: "/assets/courses/bitcoin/the-halving.jpg",
       },
+      {
+        title: {
+          en: "What is the Lightning Network?",
+          fr: "Qu'est-ce que le Lightning Network ?",
+        },
+        description: {
+          en: "Explore how the Lightning Network enables faster and cheaper Bitcoin transactions.",
+          fr: "Découvrez comment le Lightning Network permet des transactions Bitcoin plus rapides et moins chères.",
+        },
+        href: "/bitcoin/lightning-network",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        date: new Date("2024-06-12"),
+        sponsored: false,
+        new: new Date("2024-06-12") > twoWeeksAgo,
+        quizId: 41,
+        available: true,
+        cover: "/assets/courses/bitcoin/lightning-network.jpg",
+      },
     ],
   },
   {

@@ -3772,6 +3772,107 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    title: "What is the Lightning Network?",
+    quizId: 41,
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the Lightning Network?",
+          fr: "Qu'est-ce que le Lightning Network?",
+        },
+        options: {
+          en: [
+            "A second-layer payment solution for Bitcoin.",
+            "A cryptocurrency.",
+            "A blockchain explorer.",
+            "A type of wallet.",
+          ],
+          fr: [
+            "Une solution de paiement de deuxième couche pour Bitcoin.",
+            "Une cryptomonnaie.",
+            "Un explorateur de blockchain.",
+            "Un type de portefeuille.",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What does the Lightning Network allow?",
+          fr: "À quoi sert le Lightning Network?",
+        },
+        options: {
+          en: [
+            "Instant and low-cost transactions.",
+            "Mining of new Bitcoins.",
+            "Storing large amounts of data.",
+            "Creating new cryptocurrencies.",
+          ],
+          fr: [
+            "De réaliser des transactions instantanées et à faible coût.",
+            "De miner de nouveaux Bitcoins.",
+            "De stocker de grandes quantités de données.",
+            "De créer de nouvelles cryptomonnaies.",
+          ],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What must users pay to use payment channels?",
+          fr: "Que doivent payer les utilisateurs pour utiliser les canaux de paiement?",
+        },
+        options: {
+          en: ["Fees.", "Taxes.", "Commissions.", "Interest."],
+          fr: ["Des frais.", "Des taxes.", "Des commissions.", "Des intérêts."],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What happens if there are no common payment channels?",
+          fr: "Que se passe-t-il s'il n'y a pas de canaux de paiement en commun?",
+        },
+        options: {
+          en: [
+            "An intermediary is used.",
+            "The transaction is canceled.",
+            "The network shuts down.",
+            "A new channel is created automatically.",
+          ],
+          fr: [
+            "Un intermédiaire est utilisé.",
+            "La transaction est annulée.",
+            "Le réseau se ferme.",
+            "Un nouveau canal est créé automatiquement.",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What is a limitation of using intermediaries in the Lightning Network?",
+          fr: "Quelle est une limitation de l'utilisation des intermédiaires dans le Lightning Network?",
+        },
+        options: {
+          en: [
+            "Transactions cannot be made if the intermediary does not have enough funds.",
+            "Intermediaries charge high fees.",
+            "Transactions are very slow.",
+            "Intermediaries are not secure.",
+          ],
+          fr: [
+            "Les transactions ne peuvent pas être effectuées si l'intermédiaire n'a pas assez de fonds.",
+            "Les intermédiaires facturent des frais élevés.",
+            "Les transactions sont très lentes.",
+            "Les intermédiaires ne sont pas sécurisés.",
+          ],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

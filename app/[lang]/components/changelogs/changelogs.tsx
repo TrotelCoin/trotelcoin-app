@@ -87,6 +87,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- What is Proof of Collective Intelligence?"
               : "- Qu'est-ce que la Preuve d'Intelligence Collective?",
         },
+        {
+          text:
+            lang === "en"
+              ? "- What is the Lightning Network?"
+              : "- Qu'est-ce que le Lightning Network?",
+        },
       ],
     },
     {
