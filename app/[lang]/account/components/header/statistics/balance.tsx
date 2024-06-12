@@ -1,11 +1,12 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
-import React, { useEffect } from "react";
-import { Address } from "viem";
+import React, { useContext, useEffect } from "react";
+import { Address, formatEther } from "viem";
 import { polygon } from "viem/chains";
 import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
@@ -50,7 +51,9 @@ const Balance = ({ lang }: { lang: Lang }) => {
               </span>
             </>
           </span>
-          <span>{lang === "en" ? "Balance" : "Solde"}</span>
+          <span className="flex items-center justify-center gap-1">
+            {lang === "en" ? "Balance" : "Solde"}
+          </span>
         </div>
       </div>
     </>
