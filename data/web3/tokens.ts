@@ -23,5 +23,14 @@ export const usdcPolygon: Token = {
   logoURI: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg",
 };
 
+export const usdcPolygonBridged: Token = {
+  address: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+  decimals: 6,
+  symbol: "USDC.e",
+  name: "USDCCoin",
+  chainId: polygon.id,
+  logoURI: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg",
+};
+
 export const nativeAddress: Address =
   "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";

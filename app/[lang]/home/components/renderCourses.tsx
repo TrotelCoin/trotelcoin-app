@@ -1,10 +1,11 @@
 import type { Lang } from "@/types/language/lang";
-import { Lesson } from "@/types/courses/lessons";
+import { Lesson, LessonCategory, Lessons } from "@/types/courses/lessons";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import { lessons } from "@/data/lessons/lessons";
 
 const renderCourses = (
   course: Lesson,
@@ -14,10 +15,11 @@ const renderCourses = (
   quizId: number,
   status: string[],
   index: number,
-  category: string
+  category: LessonCategory
 ) => {
-  const [isHovering, setIsHovering] = useState(false);
-  const [marqueePlay, setMarqueePlay] = useState(false);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [marqueePlay, setMarqueePlay] = useState<boolean>(false);
+  const [categoryLogo, setCategoryLogo] = useState<string | null>(null);
 
   useEffect(() => {
     if (isHovering) {
@@ -26,6 +28,13 @@ const renderCourses = (
       setMarqueePlay(false);
     }
   }, [isHovering]);
+
+  useEffect(() => {
+    const categoryLogo: string = lessons.find(
+      (lesson: Lessons) => lesson.category === category
+    )?.logo as string;
+    setCategoryLogo(categoryLogo);
+  }, [category]);
 
   let tier = "";
   let title = "";
@@ -91,8 +100,19 @@ const renderCourses = (
         <div className="p-4 w-full h-full flex flex-col justify-between">
           <div className="flex flex-col">
             <div className="flex items-center gap-0.5">
-              <div className="text-xs text-gray-700 dark:text-gray-300">
-                {category}
+              <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                {categoryLogo && (
+                  <>
+                    <Image
+                      src={categoryLogo}
+                      width={15}
+                      height={15}
+                      alt={category}
+                      className="object-cover"
+                    />
+                  </>
+                )}
+                {category}{" "}
               </div>
               {course.available &&
                 ((status[quizId - 1] === "Finished" && lang === "en") ||
@@ -113,15 +133,15 @@ const renderCourses = (
             play={marqueePlay}
           >
             {course.sponsored && (
-              <div className="px-0.5">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">
                   {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
                 </div>
               </div>
             )}
 
             {course.new && (
-              <div className="px-0.5">
+              <div className="px-1">
                 <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
                   {lang === "en" ? "New 👀" : "Nouveau 👀"}
                 </div>
@@ -129,7 +149,7 @@ const renderCourses = (
             )}
 
             {(tier === "Beginner" || tier === "Débutant") && (
-              <div className="px-0.5">
+              <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
                   {tier} 🐣
                 </div>
@@ -137,7 +157,7 @@ const renderCourses = (
             )}
 
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
-              <div className="px-0.5">
+              <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
                   {tier} 🙈
                 </div>
@@ -145,7 +165,7 @@ const renderCourses = (
             )}
 
             {tier === "Expert" && (
-              <div className="px-0.5">
+              <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-red-400 text-gray-100">
                   {tier} 🦊
                 </div>
@@ -153,7 +173,7 @@ const renderCourses = (
             )}
 
             {!course.available && (
-              <div className="px-0.5">
+              <div className="px-1">
                 <div className="inline-flex items-center rounded-xl text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
                   {lang === "en" ? "Not available" : "Non disponible"}
                 </div>

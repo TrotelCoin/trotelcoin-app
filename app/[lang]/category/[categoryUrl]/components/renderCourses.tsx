@@ -106,33 +106,45 @@ const renderCourses = (
           </div>
           <Marquee className="flex mt-4 items-center" play={marqueePlay}>
             {course.sponsored && (
-              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
-                {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">
+                  {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
+                </div>
               </div>
             )}
             {course.new && (
-              <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
-                {lang === "en" ? "New 👀" : "Nouveau 👀"}
+              <div className="px-1">
+                <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+                  {lang === "en" ? "New 👀" : "Nouveau 👀"}
+                </div>
               </div>
             )}
             {(tier === "Beginner" || tier === "Débutant") && (
-              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
-                {tier} 🐣
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
+                  {tier} 🐣
+                </div>
               </div>
             )}
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
-              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
-                {tier} 🙈
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
+                  {tier} 🙈
+                </div>
               </div>
             )}
             {tier === "Expert" && (
-              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-red-400 text-gray-100">
-                {tier} 🦊
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-red-400 text-gray-100">
+                  {tier} 🦊
+                </div>
               </div>
             )}
             {!course.available && (
-              <div className="inline-flex items-center rounded-xl text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
-                {lang === "en" ? "Not available" : "Non disponible"}
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
+                  {lang === "en" ? "Not available" : "Non disponible"}
+                </div>
               </div>
             )}
           </Marquee>

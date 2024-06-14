@@ -3,9 +3,10 @@ import { Lessons } from "@/types/courses/lessons";
 const twoWeeksAgo = new Date();
 twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
-const lessons: Lessons[] = [
+export const lessons: Lessons[] = [
   {
     category: "TrotelCoin",
+    categoryUrl: "trotelcoin",
     courses: [
       {
         title: {
@@ -96,6 +97,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Wallet",
+    categoryUrl: "wallet",
     courses: [
       {
         title: {
@@ -185,6 +187,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Blockchain",
+    categoryUrl: "blockchain",
     courses: [
       {
         title: {
@@ -253,6 +256,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Bitcoin",
+    categoryUrl: "bitcoin",
     courses: [
       {
         title: {
@@ -342,6 +346,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Ethereum",
+    categoryUrl: "ethereum",
     courses: [
       {
         title: {
@@ -431,6 +436,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "NFTs",
+    categoryUrl: "nfts",
     courses: [
       {
         title: {
@@ -499,6 +505,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Metaverse",
+    categoryUrl: "metaverse",
     courses: [
       {
         title: {
@@ -525,6 +532,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Governance",
+    categoryUrl: "governance",
     courses: [
       {
         title: {
@@ -593,6 +601,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Stablecoins",
+    categoryUrl: "stablecoins",
     courses: [
       {
         title: {
@@ -661,6 +670,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Web3",
+    categoryUrl: "web3",
     courses: [
       {
         title: {
@@ -771,6 +781,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Trading",
+    categoryUrl: "trading",
     courses: [
       {
         title: {
@@ -860,6 +871,7 @@ const lessons: Lessons[] = [
   },
   {
     category: "Investing",
+    categoryUrl: "investing",
     courses: [
       {
         title: {
@@ -923,6 +935,34 @@ const lessons: Lessons[] = [
         quizId: 36,
         available: true,
         cover: "/assets/courses/investing/bonds-vs-stocks.jpg",
+      },
+    ],
+  },
+  {
+    category: "BIM Finance",
+    categoryUrl: "bim-finance",
+    logo: "/assets/sponsors/bim-finance/bim-finance-logo.png",
+    courses: [
+      {
+        title: {
+          en: "What is BIM Finance?",
+          fr: "Qu'est-ce que BIM Finance ?",
+        },
+        description: {
+          en: "With BIM Finance, enjoy a complete and secure ecosystem to buy, sell, swap, bridge and stake your cryptocurrencies from a single interface.",
+          fr: "Avec BIM Finance, profitez d'un écosystème complet et sécurisé pour acheter, vendre, échanger, pontifier et staker vos cryptomonnaies depuis une seule interface.",
+        },
+        href: "/bim-finance/what-is-bim-finance",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant",
+        },
+        date: new Date("2024-06-14"),
+        sponsored: true,
+        new: new Date("2024-06-14") > twoWeeksAgo,
+        quizId: 42,
+        available: true,
+        cover: "/assets/courses/bim-finance/what-is-bim-finance.jpg",
       },
     ],
   },

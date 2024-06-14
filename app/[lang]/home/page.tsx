@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import lessons from "@/data/lessons/lessons";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import type { Lang } from "@/types/language/lang";
-import { Lesson, Lessons } from "@/types/courses/lessons";
+import { Lesson, LessonCategory, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";
 import { lessonsLength } from "@/utils/courses/lessonsLength";
@@ -201,12 +201,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             >
               {newCourses
                 .sort((a: Lesson, b: Lesson) => {
-                  const tierOrder = {
-                    Beginner: 2,
-                    Intermediate: 1,
-                    Expert: 0,
-                  };
-                  return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                  return b.date.getTime() - a.date.getTime();
                 })
                 .filter((course: Lesson) => {
                   const lowerCaseTitle = course.title[lang].toLowerCase();
@@ -224,7 +219,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                     course.quizId,
                     status,
                     index,
-                    course.category as string
+                    course.category as LessonCategory
                   )
                 )}
             </div>
@@ -260,12 +255,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             >
               {sponsoredCourses
                 .sort((a: Lesson, b: Lesson) => {
-                  const tierOrder = {
-                    Beginner: 2,
-                    Intermediate: 1,
-                    Expert: 0,
-                  };
-                  return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                  return b.date.getTime() - a.date.getTime();
                 })
                 .sort(() => 0.5 - Math.random())
                 .filter((course: Lesson) => {
@@ -284,7 +274,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                     course.quizId,
                     status,
                     index,
-                    course.category as string
+                    course.category as LessonCategory
                   )
                 )}
             </div>
@@ -322,9 +312,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                         <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
                       </button>
                     </div>
-                    <Link
-                      href={`/${lang}/category/${lesson.category.toLowerCase()}`}
-                    >
+                    <Link href={`/${lang}/category/${lesson.categoryUrl}`}>
                       <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
                         {lang === "en" ? "View all" : "Voir tout"}
                       </button>

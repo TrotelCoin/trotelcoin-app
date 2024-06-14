@@ -6,7 +6,7 @@ import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import React, { useContext, useEffect, useState } from "react";
 import SeparatorVertical from "@/app/[lang]/components/separator/vertical";
-import renderCourses from "@/app/[lang]/category/[category]/components/renderCourses";
+import renderCourses from "@/app/[lang]/category/[categoryUrl]/components/renderCourses";
 import lessons from "@/data/lessons/lessons";
 import { lessonsLength } from "@/utils/courses/lessonsLength";
 import { useAccount } from "wagmi";
@@ -15,16 +15,16 @@ import GoHomeButton from "@/app/[lang]/components/buttons/goHome";
 import CountUp from "react-countup";
 
 const Page = ({
-  params: { lang, category },
+  params: { lang, categoryUrl },
 }: {
-  params: { lang: Lang; category: string };
+  params: { lang: Lang; categoryUrl: string };
 }) => {
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
 
   const filteredLessons = lessons.filter(
-    (lesson) => lesson.category.toLowerCase() === category.toLowerCase()
+    (lesson) => lesson.categoryUrl === categoryUrl
   );
 
   const { address } = useAccount();

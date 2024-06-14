@@ -36,6 +36,7 @@ import { config } from "@/config/Web3ModalConfig";
 import { headers } from "next/headers";
 import Waitlist from "@/app/[lang]/components/waitlist/waitlist";
 import { refreshIntervalTime } from "@/utils/axios/fetcher";
+import TrotelPriceProvider from "@/providers/trotelPrice";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -140,33 +141,35 @@ export default function Layout({
             <AudioProvider>
               <Web3ModalProvider initialState={initialState}>
                 <SessionProviderComponent session={session}>
-                  <PremiumProvider>
-                    <UserProvider lang={lang}>
-                      <LifeProvider lang={lang}>
-                        <StreakProvider lang={lang}>
-                          <LanguageProvider>
-                            <NotificationProvider lang={lang}>
-                              <Suspense fallback={<Loading lang={lang} />}>
-                                <Waitlist lang={lang}>
-                                  <Banner lang={lang} />
-                                  <Changelogs lang={lang} />
-                                  <Header lang={lang} />
+                  <TrotelPriceProvider>
+                    <PremiumProvider>
+                      <UserProvider lang={lang}>
+                        <LifeProvider lang={lang}>
+                          <StreakProvider lang={lang}>
+                            <LanguageProvider>
+                              <NotificationProvider lang={lang}>
+                                <Suspense fallback={<Loading lang={lang} />}>
+                                  <Waitlist lang={lang}>
+                                    <Banner lang={lang} />
+                                    <Changelogs lang={lang} />
+                                    <Header lang={lang} />
 
-                                  <main className="px-4 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
-                                    {children}
-                                  </main>
+                                    <main className="px-4 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                                      {children}
+                                    </main>
 
-                                  <Footer lang={lang} />
-                                  <MobileFooter lang={lang} />
-                                  <BlockNumber lang={lang} />
-                                </Waitlist>
-                              </Suspense>
-                            </NotificationProvider>
-                          </LanguageProvider>
-                        </StreakProvider>
-                      </LifeProvider>
-                    </UserProvider>
-                  </PremiumProvider>
+                                    <Footer lang={lang} />
+                                    <MobileFooter lang={lang} />
+                                    <BlockNumber lang={lang} />
+                                  </Waitlist>
+                                </Suspense>
+                              </NotificationProvider>
+                            </LanguageProvider>
+                          </StreakProvider>
+                        </LifeProvider>
+                      </UserProvider>
+                    </PremiumProvider>
+                  </TrotelPriceProvider>
                 </SessionProviderComponent>
               </Web3ModalProvider>
             </AudioProvider>
