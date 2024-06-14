@@ -201,12 +201,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             >
               {newCourses
                 .sort((a: Lesson, b: Lesson) => {
-                  const tierOrder = {
-                    Beginner: 2,
-                    Intermediate: 1,
-                    Expert: 0,
-                  };
-                  return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                  return b.date.getTime() - a.date.getTime();
                 })
                 .filter((course: Lesson) => {
                   const lowerCaseTitle = course.title[lang].toLowerCase();
@@ -260,12 +255,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
             >
               {sponsoredCourses
                 .sort((a: Lesson, b: Lesson) => {
-                  const tierOrder = {
-                    Beginner: 2,
-                    Intermediate: 1,
-                    Expert: 0,
-                  };
-                  return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                  return b.date.getTime() - a.date.getTime();
                 })
                 .sort(() => 0.5 - Math.random())
                 .filter((course: Lesson) => {
