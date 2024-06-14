@@ -3873,6 +3873,113 @@ const quizzes: QuizData = [
       },
     ],
   },
+  {
+    title: "What is BIM Finance?",
+    quizId: 42,
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is the primary function of the BIM token within the BIM Protocol?",
+          fr: "Quelle est la fonction principale du jeton BIM dans le protocole BIM ?",
+        },
+        options: {
+          en: [
+            "Governance and voting",
+            "Payment for services",
+            "Advertising",
+            "Content creation",
+          ],
+          fr: [
+            "Gouvernance et vote",
+            "Paiement pour services",
+            "Publicité",
+            "Création de contenu",
+          ],
+        },
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Which feature allows users to transfer funds between different blockchains on BIM Exchange?",
+          fr: "Quelle fonctionnalité permet aux utilisateurs de transférer des fonds entre différentes blockchains sur BIM Exchange ?",
+        },
+        options: {
+          en: ["BIM Bridge", "BIM Swap", "BIM Staking", "BIM Vault"],
+          fr: ["BIM Bridge", "BIM Swap", "BIM Staking", "BIM Vault"],
+        },
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What is the function of the intelligent route scanner on BIM Exchange?",
+          fr: "Quelle est la fonction du scanner de route intelligent sur BIM Exchange ?",
+        },
+        options: {
+          en: [
+            "Ensures exchanges are instantaneous and at competitive rates",
+            "Provides financial advice",
+            "Scans for the best fiat exchange rates",
+            "Secures the blockchain",
+          ],
+          fr: [
+            "Assure des échanges instantanés et à des taux compétitifs",
+            "Fournit des conseils financiers",
+            "Recherche les meilleurs taux de change en fiat",
+            "Sécurise la blockchain",
+          ],
+        },
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is a key benefit of the auto compounding feature on BIM Exchange?",
+          fr: "Quel est un avantage clé de la fonctionnalité de capitalisation automatique sur BIM Exchange ?",
+        },
+        options: {
+          en: [
+            "Maximizes returns by re-staking revenues",
+            "Reduces transaction fees",
+            "Increases liquidity",
+            "Simplifies user interface",
+          ],
+          fr: [
+            "Maximise les rendements en réinvestissant les revenus",
+            "Réduit les frais de transaction",
+            "Augmente la liquidité",
+            "Simplifie l'interface utilisateur",
+          ],
+        },
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Who manages the BIM treasury?",
+          fr: "Qui gère le trésor BIM ?",
+        },
+        options: {
+          en: ["BIM DAO", "BIM Foundation", "Core Contributors", "BIM Finance"],
+          fr: [
+            "BIM DAO",
+            "BIM Foundation",
+            "Contributeurs principaux",
+            "BIM Finance",
+          ],
+        },
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "What is the total maximum supply of BIM tokens?",
+          fr: "Quelle est l'offre maximale totale de jetons BIM ?",
+        },
+        options: {
+          en: ["34,367,545", "50,000,000", "24,519,255", "10,000,000"],
+          fr: ["34,367,545", "50,000,000", "24,519,255", "10,000,000"],
+        },
+      },
+    ],
+  },
 ];
 
 export default quizzes;

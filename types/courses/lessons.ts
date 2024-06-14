@@ -32,9 +32,12 @@ export type LessonCategory =
   | "Altcoins"
   | "Trading"
   | "Investing"
-  | "New Courses";
+  | "New Courses"
+  | "BIM Finance";
 
 export interface Lessons {
   category: LessonCategory;
+  categoryUrl: string;
+  logo?: string;
   courses: Lesson[];
 }

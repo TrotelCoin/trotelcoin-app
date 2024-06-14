@@ -72,14 +72,10 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
       title: lang === "en" ? "New courses 📚" : "Nouveaux cours 📚",
       content: [
         {
-          text: lang === "en" ? "- The Metaverse" : "- Le Metaverse",
-        },
-        {
-          text: lang === "en" ? "- Oracles" : "- Les Oracles",
-        },
-        {
           text:
-            lang === "en" ? "- Futures Contracts" : "- Les Contrats à Terme",
+            lang === "en"
+              ? "- What is BIM Finance?"
+              : "- Qu'est-ce BIM Finance?",
         },
         {
           text:
@@ -110,12 +106,6 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Rebuilding the homepage"
               : "- On retravaille la page d'accueil",
         },
-        {
-          text:
-            lang === "en"
-              ? "- Add new courses to the homepage"
-              : "- Ajout de nouveaux cours à la page d'accueil",
-        },
       ],
     },
     {
@@ -124,8 +114,20 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
         {
           text:
             lang === "en"
-              ? "- We already whitelisted 146+ wallets"
-              : "- Nous avons déjà whitelisté 146+ wallets",
+              ? "- We already whitelisted 150+ wallets"
+              : "- Nous avons déjà whitelisté 150+ wallets",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We listed on BIM Exchange"
+              : "- Nous sommes listé sur BIM Exchange",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We are adding our first Sponsor"
+              : "- Nous ajoutons notre premier Sponsor",
         },
       ],
     },
@@ -140,6 +142,12 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
             lang === "en"
               ? "- We are working on Proof of Collective Intelligence"
               : "- Nous travaillons sur la Preuve d'Intelligence Collective",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- We are working on Quests"
+              : "- Nous travaillons sur les Quêtes",
         },
       ],
     },
