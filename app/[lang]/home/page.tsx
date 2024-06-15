@@ -23,6 +23,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   );
 
   const scrollRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const scrollRefForYouCourses = useRef<HTMLDivElement | null>(null);
   const scrollRefNewCourses = useRef<HTMLDivElement | null>(null);
   const scrollRefSponsoredCourses = useRef<HTMLDivElement | null>(null);
 
@@ -150,6 +151,37 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     }
   };
 
+  const scrollLeftForYouCourses = () => {
+    const currentRef = scrollRefForYouCourses.current;
+    if (currentRef) {
+      if (currentRef.scrollLeft > 0) {
+        currentRef.scrollBy({
+          left: -currentRef.clientWidth,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
+  const scrollRightForYouCourses = () => {
+    const currentRef = scrollRefForYouCourses.current;
+    if (currentRef) {
+      if (
+        currentRef.scrollLeft <
+        currentRef.scrollWidth - currentRef.clientWidth
+      ) {
+        currentRef.scrollBy({
+          left: currentRef.clientWidth,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
+  const forYouCourses = lessons.flatMap((lesson) =>
+    lesson.courses.map((course) => ({ ...course, category: lesson.category }))
+  ); // we need to define parameters to recommend courses based on user's previous courses and what he likes
+
   const newCourses = lessons.flatMap((lesson) =>
     lesson.courses
       .filter((course) => course.new)
@@ -171,6 +203,57 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
           searchTerm={searchTerm}
           filteredLessons={filteredLessons}
         />
+
+        {forYouCourses && forYouCourses.length > 0 && (
+          <div className="my-10">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-2">
+                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                  {lang === "en" ? "For You" : "Pour Vous"}
+                </h2>
+              </div>
+              <div className="hidden md:flex items-center gap-2">
+                <button
+                  className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                  onClick={() => scrollLeftForYouCourses()}
+                >
+                  <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
+                </button>
+                <button
+                  className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                  onClick={() => scrollRightForYouCourses()}
+                >
+                  <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
+                </button>
+              </div>
+            </div>
+            <div
+              ref={scrollRefForYouCourses}
+              className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
+            >
+              {forYouCourses
+                .filter((course: Lesson) => {
+                  const lowerCaseTitle = course.title[lang].toLowerCase();
+                  return (
+                    lowerCaseTitle.includes(searchTerm) && course.available
+                  );
+                })
+                .slice(0, 10)
+                .map((course: Lesson, index: number) =>
+                  renderCourses(
+                    course,
+                    isIntermediate,
+                    isExpert,
+                    lang,
+                    course.quizId,
+                    status,
+                    index,
+                    course.category as LessonCategory
+                  )
+                )}
+            </div>
+          </div>
+        )}
 
         {newCourses && newCourses.length > 0 && (
           <div className="my-10">
