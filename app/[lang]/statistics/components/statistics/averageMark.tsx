@@ -9,7 +9,6 @@ import Evolution from "@/app/[lang]/statistics/components/statistics/components/
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
-import { Skeleton } from "@radix-ui/themes";
 
 const stat: StatisticsType = "average_mark";
 
@@ -59,9 +58,7 @@ const AverageMark = ({
             </>
           ) : (
             <span>
-              <Skeleton>
-                0/20 <span className="hidden md:inline">🎓</span>
-              </Skeleton>
+              0/20 <span className="hidden md:inline">🎓</span>
             </span>
           )}
         </span>

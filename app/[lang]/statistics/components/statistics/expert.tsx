@@ -2,7 +2,6 @@
 
 import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
 import { trotelCoinExpertAddress } from "@/data/web3/addresses";
-import { Skeleton } from "@radix-ui/themes";
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -70,9 +69,7 @@ const Expert = ({
             </>
           ) : (
             <span>
-              <Skeleton>
-                0 <span className="hidden md:inline">🦊</span>
-              </Skeleton>
+              0 <span className="hidden md:inline">🦊</span>
             </span>
           )}
         </span>

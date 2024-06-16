@@ -2,7 +2,6 @@ import type { Lang } from "@/types/language/lang";
 import React from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const EstimatedRewards = ({ lang }: { lang: Lang }) => {
@@ -26,9 +25,7 @@ const EstimatedRewards = ({ lang }: { lang: Lang }) => {
               <CountUp start={0} end={Math.floor(remainingRewards / 4)} />
             </>
           ) : (
-            <span>
-              <Skeleton>{"0 < 🧠 < 0"}</Skeleton>
-            </span>
+            <span>{"0 < 🧠 < 0"}</span>
           )}
         </span>
 
