@@ -10,6 +10,8 @@ import type { NotificationType } from "@/types/notifications/notifications";
 import { addNotificationToQueue } from "@/utils/notifications/addNotificationToQueue";
 import PremiumContext from "@/contexts/premium";
 
+const enableFlag: boolean = false;
+
 const NotificationProvider = ({
   children,
   lang,
@@ -36,7 +38,7 @@ const NotificationProvider = ({
     } else if (streakResetMessage) {
       addNotificationToQueue("streakResetMessage", setNotificationQueue);
     }
-    if (lifeResetMessage && !isIntermediate && !isExpert) {
+    if (lifeResetMessage && !isIntermediate && !isExpert && enableFlag) {
       addNotificationToQueue("lifeResetMessage", setNotificationQueue);
     }
     if (streakMessage) {
