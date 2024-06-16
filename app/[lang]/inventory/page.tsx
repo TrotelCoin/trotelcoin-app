@@ -15,6 +15,7 @@ import UserContext from "@/contexts/user";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import { loadingFlashClass } from "@/style/loading";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
@@ -23,6 +24,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   >(null);
   const [hide, setHide] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(true);
 
   const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
@@ -52,6 +54,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setInventories(newInventories);
       });
 
+      setFetching(false);
       setRefreshing(false);
     }
   };
@@ -148,10 +151,16 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : refreshing ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <InventoryItemSkeleton key={index} />
-              ))}
+            <div className="flex justify-center items-center text-center py-32 md:px-32">
+              <span
+                className={`text-gray-700 dark:text-gray-300 ${
+                  refreshing && loadingFlashClass
+                }`}
+              >
+                {lang === "en"
+                  ? "Your items are loading..."
+                  : "Vos objets sont en cours de chargement..."}
+              </span>
             </div>
           </>
         ) : (
@@ -165,6 +174,14 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               {!isLoggedIn && <Wallet lang={lang} isCentered={true} />}
             </div>
           </>
+        )}
+
+        {fetching && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <InventoryItemSkeleton key={index} />
+            ))}
+          </div>
         )}
       </div>
     </>
