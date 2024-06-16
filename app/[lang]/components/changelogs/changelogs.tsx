@@ -106,6 +106,9 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               ? "- Rebuilding the homepage"
               : "- On retravaille la page d'accueil",
         },
+        {
+          text: lang === "en" ? "- Added For You section" : "- On a ajouté la section Pour Vous"
+        },
       ],
     },
     {

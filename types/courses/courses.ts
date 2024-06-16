@@ -31,3 +31,13 @@ export type CourseJSON = {
   course: SubmitCourseData[];
   quiz: SubmitQuizData;
 };
+
+export type CourseRating = {
+  quiz_id: number;
+  rating: number;
+};
+
+export type CourseFinished = {
+  quiz_id: number;
+  answered: boolean;
+};

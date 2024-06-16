@@ -4,12 +4,12 @@ import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/style/loading";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
+import { Skeleton } from "@radix-ui/themes";
 
 const stat: StatisticsType = "average_mark";
 
@@ -46,7 +46,11 @@ const AverageMark = ({
       <div
         className={`bg-white flex flex-col h-full items-center justify-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl px-2 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
       >
-        <Evolution evolution={evolution as number} percentage={true} />
+        <Evolution
+          evolution={evolution as number}
+          percentage={true}
+          isLoading={!evolution}
+        />
         <span className="font-semibold text-2xl md:text-4xl">
           {averageMark ? (
             <>
@@ -54,8 +58,10 @@ const AverageMark = ({
               <span className="hidden md:inline">🎓</span>
             </>
           ) : (
-            <span className={`${loadingFlashClass}`}>
-              0/20 <span className="hidden md:inline">🎓</span>
+            <span>
+              <Skeleton>
+                0/20 <span className="hidden md:inline">🎓</span>
+              </Skeleton>
             </span>
           )}
         </span>

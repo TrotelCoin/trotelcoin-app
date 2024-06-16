@@ -2,7 +2,7 @@ import { Lessons } from "@/types/courses/lessons";
 import { Suggestion } from "@/types/courses/suggestion";
 import type { Lang } from "@/types/language/lang";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const Form = ({
   lang,
@@ -15,48 +15,39 @@ const Form = ({
   searchTerm: string;
   filteredLessons: Lessons[];
 }) => {
-  const [suggestions, setSuggestions] = React.useState<Suggestion[]>([]);
-  const [isActive, setIsActive] = React.useState<boolean>(false);
-  const [hovering, setHovering] = React.useState<boolean>(false);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [hovering, setHovering] = useState<boolean>(false);
 
-  const handleSuggestions = (): Suggestion[] => {
-    let suggestions: Suggestion[] = [];
+  const generateSuggestions = (lessons: Lessons[], language: Lang) => {
+    let newSuggestions: Suggestion[] = [];
 
-    filteredLessons.forEach((lesson) => {
+    lessons.forEach((lesson) => {
       const lessonSuggestions = lesson.courses.map((course) => {
-        switch (lang) {
-          case "en":
-            return {
-              title: course.title.en,
-              href: course.href,
-              quizId: course.quizId,
-            };
-          case "fr":
-            return {
-              title: course.title.fr,
-              href: course.href,
-              quizId: course.quizId,
-            };
-          default:
-            return {
-              title: course.title.en,
-              href: course.href,
-              quizId: course.quizId,
-            };
-        }
+        const title = language === "fr" ? course.title.fr : course.title.en;
+        return {
+          title: title,
+          href: course.href,
+          quizId: course.quizId,
+        };
       });
 
-      suggestions = [...suggestions, ...lessonSuggestions];
+      newSuggestions = [...newSuggestions, ...lessonSuggestions];
     });
 
-    return suggestions;
+    setSuggestions(newSuggestions);
   };
 
   useEffect(() => {
-    const suggestions = handleSuggestions();
+    generateSuggestions(filteredLessons, lang);
+  }, [filteredLessons, lang]);
 
-    setSuggestions(suggestions.flat());
-  }, [filteredLessons]);
+  const handleFocus = () => setIsActive(true);
+  const handleBlur = () => setIsActive(false);
+  const handleMouseEnter = () => setHovering(true);
+  const handleMouseLeave = () => setHovering(false);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setSearchTerm(e.target.value);
 
   return (
     <>
@@ -79,9 +70,9 @@ const Form = ({
                 ? "What do you want to learn?"
                 : "Que voulez-vous apprendre ?"
             }
-            onFocus={() => setIsActive(true)}
-            onBlur={() => setIsActive(false)}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={() => handleFocus()}
+            onBlur={() => handleBlur()}
+            onChange={(e) => handleChange(e)}
             style={{
               WebkitAppearance: "none",
               appearance: "none",
@@ -89,8 +80,8 @@ const Form = ({
           />
 
           <div
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
+            onMouseEnter={() => handleMouseEnter()}
+            onMouseLeave={() => handleMouseLeave()}
           >
             {(isActive || hovering) && (
               <div className="absolute flex flex-col mt-4 top-O divide-y divide-gray-900/10 dark:divide-gray-100/10 left-O w-full bg-white dark:bg-gray-800 shadow-xl rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl">

@@ -4,7 +4,7 @@ import { calculateUserLevel } from "@/utils/levels/calculateUserLevel";
 import { useContext, useEffect, useState } from "react";
 import PremiumContext from "@/contexts/premium";
 import UserContext from "@/contexts/user";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const LevelSection = ({ lang }: { lang: Lang }) => {
@@ -51,14 +51,16 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
             )}
             {!isNotPremium && (
               <>
-                <p>{lang === "en" ? "You are level" : "Vous êtes niveau"}</p>
-                {userLevel ? (
-                  <>
-                    <CountUp start={0} end={userLevel} />
-                  </>
-                ) : (
-                  <span className={`${loadingFlashClass}`}>0</span>
-                )}
+                <Skeleton loading={!userLevel}>
+                  <p>{lang === "en" ? "You are level" : "Vous êtes niveau"}</p>
+                  {userLevel ? (
+                    <>
+                      <CountUp start={0} end={userLevel} />
+                    </>
+                  ) : (
+                    <span>0</span>
+                  )}
+                </Skeleton>
               </>
             )}
           </div>
@@ -69,8 +71,10 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
           >
             {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium ? (
               <>
-                <CountUp start={0} end={quizzesRemaining} />{" "}
-                {lang === "en" ? "quizzes left" : "quiz restant"}
+                <Skeleton loading={!quizzesRemaining}>
+                  <CountUp start={0} end={quizzesRemaining} />{" "}
+                  {lang === "en" ? "quizzes left" : "quiz restant"}
+                </Skeleton>
               </>
             ) : (
               `${lang === "en" ? "Not premium" : "Non premium"}`

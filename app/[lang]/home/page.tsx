@@ -2,39 +2,29 @@
 
 import React, { useContext, useEffect, useRef, useState } from "react";
 import lessons from "@/data/lessons/lessons";
-import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import type { Lang } from "@/types/language/lang";
-import { Lesson, LessonCategory, Lessons } from "@/types/courses/lessons";
+import type { Lesson, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
-import Form from "@/app/[lang]/home/components/form";
 import { lessonsLength } from "@/utils/courses/lessonsLength";
-import { filterByCategory } from "@/utils/courses/filterByCategory";
-import { filterByTitleOrDescription } from "@/utils/courses/filterByTitleOrDescription";
 import PremiumContext from "@/contexts/premium";
-import Link from "next/link";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { getCoursesRecommendations } from "@/utils/user/getCoursesRecommendations";
+import {
+  findLessonCategory,
+  filterLessons,
+} from "@/utils/lessons/getInformationsFromLesson";
+import CourseSection from "@/app/[lang]/home/components/courseSection";
+import { Address } from "viem";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
-
-  const scrollRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const scrollRefNewCourses = useRef<HTMLDivElement | null>(null);
-  const scrollRefSponsoredCourses = useRef<HTMLDivElement | null>(null);
-
-  const filterLessons = (lesson: Lessons) => {
-    const categoryMatch = filterByCategory(lesson, searchTerm);
-    const titleOrDescMatch = lesson.courses.some((course) =>
-      filterByTitleOrDescription(course, searchTerm, lang)
-    );
-    return categoryMatch || titleOrDescMatch;
-  };
-
-  const filteredLessons = lessons.filter(filterLessons);
+  const [forYouCourses, setForYouCourses] = useState<Lesson[] | null>(null);
+  const [mount, setMount] = useState<boolean>(false);
+  const [isLoadingCourses, setIsLoadingCourses] = useState<boolean>(true);
 
   const { address } = useAccount();
 
@@ -51,102 +41,111 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     }
   );
 
+  const { data: lessonsLiked } = useSWR(
+    address ? `/api/user/courses/satisfaction?wallet=${address}` : null,
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: refreshIntervalTime,
+    }
+  );
+
+  const allCourses = lessons.flatMap((lesson) =>
+    lesson.courses
+      .filter((course) => course.available)
+      .map((course) => {
+        return { ...course, category: lesson.category };
+      })
+  );
+
+  const randomLessons = allCourses.sort(() => 0.5 - Math.random());
+
   useEffect(() => {
-    lessonsCompleted?.map((course: { quiz_id: number; answered: boolean }) => {
-      if (course.answered) {
-        setStatus((prev) => {
-          const newState = [...prev];
-          newState[course.quiz_id - 1] = "Finished";
-          return newState;
-        });
+    if (lessonsCompleted) {
+      const newStatus = [...status];
+      lessonsCompleted.forEach(
+        (course: { quiz_id: number; answered: boolean }) => {
+          newStatus[course.quiz_id - 1] = course.answered
+            ? "Finished"
+            : "Not started";
+        }
+      );
+      setStatus(newStatus);
+    }
+  }, [lessonsCompleted, status]);
+
+  useEffect(() => {
+    const getRecommendations = async () => {
+      const recommendedLessons = await getCoursesRecommendations(
+        address as Address,
+        lessonsLiked,
+        lessonsCompleted
+      );
+
+      const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
+        const category = lessons.find(findLessonCategory(lesson))?.category;
+        return { ...lesson, category };
+      });
+
+      if (forYouCourses.length > 0) {
+        setForYouCourses(forYouCourses);
       } else {
-        setStatus((prev) => {
-          const newState = [...prev];
-          newState[course.quiz_id - 1] = "Not started";
-          return newState;
-        });
+        setForYouCourses(randomLessons);
       }
+
+      setMount(true);
+    };
+
+    if (address && lessonsCompleted && lessonsLiked && !mount) {
+      getRecommendations();
+    }
+  }, [address, lessonsCompleted, lessonsLiked, randomLessons]);
+
+  useEffect(() => {
+    if (lessonsCompleted && lessonsLiked && mount) {
+      setIsLoadingCourses(false);
+    }
+  }, [lessonsCompleted, lessonsLiked, mount]);
+
+  const scrollRefs = useRef<Array<React.RefObject<HTMLDivElement>>>(
+    new Array(lessons.length).fill(null).map(() => React.createRef())
+  );
+  const scrollRefForYouCourses = useRef<HTMLDivElement>(null);
+  const scrollRefNewCourses = useRef<HTMLDivElement>(null);
+  const scrollRefSponsoredCourses = useRef<HTMLDivElement>(null);
+
+  const filteredLessons = lessons
+    .filter((lesson) => filterLessons(lesson, searchTerm, lang))
+    .map((lesson) => {
+      return {
+        ...lesson,
+        courses: lesson.courses.map((course) => {
+          return { ...course, category: lesson.category };
+        }),
+      };
     });
-  }, [address, lessonsCompleted]);
 
-  const scrollLeft = (index: number) => {
-    const currentRef = scrollRefs?.current?.[index];
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
+  const scroll = (
+    ref: React.RefObject<HTMLDivElement> | null | HTMLDivElement,
+    direction: "left" | "right"
+  ) => {
+    let element;
+
+    if (ref instanceof HTMLDivElement) {
+      element = ref;
+    } else if (ref && "current" in ref) {
+      element = ref.current;
     }
-  };
 
-  const scrollRight = (index: number) => {
-    const currentRef = scrollRefs?.current?.[index];
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollLeftNewCourses = () => {
-    const currentRef = scrollRefNewCourses.current;
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollRightNewCourses = () => {
-    const currentRef = scrollRefNewCourses.current;
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollLeftSponsoredCourses = () => {
-    const currentRef = scrollRefSponsoredCourses.current;
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollRightSponsoredCourses = () => {
-    const currentRef = scrollRefSponsoredCourses.current;
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
+    if (element) {
+      const scrollAmount =
+        direction === "left" ? -element.clientWidth : element.clientWidth;
+      element.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
     }
   };
 
@@ -165,121 +164,50 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   return (
     <>
       <>
-        <Form
+        <CourseSection
+          title={lang === "en" ? "For You" : "Pour Vous"}
+          courses={forYouCourses}
           lang={lang}
-          setSearchTerm={setSearchTerm}
+          isIntermediate={isIntermediate}
+          isExpert={isExpert}
+          status={status}
           searchTerm={searchTerm}
-          filteredLessons={filteredLessons}
+          scrollRef={scrollRefForYouCourses}
+          scroll={scroll}
+          isLoading={isLoadingCourses}
         />
 
-        {newCourses && newCourses.length > 0 && (
-          <div className="my-10">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                  {lang === "en" ? "New Courses" : "Nouveaux Cours"}
-                </h2>
-              </div>
-              <div className="hidden md:flex items-center gap-2">
-                <button
-                  className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollLeftNewCourses()}
-                >
-                  <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
-                </button>
-                <button
-                  className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollRightNewCourses()}
-                >
-                  <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
-                </button>
-              </div>
-            </div>
-            <div
-              ref={scrollRefNewCourses}
-              className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
-            >
-              {newCourses
-                .sort((a: Lesson, b: Lesson) => {
-                  return b.date.getTime() - a.date.getTime();
-                })
-                .filter((course: Lesson) => {
-                  const lowerCaseTitle = course.title[lang].toLowerCase();
-                  return (
-                    lowerCaseTitle.includes(searchTerm) && course.available
-                  );
-                })
-                .slice(0, 10)
-                .map((course: Lesson, index: number) =>
-                  renderCourses(
-                    course,
-                    isIntermediate,
-                    isExpert,
-                    lang,
-                    course.quizId,
-                    status,
-                    index,
-                    course.category as LessonCategory
-                  )
-                )}
-            </div>
-          </div>
-        )}
+        <CourseSection
+          title={lang === "en" ? "New Courses" : "Nouveaux Cours"}
+          courses={newCourses.sort((a: Lesson, b: Lesson) => {
+            return b.date.getTime() - a.date.getTime();
+          })}
+          lang={lang}
+          isIntermediate={isIntermediate}
+          isExpert={isExpert}
+          status={status}
+          searchTerm={searchTerm}
+          scrollRef={scrollRefNewCourses}
+          scroll={scroll}
+          isLoading={isLoadingCourses}
+        />
 
-        {sponsoredCourses && sponsoredCourses.length > 0 && (
-          <div className="my-10">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                  {lang === "en" ? "Sponsored" : "Sponsorisé"}
-                </h2>
-              </div>
-              <div className="hidden md:flex items-center gap-2">
-                <button
-                  className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollLeftSponsoredCourses()}
-                >
-                  <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
-                </button>
-                <button
-                  className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollRightSponsoredCourses()}
-                >
-                  <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
-                </button>
-              </div>
-            </div>
-            <div
-              ref={scrollRefSponsoredCourses}
-              className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
-            >
-              {sponsoredCourses
-                .sort((a: Lesson, b: Lesson) => {
-                  return b.date.getTime() - a.date.getTime();
-                })
-                .sort(() => 0.5 - Math.random())
-                .filter((course: Lesson) => {
-                  const lowerCaseTitle = course.title[lang].toLowerCase();
-                  return (
-                    lowerCaseTitle.includes(searchTerm) && course.available
-                  );
-                })
-                .slice(0, 10)
-                .map((course: Lesson, index: number) =>
-                  renderCourses(
-                    course,
-                    isIntermediate,
-                    isExpert,
-                    lang,
-                    course.quizId,
-                    status,
-                    index,
-                    course.category as LessonCategory
-                  )
-                )}
-            </div>
-          </div>
-        )}
+        <CourseSection
+          title={lang === "en" ? "Sponsored" : "Sponsorisés"}
+          courses={sponsoredCourses
+            .sort((a: Lesson, b: Lesson) => {
+              return b.date.getTime() - a.date.getTime();
+            })
+            .sort(() => 0.5 - Math.random())}
+          lang={lang}
+          isIntermediate={isIntermediate}
+          isExpert={isExpert}
+          status={status}
+          searchTerm={searchTerm}
+          scrollRef={scrollRefSponsoredCourses}
+          scroll={scroll}
+          isLoading={isLoadingCourses}
+        />
 
         <div className="flex flex-col">
           {filteredLessons
@@ -289,70 +217,26 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               )
             )
             .map((lesson: Lessons, index: number) => (
-              <div className="my-10" key={index}>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                      {lesson.category}
-                    </h2>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <div className="hidden md:flex items-center gap-2">
-                      <button
-                        className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                        onClick={() => scrollLeft(index)}
-                      >
-                        <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
-                      </button>
-                      <button
-                        className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                        onClick={() => scrollRight(index)}
-                      >
-                        <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
-                      </button>
-                    </div>
-                    <Link href={`/${lang}/category/${lesson.categoryUrl}`}>
-                      <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 rounded-full">
-                        {lang === "en" ? "View all" : "Voir tout"}
-                      </button>
-                    </Link>
-                  </div>
-                </div>
-                <div
-                  ref={(el) => (scrollRefs.current[index] = el)}
-                  className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
-                >
-                  {lesson.courses
-                    .sort((a: Lesson, b: Lesson) => {
-                      const tierOrder = {
-                        Beginner: 2,
-                        Intermediate: 1,
-                        Expert: 0,
-                      };
-                      return tierOrder[a.tier.en] - tierOrder[b.tier.en];
-                    })
-                    .filter((course: Lesson) => {
-                      const lowerCaseTitle = course.title[lang].toLowerCase();
-                      return (
-                        lowerCaseTitle.includes(searchTerm) && course.available
-                      );
-                    })
-                    .slice(0, 10)
-                    .map((course: Lesson, index: number) =>
-                      renderCourses(
-                        course,
-                        isIntermediate,
-                        isExpert,
-                        lang,
-                        course.quizId,
-                        status,
-                        index,
-                        lesson.category
-                      )
-                    )}
-                </div>
-              </div>
+              <CourseSection
+                key={index}
+                title={lesson.category}
+                courses={lesson.courses.sort((a: Lesson, b: Lesson) => {
+                  const tierOrder = {
+                    Beginner: 2,
+                    Intermediate: 1,
+                    Expert: 0,
+                  };
+                  return tierOrder[a.tier.en] - tierOrder[b.tier.en];
+                })}
+                lang={lang}
+                isIntermediate={isIntermediate}
+                isExpert={isExpert}
+                status={status}
+                searchTerm={searchTerm}
+                scrollRef={scrollRefs.current[index]}
+                scroll={scroll}
+                isLoading={isLoadingCourses}
+              />
             ))}
         </div>
       </>

@@ -9,7 +9,7 @@ import useSWR from "swr";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import AudioContext from "@/contexts/audio";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import { handleClaimRewards } from "@/utils/rewards/handleClaimRewards";
 import { Address } from "viem";
 import UserContext from "@/contexts/user";
@@ -158,10 +158,10 @@ const Rewards = ({
 
       {claimingLoading && !claimingError && (
         <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
-          <span
-            className={`font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
-          >
-            {lang === "en" ? "Loading..." : "Chargement..."}
+          <span className={`font-semibold text-gray-900 dark:text-gray-100`}>
+            <Skeleton>
+              {lang === "en" ? "Loading..." : "Chargement..."}
+            </Skeleton>
           </span>
         </div>
       )}

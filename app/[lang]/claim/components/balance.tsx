@@ -6,6 +6,7 @@ import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { polygon } from "viem/chains";
 import { Address } from "viem";
+import { Skeleton } from "@radix-ui/themes";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const [balance, setBalance] = useState<number | null>(null);
@@ -39,9 +40,10 @@ const Balance = ({ lang }: { lang: Lang }) => {
       <div className="flex justify-between">
         <span>{lang === "en" ? "Balance" : "Solde"}</span>
         <div>
+          <Skeleton loading={!balance}>
           {parseFloat(balance?.toFixed(0) as string).toLocaleString("en-US") ??
             "0"}{" "}
-          <span className="font-semibold">TROTEL</span>
+          <span className="font-semibold">TROTEL</span></Skeleton>
         </div>
       </div>
     </>

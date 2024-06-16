@@ -58,21 +58,22 @@ const StreakProvider = ({
     }
   }, [userStreak]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (lastUpdatedStreak && disabled && address) {
-        const lastUpdated = new Date(lastUpdatedStreak);
-        const now = new Date();
-        const difference = now.getTime() - lastUpdated.getTime();
-        const cooldown = 86400000 - difference;
-        const cooldownString = new Date(cooldown).toISOString();
-        const time = cooldownString.split("T")[1].split(".")[0];
-        setCooldown(time);
-      } else {
-        setCooldown("00:00:00");
-      }
-    }, 1000);
+  const updateCooldown = () => {
+    if (lastUpdatedStreak && disabled && address) {
+      const lastUpdated = new Date(lastUpdatedStreak);
+      const now = new Date();
+      const difference = now.getTime() - lastUpdated.getTime();
+      const cooldown = 86400000 - difference;
+      const cooldownString = new Date(cooldown).toISOString();
+      const time = cooldownString.split("T")[1].split(".")[0];
+      setCooldown(time);
+    } else {
+      setCooldown("00:00:00");
+    }
+  };
 
+  useEffect(() => {
+    const interval = setInterval(updateCooldown, 1000);
     return () => clearInterval(interval);
   }, [lastUpdatedStreak, disabled, address]);
 

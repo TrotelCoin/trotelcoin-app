@@ -2,6 +2,7 @@
 
 import type { Lang } from "@/types/language/lang";
 import React from "react";
+import { Skeleton } from "@radix-ui/themes";
 
 const AvailableToClaim = ({
   lang,
@@ -9,7 +10,7 @@ const AvailableToClaim = ({
   claimed,
 }: {
   lang: Lang;
-  availableToClaim: number;
+  availableToClaim: number | null;
   claimed: boolean;
 }) => {
   return (
@@ -17,10 +18,14 @@ const AvailableToClaim = ({
       <div className="flex justify-between">
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
-          {availableToClaim && !claimed && typeof availableToClaim === "number"
-            ? availableToClaim.toFixed(0).toLocaleString()
-            : "0"}{" "}
-          <span className="font-semibold">TROTEL</span>
+          <Skeleton loading={!availableToClaim}>
+            {availableToClaim &&
+            !claimed &&
+            typeof availableToClaim === "number"
+              ? availableToClaim.toFixed(0).toLocaleString()
+              : "0"}{" "}
+            <span className="font-semibold">TROTEL</span>
+          </Skeleton>
         </div>
       </div>
     </>

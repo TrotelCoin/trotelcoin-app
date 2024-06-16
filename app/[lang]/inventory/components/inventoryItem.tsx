@@ -14,6 +14,7 @@ import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import StreakContext from "@/contexts/streak";
 import WarningConfirmation from "@/app/[lang]/components/modals/confirmation/warning";
+import { Skeleton } from "@radix-ui/themes";
 
 const InventoryItem = ({
   lang,
@@ -96,14 +97,18 @@ const InventoryItem = ({
               <div className="px-4 py-5 sm:p-6 w-full">
                 <div className="flex items-center justify-between w-full">
                   <div className={`font-semibold rainbow-text text-2xl`}>
-                    {item.name}
+                    <Skeleton loading={!item.name}>{item.name}</Skeleton>
                   </div>
-                  <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
-                    {quantity}
-                  </div>
+                  <Skeleton loading={!quantity}>
+                    <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
+                      {quantity}
+                    </div>
+                  </Skeleton>
                 </div>
                 <div className="flex items-center justify-center my-8">
-                  <span className="text-6xl">{item.emoji}</span>
+                  <span className="text-6xl">
+                    <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
+                  </span>
                 </div>
                 <div className="flex flex-col">
                   <BlueButton
