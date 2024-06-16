@@ -47,7 +47,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [balance, setBalance] = useState<number | null>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [items, setItems] = useState<ItemTypeFinal[] | null>(null);
-  const [refreshing, setRefreshing] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(true);
 
   const { address } = useAccount();
@@ -158,7 +158,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </button>
           </div>
 
-          {!refreshing ? (
+          {fetching && !refreshing && (
             <>
               <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
                 <ul className="flex items-center flex-wrap gap-2">
@@ -184,34 +184,42 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   {balance?.toLocaleString("en-US") ?? "0"} TROTEL
                 </span>
               </div>
-
-              <div className="flex flex-col gap-1 mt-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {items &&
-                    items
-                      .filter(
-                        (item) =>
-                          item.categoryId === category.id && !item.disabled
-                      )
-                      .map((item, index) => (
-                        <Item key={index} lang={lang} shopItem={item} />
-                      ))}
-                </div>
-              </div>
             </>
-          ) : (
+          )}
+
+          {!fetching && (
             <>
-              <div className="flex justify-center items-center text-center py-32 md:px-32">
-                <span
-                  className={`text-gray-700 dark:text-gray-300 ${
-                    refreshing && loadingFlashClass
-                  }`}
-                >
-                  {lang === "en"
-                    ? "Items are loading..."
-                    : "Les objets sont en cours de chargement..."}
-                </span>
-              </div>
+              {!refreshing ? (
+                <>
+                  <div className="flex flex-col gap-1 mt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {items &&
+                        items
+                          .filter(
+                            (item) =>
+                              item.categoryId === category.id && !item.disabled
+                          )
+                          .map((item, index) => (
+                            <Item key={index} lang={lang} shopItem={item} />
+                          ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-center items-center text-center py-32 md:px-32">
+                    <span
+                      className={`text-gray-700 dark:text-gray-300 ${
+                        refreshing && loadingFlashClass
+                      }`}
+                    >
+                      {lang === "en"
+                        ? "Items are loading..."
+                        : "Les objets sont en cours de chargement..."}
+                    </span>
+                  </div>
+                </>
+              )}
             </>
           )}
 

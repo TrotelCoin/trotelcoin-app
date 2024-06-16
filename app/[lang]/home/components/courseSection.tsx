@@ -41,18 +41,22 @@ const CourseSection = ({
           </h2>
         </div>
         <div className="hidden md:flex items-center gap-2">
-          <button
-            className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-            onClick={() => scroll(scrollRef, "left")}
-          >
-            <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
-          </button>
-          <button
-            className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-            onClick={() => scroll(scrollRef, "right")}
-          >
-            <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
-          </button>
+          <Skeleton loading={isLoading}>
+            <button
+              className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+              onClick={() => scroll(scrollRef, "left")}
+            >
+              <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
+            </button>
+          </Skeleton>
+          <Skeleton loading={isLoading}>
+            <button
+              className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+              onClick={() => scroll(scrollRef, "right")}
+            >
+              <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
+            </button>
+          </Skeleton>
         </div>
       </div>
       <div
