@@ -3,6 +3,8 @@ import type { Lesson, LessonCategory } from "@/types/courses/lessons";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import type { Lang } from "@/types/language/lang";
 import React from "react";
+import { Skeleton } from "@radix-ui/themes";
+import SkeletonCourseCard from "@/app/[lang]/home/components/skeletonCourseCard";
 
 const CourseSection = ({
   title,
@@ -14,9 +16,10 @@ const CourseSection = ({
   searchTerm,
   scrollRef,
   scroll,
+  isLoading,
 }: {
   title: string;
-  courses: Lesson[];
+  courses: Lesson[] | null;
   lang: Lang;
   isIntermediate: boolean;
   isExpert: boolean;
@@ -27,13 +30,14 @@ const CourseSection = ({
     ref: React.RefObject<HTMLDivElement> | HTMLDivElement | null,
     direction: "left" | "right"
   ) => void;
+  isLoading: boolean;
 }) => {
   return (
     <div className="my-10">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-            {title}
+            <Skeleton loading={isLoading}>{title}</Skeleton>
           </h2>
         </div>
         <div className="hidden md:flex items-center gap-2">
@@ -55,24 +59,28 @@ const CourseSection = ({
         ref={scrollRef as React.RefObject<HTMLDivElement>}
         className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
       >
-        {courses
-          .filter((course) => {
-            const lowerCaseTitle = course.title[lang].toLowerCase();
-            return lowerCaseTitle.includes(searchTerm) && course.available;
-          })
-          .slice(0, 10)
-          .map((course, index) =>
-            renderCourses(
-              course,
-              isIntermediate,
-              isExpert,
-              lang,
-              course.quizId,
-              status,
-              index,
-              course.category as LessonCategory
-            )
-          )}
+        {courses && !isLoading
+          ? courses
+              .filter((course) => {
+                const lowerCaseTitle = course.title[lang].toLowerCase();
+                return lowerCaseTitle.includes(searchTerm) && course.available;
+              })
+              .slice(0, 10)
+              .map((course, index) =>
+                renderCourses(
+                  course,
+                  isIntermediate,
+                  isExpert,
+                  lang,
+                  course.quizId,
+                  status,
+                  index,
+                  course.category as LessonCategory
+                )
+              )
+          : Array.from({ length: 3 }, (_, index) => (
+              <SkeletonCourseCard key={index} isLoading={isLoading} />
+            ))}
       </div>
     </div>
   );

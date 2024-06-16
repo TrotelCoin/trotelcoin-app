@@ -1,7 +1,7 @@
 import type { Lang } from "@/types/language/lang";
 import React from "react";
 import "animate.css";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -71,30 +71,32 @@ const To = ({
             </button>
           </div>
           <span className="text-sm text-gray-700 dark:text-gray-300">
-            {lang === "en" ? "Balance:" : "Solde:"}{" "}
-            <span className={`${isLoading && loadingFlashClass}`}>
-              {toBalance
-                ? Number(toBalance?.toFixed(3)).toLocaleString("en-US")
-                : "0"}
-            </span>
+            <Skeleton loading={isLoading}>
+              {lang === "en" ? "Balance:" : "Solde:"}{" "}
+              <span>
+                {toBalance
+                  ? Number(toBalance?.toFixed(3)).toLocaleString("en-US")
+                  : "0"}
+              </span>{" "}
+            </Skeleton>
           </span>
         </div>
         <div className="flex items-end gap-4">
-          <input
-            type="number"
-            className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed ${
-              isLoading && loadingFlashClass
-            }`}
-            onWheel={(e) => e.preventDefault()}
-            value={
-              toAmount
-                ? toAmount >= 1
-                  ? Number((toAmount * 10 ** -toToken.decimals).toFixed(2))
-                  : Number((toAmount * 10 ** -toToken.decimals).toFixed(5))
-                : 0
-            }
-            disabled={true}
-          />
+          <Skeleton loading={isLoading}>
+            <input
+              type="number"
+              className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full h-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed`}
+              onWheel={(e) => e.preventDefault()}
+              value={
+                toAmount
+                  ? toAmount >= 1
+                    ? Number((toAmount * 10 ** -toToken.decimals).toFixed(2))
+                    : Number((toAmount * 10 ** -toToken.decimals).toFixed(5))
+                  : 0
+              }
+              disabled={true}
+            />
+          </Skeleton>
 
           <div className="flex flex-col justify-center items-end">
             <button
@@ -148,48 +150,52 @@ const To = ({
             </button>
 
             <div className="flex items-center gap-1">
-              <span className={`text-xs ${isLoading && loadingFlashClass}`}>
-                $
-                {toPrice
-                  ? Number(toPrice.toFixed(2)).toLocaleString("en-US")
-                  : "0"}
+              <span className={`text-xs`}>
+                <Skeleton loading={isLoading}>
+                  $
+                  {toPrice
+                    ? Number(toPrice.toFixed(2)).toLocaleString("en-US")
+                    : "0"}
+                </Skeleton>
               </span>
               {
-                <span className={`text-xs ${isLoading && loadingFlashClass}`}>
-                  {(() => {
-                    let percentage = 0;
-                    if (
-                      !fromPrice ||
-                      !toPrice ||
-                      fromPrice === 0 ||
-                      toPrice === 0 ||
-                      fromPrice === toPrice
-                    ) {
+                <span className={`text-xs`}>
+                  <Skeleton loading={isLoading}>
+                    {(() => {
+                      let percentage = 0;
+                      if (
+                        !fromPrice ||
+                        !toPrice ||
+                        fromPrice === 0 ||
+                        toPrice === 0 ||
+                        fromPrice === toPrice
+                      ) {
+                        return (
+                          <span className={"text-gray-700 dark:text-gray-300"}>
+                            ({percentage.toFixed(2)}%)
+                          </span>
+                        );
+                      }
+
+                      const difference = toPrice - fromPrice;
+                      percentage = (difference / fromPrice) * 100;
+                      const isPositive = percentage > 0;
+                      const isZero = percentage === 0;
                       return (
-                        <span className={"text-gray-700 dark:text-gray-300"}>
+                        <span
+                          className={
+                            isZero
+                              ? "text-gray-700 dark:text-gray-300"
+                              : isPositive
+                              ? "text-green-500"
+                              : "text-red-500"
+                          }
+                        >
                           ({percentage.toFixed(2)}%)
                         </span>
                       );
-                    }
-
-                    const difference = toPrice - fromPrice;
-                    percentage = (difference / fromPrice) * 100;
-                    const isPositive = percentage > 0;
-                    const isZero = percentage === 0;
-                    return (
-                      <span
-                        className={
-                          isZero
-                            ? "text-gray-700 dark:text-gray-300"
-                            : isPositive
-                            ? "text-green-500"
-                            : "text-red-500"
-                        }
-                      >
-                        ({percentage.toFixed(2)}%)
-                      </span>
-                    );
-                  })()}
+                    })()}
+                  </Skeleton>
                 </span>
               }
             </div>

@@ -22,6 +22,7 @@ import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
+import { Skeleton } from "@radix-ui/themes";
 
 const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
@@ -211,7 +212,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                 <div
                   className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl`}
                 >
-                  {shopItem.name}
+                  <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
                 </div>
                 <Popover.Trigger asChild>
                   <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
@@ -224,48 +225,56 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     sideOffset={5}
                   >
                     <div className="max-w-xs text-xs text-gray-100 text-center flex shadow-lg p-2 flex-col bg-blue-500 backdrop-blur-xl rounded-xl">
-                      {shopItem.description}
+                      <Skeleton loading={!shopItem.description}>
+                        {shopItem.description}
+                      </Skeleton>
                     </div>
                     <Popover.Arrow className="fill-blue-500" />
                   </Popover.Content>
                 </Popover.Portal>
               </div>
               <div className="inline-flex items-center gap-1">
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  <span className={`${priceAfterDiscount && "line-through"}`}>
-                    {shopItem.price * (shopItem.quantity as number)}
-                  </span>{" "}
-                  {priceAfterDiscount && (
-                    <>
-                      <span className="rainbow-text font-semibold">
-                        {priceAfterDiscount ?? null}
-                      </span>
-                    </>
-                  )}
-                </span>
-                <div className="block dark:hidden w-3 h-3">
-                  <Image
-                    width={16}
-                    height={16}
-                    className="rounded-full"
-                    aria-hidden="true"
-                    alt="Token logo"
-                    src="/assets/logo/trotelcoin.svg"
-                  />
-                </div>
-                <div className="hidden dark:block w-3 h-3">
-                  <Image
-                    width={16}
-                    height={16}
-                    className="rounded-full"
-                    aria-hidden="true"
-                    alt="Token logo"
-                    src="/assets/logo/trotelcoin-dark.jpg"
-                  />
-                </div>
+                <Skeleton loading={!shopItem.price || !shopItem.quantity}>
+                  <span className="text-gray-700 dark:text-gray-300 text-sm">
+                    <span className={`${priceAfterDiscount && "line-through"}`}>
+                      {shopItem.price * (shopItem.quantity as number)}
+                    </span>{" "}
+                    {priceAfterDiscount && (
+                      <>
+                        <span className="rainbow-text font-semibold">
+                          {priceAfterDiscount ?? null}
+                        </span>
+                      </>
+                    )}
+                  </span>
+                  <div className="block dark:hidden w-3 h-3">
+                    <Image
+                      width={16}
+                      height={16}
+                      className="rounded-full"
+                      aria-hidden="true"
+                      alt="Token logo"
+                      src="/assets/logo/trotelcoin.svg"
+                    />
+                  </div>
+                  <div className="hidden dark:block w-3 h-3">
+                    <Image
+                      width={16}
+                      height={16}
+                      className="rounded-full"
+                      aria-hidden="true"
+                      alt="Token logo"
+                      src="/assets/logo/trotelcoin-dark.jpg"
+                    />
+                  </div>{" "}
+                </Skeleton>
               </div>
               <div className="flex items-center justify-center my-8">
-                <span className="text-6xl">{shopItem.emoji}</span>
+                <span className="text-6xl">
+                  <Skeleton loading={!shopItem.emoji}>
+                    {shopItem.emoji}
+                  </Skeleton>
+                </span>
               </div>
               <div className="flex flex-col">
                 {needApproval ? (

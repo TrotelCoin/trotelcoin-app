@@ -12,7 +12,7 @@ import { useAccount } from "wagmi";
 import { config } from "@/config/Web3ModalConfig";
 import Pagination from "@/app/[lang]/swap/components/pagination";
 import { nativeAddress } from "@/data/web3/tokens";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -139,7 +139,7 @@ const TokenList = ({
                   />
                 </div>
 
-                {filteredTokens.length > 0 && (
+                {filteredTokens.length > 0 ? (
                   <Combobox.Options
                     static
                     className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
@@ -234,10 +234,12 @@ const TokenList = ({
                                 </p>
                               </div>
                               <span className="text-gray-700 dark:text-gray-300 text-xs">
-                                {lang === "en" ? "Balance:" : "Solde:"}{" "}
-                                {token.balance
-                                  ? token.balance?.toLocaleString("en-US")
-                                  : "0"}
+                                <Skeleton loading={!token.balance}>
+                                  {lang === "en" ? "Balance:" : "Solde:"}{" "}
+                                  {token.balance
+                                    ? token.balance?.toLocaleString("en-US")
+                                    : "0"}
+                                </Skeleton>
                               </span>
                             </div>
                           </>
@@ -245,26 +247,57 @@ const TokenList = ({
                       </Combobox.Option>
                     ))}
                   </Combobox.Options>
-                )}
-
-                {query === "" && filteredTokens.length === 0 && (
-                  <div className="px-6 py-14 text-center text-sm sm:px-14">
-                    <ExclamationCircleIcon
-                      type="outline"
-                      name="exclamation-circle"
-                      className="mx-auto h-6 w-6 text-gray-700 dark:text-gray-300"
-                    />
-                    <p className="mt-4 font-semibold text-gray-900 dark:text-gray-100">
-                      {lang === "en" ? "Loading..." : "Chargement..."}
-                    </p>
-                    <p
-                      className={`mt-2 text-gray-700 dark:text-gray-300 ${loadingFlashClass}`}
+                ) : (
+                  <>
+                    <Combobox.Options
+                      static
+                      className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
                     >
-                      {lang === "en"
-                        ? "Tokens are loading..."
-                        : "Les tokens sont en cours de chargement..."}
-                    </p>
-                  </div>
+                      {Array.from({ length: 20 }).map((_, index) => (
+                        <Combobox.Option
+                          key={index}
+                          value="Loading..."
+                          className={
+                            "flex cursor-pointer select-none rounded-xl p-3"
+                          }
+                        >
+                          <>
+                            <div className="flex justify-between items-end w-full">
+                              <div
+                                className={
+                                  "flex h-10 w-10 flex-none items-center justify-center rounded-full overflow-hidden"
+                                }
+                              >
+                                <Skeleton width="48px" height="48px" />
+                              </div>
+
+                              <div className="ml-4 flex-auto">
+                                <p
+                                  className={
+                                    "text-sm font-medium text-gray-700 dark:text-gray-300"
+                                  }
+                                >
+                                  <Skeleton>TrotelCoin</Skeleton>
+                                </p>
+                                <p
+                                  className={
+                                    "text-sm text-gray-700 dark:text-gray-300"
+                                  }
+                                >
+                                  <Skeleton>TROTEL</Skeleton>
+                                </p>
+                              </div>
+                              <span className="text-gray-700 dark:text-gray-300 text-xs">
+                                <Skeleton>
+                                  {lang === "en" ? "Balance: 0" : "Solde: 0"}{" "}
+                                </Skeleton>
+                              </span>
+                            </div>
+                          </>
+                        </Combobox.Option>
+                      ))}
+                    </Combobox.Options>
+                  </>
                 )}
 
                 {query !== "" && filteredTokens.length === 0 && (

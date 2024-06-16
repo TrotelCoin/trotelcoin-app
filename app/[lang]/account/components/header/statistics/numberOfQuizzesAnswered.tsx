@@ -1,5 +1,5 @@
 import UserContext from "@/contexts/user";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import CountUp from "react-countup";
@@ -27,7 +27,7 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
                   </span>
                 ) : (
                   <span>
-                    <span className={`${loadingFlashClass}`}>0</span> 📚
+                    <span><Skeleton>0</Skeleton></span> 📚
                   </span>
                 )}
               </span>

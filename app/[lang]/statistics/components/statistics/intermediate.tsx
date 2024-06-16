@@ -4,7 +4,7 @@ import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -57,7 +57,11 @@ const Intermediate = ({
       <div
         className={`bg-white flex flex-col h-full items-center justify-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl px-2 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
       >
-        <Evolution evolution={evolution as number} percentage={true} />
+        <Evolution
+          evolution={evolution as number}
+          percentage={true}
+          isLoading={!evolution}
+        />
         <span className="font-semibold text-2xl md:text-4xl">
           {intermediate ? (
             <>
@@ -65,8 +69,10 @@ const Intermediate = ({
               <span className="hidden md:inline">🙈</span>
             </>
           ) : (
-            <span className={`${loadingFlashClass}`}>
-              0 <span className="hidden md:inline">🙈</span>
+            <span>
+              <Skeleton>
+                0 <span className="hidden md:inline">🙈</span>
+              </Skeleton>
             </span>
           )}
         </span>

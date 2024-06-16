@@ -8,7 +8,7 @@ import shortenAddress from "@/utils/addresses/shortenAddress";
 import { mainnet } from "viem/chains";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 import type { UserLeaderboard } from "@/types/leaderboard/leaderboard";
 
@@ -20,7 +20,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   const [averageMarks, setAverageMarks] = useState<number | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
 
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
 
   const { data, isLoading: isLoadingUserLeaderboard } = useSWR(
     address ? `/api/leaderboard` : null,
@@ -70,73 +70,48 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <React.Suspense fallback={null}>
-        {isLoadingUserLeaderboard ? (
-          <>
-            <p
-              className={`mt-2 text-gray-700 dark:text-gray-300 ${loadingFlashClass}`}
-            >
-              {lang === "en" ? <>Loading...</> : <>Chargement...</>}
-            </p>
-          </>
-        ) : (
-          <>
-            {address ? (
-              <>
-                {position && (
-                  <div
-                    className={`mt-4 bg-white flex items-center justify-between border-gray-900/10 dark:border-gray-100/10 border backdrop-blur-xl text-center rounded-2xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
-                  >
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
-                      {position ?? 0}
-                    </div>
-                    <div className="hidden md:block">
-                      {address && isAddress(address) && !ensName
-                        ? address
-                        : ensName ??
-                          (lang === "en"
-                            ? "Connect your wallet"
-                            : "Connectez votre portefeuille")}
-                    </div>
-                    <div className="block md:hidden">
-                      {address
-                        ? shortenAddress(address)
-                        : lang === "en"
-                        ? "Connect your wallet"
-                        : "Connectez votre portefeuille"}
-                    </div>
+      <div
+        className={`mt-4 bg-white flex items-center justify-between border-gray-900/10 dark:border-gray-100/10 border backdrop-blur-xl text-center rounded-2xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+      >
+        <Skeleton loading={!position}>
+          <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
+            {position ?? 0}
+          </div>
+        </Skeleton>
+        <div className="hidden md:block">
+          <Skeleton loading={!isConnected}>
+            {address && isAddress(address) && !ensName
+              ? address
+              : ensName ??
+                (lang === "en"
+                  ? "Connect your wallet"
+                  : "Connectez votre portefeuille")}
+          </Skeleton>
+        </div>
+        <div className="block md:hidden">
+          <Skeleton loading={!isConnected}>
+            {address
+              ? shortenAddress(address)
+              : lang === "en"
+              ? "Connect your wallet"
+              : "Connectez votre portefeuille"}
+          </Skeleton>
+        </div>
 
-                    <div className="flex items-center md:gap-2 text-lg">
-                      <span className="hidden md:block">
-                        <CountUp start={0} end={numberOfQuizzesAnswered ?? 0} />{" "}
-                        📚
-                      </span>
-                      <span>
-                        <CountUp
-                          start={0}
-                          end={averageMarks ?? 0}
-                          decimals={0}
-                        />
-                        /20 🤓
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                <p className="mt-2 text-gray-700 dark:text-gray-300">
-                  {lang === "en" ? (
-                    <>Connect your wallet</>
-                  ) : (
-                    <>Connectez votre portefeuille</>
-                  )}
-                </p>
-              </>
-            )}
-          </>
-        )}
-      </React.Suspense>
+        <div className="flex items-center md:gap-2 text-lg">
+          <span className="hidden md:block">
+            <Skeleton loading={!numberOfQuizzesAnswered}>
+              <CountUp start={0} end={numberOfQuizzesAnswered ?? 0} /> 📚
+            </Skeleton>
+          </span>
+          <span>
+            <Skeleton loading={!averageMarks}>
+              <CountUp start={0} end={averageMarks ?? 0} decimals={0} />
+              /20 🤓
+            </Skeleton>
+          </span>
+        </div>
+      </div>
     </>
   );
 };

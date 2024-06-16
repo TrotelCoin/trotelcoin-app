@@ -79,7 +79,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <div>
               <AvailableToClaim
                 lang={lang}
-                availableToClaim={availableToClaim as number}
+                availableToClaim={availableToClaim}
                 claimed={claimed}
               />
             </div>
@@ -87,10 +87,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <Balance lang={lang} />
             </div>
             <div>
-              <Status
-                lang={lang}
-                availableToClaim={availableToClaim as number}
-              />
+              <Status lang={lang} availableToClaim={availableToClaim} />
             </div>
             <div>
               <AddToken lang={lang} />

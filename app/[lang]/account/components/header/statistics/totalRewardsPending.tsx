@@ -4,7 +4,7 @@ import React from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import CountUp from "react-countup";
 import useSWR from "swr";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 
 const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
@@ -39,7 +39,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
                   </span>
                 ) : (
                   <span>
-                    <span className={`${loadingFlashClass}`}>0</span> 💰
+                    <span><Skeleton>0</Skeleton></span> 💰
                   </span>
                 )}
               </span>

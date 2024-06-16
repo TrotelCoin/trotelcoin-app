@@ -1,7 +1,7 @@
 import { Lang } from "@/types/language/lang";
 import React, { useState } from "react";
 import { BoltIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { Token } from "@/types/web3/token";
 import Image from "next/image";
@@ -72,10 +72,12 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
-                        </span>
+                        <Skeleton loading={isLoading}>
+                          <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          <span>
+                            ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
+                          </span>{" "}
+                        </Skeleton>
                       </span>
                     </div>
 
@@ -119,8 +121,8 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          {slippage}%
+                        <span>
+                          <Skeleton loading={isLoading}>{slippage}%</Skeleton>
                         </span>
                       </span>
                     </div>
@@ -165,11 +167,13 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          {bridgeSlippage
-                            ? Number(bridgeSlippage.toFixed(3))
-                            : 0}
-                          %
+                        <span>
+                          <Skeleton loading={isLoading}>
+                            {bridgeSlippage
+                              ? Number(bridgeSlippage.toFixed(3))
+                              : 0}
+                            %
+                          </Skeleton>
                         </span>
                       </span>
                     </div>
@@ -214,12 +218,14 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          {minimumAmountOut
-                            ? Number(
-                                minimumAmountOut * 10 ** -toToken.decimals
-                              ).toFixed(2)
-                            : "0"}
+                        <span>
+                          <Skeleton loading={isLoading}>
+                            {minimumAmountOut
+                              ? Number(
+                                  minimumAmountOut * 10 ** -toToken.decimals
+                                ).toFixed(2)
+                              : "0"}
+                          </Skeleton>
                         </span>
                       </span>
                     </div>
@@ -262,8 +268,10 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          {protocolName ?? "Unknown"}
+                        <span>
+                          <Skeleton loading={isLoading}>
+                            {protocolName ?? "Unknown"}
+                          </Skeleton>
                         </span>
                         {protocolIcon && (
                           <>
@@ -317,14 +325,16 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          {enableRefuel
-                            ? lang === "en"
-                              ? "Enabled"
-                              : "Activé"
-                            : lang === "en"
-                            ? "Disabled"
-                            : "Désactivé"}
+                        <span>
+                          <Skeleton loading={isLoading}>
+                            {enableRefuel
+                              ? lang === "en"
+                                ? "Enabled"
+                                : "Activé"
+                              : lang === "en"
+                              ? "Disabled"
+                              : "Désactivé"}
+                          </Skeleton>
                         </span>
                       </span>
                     </div>
@@ -367,8 +377,10 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
                       >
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          {sort.charAt(0).toUpperCase() + sort.slice(1)}
+                        <span>
+                          <Skeleton loading={isLoading}>
+                            {sort.charAt(0).toUpperCase() + sort.slice(1)}
+                          </Skeleton>
                         </span>
                       </span>
                     </div>
@@ -412,10 +424,12 @@ const SwapData = ({
                       <span
                         className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1 cursor-help`}
                       >
-                        <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
-                        <span className={`${isLoading && loadingFlashClass}`}>
-                          ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
-                        </span>
+                        <Skeleton loading={isLoading}>
+                          <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          <span>
+                            ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
+                          </span>
+                        </Skeleton>
                       </span>
                     </Tooltip.Trigger>
 

@@ -7,13 +7,20 @@ export async function getCoursesRecommendations(
   coursesLiked: CourseRating[],
   coursesFinished: CourseFinished[]
 ) {
-  const coursesLikedIds = coursesLiked.map(
-    (course: CourseRating) => course.quiz_id
-  );
+  let coursesLikedIds: number[] = [];
+  let coursesFinishedIds: number[] = [];
 
-  const coursesFinishedIds = coursesFinished.map(
-    (course: CourseFinished) => course.quiz_id
-  );
+  if (coursesLiked && coursesLiked.length > 0) {
+    coursesLikedIds = coursesLiked.map(
+      (course: CourseRating) => course.quiz_id
+    );
+  }
+
+  if (coursesFinished && coursesFinished.length > 0) {
+    coursesFinishedIds = coursesFinished.map(
+      (course: CourseFinished) => course.quiz_id
+    );
+  }
 
   const likedCategories = lessons
     .flatMap((lesson) =>

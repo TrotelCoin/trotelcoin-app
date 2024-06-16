@@ -14,6 +14,7 @@ import { Address, formatEther } from "viem";
 import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import { polygon } from "viem/chains";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
+import { Skeleton } from "@radix-ui/themes";
 
 const staking =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -21,11 +22,17 @@ const notStaking =
   "inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100";
 
 const StakingData = ({ lang }: { lang: Lang }) => {
-  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
-  const [earnedTrotelCoins, setEarnedTrotelCoins] = useState<number>(0);
-  const [availableTrotelCoins, setAvailableTrotelCoins] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(0);
-  const [isStaking, setIsStaking] = useState<boolean>(false);
+  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
+    null
+  );
+  const [earnedTrotelCoins, setEarnedTrotelCoins] = useState<number | null>(
+    null
+  );
+  const [availableTrotelCoins, setAvailableTrotelCoins] = useState<
+    number | null
+  >(null);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [isStaking, setIsStaking] = useState<boolean | null>(null);
   const [timestamp, setTimestamp] = useState<number | null>(null);
   const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
@@ -118,7 +125,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       setIsStaking(isStaking);
 
       const interval = setInterval(() => {
-        setTimeLeft((prev) => Math.max(0, prev - 1));
+        setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
       }, 1000);
 
       return () => clearInterval(interval);
@@ -138,54 +145,70 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
           <div className="flex items-center gap-1">
-            {availableTrotelCoins.toLocaleString("en-US")} <TrotelCoinLogo />
+            <Skeleton loading={!availableTrotelCoins}>
+              {availableTrotelCoins &&
+                availableTrotelCoins.toLocaleString("en-US")}{" "}
+              <TrotelCoinLogo />
+            </Skeleton>
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
           <div className="flex items-center gap-1">
-            {Math.floor(stakedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
-            <TrotelCoinLogo />
+            <Skeleton loading={!stakedTrotelCoins}>
+              {stakedTrotelCoins &&
+                Math.floor(stakedTrotelCoins * 1e-18).toLocaleString(
+                  "en-US"
+                )}{" "}
+              <TrotelCoinLogo />
+            </Skeleton>
           </div>
         </div>
         <div className="flex justify-between">
-          <span>
-            {lang === "en" ? "Earned" : "Récompenses"}
-          </span>
+          <span>{lang === "en" ? "Earned" : "Récompenses"}</span>
           <div className="flex items-center gap-1">
-            {Number(Number(earnedTrotelCoins).toFixed(0)).toLocaleString(
-              "en-US"
-            )}{" "}
-            <TrotelCoinLogo />
+            <Skeleton loading={!earnedTrotelCoins}>
+              {earnedTrotelCoins &&
+                Number(Number(earnedTrotelCoins).toFixed(0)).toLocaleString(
+                  "en-US"
+                )}{" "}
+              <TrotelCoinLogo />
+            </Skeleton>
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
           <div>
-            {Math.floor(timeLeft / 60).toLocaleString("en-US")}{" "}
-            <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
+            <Skeleton loading={!timeLeft}>
+              {timeLeft && Math.floor(timeLeft / 60).toLocaleString("en-US")}{" "}
+              <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
+            </Skeleton>
           </div>
         </div>
         <div className="flex justify-between">
           <span>{lang === "en" ? "Status" : "Statut"}</span>
           <div>
-            <span
-              className={`${
-                isStaking || stakedTrotelCoins > 0 ? staking : notStaking
-              }`}
-            >
-              {isStaking
-                ? lang === "en"
-                  ? "Staking"
-                  : "Misé"
-                : stakedTrotelCoins > 0
-                ? lang === "en"
-                  ? "Claimable"
-                  : "Réclamable"
-                : lang === "en"
-                ? "Not staking"
-                : "Non misé"}
-            </span>
+            <Skeleton loading={!isStaking || !stakedTrotelCoins}>
+              <span
+                className={`${
+                  isStaking || (stakedTrotelCoins && stakedTrotelCoins > 0)
+                    ? staking
+                    : notStaking
+                }`}
+              >
+                {isStaking
+                  ? lang === "en"
+                    ? "Staking"
+                    : "Misé"
+                  : stakedTrotelCoins && stakedTrotelCoins > 0
+                  ? lang === "en"
+                    ? "Claimable"
+                    : "Réclamable"
+                  : lang === "en"
+                  ? "Not staking"
+                  : "Non misé"}
+              </span>
+            </Skeleton>
           </div>
         </div>
       </div>

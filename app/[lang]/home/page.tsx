@@ -5,7 +5,6 @@ import lessons from "@/data/lessons/lessons";
 import type { Lang } from "@/types/language/lang";
 import type { Lesson, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
-import Form from "@/app/[lang]/home/components/form";
 import { lessonsLength } from "@/utils/courses/lessonsLength";
 import PremiumContext from "@/contexts/premium";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
@@ -16,13 +15,16 @@ import {
   filterLessons,
 } from "@/utils/lessons/getInformationsFromLesson";
 import CourseSection from "@/app/[lang]/home/components/courseSection";
+import { Address } from "viem";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
-  const [forYouCourses, setForYouCourses] = useState<Lesson[]>([]);
+  const [forYouCourses, setForYouCourses] = useState<Lesson[] | null>(null);
+  const [mount, setMount] = useState<boolean>(false);
+  const [isLoadingCourses, setIsLoadingCourses] = useState<boolean>(true);
 
   const { address } = useAccount();
 
@@ -50,6 +52,16 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
     }
   );
 
+  const allCourses = lessons.flatMap((lesson) =>
+    lesson.courses
+      .filter((course) => course.available)
+      .map((course) => {
+        return { ...course, category: lesson.category };
+      })
+  );
+
+  const randomLessons = allCourses.sort(() => 0.5 - Math.random());
+
   useEffect(() => {
     if (lessonsCompleted) {
       const newStatus = [...status];
@@ -66,37 +78,66 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   useEffect(() => {
     const getRecommendations = async () => {
-      if (address) {
-        const recommendedLessons = await getCoursesRecommendations(
-          address,
-          lessonsLiked,
-          lessonsCompleted
-        );
-        const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
-          const category = lessons.find(findLessonCategory(lesson))?.category;
-          return { ...lesson, category };
-        });
+      const recommendedLessons = await getCoursesRecommendations(
+        address as Address,
+        lessonsLiked,
+        lessonsCompleted
+      );
+
+      const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
+        const category = lessons.find(findLessonCategory(lesson))?.category;
+        return { ...lesson, category };
+      });
+
+      if (forYouCourses.length > 0) {
         setForYouCourses(forYouCourses);
+      } else {
+        setForYouCourses(randomLessons);
       }
+
+      setMount(true);
     };
 
-    getRecommendations();
-  }, [address, lessonsCompleted, lessonsLiked]);
+    if (address && lessonsCompleted && lessonsLiked && !mount) {
+      getRecommendations();
+    }
+  }, [address, lessonsCompleted, lessonsLiked, randomLessons]);
 
-  const scrollRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const scrollRefForYouCourses = useRef<HTMLDivElement | null>(null);
-  const scrollRefNewCourses = useRef<HTMLDivElement | null>(null);
-  const scrollRefSponsoredCourses = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (lessonsCompleted && lessonsLiked && mount) {
+      setIsLoadingCourses(false);
+    }
+  }, [lessonsCompleted, lessonsLiked, mount]);
 
-  const filteredLessons = lessons.filter((lesson) =>
-    filterLessons(lesson, searchTerm, lang)
+  const scrollRefs = useRef<Array<React.RefObject<HTMLDivElement>>>(
+    new Array(lessons.length).fill(null).map(() => React.createRef())
   );
+  const scrollRefForYouCourses = useRef<HTMLDivElement>(null);
+  const scrollRefNewCourses = useRef<HTMLDivElement>(null);
+  const scrollRefSponsoredCourses = useRef<HTMLDivElement>(null);
+
+  const filteredLessons = lessons
+    .filter((lesson) => filterLessons(lesson, searchTerm, lang))
+    .map((lesson) => {
+      return {
+        ...lesson,
+        courses: lesson.courses.map((course) => {
+          return { ...course, category: lesson.category };
+        }),
+      };
+    });
 
   const scroll = (
-    ref: React.RefObject<HTMLDivElement> | HTMLDivElement | null,
+    ref: React.RefObject<HTMLDivElement> | null | HTMLDivElement,
     direction: "left" | "right"
   ) => {
-    const element = ref instanceof HTMLDivElement ? ref : ref?.current;
+    let element;
+
+    if (ref instanceof HTMLDivElement) {
+      element = ref;
+    } else if (ref && "current" in ref) {
+      element = ref.current;
+    }
 
     if (element) {
       const scrollAmount =
@@ -123,60 +164,50 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   return (
     <>
       <>
-        <Form
+        <CourseSection
+          title={lang === "en" ? "For You" : "Pour Vous"}
+          courses={forYouCourses}
           lang={lang}
-          setSearchTerm={setSearchTerm}
+          isIntermediate={isIntermediate}
+          isExpert={isExpert}
+          status={status}
           searchTerm={searchTerm}
-          filteredLessons={filteredLessons}
+          scrollRef={scrollRefForYouCourses}
+          scroll={scroll}
+          isLoading={isLoadingCourses}
         />
 
-        {forYouCourses && forYouCourses.length > 0 && (
-          <CourseSection
-            title={lang === "en" ? "For You" : "Pour Vous"}
-            courses={forYouCourses}
-            lang={lang}
-            isIntermediate={isIntermediate}
-            isExpert={isExpert}
-            status={status}
-            searchTerm={searchTerm}
-            scrollRef={scrollRefForYouCourses.current}
-            scroll={scroll}
-          />
-        )}
+        <CourseSection
+          title={lang === "en" ? "New Courses" : "Nouveaux Cours"}
+          courses={newCourses.sort((a: Lesson, b: Lesson) => {
+            return b.date.getTime() - a.date.getTime();
+          })}
+          lang={lang}
+          isIntermediate={isIntermediate}
+          isExpert={isExpert}
+          status={status}
+          searchTerm={searchTerm}
+          scrollRef={scrollRefNewCourses}
+          scroll={scroll}
+          isLoading={isLoadingCourses}
+        />
 
-        {newCourses && newCourses.length > 0 && (
-          <CourseSection
-            title={lang === "en" ? "New Courses" : "Nouveaux Cours"}
-            courses={newCourses.sort((a: Lesson, b: Lesson) => {
+        <CourseSection
+          title={lang === "en" ? "Sponsored" : "Sponsorisés"}
+          courses={sponsoredCourses
+            .sort((a: Lesson, b: Lesson) => {
               return b.date.getTime() - a.date.getTime();
-            })}
-            lang={lang}
-            isIntermediate={isIntermediate}
-            isExpert={isExpert}
-            status={status}
-            searchTerm={searchTerm}
-            scrollRef={scrollRefNewCourses.current}
-            scroll={scroll}
-          />
-        )}
-
-        {sponsoredCourses && sponsoredCourses.length > 0 && (
-          <CourseSection
-            title={lang === "en" ? "Sponsored" : "Sponsorisés"}
-            courses={sponsoredCourses
-              .sort((a: Lesson, b: Lesson) => {
-                return b.date.getTime() - a.date.getTime();
-              })
-              .sort(() => 0.5 - Math.random())}
-            lang={lang}
-            isIntermediate={isIntermediate}
-            isExpert={isExpert}
-            status={status}
-            searchTerm={searchTerm}
-            scrollRef={scrollRefSponsoredCourses.current}
-            scroll={scroll}
-          />
-        )}
+            })
+            .sort(() => 0.5 - Math.random())}
+          lang={lang}
+          isIntermediate={isIntermediate}
+          isExpert={isExpert}
+          status={status}
+          searchTerm={searchTerm}
+          scrollRef={scrollRefSponsoredCourses}
+          scroll={scroll}
+          isLoading={isLoadingCourses}
+        />
 
         <div className="flex flex-col">
           {filteredLessons
@@ -204,6 +235,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                 searchTerm={searchTerm}
                 scrollRef={scrollRefs.current[index]}
                 scroll={scroll}
+                isLoading={isLoadingCourses}
               />
             ))}
         </div>

@@ -58,10 +58,18 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
   }, [blockNumber]);
 
   useEffect(() => {
-    const stakingsV1 = stakingsDataV1 as any[];
-    const stakingsV2 = stakingsDataV2 as any[];
+    let stakingsV1 = stakingsDataV1 as any[];
+    let stakingsV2 = stakingsDataV2 as any[];
 
     if (address && (stakingsV1 || stakingsV2)) {
+      if (stakingsV1 === undefined) {
+        stakingsV1 = [0];
+      }
+
+      if (stakingsV2 === undefined) {
+        stakingsV2 = [0];
+      }
+
       const amountV1 = Number(formatEther(stakingsV1[0] as bigint));
       const amountV2 = Number(formatEther(stakingsV2[0] as bigint));
 

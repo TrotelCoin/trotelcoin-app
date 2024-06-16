@@ -7,9 +7,10 @@ import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
+import { Skeleton } from "@radix-ui/themes";
 
 const TotalStaked = ({ lang }: { lang: Lang }) => {
-  const [totalStaked, setTotalStaked] = useState<number>(0);
+  const [totalStaked, setTotalStaked] = useState<number | null>(null);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -39,8 +40,10 @@ const TotalStaked = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Total locked" : "Total verrouillé"}</span>
           <div className="flex items-center gap-1">
-            <CountUp start={0} end={totalStaked} />
-            <TrotelCoinLogo />
+            <Skeleton loading={!totalStaked}>
+              <CountUp start={0} end={totalStaked ?? 0} />
+              <TrotelCoinLogo />
+            </Skeleton>
           </div>
         </div>
       </div>

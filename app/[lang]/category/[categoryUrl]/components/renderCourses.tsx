@@ -3,8 +3,8 @@ import type { Lang } from "@/types/language/lang";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import Marquee from "react-fast-marquee";
+import { Skeleton } from "@radix-ui/themes";
 
 const renderCourses = (
   course: Lesson,
@@ -75,7 +75,7 @@ const renderCourses = (
             : "bg-white dark:bg-gray-800"
         } ${borderClass} backdrop-blur-xl`}
       >
-        {course.cover && (
+        {course.cover ? (
           <div
             className={`flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700`}
           >
@@ -89,22 +89,37 @@ const renderCourses = (
               }`}
             />
           </div>
+        ) : (
+          <>
+            <div
+              className={`flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700`}
+            >
+              <Skeleton width="400px" height="400px" />
+            </div>
+          </>
         )}
 
         <div className="p-4 w-full flex flex-col justify-between h-1/2">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
               <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
-                {title}
+                <Skeleton loading={!title}>{title}</Skeleton>
               </div>
             </div>
             <div>
               <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
-                {description}
+                <Skeleton loading={!description}>{description}</Skeleton>
               </div>
             </div>
           </div>
           <Marquee className="flex mt-4 items-center" play={marqueePlay}>
+            {!course && (
+              <div className="px-1">
+                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
+                  <Skeleton loading={true}>Rank 🐣</Skeleton>
+                </div>
+              </div>
+            )}
             {course.sponsored && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">

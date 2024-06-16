@@ -1,4 +1,5 @@
 import { Lang } from "@/types/language/lang";
+import { Skeleton } from "@radix-ui/themes";
 
 const Pagination = ({
   lang,
@@ -35,13 +36,19 @@ const Pagination = ({
       <div className="hidden sm:block">
         <p className="text-sm text-gray-700 dark:text-gray-300">
           {lang === "en" ? "Showing" : "Affichage"}{" "}
-          <span className="font-medium">{page}</span>{" "}
+          <span className="font-medium">
+            <Skeleton loading={!page}>{page}</Skeleton>
+          </span>{" "}
           {lang === "en" ? "to" : "à"}{" "}
           <span className="font-medium">
-            {Math.ceil(list.length / itemsPerPage)}
+            <Skeleton loading={!list || !list.length || !itemsPerPage}>
+              {Math.ceil(list.length / itemsPerPage)}
+            </Skeleton>
           </span>{" "}
           {lang === "en" ? "of" : "de"}{" "}
-          <span className="font-medium">{list.length}</span>{" "}
+          <span className="font-medium">
+            <Skeleton loading={!list || !list.length}>{list.length}</Skeleton>
+          </span>{" "}
           {lang === "en" ? "results" : "résultats"}
         </p>
       </div>

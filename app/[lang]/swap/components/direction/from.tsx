@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { Lang } from "@/types/language/lang";
 import { type Address } from "viem";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -98,12 +98,14 @@ const From = ({
           </div>
           <div className="flex items-center gap-1">
             <span className="text-sm text-gray-700 dark:text-gray-300">
-              {lang === "en" ? "Balance:" : "Solde:"}{" "}
-              <span className={`${isLoading && loadingFlashClass}`}>
-                {fromBalance
-                  ? Number(fromBalance?.toFixed(3)).toLocaleString("en-US")
-                  : "0"}
-              </span>
+              <Skeleton loading={isLoading}>
+                {lang === "en" ? "Balance:" : "Solde:"}{" "}
+                <span>
+                  {fromBalance
+                    ? Number(fromBalance?.toFixed(3)).toLocaleString("en-US")
+                    : "0"}
+                </span>{" "}
+              </Skeleton>
             </span>
             {!isMax && fromBalance > 0 && (
               <button
@@ -177,11 +179,13 @@ const From = ({
               </div>
             </button>
 
-            <span className={`text-xs ${isLoading && loadingFlashClass}`}>
-              $
-              {fromPrice
-                ? Number(fromPrice.toFixed(2)).toLocaleString("en-US")
-                : "0"}
+            <span className={`text-xs`}>
+              <Skeleton loading={isLoading}>
+                $
+                {fromPrice
+                  ? Number(fromPrice.toFixed(2)).toLocaleString("en-US")
+                  : "0"}
+              </Skeleton>
             </span>
           </div>
         </div>

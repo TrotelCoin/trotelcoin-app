@@ -6,6 +6,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import type { Chain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import { CheckIcon } from "@heroicons/react/24/solid";
+import { Skeleton } from "@radix-ui/themes";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -95,7 +96,7 @@ const ChainList = ({
                   />
                 </div>
 
-                {filteredChains.length > 0 && (
+                {filteredChains.length > 0 ? (
                   <Combobox.Options
                     static
                     className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
@@ -137,6 +138,7 @@ const ChainList = ({
                                   src={chain.icon}
                                 />
                               </div>
+
                               <div className="ml-4 flex-auto">
                                 <p
                                   className={classNames(
@@ -168,6 +170,50 @@ const ChainList = ({
                             </div>
                           </>
                         )}
+                      </Combobox.Option>
+                    ))}
+                  </Combobox.Options>
+                ) : (
+                  <Combobox.Options
+                    static
+                    className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
+                  >
+                    {Array.from({ length: 10 }).map((_, index) => (
+                      <Combobox.Option
+                        key={index}
+                        value="Loading..."
+                        className={
+                          "flex cursor-pointer select-none rounded-xl p-3"
+                        }
+                      >
+                        <>
+                          <div className="flex justify-between items-center w-full">
+                            <div
+                              className={
+                                "flex h-10 w-10 flex-none items-center justify-center rounded-full overflow-hidden"
+                              }
+                            >
+                              <Skeleton width="48px" height="48px" />
+                            </div>
+
+                            <div className="ml-4 flex-auto">
+                              <p
+                                className={
+                                  "text-sm font-medium text-gray-700 dark:text-gray-300"
+                                }
+                              >
+                                <Skeleton>Polygon</Skeleton>
+                              </p>
+                              <p
+                                className={
+                                  "text-sm text-gray-700 dark:text-gray-300"
+                                }
+                              >
+                                <Skeleton>POL</Skeleton>
+                              </p>
+                            </div>
+                          </div>
+                        </>
                       </Combobox.Option>
                     ))}
                   </Combobox.Options>

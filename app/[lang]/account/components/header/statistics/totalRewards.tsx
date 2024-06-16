@@ -3,7 +3,7 @@ import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import { loadingFlashClass } from "@/style/loading";
+import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {
@@ -44,7 +44,7 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
                     <CountUp start={0} end={Math.floor(tokensEarned)} />
                   </span>
                 ) : (
-                  <span className={`${loadingFlashClass}`}>0</span>
+                  <span><Skeleton>0</Skeleton></span>
                 )}
               </span>
             </>

@@ -12,6 +12,7 @@ import { lessonsLength } from "@/utils/courses/lessonsLength";
 import { useAccount } from "wagmi";
 import PremiumContext from "@/contexts/premium";
 import GoHomeButton from "@/app/[lang]/components/buttons/goHome";
+import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const Page = ({
@@ -68,17 +69,22 @@ const Page = ({
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
-                  {lesson.category}
+                  <Skeleton loading={!lesson.category}>
+                    {lesson.category}
+                  </Skeleton>
                 </h2>
                 <SeparatorVertical />
                 <span className="text-base leading-7 text-gray-700 dark:text-gray-300">
-                  <CountUp
-                    start={0}
-                    end={
-                      lesson.courses.filter((course) => course.available).length
-                    }
-                  />{" "}
-                  {lang === "en" ? "lessons" : "leçons"}
+                  <Skeleton loading={!lesson.courses}>
+                    <CountUp
+                      start={0}
+                      end={
+                        lesson.courses.filter((course) => course.available)
+                          .length
+                      }
+                    />{" "}
+                    {lang === "en" ? "lessons" : "leçons"}
+                  </Skeleton>
                 </span>
               </div>
             </div>
