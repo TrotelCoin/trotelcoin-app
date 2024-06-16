@@ -29,7 +29,7 @@ const LifeMobile = ({
               </span>
             ) : (
               <span>
-                {life} {life > 0 ? "💙" : "💔"}
+                {life} {Number(life) > 0 ? "💙" : "💔"}
               </span>
             )}
           </div>

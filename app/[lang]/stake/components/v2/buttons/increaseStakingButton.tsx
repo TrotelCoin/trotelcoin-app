@@ -36,7 +36,7 @@ const IncreaseStakingButton = ({
   const [disabled, setDisabled] = useState<boolean>(true);
   const [stakeConfirmed, setStakeConfirmed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [timestamp, setTimestamp] = useState<number | null>(null);
   const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
@@ -78,7 +78,7 @@ const IncreaseStakingButton = ({
       setTimeLeft(Math.max(0, timeLeft));
 
       const interval = setInterval(() => {
-        setTimeLeft((prev) => Math.max(0, prev - 1));
+        setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
       }, 1000);
 
       return () => clearInterval(interval);
@@ -145,7 +145,7 @@ const IncreaseStakingButton = ({
   };
 
   useEffect(() => {
-    if (!isLoading && address && Boolean(amount) && timeLeft > 0) {
+    if (!isLoading && address && Boolean(amount) && timeLeft && timeLeft > 0) {
       setDisabled(false);
     } else {
       setDisabled(true);

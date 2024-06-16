@@ -7,7 +7,7 @@ import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {
-  const [tokensEarned, setTokensEarned] = useState<number>(0);
+  const [tokensEarned, setTokensEarned] = useState<number | null>(null);
 
   const { address } = useAccount();
 
@@ -44,7 +44,9 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
                     <CountUp start={0} end={Math.floor(tokensEarned)} />
                   </span>
                 ) : (
-                  <span><Skeleton>0</Skeleton></span>
+                  <span>
+                    <Skeleton>0</Skeleton>
+                  </span>
                 )}
               </span>
             </>

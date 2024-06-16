@@ -33,7 +33,9 @@ const StakingButton = ({
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [stakeMessage, setStakeMessage] = useState<boolean>(false);
-  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
+  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
+    null
+  );
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [stakeConfirmed, setStakeConfirmed] = useState<boolean>(false);
@@ -111,7 +113,7 @@ const StakingButton = ({
       return;
     }
 
-    if (stakedTrotelCoins > 0) {
+    if (stakedTrotelCoins && stakedTrotelCoins > 0) {
       setErrorMessage(true);
       return;
     }
@@ -154,7 +156,13 @@ const StakingButton = ({
   };
 
   useEffect(() => {
-    if (!isLoading && address && amount && stakedTrotelCoins <= 0) {
+    if (
+      !isLoading &&
+      address &&
+      amount &&
+      stakedTrotelCoins &&
+      stakedTrotelCoins <= 0
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);

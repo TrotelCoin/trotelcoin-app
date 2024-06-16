@@ -26,7 +26,7 @@ const LifeCount = ({ lang }: { lang: Lang }) => {
         ) : (
           <span className="font-semibold">0</span>
         )}{" "}
-        <span>{life > 0 ? "💙" : "💔"}</span>
+        <span>{Number(life) > 0 ? "💙" : "💔"}</span>
         <Transition
           as={Fragment}
           show={isHoveringLife}

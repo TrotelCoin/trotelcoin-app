@@ -33,7 +33,7 @@ const RewardsButton = ({
   setClaimed: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [availableToClaim, setAvailableToClaim] = useState<number>(0);
+  const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
   const [nothingToClaimMessage, setNothingToClaimMessage] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
@@ -169,7 +169,7 @@ const RewardsButton = ({
   };
 
   useEffect(() => {
-    if (address && availableToClaim > 0 && !isLoading) {
+    if (address && availableToClaim && availableToClaim > 0 && !isLoading) {
       setDisabled(false);
     } else {
       setDisabled(true);

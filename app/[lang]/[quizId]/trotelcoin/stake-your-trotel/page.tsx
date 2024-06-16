@@ -15,7 +15,7 @@ import { formatEther } from "viem";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
-  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [totalAmount, setTotalAmount] = useState<number | null>(null);
 
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
@@ -121,7 +121,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         text: (
           <>
             <span>
-              You are staking: {totalAmount.toLocaleString("en-US")} TROTEL
+              You are staking: {totalAmount ? totalAmount.toLocaleString("en-US") : 0} TROTEL
             </span>
           </>
         ),
@@ -182,7 +182,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <>
             <span>
               Vous êtes en train de staker :{" "}
-              {totalAmount.toLocaleString("en-US")} TROTEL
+              {totalAmount ? totalAmount.toLocaleString("en-US") : 0} TROTEL
             </span>
           </>
         ),

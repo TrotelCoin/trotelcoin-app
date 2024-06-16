@@ -24,7 +24,7 @@ const Quiz = ({
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
   const [showCorrectMessage, setShowCorrectMessage] = useState<boolean>(false);
   const [courseTime, setCourseTime] = useState<number>(0);
-  const [courseMark, setCourseMark] = useState<number>(0);
+  const [courseMark, setCourseMark] = useState<number | null>(null);
 
   const { life, lifeCooldown } = useContext(LifeContext);
   const { isLoggedIn } = useContext(UserContext);

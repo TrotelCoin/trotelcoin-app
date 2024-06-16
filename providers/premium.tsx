@@ -20,7 +20,9 @@ import {
 } from "@/data/staking/premium";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
-  const [totalStakingAmount, setTotalStakingAmount] = useState<number>(0);
+  const [totalStakingAmount, setTotalStakingAmount] = useState<number | null>(
+    null
+  );
 
   const { address } = useAccount();
 
@@ -84,8 +86,12 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
   const earlyBalance: number = parseFloat(early as string);
   const isEarly: boolean = earlyBalance > 0;
 
-  const isIntermediate = totalStakingAmount > intermediateStakingBalance; // 10,000 TROTEL
-  const isExpert = totalStakingAmount > expertStakingBalance; // 50,000 TROTEL
+  const isIntermediate = totalStakingAmount
+    ? totalStakingAmount > intermediateStakingBalance
+    : false; // 10,000 TROTEL
+  const isExpert = totalStakingAmount
+    ? totalStakingAmount > expertStakingBalance
+    : false; // 50,000 TROTEL
 
   const isNotPremium = !isIntermediate && !isExpert;
   const isPremium = !isNotPremium;

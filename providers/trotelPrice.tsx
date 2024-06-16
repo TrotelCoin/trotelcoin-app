@@ -8,7 +8,7 @@ import { trotelCoinPolygon, usdcPolygonBridged } from "@/data/web3/tokens";
 import { polygonChain } from "@/data/web3/chains";
 
 const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
-  const [trotelPrice, setTrotelPrice] = useState<number>(0);
+  const [trotelPrice, setTrotelPrice] = useState<number | null>(null);
   const [trotelPriceLoading, setTrotelPriceLoading] = useState<boolean>(false);
 
   const fromAmount = 100;

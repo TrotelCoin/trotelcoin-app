@@ -38,7 +38,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
         <div className="flex gap-2 items-center justify-between p-4">
           <h3>{lang === "en" ? "Your rewards" : "Vos récompenses"}</h3>
           <div className="flex gap-2 items-center">
-            {!claimed
+            {!claimed && userTotalRewardsPending
               ? Number(userTotalRewardsPending.toFixed(0)).toLocaleString(
                   "en-US"
                 )

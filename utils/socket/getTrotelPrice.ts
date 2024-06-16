@@ -16,7 +16,7 @@ export const getTrotelPrice = async (
   singleTxOnly: boolean,
   enableRefuel: boolean,
   slippage: Slippage,
-  setPrice: React.Dispatch<React.SetStateAction<number>>,
+  setPrice: React.Dispatch<React.SetStateAction<number | null>>,
   setPriceLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   setPriceLoading(true);

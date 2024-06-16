@@ -79,7 +79,7 @@ const Waitlist = ({
   children: React.ReactNode;
   lang: Lang;
 }) => {
-  const [early, setEarly] = useState<number>(0);
+  const [early, setEarly] = useState<number | null>(null);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
   const [mail, setMail] = useState<string | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);

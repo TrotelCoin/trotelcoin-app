@@ -66,9 +66,14 @@ const Expert = ({ lang }: { lang: Lang }) => {
                     !isExpert && "hover:bg-gray-700 dark:hover:bg-gray-200"
                   }`}
                 >
-                  {totalStakingAmount > expertStakingBalance
+                  {totalStakingAmount &&
+                  totalStakingAmount > expertStakingBalance
                     ? null
-                    : `${totalStakingAmount.toLocaleString("en-US")} /`}{" "}
+                    : `${
+                        totalStakingAmount
+                          ? totalStakingAmount.toLocaleString("en-US")
+                          : 0
+                      } /`}{" "}
                   {expertStakingBalance.toLocaleString("en-US")}{" "}
                   {isExpert && "TROTEL"}
                 </div>

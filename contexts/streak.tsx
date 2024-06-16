@@ -3,17 +3,17 @@ import type { Dispatch } from "react";
 import { Address } from "viem";
 
 const StreakContext = React.createContext({
-  streak: 0 as number,
-  setStreak: {} as Dispatch<React.SetStateAction<number>>,
+  streak: null as number | null,
+  setStreak: {} as Dispatch<React.SetStateAction<number | null>>,
   disabled: false as boolean,
   setDisabled: {} as Dispatch<React.SetStateAction<boolean>>,
   lastUpdatedStreak: "" as string,
   setLastUpdatedStreak: {} as Dispatch<React.SetStateAction<string>>,
-  cooldown: "00:00:00" as string,
-  setCooldown: {} as Dispatch<React.SetStateAction<string>>,
+  cooldown: null as string | null,
+  setCooldown: {} as Dispatch<React.SetStateAction<string | null>>,
   updateStreak: {} as (address: Address) => void,
-  maxStreak: 0 as number,
-  setMaxStreak: {} as Dispatch<React.SetStateAction<number>>,
+  maxStreak: null as number | null,
+  setMaxStreak: {} as Dispatch<React.SetStateAction<number | null>>,
   isStreakLoading: false as boolean,
   setIsStreakLoading: {} as Dispatch<React.SetStateAction<boolean>>,
   streakResetMessage: false as boolean,
