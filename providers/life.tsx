@@ -17,7 +17,7 @@ const LifeProvider = ({
   children: ReactNode;
   lang: Lang;
 }) => {
-  const [life, setLife] = useState<number>(0);
+  const [life, setLife] = useState<number | null>(null);
   const [lifeCooldown, setLifeCooldown] = useState<string>("00:00:00");
   const [lastReset, setLastReset] = useState<string>("");
   const [lifeResetMessage, setLifeResetMessage] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const LifeProvider = ({
   const updateLife = async () => {
     await axios.post(`/api/user/life?wallet=${address}`);
 
-    setLife(life - 1);
+    setLife(life ? life - 1 : 0);
   };
 
   const { data: lifeData } = useSWR(
@@ -51,7 +51,7 @@ const LifeProvider = ({
   }, [lifeData]);
 
   useEffect(() => {
-    if (life > 2 && isNotPremium && address) {
+    if (life && life > 2 && isNotPremium && address) {
       setLifeResetMessage(true);
     }
   }, [life, isNotPremium, address]);

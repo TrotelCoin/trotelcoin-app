@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Scanner } from "@yudiel/react-qr-scanner";
+import { Scanner, IDetectedBarcode } from "@yudiel/react-qr-scanner";
 import { isAddress } from "viem";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Lang } from "@/types/language/lang";
@@ -50,16 +50,13 @@ const ScannerComponent = ({
           </div>
           <div className={`${errorMessage || scannedMessage ? "hidden" : ""}`}>
             <Scanner
-              onResult={(text: string) => {
-                if (isAddress(text)) {
-                  setRecipient(text);
+              onScan={(detectedCodes: IDetectedBarcode[]) => {
+                if (isAddress(detectedCodes[0].rawValue)) {
+                  setRecipient(detectedCodes[0].rawValue);
                   setScannedMessage(true);
                 } else {
                   setErrorMessage(true);
                 }
-              }}
-              onError={() => {
-                setErrorMessage(true);
               }}
             />
           </div>

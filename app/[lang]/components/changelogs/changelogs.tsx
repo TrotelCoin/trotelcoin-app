@@ -107,7 +107,16 @@ const Changelogs = ({ lang }: { lang: Lang }) => {
               : "- On retravaille la page d'accueil",
         },
         {
-          text: lang === "en" ? "- Added For You section" : "- On a ajouté la section Pour Vous"
+          text:
+            lang === "en"
+              ? "- Added For You section"
+              : "- On a ajouté la section Pour Vous",
+        },
+        {
+          text:
+            lang === "en"
+              ? "- Added skeletons when fetching data"
+              : "- On a ajouté des skeletons pour la récupération des données",
         },
       ],
     },

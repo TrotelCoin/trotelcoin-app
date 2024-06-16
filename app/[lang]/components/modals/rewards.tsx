@@ -8,6 +8,7 @@ import type { Lang } from "@/types/language/lang";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import UserContext from "@/contexts/user";
+import { Skeleton } from "@radix-ui/themes";
 
 const pages = 4;
 
@@ -22,9 +23,9 @@ const RewardsModal = ({
   show: boolean;
   onClose: () => void;
   lang: Lang;
-  rewards: number;
+  rewards: number | null;
   courseTime: number;
-  courseMark: number;
+  courseMark: number | null;
 }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
 
@@ -102,16 +103,20 @@ const RewardsModal = ({
                             {lang === "en" ? "Rewards" : "Récompenses"}
                           </h2>
                           <div className="flex items-center justify-center gap-2">
-                            <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                              <CountUp start={0} end={rewards} />{" "}
-                            </span>
-                            <TrotelCoinLogo width={24} height={24} />
+                            <Skeleton loading={!rewards}>
+                              <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
+                                <CountUp start={0} end={rewards ?? 0} />{" "}
+                              </span>
+                              <TrotelCoinLogo width={24} height={24} />
+                            </Skeleton>
                           </div>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
                               ? "You have now"
                               : "Vous avez maintenant"}{" "}
-                            {Math.floor(userTotalRewardsPending)} TROTEL{" "}
+                            <Skeleton loading={!userTotalRewardsPending}>
+                              {Math.floor(userTotalRewardsPending ?? 0)} TROTEL
+                            </Skeleton>{" "}
                             {lang === "en" ? "pending." : "en attente."}
                           </p>
                         </div>
@@ -126,15 +131,19 @@ const RewardsModal = ({
                               : "Quiz répondus"}
                           </h2>
                           <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                            <CountUp
-                              start={0}
-                              end={userNumberOfQuizzesAnswered}
-                            />{" "}
-                            📚
+                            <Skeleton loading={!userNumberOfQuizzesAnswered}>
+                              <CountUp
+                                start={0}
+                                end={userNumberOfQuizzesAnswered ?? 0}
+                              />{" "}
+                              📚
+                            </Skeleton>
                           </p>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en" ? "You scored" : "Vous avez obtenu"}{" "}
-                            {Math.floor(courseMark)}/20{" "}
+                            <Skeleton loading={!courseMark}>
+                              {Math.floor(courseMark ?? 0)}/20
+                            </Skeleton>{" "}
                             {lang === "en"
                               ? "on this course."
                               : "sur ce cours."}{" "}
@@ -149,10 +158,14 @@ const RewardsModal = ({
                             {lang === "en" ? "Level" : "Niveau"}
                           </h2>
                           <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                            <CountUp start={0} end={userLevel} /> 💊
+                            <Skeleton loading={!userLevel}>
+                              <CountUp start={0} end={userLevel ?? 1} /> 💊
+                            </Skeleton>
                           </p>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
-                            {quizzesLeft}{" "}
+                            <Skeleton loading={!quizzesLeft}>
+                              {quizzesLeft ?? 0}
+                            </Skeleton>{" "}
                             {lang === "en"
                               ? "quizzes left until next level."
                               : "quiz restant avant le prochain niveau."}
@@ -169,11 +182,15 @@ const RewardsModal = ({
                               : "Temps d'apprentissage"}
                           </h2>
                           <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                            <CountUp
-                              start={0}
-                              end={Math.floor(courseTime * 1e-3)}
-                              suffix="s ⏳"
-                            />{" "}
+                            <Skeleton loading={!courseTime}>
+                              <CountUp
+                                start={0}
+                                end={
+                                  courseTime ? Math.floor(courseTime * 1e-3) : 0
+                                }
+                                suffix="s ⏳"
+                              />
+                            </Skeleton>{" "}
                           </span>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"

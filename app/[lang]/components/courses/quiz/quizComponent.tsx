@@ -42,7 +42,7 @@ const QuizComponent = ({
   setIsCorrect: React.Dispatch<SetStateAction<boolean>>;
   setShowCorrectMessage: React.Dispatch<SetStateAction<boolean>>;
   startTime: number;
-  setCourseMark: React.Dispatch<SetStateAction<number>>;
+  setCourseMark: React.Dispatch<SetStateAction<number | null>>;
   setCourseTime: React.Dispatch<SetStateAction<number>>;
 }) => {
   const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
@@ -189,7 +189,7 @@ const QuizComponent = ({
         setNumberOfWrongAnswers((prev) => prev + 1);
         setWrongAnswers((prev) => [...prev, currentQuestion]);
       }
-      if (!isIntermediate && !isExpert && life > 0 && !shieldEnabled) {
+      if (!isIntermediate && !isExpert && life && life > 0 && !shieldEnabled) {
         updateLife();
       }
       playAudio("badAnswer");
@@ -344,7 +344,11 @@ const QuizComponent = ({
 
       <Fail
         show={
-          showMessage && !isCorrect && !isIntermediate && !isExpert && life > 0
+          showMessage &&
+          !isCorrect &&
+          !isIntermediate &&
+          !isExpert &&
+          Number(life) > 0
         }
         onClose={() => setShowMessage(false)}
         lang={lang}
@@ -352,13 +356,19 @@ const QuizComponent = ({
         message={
           lang === "en"
             ? `Oups! You answered incorrectly. Try again! ${
-                life >= 0 && life <= 3 && !isIntermediate && !isExpert
+                Number(life) >= 0 &&
+                Number(life) <= 3 &&
+                !isIntermediate &&
+                !isExpert
                   ? `You have ${life} HP left.`
                   : ""
               }`
             : `Mince ! Vous avez répondu incorrectement. Essayez encore ! ${
-                life >= 0 && life <= 3 && !isIntermediate && !isExpert
-                  ? `Vous avez ${life} HP restants.`
+                Number(life) >= 0 &&
+                Number(life) <= 3 &&
+                !isIntermediate &&
+                !isExpert
+                  ? `Vous avez ${life ?? 3} HP restants.`
                   : ""
               }`
         }

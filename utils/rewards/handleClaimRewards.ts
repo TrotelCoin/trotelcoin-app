@@ -5,7 +5,7 @@ import { Audios } from "@/providers/audio";
 export const handleClaimRewards = async (
   address: Address,
   quizId: number,
-  multipliers: number,
+  multipliers: number | null,
   setIsLearnerDisconnected: React.Dispatch<React.SetStateAction<boolean>>,
   setClaimingLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setClaimedRewards: React.Dispatch<React.SetStateAction<boolean>>,
@@ -23,7 +23,9 @@ export const handleClaimRewards = async (
   // update database rewards by calling api and if success
   const rewards = await axios
     .post(
-      `/api/rewards?wallet=${address}&quizId=${quizId}&multipliers=${multipliers}`
+      `/api/rewards?wallet=${address}&quizId=${quizId}&multipliers=${
+        multipliers ?? 1
+      }`
     )
     .then((response) => {
       setClaimedRewards(true);

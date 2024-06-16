@@ -18,22 +18,24 @@ const UserProvider = ({
   children: ReactNode;
   lang: Lang;
 }) => {
-  const [userTotalRewardsPending, setUserTotalRewardsPending] =
-    useState<number>(0);
+  const [userTotalRewardsPending, setUserTotalRewardsPending] = useState<
+    number | null
+  >(null);
   const [userNumberOfQuizzesAnswered, setUserNumberOfQuizzesAnswered] =
-    useState<number>(0);
+    useState<number | null>(null);
   const [alreadyAnsweredSatisfaction, setAlreadyAnsweredSatisfaction] =
     useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [multipliers, setMultipliers] = useState<number>(1);
-  const [learningTime, setLearningTime] = useState<number>(0);
-  const [averageMark, setAverageMark] = useState<number>(0);
-  const [multipliersItem, setMultipliersItem] = useState<number>(1);
-  const [multipliersItemTimeLeft, setMultipliersItemTimeLeft] =
-    useState<number>(0);
-  const [userLevel, setUserLevel] = useState<number>(1);
+  const [multipliers, setMultipliers] = useState<number | null>(null);
+  const [learningTime, setLearningTime] = useState<number | null>(null);
+  const [averageMark, setAverageMark] = useState<number | null>(null);
+  const [multipliersItem, setMultipliersItem] = useState<number | null>(null);
+  const [multipliersItemTimeLeft, setMultipliersItemTimeLeft] = useState<
+    number | null
+  >(null);
+  const [userLevel, setUserLevel] = useState<number | null>(null);
   const [multipliersEnabled, setMultipliersEnabled] = useState<boolean>(false);
-  const [quizzesLeft, setQuizzesLeft] = useState<number>(0);
+  const [quizzesLeft, setQuizzesLeft] = useState<number | null>(null);
 
   const { address } = useAccount();
   const { data: session } = useSession();
@@ -176,7 +178,11 @@ const UserProvider = ({
       multipliers = 5;
     }
 
-    if (multipliersItem && multipliersItemTimeLeft > 0) {
+    if (
+      multipliersItem &&
+      multipliersItemTimeLeft &&
+      multipliersItemTimeLeft > 0
+    ) {
       multipliers *= multipliersItem;
     }
 

@@ -28,7 +28,7 @@ const Rewards = ({
   quizId: number;
   isTotallyCorrect: boolean;
   courseTime: number;
-  courseMark: number;
+  courseMark: number | null;
 }) => {
   const [claimedRewards, setClaimedRewards] = useState<boolean>(false);
   const [claimingError, setClaimingError] = useState<boolean>(false);
@@ -113,7 +113,7 @@ const Rewards = ({
                   : "Récupérez vos récompenses"}
               </h3>
 
-              {Boolean(multipliers) && multipliers > 1 && (
+              {multipliers && multipliers > 1 && (
                 <>
                   <SeparatorVertical />
                   <div className="flex items-center gap-1 rainbow-text">

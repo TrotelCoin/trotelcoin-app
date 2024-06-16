@@ -17,11 +17,11 @@ const StreakProvider = ({
   children: ReactNode;
   lang: Lang;
 }) => {
-  const [streak, setStreak] = useState<number>(0);
+  const [streak, setStreak] = useState<number | null>(null);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [lastUpdatedStreak, setLastUpdatedStreak] = useState<string>("");
-  const [cooldown, setCooldown] = useState<string>("00:00:00");
-  const [maxStreak, setMaxStreak] = useState<number>(0);
+  const [cooldown, setCooldown] = useState<string | null>(null);
+  const [maxStreak, setMaxStreak] = useState<number | null>(null);
   const [isStreakLoading, setIsStreakLoading] = useState<boolean>(false);
   const [streakResetMessage, setStreakResetMessage] = useState<boolean>(false);
   const [streakMessage, setStreakMessage] = useState<boolean>(false);
@@ -108,8 +108,10 @@ const StreakProvider = ({
     await axios
       .post(`/api/user/streak?wallet=${address}`)
       .then(() => {
-        setStreak((streak: number) => streak + 1);
-        setMaxStreak((maxStreak: number) => Math.max(maxStreak, streak + 1));
+        setStreak((streak) => (streak ? streak + 1 : 0));
+        setMaxStreak((maxStreak) =>
+          maxStreak ? Math.max(maxStreak, streak ? streak + 1 : 0) : 0
+        );
         setLastUpdatedStreak(new Date().toISOString());
         setDisabled(true);
         setStreakMessage(true);

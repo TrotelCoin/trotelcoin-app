@@ -25,6 +25,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [forYouCourses, setForYouCourses] = useState<Lesson[] | null>(null);
   const [mount, setMount] = useState<boolean>(false);
   const [isLoadingCourses, setIsLoadingCourses] = useState<boolean>(true);
+  const [statusMounted, setStatusMounted] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -62,51 +63,60 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const randomLessons = allCourses.sort(() => 0.5 - Math.random());
 
-  useEffect(() => {
-    if (lessonsCompleted) {
-      const newStatus = [...status];
-      lessonsCompleted.forEach(
-        (course: { quiz_id: number; answered: boolean }) => {
-          newStatus[course.quiz_id - 1] = course.answered
-            ? "Finished"
-            : "Not started";
-        }
-      );
-      setStatus(newStatus);
-    }
-  }, [lessonsCompleted, status]);
-
-  useEffect(() => {
-    const getRecommendations = async () => {
-      const recommendedLessons = await getCoursesRecommendations(
-        address as Address,
-        lessonsLiked,
-        lessonsCompleted
-      );
-
-      const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
-        const category = lessons.find(findLessonCategory(lesson))?.category;
-        return { ...lesson, category };
-      });
-
-      if (forYouCourses.length > 0) {
-        setForYouCourses(forYouCourses);
-      } else {
-        setForYouCourses(randomLessons);
+  const handleStatus = () => {
+    const newStatus = [...status];
+    lessonsCompleted.forEach(
+      (course: { quiz_id: number; answered: boolean }) => {
+        newStatus[course.quiz_id - 1] = course.answered
+          ? "Finished"
+          : "Not started";
       }
+    );
+    setStatus(newStatus);
+  };
 
-      setMount(true);
-    };
+  useEffect(() => {
+    if (lessonsCompleted && !statusMounted) {
+      handleStatus();
+      setStatusMounted(true);
+    }
+  }, [lessonsCompleted]);
 
+  const getRecommendations = async () => {
+    const recommendedLessons = await getCoursesRecommendations(
+      address as Address,
+      lessonsLiked,
+      lessonsCompleted
+    );
+
+    const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
+      const category = lessons.find(findLessonCategory(lesson))?.category;
+      return { ...lesson, category };
+    });
+
+    if (forYouCourses.length > 0) {
+      setForYouCourses(forYouCourses);
+    } else {
+      setForYouCourses(randomLessons);
+    }
+
+    setMount(true);
+  };
+
+  useEffect(() => {
     if (address && lessonsCompleted && lessonsLiked && !mount) {
       getRecommendations();
     }
   }, [address, lessonsCompleted, lessonsLiked, randomLessons]);
 
-  useEffect(() => {
+  const handleLoadingCourses = () => {
     if (lessonsCompleted && lessonsLiked && mount) {
       setIsLoadingCourses(false);
     }
+  };
+
+  useEffect(() => {
+    handleLoadingCourses();
   }, [lessonsCompleted, lessonsLiked, mount]);
 
   const scrollRefs = useRef<Array<React.RefObject<HTMLDivElement>>>(

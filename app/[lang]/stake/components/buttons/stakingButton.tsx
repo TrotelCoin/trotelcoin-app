@@ -38,7 +38,9 @@ const StakingButton = ({
   const [stakeMessage, setStakeMessage] = useState<boolean>(false);
   const [stakingPeriodMessage, setStakingPeriodMessage] =
     useState<boolean>(false);
-  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
+  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
+    null
+  );
   const [alreadyStakingMessage, setAlreadyStakingMessage] =
     useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
@@ -102,7 +104,7 @@ const StakingButton = ({
       return;
     }
 
-    if (stakedTrotelCoins > 0) {
+    if (stakedTrotelCoins && stakedTrotelCoins > 0) {
       setAlreadyStakingMessage(true);
       return;
     }
@@ -146,6 +148,7 @@ const StakingButton = ({
       amount &&
       address &&
       allowance >= amount &&
+      stakedTrotelCoins &&
       stakedTrotelCoins <= 0 &&
       !disabled
     ) {

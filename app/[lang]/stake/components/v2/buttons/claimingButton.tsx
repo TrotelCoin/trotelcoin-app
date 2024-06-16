@@ -30,8 +30,10 @@ const ClaimingButton = ({
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [claimMessage, setClaimMessage] = useState<boolean>(false);
-  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(0);
+  const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
+    null
+  );
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
@@ -117,7 +119,7 @@ const ClaimingButton = ({
       setTimeLeft(Math.max(0, timeLeft));
 
       const interval = setInterval(() => {
-        setTimeLeft((prev) => Math.max(0, prev - 1));
+        setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
       }, 1000);
 
       return () => clearInterval(interval);
@@ -133,7 +135,7 @@ const ClaimingButton = ({
       return;
     }
 
-    if (timeLeft > 0) {
+    if (timeLeft && timeLeft > 0) {
       setErrorMessage(true);
       return;
     }
@@ -147,7 +149,14 @@ const ClaimingButton = ({
   };
 
   useEffect(() => {
-    if (address && stakedTrotelCoins > 0 && timeLeft <= 0 && !isLoading) {
+    if (
+      address &&
+      stakedTrotelCoins &&
+      stakedTrotelCoins > 0 &&
+      timeLeft &&
+      timeLeft <= 0 &&
+      !isLoading
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);

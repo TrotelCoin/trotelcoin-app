@@ -3,7 +3,6 @@ import { Lesson, LessonCategory, Lessons } from "@/types/courses/lessons";
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Marquee from "react-fast-marquee";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { lessons } from "@/data/lessons/lessons";
 
@@ -18,22 +17,17 @@ const renderCourses = (
   category: LessonCategory
 ) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
-  const [marqueePlay, setMarqueePlay] = useState<boolean>(false);
   const [categoryLogo, setCategoryLogo] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (isHovering) {
-      setMarqueePlay(true);
-    } else {
-      setMarqueePlay(false);
-    }
-  }, [isHovering]);
-
-  useEffect(() => {
+  const getCategoryLogo = () => {
     const categoryLogo: string = lessons.find(
       (lesson: Lessons) => lesson.category === category
     )?.logo as string;
     setCategoryLogo(categoryLogo);
+  };
+
+  useEffect(() => {
+    getCategoryLogo();
   }, [category]);
 
   let tier = "";
@@ -128,10 +122,7 @@ const renderCourses = (
             </div>
           </div>
 
-          <Marquee
-            className="flex mt-4 items-center overflow-hidden whitespace-nowrap"
-            play={marqueePlay}
-          >
+          <div className="flex flex-wrap mt-4 items-center overflow-hidden">
             {course.sponsored && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">
@@ -179,7 +170,7 @@ const renderCourses = (
                 </div>
               </div>
             )}
-          </Marquee>
+          </div>
         </div>
       </div>
     </Link>

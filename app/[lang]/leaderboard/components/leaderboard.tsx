@@ -130,10 +130,10 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                     </div>
                   </Skeleton>
                   <div className="hidden md:block">
-                    <Skeleton>0x000000000000</Skeleton>
+                    <Skeleton>0x0000000000000000000000</Skeleton>
                   </div>
                   <div className="block md:hidden">
-                    <Skeleton>0x</Skeleton>
+                    <Skeleton>0x000000000</Skeleton>
                   </div>
                   <div className="flex items-center md:gap-2 text-lg">
                     <span className="hidden md:block">

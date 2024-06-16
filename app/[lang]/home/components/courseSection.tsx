@@ -78,7 +78,7 @@ const CourseSection = ({
                   course.category as LessonCategory
                 )
               )
-          : Array.from({ length: 3 }, (_, index) => (
+          : Array.from({ length: 10 }, (_, index) => (
               <SkeletonCourseCard key={index} isLoading={isLoading} />
             ))}
       </div>

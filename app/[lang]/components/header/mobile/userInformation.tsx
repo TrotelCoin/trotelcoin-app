@@ -16,10 +16,10 @@ const UserInformationMobile = ({
   isPremium,
 }: {
   lang: Lang;
-  streak: number;
-  life: number;
-  userTotalRewardsPending: number;
-  userNumberOfQuizzesAnswered: number;
+  streak: number | null;
+  life: number | null;
+  userTotalRewardsPending: number | null;
+  userNumberOfQuizzesAnswered: number | null;
   isPremium: boolean;
 }) => {
   const { isIntermediate, isExpert } = useContext(PremiumContext);
@@ -44,28 +44,38 @@ const UserInformationMobile = ({
                 : "Débutant 🐣"}
             </span>
           </div>
-          <div className="flex items-center">{streak} 🔥</div>
+          <div className="flex items-center">{streak ?? 0} 🔥</div>
           <div className="flex items-center">
-            {isPremium ? <span className="text-xl mr-1">&infin;</span> : life}{" "}
-            {life > 0 ? "💙" : "💔"}
+            {isPremium ? (
+              <span className="text-xl mr-1">&infin;</span>
+            ) : (
+              life ?? 3
+            )}{" "}
+            {life && life > 0 ? "💙" : "💔"}
           </div>
           <div
-            className={`flex items-center ${multipliers > 1 && "rainbow-text"}`}
+            className={`flex items-center ${
+              multipliers && multipliers > 1 && "rainbow-text"
+            }`}
           >
-            x{multipliers} 🤑
+            x{multipliers ?? 1} 🤑
           </div>
           <div className="flex items-center gap-1">
-            {Number(userTotalRewardsPending.toFixed(0)).toLocaleString("en-US")}{" "}
+            {userTotalRewardsPending
+              ? Number(userTotalRewardsPending.toFixed(0)).toLocaleString(
+                  "en-US"
+                )
+              : 0}{" "}
             <TrotelCoinLogo />
           </div>
           <div className="flex items-center">
-            {userNumberOfQuizzesAnswered} 📚
+            {userNumberOfQuizzesAnswered ?? 0} 📚
           </div>
           <div className="flex items-center">
-            {lang === "en" ? "Level" : "Niveau"} {userLevel} 💊
+            {lang === "en" ? "Level" : "Niveau"} {userLevel ?? 1} 💊
           </div>
           <div className="flex items-center">
-            {Math.floor(averageMark)}/20 🤓
+            {Math.floor(averageMark ?? 0)}/20 🤓
           </div>
         </div>
       </Marquee>

@@ -70,9 +70,14 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     "hover:bg-gray-700 dark:hover:bg-gray-200"
                   }`}
                 >
-                  {totalStakingAmount > intermediateStakingBalance
+                  {totalStakingAmount &&
+                  totalStakingAmount > intermediateStakingBalance
                     ? null
-                    : `${totalStakingAmount.toLocaleString("en-US")} /`}{" "}
+                    : `${
+                        totalStakingAmount
+                          ? totalStakingAmount.toLocaleString("en-US")
+                          : 0
+                      } /`}{" "}
                   {intermediateStakingBalance.toLocaleString("en-US")}{" "}
                   {isIntermediate && "TROTEL"}
                 </div>
