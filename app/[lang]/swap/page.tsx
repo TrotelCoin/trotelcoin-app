@@ -97,6 +97,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [swappedConfirmed, setSwappedConfirmed] = useState<boolean>(false);
   const [isLoadingTransaction, setIsLoadingTransaction] =
     useState<boolean>(false);
+  const [swappedMessageConfirmation, setSwappedMessageConfirmation] =
+    useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
 
@@ -239,8 +241,13 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   });
 
   useEffect(() => {
-    if (transactionConfirmation && Number(transactionConfirmation) > 0) {
+    if (
+      transactionConfirmation &&
+      Number(transactionConfirmation) > 0 &&
+      !swappedMessageConfirmation
+    ) {
       setSwappedMessage(true);
+      setSwappedMessageConfirmation(true);
       setIsLoadingTransaction(false);
     }
   }, [transactionConfirmation]);
