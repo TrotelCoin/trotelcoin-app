@@ -9,7 +9,7 @@ import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
 import { fetchInventory } from "@/utils/inventory/fetchInventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/inventory/components/inventoryItem";
-import { loadingFlashClass } from "@/style/loading";
+import InventoryItemSkeleton from "@/app/[lang]/inventory/components/inventoryItemSkeleton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
 import useSWR from "swr";
@@ -148,16 +148,10 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </>
         ) : refreshing ? (
           <>
-            <div className="flex justify-center items-center text-center py-32 md:px-32">
-              <span
-                className={`text-gray-700 dark:text-gray-300 ${
-                  refreshing && loadingFlashClass
-                }`}
-              >
-                {lang === "en"
-                  ? "Your items are loading..."
-                  : "Vos objets sont en cours de chargement..."}
-              </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <InventoryItemSkeleton key={index} />
+              ))}
             </div>
           </>
         ) : (
