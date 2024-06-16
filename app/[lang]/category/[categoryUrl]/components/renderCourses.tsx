@@ -1,10 +1,10 @@
 import type { Lesson } from "@/types/courses/lessons";
 import type { Lang } from "@/types/language/lang";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import { Skeleton } from "@radix-ui/themes";
+import React, { useState } from "react";
 
 const renderCourses = (
   course: Lesson,
@@ -16,16 +16,7 @@ const renderCourses = (
   index: number,
   category: string
 ) => {
-  const [isHovering, setIsHovering] = useState(false);
-  const [marqueePlay, setMarqueePlay] = useState(false);
-
-  useEffect(() => {
-    if (isHovering) {
-      setMarqueePlay(true);
-    } else {
-      setMarqueePlay(false);
-    }
-  }, [isHovering]);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
 
   let tier = "";
   let title = "";
@@ -112,7 +103,11 @@ const renderCourses = (
               </div>
             </div>
           </div>
-          <Marquee className="flex mt-4 items-center" play={marqueePlay}>
+          <Marquee
+            className="flex mt-4 items-center"
+            play={true}
+            autoFill={true}
+          >
             {!course && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">

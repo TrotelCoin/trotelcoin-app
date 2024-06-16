@@ -14,26 +14,30 @@ const Evolution = ({
 }: {
   evolution: number;
   percentage?: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
 }) => {
   return (
     <>
       <div className="px-2 py-1 absolute top-0 right-0 animate__animated animate__fadeIn">
-        {evolution && !isLoading ? (
+        {evolution !== null ? (
           <>
-            <span
-              className={`text-xs ${
-                evolution === 0
-                  ? neutralTextClass
-                  : evolution < 0
-                  ? negativeTextClass
-                  : positiveTextClass
-              }`}
-            >
-              {evolution === 0 ? "" : evolution < 0 ? "" : "+"}
-              {Number(evolution.toFixed(1))}
-              {percentage ? "%" : ""}
-            </span>
+            {evolution !== 0 && (
+              <>
+                <span
+                  className={`text-xs ${
+                    evolution === 0
+                      ? neutralTextClass
+                      : evolution < 0
+                      ? negativeTextClass
+                      : positiveTextClass
+                  }`}
+                >
+                  {evolution === 0 ? "" : evolution < 0 ? "" : "+"}
+                  {Number(evolution.toFixed(2))}
+                  {percentage ? "%" : ""}
+                </span>
+              </>
+            )}
           </>
         ) : (
           <>
