@@ -1,13 +1,12 @@
-import { fetchCoursesLikedByUser } from "@/utils/courses/fetchCoursesLikedByUser";
-import { fetchCoursesFinishedByUser } from "@/utils/courses/fetchCoursesFinishedByUser";
 import { Address } from "viem";
 import { lessons } from "@/data/lessons/lessons";
 import { CourseRating, CourseFinished } from "@/types/courses/courses";
 
-export async function getCoursesRecommendations(wallet: Address) {
-  const coursesLiked = await fetchCoursesLikedByUser(wallet);
-  const coursesFinished = await fetchCoursesFinishedByUser(wallet);
-
+export async function getCoursesRecommendations(
+  wallet: Address,
+  coursesLiked: CourseRating[],
+  coursesFinished: CourseFinished[]
+) {
   const coursesLikedIds = coursesLiked.map(
     (course: CourseRating) => course.quiz_id
   );
