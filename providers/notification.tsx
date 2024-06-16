@@ -10,8 +10,6 @@ import type { NotificationType } from "@/types/notifications/notifications";
 import { addNotificationToQueue } from "@/utils/notifications/addNotificationToQueue";
 import PremiumContext from "@/contexts/premium";
 
-const enableFlag: boolean = false;
-
 const NotificationProvider = ({
   children,
   lang,
@@ -30,7 +28,7 @@ const NotificationProvider = ({
   const { lifeResetMessage } = useContext(LifeContext);
   const { streakResetMessage, streakMessage, lostStreak } =
     useContext(StreakContext);
-  const { isEarly } = useContext(PremiumContext);
+  const { isEarly, isIntermediate, isExpert } = useContext(PremiumContext);
 
   useEffect(() => {
     if (lostStreak) {
@@ -38,7 +36,7 @@ const NotificationProvider = ({
     } else if (streakResetMessage) {
       addNotificationToQueue("streakResetMessage", setNotificationQueue);
     }
-    if (lifeResetMessage && enableFlag) {
+    if (lifeResetMessage && !isIntermediate && !isExpert) {
       addNotificationToQueue("lifeResetMessage", setNotificationQueue);
     }
     if (streakMessage) {
