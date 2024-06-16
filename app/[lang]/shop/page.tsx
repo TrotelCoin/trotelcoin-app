@@ -12,6 +12,7 @@ import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import ItemSkeleton from "@/app/[lang]/shop/components/itemSkeleton";
 import { ItemType, ItemTypeFinal } from "@/types/items/items";
+import { loadingFlashClass } from "@/style/loading";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -47,6 +48,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [items, setItems] = useState<ItemTypeFinal[] | null>(null);
   const [refreshing, setRefreshing] = useState<boolean>(true);
+  const [fetching, setFetching] = useState<boolean>(true);
 
   const { address } = useAccount();
 
@@ -113,6 +115,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setItems(allItemsWithPotions);
     }
 
+    setFetching(false);
     setRefreshing(false);
   }, [allCategories, allItems]);
 
@@ -195,6 +198,22 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </div>
             </div>
           ) : (
+            <>
+              <div className="flex justify-center items-center text-center py-32 md:px-32">
+                <span
+                  className={`text-gray-700 dark:text-gray-300 ${
+                    refreshing && loadingFlashClass
+                  }`}
+                >
+                  {lang === "en"
+                    ? "Items are loading..."
+                    : "Les objets sont en cours de chargement..."}
+                </span>
+              </div>
+            </>
+          )}
+
+          {fetching && (
             <>
               <div className="flex flex-col gap-1 mt-2">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
