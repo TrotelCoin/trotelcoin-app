@@ -234,7 +234,7 @@ const TokenList = ({
                                 </p>
                               </div>
                               <span className="text-gray-700 dark:text-gray-300 text-xs">
-                                <Skeleton loading={!token.balance}>
+                                <Skeleton loading={token.balance === undefined}>
                                   {lang === "en" ? "Balance:" : "Solde:"}{" "}
                                   {token.balance
                                     ? token.balance?.toLocaleString("en-US")
