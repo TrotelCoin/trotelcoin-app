@@ -4,38 +4,27 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import lessons from "@/data/lessons/lessons";
 import renderCourses from "@/app/[lang]/home/components/renderCourses";
 import type { Lang } from "@/types/language/lang";
-import { Lesson, LessonCategory, Lessons } from "@/types/courses/lessons";
+import type { Lesson, LessonCategory, Lessons } from "@/types/courses/lessons";
 import { useAccount } from "wagmi";
 import Form from "@/app/[lang]/home/components/form";
 import { lessonsLength } from "@/utils/courses/lessonsLength";
-import { filterByCategory } from "@/utils/courses/filterByCategory";
-import { filterByTitleOrDescription } from "@/utils/courses/filterByTitleOrDescription";
 import PremiumContext from "@/contexts/premium";
 import Link from "next/link";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { getCoursesRecommendations } from "@/utils/user/getCoursesRecommendations";
+import {
+  findLessonCategory,
+  filterLessons,
+} from "@/utils/lessons/getInformationsFromLesson";
 
 export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [status, setStatus] = useState<string[]>(
     new Array(lessonsLength(lessons)).fill("Not started")
   );
-
-  const scrollRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const scrollRefForYouCourses = useRef<HTMLDivElement | null>(null);
-  const scrollRefNewCourses = useRef<HTMLDivElement | null>(null);
-  const scrollRefSponsoredCourses = useRef<HTMLDivElement | null>(null);
-
-  const filterLessons = (lesson: Lessons) => {
-    const categoryMatch = filterByCategory(lesson, searchTerm);
-    const titleOrDescMatch = lesson.courses.some((course) =>
-      filterByTitleOrDescription(course, searchTerm, lang)
-    );
-    return categoryMatch || titleOrDescMatch;
-  };
-
-  const filteredLessons = lessons.filter(filterLessons);
+  const [forYouCourses, setForYouCourses] = useState<Lesson[]>([]);
 
   const { address } = useAccount();
 
@@ -53,134 +42,58 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
   );
 
   useEffect(() => {
-    lessonsCompleted?.map((course: { quiz_id: number; answered: boolean }) => {
-      if (course.answered) {
-        setStatus((prev) => {
-          const newState = [...prev];
-          newState[course.quiz_id - 1] = "Finished";
-          return newState;
-        });
-      } else {
-        setStatus((prev) => {
-          const newState = [...prev];
-          newState[course.quiz_id - 1] = "Not started";
-          return newState;
-        });
-      }
-    });
-  }, [address, lessonsCompleted]);
+    if (lessonsCompleted) {
+      const newStatus = [...status];
+      lessonsCompleted.forEach(
+        (course: { quiz_id: number; answered: boolean }) => {
+          newStatus[course.quiz_id - 1] = course.answered
+            ? "Finished"
+            : "Not started";
+        }
+      );
+      setStatus(newStatus);
+    }
+  }, [lessonsCompleted, status]);
 
-  const scrollLeft = (index: number) => {
-    const currentRef = scrollRefs?.current?.[index];
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
+  useEffect(() => {
+    const getRecommendations = async () => {
+      if (address) {
+        const recommendedLessons = await getCoursesRecommendations(address);
+        const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
+          const category = lessons.find(findLessonCategory(lesson))?.category;
+          return { ...lesson, category };
         });
+        setForYouCourses(forYouCourses);
       }
+    };
+
+    getRecommendations();
+  }, [address]);
+
+  const scrollRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const scrollRefForYouCourses = useRef<HTMLDivElement | null>(null);
+  const scrollRefNewCourses = useRef<HTMLDivElement | null>(null);
+  const scrollRefSponsoredCourses = useRef<HTMLDivElement | null>(null);
+
+  const filteredLessons = lessons.filter((lesson) =>
+    filterLessons(lesson, searchTerm, lang)
+  );
+
+  const scroll = (
+    ref: React.RefObject<HTMLDivElement> | HTMLDivElement,
+    direction: "left" | "right"
+  ) => {
+    const element = "current" in ref ? ref.current : ref;
+
+    if (element) {
+      const scrollAmount =
+        direction === "left" ? -element.clientWidth : element.clientWidth;
+      element.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
     }
   };
-
-  const scrollRight = (index: number) => {
-    const currentRef = scrollRefs?.current?.[index];
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollLeftNewCourses = () => {
-    const currentRef = scrollRefNewCourses.current;
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollRightNewCourses = () => {
-    const currentRef = scrollRefNewCourses.current;
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollLeftSponsoredCourses = () => {
-    const currentRef = scrollRefSponsoredCourses.current;
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollRightSponsoredCourses = () => {
-    const currentRef = scrollRefSponsoredCourses.current;
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollLeftForYouCourses = () => {
-    const currentRef = scrollRefForYouCourses.current;
-    if (currentRef) {
-      if (currentRef.scrollLeft > 0) {
-        currentRef.scrollBy({
-          left: -currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const scrollRightForYouCourses = () => {
-    const currentRef = scrollRefForYouCourses.current;
-    if (currentRef) {
-      if (
-        currentRef.scrollLeft <
-        currentRef.scrollWidth - currentRef.clientWidth
-      ) {
-        currentRef.scrollBy({
-          left: currentRef.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    }
-  };
-
-  const forYouCourses = lessons.flatMap((lesson) =>
-    lesson.courses.map((course) => ({ ...course, category: lesson.category }))
-  ); // we need to define parameters to recommend courses based on user's previous courses and what he likes
 
   const newCourses = lessons.flatMap((lesson) =>
     lesson.courses
@@ -215,13 +128,13 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               <div className="hidden md:flex items-center gap-2">
                 <button
                   className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollLeftForYouCourses()}
+                  onClick={() => scroll(scrollRefForYouCourses, "left")}
                 >
                   <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
                 </button>
                 <button
                   className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollRightForYouCourses()}
+                  onClick={() => scroll(scrollRefForYouCourses, "right")}
                 >
                   <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
                 </button>
@@ -266,13 +179,13 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               <div className="hidden md:flex items-center gap-2">
                 <button
                   className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollLeftNewCourses()}
+                  onClick={() => scroll(scrollRefNewCourses, "left")}
                 >
                   <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
                 </button>
                 <button
                   className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollRightNewCourses()}
+                  onClick={() => scroll(scrollRefNewCourses, "right")}
                 >
                   <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
                 </button>
@@ -320,13 +233,13 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
               <div className="hidden md:flex items-center gap-2">
                 <button
                   className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollLeftSponsoredCourses()}
+                  onClick={() => scroll(scrollRefSponsoredCourses, "left")}
                 >
                   <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
                 </button>
                 <button
                   className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                  onClick={() => scrollRightSponsoredCourses()}
+                  onClick={() => scroll(scrollRefSponsoredCourses, "right")}
                 >
                   <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
                 </button>
@@ -384,13 +297,21 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                     <div className="hidden md:flex items-center gap-2">
                       <button
                         className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                        onClick={() => scrollLeft(index)}
+                        onClick={() => {
+                          if (scrollRefs.current[index] !== null) {
+                            scroll(scrollRefs.current[index]!, "left");
+                          }
+                        }}
                       >
                         <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
                       </button>
                       <button
                         className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-                        onClick={() => scrollRight(index)}
+                        onClick={() => {
+                          if (scrollRefs.current[index] !== null) {
+                            scroll(scrollRefs.current[index]!, "right");
+                          }
+                        }}
                       >
                         <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
                       </button>

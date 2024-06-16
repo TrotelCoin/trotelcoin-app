@@ -1,8 +1,8 @@
-import { supabase } from "@/utils/supabase/db";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
+import { getServerSession } from "next-auth";
+import { supabase } from "@/utils/supabase/db";
 
 export const dynamic = "force-dynamic";
 
@@ -10,10 +10,10 @@ const inputSchema = z.object({
   wallet: z.custom<Address>(),
 });
 
-/* GET /api/user/courses/courses-completed
- * Returns the courses completed by a user.
+/* GET /api/user/courses/satisfaction
+ * Returns the courses satisfaction of a user.
  * @param {string} wallet - The wallet address of the user.
- * @returns {Array<{quiz_id: number, answered: boolean}>} courses - The courses completed by the user.
+ * @returns {Array<{quiz_id: number, rating: number}>} courses - The courses satisfaction of the user.
  * @example response - 200 - application/json
  */
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -33,12 +33,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
       wallet: searchParams.get("wallet"),
     }).data as unknown as { wallet: Address };
 
-    // get courses completed by user
+    // get courses satisfaction by user
     const { data: courses } = await supabase
-      .from("quizzes_answered")
-      .select("quiz_id, answered")
-      .eq("wallet", wallet)
-      .eq("answered", true);
+      .from("courses_satisfaction")
+      .select("quiz_id, rating")
+      .eq("wallet", wallet);
 
     // return courses
     if (courses) {
