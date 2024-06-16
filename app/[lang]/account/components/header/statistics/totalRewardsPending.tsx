@@ -4,7 +4,6 @@ import React from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import CountUp from "react-countup";
 import useSWR from "swr";
-import { Skeleton } from "@radix-ui/themes";
 
 const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
@@ -39,7 +38,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
                   </span>
                 ) : (
                   <span>
-                    <span><Skeleton>0</Skeleton></span> 💰
+                    <span>0</span> 💰
                   </span>
                 )}
               </span>

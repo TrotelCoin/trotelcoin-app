@@ -3,7 +3,6 @@ import { useAccount } from "wagmi";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const TotalRewards = ({ lang }: { lang: Lang }) => {
@@ -44,9 +43,7 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
                     <CountUp start={0} end={Math.floor(tokensEarned)} />
                   </span>
                 ) : (
-                  <span>
-                    <Skeleton>0</Skeleton>
-                  </span>
+                  <span>0</span>
                 )}
               </span>
             </>

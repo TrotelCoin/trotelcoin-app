@@ -1,5 +1,4 @@
 import UserContext from "@/contexts/user";
-import { Skeleton } from "@radix-ui/themes";
 import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import CountUp from "react-countup";
@@ -27,7 +26,7 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
                   </span>
                 ) : (
                   <span>
-                    <span><Skeleton>0</Skeleton></span> 📚
+                    <span>0</span> 📚
                   </span>
                 )}
               </span>

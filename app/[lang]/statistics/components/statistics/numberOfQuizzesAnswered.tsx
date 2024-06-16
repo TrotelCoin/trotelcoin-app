@@ -4,7 +4,6 @@ import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
@@ -67,9 +66,7 @@ const NumberOfQuizzesAnswered = ({
             </>
           ) : (
             <span>
-              <Skeleton>
-                0 <span className="hidden md:inline">📚</span>
-              </Skeleton>
+              0 <span className="hidden md:inline">📚</span>
             </span>
           )}
         </span>

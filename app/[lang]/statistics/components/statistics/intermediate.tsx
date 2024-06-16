@@ -4,7 +4,6 @@ import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
 import { trotelCoinIntermediateAddress } from "@/data/web3/addresses";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
-import { Skeleton } from "@radix-ui/themes";
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -70,9 +69,7 @@ const Intermediate = ({
             </>
           ) : (
             <span>
-              <Skeleton>
-                0 <span className="hidden md:inline">🙈</span>
-              </Skeleton>
+              0 <span className="hidden md:inline">🙈</span>
             </span>
           )}
         </span>

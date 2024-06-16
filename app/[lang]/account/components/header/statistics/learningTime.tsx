@@ -1,5 +1,4 @@
 import UserContext from "@/contexts/user";
-import { Skeleton } from "@radix-ui/themes";
 import type { Lang } from "@/types/language/lang";
 import React, { useContext } from "react";
 import CountUp from "react-countup";
@@ -26,9 +25,7 @@ const LearningTime = ({ lang }: { lang: Lang }) => {
                   </span>
                 ) : (
                   <span>
-                    <Skeleton>
-                      <span>0</span>m ⏳
-                    </Skeleton>
+                    <span>0</span>m ⏳
                   </span>
                 )}
               </span>

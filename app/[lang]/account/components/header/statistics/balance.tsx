@@ -4,7 +4,6 @@ import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
-import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const Balance = ({ lang }: { lang: Lang }) => {
@@ -44,10 +43,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
                   </span>
                 ) : (
                   <span>
-                    <span>
-                      <Skeleton>0</Skeleton>
-                    </span>{" "}
-                    💸
+                    <span>0</span> 💸
                   </span>
                 )}
               </span>
