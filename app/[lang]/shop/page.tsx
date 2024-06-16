@@ -158,7 +158,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </button>
           </div>
 
-          {fetching && !refreshing && (
+          {fetching && (
             <>
               <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
                 <ul className="flex items-center flex-wrap gap-2">
@@ -191,6 +191,33 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               {!refreshing ? (
                 <>
+                  <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
+                    <ul className="flex items-center flex-wrap gap-2">
+                      {categories &&
+                        categories
+                          .filter((category) => !category.disabled)
+                          .map((cat, index) => (
+                            <li key={index}>
+                              <button
+                                onClick={() =>
+                                  setCategory(cat as ShopCategories)
+                                }
+                                className={`${
+                                  category.id === cat.id
+                                    ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
+                                    : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                                } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+                              >
+                                {cat.name}
+                              </button>
+                            </li>
+                          ))}
+                    </ul>
+                    <span className="text-gray-700 dark:text-gray-300 text-sm">
+                      {balance?.toLocaleString("en-US") ?? "0"} TROTEL
+                    </span>
+                  </div>
+
                   <div className="flex flex-col gap-1 mt-2">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {items &&
