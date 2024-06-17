@@ -5,6 +5,7 @@ import type { Lang } from "@/types/language/lang";
 import React from "react";
 import { Skeleton } from "@radix-ui/themes";
 import SkeletonCourseCard from "@/app/[lang]/home/components/skeletonCourseCard";
+import Link from "next/link";
 
 const CourseSection = ({
   title,
@@ -17,6 +18,8 @@ const CourseSection = ({
   scrollRef,
   scroll,
   isLoading,
+  viewAll,
+  categoryUrl,
 }: {
   title: string;
   courses: Lesson[] | null;
@@ -31,6 +34,8 @@ const CourseSection = ({
     direction: "left" | "right"
   ) => void;
   isLoading: boolean;
+  viewAll?: boolean;
+  categoryUrl?: string;
 }) => {
   return (
     <div className="my-10">
@@ -40,23 +45,35 @@ const CourseSection = ({
             <Skeleton loading={isLoading}>{title}</Skeleton>
           </h2>
         </div>
-        <div className="hidden md:flex items-center gap-2">
-          <Skeleton loading={isLoading}>
-            <button
-              className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-              onClick={() => scroll(scrollRef, "left")}
-            >
-              <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
-            </button>
-          </Skeleton>
-          <Skeleton loading={isLoading}>
-            <button
-              className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
-              onClick={() => scroll(scrollRef, "right")}
-            >
-              <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
-            </button>
-          </Skeleton>
+        <div className="flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-2">
+            <Skeleton loading={isLoading}>
+              <button
+                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                onClick={() => scroll(scrollRef, "left")}
+              >
+                <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
+              </button>
+            </Skeleton>
+            <Skeleton loading={isLoading}>
+              <button
+                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                onClick={() => scroll(scrollRef, "right")}
+              >
+                <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
+              </button>
+            </Skeleton>
+          </div>
+
+          {viewAll && (
+            <Link href={`/${lang}/category/${categoryUrl}`}>
+              <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 text-center flex justify-center items-center rounded-full">
+                <Skeleton loading={isLoading}>
+                  {lang === "en" ? "View all" : "Voir tout"}
+                </Skeleton>
+              </button>
+            </Link>
+          )}
         </div>
       </div>
       <div
