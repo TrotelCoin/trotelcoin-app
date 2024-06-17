@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { lessons } from "@/data/lessons/lessons";
+import Marquee from "react-fast-marquee";
 
 const renderCourses = (
   course: Lesson,
@@ -122,7 +123,12 @@ const renderCourses = (
             </div>
           </div>
 
-          <div className="flex flex-wrap mt-4 items-center overflow-hidden">
+          <Marquee
+            play={true}
+            speed={25}
+            autoFill={true}
+            className="flex mt-4 items-center overflow-hidden whitespace-nowrap"
+          >
             {course.sponsored && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">
@@ -170,7 +176,7 @@ const renderCourses = (
                 </div>
               </div>
             )}
-          </div>
+          </Marquee>
         </div>
       </div>
     </Link>

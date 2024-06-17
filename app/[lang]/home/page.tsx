@@ -246,6 +246,8 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                 scrollRef={scrollRefs.current[index]}
                 scroll={scroll}
                 isLoading={isLoadingCourses}
+                viewAll={true}
+                categoryUrl={lesson.categoryUrl}
               />
             ))}
         </div>

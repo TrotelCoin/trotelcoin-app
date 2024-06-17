@@ -106,6 +106,7 @@ const renderCourses = (
           <Marquee
             className="flex mt-4 items-center"
             play={true}
+            speed={25}
             autoFill={true}
           >
             {!course && (
