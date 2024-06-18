@@ -5,7 +5,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  quizId: z.number(),
+  quizId: z.number()
 });
 
 /* GET /api/course/number-of-answers?quizId=1
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   try {
     const { quizId } = inputSchema.safeParse({
-      quizId: Number(searchParams.get("quizId")),
+      quizId: Number(searchParams.get("quizId"))
     }).data as unknown as { quizId: number };
 
     const { data } = await supabase
@@ -33,12 +33,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (data.length > 0) {
       return NextResponse.json(data[0].number_of_answers, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       return NextResponse.json(0, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
   } catch (error) {

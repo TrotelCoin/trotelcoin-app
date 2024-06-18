@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
-  multipliersName: z.string(),
+  multipliersName: z.string()
 });
 
 /* POST /api/user/items/use-multipliers
@@ -31,7 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { wallet, multipliersName } = inputSchema.safeParse({
       wallet: searchParams.get("wallet"),
-      multipliersName: searchParams.get("multipliersName"),
+      multipliersName: searchParams.get("multipliersName")
     }).data as unknown as { wallet: Address; multipliersName: string };
 
     let multipliers: number = 1;
@@ -63,7 +62,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       await supabase.from("multipliers").insert({
         wallet: wallet,
         multipliers: multipliers,
-        start_time: new Date().toISOString(),
+        start_time: new Date().toISOString()
       });
     }
 
@@ -71,14 +70,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .from("multipliers")
       .update({
         multipliers: multipliers,
-        start_time: new Date().toISOString(),
+        start_time: new Date().toISOString()
       })
       .eq("wallet", wallet)
       .eq("multipliers", multipliers);
 
     return NextResponse.json(`Multipliers x${multipliers} has been activated`, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

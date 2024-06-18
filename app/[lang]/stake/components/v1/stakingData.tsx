@@ -6,7 +6,7 @@ import {
   useAccount,
   useReadContract,
   useBlockNumber,
-  useBlock,
+  useBlock
 } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
@@ -17,17 +17,26 @@ import {
   oneYear,
   sixMonths,
   thirstyDays,
-  threeMonths,
+  threeMonths
 } from "@/data/staking/duration";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const staking =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
 const notStaking =
   "inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100";
 
-const StakingData = ({ lang }: { lang: Lang }) => {
+const StakingData = ({
+  lang,
+  trotelPrice,
+  showTrotelInUsdc
+}: {
+  lang: Lang;
+  trotelPrice: number;
+  showTrotelInUsdc: boolean;
+}) => {
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
     null
   );
@@ -45,17 +54,17 @@ const StakingData = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
   const { data: block } = useBlock({
     chainId: polygon.id,
-    blockNumber: blockNumber,
+    blockNumber: blockNumber
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address as Address,
+    address: address as Address
   });
 
   useEffect(() => {
@@ -79,13 +88,13 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       abi: trotelCoinStakingV1ABI,
       address: trotelCoinStakingV1,
       functionName: "stakings",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   useEffect(() => {
     refetchBalance();
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, refetchBalance, refetchStakings]);
 
   useEffect(() => {
     if (block && !blockFetched) {
@@ -93,7 +102,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
       setTimestamp(timestamp);
       setBlockFetched(true);
     }
-  }, [block]);
+  }, [block, blockFetched]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address) {
@@ -148,9 +157,20 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!availableTrotelCoins}>
+            <Skeleton
+              loading={
+                !availableTrotelCoins || (!trotelPrice && showTrotelInUsdc)
+              }
+            >
+              {showTrotelInUsdc && "$"}
               {availableTrotelCoins &&
-                availableTrotelCoins.toLocaleString("en-US")}{" "}
+                !showTrotelInUsdc &&
+                availableTrotelCoins.toLocaleString("en-US")}
+              {availableTrotelCoins &&
+                showTrotelInUsdc &&
+                roundPrice(availableTrotelCoins * trotelPrice).toLocaleString(
+                  "en-US"
+                )}{" "}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
@@ -158,9 +178,18 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!stakedTrotelCoins}>
+            <Skeleton
+              loading={!stakedTrotelCoins || (!trotelPrice && showTrotelInUsdc)}
+            >
+              {showTrotelInUsdc && "$"}
               {stakedTrotelCoins &&
-                Math.floor(stakedTrotelCoins * 1e-18).toLocaleString(
+                showTrotelInUsdc &&
+                roundPrice(
+                  stakedTrotelCoins * 1e-18 * trotelPrice
+                ).toLocaleString("en-US")}
+              {stakedTrotelCoins &&
+                !showTrotelInUsdc &&
+                roundPrice(stakedTrotelCoins * 1e-18).toLocaleString(
                   "en-US"
                 )}{" "}
               <TrotelCoinLogo />
@@ -170,9 +199,18 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Earned" : "Récompenses"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!earnedTrotelCoins}>
+            <Skeleton
+              loading={!earnedTrotelCoins || (!trotelPrice && showTrotelInUsdc)}
+            >
+              {showTrotelInUsdc && "$"}
               {earnedTrotelCoins &&
-                Math.floor(earnedTrotelCoins * 1e-18).toLocaleString(
+                showTrotelInUsdc &&
+                roundPrice(
+                  earnedTrotelCoins * 1e-18 * trotelPrice
+                ).toLocaleString("en-US")}
+              {earnedTrotelCoins &&
+                !showTrotelInUsdc &&
+                roundPrice(earnedTrotelCoins * 1e-18).toLocaleString(
                   "en-US"
                 )}{" "}
               <TrotelCoinLogo />
@@ -204,12 +242,12 @@ const StakingData = ({ lang }: { lang: Lang }) => {
                     ? "Staking"
                     : "Misé"
                   : stakedTrotelCoins && stakedTrotelCoins > 0
-                  ? lang === "en"
-                    ? "Claimable"
-                    : "Réclamable"
-                  : lang === "en"
-                  ? "Not staking"
-                  : "Non misé"}
+                    ? lang === "en"
+                      ? "Claimable"
+                      : "Réclamable"
+                    : lang === "en"
+                      ? "Not staking"
+                      : "Non misé"}
               </span>
             </Skeleton>
           </div>

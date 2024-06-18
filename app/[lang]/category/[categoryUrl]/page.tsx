@@ -16,7 +16,7 @@ import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 
 const Page = ({
-  params: { lang, categoryUrl },
+  params: { lang, categoryUrl }
 }: {
   params: { lang: Lang; categoryUrl: string };
 }) => {
@@ -39,7 +39,7 @@ const Page = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -66,9 +66,9 @@ const Page = ({
       <div className="flex flex-col">
         {filteredLessons.map((lesson: Lessons, index: number) => (
           <div className="mb-10" key={index}>
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                   <Skeleton loading={!lesson.category}>
                     {lesson.category}
                   </Skeleton>
@@ -88,7 +88,7 @@ const Page = ({
                 </span>
               </div>
             </div>
-            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {lesson.courses
                 .filter((course) => course.available)
                 .map((course, index) =>

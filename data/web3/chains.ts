@@ -13,8 +13,8 @@ export const polygonChain: Chain = {
     symbol: "MATIC",
     name: "Polygon",
     decimals: 18,
-    minNativeCurrencyForGas: "0.000000000000000001",
+    minNativeCurrencyForGas: "0.000000000000000001"
   },
   rpcs: ["https://rpc-mainnet.matic.network"],
-  explorers: ["https://polygonscan.com"],
+  explorers: ["https://polygonscan.com"]
 };

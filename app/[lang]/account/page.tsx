@@ -12,7 +12,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
 
 export default function Account({
-  params: { lang },
+  params: { lang }
 }: {
   params: { lang: Lang };
 }) {
@@ -40,8 +40,8 @@ export default function Account({
           </>
         ) : (
           <>
-            <div className="mx-auto flex justify-center items-center flex-col gap-4">
-              <p className="text-center text-gray-900 dark:text-gray-100 text-xl">
+            <div className="mx-auto flex flex-col items-center justify-center gap-4">
+              <p className="text-center text-xl text-gray-900 dark:text-gray-100">
                 {lang === "en"
                   ? "You need to sign in."
                   : "Vous devez vous connecter."}

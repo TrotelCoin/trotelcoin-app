@@ -11,7 +11,7 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
   const [isHoveringStreak, setIsHoveringStreak] = useState<boolean>(false);
   const [streakCooldown, setStreakCooldown] = useState<string | null>(null);
 
-  const { address}  = useAccount();
+  const { address } = useAccount();
 
   const {
     streak,
@@ -19,7 +19,7 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
     lastUpdatedStreak,
     cooldown,
     updateStreak,
-    isStreakLoading,
+    isStreakLoading
   } = useContext(StreakContext);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div
-        className="relative flex justify-center gap-1 text-xl items-center text-gray-900 dark:text-gray-100 cursor-pointer"
+        className="relative flex cursor-pointer items-center justify-center gap-1 text-xl text-gray-900 dark:text-gray-100"
         onMouseEnter={() => setIsHoveringStreak(true)}
         onMouseLeave={() => setIsHoveringStreak(false)}
       >
@@ -56,11 +56,11 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
           {!address
             ? "❌"
             : streakCooldown === "Increase your streak" ||
-              streakCooldown === "Augmentez votre série" ||
-              streakCooldown === "00:00:00" ||
-              cooldown === "00:00:00"
-            ? "🔥"
-            : "⏳"}
+                streakCooldown === "Augmentez votre série" ||
+                streakCooldown === "00:00:00" ||
+                cooldown === "00:00:00"
+              ? "🔥"
+              : "⏳"}
         </span>
         <Transition
           as={Fragment}
@@ -73,10 +73,10 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
           leaveTo="opacity-0 translate-y-1"
         >
           <div
-            className="absolute flex justify-center bg-white dark:bg-gray-800 z-10 mt-3 text-sm text-gray-900 dark:text-gray-100"
+            className="absolute z-10 mt-3 flex justify-center bg-white text-sm text-gray-900 dark:bg-gray-800 dark:text-gray-100"
             style={{ width: "300px" }}
           >
-            <div className="absolute flex flex-col gap-4 bg-white dark:bg-gray-800 justify-center items-center top-5 z-50 border border-gray-900/10 dark:border-gray-100/10 p-4 rounded-xl">
+            <div className="absolute top-5 z-50 flex flex-col items-center justify-center gap-4 rounded-xl border border-gray-900/10 bg-white p-4 dark:border-gray-100/10 dark:bg-gray-800">
               <p className="font-semibold">
                 {lang === "en" ? "Your streak" : "Votre série"}
               </p>
@@ -88,8 +88,8 @@ const StreakCount = ({ lang }: { lang: Lang }) => {
                       ? "Comeback tomorrow"
                       : "Revenez demain"
                     : lang === "en"
-                    ? "Increase your streak"
-                    : "Augmentez votre série"
+                      ? "Increase your streak"
+                      : "Augmentez votre série"
                 }
                 onClick={() => {
                   () => updateStreak(address as Address);

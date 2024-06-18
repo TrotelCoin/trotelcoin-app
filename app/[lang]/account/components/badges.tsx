@@ -10,7 +10,10 @@ import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
 import PremiumContext from "@/contexts/premium";
 import StreakContext from "@/contexts/streak";
 import UserContext from "@/contexts/user";
-import { expertStakingBalance, intermediateStakingBalance } from "@/data/staking/premium";
+import {
+  expertStakingBalance,
+  intermediateStakingBalance
+} from "@/data/staking/premium";
 
 const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
@@ -27,18 +30,28 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     address: address as Address,
-    token: trotelCoinAddress,
+    token: trotelCoinAddress
   });
+
+  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
+    useReadContract({
+      address: trotelCoinStakingV1,
+      functionName: "stakings",
+      args: [address as Address],
+      chainId: polygon.id,
+      abi: trotelCoinStakingV1ABI
+    });
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber, address]);
+    refetchStakings();
+  }, [blockNumber, address, refetchBalance, refetchStakings]);
 
   useEffect(() => {
     if (balance) {
@@ -53,19 +66,6 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const { maxStreak } = useContext(StreakContext);
   const { userNumberOfQuizzesAnswered: quizzesAnswered } =
     useContext(UserContext);
-
-  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
-    useReadContract({
-      address: trotelCoinStakingV1,
-      functionName: "stakings",
-      args: [address as Address],
-      chainId: polygon.id,
-      abi: trotelCoinStakingV1ABI,
-    });
-
-  useEffect(() => {
-    refetchStakings();
-  }, [blockNumber, address]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address) {
@@ -87,7 +87,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🐣",
       condition: true,
       progress: 1,
-      maxProgress: 1,
+      maxProgress: 1
     },
     {
       id: 2,
@@ -97,15 +97,17 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
         ? totalStakingAmount >= intermediateStakingBalance
         : null,
       progress: totalStakingAmount ?? 0,
-      maxProgress: intermediateStakingBalance,
+      maxProgress: intermediateStakingBalance
     },
     {
       id: 3,
       name: lang === "en" ? "Expert" : "Expert",
       image: "🦊",
-      condition: totalStakingAmount ? totalStakingAmount >= expertStakingBalance : null,
+      condition: totalStakingAmount
+        ? totalStakingAmount >= expertStakingBalance
+        : null,
       progress: totalStakingAmount ?? 0,
-      maxProgress: expertStakingBalance,
+      maxProgress: expertStakingBalance
     },
     {
       id: 4,
@@ -113,8 +115,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🤫",
       condition: isEarly,
       progress: isEarly ? 1 : 0,
-      maxProgress: 1,
-    },
+      maxProgress: 1
+    }
   ];
 
   const badgesQuizzes: Badges = [
@@ -124,7 +126,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🌱",
       condition: quizzesAnswered ? quizzesAnswered >= 10 : null,
       progress: quizzesAnswered ?? 0,
-      maxProgress: 10,
+      maxProgress: 10
     },
     {
       id: 2,
@@ -132,7 +134,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🍄",
       condition: quizzesAnswered ? quizzesAnswered >= 50 : null,
       progress: quizzesAnswered ?? 0,
-      maxProgress: 50,
+      maxProgress: 50
     },
     {
       id: 3,
@@ -140,7 +142,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🌳",
       condition: quizzesAnswered ? quizzesAnswered >= 100 : null,
       progress: quizzesAnswered ?? 0,
-      maxProgress: 100,
+      maxProgress: 100
     },
     {
       id: 4,
@@ -148,7 +150,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🌴",
       condition: quizzesAnswered ? quizzesAnswered >= 500 : null,
       progress: quizzesAnswered ?? 0,
-      maxProgress: 500,
+      maxProgress: 500
     },
     {
       id: 5,
@@ -156,8 +158,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🌴",
       condition: quizzesAnswered ? quizzesAnswered >= 1000 : null,
       progress: quizzesAnswered ?? 0,
-      maxProgress: 1000,
-    },
+      maxProgress: 1000
+    }
   ];
 
   const badgesStreaks: Badges = [
@@ -167,7 +169,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🔥",
       condition: maxStreak ? maxStreak >= 7 : null,
       progress: maxStreak ?? 0,
-      maxProgress: 7,
+      maxProgress: 7
     },
     {
       id: 2,
@@ -175,7 +177,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🔥",
       condition: maxStreak ? maxStreak >= 30 : null,
       progress: maxStreak ?? 0,
-      maxProgress: 30,
+      maxProgress: 30
     },
     {
       id: 3,
@@ -183,7 +185,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🔥",
       condition: maxStreak ? maxStreak >= 90 : null,
       progress: maxStreak ?? 0,
-      maxProgress: 90,
+      maxProgress: 90
     },
     {
       id: 4,
@@ -191,8 +193,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🦄",
       condition: maxStreak ? maxStreak >= 365 : null,
       progress: maxStreak ?? 0,
-      maxProgress: 365,
-    },
+      maxProgress: 365
+    }
   ];
 
   const badgesTrotelCoins: Badges = [
@@ -202,7 +204,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🤑",
       condition: trotelCoinBalance ? trotelCoinBalance >= 100 : null,
       progress: trotelCoinBalance ?? 0,
-      maxProgress: 100,
+      maxProgress: 100
     },
     {
       id: 2,
@@ -210,7 +212,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "💸",
       condition: trotelCoinBalance ? trotelCoinBalance >= 1000 : null,
       progress: trotelCoinBalance ?? 0,
-      maxProgress: 1000,
+      maxProgress: 1000
     },
     {
       id: 3,
@@ -218,7 +220,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "💳",
       condition: trotelCoinBalance ? trotelCoinBalance >= 10000 : null,
       progress: trotelCoinBalance ?? 0,
-      maxProgress: 10000,
+      maxProgress: 10000
     },
     {
       id: 4,
@@ -226,7 +228,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "💰",
       condition: trotelCoinBalance ? trotelCoinBalance >= 100000 : null,
       progress: trotelCoinBalance ?? 0,
-      maxProgress: 100000,
+      maxProgress: 100000
     },
     {
       id: 5,
@@ -234,8 +236,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🏦",
       condition: trotelCoinBalance ? trotelCoinBalance >= 1000000 : null,
       progress: trotelCoinBalance ?? 0,
-      maxProgress: 1000000,
-    },
+      maxProgress: 1000000
+    }
   ];
 
   const badgesStaking: Badges = [
@@ -246,7 +248,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🦀",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 100 : null,
       progress: stakedTrotelCoins ?? 0,
-      maxProgress: 100,
+      maxProgress: 100
     },
     {
       id: 2,
@@ -254,7 +256,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🐠",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 1000 : null,
       progress: stakedTrotelCoins ?? 0,
-      maxProgress: 1000,
+      maxProgress: 1000
     },
     {
       id: 3,
@@ -263,7 +265,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🐬",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 10000 : null,
       progress: stakedTrotelCoins ?? 0,
-      maxProgress: 10000,
+      maxProgress: 10000
     },
     {
       id: 4,
@@ -272,7 +274,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🦈",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 100000 : null,
       progress: stakedTrotelCoins ?? 0,
-      maxProgress: 100000,
+      maxProgress: 100000
     },
     {
       id: 5,
@@ -280,8 +282,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🐳",
       condition: stakedTrotelCoins ? stakedTrotelCoins >= 1000000 : null,
       progress: stakedTrotelCoins ?? 0,
-      maxProgress: 1000000,
-    },
+      maxProgress: 1000000
+    }
   ];
 
   const badgesStakingDuration: Badges = [
@@ -291,7 +293,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "😪",
       condition: duration ? duration >= 2592000 : null,
       progress: duration ?? 0,
-      maxProgress: 2592000,
+      maxProgress: 2592000
     },
     {
       id: 2,
@@ -299,7 +301,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "😴",
       condition: duration ? duration >= 7862400 : null,
       progress: duration ?? 0,
-      maxProgress: 7862400,
+      maxProgress: 7862400
     },
     {
       id: 3,
@@ -307,7 +309,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "⌛️",
       condition: duration ? duration >= 15724800 : null,
       progress: duration ?? 0,
-      maxProgress: 15724800,
+      maxProgress: 15724800
     },
     {
       id: 4,
@@ -315,8 +317,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "⏳",
       condition: duration ? duration >= 31536000 : null,
       progress: duration ?? 0,
-      maxProgress: 31536000,
-    },
+      maxProgress: 31536000
+    }
   ];
 
   const badgesMarks: Badges = [
@@ -326,7 +328,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🫠",
       condition: averageMark ? averageMark >= 5 : null,
       progress: averageMark ?? 0,
-      maxProgress: 5,
+      maxProgress: 5
     },
     {
       id: 2,
@@ -334,7 +336,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "😣",
       condition: averageMark ? averageMark >= 10 : null,
       progress: averageMark ?? 0,
-      maxProgress: 10,
+      maxProgress: 10
     },
     {
       id: 3,
@@ -342,7 +344,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🫨",
       condition: averageMark ? averageMark >= 15 : null,
       progress: averageMark ?? 0,
-      maxProgress: 15,
+      maxProgress: 15
     },
     {
       id: 4,
@@ -350,7 +352,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🫡",
       condition: averageMark ? averageMark >= 18 : null,
       progress: averageMark ?? 0,
-      maxProgress: 18,
+      maxProgress: 18
     },
     {
       id: 5,
@@ -358,8 +360,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🤓",
       condition: averageMark ? averageMark >= 20 : null,
       progress: averageMark ?? 0,
-      maxProgress: 20,
-    },
+      maxProgress: 20
+    }
   ];
 
   const badgesLearningTime: Badges = [
@@ -369,7 +371,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "⌛️",
       condition: learningTime ? learningTime >= 3600000 : null,
       progress: learningTime ?? 0,
-      maxProgress: 3600000,
+      maxProgress: 3600000
     },
     {
       id: 2,
@@ -377,7 +379,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "⏳",
       condition: learningTime ? learningTime >= 86400000 : null,
       progress: learningTime ?? 0,
-      maxProgress: 86400000,
+      maxProgress: 86400000
     },
     {
       id: 3,
@@ -385,7 +387,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "🕰️",
       condition: learningTime ? learningTime >= 604800000 : null,
       progress: learningTime ?? 0,
-      maxProgress: 604800000,
+      maxProgress: 604800000
     },
     {
       id: 4,
@@ -393,18 +395,18 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       image: "⌚️",
       condition: learningTime ? learningTime >= 2629746000 : null,
       progress: learningTime ?? 0,
-      maxProgress: 2629746000,
-    },
+      maxProgress: 2629746000
+    }
   ];
 
   const [badges, setBadges] = useState<Badge[]>(badgesRanks);
 
   return (
     <>
-      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
+      <h2 className="mt-10 text-xl font-semibold text-gray-900 dark:text-gray-100">
         {lang === "en" ? "Badges" : "Badges"}
       </h2>
-      <div className="flex items-center flex-wrap gap-2 mt-2">
+      <div className="mt-2 flex flex-wrap items-center gap-2">
         <button
           onClick={() => {
             setBadges(badgesRanks);
@@ -412,8 +414,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "ranks"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Ranks" : "Rangs"}
@@ -425,8 +427,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "quizzes"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Quizzes" : "Quiz"}
@@ -438,8 +440,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "streaks"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Streaks" : "Séries"}
@@ -451,8 +453,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "trotelCoins"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Balance" : "Solde"}
@@ -464,8 +466,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "staking"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Staking" : "Staking"}
@@ -477,8 +479,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "stakingDuration"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Staking duration" : "Durée de staking"}
@@ -490,8 +492,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "marks"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Marks" : "Marks"}
@@ -503,8 +505,8 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
           }}
           className={`${
             badgesName === "learningTime"
-              ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-              : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+              ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
           } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
         >
           {lang === "en" ? "Learning time" : "Learning time"}

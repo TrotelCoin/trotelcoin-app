@@ -1,7 +1,7 @@
 import {
   neutralTextClass,
   negativeTextClass,
-  positiveTextClass,
+  positiveTextClass
 } from "@/style/evolution";
 import React from "react";
 import "animate.css";
@@ -10,7 +10,7 @@ import { Skeleton } from "@radix-ui/themes";
 const Evolution = ({
   evolution,
   percentage,
-  isLoading,
+  isLoading
 }: {
   evolution: number;
   percentage?: boolean;
@@ -18,7 +18,7 @@ const Evolution = ({
 }) => {
   return (
     <>
-      <div className="px-2 py-1 absolute top-0 right-0 animate__animated animate__fadeIn">
+      <div className="animate__animated animate__fadeIn absolute right-0 top-0 px-2 py-1">
         {evolution !== null ? (
           <>
             {evolution !== 0 && (
@@ -28,8 +28,8 @@ const Evolution = ({
                     evolution === 0
                       ? neutralTextClass
                       : evolution < 0
-                      ? negativeTextClass
-                      : positiveTextClass
+                        ? negativeTextClass
+                        : positiveTextClass
                   }`}
                 >
                   {evolution === 0 ? "" : evolution < 0 ? "" : "+"}

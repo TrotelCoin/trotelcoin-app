@@ -20,3 +20,7 @@ export const trotelCoinDAOAddress: Address =
   "0x804BCfe2cF0C9d363fE2D85FF29CF0A8FfcBB8db";
 export const trotelCoinShop: Address =
   "0xE5DafF84A4F01AE83f8F1F987cC4140E3B7cd639";
+export const trotelCoinPolygonUniswapV3Pool: Address =
+  "0x360103Feb052aCDa1F09BDFB3D73a0C1B9662C78";
+export const usdcPolygonUniswapV3Pool: Address =
+  "0xA374094527e1673A86dE625aa59517c5dE346d32";

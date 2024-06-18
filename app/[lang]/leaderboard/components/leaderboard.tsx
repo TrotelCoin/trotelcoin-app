@@ -23,7 +23,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -37,7 +37,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
     const fetchEns = async (address: Address) => {
       const result = await getEnsName(config, {
         address: address,
-        chainId: mainnet.id,
+        chainId: mainnet.id
       });
 
       return result ?? address;
@@ -66,16 +66,16 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
         {!isLoadingLeaderboard ? (
           <>
             <div
-              className={`bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-900/10 dark:border-gray-100/10 flex flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 items-center justify-between backdrop-blur-xl text-center rounded-2xl`}
+              className={`flex flex-col items-center justify-between divide-y divide-gray-900/10 rounded-2xl border border-gray-900/10 bg-white text-center text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
             >
               {leaderboard &&
                 Array.isArray(leaderboard) &&
                 leaderboard.slice(0, 20).map((entry, index) => (
                   <li
                     key={index}
-                    className="w-full flex items-center justify-between gap-4 py-4 px-6"
+                    className="flex w-full items-center justify-between gap-4 px-6 py-4"
                   >
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
                       {index + 1}
                     </div>
                     <div className="hidden md:block">{entry.wallet}</div>
@@ -84,7 +84,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                         ? shortenAddress(entry.wallet)
                         : entry.wallet}
                     </div>
-                    <div className="flex items-center md:gap-2 text-lg">
+                    <div className="flex items-center text-lg md:gap-2">
                       <span className="hidden md:block">
                         <CountUp
                           start={0}
@@ -117,15 +117,15 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
         ) : (
           <>
             <div
-              className={`bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-900/10 dark:border-gray-100/10 flex flex-col divide-y divide-gray-900/10 dark:divide-gray-100/10 items-center justify-between backdrop-blur-xl text-center rounded-2xl`}
+              className={`flex flex-col items-center justify-between divide-y divide-gray-900/10 rounded-2xl border border-gray-900/10 bg-white text-center text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
             >
               {[...Array(20)].map((_, index) => (
                 <li
                   key={index}
-                  className="w-full flex items-center justify-between gap-4 py-4 px-6"
+                  className="flex w-full items-center justify-between gap-4 px-6 py-4"
                 >
                   <Skeleton>
-                    <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
                       0
                     </div>
                   </Skeleton>
@@ -135,7 +135,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                   <div className="block md:hidden">
                     <Skeleton>0x000000000</Skeleton>
                   </div>
-                  <div className="flex items-center md:gap-2 text-lg">
+                  <div className="flex items-center text-lg md:gap-2">
                     <span className="hidden md:block">
                       <Skeleton>0 📚</Skeleton>
                     </span>

@@ -4,7 +4,7 @@ const withPWA = require("next-pwa")({
   dest: "public",
   register: true,
   skipWaiting: true,
-  disable: process.env.NODE_ENV !== "production",
+  disable: process.env.NODE_ENV !== "production"
 });
 
 /** @type {import('next').NextConfig} */
@@ -27,8 +27,8 @@ module.exports = withMDX(
         "gnosisscan.io",
         "bscscan.com",
         "tokens.1inch.io",
-        "bridgelogos.s3.ap-south-1.amazonaws.com",
-      ],
+        "bridgelogos.s3.ap-south-1.amazonaws.com"
+      ]
     },
 
     webpack(config) {
@@ -37,7 +37,7 @@ module.exports = withMDX(
         // by next.js will be dropped.
         ...config.resolve.fallback,
 
-        fs: false, // the solution
+        fs: false // the solution
       };
 
       config.externals.push("pino-pretty", "lokijs", "encoding");
@@ -47,27 +47,27 @@ module.exports = withMDX(
 
     logging: {
       fetches: {
-        fullUrl: process.env.NODE_ENV !== "production",
-      },
+        fullUrl: process.env.NODE_ENV !== "production"
+      }
     },
     async redirects() {
       return [
         {
           source: "/",
           destination: "/en/home",
-          permanent: false,
+          permanent: false
         },
         {
           source: "/en",
           destination: "/en/home",
-          permanent: false,
+          permanent: false
         },
         {
           source: "/fr",
           destination: "/fr/home",
-          permanent: false,
-        },
+          permanent: false
+        }
       ];
-    },
+    }
   })
 );

@@ -7,7 +7,7 @@ import PremiumContext from "@/contexts/premium";
 import {
   trotelCoinEarlyAddress,
   trotelCoinStakingV1,
-  trotelCoinStakingV2,
+  trotelCoinStakingV2
 } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
 import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
@@ -16,7 +16,7 @@ import { formatEther } from "viem";
 import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import {
   expertStakingBalance,
-  intermediateStakingBalance,
+  intermediateStakingBalance
 } from "@/data/staking/premium";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
@@ -28,7 +28,7 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: early, refetch: refetchEarly } = useReadContract({
@@ -36,14 +36,14 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
     abi: trotelCoinEarlyABI,
     address: trotelCoinEarlyAddress,
     functionName: "balanceOf",
-    args: [address],
+    args: [address]
   });
   const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinStakingV1ABI,
     address: trotelCoinStakingV1,
     functionName: "stakings",
-    args: [address],
+    args: [address]
   });
 
   const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
@@ -51,7 +51,7 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
     abi: trotelCoinStakingV2ABI,
     address: trotelCoinStakingV2,
     functionName: "stakings",
-    args: [address],
+    args: [address]
   });
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
       isNotPremium,
       isIntermediate,
       isExpert,
-      totalStakingAmount,
+      totalStakingAmount
     }),
     [
       isNotPremium,
@@ -118,7 +118,7 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
       earlyBalance,
       isExpert,
       isIntermediate,
-      totalStakingAmount,
+      totalStakingAmount
     ]
   );
 

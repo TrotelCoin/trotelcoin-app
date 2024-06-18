@@ -9,6 +9,8 @@ import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import UserContext from "@/contexts/user";
 import { Skeleton } from "@radix-ui/themes";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const pages = 4;
 
@@ -18,7 +20,7 @@ const RewardsModal = ({
   lang,
   rewards,
   courseTime,
-  courseMark,
+  courseMark
 }: {
   show: boolean;
   onClose: () => void;
@@ -34,14 +36,15 @@ const RewardsModal = ({
     userNumberOfQuizzesAnswered,
     userLevel,
     quizzesLeft,
-    userTotalRewardsPending,
+    userTotalRewardsPending
   } = useContext(UserContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   useEffect(() => {
     if (show) {
       playAudio("successModal");
     }
-  }, [show]);
+  }, [show, playAudio]);
 
   const handleNext = () => {
     if (currentPage < pages) {
@@ -54,7 +57,7 @@ const RewardsModal = ({
       <Transition.Root show={show} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 flex z-50 items-center justify-center h-screen m-auto"
+          className="fixed inset-0 z-50 m-auto flex h-screen items-center justify-center"
           onClose={onClose}
         >
           <Transition.Child
@@ -66,7 +69,7 @@ const RewardsModal = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-700/10 transition-opacity" />
+            <div className="fixed inset-0 bg-white/10 backdrop-blur-sm transition-opacity dark:bg-gray-700/10" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
@@ -80,7 +83,7 @@ const RewardsModal = ({
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-xl border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
+                <Dialog.Panel className="relative my-8 w-full max-w-sm transform overflow-hidden rounded-xl border border-gray-900/10 bg-white p-6 px-4 pb-4 pt-5 text-left backdrop-blur-xl transition-all dark:border-gray-100/10 dark:bg-gray-800">
                   <div className="grid grid-cols-4 gap-2">
                     {Array.from({ length: pages }, (_, i) => i + 1).map(
                       (page) => (
@@ -95,11 +98,11 @@ const RewardsModal = ({
                       )
                     )}
                   </div>
-                  <div className="my-8 flex justify-center items-center">
+                  <div className="my-8 flex items-center justify-center">
                     {currentPage === 1 && (
                       <>
-                        <div className="mt-2 text-center flex flex-col items-center gap-2 justify-center">
-                          <h2 className="text-gray-900 dark:text-gray-100 font-bold">
+                        <div className="mt-2 flex flex-col items-center justify-center gap-2 text-center">
+                          <h2 className="font-bold text-gray-900 dark:text-gray-100">
                             {lang === "en" ? "Rewards" : "Récompenses"}
                           </h2>
                           <div className="flex items-center justify-center gap-2">
@@ -111,6 +114,17 @@ const RewardsModal = ({
                             </Skeleton>
                           </div>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
+                            {lang === "en"
+                              ? `You just got ${
+                                  rewards ?? 0
+                                } TROTEL ${roundPrice(
+                                  Number(rewards ?? "0") * Number(trotelPrice ?? 0)
+                                )} USDC.`
+                              : `Vous venez de gagner ${
+                                  rewards ?? 0
+                                } TROTEL soit ${roundPrice(
+                                  Number(rewards ?? "0") * Number(trotelPrice ?? 0)
+                                )} USDC.`}
                             {lang === "en"
                               ? "You have now"
                               : "Vous avez maintenant"}{" "}
@@ -124,8 +138,8 @@ const RewardsModal = ({
                     )}
                     {currentPage === 2 && (
                       <>
-                        <div className="mt-2 text-center flex flex-col items-center gap-2 justify-center">
-                          <h2 className="text-gray-900 dark:text-gray-100 font-bold">
+                        <div className="mt-2 flex flex-col items-center justify-center gap-2 text-center">
+                          <h2 className="font-bold text-gray-900 dark:text-gray-100">
                             {lang === "en"
                               ? "Quizzes answered"
                               : "Quiz répondus"}
@@ -153,8 +167,8 @@ const RewardsModal = ({
                     )}
                     {currentPage === 3 && (
                       <>
-                        <div className="mt-2 text-center flex flex-col items-center gap-2 justify-center">
-                          <h2 className="text-gray-900 dark:text-gray-100 font-bold">
+                        <div className="mt-2 flex flex-col items-center justify-center gap-2 text-center">
+                          <h2 className="font-bold text-gray-900 dark:text-gray-100">
                             {lang === "en" ? "Level" : "Niveau"}
                           </h2>
                           <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
@@ -175,8 +189,8 @@ const RewardsModal = ({
                     )}
                     {currentPage === 4 && (
                       <>
-                        <div className="mt-2 text-center flex flex-col items-center gap-2 justify-center">
-                          <h2 className="text-gray-900 dark:text-gray-100 font-bold">
+                        <div className="mt-2 flex flex-col items-center justify-center gap-2 text-center">
+                          <h2 className="font-bold text-gray-900 dark:text-gray-100">
                             {lang === "en"
                               ? "Learning time"
                               : "Temps d'apprentissage"}
@@ -201,7 +215,7 @@ const RewardsModal = ({
                       </>
                     )}
                   </div>
-                  <div className="flex items-center justify-center w-full gap-4">
+                  <div className="flex w-full items-center justify-center gap-4">
                     {currentPage < pages ? (
                       <BlueButton
                         lang={lang}

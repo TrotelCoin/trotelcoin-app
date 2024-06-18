@@ -33,7 +33,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const contextValue = useMemo(
     () => ({
       theme,
-      toggleTheme,
+      toggleTheme
     }),
     [theme, toggleTheme]
   );

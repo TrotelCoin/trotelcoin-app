@@ -22,7 +22,7 @@ const From = ({
   setOpenTokenList,
   setTokenList,
   setOpenChainList,
-  setChainList,
+  setChainList
 }: {
   lang: Lang;
   fromBalance: number;
@@ -66,7 +66,7 @@ const From = ({
         <div className="flex items-center justify-between">
           <div className="flex flex-col justify-center">
             <div className="flex flex-col items-start justify-center">
-              <span className="text-gray-700 dark:text-gray-300 text-sm">
+              <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en" ? "You pay" : "Vous payez"}
               </span>
               <button
@@ -110,7 +110,7 @@ const From = ({
             {!isMax && fromBalance > 0 && (
               <button
                 onClick={() => setMax()}
-                className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+                className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
               >
                 {lang === "en" ? "Max" : "Max"}
               </button>
@@ -120,7 +120,7 @@ const From = ({
         <div className="flex items-center gap-4">
           <input
             type="number"
-            className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
+            className={`w-full rounded-xl border-transparent bg-transparent px-2 py-0 text-4xl font-semibold text-gray-900 [appearance:textfield] focus:border-transparent focus:outline-none focus:ring-transparent dark:text-gray-100 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${
               !userAddress && "cursor-not-allowed"
             }`}
             value={fromAmount < 0 ? 0 : fromAmount}
@@ -129,7 +129,7 @@ const From = ({
             disabled={!userAddress}
             onWheel={(e) => (e.target as HTMLInputElement).blur()}
           />
-          <div className="flex flex-col justify-center items-end">
+          <div className="flex flex-col items-end justify-center">
             <button
               onClick={() => {
                 setTokenList("from");
@@ -139,7 +139,7 @@ const From = ({
               <div className="flex items-center justify-end gap-1">
                 {fromToken.logoURI && fromToken.name === "TrotelCoin" ? (
                   <>
-                    <div className="block dark:hidden w-4 h-4">
+                    <div className="block h-4 w-4 dark:hidden">
                       <Image
                         width={16}
                         height={16}
@@ -149,7 +149,7 @@ const From = ({
                         src={fromToken.lightLogoURI as string}
                       />
                     </div>
-                    <div className="hidden dark:block w-4 h-4">
+                    <div className="hidden h-4 w-4 dark:block">
                       <Image
                         width={16}
                         height={16}

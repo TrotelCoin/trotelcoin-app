@@ -8,7 +8,7 @@ import {
   useReadContract,
   useSwitchChain,
   useBlockNumber,
-  useTransactionConfirmations,
+  useTransactionConfirmations
 } from "wagmi";
 import { trotelCoinStakingV2 } from "@/data/web3/addresses";
 import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
@@ -24,7 +24,7 @@ const StakingButton = ({
   stakingPeriod,
   amount,
   chainError,
-  setChainError,
+  setChainError
 }: {
   lang: Lang;
   stakingPeriod: number;
@@ -57,14 +57,14 @@ const StakingButton = ({
       onError: () => {
         setErrorMessage(true);
         setIsLoading(false);
-      },
-    },
+      }
+    }
   });
 
   const { data: stakeConfirmation, refetch: refetchStakeConfirmation } =
     useTransactionConfirmations({
       hash: stakeHash as Hash,
-      chainId: polygon.id,
+      chainId: polygon.id
     });
 
   useEffect(() => {
@@ -73,20 +73,20 @@ const StakingButton = ({
       setStakeConfirmed(true);
       setIsLoading(false);
     }
-  }, [stakeConfirmation]);
+  }, [stakeConfirmation, stakeConfirmed]);
 
   const { data: getStakingDataNoTyped, refetch } = useReadContract({
     chainId: polygon.id,
     abi: trotelCoinStakingV2ABI,
     address: trotelCoinStakingV2,
     functionName: "stakings",
-    args: [address as Address],
+    args: [address as Address]
   });
 
   useEffect(() => {
     refetch();
     refetchStakeConfirmation();
-  }, [blockNumber, address]);
+  }, [blockNumber, address, refetch, refetchStakeConfirmation]);
 
   useEffect(() => {
     if (address && getStakingDataNoTyped) {
@@ -151,7 +151,7 @@ const StakingButton = ({
       functionName: "stake",
       chainId: polygon.id,
       abi: trotelCoinStakingV2ABI,
-      args: [stakingAmount, stakingDuration],
+      args: [stakingAmount, stakingDuration]
     });
   };
 
@@ -167,7 +167,7 @@ const StakingButton = ({
     } else {
       setDisabled(true);
     }
-  }, [address, stakedTrotelCoins, amount]);
+  }, [address, stakedTrotelCoins, amount, isLoading]);
 
   return (
     <>

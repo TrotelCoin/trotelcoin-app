@@ -25,14 +25,14 @@ git clone https://github.com/TrotelCoin/trotelcoin-app
 ```
 
 2. **Install Dependencies:**
-Execute the following command to install all the necessary packages using Yarn.
+   Execute the following command to install all the necessary packages using Yarn.
 
 ```batch
 yarn
 ```
 
 3. **Build the Project:**
-Build the project using the following command.
+   Build the project using the following command.
 
 ```batch
 yarn build

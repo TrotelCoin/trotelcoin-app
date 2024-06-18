@@ -24,7 +24,7 @@ const SwapButton = ({
   quoteFetched,
   allowanceTarget,
   fromAmount,
-  fromToken,
+  fromToken
 }: {
   lang: Lang;
   userAddress: Address;
@@ -58,8 +58,8 @@ const SwapButton = ({
                   ? "Approve"
                   : "Approuver"
                 : lang === "en"
-                ? "No quote"
-                : "Pas de devis"
+                  ? "No quote"
+                  : "Pas de devis"
             }
             onClick={async () => {
               await approvingAsync({
@@ -72,8 +72,8 @@ const SwapButton = ({
                   parseUnits(
                     String(fromAmount + 1 * 10 ** fromToken.decimals),
                     fromToken.decimals
-                  ),
-                ],
+                  )
+                ]
               }).catch((error: any) => console.error(error));
             }}
           />
@@ -89,15 +89,15 @@ const SwapButton = ({
                   ? "Swap"
                   : "Échanger"
                 : lang === "en"
-                ? "No quote"
-                : "Pas de devis"
+                  ? "No quote"
+                  : "Pas de devis"
             }
             onClick={async () => {
               const txHash = await swappingAsync({
                 account: userAddress,
                 to: apiReturnData?.result?.txTarget,
                 value: apiReturnData?.result?.value,
-                data: apiReturnData?.result?.txData,
+                data: apiReturnData?.result?.txData
               });
 
               setTxHash(txHash);

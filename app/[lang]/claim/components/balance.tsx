@@ -14,18 +14,18 @@ const Balance = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data, refetch: refetchBalance } = useBalance({
     token: trotelCoinAddress,
     chainId: polygon.id,
-    address: address as Address,
+    address: address as Address
   });
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber, address]);
+  }, [blockNumber, address, refetchBalance]);
 
   useEffect(() => {
     if (data) {
@@ -41,9 +41,11 @@ const Balance = ({ lang }: { lang: Lang }) => {
         <span>{lang === "en" ? "Balance" : "Solde"}</span>
         <div>
           <Skeleton loading={!balance}>
-          {parseFloat(balance?.toFixed(0) as string).toLocaleString("en-US") ??
-            "0"}{" "}
-          <span className="font-semibold">TROTEL</span></Skeleton>
+            {parseFloat(balance?.toFixed(0) as string).toLocaleString(
+              "en-US"
+            ) ?? "0"}{" "}
+            <span className="font-semibold">TROTEL</span>
+          </Skeleton>
         </div>
       </div>
     </>

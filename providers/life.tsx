@@ -12,7 +12,7 @@ import PremiumContext from "@/contexts/premium";
 
 const LifeProvider = ({
   children,
-  lang,
+  lang
 }: {
   children: ReactNode;
   lang: Lang;
@@ -38,7 +38,7 @@ const LifeProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -63,7 +63,7 @@ const LifeProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -106,7 +106,7 @@ const LifeProvider = ({
       setLifeCooldown,
       lastReset,
       setLastReset,
-      lifeResetMessage,
+      lifeResetMessage
     }),
     [
       updateLife,
@@ -116,7 +116,7 @@ const LifeProvider = ({
       setLifeCooldown,
       lastReset,
       setLastReset,
-      lifeResetMessage,
+      lifeResetMessage
     ]
   );
 

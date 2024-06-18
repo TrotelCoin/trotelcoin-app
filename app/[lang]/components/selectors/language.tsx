@@ -14,7 +14,7 @@ interface Language {
 
 const languages = [
   { code: "en", label: "English 🇬🇧" },
-  { code: "fr", label: "Français 🇫🇷" },
+  { code: "fr", label: "Français 🇫🇷" }
 ];
 
 const LanguageSelector = ({ lang }: { lang: Lang }) => {
@@ -38,9 +38,9 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
       <Popover.Trigger asChild>
         <button
           onClick={() => playAudio("blueButton")}
-          className="flex bg-blue-500 hover:bg-blue-500/80 border-blue-700 border-b-4 active:border-none active:mt-1 text-sm font-semibold justify-center rounded-xl text-gray-100 backdrop-blur-xl px-4 py-2"
+          className="flex justify-center rounded-xl border-b-4 border-blue-700 bg-blue-500 px-4 py-2 text-sm font-semibold text-gray-100 backdrop-blur-xl hover:bg-blue-500/80 active:mt-1 active:border-none"
         >
-          <LanguageIcon className="w-5 h-5" />
+          <LanguageIcon className="h-5 w-5" />
         </button>
       </Popover.Trigger>
 
@@ -49,7 +49,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
           side="bottom"
           align="end"
           sideOffset={10}
-          className="rounded-xl z-50 border border-gray-900/10 dark:border-gray-100/10 shadow-lg w-40 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none"
+          className="z-50 w-40 rounded-xl border border-gray-900/10 bg-white text-gray-900 shadow-lg focus:outline-none dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100"
         >
           <div className="p-2">
             {languages.map((language, index) => (
@@ -57,7 +57,7 @@ const LanguageSelector = ({ lang }: { lang: Lang }) => {
                 <li>
                   <button
                     onClick={() => onChangeLanguage(language)}
-                    className={`hover:bg-gray-200 dark:hover:bg-gray-700 block p-2 text-sm w-full text-left rounded-lg`}
+                    className={`block w-full rounded-lg p-2 text-left text-sm hover:bg-gray-200 dark:hover:bg-gray-700`}
                   >
                     {language.label}
                   </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Item from "@/app/[lang]/shop/components/item";
 import { Lang } from "@/types/language/lang";
 import type { ShopCategories, Category } from "@/types/shop/shop";
@@ -13,6 +13,8 @@ import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import ItemSkeleton from "@/app/[lang]/shop/components/itemSkeleton";
 import { ItemType, ItemTypeFinal } from "@/types/items/items";
 import { loadingFlashClass } from "@/style/loading";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -24,7 +26,7 @@ const potions: ItemTypeFinal[] = [
     id: 1,
     categoryId: 1,
     quantity: 3,
-    disabled: false,
+    disabled: false
   },
   {
     name: "10 Potions",
@@ -35,40 +37,43 @@ const potions: ItemTypeFinal[] = [
     id: 1,
     categoryId: 1,
     quantity: 10,
-    disabled: false,
-  },
+    disabled: false
+  }
 ];
 
 const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [category, setCategory] = useState<ShopCategories>({
     name: "potions",
-    id: 1,
+    id: 1
   });
   const [balance, setBalance] = useState<number | null>(null);
   const [categories, setCategories] = useState<Category[] | null>(null);
   const [items, setItems] = useState<ItemTypeFinal[] | null>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(true);
+  const [isHoveringBalance, setIsHoveringBalance] = useState<boolean>(false);
 
   const { address } = useAccount();
 
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: allCategories, refetch: refetchCategories } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinShop,
     functionName: "getAllCategories",
-    abi: trotelCoinShopABI,
+    abi: trotelCoinShopABI
   });
 
   const { data: allItems, refetch: refetchItems } = useReadContract({
     chainId: polygon.id,
     address: trotelCoinShop,
     abi: trotelCoinShopABI,
-    functionName: "getAllItems",
+    functionName: "getAllItems"
   });
 
   const handleRefresh = async () => {
@@ -89,7 +94,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
           name: category.name,
           id: index + 1,
           categoryItems: category.categoryItems?.map((id) => Number(id)),
-          disabled: category.disabled,
+          disabled: category.disabled
         })
       );
       setCategories(updatedCategories);
@@ -107,7 +112,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             discount: Number(item.discount),
             id: index + 1,
             categoryId: categoryId,
-            quantity: 1,
+            quantity: 1
           };
         }
       );
@@ -122,7 +127,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const { data: balanceData, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     address: address,
-    token: trotelCoinAddress,
+    token: trotelCoinAddress
   });
 
   useEffect(() => {
@@ -136,11 +141,11 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber]);
+  }, [blockNumber, refetchBalance]);
 
   return (
     <>
-      <div className="mx-auto max-w-4xl flex flex-col gap-8">
+      <div className="mx-auto flex max-w-4xl flex-col gap-8">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
@@ -148,10 +153,10 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </span>
             <button
               onClick={() => handleRefresh()}
-              className="p-2 hover:bg-white dark:hover:bg-gray-800 rounded-full"
+              className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800"
             >
               <ArrowPathIcon
-                className={`w-5 h-5 text-gray-900 dark:text-gray-100 ${
+                className={`h-5 w-5 text-gray-900 dark:text-gray-100 ${
                   refreshing && "animate-spin"
                 }`}
               />
@@ -160,8 +165,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
           {fetching && (
             <>
-              <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
-                <ul className="flex items-center flex-wrap gap-2">
+              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                <ul className="flex flex-wrap items-center gap-2">
                   {categories &&
                     categories
                       .filter((category) => !category.disabled)
@@ -171,8 +176,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                             onClick={() => setCategory(cat as ShopCategories)}
                             className={`${
                               category.id === cat.id
-                                ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-                                : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                                ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                             } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                           >
                             {cat.name}
@@ -180,9 +185,23 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         </li>
                       ))}
                 </ul>
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {balance?.toLocaleString("en-US") ?? "0"} TROTEL
-                </span>
+
+                <div
+                  onMouseEnter={() => setIsHoveringBalance(true)}
+                  onMouseLeave={() => setIsHoveringBalance(false)}
+                >
+                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                    {!showTrotelInUsdc &&
+                      balance &&
+                      roundPrice(balance).toLocaleString("en-US")}
+                    {showTrotelInUsdc &&
+                      balance &&
+                      `$${roundPrice(
+                        Number(trotelPrice ?? "0") * balance
+                      ).toLocaleString("en-US")}`}{" "}
+                    <span>TROTEL</span>
+                  </span>
+                </div>
               </div>
             </>
           )}
@@ -191,8 +210,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               {!refreshing ? (
                 <>
-                  <div className="flex md:items-center md:justify-between gap-2 flex-col md:flex-row">
-                    <ul className="flex items-center flex-wrap gap-2">
+                  <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <ul className="flex flex-wrap items-center gap-2">
                       {categories &&
                         categories
                           .filter((category) => !category.disabled)
@@ -204,8 +223,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                                 }
                                 className={`${
                                   category.id === cat.id
-                                    ? "bg-gray-900 hover:bg-gray-900 dark:bg-white dark:hover:bg-white text-gray-300 dark:text-gray-700"
-                                    : "bg-gray-100 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
+                                    ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+                                    : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                                 } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
                               >
                                 {cat.name}
@@ -213,13 +232,26 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                             </li>
                           ))}
                     </ul>
-                    <span className="text-gray-700 dark:text-gray-300 text-sm">
-                      {balance?.toLocaleString("en-US") ?? "0"} TROTEL
-                    </span>
+                    <div
+                      onMouseEnter={() => setIsHoveringBalance(true)}
+                      onMouseLeave={() => setIsHoveringBalance(false)}
+                    >
+                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                        {!showTrotelInUsdc &&
+                          balance &&
+                          roundPrice(balance).toLocaleString("en-US")}
+                        {showTrotelInUsdc &&
+                          balance &&
+                          `$${roundPrice(
+                            Number(trotelPrice ?? "0") * balance
+                          ).toLocaleString("en-US")}`}{" "}
+                        <span>TROTEL</span>
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="flex flex-col gap-1 mt-2">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="mt-2 flex flex-col gap-1">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                       {items &&
                         items
                           .filter(
@@ -234,7 +266,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 </>
               ) : (
                 <>
-                  <div className="flex justify-center items-center text-center py-32 md:px-32">
+                  <div className="flex items-center justify-center py-32 text-center md:px-32">
                     <span
                       className={`text-gray-700 dark:text-gray-300 ${
                         refreshing && loadingFlashClass
@@ -252,8 +284,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
           {fetching && (
             <>
-              <div className="flex flex-col gap-1 mt-2">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="mt-2 flex flex-col gap-1">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 3 }).map((_, index) => (
                     <ItemSkeleton key={index} />
                   ))}

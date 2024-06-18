@@ -16,7 +16,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 const Course = ({
   cards,
   lang,
-  conditionIsOkay,
+  conditionIsOkay
 }: {
   cards: Cards;
   lang: Lang;
@@ -53,7 +53,7 @@ const Course = ({
       const width = ((currentCardIndex + 1) / cards.en.length) * 100;
       setWidth(width);
     }
-  }, [currentCardIndex]);
+  }, [currentCardIndex, cards]);
 
   useEffect(() => {
     if (!fullscreen) {
@@ -80,21 +80,21 @@ const Course = ({
       <Transition as={Fragment} show={fullscreen}>
         <Dialog
           as="div"
-          className="z-50 fixed top-0 left-0 w-full h-screen bg-white dark:bg-gray-900"
+          className="fixed left-0 top-0 z-50 h-screen w-full bg-white dark:bg-gray-900"
           onClose={() => setFullScreen(false)}
         >
-          <div className="flex flex-1 justify-between items-center gap-6 p-6 border-b border-gray-900/10 dark:border-gray-100/10">
-            <span className="text-gray-900 dark:text-gray-100 flex w-12 justify-center items-center font-semibold">
+          <div className="flex flex-1 items-center justify-between gap-6 border-b border-gray-900/10 p-6 dark:border-gray-100/10">
+            <span className="flex w-12 items-center justify-center font-semibold text-gray-900 dark:text-gray-100">
               {currentCardIndex + 1}/{cards.en.length}
             </span>
 
-            <div className="overflow-hidden w-1/2 h-2 text-xs bg-gray-400 flex rounded-full">
+            <div className="flex h-2 w-1/2 overflow-hidden rounded-full bg-gray-400 text-xs">
               <div
                 style={{
                   width: `${width}%`,
-                  transition: "width 0.2s ease-in",
+                  transition: "width 0.2s ease-in"
                 }}
-                className="rounded-full h-2 bg-blue-500"
+                className="h-2 rounded-full bg-blue-500"
               />
             </div>
 
@@ -110,11 +110,11 @@ const Course = ({
             </div>
           </div>
           <div
-            className="flex justify-center items-center mx-8"
+            className="mx-8 flex items-center justify-center"
             style={{ height: "calc(100vh - 185px)" }}
           >
             <div
-              className={`max-w-xl flex flex-col gap-2 justify-stretch items-center mx-auto text-center w-full`}
+              className={`mx-auto flex w-full max-w-xl flex-col items-center justify-stretch gap-2 text-center`}
             >
               {lang === "en" ? (
                 <Card
@@ -131,8 +131,8 @@ const Course = ({
               )}
             </div>
           </div>
-          <div className="fixed bottom-0 left-0 right-0 px-6 py-6 pb-10 md:p-6 border-t border-gray-900/10 dark:border-gray-100/10">
-            <div className="flex justify-between items-center mx-auto">
+          <div className="fixed bottom-0 left-0 right-0 border-t border-gray-900/10 px-6 py-6 pb-10 dark:border-gray-100/10 md:p-6">
+            <div className="mx-auto flex items-center justify-between">
               <BlueButton
                 onClick={() => handlePrevious()}
                 lang={lang}

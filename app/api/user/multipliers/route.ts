@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,7 +7,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/user/multipliers
@@ -31,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data } = await supabase
@@ -64,14 +63,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
         {
           multipliersEnabled: multipliersEnabled,
           timeLeft: timeLeft * 60 * 1000, // in ms
-          multipliers: multipliers,
+          multipliers: multipliers
         },
         { status: 200, headers: { "Cache-Control": "no-store" } }
       );
     } else {
       return NextResponse.json(false, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
   } catch (error) {

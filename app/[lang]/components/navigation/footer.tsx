@@ -49,21 +49,21 @@ export default function Footer({ lang }: { lang: Lang }) {
           href: `/${lang}/premium`,
           display: true,
           id: 1,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Leaderboard" : "Classement",
           href: `/${lang}/leaderboard`,
           display: true,
           id: 2,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Statistics" : "Statistiques",
           href: `/${lang}/statistics`,
           display: true,
           id: 3,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name:
@@ -71,21 +71,21 @@ export default function Footer({ lang }: { lang: Lang }) {
           href: `/${lang}/vocabulary`,
           display: true,
           id: 4,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "For businesses" : "Pour les entreprises",
           href: "mailto:hello@trotelcoin.com",
           display: true,
           id: 5,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
           href: `/${lang}/terms-of-service`,
           display: true,
           id: 6,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name:
@@ -93,9 +93,9 @@ export default function Footer({ lang }: { lang: Lang }) {
           href: `/${lang}/privacy-policy`,
           display: false,
           id: 7,
-          anotherWindow: false,
-        },
-      ],
+          anotherWindow: false
+        }
+      ]
     },
     {
       title: lang === "en" ? "Products" : "Produits",
@@ -105,42 +105,42 @@ export default function Footer({ lang }: { lang: Lang }) {
           href: `/${lang}/swap`,
           display: true,
           id: 1,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Claim your TROTEL" : "Réclamez vos TROTEL",
           href: `/${lang}/claim`,
           display: true,
           id: 2,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Buy TROTEL" : "Achetez des TROTEL",
           href: `/${lang}/buy`,
           display: true,
           id: 3,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Stake TROTEL" : "Stakez vos TROTEL",
           href: `/${lang}/stake`,
           display: true,
           id: 4,
-          anotherWindow: false,
+          anotherWindow: false
         },
         {
           name: lang === "en" ? "Send TROTEL" : "Envoyez vos TROTEL",
           href: `/${lang}/send`,
           display: true,
-          id: 5,
+          id: 5
         },
         {
           name: lang === "en" ? "Receive TROTEL" : "Recevez des TROTEL",
           href: `/${lang}/receive`,
           display: true,
-          id: 6,
-        },
-      ],
+          id: 6
+        }
+      ]
     },
     {
       title: lang === "en" ? "Ressources" : "Ressources",
@@ -150,67 +150,67 @@ export default function Footer({ lang }: { lang: Lang }) {
           href: "https://mirror.xyz/alexandretrotel.eth",
           display: true,
           id: 1,
-          anotherWindow: true,
+          anotherWindow: true
         },
         {
           name: lang === "en" ? "Whitepaper" : "Livre blanc",
           href: "https://docs.trotelcoin.com/overview/whitepaper",
           display: true,
           id: 2,
-          anotherWindow: true,
+          anotherWindow: true
         },
         {
           name: lang === "en" ? "Governance" : "Gouvernance",
           href: "https://vote.trotelcoin.com",
           display: true,
           id: 3,
-          anotherWindow: true,
+          anotherWindow: true
         },
         {
           name: lang === "en" ? "Documentation" : "Documentation",
           href: "https://docs.trotelcoin.com",
           display: true,
           id: 4,
-          anotherWindow: true,
-        },
-      ],
-    },
+          anotherWindow: true
+        }
+      ]
+    }
   ];
 
   const social = [
     {
       name: "Discord",
       href: "https://discord.gg/QaJafduNWC",
-      icon: discordIcon,
+      icon: discordIcon
     },
     {
       name: "Twitter",
       href: "https://twitter.com/TrotelCoin",
-      icon: twitterIcon,
+      icon: twitterIcon
     },
     {
       name: "GitHub",
       href: "https://github.com/TrotelCoin",
-      icon: githubIcon,
-    },
+      icon: githubIcon
+    }
   ];
 
   const displayedItems = navigation.map((item) => {
     const displayedItems = item.items.filter((item) => item.display);
     return {
       name: item.title,
-      items: displayedItems,
+      items: displayedItems
     };
   });
 
   return (
-    <footer className="bg-white dark:bg-gray-900 mx-10">
-      <div className="mx-auto flex justify-between max-w-5xl sm:gap-32 overflow-hidden px-4 py-10 sm:py-12 border-t border-gray-900/10 dark:border-gray-100/10">
+    <footer className="mx-10 bg-white dark:bg-gray-900">
+      <div className="mx-auto flex max-w-5xl justify-between overflow-hidden border-t border-gray-900/10 px-4 py-10 dark:border-gray-100/10 sm:gap-32 sm:py-12">
         <nav
-          className="-mb-6 sm:flex sm:justify-center sm:space-x-12 w-full"
+          className="-mb-6 w-full sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
-          <div className="flex flex-col sm:flex-row gap-8 sm:gap-0 justify-between pb-6 w-full">
+          <div className="flex w-full flex-col justify-between gap-8 pb-6 sm:flex-row sm:gap-0">
             {displayedItems.map((list, index) => (
               <div key={index} className="flex flex-col gap-2">
                 <span className="font-semibold text-gray-900 dark:text-gray-100">
@@ -224,19 +224,19 @@ export default function Footer({ lang }: { lang: Lang }) {
                         target={item.anotherWindow ? "_blank" : "_self"}
                         onMouseEnter={() => setHoveringLink(item.name)}
                         onMouseLeave={() => setHoveringLink(null)}
-                        className="text-sm leading-6 text-gray-700 dark:text-gray-300 hover:text-gray-900 hover:dark:text-gray-100"
+                        className="text-sm leading-6 text-gray-700 hover:text-gray-900 dark:text-gray-300 hover:dark:text-gray-100"
                       >
                         {item.name}
                       </Link>
                     )}
                     {item.anotherWindow && (
                       <span
-                        className={`ml-1 text-gray-900 dark:text-gray-100 duration-100 ${
+                        className={`ml-1 text-gray-900 duration-100 dark:text-gray-100 ${
                           hoveringLink === item.name &&
-                          "translate-x-0.5 -translate-y-0.5 duration-100"
+                          "-translate-y-0.5 translate-x-0.5 duration-100"
                         }`}
                       >
-                        <ArrowUpRightIcon className="w-4 h-4" />
+                        <ArrowUpRightIcon className="h-4 w-4" />
                       </span>
                     )}
                   </div>
@@ -245,20 +245,20 @@ export default function Footer({ lang }: { lang: Lang }) {
             ))}
           </div>
         </nav>
-        <div className="flex w-32 h-32 justify-end">
+        <div className="flex h-32 w-32 justify-end">
           <Link href={`/${lang}/home`}>
             <Image
               width={128}
               height={128}
               alt="TrotelCoin Logo"
-              className="block dark:hidden sm:hidden h-12 w-auto"
+              className="block h-12 w-auto dark:hidden sm:hidden"
               src="/assets/logo/trotelcoin-white.png"
             />
             <Image
               width={128}
               height={128}
               alt="TrotelCoin Logo"
-              className="hidden dark:block dark:sm:hidden sm:hidden h-12 w-auto"
+              className="hidden h-12 w-auto dark:block sm:hidden dark:sm:hidden"
               src="/assets/logo/trotelcoin.png"
             />
           </Link>
@@ -268,7 +268,7 @@ export default function Footer({ lang }: { lang: Lang }) {
                 key={index}
                 href={item.href}
                 target="_blank"
-                className="hidden sm:block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100"
+                className="hidden text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-100 sm:block"
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />

@@ -6,6 +6,8 @@ import Marquee from "react-fast-marquee";
 import PremiumContext from "@/contexts/premium";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import UserContext from "@/contexts/user";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const UserInformationMobile = ({
   lang,
@@ -13,7 +15,7 @@ const UserInformationMobile = ({
   life,
   userTotalRewardsPending,
   userNumberOfQuizzesAnswered,
-  isPremium,
+  isPremium
 }: {
   lang: Lang;
   streak: number | null;
@@ -24,11 +26,12 @@ const UserInformationMobile = ({
 }) => {
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { multipliers, userLevel, averageMark } = useContext(UserContext);
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   return (
     <>
       <Marquee>
-        <div className="flex rounded-full items-center gap-16 w-full text-gray-900 dark:text-gray-100 font-semibold mx-8">
+        <div className="mx-8 flex w-full items-center gap-16 rounded-full font-semibold text-gray-900 dark:text-gray-100">
           <div className="flex items-center">
             <span className={`${isPremium && "rainbow-text"}`}>
               {isExpert
@@ -36,18 +39,18 @@ const UserInformationMobile = ({
                   ? "Expert 🦊"
                   : "Expert 🦊"
                 : isIntermediate
-                ? lang === "en"
-                  ? "Intermediate 🙈"
-                  : "Intermédiaire 🙈"
-                : lang === "en"
-                ? "Beginner 🐣"
-                : "Débutant 🐣"}
+                  ? lang === "en"
+                    ? "Intermediate 🙈"
+                    : "Intermédiaire 🙈"
+                  : lang === "en"
+                    ? "Beginner 🐣"
+                    : "Débutant 🐣"}
             </span>
           </div>
           <div className="flex items-center">{streak ?? 0} 🔥</div>
           <div className="flex items-center">
             {isPremium ? (
-              <span className="text-xl mr-1">&infin;</span>
+              <span className="mr-1 text-xl">&infin;</span>
             ) : (
               life ?? 3
             )}{" "}
@@ -61,11 +64,21 @@ const UserInformationMobile = ({
             x{multipliers ?? 1} 🤑
           </div>
           <div className="flex items-center gap-1">
-            {userTotalRewardsPending
-              ? Number(userTotalRewardsPending.toFixed(0)).toLocaleString(
+            <span>
+              {showTrotelInUsdc && "$"}
+
+              {userTotalRewardsPending &&
+                !showTrotelInUsdc &&
+                roundPrice(Number(userTotalRewardsPending)).toLocaleString(
                   "en-US"
-                )
-              : 0}{" "}
+                )}
+
+              {showTrotelInUsdc &&
+                userTotalRewardsPending &&
+                roundPrice(
+                  Number(userTotalRewardsPending * Number(trotelPrice ?? "0"))
+                ).toLocaleString("en-US")}
+            </span>
             <TrotelCoinLogo />
           </div>
           <div className="flex items-center">

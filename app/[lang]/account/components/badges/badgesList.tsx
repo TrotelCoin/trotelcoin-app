@@ -8,7 +8,7 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
   const { isNotPremium } = useContext(PremiumContext);
 
   return (
-    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
+    <div className="mx-auto mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
       {badges &&
         badges.map((badge: Badge, index: number) => {
           return (
@@ -22,21 +22,20 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
               className="h-full"
             >
               <div
-                className={`h-full bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 flex flex-col items-center justify-center rounded-xl py-10 px-2 text-center border border-gray-900/10 dark:border-gray-100/10
-                `}
+                className={`flex h-full flex-col items-center justify-center rounded-xl border border-gray-900/10 bg-white px-2 py-10 text-center text-gray-900 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
               >
-                <div className="flex w-full gap-4 text-center items-center px-4">
+                <div className="flex w-full items-center gap-4 px-4 text-center">
                   <span
-                    className={`text-gray-900 dark:text-gray-100 text-4xl ${
-                      isNotPremium && "blur hover:blur-none duration-500"
+                    className={`text-4xl text-gray-900 dark:text-gray-100 ${
+                      isNotPremium && "blur duration-500 hover:blur-none"
                     }`}
                   >
                     {!isNotPremium && badge.image}
                   </span>
-                  <div className="flex flex-col justify-center items-start gap-2 w-full">
+                  <div className="flex w-full flex-col items-start justify-center gap-2">
                     <span
                       className={`font-semibold ${
-                        isNotPremium && "blur hover:blur-none duration-500"
+                        isNotPremium && "blur duration-500 hover:blur-none"
                       }`}
                     >
                       {!isNotPremium && badge.name ? (
@@ -45,9 +44,9 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
                         <>{lang === "en" ? "Not premium" : "Non premium"}</>
                       )}
                     </span>
-                    <div className="flex gap-2 justify-start items-center w-full">
+                    <div className="flex w-full items-center justify-start gap-2">
                       <div
-                        className={`overflow-hidden w-full h-2 text-xs bg-gray-400 flex rounded-full ${
+                        className={`flex h-2 w-full overflow-hidden rounded-full bg-gray-400 text-xs ${
                           isNotPremium && "mt-4"
                         }`}
                       >
@@ -59,14 +58,14 @@ const BadgesList = ({ badges, lang }: { badges: Badges; lang: Lang }) => {
                                   (badge.progress / badge.maxProgress) * 100,
                                   100
                                 )}%`,
-                            transition: "width 0.7s ease-in",
+                            transition: "width 0.7s ease-in"
                           }}
-                          className="rounded-full h-2 bg-blue-500"
+                          className="h-2 rounded-full bg-blue-500"
                         />
                       </div>
                       <span
                         className={`text-xs ${
-                          isNotPremium && "blur hover:blur-none duration-500"
+                          isNotPremium && "blur duration-500 hover:blur-none"
                         }`}
                       >
                         {!isNotPremium &&

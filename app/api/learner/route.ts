@@ -6,7 +6,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* POST /api/learner
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     // check if the wallet exists in the database
@@ -37,8 +37,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
           number_of_quizzes_created: 0,
           total_rewards_pending: 0,
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
+          updated_at: new Date().toISOString()
+        }
       ]);
 
       return NextResponse.json(

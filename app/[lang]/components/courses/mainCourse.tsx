@@ -18,7 +18,7 @@ const CourseContent = ({
   title,
   URL,
   children,
-  description,
+  description
 }: {
   lang: Lang;
   quizId: number;
@@ -44,7 +44,7 @@ const CourseContent = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -73,11 +73,11 @@ const CourseContent = ({
               if (navigator.share) {
                 navigator.share({
                   title: title,
-                  text: `Wanna learn about ${title}? \n\nCheck out this TrotelCoin course and start earning cryptocurrencies! \n\n${URL}`,
+                  text: `Wanna learn about ${title}? \n\nCheck out this TrotelCoin course and start earning cryptocurrencies! \n\n${URL}`
                 });
               }
             }}
-            className="p-2 rounded-full bg-white dark:bg-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="rounded-full bg-white p-2 text-gray-900 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
           >
             <ShareIcon className="h-5 w-5" />
           </button>

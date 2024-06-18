@@ -7,17 +7,17 @@ const trotelCoinShopABI = [
         indexed: false,
         internalType: "address",
         name: "previousAdmin",
-        type: "address",
+        type: "address"
       },
       {
         indexed: false,
         internalType: "address",
         name: "newAdmin",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "AdminChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -26,11 +26,11 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "address",
         name: "beacon",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "BeaconUpgraded",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -39,12 +39,12 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "categoryId",
-        type: "uint256",
+        type: "uint256"
       },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
+      { indexed: false, internalType: "string", name: "name", type: "string" }
     ],
     name: "CategoryAdded",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -53,17 +53,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "categoryId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "string",
         name: "newName",
-        type: "string",
-      },
+        type: "string"
+      }
     ],
     name: "CategoryChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -72,11 +72,11 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "categoryId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "CategoryEnabled",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -85,11 +85,11 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "categoryId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "CategoryRemoved",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -98,19 +98,19 @@ const trotelCoinShopABI = [
         indexed: false,
         internalType: "uint256",
         name: "newFeePercentage",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "FeePercentageChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "uint8", name: "version", type: "uint8" },
+      { indexed: false, internalType: "uint8", name: "version", type: "uint8" }
     ],
     name: "Initialized",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -119,31 +119,31 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       { indexed: false, internalType: "string", name: "name", type: "string" },
       {
         indexed: false,
         internalType: "uint256",
         name: "price",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "discount",
-        type: "uint256",
+        type: "uint256"
       },
       { indexed: false, internalType: "string", name: "emoji", type: "string" },
       {
         indexed: false,
         internalType: "string",
         name: "description",
-        type: "string",
-      },
+        type: "string"
+      }
     ],
     name: "ItemAdded",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -152,17 +152,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: true,
         internalType: "uint256",
         name: "categoryId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemAddedToCategory",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -171,23 +171,23 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "quantity",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "price",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemBuyed",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -196,41 +196,41 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "string",
         name: "newName",
-        type: "string",
+        type: "string"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "newPrice",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "newDiscount",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "string",
         name: "newEmoji",
-        type: "string",
+        type: "string"
       },
       {
         indexed: false,
         internalType: "string",
         name: "newDescription",
-        type: "string",
-      },
+        type: "string"
+      }
     ],
     name: "ItemChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -239,11 +239,11 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemEnabled",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -252,11 +252,11 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemRemoved",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -265,17 +265,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: true,
         internalType: "uint256",
         name: "categoryId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemRemovedFromCategory",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -284,12 +284,12 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
-      { indexed: true, internalType: "address", name: "user", type: "address" },
+      { indexed: true, internalType: "address", name: "user", type: "address" }
     ],
     name: "ItemUsed",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -298,11 +298,11 @@ const trotelCoinShopABI = [
         indexed: false,
         internalType: "address",
         name: "newOwner",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "OwnerChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -311,17 +311,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "address",
         name: "previousOwner",
-        type: "address",
+        type: "address"
       },
       {
         indexed: true,
         internalType: "address",
         name: "newOwner",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "OwnershipTransferred",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -331,17 +331,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "bytes32",
         name: "previousAdminRole",
-        type: "bytes32",
+        type: "bytes32"
       },
       {
         indexed: true,
         internalType: "bytes32",
         name: "newAdminRole",
-        type: "bytes32",
-      },
+        type: "bytes32"
+      }
     ],
     name: "RoleAdminChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -351,17 +351,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "address",
         name: "account",
-        type: "address",
+        type: "address"
       },
       {
         indexed: true,
         internalType: "address",
         name: "sender",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "RoleGranted",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -371,17 +371,17 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "address",
         name: "account",
-        type: "address",
+        type: "address"
       },
       {
         indexed: true,
         internalType: "address",
         name: "sender",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "RoleRevoked",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -390,11 +390,11 @@ const trotelCoinShopABI = [
         indexed: false,
         internalType: "address",
         name: "newAddress",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "TokenChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -403,32 +403,32 @@ const trotelCoinShopABI = [
         indexed: true,
         internalType: "address",
         name: "implementation",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "Upgraded",
-    type: "event",
+    type: "event"
   },
   {
     inputs: [],
     name: "DEFAULT_ADMIN_ROLE",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "UPGRADER_ROLE",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "string", name: "_name", type: "string" }],
     name: "addCategory",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -436,76 +436,76 @@ const trotelCoinShopABI = [
       { internalType: "uint256", name: "_price", type: "uint256" },
       { internalType: "uint256", name: "_discount", type: "uint256" },
       { internalType: "string", name: "_emoji", type: "string" },
-      { internalType: "string", name: "_description", type: "string" },
+      { internalType: "string", name: "_description", type: "string" }
     ],
     name: "addItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "uint256", name: "_itemId", type: "uint256" },
-      { internalType: "uint256", name: "_categoryId", type: "uint256" },
+      { internalType: "uint256", name: "_categoryId", type: "uint256" }
     ],
     name: "addItemToCategory",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "uint256", name: "_itemId", type: "uint256" },
-      { internalType: "uint256", name: "_quantity", type: "uint256" },
+      { internalType: "uint256", name: "_quantity", type: "uint256" }
     ],
     name: "buyItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "uint256", name: "_newFeePercentage", type: "uint256" },
+      { internalType: "uint256", name: "_newFeePercentage", type: "uint256" }
     ],
     name: "changeFeePercentage",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "address", name: "_newAddress", type: "address" }],
     name: "changeTokenFee",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "daoAddress",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_categoryId", type: "uint256" }],
     name: "enableCategory",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_itemId", type: "uint256" }],
     name: "enableItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "feePercentage",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
@@ -517,17 +517,17 @@ const trotelCoinShopABI = [
           {
             internalType: "uint256[]",
             name: "categoryItems",
-            type: "uint256[]",
+            type: "uint256[]"
           },
-          { internalType: "bool", name: "disabled", type: "bool" },
+          { internalType: "bool", name: "disabled", type: "bool" }
         ],
         internalType: "struct TrotelCoinShop.Category[]",
         name: "",
-        type: "tuple[]",
-      },
+        type: "tuple[]"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
@@ -540,15 +540,15 @@ const trotelCoinShopABI = [
           { internalType: "uint256", name: "discount", type: "uint256" },
           { internalType: "string", name: "emoji", type: "string" },
           { internalType: "string", name: "description", type: "string" },
-          { internalType: "bool", name: "disabled", type: "bool" },
+          { internalType: "bool", name: "disabled", type: "bool" }
         ],
         internalType: "struct TrotelCoinShop.Item[]",
         name: "",
-        type: "tuple[]",
-      },
+        type: "tuple[]"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_categoryId", type: "uint256" }],
@@ -560,17 +560,17 @@ const trotelCoinShopABI = [
           {
             internalType: "uint256[]",
             name: "categoryItems",
-            type: "uint256[]",
+            type: "uint256[]"
           },
-          { internalType: "bool", name: "disabled", type: "bool" },
+          { internalType: "bool", name: "disabled", type: "bool" }
         ],
         internalType: "struct TrotelCoinShop.Category",
         name: "",
-        type: "tuple",
-      },
+        type: "tuple"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_itemId", type: "uint256" }],
@@ -583,25 +583,25 @@ const trotelCoinShopABI = [
           { internalType: "uint256", name: "discount", type: "uint256" },
           { internalType: "string", name: "emoji", type: "string" },
           { internalType: "string", name: "description", type: "string" },
-          { internalType: "bool", name: "disabled", type: "bool" },
+          { internalType: "bool", name: "disabled", type: "bool" }
         ],
         internalType: "struct TrotelCoinShop.Item",
         name: "",
-        type: "tuple",
-      },
+        type: "tuple"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "_address", type: "address" },
-      { internalType: "uint256", name: "_itemId", type: "uint256" },
+      { internalType: "uint256", name: "_itemId", type: "uint256" }
     ],
     name: "getItemQuantity",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_categoryId", type: "uint256" }],
@@ -614,78 +614,78 @@ const trotelCoinShopABI = [
           { internalType: "uint256", name: "discount", type: "uint256" },
           { internalType: "string", name: "emoji", type: "string" },
           { internalType: "string", name: "description", type: "string" },
-          { internalType: "bool", name: "disabled", type: "bool" },
+          { internalType: "bool", name: "disabled", type: "bool" }
         ],
         internalType: "struct TrotelCoinShop.Item[]",
         name: "",
-        type: "tuple[]",
-      },
+        type: "tuple[]"
+      }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "bytes32", name: "role", type: "bytes32" }],
     name: "getRoleAdmin",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "getTotalCategories",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "getTotalItems",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "bytes32", name: "role", type: "bytes32" },
-      { internalType: "address", name: "account", type: "address" },
+      { internalType: "address", name: "account", type: "address" }
     ],
     name: "grantRole",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "bytes32", name: "role", type: "bytes32" },
-      { internalType: "address", name: "account", type: "address" },
+      { internalType: "address", name: "account", type: "address" }
     ],
     name: "hasRole",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "_daoAddress", type: "address" },
       { internalType: "uint256", name: "_feePercentage", type: "uint256" },
       { internalType: "address", name: "_tokenFeeAddress", type: "address" },
-      { internalType: "address", name: "_upgrader", type: "address" },
+      { internalType: "address", name: "_upgrader", type: "address" }
     ],
     name: "initialize",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "uint256", name: "_categoryId", type: "uint256" },
-      { internalType: "string", name: "_newName", type: "string" },
+      { internalType: "string", name: "_newName", type: "string" }
     ],
     name: "modifyCategory",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
@@ -694,127 +694,127 @@ const trotelCoinShopABI = [
       { internalType: "uint256", name: "_newPrice", type: "uint256" },
       { internalType: "uint256", name: "_newDiscount", type: "uint256" },
       { internalType: "string", name: "_newEmoji", type: "string" },
-      { internalType: "string", name: "_newDescription", type: "string" },
+      { internalType: "string", name: "_newDescription", type: "string" }
     ],
     name: "modifyItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "owner",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "proxiableUUID",
     outputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_categoryId", type: "uint256" }],
     name: "removeCategory",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_itemId", type: "uint256" }],
     name: "removeItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "uint256", name: "_itemId", type: "uint256" },
-      { internalType: "uint256", name: "_categoryId", type: "uint256" },
+      { internalType: "uint256", name: "_categoryId", type: "uint256" }
     ],
     name: "removeItemFromCategory",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "renounceOwnership",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "bytes32", name: "role", type: "bytes32" },
-      { internalType: "address", name: "account", type: "address" },
+      { internalType: "address", name: "account", type: "address" }
     ],
     name: "renounceRole",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "bytes32", name: "role", type: "bytes32" },
-      { internalType: "address", name: "account", type: "address" },
+      { internalType: "address", name: "account", type: "address" }
     ],
     name: "revokeRole",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "bytes4", name: "interfaceId", type: "bytes4" }],
     name: "supportsInterface",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "tokenFee",
     outputs: [
-      { internalType: "contract TrotelCoinV2", name: "", type: "address" },
+      { internalType: "contract TrotelCoinV2", name: "", type: "address" }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "address", name: "newImplementation", type: "address" },
+      { internalType: "address", name: "newImplementation", type: "address" }
     ],
     name: "upgradeTo",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "newImplementation", type: "address" },
-      { internalType: "bytes", name: "data", type: "bytes" },
+      { internalType: "bytes", name: "data", type: "bytes" }
     ],
     name: "upgradeToAndCall",
     outputs: [],
     stateMutability: "payable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_itemId", type: "uint256" }],
     name: "useItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
+    type: "function"
+  }
 ];
 
 export default trotelCoinShopABI;

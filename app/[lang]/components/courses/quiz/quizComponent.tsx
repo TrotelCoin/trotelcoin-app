@@ -32,7 +32,7 @@ const QuizComponent = ({
   setShowCorrectMessage,
   startTime,
   setCourseMark,
-  setCourseTime,
+  setCourseTime
 }: {
   lang: Lang;
   isTotallyCorrect: boolean;
@@ -79,7 +79,7 @@ const QuizComponent = ({
     {
       revalidateIfStale: true,
       revalidateOnMount: true,
-      revalidateOnReconnect: true,
+      revalidateOnReconnect: true
     }
   );
 
@@ -221,7 +221,7 @@ const QuizComponent = ({
       const shuffledQuestions = questions.map(
         (question: Question, index: number) => ({
           ...question,
-          originalIndex: index,
+          originalIndex: index
         })
       );
 
@@ -248,7 +248,7 @@ const QuizComponent = ({
             shuffledQuestions[currentQuestion] &&
             isLoggedIn && (
               <>
-                <h3 className="text-lg font-semibold text-gray-900 flex justify-between gap-4 dark:text-gray-100">
+                <h3 className="flex justify-between gap-4 text-lg font-semibold text-gray-900 dark:text-gray-100">
                   <span className="flex items-center gap-2">
                     {lang === "en"
                       ? shuffledQuestions[currentQuestion].question.en
@@ -260,8 +260,8 @@ const QuizComponent = ({
                 </h3>
                 {shieldEnabled && shieldTimeLeft && (
                   <>
-                    <div className="inline-flex items-center gap-1 rainbow-text">
-                      <ShieldCheckIcon className="w-4 h-4" />
+                    <div className="rainbow-text inline-flex items-center gap-1">
+                      <ShieldCheckIcon className="h-4 w-4" />
                       <span className="text-sm">
                         {lang === "en" ? "Shield enabled" : "Bouclier activé"}{" "}
                         for {Math.floor(shieldTimeLeft)} mins left.
@@ -274,16 +274,16 @@ const QuizComponent = ({
           {shuffledQuestions &&
           shuffledQuestions[currentQuestion] &&
           shuffledQuestions[currentQuestion].options ? (
-            <ul className="pt-6 flex flex-col gap-4">
+            <ul className="flex flex-col gap-4 pt-6">
               {lang === "en"
                 ? shuffledQuestions[currentQuestion].options.en.map(
                     (option: string, index: number) => (
                       <li key={index} className="items-center">
                         <div
-                          className={`cursor-pointer justify-between flex items-center px-4 py-2 rounded-xl ${
+                          className={`flex cursor-pointer items-center justify-between rounded-xl px-4 py-2 ${
                             answers[currentQuestion] === option
                               ? optionClass
-                              : "bg-gray-100 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                              : "border-b-4 border-gray-400 bg-gray-100 text-gray-900 hover:bg-gray-300 active:mt-1 active:border-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
                         >
@@ -302,10 +302,10 @@ const QuizComponent = ({
                     (option: string, index: number) => (
                       <li key={index} className="items-center">
                         <div
-                          className={`cursor-pointer justify-between flex items-center px-4 py-2 rounded-xl ${
+                          className={`flex cursor-pointer items-center justify-between rounded-xl px-4 py-2 ${
                             answers[currentQuestion] === option
                               ? optionClass
-                              : "bg-gray-100 border-b-4 border-gray-400 dark:border-gray-600 active:border-none active:mt-1 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
+                              : "border-b-4 border-gray-400 bg-gray-100 text-gray-900 hover:bg-gray-300 active:mt-1 active:border-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
                           }`}
                           onClick={() => handleAnswer(option)}
                         >

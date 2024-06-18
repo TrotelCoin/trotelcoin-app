@@ -2,14 +2,14 @@
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { polygon } from "viem/chains";
 import {
   useAccount,
   useBalance,
   useBlockNumber,
   useTransactionConfirmations,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
@@ -20,6 +20,8 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import ScannerComponent from "./components/scanner";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -35,15 +37,17 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { address } = useAccount();
 
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address,
+    address: address
   });
 
   const { writeContractAsync, data: sendHash } = useWriteContract({
@@ -57,14 +61,14 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       onError: () => {
         setIsLoading(false);
         setErrorMessage(true);
-      },
-    },
+      }
+    }
   });
 
   const { data: sendConfirmation, refetch: refetchSendConfirmation } =
     useTransactionConfirmations({
       chainId: polygon.id,
-      hash: sendHash as Hash,
+      hash: sendHash as Hash
     });
 
   useEffect(() => {
@@ -73,7 +77,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setSuccessMessage(true);
       setSendConfirmed(true);
     }
-  }, [sendConfirmation]);
+  }, [sendConfirmation, sendConfirmed]);
 
   useEffect(() => {
     if (amount && address) {
@@ -125,7 +129,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       isLoading;
 
     setDisabled(disabled);
-  }, [recipient, amount, balance]);
+  }, [recipient, amount, balance, isLoading]);
 
   useEffect(() => {
     refetchBalance();
@@ -133,21 +137,21 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto max-w-md flex flex-col gap-4">
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <div className="mx-auto flex max-w-md flex-col gap-4">
+        <div className="flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="flex flex-col gap-2 px-4 pb-4">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <span className="text-2xl font-bold">
                 {lang === "en" ? "Send" : "Envoyer"}
               </span>
               <button
                 type="button"
-                className="inline-flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
+                className="inline-flex rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
                 onClick={() => {
                   setShowScanner(true);
                 }}
               >
-                <CameraIcon className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+                <CameraIcon className="h-5 w-5 text-gray-900 dark:text-gray-100" />
               </button>
             </div>
 
@@ -156,7 +160,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <span className="text-sm">{lang === "en" ? "To" : "Vers"}</span>
                 <input
                   type="text"
-                  className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent`}
+                  className={`w-full rounded-xl border-transparent bg-transparent px-2 py-0 text-4xl font-semibold text-gray-900 [appearance:textfield] focus:border-transparent focus:outline-none focus:ring-transparent dark:text-gray-100 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`}
                   value={recipient ?? ""}
                   onChange={(e) => setRecipient(e.target.value)}
                   onWheel={(e) => (e.target as HTMLInputElement).blur()}
@@ -168,7 +172,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 <>
                   <button
                     onClick={() => setPaste()}
-                    className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+                    className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                   >
                     {lang === "en" ? "Paste" : "Coller"}
                   </button>
@@ -180,14 +184,17 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <div className="flex items-end gap-2 px-4 pt-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm">
-                {lang === "en" ? "Amount" : "Montant"}
+                {lang === "en" ? "Amount" : "Montant"}{" "}
+                {trotelPrice && (
+                  <>• ${roundPrice(trotelPrice * Number(amount ?? "0"))}</>
+                )}
               </span>
               <input
                 type="number"
-                className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
+                className={`w-full rounded-xl border-transparent bg-transparent px-2 py-0 text-4xl font-semibold text-gray-900 [appearance:textfield] focus:border-transparent focus:outline-none focus:ring-transparent dark:text-gray-100 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${
                   !address && "cursor-not-allowed"
                 }`}
-                value={amount}
+                value={amount ?? ""}
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
                 onWheel={(e) => (e.target as HTMLInputElement).blur()}
                 placeholder={lang === "en" ? "1000" : "1000"}
@@ -202,7 +209,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
             {!isMax && Number(balance?.formatted) > 0 && (
               <button
                 onClick={() => setMax()}
-                className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+                className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
               >
                 {lang === "en" ? "Max" : "Max"}
               </button>
@@ -210,7 +217,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
         </div>
 
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="flex flex-col gap-2 px-4">
             <span className="text-2xl font-bold">
               {lang === "en" ? "Statistics" : "Statistiques"}
@@ -245,7 +252,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 abi: trotelCoinABI,
                 functionName: "transfer",
                 args: [recipient, amountDecimals],
-                chainId: polygon.id,
+                chainId: polygon.id
               });
             }}
           >
@@ -255,8 +262,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   ? "Loading..."
                   : "Chargement..."
                 : lang === "en"
-                ? "Send"
-                : "Envoyer"}
+                  ? "Send"
+                  : "Envoyer"}
             </span>
           </BlueSimpleButton>
         ) : (
@@ -265,7 +272,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       </div>
 
       {showScanner && (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex h-screen items-center justify-center">
           <ScannerComponent
             lang={lang}
             setRecipient={setRecipient}

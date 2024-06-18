@@ -7,7 +7,7 @@ const Pagination = ({
   list,
   filteredList,
   page,
-  itemsPerPage,
+  itemsPerPage
 }: {
   lang: Lang;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -30,7 +30,7 @@ const Pagination = ({
 
   return (
     <nav
-      className="flex items-center justify-between border-t border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-900 px-4 py-3 sm:px-6"
+      className="flex items-center justify-between border-t border-gray-900/10 bg-white px-4 py-3 dark:border-gray-100/10 dark:bg-gray-900 sm:px-6"
       aria-label="Pagination"
     >
       <div className="hidden sm:block">
@@ -55,13 +55,13 @@ const Pagination = ({
       <div className="flex flex-1 justify-between sm:justify-end">
         <button
           onClick={() => prevPage()}
-          className="relative inline-flex items-center border border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 focus-visible:outline-offset-0"
+          className="relative inline-flex items-center rounded-xl border border-gray-900/10 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-100 focus-visible:outline-offset-0 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
         >
           {lang === "en" ? "Previous" : "Précédent"}
         </button>
         <button
           onClick={() => nextPage()}
-          className="relative ml-3 inline-flex items-center border border-gray-900/10 dark:border-gray-100/10 rounded-xl bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 focus-visible:outline-offset-0"
+          className="relative ml-3 inline-flex items-center rounded-xl border border-gray-900/10 bg-white px-3 py-2 text-sm text-gray-900 hover:bg-gray-100 focus-visible:outline-offset-0 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
         >
           {lang === "en" ? "Next" : "Suivant"}
         </button>

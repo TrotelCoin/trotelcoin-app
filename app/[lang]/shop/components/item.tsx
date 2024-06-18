@@ -1,5 +1,5 @@
 import { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Tilt from "react-parallax-tilt";
 import * as Popover from "@radix-ui/react-popover";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -13,7 +13,7 @@ import {
   useReadContract,
   useSwitchChain,
   useTransactionConfirmations,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
 import { polygon } from "viem/chains";
@@ -23,6 +23,8 @@ import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { Skeleton } from "@radix-ui/themes";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
@@ -43,12 +45,14 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
 
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
+
   useEffect(() => {
     if (chainId !== polygon.id) {
       setDisabled(true);
       const switchChain = async () => {
         await switchChainAsync({
-          chainId: polygon.id,
+          chainId: polygon.id
         });
       };
 
@@ -56,11 +60,11 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     } else {
       setDisabled(false);
     }
-  }, [chainId]);
+  }, [chainId, switchChainAsync]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
-    watch: true,
+    watch: true
   });
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
@@ -69,7 +73,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     functionName: "allowance",
     chainId: polygon.id,
     account: address,
-    args: [address, trotelCoinShop],
+    args: [address, trotelCoinShop]
   });
 
   useEffect(() => {
@@ -106,14 +110,14 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         setApproved(false);
         setIsLoading(false);
         setErrorMessage(true);
-      },
-    },
+      }
+    }
   });
 
   const { data: approveConfirmation, refetch: refetchApprovedConfirmation } =
     useTransactionConfirmations({
       chainId: polygon.id,
-      hash: approveHash as Hash,
+      hash: approveHash as Hash
     });
 
   useEffect(() => {
@@ -127,7 +131,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       setIsLoading(false);
       setApproveConfirmed(true);
     }
-  }, [approveConfirmation]);
+  }, [approveConfirmation, approveConfirmed]);
 
   useEffect(() => {
     if (isLoading || !address) {
@@ -148,14 +152,14 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       onError: () => {
         setIsLoading(false);
         setErrorMessage(true);
-      },
-    },
+      }
+    }
   });
 
   const { data: purchaseConfirmation, refetch: refetchPurchaseConfirmation } =
     useTransactionConfirmations({
       chainId: polygon.id,
-      hash: purchaseHash as Hash,
+      hash: purchaseHash as Hash
     });
 
   useEffect(() => {
@@ -168,7 +172,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       setBuyMessage(true);
       setPurchaseConfirmed(true);
     }
-  }, [purchaseConfirmation]);
+  }, [purchaseConfirmation, purchaseConfirmed]);
 
   useEffect(() => {
     if (
@@ -191,7 +195,12 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     refetchAllowance();
     refetchApprovedConfirmation();
     refetchPurchaseConfirmation();
-  }, [blockNumber]);
+  }, [
+    blockNumber,
+    refetchAllowance,
+    refetchApprovedConfirmation,
+    refetchPurchaseConfirmation
+  ]);
 
   return (
     <>
@@ -205,17 +214,17 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       >
         <Popover.Root>
           <div
-            className={`overflow-hidden w-full h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+            className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
           >
-            <div className="px-4 py-5 sm:p-6 w-full">
-              <div className="flex items-center justify-between w-full">
+            <div className="w-full px-4 py-5 sm:p-6">
+              <div className="flex w-full items-center justify-between">
                 <div
-                  className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl`}
+                  className={`text-2xl font-semibold text-gray-900 dark:text-gray-100`}
                 >
                   <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
                 </div>
                 <Popover.Trigger asChild>
-                  <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
+                  <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
                 </Popover.Trigger>
                 <Popover.Portal>
                   <Popover.Content
@@ -224,7 +233,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     align="center"
                     sideOffset={5}
                   >
-                    <div className="max-w-xs text-xs text-gray-100 text-center flex shadow-lg p-2 flex-col bg-blue-500 backdrop-blur-xl rounded-xl">
+                    <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                       <Skeleton loading={!shopItem.description}>
                         {shopItem.description}
                       </Skeleton>
@@ -235,11 +244,27 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
               </div>
               <div className="inline-flex items-center gap-1">
                 <Skeleton loading={!shopItem.price || !shopItem.quantity}>
-                  <span className="text-gray-700 dark:text-gray-300 text-sm">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
                     <span className={`${priceAfterDiscount && "line-through"}`}>
-                      {shopItem.price * (shopItem.quantity as number)}
+                      {showTrotelInUsdc && "$"}
+                      {!showTrotelInUsdc &&
+                        shopItem.price * (shopItem.quantity as number)}
+                      {showTrotelInUsdc &&
+                        roundPrice(
+                          Number(trotelPrice ?? "0") *
+                            shopItem.price *
+                            (shopItem.quantity as number)
+                        )}
                     </span>{" "}
-                    {priceAfterDiscount && (
+                    {priceAfterDiscount && showTrotelInUsdc && (
+                      <>
+                        <span className="rainbow-text font-semibold">
+                          $
+                          {roundPrice(priceAfterDiscount * Number(trotelPrice ?? 0)) ?? null}
+                        </span>
+                      </>
+                    )}
+                    {priceAfterDiscount && !showTrotelInUsdc && (
                       <>
                         <span className="rainbow-text font-semibold">
                           {priceAfterDiscount ?? null}
@@ -247,7 +272,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                       </>
                     )}
                   </span>
-                  <div className="block dark:hidden w-3 h-3">
+                  <div className="block h-3 w-3 dark:hidden">
                     <Image
                       width={16}
                       height={16}
@@ -257,7 +282,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                       src="/assets/logo/trotelcoin.svg"
                     />
                   </div>
-                  <div className="hidden dark:block w-3 h-3">
+                  <div className="hidden h-3 w-3 dark:block">
                     <Image
                       width={16}
                       height={16}
@@ -269,7 +294,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                   </div>{" "}
                 </Skeleton>
               </div>
-              <div className="flex items-center justify-center my-8">
+              <div className="my-8 flex items-center justify-center">
                 <span className="text-6xl">
                   <Skeleton loading={!shopItem.emoji}>
                     {shopItem.emoji}
@@ -288,7 +313,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: polygon.id,
-                        args: [trotelCoinShop, amount],
+                        args: [trotelCoinShop, amount]
                       });
                     }}
                     isLoading={isLoading || approved}
@@ -305,7 +330,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                         functionName: "buyItem",
                         chainId: polygon.id,
                         args: [shopItem.id, shopItem.quantity],
-                        account: address,
+                        account: address
                       });
                     }}
                     isLoading={isLoading}

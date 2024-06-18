@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
 import { useAccount } from "wagmi";
-import { useItem } from "@/utils/inventory/useItem";
+import { usingItem } from "@/utils/inventory/useItem";
 import { Address } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import StreakContext from "@/contexts/streak";
@@ -18,7 +18,7 @@ import { Skeleton } from "@radix-ui/themes";
 
 const InventoryItem = ({
   lang,
-  item,
+  item
 }: {
   lang: Lang;
   item: InventoryItemTypeFinal;
@@ -45,7 +45,7 @@ const InventoryItem = ({
       refreshInterval: refreshIntervalTime,
       revalidateIfStale: true,
       revalidateOnMount: true,
-      revalidateOnReconnect: true,
+      revalidateOnReconnect: true
     }
   );
 
@@ -92,20 +92,20 @@ const InventoryItem = ({
             className="h-full"
           >
             <div
-              className={`overflow-hidden w-full h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+              className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
             >
-              <div className="px-4 py-5 sm:p-6 w-full">
-                <div className="flex items-center justify-between w-full">
-                  <div className={`font-semibold rainbow-text text-2xl`}>
+              <div className="w-full px-4 py-5 sm:p-6">
+                <div className="flex w-full items-center justify-between">
+                  <div className={`rainbow-text text-2xl font-semibold`}>
                     <Skeleton loading={!item.name}>{item.name}</Skeleton>
                   </div>
                   <Skeleton loading={!quantity}>
-                    <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-sm text-gray-100">
                       {quantity}
                     </div>
                   </Skeleton>
                 </div>
-                <div className="flex items-center justify-center my-8">
+                <div className="my-8 flex items-center justify-center">
                   <span className="text-6xl">
                     <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
                   </span>
@@ -141,7 +141,7 @@ const InventoryItem = ({
             }
             onClose={() => setUseItemConfirmation(false)}
             onConfirm={() => {
-              useItem(
+              usingItem(
                 item.name,
                 address as Address,
                 setErrorMessage,

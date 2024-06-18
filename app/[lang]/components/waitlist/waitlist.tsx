@@ -58,23 +58,23 @@ const socials = [
   {
     name: "Discord",
     href: "https://discord.gg/QaJafduNWC",
-    icon: discordIcon,
+    icon: discordIcon
   },
   {
     name: "Twitter",
     href: "https://twitter.com/TrotelCoin",
-    icon: twitterIcon,
+    icon: twitterIcon
   },
   {
     name: "GitHub",
     href: "https://github.com/TrotelCoin",
-    icon: githubIcon,
-  },
+    icon: githubIcon
+  }
 ];
 
 const Waitlist = ({
   children,
-  lang,
+  lang
 }: {
   children: React.ReactNode;
   lang: Lang;
@@ -91,7 +91,7 @@ const Waitlist = ({
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { isEarly } = useContext(PremiumContext);
@@ -102,7 +102,7 @@ const Waitlist = ({
     chainId: polygon.id,
     abi: trotelCoinEarlyABI,
     address: trotelCoinEarlyAddress,
-    functionName: "totalSupply",
+    functionName: "totalSupply"
   });
 
   const { data: userWaitlistData, isLoading: isFetching } = useSWR(
@@ -112,7 +112,7 @@ const Waitlist = ({
       refreshInterval: refreshIntervalTime,
       revalidateOnMount: true,
       revalidateOnReconnect: true,
-      revalidateIfStale: true,
+      revalidateIfStale: true
     }
   );
 
@@ -134,7 +134,7 @@ const Waitlist = ({
     refreshInterval: refreshIntervalTime,
     revalidateOnMount: true,
     revalidateOnReconnect: true,
-    revalidateIfStale: true,
+    revalidateIfStale: true
   });
 
   useEffect(() => {
@@ -156,7 +156,7 @@ const Waitlist = ({
 
   useEffect(() => {
     refetch();
-  }, [blockNumber]);
+  }, [blockNumber, refetch]);
 
   useEffect(() => {
     if (mail && isMailCorrect(mail) && !isLoading) {
@@ -178,7 +178,7 @@ const Waitlist = ({
         </>
       ) : (
         <>
-          <nav className="absolute flex items-center py-5 px-5 md:px-12 justify-between w-full animate__animated animate__fadeIn">
+          <nav className="animate__animated animate__fadeIn absolute flex w-full items-center justify-between px-5 py-5 md:px-12">
             <Link href={`/${lang}/home`}>
               {theme === "light" ? (
                 <div className="block dark:hidden">
@@ -206,7 +206,7 @@ const Waitlist = ({
                   key={index}
                   href={item.href}
                   target="_blank"
-                  className="text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-300"
+                  className="text-gray-700 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-300"
                 >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
@@ -216,11 +216,11 @@ const Waitlist = ({
           </nav>
           {!isEarly && (
             <>
-              <div className="flex justify-center items-center h-screen text-center overflow-hidden bg-white dark:bg-gray-900">
-                <div className="flex flex-col gap-4 max-w-4xl mx-8">
+              <div className="flex h-screen items-center justify-center overflow-hidden bg-white text-center dark:bg-gray-900">
+                <div className="mx-8 flex max-w-4xl flex-col gap-4">
                   {!isWaiting && (
                     <div className="flex justify-center">
-                      <div className="relative rounded-full px-3 py-1 text-xs leading-6 text-gray-700 dark:text-gray-300 ring-1 ring-gray-700 dark:ring-gray-300 animate__animated animate__bounceIn">
+                      <div className="animate__animated animate__bounceIn relative rounded-full px-3 py-1 text-xs leading-6 text-gray-700 ring-1 ring-gray-700 dark:text-gray-300 dark:ring-gray-300">
                         <span className="font-semibold">
                           {early ? (
                             <>
@@ -235,7 +235,7 @@ const Waitlist = ({
                     </div>
                   )}
                   {!isWaiting && (
-                    <span className="font-semibold text-5xl lg:text-6xl text-gray-900 dark:text-gray-100 animate__animated animate__fadeIn">
+                    <span className="animate__animated animate__fadeIn text-5xl font-semibold text-gray-900 dark:text-gray-100 lg:text-6xl">
                       <>
                         <span className="text-blue-500 dark:text-blue-300">
                           Learn
@@ -249,7 +249,7 @@ const Waitlist = ({
                     </span>
                   )}
                   {!isWaiting && (
-                    <span className="text-gray-700 dark:text-gray-300 text-sm animate__animated animate__fadeIn">
+                    <span className="animate__animated animate__fadeIn text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
                         ? "Join the waitlist now to start learning."
                         : "Rejoignez la liste d'attente maintenant pour commencer à apprendre."}
@@ -260,8 +260,8 @@ const Waitlist = ({
                       isWaiting ? (
                         <>
                           <div className="flex flex-col">
-                            <span className="text-gray-900 dark:text-gray-100 text-xl">
-                              <span className="text-blue-500 dark:text-blue-300 font-semibold text-2xl">
+                            <span className="text-xl text-gray-900 dark:text-gray-100">
+                              <span className="text-2xl font-semibold text-blue-500 dark:text-blue-300">
                                 <CountUp
                                   start={0}
                                   end={position ?? 0}
@@ -280,7 +280,7 @@ const Waitlist = ({
                           </div>
                         </>
                       ) : (
-                        <div className="flex flex-col md:flex-row gap-4">
+                        <div className="flex flex-col gap-4 md:flex-row">
                           <label htmlFor="email-address" className="sr-only">
                             Email address
                           </label>
@@ -290,8 +290,9 @@ const Waitlist = ({
                             type="email"
                             autoComplete="email"
                             required
+                            value={mail ?? ""}
                             onChange={(e) => setMail(e.target.value)}
-                            className="min-w-0 flex-auto bg-white dark:bg-gray-800 rounded-xl px-3 py-2 text-gray-900 dark:text-gray-100 shadow border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-300 dark:placeholder:text-gray-700 focus:outline-none sm:text-sm sm:leading-6"
+                            className="min-w-0 flex-auto rounded-xl border border-gray-900/10 bg-white px-3 py-2 text-gray-900 shadow placeholder:text-gray-300 focus:outline-none dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-700 sm:text-sm sm:leading-6"
                             placeholder={
                               lang === "en"
                                 ? "Enter your email"
@@ -326,8 +327,8 @@ const Waitlist = ({
           )}
 
           <div className="absolute bottom-0 w-full">
-            <div className="flex items-center justify-center p-5 mx-auto w-full text-center">
-              <span className="text-gray-700 dark:text-gray-300 text-xs font-semibold">
+            <div className="mx-auto flex w-full items-center justify-center p-5 text-center">
+              <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                 <span className="text-blue-500 dark:text-blue-300">
                   <CountUp start={0} end={length ?? 0} />
                 </span>{" "}
@@ -343,7 +344,7 @@ const Waitlist = ({
                     <span className="text-blue-500 dark:text-blue-300">
                       futurs étudiants
                     </span>{" "}
-                    dans la liste d'attente
+                    dans la liste d&apos;attente
                   </>
                 )}
               </span>

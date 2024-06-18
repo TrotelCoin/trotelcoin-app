@@ -16,7 +16,7 @@ const GoogleAnalytics = ({ ga_id }: { ga_id: string }) => (
           gtag('js', new Date());
 
           gtag('config', '${ga_id}');
-        `,
+        `
       }}
     ></Script>
   </>

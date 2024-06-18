@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 const inputSchema = z.object({
   address: z.custom<Address>(),
   amount: z.number(),
-  centralWalletAddress: z.custom<Address>(),
+  centralWalletAddress: z.custom<Address>()
 });
 
 /* GET /api/central-wallet/reward-gas
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       {
         address: searchParams.get("address"),
         amount: Number(searchParams.get("amount")),
-        centralWalletAddress: searchParams.get("centralWalletAddress"),
+        centralWalletAddress: searchParams.get("centralWalletAddress")
       }
     ).data as unknown as {
       userAddress: Address;
@@ -41,12 +41,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
       abi: trotelCoinABI,
       functionName: "mint",
       account: centralWalletAddress,
-      args: [userAddress, parseEther(String(amount))],
+      args: [userAddress, parseEther(String(amount))]
     });
 
     return NextResponse.json(parseFloat(gas.toString()), {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

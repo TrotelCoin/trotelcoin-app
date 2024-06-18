@@ -22,7 +22,7 @@ const Rewards = ({
   quizId,
   isTotallyCorrect,
   courseTime,
-  courseMark,
+  courseMark
 }: {
   lang: Lang;
   quizId: number;
@@ -87,7 +87,7 @@ const Rewards = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -105,7 +105,7 @@ const Rewards = ({
         !hasAlreadyAnswered &&
         !claimedRewards &&
         !claimingLoading && (
-          <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
+          <div className="animate__animated animate__FadeIn mx-auto border-t border-gray-900/10 py-10 dark:border-gray-100/10">
             <div className="flex items-center gap-2">
               <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                 {lang === "en"
@@ -116,8 +116,8 @@ const Rewards = ({
               {multipliers && multipliers > 1 && (
                 <>
                   <SeparatorVertical />
-                  <div className="flex items-center gap-1 rainbow-text">
-                    <BoltIcon className="w-4 h-4" />
+                  <div className="rainbow-text flex items-center gap-1">
+                    <BoltIcon className="h-4 w-4" />
                     <span>
                       {lang === "en" ? `x${multipliers}` : `x${multipliers}`}
                     </span>
@@ -157,7 +157,7 @@ const Rewards = ({
         )}
 
       {claimingLoading && !claimingError && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
+        <div className="animate__animated animate__FadeIn mx-auto border-t border-gray-900/10 py-10 dark:border-gray-100/10">
           <span className={`font-semibold text-gray-900 dark:text-gray-100`}>
             <Skeleton>
               {lang === "en" ? "Loading..." : "Chargement..."}
@@ -167,7 +167,7 @@ const Rewards = ({
       )}
 
       {(hasAlreadyAnswered || claimedRewards) && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
+        <div className="animate__animated animate__FadeIn mx-auto border-t border-gray-900/10 py-10 dark:border-gray-100/10">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
               ? "You have already claimed your rewards."

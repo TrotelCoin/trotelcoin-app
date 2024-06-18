@@ -14,7 +14,7 @@ const ScannerComponent = ({
   errorMessage,
   setErrorMessage,
   showScanner,
-  setShowScanner,
+  setShowScanner
 }: {
   lang: Lang;
   setRecipient: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -31,20 +31,20 @@ const ScannerComponent = ({
         showScanner={showScanner}
         onClose={() => setShowScanner(false)}
       >
-        <Dialog.Panel className="w-full max-w-md mx-auto z-50 flex flex-col gap-2 bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 rounded-xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-          <div className="flex flex-col items-start w-full">
-            <div className="flex justify-between w-full">
+        <Dialog.Panel className="z-50 mx-auto flex w-full max-w-md flex-col gap-2 rounded-xl border border-gray-900/10 bg-white p-4 text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+          <div className="flex w-full flex-col items-start">
+            <div className="flex w-full justify-between">
               <span className="text-2xl font-bold">
                 {lang === "en" ? "Scan" : "Scan"}
               </span>
               <button
                 type="button"
-                className="inline-flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
+                className="inline-flex rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
                 onClick={() => {
                   setShowScanner(false);
                 }}
               >
-                <XMarkIcon className="w-5 h-5 text-gray-900 dark:text-gray-100" />
+                <XMarkIcon className="h-5 w-5 text-gray-900 dark:text-gray-100" />
               </button>
             </div>
           </div>

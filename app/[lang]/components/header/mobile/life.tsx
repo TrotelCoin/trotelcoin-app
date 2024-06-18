@@ -7,7 +7,7 @@ import BlueButton from "@/app/[lang]/components/buttons/blue";
 
 const LifeMobile = ({
   lang,
-  setMobileMenuOpen,
+  setMobileMenuOpen
 }: {
   lang: Lang;
   setMobileMenuOpen: (open: boolean) => void;
@@ -17,15 +17,15 @@ const LifeMobile = ({
 
   return (
     <>
-      <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
-        <div className="flex gap-2 items-center justify-between p-4">
+      <div className="flex flex-col divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white text-gray-900 dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+        <div className="flex items-center justify-between gap-2 p-4">
           <h3>{lang === "en" ? "Your lives" : "Vos vies"}</h3>
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <span>{lifeCooldown}</span>
-            <div className="border-r border-gray-900/10 dark:border-gray-100/10 h-6" />
+            <div className="h-6 border-r border-gray-900/10 dark:border-gray-100/10" />
             {isIntermediate || isExpert ? (
               <span className="flex items-center">
-                <span className="font-bold text-xl mr-1">&infin;</span>💙
+                <span className="mr-1 text-xl font-bold">&infin;</span>💙
               </span>
             ) : (
               <span>
@@ -34,7 +34,7 @@ const LifeMobile = ({
             )}
           </div>
         </div>
-        <div className="flex justify-center items-center gap-4 p-4">
+        <div className="flex items-center justify-center gap-4 p-4">
           <Link href={`/${lang}/shop/ranks`} className="w-full">
             <BlueButton
               lang={lang}

@@ -26,63 +26,63 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     en: [
       {
         title: "Introduction",
-        text: "Two NFTs are up for grabs: Intermediate and Expert. Assume you have a crypto wallet and enough TrotelCoins.",
+        text: "Two NFTs are up for grabs: Intermediate and Expert. Assume you have a crypto wallet and enough TrotelCoins."
       },
       {
         title: "What are the roles of this NFTs?",
-        text: "Don't worry about your lives with these NFTs. Moreover, certain courses are only for Intermediates or Experts. Also, exclusive gamification features require NFT ownership, like earning badges. Finally, Intermediates and Experts can test beta features.",
+        text: "Don't worry about your lives with these NFTs. Moreover, certain courses are only for Intermediates or Experts. Also, exclusive gamification features require NFT ownership, like earning badges. Finally, Intermediates and Experts can test beta features."
       },
       {
         title: "Intermediate",
         text: (
           <>
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex w-full flex-col gap-4">
               <Intermediate lang={lang} />
             </div>
           </>
-        ),
+        )
       },
       {
         title: "Expert",
         text: (
           <>
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex w-full flex-col gap-4">
               <Expert lang={lang} />
             </div>
           </>
-        ),
-      },
+        )
+      }
     ],
     fr: [
       {
         title: "Introduction",
-        text: "Deux NFT sont disponibles : Intermédiaire et Expert. Vous devrez avoir un portefeuille crypto et suffisamment de TrotelCoins.",
+        text: "Deux NFT sont disponibles : Intermédiaire et Expert. Vous devrez avoir un portefeuille crypto et suffisamment de TrotelCoins."
       },
       {
         title: "Quels sont les rôles de ces NFTs ?",
-        text: "Ne vous souciez plus de vos vies avec ces NFTs. De plus, certains cours sont réservés uniquement aux Intermédiaires ou Experts. Aussi, des fonctionnalités exclusives de gamification nécessitent la possession de NFT, comme gagner des badges. Enfin, les Intermédiaires et Experts peuvent tester les fonctionnalités bêta.",
+        text: "Ne vous souciez plus de vos vies avec ces NFTs. De plus, certains cours sont réservés uniquement aux Intermédiaires ou Experts. Aussi, des fonctionnalités exclusives de gamification nécessitent la possession de NFT, comme gagner des badges. Enfin, les Intermédiaires et Experts peuvent tester les fonctionnalités bêta."
       },
       {
         title: "Intermédiaire",
         text: (
           <>
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex w-full flex-col gap-4">
               <Intermediate lang={lang} />
             </div>
           </>
-        ),
+        )
       },
       {
         title: "Expert",
         text: (
           <>
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex w-full flex-col gap-4">
               <Expert lang={lang} />
             </div>
           </>
-        ),
-      },
-    ],
+        )
+      }
+    ]
   };
 
   return (

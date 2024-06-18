@@ -8,7 +8,7 @@ const ComingSoon = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div className="flex">
-        <div className="w-full bg-white border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl px-2 py-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="w-full rounded-xl border border-gray-900/10 bg-white px-2 py-10 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <span
             className={`text-gray-900 dark:text-gray-100 ${loadingFlashClass} text-xl`}
           >

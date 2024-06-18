@@ -1,17 +1,24 @@
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState } from "react";
-import Period from "@/app/[lang]/stake/components/v1/period";
 import StakingData from "@/app/[lang]/stake/components/v1/stakingData";
-import Amount from "@/app/[lang]/stake/components/amount";
 import ClaimingButton from "@/app/[lang]/stake/components/v1/buttons/claimingButton";
 import TotalStaked from "@/app/[lang]/stake/components/v1/totalStaked";
 import { polygon } from "viem/chains";
 import { useAccount, useChainId } from "wagmi";
-import { Address } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
 
-const StakingV1 = ({ lang }: { lang: Lang }) => {
+const StakingV1 = ({
+  lang,
+  trotelPrice,
+  showTrotelInUsdc,
+  storedTrotelPrice
+}: {
+  lang: Lang;
+  trotelPrice: number;
+  showTrotelInUsdc: boolean;
+  storedTrotelPrice: number;
+}) => {
   const [chainError, setChainError] = useState<boolean>(false);
   const [APR, setAPR] = useState<number | null>(null);
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -50,42 +57,20 @@ const StakingV1 = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-          <div className="px-4 flex flex-col gap-4">
-            <span className="text-4xl font-bold text-green-500 dark:text-green-300">
-              {APR}%{" "}
-              <span className="text-base text-gray-700 dark:text-gray-300">
-                ROI
-              </span>
-            </span>
-
-            <div>
-              <Period
-                lang={lang}
-                stakingPeriod={stakingPeriod}
-                setStakingPeriod={setStakingPeriod}
-              />
-            </div>
-            <div>
-              <Amount
-                lang={lang}
-                amount={amount as number}
-                setAmount={setAmount}
-                address={address as Address}
-                isMax={isMax}
-                setIsMax={setIsMax}
-              />
-            </div>
+      <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center">
+        <div className="mt-4 flex w-[448px] flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+          <div className="w-full px-4 pb-4">
+            <StakingData
+              lang={lang}
+              trotelPrice={trotelPrice}
+              showTrotelInUsdc={showTrotelInUsdc}
+            />
           </div>
-        </div>
-
-        <div className="w-full mt-4 flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-          <div className="px-4 pb-4">
-            <StakingData lang={lang} />
-          </div>
-          <div className="pt-4 px-4">
-            <TotalStaked lang={lang} />
+          <div className="w-full px-4 pt-4">
+            <TotalStaked
+              lang={lang}
+              storedTrotelPrice={storedTrotelPrice}
+            />
           </div>
         </div>
 

@@ -29,13 +29,13 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
   const { data: result } = useEnsName({
     address: address as Address,
-    chainId: mainnet.id,
+    chainId: mainnet.id
   });
 
   useEffect(() => {
@@ -71,10 +71,10 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div
-        className={`mt-4 bg-white flex items-center justify-between border-gray-900/10 dark:border-gray-100/10 border backdrop-blur-xl text-center rounded-2xl p-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+        className={`mt-4 flex items-center justify-between rounded-2xl border border-gray-900/10 bg-white p-4 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
       >
         <Skeleton loading={!position}>
-          <div className="w-10 h-10 flex items-center justify-center rounded-full text-gray-100 bg-blue-500">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
             {position ?? 0}
           </div>
         </Skeleton>
@@ -93,12 +93,12 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
             {address
               ? shortenAddress(address)
               : lang === "en"
-              ? "Connect your wallet"
-              : "Connectez votre portefeuille"}
+                ? "Connect your wallet"
+                : "Connectez votre portefeuille"}
           </Skeleton>
         </div>
 
-        <div className="flex items-center md:gap-2 text-lg">
+        <div className="flex items-center text-lg md:gap-2">
           <span className="hidden md:block">
             <Skeleton loading={!numberOfQuizzesAnswered}>
               <CountUp start={0} end={numberOfQuizzesAnswered ?? 0} /> 📚

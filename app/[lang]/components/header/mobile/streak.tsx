@@ -15,16 +15,16 @@ const StreakMobile = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div className="relative">
-        <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
-          <div className="flex gap-2 items-center justify-between p-4">
+        <div className="flex flex-col divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white text-gray-900 dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+          <div className="flex items-center justify-between gap-2 p-4">
             <h3>{lang === "en" ? "Your streak" : "Votre série"}</h3>
-            <div className="flex gap-2 items-center">
+            <div className="flex items-center gap-2">
               <span>{cooldown}</span>
-              <div className="border-r border-gray-900/10 dark:border-gray-100/10 h-6" />
+              <div className="h-6 border-r border-gray-900/10 dark:border-gray-100/10" />
               <span>{streak} 🔥</span>
             </div>
           </div>
-          <div className="flex justify-center items-center gap-4 p-4">
+          <div className="flex items-center justify-center gap-4 p-4">
             <BlueButton
               isFull={true}
               lang={lang}
@@ -34,8 +34,8 @@ const StreakMobile = ({ lang }: { lang: Lang }) => {
                     ? "Comeback tomorrow"
                     : "Revenez demain"
                   : lang === "en"
-                  ? "Increase your streak"
-                  : "Augmentez votre série"
+                    ? "Increase your streak"
+                    : "Augmentez votre série"
               }
               onClick={() => {
                 if (!disabled) {

@@ -23,7 +23,7 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
         functionName: "getItemQuantity",
         chainId: polygon.id,
         account: address,
-        args: [address, item],
+        args: [address, item]
       })) as bigint;
 
       const userItem = (await readContract(config, {
@@ -32,7 +32,7 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
         functionName: "getItemInformations",
         chainId: polygon.id,
         account: address,
-        args: [item],
+        args: [item]
       })) as any;
 
       const itemQuantity = Number(userQuantity);
@@ -48,7 +48,7 @@ export const fetchInventory = async (totalItems: number, address: Address) => {
         discount: discount,
         quantity: itemQuantity,
         emoji: emoji,
-        disabled: disabled,
+        disabled: disabled
       };
 
       newInventories.push(itemFormatted);

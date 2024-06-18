@@ -7,7 +7,7 @@ import BlueButton from "@/app/[lang]/components/buttons/blue";
 import {
   useBlockNumber,
   useSendTransaction,
-  useTransactionConfirmations,
+  useTransactionConfirmations
 } from "wagmi";
 import { polygon } from "viem/chains";
 import { trotelCoinDAOAddress } from "@/data/web3/addresses";
@@ -30,7 +30,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { sendTransactionAsync, data: transactionHash } = useSendTransaction({
@@ -47,16 +47,16 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setCondition(false);
         setIsLoading(false);
         setShowHash(false);
-      },
-    },
+      }
+    }
   });
 
   const {
     data: transactionConfirmation,
-    refetch: refetchTransactionConfirmation,
+    refetch: refetchTransactionConfirmation
   } = useTransactionConfirmations({
     chainId: polygon.id,
-    hash: transactionHash as Hash,
+    hash: transactionHash as Hash
   });
 
   useEffect(() => {
@@ -70,45 +70,45 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setIsLoading(false);
       setTransactionConfirmed(true);
     }
-  }, [transactionConfirmation]);
+  }, [transactionConfirmation, transactionConfirmed]);
 
   useEffect(() => {
     refetchTransactionConfirmation();
-  }, [blockNumber]);
+  }, [blockNumber, refetchTransactionConfirmation]);
 
   const cards = {
     en: [
       {
         title: "Introduction",
-        text: "Once upon a time, Alexandre wanted to surprise his friend, Kylian, with some Polygon tokens.",
+        text: "Once upon a time, Alexandre wanted to surprise his friend, Kylian, with some Polygon tokens."
       },
       {
         title: "Surprise",
-        text: "Excited, Alexandre opened his crypto wallet on his smartphone.",
+        text: "Excited, Alexandre opened his crypto wallet on his smartphone."
       },
       {
         title: "Smile",
-        text: "With a smile, he tapped to send tokens. Carefully, he entered Kylian's wallet address and the amount for his small surprise.",
+        text: "With a smile, he tapped to send tokens. Carefully, he entered Kylian's wallet address and the amount for his small surprise."
       },
       {
         title: "Memories",
-        text: "Suddenly, memories of their adventures flooded Alexandre's mind as he double-checked. With a determined nod, he confirmed the transaction.",
+        text: "Suddenly, memories of their adventures flooded Alexandre's mind as he double-checked. With a determined nod, he confirmed the transaction."
       },
       {
         title: "Validators",
-        text: "His wallet quickly created a digital signature, entering Polygon's validator network.",
+        text: "His wallet quickly created a digital signature, entering Polygon's validator network."
       },
       {
         title: "In the meantime...",
-        text: "Meanwhile, Kylian remained busy, unaware of Alexandre's digital surprise. Validators diligently worked to confirm the transaction in the background until confirmation!",
+        text: "Meanwhile, Kylian remained busy, unaware of Alexandre's digital surprise. Validators diligently worked to confirm the transaction in the background until confirmation!"
       },
       {
         title: "Ending",
-        text: "Alexandre imagined Kylian's surprise, symbolizing their friendship digitally. With a smile, he imagined Kylian finding the unexpected gift in his wallet.",
+        text: "Alexandre imagined Kylian's surprise, symbolizing their friendship digitally. With a smile, he imagined Kylian finding the unexpected gift in his wallet."
       },
       {
         title: "Challenge",
-        text: "Now, it's your time to make the transaction! You will send us 0.01 MATIC symbolizing your first transaction.",
+        text: "Now, it's your time to make the transaction! You will send us 0.01 MATIC symbolizing your first transaction."
       },
       {
         title: "Making the transaction",
@@ -128,7 +128,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     await sendTransactionAsync({
                       chainId: polygon.id,
                       to: trotelCoinDAOAddress,
-                      value: parseEther("0.01"),
+                      value: parseEther("0.01")
                     });
                   }}
                 />
@@ -142,7 +142,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   href={`https://polygonscan.com/tx/${transactionHash}`}
                   target="_blank"
                 >
-                  <span className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400">
+                  <span className="text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400">
                     Click to see the transaction
                   </span>
                 </Link>
@@ -164,41 +164,41 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               show={errorMessage}
             />
           </>
-        ),
-      },
+        )
+      }
     ],
     fr: [
       {
         title: "Introduction",
-        text: "Un jour, Alexandre voulait surprendre son ami Kylian en lui offrant des jetons Polygon.",
+        text: "Un jour, Alexandre voulait surprendre son ami Kylian en lui offrant des jetons Polygon."
       },
       {
         title: "La surprise",
-        text: "Tout excité, Alexandre a ouvert son portefeuille crypto sur son smartphone.",
+        text: "Tout excité, Alexandre a ouvert son portefeuille crypto sur son smartphone."
       },
       {
         title: "Le sourire",
-        text: "Avec un sourire, il tapota pour envoyer les jetons. Avec précaution, il entra l'adresse du portefeuille de Kylian et le montant pour sa petite surprise.",
+        text: "Avec un sourire, il tapota pour envoyer les jetons. Avec précaution, il entra l'adresse du portefeuille de Kylian et le montant pour sa petite surprise."
       },
       {
         title: "Les souvenirs",
-        text: "D'un coup, les souvenirs de leurs aventures envahissent l'esprit d'Alexandre, qui procède à une double vérification. D'un signe de tête déterminé, il confirme la transaction.",
+        text: "D'un coup, les souvenirs de leurs aventures envahissent l'esprit d'Alexandre, qui procède à une double vérification. D'un signe de tête déterminé, il confirme la transaction."
       },
       {
         title: "Les validateurs",
-        text: "Son portefeuille a rapidement créé une signature numérique, entrant dans le réseau de validateurs de Polygon.",
+        text: "Son portefeuille a rapidement créé une signature numérique, entrant dans le réseau de validateurs de Polygon."
       },
       {
         title: "En attendant...",
-        text: "Pendant ce temps, Kylian reste occupé, ignorant la surprise numérique d'Alexandre. Les validateurs ont travaillé avec diligence pour confirmer la transaction en arrière-plan jusqu'à la confirmation !",
+        text: "Pendant ce temps, Kylian reste occupé, ignorant la surprise numérique d'Alexandre. Les validateurs ont travaillé avec diligence pour confirmer la transaction en arrière-plan jusqu'à la confirmation !"
       },
       {
         title: "La fin",
-        text: "Alexandre imagine la surprise de Kylian, symbolisant numériquement leur amitié. Avec un sourire, il imagine Kylian découvrant le cadeau inattendu dans son portefeuille.",
+        text: "Alexandre imagine la surprise de Kylian, symbolisant numériquement leur amitié. Avec un sourire, il imagine Kylian découvrant le cadeau inattendu dans son portefeuille."
       },
       {
         title: "Le défi",
-        text: "Maintenant, c'est à vous d'effectuer la transaction ! Vous nous enverrez 0,01 MATIC symbolisant votre première transaction.",
+        text: "Maintenant, c'est à vous d'effectuer la transaction ! Vous nous enverrez 0,01 MATIC symbolisant votre première transaction."
       },
       {
         title: "Faire la transaction",
@@ -218,7 +218,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     await sendTransactionAsync({
                       chainId: polygon.id,
                       to: trotelCoinDAOAddress,
-                      value: parseEther("0.01"),
+                      value: parseEther("0.01")
                     });
                   }}
                 />
@@ -232,7 +232,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   href={`https://polygonscan.com/tx/${transactionHash}`}
                   target="_blank"
                 >
-                  <span className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400">
+                  <span className="text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400">
                     Cliquez pour voir la transaction
                   </span>
                 </Link>
@@ -254,9 +254,9 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               show={errorMessage}
             />
           </>
-        ),
-      },
-    ],
+        )
+      }
+    ]
   };
 
   return (

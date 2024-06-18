@@ -13,7 +13,7 @@ import axios from "axios";
 const Wallet = ({
   lang,
   isFull,
-  isCentered,
+  isCentered
 }: {
   lang: Lang;
   isFull?: boolean;
@@ -33,7 +33,7 @@ const Wallet = ({
 
   useEffect(() => {
     setThemeMode(theme);
-  }, [theme]);
+  }, [theme, setThemeMode]);
 
   const handleDisconnect = () => {
     if (address) {
@@ -52,16 +52,16 @@ const Wallet = ({
         uri: window.location.origin,
         version: "1",
         chainId: chainId,
-        nonce: await getCsrfToken(),
+        nonce: await getCsrfToken()
       });
       const signature = await signMessageAsync({
-        message: message.prepareMessage(),
+        message: message.prepareMessage()
       });
       signIn("credentials", {
         message: JSON.stringify(message),
         redirect: false,
         signature,
-        callbackUrl,
+        callbackUrl
       });
     } catch (error) {
       window.alert(error);
@@ -98,14 +98,14 @@ const Wallet = ({
         <>
           <div
             className={`w-full ${
-              isCentered && "mx-auto flex justify-center items-center"
+              isCentered && "mx-auto flex items-center justify-center"
             }`}
             onClick={() => playAudio("blueButton")}
           >
             <button
               className={`${
                 isFull && "w-full"
-              } text-center border-b-4 active:border-none active:mt-1 text-sm font-semibold rounded-xl text-gray-100 backdrop-blur-xl px-6 py-2 bg-blue-500 hover:bg-blue-500/80 border-blue-700`}
+              } rounded-xl border-b-4 border-blue-700 bg-blue-500 px-6 py-2 text-center text-sm font-semibold text-gray-100 backdrop-blur-xl hover:bg-blue-500/80 active:mt-1 active:border-none`}
               onClick={() => open()}
             >
               {lang === "en"
@@ -122,8 +122,8 @@ const Wallet = ({
 export async function getServerSideProps(context: any) {
   return {
     props: {
-      csrfToken: await getCsrfToken(context),
-    },
+      csrfToken: await getCsrfToken(context)
+    }
   };
 }
 

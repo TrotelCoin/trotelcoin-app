@@ -11,7 +11,7 @@ const CourseData = ({
   setCourse,
   setError,
   showError,
-  setShowError,
+  setShowError
 }: {
   lang: Lang;
   course: SubmitCourseData[];
@@ -84,7 +84,7 @@ const CourseData = ({
       setError(false);
       setShowError(false);
     }
-  }, [course]);
+  }, [course, setError, setShowError]);
 
   useEffect(() => {
     if (course && course.length > 0) {
@@ -109,7 +109,7 @@ const CourseData = ({
                   type="button"
                   onClick={() => removeSlide(index)}
                   disabled={course.length <= 4}
-                  className="inline-flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
+                  className="inline-flex rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
                 >
                   <XMarkIcon className="h-5 w-5" />
                 </button>
@@ -130,9 +130,9 @@ const CourseData = ({
                     : "Le titre de la diapo"
                 }
                 onChange={(e) => handleTitleChange(index, e.target.value)}
-                value={slide?.title}
+                value={slide?.title ?? ""}
                 maxLength={80}
-                className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+                className="rounded-xl border border-gray-900/10 bg-white ring-0 focus:outline-none active:border-blue-500 dark:border-gray-100/10 dark:bg-gray-800 dark:focus:outline-none dark:active:border-blue-500"
               />
             </div>
 
@@ -151,7 +151,7 @@ const CourseData = ({
                 onChange={(e) => handleContentChange(index, e.target.value)}
                 value={slide?.slide}
                 maxLength={500}
-                className="rounded-xl h-24 bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+                className="h-24 rounded-xl border border-gray-900/10 bg-white ring-0 focus:outline-none active:border-blue-500 dark:border-gray-100/10 dark:bg-gray-800 dark:focus:outline-none dark:active:border-blue-500"
               />
             </div>
 

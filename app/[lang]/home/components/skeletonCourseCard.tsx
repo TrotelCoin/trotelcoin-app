@@ -7,16 +7,16 @@ const SkeletonCourseCard = ({ isLoading }: { isLoading: boolean }) => {
     <>
       <div>
         <div
-          className={`rounded-xl relative h-64 w-64 overflow-hidden flex flex-col justify-between items-start ${borderClass} backdrop-blur-xl`}
+          className={`relative flex h-64 w-64 flex-col items-start justify-between overflow-hidden rounded-xl ${borderClass} backdrop-blur-xl`}
         >
-          <div className="flex items-center justify-center overflow-hidden w-full h-full bg-gray-100 dark:bg-gray-700">
+          <div className="flex h-full w-full items-center justify-center overflow-hidden bg-gray-100 dark:bg-gray-700">
             <Skeleton width="500px" height="500px" loading={isLoading} />
           </div>
 
-          <div className="p-4 w-full h-full flex flex-col justify-between">
+          <div className="flex h-full w-full flex-col justify-between p-4">
             <div className="flex flex-col">
               <div className="flex items-center gap-0.5">
-                <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1">
+                <div className="flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300">
                   <Skeleton loading={isLoading}>Category</Skeleton>
                 </div>
               </div>
@@ -31,7 +31,7 @@ const SkeletonCourseCard = ({ isLoading }: { isLoading: boolean }) => {
             </div>
 
             <div className="px-1">
-              <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
+              <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
                 <Skeleton loading={isLoading}>Rank 🐣</Skeleton>
               </div>
             </div>

@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     );
     return NextResponse.json(total_rewards_pending_sum, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     return NextResponse.json(0, { status: 500 });
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 const inputSchema = z.object({
   wallet: z.string(),
   quizId: z.number(),
-  multipliers: z.number(),
+  multipliers: z.number()
 });
 
 /* POST /api/rewards
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { wallet, quizId, multipliers } = inputSchema.safeParse({
       wallet: searchParams.get("wallet"),
       quizId: Number(searchParams.get("quizId")),
-      multipliers: Number(searchParams.get("multipliers")),
+      multipliers: Number(searchParams.get("multipliers"))
     }).data as unknown as {
       wallet: Address;
       quizId: number;
@@ -96,8 +96,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
           wallet: wallet,
           total_rewards_pending: 0,
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
+          updated_at: new Date().toISOString()
+        }
       ]);
     }
 
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json(
         { error: "User already answered the quiz." },
         {
-          status: 404,
+          status: 404
         }
       );
     }
@@ -135,7 +135,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       if (isCourseAvailable) {
         const { error } = await supabase.from("quizzes").insert({
-          quiz_id: quizId,
+          quiz_id: quizId
         });
 
         if (error) {
@@ -147,7 +147,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         return NextResponse.json(
           { error: "Quiz not found." },
           {
-            status: 404,
+            status: 404
           }
         );
       }
@@ -196,7 +196,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .update({
         total_rewards_pending: totalRewardsPending + rewards,
         updated_at: new Date().toISOString(),
-        number_of_quizzes_answered: numberOfQuizzesAnswered + 1,
+        number_of_quizzes_answered: numberOfQuizzesAnswered + 1
       })
       .eq("wallet", wallet);
 
@@ -206,22 +206,22 @@ export async function POST(req: NextRequest, res: NextResponse) {
         wallet: wallet,
         quiz_id: quizId,
         answered: true,
-        answered_at: new Date().toISOString(),
-      },
+        answered_at: new Date().toISOString()
+      }
     ]);
 
     // update remaining rewards
     await supabase
       .from("algorithm")
       .update({
-        remaining_rewards: remainingRewardsValue - rewards / 50,
+        remaining_rewards: remainingRewardsValue - rewards / 50
       })
       .eq("id", 1);
 
     await supabase
       .from("algorithm")
       .update({
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       })
       .eq("id", 1);
 
@@ -242,7 +242,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .from("quizzes")
       .update({
         number_of_answers: currentNumberOfAnswers + 1,
-        last_answered_at: new Date().toISOString(),
+        last_answered_at: new Date().toISOString()
       })
       .eq("quiz_id", quizId);
 

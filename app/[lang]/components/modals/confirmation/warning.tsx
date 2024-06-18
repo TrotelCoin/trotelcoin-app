@@ -11,7 +11,7 @@ export default function WarningConfirmation({
   title,
   message,
   onConfirm,
-  onClose,
+  onClose
 }: {
   lang: Lang;
   show: boolean;
@@ -46,9 +46,9 @@ export default function WarningConfirmation({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-xl border border-gray-900/10 bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all dark:border-gray-100/10 dark:bg-gray-800 sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <div>
-                  <div className="flex justify-center items-center mx-auto">
+                  <div className="mx-auto flex items-center justify-center">
                     <ExclamationTriangleIcon
                       className="h-6 w-6 text-yellow-500 dark:text-yellow-300"
                       aria-hidden="true"
@@ -69,7 +69,7 @@ export default function WarningConfirmation({
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6 flex items-center gap-4">
+                <div className="mt-5 flex items-center gap-4 sm:mt-6">
                   <WhiteButton
                     text={lang === "en" ? "Cancel" : "Annuler"}
                     isFull={true}

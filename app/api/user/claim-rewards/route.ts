@@ -15,9 +15,7 @@ const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
 const inputSchema = z.object({
   address: z.custom<Address>(),
-  amount: z
-    .number()
-    .max(100000, "Amount exceed the limit of claiming rewards."),
+  amount: z.number().max(100000, "Amount exceed the limit of claiming rewards.")
 });
 
 /* POST /api/user/claim-rewards
@@ -43,7 +41,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { userAddress, amount } = inputSchema.safeParse({
       address: searchParams.get("address"),
-      amount: Number(searchParams.get("amount")),
+      amount: Number(searchParams.get("amount"))
     }).data as unknown as { userAddress: Address; amount: number };
 
     // prepare transaction
@@ -52,7 +50,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       abi: trotelCoinABI,
       functionName: "mint",
       account: account,
-      args: [userAddress, parseEther(String(amount))],
+      args: [userAddress, parseEther(String(amount))]
     });
 
     // make transaction

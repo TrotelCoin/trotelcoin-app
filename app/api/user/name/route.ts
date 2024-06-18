@@ -8,12 +8,12 @@ import { getServerSession } from "next-auth";
 export const dynamic = "force-dynamic";
 
 const inputSchemaGet = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 const inputSchemaPost = z.object({
   wallet: z.custom<Address>(),
-  name: z.string(),
+  name: z.string()
 });
 
 /* GET /api/user/name
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchemaGet.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data: result } = await supabase
@@ -47,13 +47,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (!result) {
       return new NextResponse("No username for this user", {
         status: 404,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
 
     return new NextResponse(JSON.stringify(result[0].username), {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { wallet, name } = inputSchemaPost.safeParse({
       wallet: searchParams.get("wallet"),
-      name: searchParams.get("name"),
+      name: searchParams.get("name")
     }).data as unknown as { wallet: Address; name: string };
 
     await supabase
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .eq("wallet", wallet);
     return new NextResponse(JSON.stringify(name), {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

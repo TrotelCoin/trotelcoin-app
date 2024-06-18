@@ -14,7 +14,7 @@ const BlueButton = ({
   isFull,
   lang,
   disabled,
-  showConfetti,
+  showConfetti
 }: {
   text: string;
   onClick: Function;
@@ -37,16 +37,16 @@ const BlueButton = ({
         type="button"
         onClick={() => whenClicked()}
         disabled={disabled}
-        className={`text-center border-b-4 active:border-none active:mt-1 text-sm font-semibold rounded-xl text-gray-100 backdrop-blur-xl px-6 py-2 ${
+        className={`rounded-xl border-b-4 px-6 py-2 text-center text-sm font-semibold text-gray-100 backdrop-blur-xl active:mt-1 active:border-none ${
           disabled
-            ? "bg-gray-500 hover:bg-gray-500/80 border-gray-700 cursor-not-allowed"
-            : "bg-blue-500 hover:bg-blue-500/80 border-blue-700"
+            ? "cursor-not-allowed border-gray-700 bg-gray-500 hover:bg-gray-500/80"
+            : "border-blue-700 bg-blue-500 hover:bg-blue-500/80"
         } ${isFull && "w-full"}`}
       >
         <span className={`text-center ${isLoading && loadingFlashClass}`}>
           {isLoading ? (lang === "en" ? "Loading..." : "Chargement...") : text}
         </span>
-        <div className="flex justify-center items-center mx-auto">
+        <div className="mx-auto flex items-center justify-center">
           <Confetti active={showConfetti as boolean} />
         </div>
       </button>

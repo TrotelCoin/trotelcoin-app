@@ -7,19 +7,19 @@ export const getQuestionsByLanguage = (quiz: Quiz, lang: Lang) => {
       return quiz.questions.map((q: Question) => ({
         questionId: q.questionId,
         question: q.question,
-        options: q.options,
+        options: q.options
       }));
     case "fr":
       return quiz.questions.map((q: Question) => ({
         questionId: q.questionId,
         question: q.question,
-        options: q.options,
+        options: q.options
       }));
     default:
       return quiz.questions.map((q: Question) => ({
         questionId: q.questionId,
         question: q.question,
-        options: q.options,
+        options: q.options
       }));
   }
 };

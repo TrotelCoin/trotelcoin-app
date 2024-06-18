@@ -11,7 +11,7 @@ export const trotelCoinPolygon: Token = {
   chainId: polygon.id,
   logoURI: "/assets/logo/trotelcoin.svg",
   lightLogoURI: "/assets/logo/trotelcoin.svg",
-  darkLogoURI: "/assets/logo/trotelcoin-dark.jpg",
+  darkLogoURI: "/assets/logo/trotelcoin-dark.jpg"
 };
 
 export const usdcPolygon: Token = {
@@ -20,7 +20,7 @@ export const usdcPolygon: Token = {
   symbol: "USDC",
   name: "USDC",
   chainId: polygon.id,
-  logoURI: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg",
+  logoURI: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg"
 };
 
 export const usdcPolygonBridged: Token = {
@@ -29,7 +29,7 @@ export const usdcPolygonBridged: Token = {
   symbol: "USDC.e",
   name: "USDCCoin",
   chainId: polygon.id,
-  logoURI: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg",
+  logoURI: "https://cryptologos.cc/logos/usd-coin-usdc-logo.svg"
 };
 
 export const nativeAddress: Address =

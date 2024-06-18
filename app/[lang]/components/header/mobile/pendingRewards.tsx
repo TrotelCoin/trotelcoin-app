@@ -6,6 +6,8 @@ import Image from "next/image";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import { Address } from "viem";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);
@@ -14,6 +16,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const [claimed, setClaimed] = useState<boolean>(false);
 
   const { userTotalRewardsPending } = useContext(UserContext);
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   const { data: centralWalletAddressData } = useSWR(
     "/api/central-wallet/address",
@@ -22,7 +25,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -34,16 +37,24 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="flex flex-col border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 rounded-xl text-gray-900 dark:text-gray-100 divide-y divide-gray-900/10 dark:divide-gray-100/10">
-        <div className="flex gap-2 items-center justify-between p-4">
+      <div className="flex flex-col divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white text-gray-900 dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+        <div className="flex items-center justify-between gap-2 p-4">
           <h3>{lang === "en" ? "Your rewards" : "Vos récompenses"}</h3>
-          <div className="flex gap-2 items-center">
-            {!claimed && userTotalRewardsPending
-              ? Number(userTotalRewardsPending.toFixed(0)).toLocaleString(
-                  "en-US"
-                )
-              : "0"}
-            <div className="block dark:hidden w-4 h-4">
+          <div className="flex items-center gap-2">
+            {showTrotelInUsdc && "$"}
+            {!claimed &&
+              userTotalRewardsPending &&
+              !showTrotelInUsdc &&
+              roundPrice(Number(userTotalRewardsPending)).toLocaleString(
+                "en-US"
+              )}
+            {!claimed &&
+              userTotalRewardsPending &&
+              showTrotelInUsdc &&
+              roundPrice(
+                Number(userTotalRewardsPending) * Number(trotelPrice ?? "0")
+              ).toLocaleString("en-US")}
+            <div className="block h-4 w-4 dark:hidden">
               <Image
                 width={16}
                 height={16}
@@ -53,7 +64,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
                 src="/assets/logo/trotelcoin.svg"
               />
             </div>
-            <div className="hidden dark:block w-4 h-4">
+            <div className="hidden h-4 w-4 dark:block">
               <Image
                 width={16}
                 height={16}
@@ -65,7 +76,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center gap-4 p-4 w-full">
+        <div className="flex w-full items-center justify-center gap-4 p-4">
           <RewardsButton
             centralWalletAddress={centralWalletAddress as Address}
             lang={lang}

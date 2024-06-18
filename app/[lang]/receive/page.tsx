@@ -20,7 +20,7 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
       try {
         await navigator.share({
           title: "TrotelCoin Wallet",
-          text: `Want to send me some TROTEL? \n\nStart your crypto learning journey with TrotelCoin today at https://app.trotelcoin.com. \n\nLet's dive into the world of Web3 together! \n\nHere's my crypto address: ${address}`,
+          text: `Want to send me some TROTEL? \n\nStart your crypto learning journey with TrotelCoin today at https://app.trotelcoin.com. \n\nLet's dive into the world of Web3 together! \n\nHere's my crypto address: ${address}`
         });
       } catch (error) {
         console.error("Error sharing", error);
@@ -32,20 +32,20 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
+      <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center">
         <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
           {lang === "en" ? "Receive" : "Recevoir"}
         </span>
 
         {address && (
-          <div className="bg-white p-4 mt-8 mb-4 border border-gray-900/10 dark:border-gray-100/10 rounded-xl">
+          <div className="mb-4 mt-8 rounded-xl border border-gray-900/10 bg-white p-4 dark:border-gray-100/10">
             <QRCode value={address ?? ""} />
           </div>
         )}
 
-        <div className="flex flex-col mt-4 text-center items-center justify-center gap-1">
+        <div className="mt-4 flex flex-col items-center justify-center gap-1 text-center">
           <div className="flex items-center gap-2">
-            <ExclamationTriangleIcon className="w-6 h-6 text-red-500 dark:text-red-300" />
+            <ExclamationTriangleIcon className="h-6 w-6 text-red-500 dark:text-red-300" />
             <span className="text-red-500 dark:text-red-300">
               {lang === "en" ? "Important Notice!" : "Avis important!"}
             </span>
@@ -59,11 +59,11 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {address && (
           <>
-            <div className="flex text-center items-center mt-8 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 rounded-full">
-              <span className="block md:hidden font-semibold text-gray-900 dark:text-gray-100">
+            <div className="mt-8 flex items-center rounded-full border border-gray-900/10 bg-white px-4 py-2 text-center hover:border-gray-900/50 dark:border-gray-100/10 dark:bg-gray-800 dark:hover:border-gray-100/50">
+              <span className="block font-semibold text-gray-900 dark:text-gray-100 md:hidden">
                 {shortenAddress(address)}
               </span>
-              <span className="hidden md:block font-semibold text-gray-900 dark:text-gray-100">
+              <span className="hidden font-semibold text-gray-900 dark:text-gray-100 md:block">
                 {address}
               </span>
             </div>

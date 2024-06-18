@@ -12,7 +12,7 @@ import SuccessNotification from "@/app/[lang]/components/modals/notifications/su
 
 const CoursesSatisfaction = ({
   quizId,
-  lang,
+  lang
 }: {
   quizId: number;
   lang: Lang;
@@ -52,7 +52,7 @@ const CoursesSatisfaction = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -67,7 +67,7 @@ const CoursesSatisfaction = ({
       {(address as Address) &&
         !coursesSatisfactionAnswered?.answered &&
         !rated && (
-          <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 flex flex-col">
+          <div className="mx-auto flex flex-col border-t border-gray-900/10 py-10 dark:border-gray-100/10">
             <div className="flex items-center">
               {!coursesSatisfactionAnswered?.answered && (
                 <>
@@ -82,7 +82,7 @@ const CoursesSatisfaction = ({
                           <input
                             type="radio"
                             name="rating"
-                            value={ratingValue}
+                            value={ratingValue as number}
                             onClick={() => {
                               setRating(ratingValue);
                               postSatisfaction(ratingValue);
@@ -91,10 +91,10 @@ const CoursesSatisfaction = ({
                           />
                           {ratingValue <= (rating as number) ? (
                             // Filled Star
-                            <StarIconSolid className="w-5 h-5 text-blue-500 dark:text-blue-300" />
+                            <StarIconSolid className="h-5 w-5 text-blue-500 dark:text-blue-300" />
                           ) : (
                             // Outline Star
-                            <StarIconOutline className="w-5 h-5 hover:text-blue-500 dark:hover:text-blue-300" />
+                            <StarIconOutline className="h-5 w-5 hover:text-blue-500 dark:hover:text-blue-300" />
                           )}
                         </label>
                       );

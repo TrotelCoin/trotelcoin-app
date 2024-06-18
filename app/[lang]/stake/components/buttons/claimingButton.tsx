@@ -8,7 +8,7 @@ import {
   useReadContract,
   useSwitchChain,
   useBlockNumber,
-  useBlock,
+  useBlock
 } from "wagmi";
 import { Address } from "viem";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
@@ -22,7 +22,7 @@ import BlueButton from "@/app/[lang]/components/buttons/blue";
 const ClaimingButton = ({
   lang,
   chainError,
-  setChainError,
+  setChainError
 }: {
   lang: Lang;
   chainError: boolean;
@@ -45,11 +45,11 @@ const ClaimingButton = ({
   const { switchChain } = useSwitchChain();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
   const { data: block } = useBlock({
     chainId: polygon.id,
-    blockNumber: blockNumber,
+    blockNumber: blockNumber
   });
 
   const { writeContractAsync, isPending } = useWriteContract({
@@ -59,8 +59,8 @@ const ClaimingButton = ({
       },
       onError: () => {
         setErrorMessage(true);
-      },
-    },
+      }
+    }
   });
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
@@ -69,12 +69,12 @@ const ClaimingButton = ({
       abi: trotelCoinStakingV1ABI,
       chainId: polygon.id,
       functionName: "stakings",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   useEffect(() => {
     refetchStakings();
-  }, [blockNumber, address]);
+  }, [blockNumber, address, refetchStakings]);
 
   useEffect(() => {
     if (block && !blockFetched) {
@@ -82,7 +82,7 @@ const ClaimingButton = ({
       setTimestamp(timestamp);
       setBlockFetched(true);
     }
-  }, [block]);
+  }, [block, blockFetched]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address) {
@@ -123,7 +123,7 @@ const ClaimingButton = ({
         address: trotelCoinStakingV1,
         functionName: "unstake",
         chainId: polygon.id,
-        abi: trotelCoinStakingV1ABI,
+        abi: trotelCoinStakingV1ABI
       });
     } catch (error) {
       console.error(error);

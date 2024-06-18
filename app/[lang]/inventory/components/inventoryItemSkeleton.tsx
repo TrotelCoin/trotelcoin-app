@@ -7,27 +7,27 @@ const InventoryItemSkeleton = () => {
   return (
     <>
       <div
-        className={`overflow-hidden w-full h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+        className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
       >
-        <div className="px-4 py-5 sm:p-6 w-full">
-          <div className="flex items-center justify-between w-full">
-            <div className={`font-semibold rainbow-text text-2xl`}>
+        <div className="w-full px-4 py-5 sm:p-6">
+          <div className="flex w-full items-center justify-between">
+            <div className={`rainbow-text text-2xl font-semibold`}>
               <Skeleton>Item name</Skeleton>
             </div>
             <Skeleton>
-              <div className="w-6 h-6 rounded-full bg-blue-500 text-gray-100 flex justify-center items-center text-sm">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-sm text-gray-100">
                 0
               </div>
             </Skeleton>
           </div>
-          <div className="flex items-center justify-center my-8">
+          <div className="my-8 flex items-center justify-center">
             <span className="text-6xl">
               <Skeleton>🔗</Skeleton>
             </span>
           </div>
           <div className="flex flex-col">
             <Skeleton>
-              <button className="p-2 hover:bg-white dark:hover:bg-gray-800 rounded-full">
+              <button className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800">
                 Use Item
               </button>
             </Skeleton>

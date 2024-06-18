@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,7 +7,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* POST /api/user/items/use-potion
@@ -28,7 +27,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data: life } = await supabase
@@ -40,7 +39,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const { error } = await supabase
         .from("life")
         .update({
-          life: life[0].life + 1,
+          life: life[0].life + 1
         })
         .eq("wallet", wallet);
 
@@ -54,7 +53,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json("Life updated", {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

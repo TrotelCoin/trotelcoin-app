@@ -3,10 +3,10 @@ const trotelCoinShopV1ABI = [
     inputs: [
       { internalType: "address", name: "_daoAddress", type: "address" },
       { internalType: "uint256", name: "_feePercentage", type: "uint256" },
-      { internalType: "address", name: "_tokenFeeAddress", type: "address" },
+      { internalType: "address", name: "_tokenFeeAddress", type: "address" }
     ],
     stateMutability: "nonpayable",
-    type: "constructor",
+    type: "constructor"
   },
   {
     anonymous: false,
@@ -15,11 +15,11 @@ const trotelCoinShopV1ABI = [
         indexed: false,
         internalType: "uint256",
         name: "newFeePercentage",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "FeePercentageChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -28,24 +28,24 @@ const trotelCoinShopV1ABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       { indexed: false, internalType: "string", name: "name", type: "string" },
       {
         indexed: false,
         internalType: "uint256",
         name: "price",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "discount",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemAdded",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -54,23 +54,23 @@ const trotelCoinShopV1ABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "quantity",
-        type: "uint256",
+        type: "uint256"
       },
       {
         indexed: false,
         internalType: "uint256",
         name: "price",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemBuyed",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -79,11 +79,11 @@ const trotelCoinShopV1ABI = [
         indexed: true,
         internalType: "uint256",
         name: "itemId",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "ItemRemoved",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -92,11 +92,11 @@ const trotelCoinShopV1ABI = [
         indexed: false,
         internalType: "address",
         name: "newOwner",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "OwnerChanged",
-    type: "event",
+    type: "event"
   },
   {
     anonymous: false,
@@ -105,51 +105,51 @@ const trotelCoinShopV1ABI = [
         indexed: false,
         internalType: "address",
         name: "newAddress",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "TokenChanged",
-    type: "event",
+    type: "event"
   },
   {
     inputs: [
       { internalType: "string", name: "_name", type: "string" },
       { internalType: "uint256", name: "_price", type: "uint256" },
-      { internalType: "uint256", name: "_discount", type: "uint256" },
+      { internalType: "uint256", name: "_discount", type: "uint256" }
     ],
     name: "addItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "uint256", name: "_itemId", type: "uint256" },
-      { internalType: "uint256", name: "_quantity", type: "uint256" },
+      { internalType: "uint256", name: "_quantity", type: "uint256" }
     ],
     name: "buyItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "daoAddress",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "feePercentage",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
       { internalType: "address", name: "", type: "address" },
-      { internalType: "uint256", name: "", type: "uint256" },
+      { internalType: "uint256", name: "", type: "uint256" }
     ],
     name: "inventories",
     outputs: [
@@ -157,16 +157,16 @@ const trotelCoinShopV1ABI = [
         components: [
           { internalType: "string", name: "name", type: "string" },
           { internalType: "uint256", name: "price", type: "uint256" },
-          { internalType: "uint256", name: "discount", type: "uint256" },
+          { internalType: "uint256", name: "discount", type: "uint256" }
         ],
         internalType: "struct TrotelCoinShopV1.Item",
         name: "item",
-        type: "tuple",
+        type: "tuple"
       },
-      { internalType: "uint256", name: "quantity", type: "uint256" },
+      { internalType: "uint256", name: "quantity", type: "uint256" }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
@@ -174,64 +174,64 @@ const trotelCoinShopV1ABI = [
     outputs: [
       { internalType: "string", name: "name", type: "string" },
       { internalType: "uint256", name: "price", type: "uint256" },
-      { internalType: "uint256", name: "discount", type: "uint256" },
+      { internalType: "uint256", name: "discount", type: "uint256" }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "owner",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "uint256", name: "_itemId", type: "uint256" }],
     name: "removeItem",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [
-      { internalType: "uint256", name: "_newFeePercentage", type: "uint256" },
+      { internalType: "uint256", name: "_newFeePercentage", type: "uint256" }
     ],
     name: "setFeePercentage",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "address", name: "_newOwner", type: "address" }],
     name: "setOwner",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [{ internalType: "address", name: "_newAddress", type: "address" }],
     name: "setTokenFee",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "tokenFee",
     outputs: [
-      { internalType: "contract TrotelCoinV2", name: "", type: "address" },
+      { internalType: "contract TrotelCoinV2", name: "", type: "address" }
     ],
     stateMutability: "view",
-    type: "function",
+    type: "function"
   },
   {
     inputs: [],
     name: "totalItems",
     outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
-    type: "function",
-  },
+    type: "function"
+  }
 ];
 
 export default trotelCoinShopV1ABI;
