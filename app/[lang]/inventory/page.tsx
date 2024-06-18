@@ -89,6 +89,20 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }
   }, [totalItemsData]);
 
+  const handleRefresh = async () => {
+    if (!refreshing && address && totalItems) {
+      setRefreshing(true);
+      setInventories(null);
+
+      await fetchInventory(totalItems, address).then((newInventories) => {
+        setInventories(newInventories);
+      });
+
+      setFetching(false);
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
     const handleRefresh = async () => {
       if (!refreshing && address && totalItems) {

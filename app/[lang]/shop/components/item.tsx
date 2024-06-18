@@ -260,7 +260,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                       <>
                         <span className="rainbow-text font-semibold">
                           $
-                          {roundPrice(priceAfterDiscount * trotelPrice) ?? null}
+                          {roundPrice(priceAfterDiscount * Number(trotelPrice ?? 0)) ?? null}
                         </span>
                       </>
                     )}

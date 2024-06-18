@@ -118,12 +118,12 @@ const RewardsModal = ({
                               ? `You just got ${
                                   rewards ?? 0
                                 } TROTEL ${roundPrice(
-                                  Number(rewards ?? "0") * trotelPrice
+                                  Number(rewards ?? "0") * Number(trotelPrice ?? 0)
                                 )} USDC.`
                               : `Vous venez de gagner ${
                                   rewards ?? 0
                                 } TROTEL soit ${roundPrice(
-                                  Number(rewards ?? "0") * trotelPrice
+                                  Number(rewards ?? "0") * Number(trotelPrice ?? 0)
                                 )} USDC.`}
                             {lang === "en"
                               ? "You have now"

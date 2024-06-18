@@ -12,14 +12,12 @@ const StakingV1 = ({
   lang,
   trotelPrice,
   showTrotelInUsdc,
-  roundPrice,
-  storedTrotelCoin
+  storedTrotelPrice
 }: {
   lang: Lang;
   trotelPrice: number;
   showTrotelInUsdc: boolean;
-  roundPrice: () => void;
-  storedTrotelCoin: number;
+  storedTrotelPrice: number;
 }) => {
   const [chainError, setChainError] = useState<boolean>(false);
   const [APR, setAPR] = useState<number | null>(null);
@@ -65,7 +63,6 @@ const StakingV1 = ({
             <StakingData
               lang={lang}
               trotelPrice={trotelPrice}
-              roundPrice={roundPrice}
               showTrotelInUsdc={showTrotelInUsdc}
             />
           </div>
@@ -73,7 +70,6 @@ const StakingV1 = ({
             <TotalStaked
               lang={lang}
               storedTrotelPrice={storedTrotelPrice}
-              roundPrice={roundPrice}
             />
           </div>
         </div>

@@ -20,13 +20,11 @@ const StakingV2 = ({
   lang,
   trotelPrice,
   showTrotelInUsdc,
-  roundPrice,
   storedTrotelPrice
 }: {
   lang: Lang;
   trotelPrice: number;
   showTrotelInUsdc: boolean;
-  roundPrice: () => void;
   storedTrotelPrice: number;
 }) => {
   const [chainError, setChainError] = useState<boolean>(false);
@@ -151,7 +149,7 @@ const StakingV2 = ({
                 isMax={isMax}
                 setIsMax={setIsMax}
                 trotelPrice={trotelPrice}
-                APR={APR}
+                APR={APR as number}
                 stakingPeriod={stakingPeriod}
               />
             </div>
@@ -163,7 +161,6 @@ const StakingV2 = ({
             <StakingData
               lang={lang}
               trotelPrice={trotelPrice}
-              roundPrice={roundPrice}
               showTrotelInUsdc={showTrotelInUsdc}
             />
           </div>
@@ -171,7 +168,6 @@ const StakingV2 = ({
             <TotalStaked
               lang={lang}
               storedTrotelPrice={storedTrotelPrice}
-              roundPrice={roundPrice}
             />
           </div>
         </div>

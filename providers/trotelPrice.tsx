@@ -113,9 +113,11 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
       setShowTrotelInUsdc,
       toggleShowInUsdc,
       trotelPriceRounded,
-      setTrotelPriceRounded
+      setTrotelPriceRounded,
+      storedTrotelPrice,
+      setStoredTrotelPrice
     }),
-    [trotelPrice, trotelPriceLoading, showTrotelInUsdc, trotelPriceRounded]
+    [trotelPrice, trotelPriceLoading, showTrotelInUsdc, trotelPriceRounded, storedTrotelPrice]
   );
 
   return (

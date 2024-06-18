@@ -48,19 +48,17 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <Tabs.Content value="v1">
             <StakingV1
               lang={lang}
-              trotelPrice={trotelPrice}
+              trotelPrice={trotelPrice as number}
               showTrotelInUsdc={showTrotelInUsdc}
-              roundPrice={roundPrice}
-              storedTrotelPrice={storedTrotelPrice}
+              storedTrotelPrice={storedTrotelPrice as number}
             />
           </Tabs.Content>
           <Tabs.Content value="v2">
             <StakingV2
               lang={lang}
-              trotelPrice={trotelPrice}
+              trotelPrice={trotelPrice as number}
               showTrotelInUsdc={showTrotelInUsdc}
-              roundPrice={roundPrice}
-              storedTrotelPrice={storedTrotelPrice}
+              storedTrotelPrice={storedTrotelPrice as number}
             />
           </Tabs.Content>
         </div>

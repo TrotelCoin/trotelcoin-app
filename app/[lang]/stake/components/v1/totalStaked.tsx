@@ -8,15 +8,14 @@ import { polygon } from "viem/chains";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const TotalStaked = ({
   lang,
   storedTrotelPrice,
-  roundPrice
 }: {
   lang: Lang;
   storedTrotelPrice: number;
-  roundPrice: () => void;
 }) => {
   const [totalStaked, setTotalStaked] = useState<number | null>(null);
 
@@ -57,7 +56,7 @@ const TotalStaked = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "TVL" : "TVL"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!trotelPrice || !totalStaked}>
+            <Skeleton loading={!storedTrotelPrice || !totalStaked}>
               {storedTrotelPrice && totalStaked ? (
                 <CountUp
                   start={0}

@@ -21,6 +21,7 @@ import {
 } from "@/data/staking/duration";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const staking =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -30,12 +31,10 @@ const notStaking =
 const StakingData = ({
   lang,
   trotelPrice,
-  roundPrice,
   showTrotelInUsdc
 }: {
   lang: Lang;
   trotelPrice: number;
-  roundPrice: () => void;
   showTrotelInUsdc: boolean;
 }) => {
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(

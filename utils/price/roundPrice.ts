@@ -2,7 +2,7 @@ export const round = (number: number, decimals: number) => {
   return Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals);
 };
 
-export const roundPrice: number = (price: number | null) => {
+export const roundPrice = (price: number | null): number => {
   if (price === 0 || !price) {
     return 0;
   }
