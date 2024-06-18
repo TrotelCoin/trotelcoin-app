@@ -290,6 +290,7 @@ const Waitlist = ({
                             type="email"
                             autoComplete="email"
                             required
+                            value={mail ?? ""}
                             onChange={(e) => setMail(e.target.value)}
                             className="min-w-0 flex-auto bg-white dark:bg-gray-800 rounded-xl px-3 py-2 text-gray-900 dark:text-gray-100 shadow border border-gray-900/10 dark:border-gray-100/10 placeholder:text-gray-300 dark:placeholder:text-gray-700 focus:outline-none sm:text-sm sm:leading-6"
                             placeholder={

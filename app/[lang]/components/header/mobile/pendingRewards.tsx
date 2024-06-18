@@ -6,6 +6,8 @@ import Image from "next/image";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import { Address } from "viem";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);
@@ -14,6 +16,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const [claimed, setClaimed] = useState<boolean>(false);
 
   const { userTotalRewardsPending } = useContext(UserContext);
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   const { data: centralWalletAddressData } = useSWR(
     "/api/central-wallet/address",
@@ -38,11 +41,19 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
         <div className="flex gap-2 items-center justify-between p-4">
           <h3>{lang === "en" ? "Your rewards" : "Vos récompenses"}</h3>
           <div className="flex gap-2 items-center">
-            {!claimed && userTotalRewardsPending
-              ? Number(userTotalRewardsPending.toFixed(0)).toLocaleString(
-                  "en-US"
-                )
-              : "0"}
+            {showTrotelInUsdc && "$"}
+            {!claimed &&
+              userTotalRewardsPending &&
+              !showTrotelInUsdc &&
+              roundPrice(Number(userTotalRewardsPending)).toLocaleString(
+                "en-US"
+              )}
+            {!claimed &&
+              userTotalRewardsPending &&
+              showTrotelInUsdc &&
+              roundPrice(
+                Number(userTotalRewardsPending) * Number(trotelPrice ?? "0")
+              ).toLocaleString("en-US")}
             <div className="block dark:hidden w-4 h-4">
               <Image
                 width={16}

@@ -1,14 +1,19 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import * as Tabs from "@radix-ui/react-tabs";
 import StakingV1 from "@/app/[lang]/stake/v1/stakingV1";
 import StakingV2 from "@/app/[lang]/stake/v2/stakingV2";
 import { StakingVersion } from "@/types/web3/staking";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [version, setVersion] = useState<string>("v2");
+
+  const { trotelPrice, showTrotelInUsdc, storedTrotelPrice } =
+    useContext(TrotelPriceContext);
 
   return (
     <>
@@ -41,10 +46,22 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </Tabs.List>
         <div className="mt-4">
           <Tabs.Content value="v1">
-            <StakingV1 lang={lang} />
+            <StakingV1
+              lang={lang}
+              trotelPrice={trotelPrice}
+              showTrotelInUsdc={showTrotelInUsdc}
+              roundPrice={roundPrice}
+              storedTrotelPrice={storedTrotelPrice}
+            />
           </Tabs.Content>
           <Tabs.Content value="v2">
-            <StakingV2 lang={lang} />
+            <StakingV2
+              lang={lang}
+              trotelPrice={trotelPrice}
+              showTrotelInUsdc={showTrotelInUsdc}
+              roundPrice={roundPrice}
+              storedTrotelPrice={storedTrotelPrice}
+            />
           </Tabs.Content>
         </div>
       </Tabs.Root>

@@ -188,7 +188,7 @@ const QuizData = ({
                     : "Écrivez une question sur le cours"
                 }
                 onChange={(e) => handleQuestionChange(index, e.target.value)}
-                value={question?.question}
+                value={question?.question ?? ""}
                 maxLength={100}
                 className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
               />
@@ -225,7 +225,7 @@ const QuizData = ({
                     onChange={(e) =>
                       handleOptionsChange(index, questionIndex, e.target.value)
                     }
-                    value={option}
+                    value={option ?? ""}
                     maxLength={200}
                     className="rounded-xl w-full bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
                   />

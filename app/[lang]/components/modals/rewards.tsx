@@ -9,6 +9,8 @@ import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import UserContext from "@/contexts/user";
 import { Skeleton } from "@radix-ui/themes";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const pages = 4;
 
@@ -36,6 +38,7 @@ const RewardsModal = ({
     quizzesLeft,
     userTotalRewardsPending,
   } = useContext(UserContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   useEffect(() => {
     if (show) {
@@ -111,6 +114,17 @@ const RewardsModal = ({
                             </Skeleton>
                           </div>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
+                            {lang === "en"
+                              ? `You just got ${
+                                  rewards ?? 0
+                                } TROTEL ${roundPrice(
+                                  Number(rewards ?? "0") * trotelPrice
+                                )} USDC.`
+                              : `Vous venez de gagner ${
+                                  rewards ?? 0
+                                } TROTEL soit ${roundPrice(
+                                  Number(rewards ?? "0") * trotelPrice
+                                )} USDC.`}
                             {lang === "en"
                               ? "You have now"
                               : "Vous avez maintenant"}{" "}

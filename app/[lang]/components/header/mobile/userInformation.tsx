@@ -6,6 +6,8 @@ import Marquee from "react-fast-marquee";
 import PremiumContext from "@/contexts/premium";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import UserContext from "@/contexts/user";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const UserInformationMobile = ({
   lang,
@@ -24,6 +26,7 @@ const UserInformationMobile = ({
 }) => {
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { multipliers, userLevel, averageMark } = useContext(UserContext);
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   return (
     <>
@@ -61,11 +64,21 @@ const UserInformationMobile = ({
             x{multipliers ?? 1} 🤑
           </div>
           <div className="flex items-center gap-1">
-            {userTotalRewardsPending
-              ? Number(userTotalRewardsPending.toFixed(0)).toLocaleString(
+            <span>
+              {showTrotelInUsdc && "$"}
+
+              {userTotalRewardsPending &&
+                !showTrotelInUsdc &&
+                roundPrice(Number(userTotalRewardsPending)).toLocaleString(
                   "en-US"
-                )
-              : 0}{" "}
+                )}
+
+              {showTrotelInUsdc &&
+                userTotalRewardsPending &&
+                roundPrice(
+                  Number(userTotalRewardsPending * Number(trotelPrice ?? "0"))
+                ).toLocaleString("en-US")}
+            </span>
             <TrotelCoinLogo />
           </div>
           <div className="flex items-center">

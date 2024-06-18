@@ -14,6 +14,7 @@ import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
 import { polygon } from "viem/chains";
+import UsdcBalance from "@/app/[lang]/claim/components/usdcBalance";
 
 const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
@@ -82,6 +83,9 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 availableToClaim={availableToClaim}
                 claimed={claimed}
               />
+            </div>
+            <div>
+              <UsdcBalance lang={lang} availableToClaim={availableToClaim as number} />
             </div>
             <div>
               <Balance lang={lang} />

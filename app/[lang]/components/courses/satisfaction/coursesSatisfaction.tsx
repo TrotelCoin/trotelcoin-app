@@ -82,7 +82,7 @@ const CoursesSatisfaction = ({
                           <input
                             type="radio"
                             name="rating"
-                            value={ratingValue}
+                            value={ratingValue as number}
                             onClick={() => {
                               setRating(ratingValue);
                               postSatisfaction(ratingValue);

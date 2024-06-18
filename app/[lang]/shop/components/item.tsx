@@ -1,5 +1,5 @@
 import { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Tilt from "react-parallax-tilt";
 import * as Popover from "@radix-ui/react-popover";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -23,6 +23,8 @@ import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { Skeleton } from "@radix-ui/themes";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
@@ -42,6 +44,8 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const { address } = useAccount();
   const chainId = useChainId();
   const { switchChainAsync } = useSwitchChain();
+
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   useEffect(() => {
     if (chainId !== polygon.id) {
@@ -237,9 +241,25 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                 <Skeleton loading={!shopItem.price || !shopItem.quantity}>
                   <span className="text-gray-700 dark:text-gray-300 text-sm">
                     <span className={`${priceAfterDiscount && "line-through"}`}>
-                      {shopItem.price * (shopItem.quantity as number)}
+                      {showTrotelInUsdc && "$"}
+                      {!showTrotelInUsdc &&
+                        shopItem.price * (shopItem.quantity as number)}
+                      {showTrotelInUsdc &&
+                        roundPrice(
+                          Number(trotelPrice ?? "0") *
+                            shopItem.price *
+                            (shopItem.quantity as number)
+                        )}
                     </span>{" "}
-                    {priceAfterDiscount && (
+                    {priceAfterDiscount && showTrotelInUsdc && (
+                      <>
+                        <span className="rainbow-text font-semibold">
+                          $
+                          {roundPrice(priceAfterDiscount * trotelPrice) ?? null}
+                        </span>
+                      </>
+                    )}
+                    {priceAfterDiscount && !showTrotelInUsdc && (
                       <>
                         <span className="rainbow-text font-semibold">
                           {priceAfterDiscount ?? null}

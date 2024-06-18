@@ -73,6 +73,7 @@ const Form = ({
             onFocus={() => handleFocus()}
             onBlur={() => handleBlur()}
             onChange={(e) => handleChange(e)}
+            value={searchTerm ?? ""}
             style={{
               WebkitAppearance: "none",
               appearance: "none",

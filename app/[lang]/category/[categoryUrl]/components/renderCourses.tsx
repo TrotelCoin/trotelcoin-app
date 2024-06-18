@@ -85,7 +85,7 @@ const renderCourses = (
             <div
               className={`flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700`}
             >
-              <Skeleton width="400px" height="400px" />
+              <Skeleton className="w-[400px] h-[400px]" />
             </div>
           </>
         )}

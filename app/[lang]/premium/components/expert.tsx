@@ -11,9 +11,12 @@ import Tilt from "react-parallax-tilt";
 import Link from "next/link";
 import PremiumContext from "@/contexts/premium";
 import { expertStakingBalance } from "@/data/staking/premium";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Expert = ({ lang }: { lang: Lang }) => {
   const { isExpert, totalStakingAmount } = useContext(PremiumContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   return (
     <>
@@ -30,12 +33,20 @@ const Expert = ({ lang }: { lang: Lang }) => {
         >
           <div className="px-4 py-5 sm:p-6 w-full">
             <div className="flex items-center justify-between">
-              <div
-                className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
-                  isExpert && "rainbow-text"
-                }`}
-              >
-                {lang === "en" ? "Expert" : "Expert"}
+              <div className="flex flex-col">
+                <div
+                  className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
+                    isExpert && "rainbow-text"
+                  }`}
+                >
+                  {lang === "en" ? "Expert" : "Expert"}
+                </div>
+                <span className="text-sm text-gray-900 dark:text-gray-100 font-semibold">
+                  $
+                  {roundPrice(
+                    Number(trotelPrice ?? "0") * expertStakingBalance
+                  )}
+                </span>
               </div>
 
               {isExpert ? (

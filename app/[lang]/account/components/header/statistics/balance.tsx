@@ -1,13 +1,18 @@
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 import CountUp from "react-countup";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
+
+  const { showTrotelInUsdc, storedTrotelPrice } =
+    useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -33,17 +38,26 @@ const Balance = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {balance ? (
+                {balance && !showTrotelInUsdc && (
                   <span>
                     <CountUp
                       start={0}
-                      end={Math.floor(Number(balance.formatted))}
+                      end={roundPrice(Number(balance?.formatted ?? "0"))}
                       suffix=" 💸"
                     />
                   </span>
-                ) : (
+                )}
+                {balance && showTrotelInUsdc && (
                   <span>
-                    <span>0</span> 💸
+                    <CountUp
+                      prefix="$"
+                      start={0}
+                      end={roundPrice(
+                        Number(balance?.formatted ?? "0") *
+                          Number(storedTrotelPrice ?? "0")
+                      )}
+                      suffix=" 💸"
+                    />
                   </span>
                 )}
               </span>

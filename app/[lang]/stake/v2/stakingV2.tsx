@@ -16,7 +16,19 @@ import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
 import { trotelCoinStakingV2, trotelCoinAddress } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
 
-const StakingV2 = ({ lang }: { lang: Lang }) => {
+const StakingV2 = ({
+  lang,
+  trotelPrice,
+  showTrotelInUsdc,
+  roundPrice,
+  storedTrotelPrice
+}: {
+  lang: Lang;
+  trotelPrice: number;
+  showTrotelInUsdc: boolean;
+  roundPrice: () => void;
+  storedTrotelPrice: number;
+}) => {
   const [chainError, setChainError] = useState<boolean>(false);
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [isMax, setIsMax] = useState<boolean>(false);
@@ -138,6 +150,9 @@ const StakingV2 = ({ lang }: { lang: Lang }) => {
                 address={address as Address}
                 isMax={isMax}
                 setIsMax={setIsMax}
+                trotelPrice={trotelPrice}
+                APR={APR}
+                stakingPeriod={stakingPeriod}
               />
             </div>
           </div>
@@ -145,10 +160,19 @@ const StakingV2 = ({ lang }: { lang: Lang }) => {
 
         <div className="w-full mt-4 flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
           <div className="px-4 pb-4">
-            <StakingData lang={lang} />
+            <StakingData
+              lang={lang}
+              trotelPrice={trotelPrice}
+              roundPrice={roundPrice}
+              showTrotelInUsdc={showTrotelInUsdc}
+            />
           </div>
           <div className="pt-4 px-4">
-            <TotalStaked lang={lang} />
+            <TotalStaked
+              lang={lang}
+              storedTrotelPrice={storedTrotelPrice}
+              roundPrice={roundPrice}
+            />
           </div>
         </div>
 

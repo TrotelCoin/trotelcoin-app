@@ -1,7 +1,7 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
@@ -9,6 +9,7 @@ import CountUp from "react-countup";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const stat: StatisticsType = "pending_trotelcoins";
 
@@ -20,6 +21,8 @@ const TrotelCoinsPending = ({
   statsMap: Map<StatisticsType, number>;
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
+
+  const { storedTrotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   const { data: trotelCoinsPending } = useSWR("/api/rewards", fetcher, {
     revalidateOnMount: true,
@@ -51,15 +54,28 @@ const TrotelCoinsPending = ({
           isLoading={!evolution}
         />
         <span className="font-semibold text-2xl md:text-4xl">
-          {trotelCoinsPending ? (
+          {trotelCoinsPending && !showTrotelInUsdc && (
             <>
-              <CountUp start={0} end={Math.floor(trotelCoinsPending)} />{" "}
+              <CountUp start={0} end={trotelCoinsPending} />{" "}
+              <span className="hidden md:inline">💰</span>
+            </>
+          )}
+
+          {trotelCoinsPending && showTrotelInUsdc && storedTrotelPrice ? (
+            <>
+              <CountUp
+                start={0}
+                prefix="$"
+                decimals={2}
+                end={trotelCoinsPending * storedTrotelPrice}
+              />{" "}
               <span className="hidden md:inline">💰</span>
             </>
           ) : (
-            <span>
-              0 <span className="hidden md:inline">💰</span>
-            </span>
+            <>
+              <CountUp start={0} prefix="$" decimals={0} end={0} />{" "}
+              <span className="hidden md:inline">💰</span>
+            </>
           )}
         </span>
 

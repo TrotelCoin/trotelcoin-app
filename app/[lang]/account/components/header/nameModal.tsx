@@ -132,7 +132,7 @@ const NameModal = ({
                   <div className="mt-5 sm:mt-6">
                     <input
                       type="text"
-                      value={name as string}
+                      value={name ?? ""}
                       onChange={(e) => setName(e.target.value)}
                       className="w-full rounded-xl border-gray-900/10 dark:border-gray-100/10 shadow-sm focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-300"
                     />

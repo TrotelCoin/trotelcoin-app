@@ -2,7 +2,7 @@
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CountUp from "react-countup";
 import { polygon } from "viem/chains";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
@@ -10,6 +10,7 @@ import { useToken } from "wagmi";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const stat: StatisticsType = "distributed_trotelcoins";
 
@@ -24,6 +25,8 @@ const TrotelCoinsDistributed = ({
     number | null
   >(null);
   const [evolution, setEvolution] = useState<number | null>(null);
+
+  const { storedTrotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   const { data } = useToken({
     chainId: polygon.id,
@@ -63,15 +66,27 @@ const TrotelCoinsDistributed = ({
           isLoading={!evolution}
         />
         <span className="font-semibold text-2xl md:text-4xl">
-          {trotelCoinsDistributed ? (
+          {trotelCoinsDistributed && !showTrotelInUsdc && (
             <>
-              <CountUp start={0} end={Math.floor(trotelCoinsDistributed)} />{" "}
+              <CountUp start={0} end={trotelCoinsDistributed} />{" "}
+              <span className="hidden md:inline">💸</span>
+            </>
+          )}
+
+          {trotelCoinsDistributed && showTrotelInUsdc && storedTrotelPrice ? (
+            <>
+              <CountUp
+                start={0}
+                prefix="$"
+                end={storedTrotelPrice * trotelCoinsDistributed}
+              />{" "}
               <span className="hidden md:inline">💸</span>
             </>
           ) : (
-            <span>
-              0 <span className="hidden md:inline">💸</span>
-            </span>
+            <>
+              <CountUp start={0} prefix="$" end={0} />{" "}
+              <span className="hidden md:inline">💸</span>
+            </>
           )}
         </span>
 

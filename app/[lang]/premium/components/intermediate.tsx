@@ -11,9 +11,12 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { intermediateStakingBalance } from "@/data/staking/premium";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
   const { isIntermediate, totalStakingAmount } = useContext(PremiumContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   return (
     <>
@@ -31,12 +34,20 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         >
           <div className="px-4 py-5 sm:p-6 w-full">
             <div className="flex items-center justify-between">
-              <div
-                className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
-                  isIntermediate && "rainbow-text"
-                }`}
-              >
-                {lang === "en" ? "Intermediate" : "Intermédiaire"}
+              <div className="flex flex-col">
+                <div
+                  className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
+                    isIntermediate && "rainbow-text"
+                  }`}
+                >
+                  {lang === "en" ? "Intermediate" : "Intermédiaire"}
+                </div>
+                <span className="text-sm text-gray-900 dark:text-gray-100 font-semibold">
+                  $
+                  {roundPrice(
+                    Number(trotelPrice ?? "0") * intermediateStakingBalance
+                  )}
+                </span>
               </div>
 
               {isIntermediate ? (

@@ -16,12 +16,15 @@ import { useContext, useEffect } from "react";
 import ThemeContext from "@/contexts/theme";
 import AverageMark from "@/app/[lang]/account/components/header/statistics/averageMark";
 import LearningTime from "@/app/[lang]/account/components/header/statistics/learningTime";
+import { Switch } from "@nextui-org/react";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
   const { open } = useWeb3Modal();
   const { theme } = useContext(ThemeContext);
   const { setThemeMode } = useWeb3ModalTheme();
+  const { toggleShowInUsdc, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   useEffect(() => {
     setThemeMode(theme);
@@ -31,6 +34,10 @@ const Header = ({ lang }: { lang: Lang }) => {
     address: address as Address,
     chainId: mainnet.id,
   });
+
+  useEffect(() => {
+    console.log("show", showTrotelInUsdc);
+  }, [showTrotelInUsdc]);
 
   return (
     <>
@@ -51,6 +58,18 @@ const Header = ({ lang }: { lang: Lang }) => {
           </button>{" "}
           👋
         </h2>
+
+        <div className="flex items-center gap-2 px-4">
+          <Switch
+            size="sm"
+            color="primary"
+            isSelected={showTrotelInUsdc}
+            onValueChange={toggleShowInUsdc}
+            className="text-black dark:text-white font-semibold"
+          >
+            USDC
+          </Switch>
+        </div>
       </div>
 
       <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">

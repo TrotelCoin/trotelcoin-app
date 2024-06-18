@@ -9,7 +9,15 @@ import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
 
-const TotalStaked = ({ lang }: { lang: Lang }) => {
+const TotalStaked = ({
+  lang,
+  storedTrotelPrice,
+  roundPrice,
+}: {
+  lang: Lang;
+  storedTrotelPrice: number;
+  roundPrice: () => void;
+}) => {
   const [totalStaked, setTotalStaked] = useState<number | null>(null);
 
   const { data: blockNumber } = useBlockNumber({
@@ -42,6 +50,21 @@ const TotalStaked = ({ lang }: { lang: Lang }) => {
           <div className="flex items-center gap-1">
             <Skeleton loading={!totalStaked}>
               <CountUp start={0} end={totalStaked ?? 0} />
+              <TrotelCoinLogo />
+            </Skeleton>
+          </div>
+        </div>
+
+        <div className="flex justify-between">
+          <span>{lang === "en" ? "TVL" : "TVL"}</span>
+          <div className="flex items-center gap-1">
+            <Skeleton loading={!trotelPrice || !totalStaked}>
+              {storedTrotelPrice && totalStaked ? (
+                <CountUp start={0} prefix="$" end={storedTrotelPrice * totalStaked} />
+              ) : (
+                <CountUp start={0} end={0} />
+              )}
+
               <TrotelCoinLogo />
             </Skeleton>
           </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Item from "@/app/[lang]/shop/components/item";
 import { Lang } from "@/types/language/lang";
 import type { ShopCategories, Category } from "@/types/shop/shop";
@@ -13,6 +13,8 @@ import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import ItemSkeleton from "@/app/[lang]/shop/components/itemSkeleton";
 import { ItemType, ItemTypeFinal } from "@/types/items/items";
 import { loadingFlashClass } from "@/style/loading";
+import TrotelPriceContext from "@/contexts/trotelPrice";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -49,8 +51,11 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [items, setItems] = useState<ItemTypeFinal[] | null>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(true);
+  const [isHoveringBalance, setIsHoveringBalance] = useState<boolean>(false);
 
   const { address } = useAccount();
+
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -180,9 +185,23 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         </li>
                       ))}
                 </ul>
-                <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  {balance?.toLocaleString("en-US") ?? "0"} TROTEL
-                </span>
+
+                <div
+                  onMouseEnter={() => setIsHoveringBalance(true)}
+                  onMouseLeave={() => setIsHoveringBalance(false)}
+                >
+                  <span className="text-gray-700 dark:text-gray-300 text-sm font-semibold">
+                    {!showTrotelInUsdc &&
+                      balance &&
+                      roundPrice(balance).toLocaleString("en-US")}
+                    {showTrotelInUsdc &&
+                      balance &&
+                      `$${roundPrice(
+                        Number(trotelPrice ?? "0") * balance
+                      ).toLocaleString("en-US")}`}{" "}
+                    <span>TROTEL</span>
+                  </span>
+                </div>
               </div>
             </>
           )}
@@ -213,9 +232,22 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                             </li>
                           ))}
                     </ul>
-                    <span className="text-gray-700 dark:text-gray-300 text-sm">
-                      {balance?.toLocaleString("en-US") ?? "0"} TROTEL
-                    </span>
+                    <div
+                      onMouseEnter={() => setIsHoveringBalance(true)}
+                      onMouseLeave={() => setIsHoveringBalance(false)}
+                    >
+                      <span className="text-gray-700 dark:text-gray-300 text-sm font-semibold">
+                        {!showTrotelInUsdc &&
+                          balance &&
+                          roundPrice(balance).toLocaleString("en-US")}
+                        {showTrotelInUsdc &&
+                          balance &&
+                          `$${roundPrice(
+                            Number(trotelPrice ?? "0") * balance
+                          ).toLocaleString("en-US")}`}{" "}
+                        <span>TROTEL</span>
+                      </span>
+                    </div>
                   </div>
 
                   <div className="flex flex-col gap-1 mt-2">

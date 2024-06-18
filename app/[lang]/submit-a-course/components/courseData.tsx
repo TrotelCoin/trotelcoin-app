@@ -130,7 +130,7 @@ const CourseData = ({
                     : "Le titre de la diapo"
                 }
                 onChange={(e) => handleTitleChange(index, e.target.value)}
-                value={slide?.title}
+                value={slide?.title ?? ""}
                 maxLength={80}
                 className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
               />

@@ -25,6 +25,7 @@ import ThemeProvider from "@/providers/theme";
 import AudioProvider from "@/providers/audio";
 import LanguageProvider from "@/providers/language";
 import Web3ModalProvider from "@/contexts/web3Modal";
+import { NextUIProvider } from "@nextui-org/react";
 import "swiper/css";
 import "animate.css";
 import "swiper/css/navigation";
@@ -139,45 +140,49 @@ export default function Layout({
             speed={200}
             shadow="0 0 10px #3b82f6,0 0 5px #3b82f6"
           />
-          <Theme hasBackground={false}>
-            <ThemeProvider>
-              <AudioProvider>
-                <Web3ModalProvider initialState={initialState}>
-                  <SessionProviderComponent session={session}>
-                    <TrotelPriceProvider>
-                      <PremiumProvider>
-                        <UserProvider lang={lang}>
-                          <LifeProvider lang={lang}>
-                            <StreakProvider lang={lang}>
-                              <LanguageProvider>
-                                <NotificationProvider lang={lang}>
-                                  <Suspense fallback={<Loading lang={lang} />}>
-                                    <Waitlist lang={lang}>
-                                      <Banner lang={lang} />
-                                      <Changelogs lang={lang} />
-                                      <Header lang={lang} />
+          <NextUIProvider>
+            <Theme hasBackground={false}>
+              <ThemeProvider>
+                <AudioProvider>
+                  <Web3ModalProvider initialState={initialState}>
+                    <SessionProviderComponent session={session}>
+                      <TrotelPriceProvider>
+                        <PremiumProvider>
+                          <UserProvider lang={lang}>
+                            <LifeProvider lang={lang}>
+                              <StreakProvider lang={lang}>
+                                <LanguageProvider>
+                                  <NotificationProvider lang={lang}>
+                                    <Suspense
+                                      fallback={<Loading lang={lang} />}
+                                    >
+                                      <Waitlist lang={lang}>
+                                        <Banner lang={lang} />
+                                        <Changelogs lang={lang} />
+                                        <Header lang={lang} />
 
-                                      <main className="px-4 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
-                                        {children}
-                                      </main>
+                                        <main className="px-4 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                                          {children}
+                                        </main>
 
-                                      <Footer lang={lang} />
-                                      <MobileFooter lang={lang} />
-                                      <BlockNumber lang={lang} />
-                                    </Waitlist>
-                                  </Suspense>
-                                </NotificationProvider>
-                              </LanguageProvider>
-                            </StreakProvider>
-                          </LifeProvider>
-                        </UserProvider>
-                      </PremiumProvider>
-                    </TrotelPriceProvider>
-                  </SessionProviderComponent>
-                </Web3ModalProvider>
-              </AudioProvider>
-            </ThemeProvider>
-          </Theme>
+                                        <Footer lang={lang} />
+                                        <MobileFooter lang={lang} />
+                                        <BlockNumber lang={lang} />
+                                      </Waitlist>
+                                    </Suspense>
+                                  </NotificationProvider>
+                                </LanguageProvider>
+                              </StreakProvider>
+                            </LifeProvider>
+                          </UserProvider>
+                        </PremiumProvider>
+                      </TrotelPriceProvider>
+                    </SessionProviderComponent>
+                  </Web3ModalProvider>
+                </AudioProvider>
+              </ThemeProvider>
+            </Theme>
+          </NextUIProvider>
           <Analytics />
           <SpeedInsights />
         </body>

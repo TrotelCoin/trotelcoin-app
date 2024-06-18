@@ -2,7 +2,7 @@
 
 import { trotelCoinAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { polygon } from "viem/chains";
 import {
   useAccount,
@@ -20,6 +20,8 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import ScannerComponent from "./components/scanner";
+import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -34,6 +36,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [sendConfirmed, setSendConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
+
+  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -180,14 +184,17 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <div className="flex items-end gap-2 px-4 pt-4">
             <div className="flex flex-col gap-1">
               <span className="text-sm">
-                {lang === "en" ? "Amount" : "Montant"}
+                {lang === "en" ? "Amount" : "Montant"}{" "}
+                {trotelPrice && (
+                  <>• ${roundPrice(trotelPrice * Number(amount ?? "0"))}</>
+                )}
               </span>
               <input
                 type="number"
                 className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
                   !address && "cursor-not-allowed"
                 }`}
-                value={amount}
+                value={amount ?? ""}
                 onChange={(e) => setAmount(parseFloat(e.target.value))}
                 onWheel={(e) => (e.target as HTMLInputElement).blur()}
                 placeholder={lang === "en" ? "1000" : "1000"}
