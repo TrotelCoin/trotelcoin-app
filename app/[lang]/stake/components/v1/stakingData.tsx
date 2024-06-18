@@ -6,7 +6,7 @@ import {
   useAccount,
   useReadContract,
   useBlockNumber,
-  useBlock,
+  useBlock
 } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
@@ -17,7 +17,7 @@ import {
   oneYear,
   sixMonths,
   thirstyDays,
-  threeMonths,
+  threeMonths
 } from "@/data/staking/duration";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
@@ -31,7 +31,7 @@ const StakingData = ({
   lang,
   trotelPrice,
   roundPrice,
-  showTrotelInUsdc,
+  showTrotelInUsdc
 }: {
   lang: Lang;
   trotelPrice: number;
@@ -55,17 +55,17 @@ const StakingData = ({
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
   const { data: block } = useBlock({
     chainId: polygon.id,
-    blockNumber: blockNumber,
+    blockNumber: blockNumber
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address as Address,
+    address: address as Address
   });
 
   useEffect(() => {
@@ -89,13 +89,13 @@ const StakingData = ({
       abi: trotelCoinStakingV1ABI,
       address: trotelCoinStakingV1,
       functionName: "stakings",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   useEffect(() => {
     refetchBalance();
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, refetchBalance, refetchStakings]);
 
   useEffect(() => {
     if (block && !blockFetched) {
@@ -103,7 +103,7 @@ const StakingData = ({
       setTimestamp(timestamp);
       setBlockFetched(true);
     }
-  }, [block]);
+  }, [block, blockFetched]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address) {
@@ -243,12 +243,12 @@ const StakingData = ({
                     ? "Staking"
                     : "Misé"
                   : stakedTrotelCoins && stakedTrotelCoins > 0
-                  ? lang === "en"
-                    ? "Claimable"
-                    : "Réclamable"
-                  : lang === "en"
-                  ? "Not staking"
-                  : "Non misé"}
+                    ? lang === "en"
+                      ? "Claimable"
+                      : "Réclamable"
+                    : lang === "en"
+                      ? "Not staking"
+                      : "Non misé"}
               </span>
             </Skeleton>
           </div>

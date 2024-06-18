@@ -19,7 +19,7 @@ const CourseSection = ({
   scroll,
   isLoading,
   viewAll,
-  categoryUrl,
+  categoryUrl
 }: {
   title: string;
   courses: Lesson[] | null;
@@ -39,17 +39,17 @@ const CourseSection = ({
 }) => {
   return (
     <div className="my-10">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="font-semibold text-xl text-gray-900 dark:text-gray-100">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
             <Skeleton loading={isLoading}>{title}</Skeleton>
           </h2>
         </div>
         <div className="flex items-center gap-2">
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden items-center gap-2 md:flex">
             <Skeleton loading={isLoading}>
               <button
-                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                className="flex items-center justify-center rounded-full border border-gray-900/10 bg-white p-1 text-center text-xs text-gray-900 hover:bg-gray-100 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
                 onClick={() => scroll(scrollRef, "left")}
               >
                 <ChevronLeftIcon className="h-4 w-4 text-black dark:text-white" />
@@ -57,7 +57,7 @@ const CourseSection = ({
             </Skeleton>
             <Skeleton loading={isLoading}>
               <button
-                className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 p-1 text-center flex justify-center items-center rounded-full"
+                className="flex items-center justify-center rounded-full border border-gray-900/10 bg-white p-1 text-center text-xs text-gray-900 hover:bg-gray-100 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700"
                 onClick={() => scroll(scrollRef, "right")}
               >
                 <ChevronRightIcon className="h-4 w-4 text-black dark:text-white" />
@@ -67,7 +67,7 @@ const CourseSection = ({
 
           {viewAll && (
             <Link href={`/${lang}/category/${categoryUrl}`}>
-              <button className="bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-900/10 dark:border-gray-100/10 text-xs text-gray-900 dark:text-gray-100 px-2 py-1 text-center flex justify-center items-center rounded-full">
+              <button className="flex items-center justify-center rounded-full border border-gray-900/10 bg-white px-2 py-1 text-center text-xs text-gray-900 hover:bg-gray-100 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
                 <Skeleton loading={isLoading}>
                   {lang === "en" ? "View all" : "Voir tout"}
                 </Skeleton>
@@ -78,7 +78,7 @@ const CourseSection = ({
       </div>
       <div
         ref={scrollRef as React.RefObject<HTMLDivElement>}
-        className="mt-4 overflow-x-auto flex items-center gap-4 scroll-smooth hide-scrollbar"
+        className="hide-scrollbar mt-4 flex items-center gap-4 overflow-x-auto scroll-smooth"
       >
         {courses && !isLoading
           ? courses

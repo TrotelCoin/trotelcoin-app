@@ -19,9 +19,9 @@ const Action = ({ title, color }: { title: string; color: Colors }) => {
         <div
           className={`${colorClass(
             color
-          )} text-center h-full shadow-xl flex items-center justify-center cursor-pointer active:border-gray-900 border-2 border-gray-900/50 dark:border-transparent backdrop-blur-xl rounded-xl p-8`}
+          )} flex h-full cursor-pointer items-center justify-center rounded-xl border-2 border-gray-900/50 p-8 text-center shadow-xl backdrop-blur-xl active:border-gray-900 dark:border-transparent`}
         >
-          <div className={`font-semibold text-4xl text-gray-100`}>{title}</div>
+          <div className={`text-4xl font-semibold text-gray-100`}>{title}</div>
         </div>
       </Tilt>
     </>

@@ -14,7 +14,7 @@ const enableFlag: boolean = false;
 
 const NotificationProvider = ({
   children,
-  lang,
+  lang
 }: {
   children: React.ReactNode;
   lang: Lang;

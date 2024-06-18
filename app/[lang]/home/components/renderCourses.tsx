@@ -7,7 +7,7 @@ import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { lessons } from "@/data/lessons/lessons";
 import Marquee from "react-fast-marquee";
 
-const renderCourses = (
+const RenderCourses = (
   course: Lesson,
   isIntermediate: boolean,
   isExpert: boolean,
@@ -20,14 +20,14 @@ const renderCourses = (
   const [isHovering, setIsHovering] = useState<boolean>(false);
   const [categoryLogo, setCategoryLogo] = useState<string | null>(null);
 
-  const getCategoryLogo = () => {
-    const categoryLogo: string = lessons.find(
-      (lesson: Lessons) => lesson.category === category
-    )?.logo as string;
-    setCategoryLogo(categoryLogo);
-  };
-
   useEffect(() => {
+    const getCategoryLogo = () => {
+      const categoryLogo: string = lessons.find(
+        (lesson: Lessons) => lesson.category === category
+      )?.logo as string;
+      setCategoryLogo(categoryLogo);
+    };
+
     getCategoryLogo();
   }, [category]);
 
@@ -72,30 +72,30 @@ const renderCourses = (
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`rounded-xl relative h-64 w-64 overflow-hidden flex flex-col justify-between items-start active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
+        className={`relative flex h-64 w-64 flex-col items-start justify-between overflow-hidden rounded-xl active:border-blue-500 active:shadow-none dark:active:border-blue-300 ${
           isHovering
             ? "bg-gray-100 dark:bg-gray-700"
             : "bg-white dark:bg-gray-800"
         } ${borderClass} backdrop-blur-xl`}
       >
         {course.cover && (
-          <div className="flex items-center justify-center overflow-hidden w-full h-full bg-gray-100 dark:bg-gray-700">
+          <div className="flex h-full w-full items-center justify-center overflow-hidden bg-gray-100 dark:bg-gray-700">
             <Image
               src={course.cover as string}
               width={500}
               height={500}
               alt={title}
-              className={`object-cover transform transition-transform duration-300 ease-in-out ${
-                isHovering && "scale-105 rotate-2 duration-300"
+              className={`transform object-cover transition-transform duration-300 ease-in-out ${
+                isHovering && "rotate-2 scale-105 duration-300"
               }`}
             />
           </div>
         )}
 
-        <div className="p-4 w-full h-full flex flex-col justify-between">
+        <div className="flex h-full w-full flex-col justify-between p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-0.5">
-              <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-1">
+              <div className="flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300">
                 {categoryLogo && (
                   <>
                     <Image
@@ -127,11 +127,11 @@ const renderCourses = (
             play={true}
             speed={25}
             autoFill={true}
-            className="flex mt-4 items-center overflow-hidden whitespace-nowrap"
+            className="mt-4 flex items-center overflow-hidden whitespace-nowrap"
           >
             {course.sponsored && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-orange-400 px-2 py-1 text-xs font-medium text-gray-100">
                   {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
                 </div>
               </div>
@@ -139,7 +139,7 @@ const renderCourses = (
 
             {course.new && (
               <div className="px-1">
-                <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+                <div className="gradient-animation inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-900/20 dark:text-gray-900 dark:ring-transparent">
                   {lang === "en" ? "New 👀" : "Nouveau 👀"}
                 </div>
               </div>
@@ -147,7 +147,7 @@ const renderCourses = (
 
             {(tier === "Beginner" || tier === "Débutant") && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
                   {tier} 🐣
                 </div>
               </div>
@@ -155,7 +155,7 @@ const renderCourses = (
 
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-blue-400 px-2 py-1 text-xs font-medium text-gray-100">
                   {tier} 🙈
                 </div>
               </div>
@@ -163,7 +163,7 @@ const renderCourses = (
 
             {tier === "Expert" && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-red-400 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100">
                   {tier} 🦊
                 </div>
               </div>
@@ -171,7 +171,7 @@ const renderCourses = (
 
             {!course.available && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-transparent text-xs font-medium text-gray-900 dark:text-gray-100">
                   {lang === "en" ? "Not available" : "Non disponible"}
                 </div>
               </div>
@@ -183,4 +183,4 @@ const renderCourses = (
   );
 };
 
-export default renderCourses;
+export default RenderCourses;

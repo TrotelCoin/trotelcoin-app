@@ -15,7 +15,7 @@ const UserContext = React.createContext({
   multipliersItemTimeLeft: null as number | null,
   userLevel: null as number | null,
   multipliersEnabled: false as boolean,
-  quizzesLeft: null as number | null,
+  quizzesLeft: null as number | null
 });
 
 export default UserContext;

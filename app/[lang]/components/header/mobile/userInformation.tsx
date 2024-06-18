@@ -15,7 +15,7 @@ const UserInformationMobile = ({
   life,
   userTotalRewardsPending,
   userNumberOfQuizzesAnswered,
-  isPremium,
+  isPremium
 }: {
   lang: Lang;
   streak: number | null;
@@ -31,7 +31,7 @@ const UserInformationMobile = ({
   return (
     <>
       <Marquee>
-        <div className="flex rounded-full items-center gap-16 w-full text-gray-900 dark:text-gray-100 font-semibold mx-8">
+        <div className="mx-8 flex w-full items-center gap-16 rounded-full font-semibold text-gray-900 dark:text-gray-100">
           <div className="flex items-center">
             <span className={`${isPremium && "rainbow-text"}`}>
               {isExpert
@@ -39,18 +39,18 @@ const UserInformationMobile = ({
                   ? "Expert 🦊"
                   : "Expert 🦊"
                 : isIntermediate
-                ? lang === "en"
-                  ? "Intermediate 🙈"
-                  : "Intermédiaire 🙈"
-                : lang === "en"
-                ? "Beginner 🐣"
-                : "Débutant 🐣"}
+                  ? lang === "en"
+                    ? "Intermediate 🙈"
+                    : "Intermédiaire 🙈"
+                  : lang === "en"
+                    ? "Beginner 🐣"
+                    : "Débutant 🐣"}
             </span>
           </div>
           <div className="flex items-center">{streak ?? 0} 🔥</div>
           <div className="flex items-center">
             {isPremium ? (
-              <span className="text-xl mr-1">&infin;</span>
+              <span className="mr-1 text-xl">&infin;</span>
             ) : (
               life ?? 3
             )}{" "}

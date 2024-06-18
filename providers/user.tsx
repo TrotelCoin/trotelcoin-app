@@ -13,7 +13,7 @@ import { calculateUserLevel } from "@/utils/levels/calculateUserLevel";
 
 const UserProvider = ({
   children,
-  lang,
+  lang
 }: {
   children: ReactNode;
   lang: Lang;
@@ -56,7 +56,7 @@ const UserProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -75,7 +75,7 @@ const UserProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -94,7 +94,7 @@ const UserProvider = ({
       refreshInterval: refreshIntervalTime,
       revalidateIfStale: true,
       revalidateOnMount: true,
-      revalidateOnReconnect: true,
+      revalidateOnReconnect: true
     }
   );
 
@@ -113,7 +113,7 @@ const UserProvider = ({
       refreshInterval: refreshIntervalTime,
       revalidateIfStale: true,
       revalidateOnMount: true,
-      revalidateOnReconnect: true,
+      revalidateOnReconnect: true
     }
   );
 
@@ -132,7 +132,7 @@ const UserProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -151,7 +151,7 @@ const UserProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -214,7 +214,7 @@ const UserProvider = ({
       multipliersItemTimeLeft,
       userLevel,
       multipliersEnabled,
-      quizzesLeft,
+      quizzesLeft
     }),
     [
       userTotalRewardsPending,
@@ -229,7 +229,7 @@ const UserProvider = ({
       multipliersItemTimeLeft,
       userLevel,
       multipliersEnabled,
-      quizzesLeft,
+      quizzesLeft
     ]
   );
 

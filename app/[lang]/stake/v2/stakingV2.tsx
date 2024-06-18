@@ -40,7 +40,7 @@ const StakingV2 = ({
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const chainId = useChainId();
@@ -83,7 +83,7 @@ const StakingV2 = ({
     args: [address, trotelCoinStakingV2],
     abi: trotelCoinABI,
     address: trotelCoinAddress,
-    functionName: "allowance",
+    functionName: "allowance"
   });
 
   useEffect(() => {
@@ -105,7 +105,7 @@ const StakingV2 = ({
     abi: trotelCoinStakingV2ABI,
     address: trotelCoinStakingV2,
     args: [address],
-    functionName: "stakings",
+    functionName: "stakings"
   });
 
   useEffect(() => {
@@ -121,13 +121,13 @@ const StakingV2 = ({
   useEffect(() => {
     refetchAllowance();
     refetchStakings();
-  }, [blockNumber]);
+  }, [blockNumber, refetchAllowance, refetchStakings]);
 
   return (
     <>
-      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-          <div className="px-4 flex flex-col gap-4">
+      <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center">
+        <div className="flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+          <div className="flex flex-col gap-4 px-4">
             <span className="text-4xl font-bold text-green-500 dark:text-green-300">
               {APR}%{" "}
               <span className="text-base text-gray-700 dark:text-gray-300">
@@ -158,7 +158,7 @@ const StakingV2 = ({
           </div>
         </div>
 
-        <div className="w-full mt-4 flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="mt-4 flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="px-4 pb-4">
             <StakingData
               lang={lang}
@@ -167,7 +167,7 @@ const StakingV2 = ({
               showTrotelInUsdc={showTrotelInUsdc}
             />
           </div>
-          <div className="pt-4 px-4">
+          <div className="px-4 pt-4">
             <TotalStaked
               lang={lang}
               storedTrotelPrice={storedTrotelPrice}

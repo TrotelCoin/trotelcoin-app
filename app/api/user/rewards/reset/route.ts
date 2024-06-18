@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,7 +7,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* POST /api/user/rewards/reset
@@ -31,7 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     await supabase

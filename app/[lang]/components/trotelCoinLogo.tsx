@@ -3,14 +3,14 @@ import Image from "next/image";
 
 const TrotelCoinLogo = ({
   width,
-  height,
+  height
 }: {
   width?: number;
   height?: number;
 }) => {
   return (
     <>
-      <div className="block dark:hidden w-full">
+      <div className="block w-full dark:hidden">
         <Image
           width={width ?? 16}
           height={height ?? 16}
@@ -20,7 +20,7 @@ const TrotelCoinLogo = ({
           src={"/assets/logo/trotelcoin.svg"}
         />
       </div>
-      <div className="hidden dark:block w-full">
+      <div className="hidden w-full dark:block">
         <Image
           width={width ?? 16}
           height={height ?? 16}

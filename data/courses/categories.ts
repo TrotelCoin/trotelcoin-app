@@ -8,10 +8,10 @@ export type Categories = {
 export const categories: Categories = [
   {
     category: "Web3",
-    subcategories: ["Cryptocurrencies", "Trading", "DeFi"],
+    subcategories: ["Cryptocurrencies", "Trading", "DeFi"]
   },
   {
     category: "Finance",
-    subcategories: ["Investment", "Cryptocurrencies", "Stocks"],
-  },
+    subcategories: ["Investment", "Cryptocurrencies", "Stocks"]
+  }
 ];

@@ -12,7 +12,7 @@ import type { Lang } from "@/types/language/lang";
 
 const StreakProvider = ({
   children,
-  lang,
+  lang
 }: {
   children: ReactNode;
   lang: Lang;
@@ -37,7 +37,7 @@ const StreakProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -84,7 +84,7 @@ const StreakProvider = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -146,7 +146,7 @@ const StreakProvider = ({
       streakResetMessage,
       streakMessage,
       lostStreakAt,
-      lostStreak,
+      lostStreak
     }),
     [
       streak,
@@ -165,7 +165,7 @@ const StreakProvider = ({
       streakResetMessage,
       streakMessage,
       lostStreakAt,
-      lostStreak,
+      lostStreak
     ]
   );
 

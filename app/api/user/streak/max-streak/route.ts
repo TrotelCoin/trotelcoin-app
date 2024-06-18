@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/streak/max-streak
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data: result } = await supabase
@@ -43,7 +43,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     } else {
       return NextResponse.json(0, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
   } catch (error) {

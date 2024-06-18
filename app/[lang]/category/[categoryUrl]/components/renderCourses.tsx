@@ -6,7 +6,7 @@ import Marquee from "react-fast-marquee";
 import { Skeleton } from "@radix-ui/themes";
 import React, { useState } from "react";
 
-const renderCourses = (
+const RenderCourses = (
   course: Lesson,
   isIntermediate: boolean,
   isExpert: boolean,
@@ -60,7 +60,7 @@ const renderCourses = (
       onMouseLeave={() => setIsHovering(false)}
     >
       <div
-        className={`rounded-xl h-full flex flex-col overflow-hidden active:border-blue-500 dark:active:border-blue-300 active:shadow-none ${
+        className={`flex h-full flex-col overflow-hidden rounded-xl active:border-blue-500 active:shadow-none dark:active:border-blue-300 ${
           isHovering
             ? "bg-gray-100 dark:bg-gray-700"
             : "bg-white dark:bg-gray-800"
@@ -68,29 +68,29 @@ const renderCourses = (
       >
         {course.cover ? (
           <div
-            className={`flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700`}
+            className={`flex h-64 w-full items-center justify-center overflow-hidden bg-gray-100 dark:bg-gray-700`}
           >
             <Image
               src={course.cover as string}
               width={400}
               height={400}
               alt={title}
-              className={`object-cover transform transition-transform duration-300 ease-in-out ${
-                isHovering && "scale-105 rotate-2 duration-300"
+              className={`transform object-cover transition-transform duration-300 ease-in-out ${
+                isHovering && "rotate-2 scale-105 duration-300"
               }`}
             />
           </div>
         ) : (
           <>
             <div
-              className={`flex items-center justify-center overflow-hidden w-full h-64 bg-gray-100 dark:bg-gray-700`}
+              className={`flex h-64 w-full items-center justify-center overflow-hidden bg-gray-100 dark:bg-gray-700`}
             >
-              <Skeleton className="w-[400px] h-[400px]" />
+              <Skeleton className="h-[400px] w-[400px]" />
             </div>
           </>
         )}
 
-        <div className="p-4 w-full flex flex-col justify-between h-1/2">
+        <div className="flex h-1/2 w-full flex-col justify-between p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
               <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
@@ -98,62 +98,62 @@ const renderCourses = (
               </div>
             </div>
             <div>
-              <div className={`text-gray-700 dark:text-gray-300 text-xs`}>
+              <div className={`text-xs text-gray-700 dark:text-gray-300`}>
                 <Skeleton loading={!description}>{description}</Skeleton>
               </div>
             </div>
           </div>
           <Marquee
-            className="flex mt-4 items-center"
+            className="mt-4 flex items-center"
             play={true}
             speed={25}
             autoFill={true}
           >
             {!course && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
                   <Skeleton loading={true}>Rank 🐣</Skeleton>
                 </div>
               </div>
             )}
             {course.sponsored && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-orange-400 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-orange-400 px-2 py-1 text-xs font-medium text-gray-100">
                   {lang === "en" ? "Sponsored 📚" : "Sponsorisé 📚"}
                 </div>
               </div>
             )}
             {course.new && (
               <div className="px-1">
-                <div className="inline-flex items-center ring-1 ring-inset ring-gray-900/20 dark:ring-transparent rounded-xl px-2 py-1 text-xs font-medium gradient-animation text-gray-900 dark:text-gray-900">
+                <div className="gradient-animation inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-900/20 dark:text-gray-900 dark:ring-transparent">
                   {lang === "en" ? "New 👀" : "Nouveau 👀"}
                 </div>
               </div>
             )}
             {(tier === "Beginner" || tier === "Débutant") && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-gray-500 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
                   {tier} 🐣
                 </div>
               </div>
             )}
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-blue-400 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-blue-400 px-2 py-1 text-xs font-medium text-gray-100">
                   {tier} 🙈
                 </div>
               </div>
             )}
             {tier === "Expert" && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium bg-red-400 text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100">
                   {tier} 🦊
                 </div>
               </div>
             )}
             {!course.available && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl text-xs font-medium bg-transparent text-gray-900 dark:text-gray-100">
+                <div className="inline-flex items-center rounded-xl bg-transparent text-xs font-medium text-gray-900 dark:text-gray-100">
                   {lang === "en" ? "Not available" : "Non disponible"}
                 </div>
               </div>
@@ -165,4 +165,4 @@ const renderCourses = (
   );
 };
 
-export default renderCourses;
+export default RenderCourses;

@@ -17,7 +17,7 @@ const Course = ({
   quizId,
   lang,
   children,
-  course,
+  course
 }: {
   quizId: number;
   lang: Lang;
@@ -103,12 +103,12 @@ const Course = ({
       {!address && tier !== "Beginner"
         ? renderUnauthorizedContent()
         : !foundAvailability ||
-          (tier !== "Beginner" &&
-            (((tier === "Intermediate" || tier === "Intermédiaire") &&
-              !isIntermediate) ||
-              (tier === "Expert" && !isExpert)))
-        ? renderUnauthorizedContent()
-        : renderCourseContent(children)}
+            (tier !== "Beginner" &&
+              (((tier === "Intermediate" || tier === "Intermédiaire") &&
+                !isIntermediate) ||
+                (tier === "Expert" && !isExpert)))
+          ? renderUnauthorizedContent()
+          : renderCourseContent(children)}
     </>
   );
 };

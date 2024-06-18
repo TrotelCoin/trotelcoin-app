@@ -9,11 +9,11 @@ export const dynamic = "force-dynamic";
 const inputSchemaPost = z.object({
   quizId: z.number(),
   wallet: z.custom<Address>(),
-  diffTime: z.number(),
+  diffTime: z.number()
 });
 
 const inputSchemaGet = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/user/quizzes/time
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchemaGet.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data } = await supabase
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(time, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { quizId, wallet, diffTime } = inputSchemaPost.safeParse({
       quizId: Number(searchParams.get("quizId")),
       wallet: searchParams.get("wallet"),
-      diffTime: Number(searchParams.get("diffTime")),
+      diffTime: Number(searchParams.get("diffTime"))
     }).data as unknown as { quizId: number; wallet: Address; diffTime: number };
 
     const { data } = await supabase
@@ -100,13 +100,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (data && data.length > 0) {
       return NextResponse.json("Already exists", {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       const { error } = await supabase.from("quizzes_times").insert({
         quiz_id: quizId,
         wallet: wallet,
-        diffTime: diffTime,
+        diffTime: diffTime
       });
 
       if (error) {
@@ -116,7 +116,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
       return NextResponse.json("Time computed", {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
   } catch (error) {

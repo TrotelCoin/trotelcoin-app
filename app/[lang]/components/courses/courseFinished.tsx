@@ -8,7 +8,7 @@ import GoHomeButton from "@/app/[lang]/components/buttons/goHome";
 const CourseFinished = ({
   lang,
   quizId,
-  startTime,
+  startTime
 }: {
   lang: Lang;
   quizId: number;

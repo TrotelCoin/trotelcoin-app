@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 // input schema
 const inputSchema = z.object({
   quizId: z.number(),
-  lang: z.custom<Lang>(),
+  lang: z.custom<Lang>()
 });
 
 /* GET /api/answers?quizId=1&lang=en
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data } = inputSchema.safeParse({
       quizId: Number(searchParams.get("quizId")),
-      lang: searchParams.get("lang"),
+      lang: searchParams.get("lang")
     });
 
     const { quizId, lang } = data as { quizId: number; lang: Lang };
@@ -38,7 +38,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(answersInLanguage, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

@@ -19,7 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     return NextResponse.json(centralWalletAddress, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

@@ -65,16 +65,16 @@ export const metadata: Metadata = {
         url: "https://app.trotelcoin.com/assets/banner/trotelcoin-banner.png",
         width: 800,
         height: 600,
-        alt: "TrotelCoin App",
-      },
-    ],
+        alt: "TrotelCoin App"
+      }
+    ]
   },
   twitter: {
     card: "summary",
     site: "@trotelcoin",
     creator: "@trotelcoin",
-    title: "TrotelCoin App",
-  },
+    title: "TrotelCoin App"
+  }
 };
 
 export const jsonLd = {
@@ -83,7 +83,7 @@ export const jsonLd = {
   name: "TrotelCoin",
   image: "/assets/banner/trotelcoin-banner.png",
   description:
-    "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond.",
+    "TrotelCoin, a web3 platform, facilitates connecting, attracting, and retaining users through interactive experiences. Join a community exploring crypto daily through Quests, Streaks, Activities, and beyond."
 };
 
 export const revalidate = refreshIntervalTime;
@@ -91,7 +91,7 @@ export const revalidate = refreshIntervalTime;
 export default function Layout({
   session,
   children,
-  params: { lang },
+  params: { lang }
 }: {
   session: Session;
   children: React.ReactNode;
@@ -109,7 +109,7 @@ export default function Layout({
             as="image"
           />
           <link rel="icon" href="/favicon.ico" sizes="any" as="icon" />
-          <Script strategy="lazyOnload">
+          <Script id="hotjar" strategy="lazyOnload">
             {`
             (function(h,o,t,j,a,r){
               h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
@@ -161,7 +161,7 @@ export default function Layout({
                                         <Changelogs lang={lang} />
                                         <Header lang={lang} />
 
-                                        <main className="px-4 lg:px-8 lg:mx-auto py-12 lg:py-18 max-w-5xl">
+                                        <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">
                                           {children}
                                         </main>
 
@@ -188,6 +188,7 @@ export default function Layout({
         </body>
 
         <Script
+          id="json"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

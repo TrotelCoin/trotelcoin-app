@@ -11,7 +11,7 @@ const NameModal = ({
   name,
   setName,
   setNameModal,
-  nameModal,
+  nameModal
 }: {
   lang: Lang;
   name: string | null;
@@ -38,7 +38,7 @@ const NameModal = ({
         setNameError(null);
       }
     }
-  }, [name]);
+  }, [name, lang, setNameError]);
 
   const postName = async (name: string) => {
     setNameIsLoading(true);
@@ -90,7 +90,7 @@ const NameModal = ({
       <Transition.Root show={nameModal} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 flex z-50 items-center justify-center h-screen m-auto"
+          className="fixed inset-0 z-50 m-auto flex h-screen items-center justify-center"
           onClose={() => setNameModal(false)}
         >
           <Transition.Child
@@ -102,7 +102,7 @@ const NameModal = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-700/10 transition-opacity" />
+            <div className="fixed inset-0 bg-white/10 backdrop-blur-sm transition-opacity dark:bg-gray-700/10" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-50 w-screen overflow-y-auto">
@@ -116,7 +116,7 @@ const NameModal = ({
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-xl backdrop-blur-xl border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 px-4 pb-4 pt-5 text-left transition-all my-8 w-full max-w-sm p-6">
+                <Dialog.Panel className="relative my-8 w-full max-w-sm transform overflow-hidden rounded-xl border border-gray-900/10 bg-white p-6 px-4 pb-4 pt-5 text-left backdrop-blur-xl transition-all dark:border-gray-100/10 dark:bg-gray-800">
                   <div>
                     <div className="text-center">
                       <Dialog.Title
@@ -134,14 +134,14 @@ const NameModal = ({
                       type="text"
                       value={name ?? ""}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full rounded-xl border-gray-900/10 dark:border-gray-100/10 shadow-sm focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-300"
+                      className="w-full rounded-xl border-gray-900/10 shadow-sm focus:ring-1 focus:ring-blue-500 dark:border-gray-100/10 dark:focus:ring-blue-300"
                     />
                     {nameError && (
-                      <p className="text-red-500 text-sm mt-2">{nameError}</p>
+                      <p className="mt-2 text-sm text-red-500">{nameError}</p>
                     )}
                   </div>
 
-                  <div className="mt-5 sm:mt-6 flex items-center justify-center gap-4">
+                  <div className="mt-5 flex items-center justify-center gap-4 sm:mt-6">
                     <BlueButton
                       onClick={() => {
                         setName(null);

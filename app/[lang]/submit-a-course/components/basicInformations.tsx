@@ -22,7 +22,7 @@ const BasicInformations = ({
   setTier,
   setError,
   showError,
-  setShowError,
+  setShowError
 }: {
   address: Address;
   lang: Lang;
@@ -52,7 +52,7 @@ const BasicInformations = ({
     if (categoryIndex === -1) {
       setCategory(categories[0].category);
     }
-  }, [categoryIndex]);
+  }, [categoryIndex, setCategory]);
 
   const isInformationsError = (
     title: string,
@@ -107,7 +107,7 @@ const BasicInformations = ({
     } else {
       setError(true);
     }
-  }, [title, description, category, subcategory, tier]);
+  }, [title, description, category, subcategory, tier, setError, setShowError]);
 
   return (
     <>
@@ -124,7 +124,7 @@ const BasicInformations = ({
             type="text"
             disabled={true}
             value={address ?? "Not connected"}
-            className="rounded-xl text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10"
+            className="rounded-xl border border-gray-900/10 bg-white text-gray-700 ring-0 focus:outline-none dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-300 dark:focus:outline-none"
           />
         </div>
 
@@ -143,7 +143,7 @@ const BasicInformations = ({
               setTitle(e.target.value);
             }}
             value={title ?? ""}
-            className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+            className="rounded-xl border border-gray-900/10 bg-white ring-0 focus:outline-none active:border-blue-500 dark:border-gray-100/10 dark:bg-gray-800 dark:focus:outline-none dark:active:border-blue-500"
           />
         </div>
 
@@ -166,7 +166,7 @@ const BasicInformations = ({
               setDescription(e.target.value);
             }}
             value={description ?? ""}
-            className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+            className="rounded-xl border border-gray-900/10 bg-white ring-0 focus:outline-none active:border-blue-500 dark:border-gray-100/10 dark:bg-gray-800 dark:focus:outline-none dark:active:border-blue-500"
           />
         </div>
 
@@ -190,9 +190,9 @@ const BasicInformations = ({
                     <div
                       className={`cursor-pointer text-sm ${
                         checked
-                          ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                          : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
-                      } rounded-xl backdrop-blur-xl py-1 px-2 text-center`}
+                          ? "border border-transparent bg-gray-900 text-gray-100 dark:bg-white dark:text-gray-900"
+                          : "border border-gray-900/10 bg-white text-gray-900 hover:border-gray-900/50 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50"
+                      } rounded-xl px-2 py-1 text-center backdrop-blur-xl`}
                     >
                       {category.category}
                     </div>
@@ -224,9 +224,9 @@ const BasicInformations = ({
                       <div
                         className={`cursor-pointer text-sm ${
                           checked
-                            ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                            : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
-                        } rounded-xl backdrop-blur-xl py-1 px-2 text-center`}
+                            ? "border border-transparent bg-gray-900 text-gray-100 dark:bg-white dark:text-gray-900"
+                            : "border border-gray-900/10 bg-white text-gray-900 hover:border-gray-900/50 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50"
+                        } rounded-xl px-2 py-1 text-center backdrop-blur-xl`}
                       >
                         {subcategory}
                       </div>
@@ -255,16 +255,16 @@ const BasicInformations = ({
           <RadioGroup
             value={tier}
             onChange={setTier}
-            className="grid grid-cols-2 md:grid-cols-3 gap-2"
+            className="grid grid-cols-2 gap-2 md:grid-cols-3"
           >
             <RadioGroup.Option value="Beginner">
               {({ checked }) => (
                 <div
                   className={`cursor-pointer ${
                     checked
-                      ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                      : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
-                  } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
+                      ? "border border-transparent bg-gray-900 text-gray-100 dark:bg-white dark:text-gray-900"
+                      : "border border-gray-900/10 bg-white text-gray-900 hover:border-gray-900/50 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50"
+                  } rounded-xl px-1 py-3 text-center backdrop-blur-xl`}
                 >
                   {lang === "en" ? "Beginner 🐣" : "Débutant 🐣"}
                 </div>
@@ -275,9 +275,9 @@ const BasicInformations = ({
                 <div
                   className={`cursor-pointer ${
                     checked
-                      ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                      : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
-                  } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
+                      ? "border border-transparent bg-gray-900 text-gray-100 dark:bg-white dark:text-gray-900"
+                      : "border border-gray-900/10 bg-white text-gray-900 hover:border-gray-900/50 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50"
+                  } rounded-xl px-1 py-3 text-center backdrop-blur-xl`}
                 >
                   {lang === "en" ? "Intermediate 🙈" : "Intermédiaire 🙈"}
                 </div>
@@ -288,9 +288,9 @@ const BasicInformations = ({
                 <div
                   className={`cursor-pointer ${
                     checked
-                      ? "bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-900 border border-transparent"
-                      : "bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 hover:border-gray-900/50 dark:hover:border-gray-100/50 text-gray-900 dark:text-gray-100"
-                  } rounded-xl backdrop-blur-xl py-3 px-1 text-center`}
+                      ? "border border-transparent bg-gray-900 text-gray-100 dark:bg-white dark:text-gray-900"
+                      : "border border-gray-900/10 bg-white text-gray-900 hover:border-gray-900/50 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50"
+                  } rounded-xl px-1 py-3 text-center backdrop-blur-xl`}
                 >
                   {lang === "en" ? "Expert 🦊" : "Expert 🦊"}
                 </div>

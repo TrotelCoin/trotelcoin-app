@@ -11,7 +11,7 @@ export default function WarningNotification({
   message,
   lang,
   display,
-  onDismiss,
+  onDismiss
 }: {
   title: string;
   message: string;
@@ -28,7 +28,7 @@ export default function WarningNotification({
     if (show) {
       playAudio("failModal");
     }
-  }, [show]);
+  }, [show, playAudio]);
 
   useEffect(() => {
     if (display) {
@@ -61,13 +61,13 @@ export default function WarningNotification({
         clearInterval(progressTimer);
       };
     }
-  }, [show]);
+  }, [show, onDismiss]);
 
   return (
     <>
       <div
         aria-live="assertive"
-        className="pointer-events-none fixed z-50 inset-0 flex items-start px-4 py-6 sm:items-start sm:p-6"
+        className="pointer-events-none fixed inset-0 z-50 flex items-start px-4 py-6 sm:items-start sm:p-6"
       >
         <div className="flex w-full flex-col items-center space-y-4 sm:items-start">
           <Transition
@@ -80,7 +80,7 @@ export default function WarningNotification({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-xl bg-white dark:bg-gray-900 shadow border border-gray-900/10 dark:border-gray-100/10">
+            <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-xl border border-gray-900/10 bg-white shadow dark:border-gray-100/10 dark:bg-gray-900">
               <div className="p-4">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
@@ -97,9 +97,9 @@ export default function WarningNotification({
                       {message}
                     </p>
                     <div className="mt-2">
-                      <div className="bg-gray-100 rounded-full h-2">
+                      <div className="h-2 rounded-full bg-gray-100">
                         <div
-                          className="bg-red-500 rounded-full h-2"
+                          className="h-2 rounded-full bg-red-500"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
@@ -108,7 +108,7 @@ export default function WarningNotification({
                   <div className="ml-4 flex flex-shrink-0">
                     <button
                       type="button"
-                      className="inline-flex p-2 -mt-2 -mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
+                      className="-mr-2 -mt-2 inline-flex rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
                       onClick={() => {
                         setShow(false);
                         if (onDismiss) {

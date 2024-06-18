@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   address: z.custom<Address>(),
-  item: z.string(),
+  item: z.string()
 });
 
 /* POST /api/user/item/number-of-used
@@ -36,7 +35,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { address, item } = inputSchema.safeParse({
       address: searchParams.get("address"),
-      item: searchParams.get("item"),
+      item: searchParams.get("item")
     }).data as unknown as { address: Address; item: string };
 
     const { data: alreadyUsedData } = await supabase
@@ -50,13 +49,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
         {
           wallet: address,
           name: item,
-          number_of_use: 1,
-        },
+          number_of_use: 1
+        }
       ]);
 
       return NextResponse.json(1, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       alreadyUsed = alreadyUsedData[0].number_of_use;
@@ -70,7 +69,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(data, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

@@ -39,36 +39,36 @@ const Header = ({ lang }: { lang: Lang }) => {
     {
       name: lang === "en" ? "Home" : "Accueil",
       href: "/home",
-      id: 1,
+      id: 1
     },
     {
       name: lang === "en" ? "Learn" : "Apprendre",
       href: "/learn",
-      id: 2,
+      id: 2
     },
     {
       name: lang === "en" ? "Shop" : "Boutique",
       href: "/shop",
-      id: 3,
+      id: 3
     },
     {
       name: lang === "en" ? "Account" : "Compte",
       href: "/account",
-      id: 3,
-    },
+      id: 3
+    }
   ];
 
   return (
     <header className="bg-white dark:bg-gray-900">
       {/* Navigation */}
       <nav
-        className="mx-auto flex items-center justify-between md:gap-x-8 p-6 lg:px-8"
+        className="mx-auto flex items-center justify-between p-6 md:gap-x-8 lg:px-8"
         aria-label="Global"
       >
         {/* Left section with logo, Trotel price, and version */}
-        <div className="flex lg:flex-1 items-center md:gap-x-8">
+        <div className="flex items-center md:gap-x-8 lg:flex-1">
           <Link href={`/${lang}/home`}>
-            <div className="w-12 h-12">
+            <div className="h-12 w-12">
               <Image
                 className="block dark:hidden"
                 width={48}
@@ -86,7 +86,7 @@ const Header = ({ lang }: { lang: Lang }) => {
             </div>
           </Link>
 
-          <div className="bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full px-4 py-2 hidden lg:block w-96">
+          <div className="hidden w-96 rounded-full border border-gray-900/10 bg-white px-4 py-2 dark:border-gray-100/10 dark:bg-gray-800 lg:block">
             {isLoggedIn ? (
               <UserInformationMobile
                 lang={lang}
@@ -98,7 +98,7 @@ const Header = ({ lang }: { lang: Lang }) => {
               />
             ) : (
               <span
-                className={`text-gray-900 dark:text-gray-100 font-semibold text-center flex justify-center items-center ${loadingFlashClass}`}
+                className={`flex items-center justify-center text-center font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
               >
                 {lang === "en" ? "Not connected" : "Non connecté"}
               </span>
@@ -108,7 +108,7 @@ const Header = ({ lang }: { lang: Lang }) => {
 
         {/* Desktop navigation links */}
         <div
-          className={`hidden lg:flex backdrop-blur-xl items-center bg-blue-500 p-2 rounded-full lg:gap-x-8`}
+          className={`hidden items-center rounded-full bg-blue-500 p-2 backdrop-blur-xl lg:flex lg:gap-x-8`}
         >
           {navigation.map((item, index) => {
             const defaultClasses =
@@ -134,9 +134,9 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
 
         {/* Right section with Wallet component */}
-        <div className="hidden lg:flex justify-end flex-1 items-center">
-          <div className="items-center flex gap-2">
-            <div className="items-center gap-2 hidden lg:flex">
+        <div className="hidden flex-1 items-center justify-end lg:flex">
+          <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 lg:flex">
               <AudioSelector />
               <LanguageSelector lang={lang} />
               <ThemeSwitcher />
@@ -152,7 +152,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex gap-2 items-center lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <div className="flex items-center">
             <div className="flex items-center gap-2">
               <LanguageSelector lang={lang} />
@@ -169,7 +169,7 @@ const Header = ({ lang }: { lang: Lang }) => {
         </div>
       </nav>
 
-      <div className="bg-white dark:bg-gray-800 border-y border-gray-900/10 dark:border-gray-100/10 px-4 py-3 lg:hidden">
+      <div className="border-y border-gray-900/10 bg-white px-4 py-3 dark:border-gray-100/10 dark:bg-gray-800 lg:hidden">
         {isLoggedIn ? (
           <UserInformationMobile
             lang={lang}
@@ -181,7 +181,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           />
         ) : (
           <span
-            className={`text-gray-900 dark:text-gray-100 font-semibold text-center flex justify-center items-center ${loadingFlashClass}`}
+            className={`flex items-center justify-center text-center font-semibold text-gray-900 dark:text-gray-100 ${loadingFlashClass}`}
           >
             {lang === "en" ? "Not connected" : "Non connecté"}
           </span>
@@ -205,10 +205,10 @@ const Header = ({ lang }: { lang: Lang }) => {
                     leaveTo="translate-x-full"
                   >
                     <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
+                      <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 dark:bg-gray-900 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 sm:dark:ring-gray-100/10">
                         <div className="flex items-center gap-x-6">
                           <div className="p-1">
-                            <Dialog.Title className="font-bold text-gray-900 dark:text-gray-100 text-2xl">
+                            <Dialog.Title className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                               {lang === "en" ? "Menu" : "Menu"}
                             </Dialog.Title>
                           </div>
@@ -223,7 +223,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                             </BlueSimpleButton>
                           </div>
                         </div>
-                        <div className="flex flex-col gap-4 mt-10">
+                        <div className="mt-10 flex flex-col gap-4">
                           <AccountMobile
                             lang={lang}
                             setMobileMenuOpen={setMobileMenuOpen}

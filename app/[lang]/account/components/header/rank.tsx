@@ -9,10 +9,10 @@ const Rank = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div
-        className={`col-span-2 md:col-span-3 bg-blue-500 shadow md:shadow-lg h-full flex items-center justify-center backdrop-blur-xl text-center rounded-xl px-2 py-10 text-gray-100`}
+        className={`col-span-2 flex h-full items-center justify-center rounded-xl bg-blue-500 px-2 py-10 text-center text-gray-100 shadow backdrop-blur-xl md:col-span-3 md:shadow-lg`}
       >
-        <div className="flex flex-col mx-auto text-center gap-1">
-          <span className={`text-4xl md:text-6xl font-semibold`}>
+        <div className="mx-auto flex flex-col gap-1 text-center">
+          <span className={`text-4xl font-semibold md:text-6xl`}>
             {isIntermediate && !isExpert && (
               <>
                 <ReactTyped
@@ -26,7 +26,7 @@ const Rank = ({ lang }: { lang: Lang }) => {
                     "中級",
                     "중간",
                     "متوسط",
-                    "इंटरमीडिएट",
+                    "इंटरमीडिएट"
                   ]}
                   shuffle={true}
                   loop={true}
@@ -50,7 +50,7 @@ const Rank = ({ lang }: { lang: Lang }) => {
                     "専門家",
                     "전문가",
                     "خبير",
-                    "विशेषज्ञ",
+                    "विशेषज्ञ"
                   ]}
                   shuffle={true}
                   loop={true}

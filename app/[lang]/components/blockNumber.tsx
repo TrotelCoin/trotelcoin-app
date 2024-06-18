@@ -10,7 +10,7 @@ import { Lang } from "@/types/language/lang";
 const BlockNumber = ({ lang }: { lang: Lang }) => {
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
-    watch: true,
+    watch: true
   });
 
   return (
@@ -20,17 +20,17 @@ const BlockNumber = ({ lang }: { lang: Lang }) => {
           <Tooltip.Root delayDuration={0}>
             <Tooltip.Trigger className="cursor-help" asChild>
               <div
-                className={`fixed items-center gap-1 bottom-0 mr-5 mb-5 right-0 text-xs hidden lg:flex text-blue-500 dark:text-blue-300`}
+                className={`fixed bottom-0 right-0 mb-5 mr-5 hidden items-center gap-1 text-xs text-blue-500 dark:text-blue-300 lg:flex`}
               >
                 {Number(blockNumber).toLocaleString("en-US")}
                 <div
-                  className={`w-2 h-2 bg-blue-500 rounded-full ${loadingFlashClass}`}
+                  className={`h-2 w-2 rounded-full bg-blue-500 ${loadingFlashClass}`}
                 />
               </div>
             </Tooltip.Trigger>
             <Tooltip.Portal>
               <Tooltip.Content sideOffset={5} side="left" align="center">
-                <div className="p-2 text-xs shadow-lg backdrop-blur-xl bg-blue-500 text-gray-100 rounded-xl">
+                <div className="rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                   {lang === "en"
                     ? "Current block number on Polygon"
                     : "Numéro de bloc actuel sur Polygon"}

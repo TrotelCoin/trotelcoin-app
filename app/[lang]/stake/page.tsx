@@ -20,14 +20,14 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
       <Tabs.Root
         defaultValue="v2"
         onValueChange={setVersion}
-        className="mx-auto flex flex-col max-w-md justify-center w-full items-center"
+        className="mx-auto flex w-full max-w-md flex-col items-center justify-center"
       >
-        <Tabs.List className="flex items-center gap-2 justify-between bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 rounded-full backdrop-blur-xl p-2 w-full font-semibold text-gray-900 dark:text-gray-100">
+        <Tabs.List className="flex w-full items-center justify-between gap-2 rounded-full border border-gray-900/10 bg-white p-2 font-semibold text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <Tabs.Trigger
             value={"v1" as StakingVersion}
-            className={`mx-auto w-full flex items-center focus:outline-none justify-center p-2 rounded-full ${
+            className={`mx-auto flex w-full items-center justify-center rounded-full p-2 focus:outline-none ${
               version === "v1"
-                ? "bg-gray-900 dark:bg-white shadow-xl text-gray-100 dark:text-gray-900"
+                ? "bg-gray-900 text-gray-100 shadow-xl dark:bg-white dark:text-gray-900"
                 : "hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
@@ -35,9 +35,9 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </Tabs.Trigger>
           <Tabs.Trigger
             value={"v2" as StakingVersion}
-            className={`mx-auto w-full flex items-center focus:outline-none justify-center p-2 rounded-full ${
+            className={`mx-auto flex w-full items-center justify-center rounded-full p-2 focus:outline-none ${
               version === "v2"
-                ? "bg-gray-900 dark:bg-white shadow-xl text-gray-100 dark:text-gray-900"
+                ? "bg-gray-900 text-gray-100 shadow-xl dark:bg-white dark:text-gray-900"
                 : "hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >

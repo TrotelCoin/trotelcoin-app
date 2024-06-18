@@ -32,21 +32,21 @@ const Satisfaction = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div
-        className={`col-span-2 md:col-span-3 bg-white h-full flex items-center justify-center border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-8 dark:bg-gray-800 text-gray-900 dark:text-gray-100 ${
+        className={`col-span-2 flex h-full items-center justify-center rounded-xl border border-gray-900/10 bg-white p-8 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 md:col-span-3 ${
           alreadyAnsweredSatisfaction &&
-          "hidden animate__animated animate__fadeOut"
+          "animate__animated animate__fadeOut hidden"
         }`}
       >
-        <div className="flex flex-col gap-4 mx-auto text-center">
+        <div className="mx-auto flex flex-col gap-4 text-center">
           <span className="text-xl font-semibold">
             {lang === "en"
               ? "Would you recommend TrotelCoin?"
               : "Recommanderiez-vous TrotelCoin?"}
           </span>
 
-          <div className="w-full mx-auto mt-2 relative">
-            <div className="flex flex-col w-full pl-2">
-              <div className="flex w-full justify-between items-center">
+          <div className="relative mx-auto mt-2 w-full">
+            <div className="flex w-full flex-col pl-2">
+              <div className="flex w-full items-center justify-between">
                 {Array.from(Array(11).keys()).map((index) => (
                   <span
                     className={`text-sm font-semibold ${
@@ -64,18 +64,18 @@ const Satisfaction = ({ lang }: { lang: Lang }) => {
 
             <form>
               <Slider.Root
-                className="relative flex items-center select-none touch-none h-5"
+                className="relative flex h-5 touch-none select-none items-center"
                 defaultValue={[5]}
                 min={0}
                 max={10}
                 step={1}
                 onValueChange={(e) => setSelectedNumber(e)}
               >
-                <Slider.Track className="bg-gray-400 relative grow rounded-full h-2">
-                  <Slider.Range className="absolute from-blue-400 to-blue-500 bg-gradient-to-r rounded-full h-full" />
+                <Slider.Track className="relative h-2 grow rounded-full bg-gray-400">
+                  <Slider.Range className="absolute h-full rounded-full bg-gradient-to-r from-blue-400 to-blue-500" />
                 </Slider.Track>
                 <Slider.Thumb
-                  className="block w-5 h-5 bg-gray-900 dark:bg-white rounded-full focus:outline-none"
+                  className="block h-5 w-5 rounded-full bg-gray-900 focus:outline-none dark:bg-white"
                   aria-label="Satisfaction"
                 />
               </Slider.Root>

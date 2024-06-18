@@ -7,7 +7,7 @@ import { supabase } from "@/utils/supabase/db";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/user/courses/satisfaction
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     // get courses satisfaction by user
@@ -43,11 +43,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (courses) {
       return NextResponse.json(courses, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       return NextResponse.json([], {
-        status: 500,
+        status: 500
       });
     }
   } catch (error) {

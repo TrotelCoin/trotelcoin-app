@@ -34,16 +34,16 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl mt-10">
+      <h2 className="mt-10 text-xl font-semibold text-gray-900 dark:text-gray-100">
         {lang === "en" ? "Level" : "Niveau"}
       </h2>
       <div
-        className={`mt-4 bg-white flex flex-col border backdrop-blur-xl border-gray-900/10 dark:border-gray-100/10 text-center rounded-xl p-10 dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+        className={`mt-4 flex flex-col rounded-xl border border-gray-900/10 bg-white p-10 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
       >
         <div className="flex justify-between">
           <div
             className={`flex gap-1 ${
-              isNotPremium && "blur hover:blur-none duration-500"
+              isNotPremium && "blur duration-500 hover:blur-none"
             }`}
           >
             {isNotPremium && (
@@ -66,7 +66,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
           </div>
           <p
             className={`hidden md:block ${
-              isNotPremium && "blur hover:blur-none duration-500"
+              isNotPremium && "blur duration-500 hover:blur-none"
             }`}
           >
             {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium ? (
@@ -82,16 +82,16 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
           </p>
         </div>
         <div
-          className={`overflow-hidden h-2 text-xs bg-gray-400 mt-2 flex rounded-full ${
+          className={`mt-2 flex h-2 overflow-hidden rounded-full bg-gray-400 text-xs ${
             isNotPremium && "mt-4"
           }`}
         >
           <div
             style={{
               width: isNotPremium ? "0%" : `${width}%`,
-              transition: "width 0.7s ease-in",
+              transition: "width 0.7s ease-in"
             }}
-            className="rounded-full h-2 bg-blue-500"
+            className="h-2 rounded-full bg-blue-500"
           />
         </div>
       </div>

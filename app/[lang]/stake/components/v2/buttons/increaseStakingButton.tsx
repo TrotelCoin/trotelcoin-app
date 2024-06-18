@@ -9,7 +9,7 @@ import {
   useBlockNumber,
   useTransactionConfirmations,
   useBlock,
-  useReadContract,
+  useReadContract
 } from "wagmi";
 import { trotelCoinStakingV2 } from "@/data/web3/addresses";
 import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
@@ -24,7 +24,7 @@ const IncreaseStakingButton = ({
   lang,
   amount,
   chainError,
-  setChainError,
+  setChainError
 }: {
   lang: Lang;
   amount: number;
@@ -45,7 +45,7 @@ const IncreaseStakingButton = ({
   const { switchChain } = useSwitchChain();
   const { data: block } = useBlock({
     chainId: polygon.id,
-    blockNumber: blockNumber,
+    blockNumber: blockNumber
   });
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
@@ -54,7 +54,7 @@ const IncreaseStakingButton = ({
       abi: trotelCoinStakingV2ABI,
       chainId: polygon.id,
       functionName: "stakings",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const IncreaseStakingButton = ({
       setTimestamp(timestamp);
       setBlockFetched(true);
     }
-  }, [block]);
+  }, [block, blockFetched]);
 
   useEffect(() => {
     if (timestamp && address) {
@@ -72,7 +72,7 @@ const IncreaseStakingButton = ({
       const duration = Number(getStakingData[2]);
       let timeLeft: number = 0;
       if (startTime && duration && timestamp) {
-        timeLeft = startTime + duration - (timestamp as number);
+        timeLeft = startTime + duration - timestamp;
       }
 
       setTimeLeft(Math.max(0, timeLeft));
@@ -85,7 +85,7 @@ const IncreaseStakingButton = ({
     } else {
       setTimeLeft(0);
     }
-  }, [timestamp, address]);
+  }, [timestamp, address, getStakingDataNoTyped]);
 
   const { writeContractAsync, data: stakeHash } = useWriteContract({
     mutation: {
@@ -99,14 +99,14 @@ const IncreaseStakingButton = ({
       onError: () => {
         setErrorMessage(true);
         setIsLoading(false);
-      },
-    },
+      }
+    }
   });
 
   const { data: stakeConfirmation, refetch: refetchStakeConfirmation } =
     useTransactionConfirmations({
       hash: stakeHash as Hash,
-      chainId: polygon.id,
+      chainId: polygon.id
     });
 
   useEffect(() => {
@@ -115,12 +115,12 @@ const IncreaseStakingButton = ({
       setStakeConfirmed(true);
       setIsLoading(false);
     }
-  }, [stakeConfirmation]);
+  }, [stakeConfirmation, stakeConfirmed]);
 
   useEffect(() => {
     refetchStakings();
     refetchStakeConfirmation();
-  }, [blockNumber, address]);
+  }, [blockNumber, address, refetchStakeConfirmation, refetchStakings]);
 
   const increaseStake = async (amount: number) => {
     if (!address) {
@@ -140,7 +140,7 @@ const IncreaseStakingButton = ({
       functionName: "increaseStaking",
       chainId: polygon.id,
       abi: trotelCoinStakingV2ABI,
-      args: [stakingAmount],
+      args: [stakingAmount]
     });
   };
 
@@ -150,7 +150,7 @@ const IncreaseStakingButton = ({
     } else {
       setDisabled(true);
     }
-  }, [amount, address, isLoading]);
+  }, [amount, address, isLoading, timeLeft]);
 
   return (
     <>

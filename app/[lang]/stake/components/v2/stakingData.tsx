@@ -6,7 +6,7 @@ import {
   useAccount,
   useReadContract,
   useBlockNumber,
-  useBlock,
+  useBlock
 } from "wagmi";
 import React, { useEffect, useState } from "react";
 import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
@@ -25,7 +25,7 @@ const StakingData = ({
   lang,
   trotelPrice,
   roundPrice,
-  showTrotelInUsdc,
+  showTrotelInUsdc
 }: {
   lang: Lang;
   trotelPrice: number;
@@ -49,17 +49,17 @@ const StakingData = ({
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
   const { data: block } = useBlock({
     chainId: polygon.id,
-    blockNumber: blockNumber,
+    blockNumber: blockNumber
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address as Address,
+    address: address as Address
   });
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const StakingData = ({
       abi: trotelCoinStakingV2ABI,
       address: trotelCoinStakingV2,
       functionName: "stakings",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   const { data: earnedTrotelCoinsData, refetch: refetchEarnedTrotelCoins } =
@@ -92,7 +92,7 @@ const StakingData = ({
       abi: trotelCoinStakingV2ABI,
       address: trotelCoinStakingV2,
       functionName: "getUserReward",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   useEffect(() => {
@@ -108,7 +108,7 @@ const StakingData = ({
     refetchBalance();
     refetchStakings();
     refetchEarnedTrotelCoins();
-  }, [blockNumber]);
+  }, [blockNumber, refetchBalance, refetchStakings, refetchEarnedTrotelCoins]);
 
   useEffect(() => {
     if (block && !blockFetched) {
@@ -116,7 +116,7 @@ const StakingData = ({
       setTimestamp(timestamp);
       setBlockFetched(true);
     }
-  }, [block]);
+  }, [block, blockFetched]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address && timestamp) {
@@ -240,12 +240,12 @@ const StakingData = ({
                     ? "Staking"
                     : "Misé"
                   : stakedTrotelCoins && stakedTrotelCoins > 0
-                  ? lang === "en"
-                    ? "Claimable"
-                    : "Réclamable"
-                  : lang === "en"
-                  ? "Not staking"
-                  : "Non misé"}
+                    ? lang === "en"
+                      ? "Claimable"
+                      : "Réclamable"
+                    : lang === "en"
+                      ? "Not staking"
+                      : "Non misé"}
               </span>
             </Skeleton>
           </div>

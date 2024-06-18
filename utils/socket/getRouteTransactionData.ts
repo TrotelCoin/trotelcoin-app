@@ -12,8 +12,8 @@ export const getRouteTransactionData = async (
         headers: {
           "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
           Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+          "Content-Type": "application/json"
+        }
       }
     )
     .then((response) => response.data);

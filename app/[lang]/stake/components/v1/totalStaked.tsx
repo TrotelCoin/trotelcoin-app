@@ -12,7 +12,7 @@ import { Skeleton } from "@radix-ui/themes";
 const TotalStaked = ({
   lang,
   storedTrotelPrice,
-  roundPrice,
+  roundPrice
 }: {
   lang: Lang;
   storedTrotelPrice: number;
@@ -22,18 +22,18 @@ const TotalStaked = ({
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: balance, refetch } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: trotelCoinStakingV1,
+    address: trotelCoinStakingV1
   });
 
   useEffect(() => {
     refetch();
-  }, [blockNumber]);
+  }, [blockNumber, refetch]);
 
   useEffect(() => {
     if (balance) {
@@ -59,7 +59,11 @@ const TotalStaked = ({
           <div className="flex items-center gap-1">
             <Skeleton loading={!trotelPrice || !totalStaked}>
               {storedTrotelPrice && totalStaked ? (
-                <CountUp start={0} prefix="$" end={storedTrotelPrice * totalStaked} />
+                <CountUp
+                  start={0}
+                  prefix="$"
+                  end={storedTrotelPrice * totalStaked}
+                />
               ) : (
                 <CountUp start={0} end={0} />
               )}

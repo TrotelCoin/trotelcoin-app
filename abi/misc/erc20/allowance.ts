@@ -4,25 +4,25 @@ const allowanceAbi = [
       {
         internalType: "address",
         name: "owner",
-        type: "address",
+        type: "address"
       },
       {
         internalType: "address",
         name: "spender",
-        type: "address",
-      },
+        type: "address"
+      }
     ],
     name: "allowance",
     outputs: [
       {
         internalType: "uint256",
         name: "",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     stateMutability: "view",
-    type: "function",
-  },
+    type: "function"
+  }
 ];
 
 export default allowanceAbi;

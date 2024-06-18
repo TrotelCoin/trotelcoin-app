@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* POST /api/user/items/use-clock
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data: lostStreakData } = await supabase
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         .from("streak")
         .update({
           current_streak: maxStreak[0].max_streak,
-          last_streak_at: new Date().toISOString(),
+          last_streak_at: new Date().toISOString()
         })
         .eq("wallet", wallet);
     } else {
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json("Max streak restored", {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

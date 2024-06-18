@@ -14,7 +14,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 const Quiz = ({
   quizId,
   lang,
-  startTime,
+  startTime
 }: {
   quizId: number;
   lang: Lang;
@@ -32,9 +32,9 @@ const Quiz = ({
 
   if (life === 0 && !isIntermediate && !isExpert) {
     return (
-      <div className="mx-auto flex flex-col border-t text-center md:px-12 border-gray-900/10 dark:border-gray-100/10 py-10">
+      <div className="mx-auto flex flex-col border-t border-gray-900/10 py-10 text-center dark:border-gray-100/10 md:px-12">
         <span className={`text-4xl ${loadingFlashClass}`}>💔</span>
-        <span className="font-semibold mt-2">{lifeCooldown}</span>
+        <span className="mt-2 font-semibold">{lifeCooldown}</span>
         <p className={`text-gray-900 dark:text-gray-100`}>
           {lang === "en"
             ? "You can't take the quiz because you don't have any life left. Comeback tomorrow or buy some lives."
@@ -49,7 +49,7 @@ const Quiz = ({
       {/* QuizComponent */}
       {!isTotallyCorrect && isLoggedIn && (
         <>
-          <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10">
+          <div className="mx-auto border-t border-gray-900/10 py-10 dark:border-gray-100/10">
             <QuizComponent
               lang={lang}
               isTotallyCorrect={isTotallyCorrect}
@@ -78,7 +78,7 @@ const Quiz = ({
       )}
 
       {!isLoggedIn && (
-        <div className="mx-auto border-t border-gray-900/10 dark:border-gray-100/10 py-10 animate__animated animate__FadeIn">
+        <div className="animate__animated animate__FadeIn mx-auto border-t border-gray-900/10 py-10 dark:border-gray-100/10">
           <h2 className="text-gray-900 dark:text-gray-100">
             {lang === "en"
               ? "Sign in to claim rewards"

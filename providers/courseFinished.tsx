@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import CourseFinishedContext from "@/contexts/courseFinished";
 
 const CourseFinishedProvider = ({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) => {
@@ -13,7 +13,7 @@ const CourseFinishedProvider = ({
   const contextValue = useMemo(
     () => ({
       isCourseFinished,
-      setIsCourseFinished,
+      setIsCourseFinished
     }),
     [isCourseFinished, setIsCourseFinished]
   );

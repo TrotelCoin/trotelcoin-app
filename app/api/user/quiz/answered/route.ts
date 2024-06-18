@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
-  quizId: z.number(),
+  quizId: z.number()
 });
 
 /* GET /api/user/quiz/answered
@@ -34,7 +34,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { wallet, quizId } = inputSchema.safeParse({
       wallet: searchParams.get("wallet"),
-      quizId: Number(searchParams.get("quizId")),
+      quizId: Number(searchParams.get("quizId"))
     }).data as unknown as { wallet: Address; quizId: number };
 
     // select answered from "quizzes_answered"
@@ -57,7 +57,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(answeredValue, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

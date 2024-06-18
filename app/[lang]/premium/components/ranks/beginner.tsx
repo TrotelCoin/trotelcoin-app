@@ -18,25 +18,25 @@ const Beginner = ({ lang }: { lang: Lang }) => {
         perspective={800}
       >
         <div
-          className={`overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+          className={`overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
         >
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center justify-between">
-              <div className={`font-semibold rainbow-text text-2xl`}>
+              <div className={`rainbow-text text-2xl font-semibold`}>
                 {lang === "en" ? "Beginner" : "Débutant"}
               </div>
               <Link
                 href="https://docs.trotelcoin.com/overview/ranks"
                 target="_blank"
               >
-                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
               </Link>
             </div>
-            <div className="flex items-center justify-center mt-5">
+            <div className="mt-5 flex items-center justify-center">
               <span className="text-8xl">🐣</span>
             </div>
-            <div className="flex flex-col mt-5">
-              <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
+            <div className="mt-5 flex flex-col">
+              <button className="disabled cursor-not-allowed rounded-xl bg-gray-800 px-6 py-2 text-sm font-semibold text-gray-100 hover:border-gray-900/50 focus:border-blue-500 dark:bg-gray-100 dark:text-gray-900 dark:hover:border-gray-100/50 dark:focus:border-blue-300">
                 {lang === "en" ? "Already claimed" : "Déjà réclamé"}
               </button>
             </div>

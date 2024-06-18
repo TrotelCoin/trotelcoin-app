@@ -17,7 +17,7 @@ import {
   fantom,
   zkSync,
   polygonZkEvm,
-  arbitrum,
+  arbitrum
 } from "wagmi/chains";
 
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
@@ -29,7 +29,7 @@ const metadata = {
   description:
     "We're building TrotelCoin - the best app to learn & earn crypto.",
   url: "https://app.trotelcoin.com",
-  icons: [""],
+  icons: [""]
 };
 
 const chains = [
@@ -48,7 +48,7 @@ const chains = [
   fantom,
   zkSync,
   polygonZkEvm,
-  arbitrum,
+  arbitrum
 ] as const;
 
 export const config = defaultWagmiConfig({
@@ -58,7 +58,7 @@ export const config = defaultWagmiConfig({
   enableEmail: true, // seems unstable
   ssr: true,
   storage: createStorage({
-    storage: cookieStorage,
+    storage: cookieStorage
   }),
   transports: {
     [mainnet.id]: http("", { batch: { wait: 16 } }),
@@ -76,6 +76,6 @@ export const config = defaultWagmiConfig({
     [fantom.id]: http("", { batch: { wait: 16 } }),
     [zkSync.id]: http("", { batch: { wait: 16 } }),
     [polygonZkEvm.id]: http("", { batch: { wait: 16 } }),
-    [arbitrum.id]: http("", { batch: { wait: 16 } }),
-  },
+    [arbitrum.id]: http("", { batch: { wait: 16 } })
+  }
 });

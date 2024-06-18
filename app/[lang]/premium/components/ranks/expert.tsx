@@ -9,7 +9,7 @@ import {
   useReadContract,
   useWriteContract,
   useBlockNumber,
-  useTransactionConfirmations,
+  useTransactionConfirmations
 } from "wagmi";
 import { polygon } from "wagmi/chains";
 import "animate.css";
@@ -17,7 +17,7 @@ import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import {
   trotelCoinAddress,
-  trotelCoinExpertAddress,
+  trotelCoinExpertAddress
 } from "@/data/web3/addresses";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/language/lang";
@@ -48,7 +48,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
@@ -57,13 +57,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
     functionName: "allowance",
     chainId: polygon.id,
     args: [address, trotelCoinExpertAddress],
-    account: address as Address,
+    account: address as Address
   });
 
   const {
     isPending: isLoadingApproval,
     writeContractAsync: approvingAsync,
-    data: approveHash,
+    data: approveHash
   } = useWriteContract({
     mutation: {
       onError: () => {
@@ -71,14 +71,14 @@ const Expert = ({ lang }: { lang: Lang }) => {
       },
       onSuccess: () => {
         setApproveConfirmed(false);
-      },
-    },
+      }
+    }
   });
 
   const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
     useTransactionConfirmations({
       hash: approveHash as Hash,
-      chainId: polygon.id,
+      chainId: polygon.id
     });
 
   useEffect(() => {
@@ -91,12 +91,12 @@ const Expert = ({ lang }: { lang: Lang }) => {
       setApprovedMessage(true);
       setApproveConfirmed(true);
     }
-  }, [approveConfirmation]);
+  }, [approveConfirmation, approveConfirmed]);
 
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: polygon.id,
-    token: trotelCoinAddress,
+    token: trotelCoinAddress
   });
 
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
@@ -105,13 +105,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
       abi: trotelCoinExpertABI,
       functionName: "holdingRequirement",
       chainId: polygon.id,
-      account: address as Address,
+      account: address as Address
     }
   );
   const {
     isPending,
     writeContractAsync,
-    data: claimHash,
+    data: claimHash
   } = useWriteContract({
     mutation: {
       onSuccess: () => {
@@ -119,14 +119,14 @@ const Expert = ({ lang }: { lang: Lang }) => {
       },
       onError: () => {
         setErrorMessage(true);
-      },
-    },
+      }
+    }
   });
 
   const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
     useTransactionConfirmations({
       chainId: polygon.id,
-      hash: claimHash as Hash,
+      hash: claimHash as Hash
     });
 
   useEffect(() => {
@@ -135,7 +135,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
       setIsClaimedMessage(true);
       setClaimedConfirmed(true);
     }
-  }, [claimConfirmation]);
+  }, [claimConfirmation, claimConfirmed]);
 
   const { data: claimed, refetch: refetchBalanceExpert } = useReadContract({
     address: trotelCoinExpertAddress,
@@ -143,7 +143,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
     functionName: "balanceOf",
     chainId: polygon.id,
     args: [address],
-    account: address as Address,
+    account: address as Address
   });
 
   useEffect(() => {
@@ -157,7 +157,16 @@ const Expert = ({ lang }: { lang: Lang }) => {
     } else {
       setIsClaimed(false);
     }
-  }, [blockNumber, address]);
+  }, [
+    blockNumber,
+    address,
+    refetchBalance,
+    refetchBalanceExpert,
+    refetchHolding,
+    refetchAllowance,
+    refetchApproveConfirmation,
+    refetchClaimConfirmation
+  ]);
 
   useEffect(() => {
     if (parseFloat(claimed as string) > 0) {
@@ -217,12 +226,12 @@ const Expert = ({ lang }: { lang: Lang }) => {
         perspective={800}
       >
         <div
-          className={`overflow-hidden rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+          className={`overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
         >
           <div className="px-4 py-5 sm:p-6">
             <div className="flex items-center justify-between">
               <div
-                className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl ${
+                className={`text-2xl font-semibold text-gray-900 dark:text-gray-100 ${
                   isClaimed && "rainbow-text"
                 }`}
               >
@@ -232,13 +241,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 href="https://docs.trotelcoin.com/overview/ranks"
                 target="_blank"
               >
-                <InformationCircleIcon className="h-6 w-6 text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
+                <InformationCircleIcon className="h-6 w-6 text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
               </Link>
             </div>
-            <div className="flex items-center justify-center mt-5">
+            <div className="mt-5 flex items-center justify-center">
               <span className="text-8xl">🦊</span>
             </div>
-            <div className="flex flex-col mt-5">
+            <div className="mt-5 flex flex-col">
               {!isClaimed && !isEligible && !isExpert && (
                 <>
                   <BlueButton
@@ -263,7 +272,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: polygon.id,
-                        args: [trotelCoinExpertAddress, holdingRequirement],
+                        args: [trotelCoinExpertAddress, holdingRequirement]
                       });
                     }}
                     text={lang === "en" ? "Approve" : "Approuver"}
@@ -281,7 +290,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         abi: trotelCoinExpertABI,
                         functionName: "mint",
                         chainId: polygon.id,
-                        args: [address],
+                        args: [address]
                       });
                     }}
                     text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
@@ -289,7 +298,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                 </>
               )}
               {(isClaimed || isExpert) && (
-                <button className="disabled cursor-not-allowed bg-gray-800 dark:bg-gray-100 hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:border-blue-500 text-sm px-6 py-2 text-gray-100 dark:text-gray-900 rounded-xl font-semibold">
+                <button className="disabled cursor-not-allowed rounded-xl bg-gray-800 px-6 py-2 text-sm font-semibold text-gray-100 hover:border-gray-900/50 focus:border-blue-500 dark:bg-gray-100 dark:text-gray-900 dark:hover:border-gray-100/50">
                   {lang === "en" ? "Already claimed" : "Déjà réclamé"}
                 </button>
               )}

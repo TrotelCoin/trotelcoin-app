@@ -6,7 +6,7 @@ import {
   useSwitchChain,
   useSendTransaction,
   useTransactionConfirmations,
-  useBlockNumber,
+  useBlockNumber
 } from "wagmi";
 import React, { useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
@@ -24,7 +24,7 @@ const RewardsButton = ({
   centralWalletAddress,
   chainError,
   setChainError,
-  setClaimed,
+  setClaimed
 }: {
   lang: Lang;
   centralWalletAddress: Address;
@@ -42,22 +42,22 @@ const RewardsButton = ({
   const [errorHappened, setErrorHappened] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [transactionHash, setTransactionHash] = useState<Hash | null>(null);
-  const [transactionConfimed, setTransactionConfirmed] =
+  const [transactionConfirmed, setTransactionConfirmed] =
     useState<boolean>(false);
 
   const { address } = useAccount();
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const {
     data: transactionConfirmation,
-    refetch: refetchTransactionConfirmation,
+    refetch: refetchTransactionConfirmation
   } = useTransactionConfirmations({
     chainId: polygon.id,
-    hash: transactionHash as Hash,
+    hash: transactionHash as Hash
   });
 
   const { sendTransactionAsync, isError } = useSendTransaction({
@@ -69,26 +69,26 @@ const RewardsButton = ({
         setErrorMessage(true);
         setIsLoading(false);
         setErrorHappened(true);
-      },
-    },
+      }
+    }
   });
 
   useEffect(() => {
     refetchTransactionConfirmation();
-  }, [blockNumber]);
+  }, [blockNumber, refetchTransactionConfirmation]);
 
   useEffect(() => {
     if (
       transactionConfirmation &&
       Number(transactionConfirmation) > 0 &&
-      !transactionConfimed
+      !transactionConfirmed
     ) {
       setSuccessMessage(true);
       setIsLoading(false);
       setClaimed(true);
       setTransactionConfirmed(true);
     }
-  }, [transactionConfirmation]);
+  }, [transactionConfirmation, setClaimed, transactionConfirmed]);
 
   const { switchChain } = useSwitchChain();
 
@@ -105,7 +105,7 @@ const RewardsButton = ({
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -133,7 +133,7 @@ const RewardsButton = ({
         // make transaction to pay central wallet
         await sendTransactionAsync({
           to: centralWalletAddress,
-          value: parseEther(gasAmount),
+          value: parseEther(gasAmount)
         });
 
         setAvailableToClaim(0);

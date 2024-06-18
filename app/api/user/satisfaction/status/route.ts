@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/user/satisfaction/status
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data } = await supabase
@@ -42,12 +42,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (data && data.length > 0) {
       return NextResponse.json(true, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       return NextResponse.json(false, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
   } catch (error) {

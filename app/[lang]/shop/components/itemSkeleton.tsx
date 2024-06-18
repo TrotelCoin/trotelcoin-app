@@ -7,25 +7,25 @@ const ItemSkeleton = () => {
   return (
     <>
       <div
-        className={`overflow-hidden w-full h-full flex items-center justify-center rounded-xl bg-white dark:bg-gray-800 border border-gray-900/10 dark:border-gray-100/10 backdrop-blur-xl`}
+        className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
       >
-        <div className="px-4 py-5 sm:p-6 w-full">
-          <div className="flex items-center justify-between w-full">
+        <div className="w-full px-4 py-5 sm:p-6">
+          <div className="flex w-full items-center justify-between">
             <div
-              className={`font-semibold text-gray-900 dark:text-gray-100 text-2xl`}
+              className={`text-2xl font-semibold text-gray-900 dark:text-gray-100`}
             >
               <Skeleton>Item Name</Skeleton>
             </div>
             <Skeleton>
-              <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
+              <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
             </Skeleton>
           </div>
           <div className="inline-flex items-center gap-1">
             <Skeleton>
-              <span className="text-gray-700 dark:text-gray-300 text-sm">
+              <span className="text-sm text-gray-700 dark:text-gray-300">
                 <span>100</span>{" "}
               </span>
-              <div className="block dark:hidden w-3 h-3">
+              <div className="block h-3 w-3 dark:hidden">
                 <Image
                   width={16}
                   height={16}
@@ -35,7 +35,7 @@ const ItemSkeleton = () => {
                   src="/assets/logo/trotelcoin.svg"
                 />
               </div>
-              <div className="hidden dark:block w-3 h-3">
+              <div className="hidden h-3 w-3 dark:block">
                 <Image
                   width={16}
                   height={16}
@@ -47,14 +47,14 @@ const ItemSkeleton = () => {
               </div>{" "}
             </Skeleton>
           </div>
-          <div className="flex items-center justify-center my-8">
+          <div className="my-8 flex items-center justify-center">
             <span className="text-6xl">
               <Skeleton>🔗</Skeleton>
             </span>
           </div>
           <div className="flex flex-col">
             <Skeleton>
-              <button className="p-2 hover:bg-white dark:hover:bg-gray-800 rounded-full">
+              <button className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800">
                 Use Item
               </button>
             </Skeleton>

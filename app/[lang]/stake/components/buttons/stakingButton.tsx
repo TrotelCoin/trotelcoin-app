@@ -7,7 +7,7 @@ import {
   useWriteContract,
   useReadContract,
   useSwitchChain,
-  useBlockNumber,
+  useBlockNumber
 } from "wagmi";
 import { trotelCoinStakingV1 } from "@/data/web3/addresses";
 import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
@@ -25,7 +25,7 @@ const StakingButton = ({
   chainError,
   setChainError,
   allowance,
-  disabled,
+  disabled
 }: {
   lang: Lang;
   stakingPeriod: number;
@@ -58,8 +58,8 @@ const StakingButton = ({
       },
       onError: () => {
         setErrorMessage(true);
-      },
-    },
+      }
+    }
   });
 
   const { data: getStakingDataNoTyped, refetch } = useReadContract({
@@ -67,12 +67,12 @@ const StakingButton = ({
     abi: trotelCoinStakingV1ABI,
     address: trotelCoinStakingV1,
     functionName: "stakings",
-    args: [address as Address],
+    args: [address as Address]
   });
 
   useEffect(() => {
     refetch();
-  }, [blockNumber, address]);
+  }, [blockNumber, address, refetch]);
 
   useEffect(() => {
     if (stakingPeriod <= 0) {
@@ -136,7 +136,7 @@ const StakingButton = ({
         functionName: "stake",
         chainId: polygon.id,
         abi: trotelCoinStakingV1ABI,
-        args: [stakingAmount, stakingDuration],
+        args: [stakingAmount, stakingDuration]
       });
     } catch (error) {
       console.error(error);

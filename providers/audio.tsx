@@ -37,7 +37,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     successModal: useRef<HTMLAudioElement>(null),
     warningModal: useRef<HTMLAudioElement>(null),
     potion: useRef<HTMLAudioElement>(null),
-    claimedRewards: useRef<HTMLAudioElement>(null),
+    claimedRewards: useRef<HTMLAudioElement>(null)
   };
 
   const playAudio = (key: Audios) => {
@@ -56,7 +56,7 @@ const AudioProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       audioEnabled,
       setAudioEnabled,
-      playAudio,
+      playAudio
     }),
     [audioEnabled, setAudioEnabled, playAudio]
   );

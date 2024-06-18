@@ -6,7 +6,6 @@ export const updateEvolution = (
 ) => {
   if (storedStatistics !== null) {
     if (percentage) {
-      
       setEvolution(
         ((Number(statistics) - storedStatistics) / storedStatistics) * 100
       );

@@ -10,7 +10,7 @@ const token = {
   decimals: 18,
   name: "TrotelCoin",
   symbol: "TROTEL",
-  image: "ipfs://Qmf2dXFJ5XjxUamA3SAnFamYGccEdjZmsVZxkkdDBRqhzd/trotelcoin.png",
+  image: "ipfs://Qmf2dXFJ5XjxUamA3SAnFamYGccEdjZmsVZxkkdDBRqhzd/trotelcoin.png"
 };
 
 declare global {
@@ -23,7 +23,7 @@ const switchToPolygon = async () => {
   try {
     await window.ethereum.request({
       method: "wallet_switchEthereumChain",
-      params: [{ chainId: polygon.id }],
+      params: [{ chainId: polygon.id }]
     });
   } catch (switchError) {
     console.error(switchError);
@@ -45,9 +45,9 @@ const AddToken = ({ lang }: { lang: Lang }) => {
             address: token.address,
             symbol: token.symbol,
             decimals: token.decimals,
-            image: token.image,
-          },
-        },
+            image: token.image
+          }
+        }
       });
     } catch (error) {
       console.error(error);
@@ -59,7 +59,7 @@ const AddToken = ({ lang }: { lang: Lang }) => {
       <div className="flex justify-between">
         <span
           onClick={() => addToken()}
-          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+          className="cursor-pointer text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
         >
           {lang === "en"
             ? "Add token to your wallet"

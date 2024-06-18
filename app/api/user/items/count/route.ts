@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -9,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   address: z.custom<Address>(),
-  item: z.string(),
+  item: z.string()
 });
 
 /* GET /api/user/items/count
@@ -34,7 +33,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { address, item } = inputSchema.safeParse({
       address: searchParams.get("address"),
-      item: searchParams.get("item"),
+      item: searchParams.get("item")
     }).data as unknown as { address: Address; item: string };
 
     const { data } = await supabase
@@ -46,13 +45,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (data && data.length > 0) {
       return NextResponse.json(data[0]?.number_of_use, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
 
     return NextResponse.json(0, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

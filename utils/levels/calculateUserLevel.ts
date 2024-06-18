@@ -13,6 +13,6 @@ export const calculateUserLevel = (quizzesCompleted: number) => {
   return {
     userLevel,
     quizzesRemaining,
-    quizzesRequired,
+    quizzesRequired
   };
 };

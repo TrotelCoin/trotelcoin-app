@@ -38,23 +38,23 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
     {
       name: lang === "en" ? "Home" : "Accueil",
       href: `/${lang}/home`,
-      id: 1,
+      id: 1
     },
     {
       name: lang === "en" ? "Learn" : "Cours",
       href: `/${lang}/learn`,
-      id: 2,
+      id: 2
     },
     {
       name: lang === "en" ? "Shop" : "Boutique",
       href: `/${lang}/shop`,
-      id: 3,
+      id: 3
     },
     {
       name: lang === "en" ? "Account" : "Compte",
       href: `/${lang}/account`,
-      id: 4,
-    },
+      id: 4
+    }
   ];
 
   return (
@@ -67,12 +67,12 @@ const MobileFooter = ({ lang }: { lang: Lang }) => {
         leave="transition-opacity duration-200"
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
-        className="flex justify-center mx-auto"
+        className="mx-auto flex justify-center"
       >
         <div
-          className={`md:hidden fixed rounded-full backdrop-blur-xl bottom-0 mb-8 w-11/12 mx-auto bg-blue-500 p-2 shadow-lg`}
+          className={`fixed bottom-0 mx-auto mb-8 w-11/12 rounded-full bg-blue-500 p-2 shadow-lg backdrop-blur-xl md:hidden`}
         >
-          <div className="flex flex-wrap justify-between items-center text-gray-900 dark:text-gray-100">
+          <div className="flex flex-wrap items-center justify-between text-gray-900 dark:text-gray-100">
             {navigation.map((item: MobileFooterItem, index: number) => (
               <Link
                 key={index}

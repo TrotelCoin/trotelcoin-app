@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
-  shieldName: z.custom<Shield>(),
+  shieldName: z.custom<Shield>()
 });
 
 /* POST /api/user/items/use-shields
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { wallet, shieldName } = inputSchema.safeParse({
       wallet: searchParams.get("wallet"),
-      shieldName: searchParams.get("shieldName"),
+      shieldName: searchParams.get("shieldName")
     }).data as unknown as { wallet: Address; shieldName: string };
 
     const { data: walletData } = await supabase
@@ -44,13 +44,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       await supabase.from("shields").insert({
         wallet: wallet,
         shield_name: shieldName,
-        start_time: new Date().toISOString(),
+        start_time: new Date().toISOString()
       });
     }
 
     if (!shieldName || shieldName.length === 0) {
       return NextResponse.json(`Shield ${shieldName} is not available`, {
-        status: 404,
+        status: 404
       });
     }
 
@@ -58,14 +58,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .from("shields")
       .update({
         shield_name: shieldName,
-        start_time: new Date().toISOString(),
+        start_time: new Date().toISOString()
       })
       .eq("wallet", wallet)
       .eq("shield_name", shieldName);
 
     return NextResponse.json(`Shield ${shieldName} has been activated`, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

@@ -9,7 +9,7 @@ import {
   useSwitchChain,
   useBlockNumber,
   useBlock,
-  useTransactionConfirmations,
+  useTransactionConfirmations
 } from "wagmi";
 import { Address, Hash } from "viem";
 import { trotelCoinStakingV2 } from "@/data/web3/addresses";
@@ -23,7 +23,7 @@ import BlueButton from "@/app/[lang]/components/buttons/blue";
 const ClaimingButton = ({
   lang,
   chainError,
-  setChainError,
+  setChainError
 }: {
   lang: Lang;
   chainError: boolean;
@@ -45,11 +45,11 @@ const ClaimingButton = ({
   const { switchChain } = useSwitchChain();
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
   const { data: block } = useBlock({
     chainId: polygon.id,
-    blockNumber: blockNumber,
+    blockNumber: blockNumber
   });
 
   const { writeContractAsync, data: claimHash } = useWriteContract({
@@ -64,14 +64,14 @@ const ClaimingButton = ({
       onError: () => {
         setErrorMessage(true);
         setIsLoading(false);
-      },
-    },
+      }
+    }
   });
 
   const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
     useTransactionConfirmations({
       chainId: polygon.id,
-      hash: claimHash as Hash,
+      hash: claimHash as Hash
     });
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const ClaimingButton = ({
       setIsLoading(false);
       setClaimConfirmed(true);
     }
-  }, [claimConfirmation]);
+  }, [claimConfirmation, claimConfirmed]);
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
@@ -88,13 +88,13 @@ const ClaimingButton = ({
       abi: trotelCoinStakingV2ABI,
       chainId: polygon.id,
       functionName: "stakings",
-      args: [address as Address],
+      args: [address as Address]
     });
 
   useEffect(() => {
     refetchStakings();
     refetchClaimConfirmation();
-  }, [blockNumber, address]);
+  }, [blockNumber, address, refetchStakings, refetchClaimConfirmation]);
 
   useEffect(() => {
     if (block && !blockFetched) {
@@ -102,7 +102,7 @@ const ClaimingButton = ({
       setTimestamp(timestamp);
       setBlockFetched(true);
     }
-  }, [block]);
+  }, [block, blockFetched]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address && timestamp) {
@@ -112,7 +112,7 @@ const ClaimingButton = ({
       const duration = Number(getStakingData[2]);
       let timeLeft: number = 0;
       if (startTime && duration && timestamp) {
-        timeLeft = startTime + duration - (timestamp as number);
+        timeLeft = startTime + duration - timestamp;
       }
 
       setStakedTrotelCoins(stakedTrotelCoins);
@@ -144,7 +144,7 @@ const ClaimingButton = ({
       address: trotelCoinStakingV2,
       functionName: "unstake",
       chainId: polygon.id,
-      abi: trotelCoinStakingV2ABI,
+      abi: trotelCoinStakingV2ABI
     });
   };
 

@@ -8,11 +8,11 @@ export const dynamic = "force-dynamic";
 
 const inputSchemaPost = z.object({
   wallet: z.custom<Address>(),
-  mail: z.string().email(),
+  mail: z.string().email()
 });
 
 const inputSchemaGet = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/waitlist
@@ -26,7 +26,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   try {
     const { wallet } = inputSchemaGet.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     const { data: learnerWaitlist } = await supabase
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { wallet, mail } = inputSchemaPost.safeParse({
       wallet: searchParams.get("wallet"),
-      mail: searchParams.get("mail"),
+      mail: searchParams.get("mail")
     }).data as unknown as { wallet: Address; mail: string };
 
     // check if learners exist
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         number_of_quizzes_created: 0,
         total_rewards_pending: 0,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       });
     }
 
@@ -131,13 +131,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       await supabase.from("waitlist").insert({
         wallet: wallet,
         mail: mail,
-        created_at: new Date().toISOString(),
+        created_at: new Date().toISOString()
       });
     }
 
     return NextResponse.json(position, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

@@ -53,22 +53,22 @@ export async function generateMetadata(
           url: "https://app.trotelcoin.com/assets/banner/trotelcoin-banner.png",
           width: 800,
           height: 600,
-          alt: "TrotelCoin App",
-        },
-      ],
+          alt: "TrotelCoin App"
+        }
+      ]
     },
     twitter: {
       card: "summary",
       site: "@trotelcoin",
       creator: "@trotelcoin",
-      title: `${title} - TrotelCoin`,
-    },
+      title: `${title} - TrotelCoin`
+    }
   };
 }
 
 const CoursePage = ({
   params: { lang, quizId },
-  children,
+  children
 }: {
   params: { lang: Lang; quizId: number };
   children: React.ReactNode;

@@ -55,7 +55,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
           : 0;
       const updatedLearner = {
         ...element,
-        average_marks: averageMarks,
+        average_marks: averageMarks
       };
       updatedLeaderboard.push(updatedLearner);
     });
@@ -64,7 +64,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       {
-        updatedLeaderboard,
+        updatedLeaderboard
       },
       { status: 200, headers: { "Cache-Control": "no-store" } }
     );

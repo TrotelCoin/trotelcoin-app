@@ -13,7 +13,7 @@ const StakingV1 = ({
   trotelPrice,
   showTrotelInUsdc,
   roundPrice,
-  storedTrotelCoin,
+  storedTrotelCoin
 }: {
   lang: Lang;
   trotelPrice: number;
@@ -59,9 +59,9 @@ const StakingV1 = ({
 
   return (
     <>
-      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
-        <div className="w-[448px] mt-4 flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-          <div className="px-4 pb-4 w-full">
+      <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center">
+        <div className="mt-4 flex w-[448px] flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
+          <div className="w-full px-4 pb-4">
             <StakingData
               lang={lang}
               trotelPrice={trotelPrice}
@@ -69,7 +69,7 @@ const StakingV1 = ({
               showTrotelInUsdc={showTrotelInUsdc}
             />
           </div>
-          <div className="pt-4 px-4 w-full">
+          <div className="w-full px-4 pt-4">
             <TotalStaked
               lang={lang}
               storedTrotelPrice={storedTrotelPrice}

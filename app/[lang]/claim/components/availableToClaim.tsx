@@ -7,7 +7,7 @@ import { Skeleton } from "@radix-ui/themes";
 const AvailableToClaim = ({
   lang,
   availableToClaim,
-  claimed,
+  claimed
 }: {
   lang: Lang;
   availableToClaim: number | null;

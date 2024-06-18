@@ -6,7 +6,7 @@ import BlueButton from "@/app/[lang]/components/buttons/blue";
 
 const GetStarted = ({
   lang,
-  setFullScreen,
+  setFullScreen
 }: {
   lang: Lang;
   setFullScreen: React.Dispatch<React.SetStateAction<boolean>>;

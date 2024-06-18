@@ -34,7 +34,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -59,7 +59,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -71,8 +71,8 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center">
+        <div className="flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="flex flex-col gap-2 px-4">
             <span className="text-2xl font-bold">
               {lang === "en" ? "Claim" : "Récupérer"}
@@ -85,7 +85,10 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
               />
             </div>
             <div>
-              <UsdcBalance lang={lang} availableToClaim={availableToClaim as number} />
+              <UsdcBalance
+                lang={lang}
+                availableToClaim={availableToClaim as number}
+              />
             </div>
             <div>
               <Balance lang={lang} />

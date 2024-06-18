@@ -6,7 +6,7 @@ import { useReadContract, useBlockNumber } from "wagmi";
 import { polygon } from "viem/chains";
 import {
   trotelCoinPolygonUniswapV3Pool,
-  usdcPolygonUniswapV3Pool,
+  usdcPolygonUniswapV3Pool
 } from "@/data/web3/addresses";
 import trotelCoinPolygonUniswapV3PoolABI from "@/abi/uniswap/trotelCoinPolygonUniswapV3Pool";
 import usdcPolygonUniswapV3PoolABI from "@/abi/uniswap/usdcPolygonUniswapV3Pool";
@@ -24,30 +24,33 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setStoredTrotelPrice(trotelPrice);
-    }, 5 * 60 * 1000); // 5 minutes
+    const timer = setTimeout(
+      () => {
+        setStoredTrotelPrice(trotelPrice);
+      },
+      5 * 60 * 1000
+    ); // 5 minutes
 
     return () => clearTimeout(timer);
   }, [trotelPrice]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
-    watch: true,
+    watch: true
   });
 
   const { data: trotelSlot0, refetch: refetchTrotelSlot0 } = useReadContract({
     abi: trotelCoinPolygonUniswapV3PoolABI,
     address: trotelCoinPolygonUniswapV3Pool,
     functionName: "slot0",
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: usdcSlot0, refetch: refetchUsdcSlot0 } = useReadContract({
     abi: usdcPolygonUniswapV3PoolABI,
     address: usdcPolygonUniswapV3Pool,
     functionName: "slot0",
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   function returnPrice(
@@ -110,7 +113,7 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
       setShowTrotelInUsdc,
       toggleShowInUsdc,
       trotelPriceRounded,
-      setTrotelPriceRounded,
+      setTrotelPriceRounded
     }),
     [trotelPrice, trotelPriceLoading, showTrotelInUsdc, trotelPriceRounded]
   );

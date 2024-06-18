@@ -11,7 +11,7 @@ import {
   useReadContract,
   useWriteContract,
   useSwitchChain,
-  useTransactionConfirmations,
+  useTransactionConfirmations
 } from "wagmi";
 import { polygonChain } from "@/data/web3/chains";
 import { polygon } from "viem/chains";
@@ -110,34 +110,34 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     } else {
       switchChain({ chainId: polygon.id });
     }
-  }, [userAddress, fromChain]);
+  }, [userAddress, fromChain, switchChain]);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: fromChain.chainId,
+    chainId: fromChain.chainId
   });
 
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
     token: fromToken.address,
-    chainId: fromChain.chainId,
+    chainId: fromChain.chainId
   });
 
   const { data: toBalanceData, refetch: refetchTo } = useBalance({
     address: userAddress,
     token: toToken.address,
-    chainId: toChain.chainId,
+    chainId: toChain.chainId
   });
 
   const { data: fromNativeBalanceData, refetch: refetchFromNative } =
     useBalance({
       address: userAddress,
-      chainId: fromChain.chainId,
+      chainId: fromChain.chainId
     });
 
   const { data: toNativeBalanceData, refetch: refetchToNative } = useBalance({
     address: userAddress,
-    chainId: toChain.chainId,
+    chainId: toChain.chainId
   });
 
   const exchangeTokens = () => {
@@ -174,12 +174,16 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     toBalanceData,
     fromNativeBalanceData,
     toNativeBalanceData,
+    fromChain,
+    fromToken,
+    toChain,
+    toToken
   ]);
 
   const {
     writeContractAsync: approvingAsync,
     isPending: isPendingApproving,
-    data: approveHash,
+    data: approveHash
   } = useWriteContract({
     mutation: {
       onMutate: () => {
@@ -192,14 +196,14 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setErrorMessage(true);
         setIsApproved(false);
         setIsLoadingTransaction(false);
-      },
-    },
+      }
+    }
   });
 
   const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
     useTransactionConfirmations({
       chainId: polygon.id,
-      hash: approveHash,
+      hash: approveHash
     });
 
   useEffect(() => {
@@ -213,7 +217,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setIsLoadingTransaction(false);
       setSwappedConfirmed(true);
     }
-  }, [approveConfirmation]);
+  }, [approveConfirmation, swappedConfirmed]);
 
   const { sendTransactionAsync: swappingAsync, data: swappedHash } =
     useSendTransaction({
@@ -228,16 +232,16 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         onError: () => {
           setErrorMessage(true);
           setIsLoadingTransaction(false);
-        },
-      },
+        }
+      }
     });
 
   const {
     data: transactionConfirmation,
-    refetch: refetchTransactionConfirmation,
+    refetch: refetchTransactionConfirmation
   } = useTransactionConfirmations({
     chainId: polygon.id,
-    hash: swappedHash as Hash,
+    hash: swappedHash as Hash
   });
 
   useEffect(() => {
@@ -250,7 +254,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setSwappedMessageConfirmation(true);
       setIsLoadingTransaction(false);
     }
-  }, [transactionConfirmation]);
+  }, [transactionConfirmation, swappedMessageConfirmation]);
 
   const refetchQuote = () => {
     setQuoteFetched(false);
@@ -280,50 +284,50 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     toAmount,
     toToken,
     quoteFetched,
-    fromToken,
+    fromToken
   ]);
 
   const [debouncedFromAmount] = useDebounce(fromAmount, 1000);
 
-  const handleRefresh = async () => {
-    await fetchQuote(
-      fromAmount as number,
-      fromToken,
-      toToken,
-      fromChain,
-      toChain,
-      userAddress as Address,
-      uniqueRoutesPerBridge,
-      sort,
-      singleTxOnly,
-      enableRefuel,
-      slippage,
-      setIsLoading,
-      setNoQuoteNotification,
-      setQuoteFetched,
-      setIsApproved,
-      setGasPrice,
-      setFromPrice,
-      setToPrice,
-      setSwapSlippage,
-      setBridgeSlippage,
-      setProtocolName,
-      setProtocolIcon,
-      setMinimumAmountOut,
-      setApiReturnData,
-      setApprovalData,
-      setAllowanceTarget,
-      setToAmount
-    ).catch((error) => {
-      console.error(error);
-      setIsLoading(false);
-      setNoQuoteNotification(true);
-      setQuoteFetched(false);
-      setIsApproved(false);
-    });
-  };
-
   useEffect(() => {
+    const handleRefresh = async () => {
+      await fetchQuote(
+        fromAmount as number,
+        fromToken,
+        toToken,
+        fromChain,
+        toChain,
+        userAddress as Address,
+        uniqueRoutesPerBridge,
+        sort,
+        singleTxOnly,
+        enableRefuel,
+        slippage,
+        setIsLoading,
+        setNoQuoteNotification,
+        setQuoteFetched,
+        setIsApproved,
+        setGasPrice,
+        setFromPrice,
+        setToPrice,
+        setSwapSlippage,
+        setBridgeSlippage,
+        setProtocolName,
+        setProtocolIcon,
+        setMinimumAmountOut,
+        setApiReturnData,
+        setApprovalData,
+        setAllowanceTarget,
+        setToAmount
+      ).catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+        setNoQuoteNotification(true);
+        setQuoteFetched(false);
+        setIsApproved(false);
+      });
+    };
+
     if (userAddress && fromAmount && fromAmount > 0) {
       handleRefresh();
     } else {
@@ -348,6 +352,9 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     sort,
     singleTxOnly,
     quoteFetched,
+    fromAmount,
+    enableRefuel,
+    slippage
   ]);
 
   useEffect(() => {
@@ -426,14 +433,14 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         }
       }, 20000);
     }
-  }, [txHash]);
+  }, [txHash, fromChain, toChain]);
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
     address: fromToken.address,
     abi: allowanceAbi,
     chainId: fromChain.chainId,
     functionName: "allowance",
-    args: [userAddress, approvalData?.allowanceTarget],
+    args: [userAddress, approvalData?.allowanceTarget]
   });
 
   useEffect(() => {
@@ -447,7 +454,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       );
       setAllowance(allowance);
     }
-  }, [allowanceData]);
+  }, [allowanceData, fromToken]);
 
   useEffect(() => {
     if (allowance && fromAmount) {
@@ -479,7 +486,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     isLoadingChains,
     isLoadingBlockchain,
     isLoadingTokensBalance,
-    isLoadingTransaction,
+    isLoadingTransaction
   ]);
 
   useEffect(() => {
@@ -511,12 +518,25 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     refetchApproveConfirmation();
     refetchTransactionConfirmation();
     setIsLoadingBlockchain(false);
-  }, [blockNumber, userAddress, fromToken, toToken, fromChain, toChain]);
+  }, [
+    blockNumber,
+    userAddress,
+    fromToken,
+    toToken,
+    fromChain,
+    toChain,
+    refetchApproveConfirmation,
+    refetchFrom,
+    refetchFromNative,
+    refetchToNative,
+    refetchTransactionConfirmation,
+    refetchTo
+  ]);
 
   return (
     <>
-      <div className="mx-auto flex flex-col max-w-md justify-center w-full items-center">
-        <div className="flex items-center w-full justify-between">
+      <div className="mx-auto flex w-full max-w-md flex-col items-center justify-center">
+        <div className="flex w-full items-center justify-between">
           <WidgetTitle
             title={lang === "en" ? "Swap" : "Échanger"}
             lang={lang}
@@ -529,7 +549,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
               }
             >
               <ArrowPathIcon
-                className={`w-4 h-4 md:h-5 md:w-5 text-gray-100 ${
+                className={`h-4 w-4 text-gray-100 md:h-5 md:w-5 ${
                   isLoading && "animate-spin"
                 }`}
               />
@@ -548,7 +568,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
         </div>
 
-        <div className="w-full mt-4 flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="mt-4 flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="px-4">
             <From
               lang={lang}
@@ -570,16 +590,16 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
         </div>
 
-        <div className="my-4 flex justify-center items-center">
+        <div className="my-4 flex items-center justify-center">
           <BlueSimpleButton
             onClick={() => exchangeTokens()}
             isRoundedFull={true}
           >
-            <ArrowsUpDownIcon className="w-4 h-4 md:h-5 md:w-5 text-gray-100" />
+            <ArrowsUpDownIcon className="h-4 w-4 text-gray-100 md:h-5 md:w-5" />
           </BlueSimpleButton>
         </div>
 
-        <div className="w-full flex flex-col flex-wrap bg-white border backdrop-blur-xl divide-y divide-gray-900/10 dark:divide-gray-100/10 border-gray-900/10 dark:border-gray-100/10 rounded-xl py-4 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+        <div className="flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="px-4">
             <To
               lang={lang}

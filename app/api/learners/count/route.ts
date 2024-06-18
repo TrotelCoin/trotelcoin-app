@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     if (count) {
       return NextResponse.json(count, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       return NextResponse.json(0, { status: 500 });

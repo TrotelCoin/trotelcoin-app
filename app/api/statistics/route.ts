@@ -3,7 +3,6 @@ import { supabase } from "@/utils/supabase/db";
 import { StatisticsType } from "@/types/statistics/statistics";
 import { z } from "zod";
 
-
 export const dynamic = "force-dynamic";
 
 /* GET /api/statistics
@@ -11,7 +10,8 @@ export const dynamic = "force-dynamic";
  * @returns {object} statistics_evolution - The statistics evolution.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {try {
+export async function GET(req: NextRequest, res: NextResponse) {
+  try {
     const { data } = await supabase.from("statistics_evolution").select("*");
 
     return NextResponse.json(data, {
@@ -20,8 +20,8 @@ export async function GET(req: NextRequest, res: NextResponse) {try {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET",
         "Access-Control-Allow-Headers": "Content-Type",
-        "Cache-Control": "no-store",
-      },
+        "Cache-Control": "no-store"
+      }
     });
   } catch (error) {
     console.error(error);
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest, res: NextResponse) {try {
 
 const inputSchema = z.object({
   stats: z.string(),
-  value: z.number(),
+  value: z.number()
 });
 
 /* POST /api/statistics/evolution
@@ -41,10 +41,10 @@ const inputSchema = z.object({
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-try {
+  try {
     const { stats, value } = inputSchema.safeParse({
       stats: searchParams.get("stats"),
-      value: Number(searchParams.get("value")),
+      value: Number(searchParams.get("value"))
     }).data as unknown as { stats: StatisticsType; value: number };
 
     const { data: stat } = await supabase
@@ -74,25 +74,25 @@ try {
           .from("statistics_evolution")
           .update({
             statistics_number: value,
-            updated_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
           })
           .eq("statistics", stats);
 
         return NextResponse.json("Statistics updated", {
           status: 200,
-          headers: { "Cache-Control": "no-store" },
+          headers: { "Cache-Control": "no-store" }
         });
       } else {
         return NextResponse.json("No need to update", {
           status: 200,
-          headers: { "Cache-Control": "no-store" },
+          headers: { "Cache-Control": "no-store" }
         });
       }
     } else {
       await supabase.from("statistics_evolution").insert({
         statistics: stats,
         statistics_number: value,
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       });
     }
   } catch (error) {

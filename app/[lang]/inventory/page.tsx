@@ -31,7 +31,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: numberOfUsedItemsData } = useSWR(
@@ -41,23 +41,9 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
       revalidateIfStale: true,
       revalidateOnMount: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
-
-  const handleRefresh = async () => {
-    if (!refreshing && address && totalItems) {
-      setRefreshing(true);
-      setInventories(null);
-
-      await fetchInventory(totalItems, address).then((newInventories) => {
-        setInventories(newInventories);
-      });
-
-      setFetching(false);
-      setRefreshing(false);
-    }
-  };
 
   useEffect(() => {
     if (numberOfUsedItemsData && inventories) {
@@ -87,12 +73,12 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     abi: trotelCoinShopABI,
     functionName: "getTotalItems",
     chainId: polygon.id,
-    account: address,
+    account: address
   });
 
   useEffect(() => {
     refetchTotalItems();
-  }, [blockNumber]);
+  }, [blockNumber, refetchTotalItems]);
 
   useEffect(() => {
     if (totalItemsData) {
@@ -104,14 +90,28 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [totalItemsData]);
 
   useEffect(() => {
+    const handleRefresh = async () => {
+      if (!refreshing && address && totalItems) {
+        setRefreshing(true);
+        setInventories(null);
+
+        await fetchInventory(totalItems, address).then((newInventories) => {
+          setInventories(newInventories);
+        });
+
+        setFetching(false);
+        setRefreshing(false);
+      }
+    };
+
     if (totalItems && address) {
       handleRefresh();
     }
-  }, [address, totalItems]);
+  }, [address, totalItems, refreshing]);
 
   return (
     <>
-      <div className="mx-auto max-w-4xl flex flex-col gap-4">
+      <div className="mx-auto flex max-w-4xl flex-col gap-4">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
@@ -119,10 +119,10 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </span>
             <button
               onClick={() => handleRefresh()}
-              className="p-2 hover:bg-white dark:hover:bg-gray-800 rounded-full"
+              className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800"
             >
               <ArrowPathIcon
-                className={`w-5 h-5 text-gray-900 dark:text-gray-100 ${
+                className={`h-5 w-5 text-gray-900 dark:text-gray-100 ${
                   refreshing && "animate-spin"
                 }`}
               />
@@ -130,7 +130,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </div>
           {((inventories && inventories.length > 0 && !hide) || fetching) && (
             <>
-              <span className="text-gray-700 dark:text-gray-300 text-sm">
+              <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en"
                   ? "Use your items to improve your learning experience."
                   : "Utilisez vos objets pour améliorer votre expérience d'apprentissage."}
@@ -143,7 +143,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <>
             {inventories && inventories.length > 0 && !hide ? (
               <>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {inventories.map(
                     (item: InventoryItemTypeFinal, index: number) => (
                       <InventoryItem lang={lang} item={item} key={index} />
@@ -153,7 +153,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </>
             ) : refreshing ? (
               <>
-                <div className="flex justify-center items-center text-center py-32 md:px-32">
+                <div className="flex items-center justify-center py-32 text-center md:px-32">
                   <span
                     className={`text-gray-700 dark:text-gray-300 ${
                       refreshing && loadingFlashClass
@@ -167,7 +167,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </>
             ) : (
               <>
-                <div className="flex flex-col justify-center gap-4 text-center items-center py-32 md:px-32">
+                <div className="flex flex-col items-center justify-center gap-4 py-32 text-center md:px-32">
                   <span className="text-gray-700 dark:text-gray-300">
                     {lang === "en"
                       ? "You don't have any items."
@@ -181,7 +181,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
         )}
 
         {fetching && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 3 }).map((_, index) => (
               <InventoryItemSkeleton key={index} />
             ))}

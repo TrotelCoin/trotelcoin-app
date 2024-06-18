@@ -4,25 +4,25 @@ const approveAbi = [
       {
         internalType: "address",
         name: "spender",
-        type: "address",
+        type: "address"
       },
       {
         internalType: "uint256",
         name: "amount",
-        type: "uint256",
-      },
+        type: "uint256"
+      }
     ],
     name: "approve",
     outputs: [
       {
         internalType: "bool",
         name: "",
-        type: "bool",
-      },
+        type: "bool"
+      }
     ],
     stateMutability: "nonpayable",
-    type: "function",
-  },
+    type: "function"
+  }
 ];
 
 export default approveAbi;

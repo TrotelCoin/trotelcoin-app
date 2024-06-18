@@ -8,11 +8,11 @@ import { getServerSession } from "next-auth";
 export const dynamic = "force-dynamic";
 
 const inputSchemaPost = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 const inputSchemaGet = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/user/streak
@@ -40,7 +40,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchemaGet.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     // get streak information for the specified wallet
@@ -55,7 +55,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
           currentStreak: 0,
           lastUpdated: new Date().toISOString(),
           disabled: false,
-          lostStreak: false,
+          lostStreak: false
         },
         { status: 404 }
       );
@@ -115,7 +115,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         currentStreak: 0,
         lastUpdated: new Date().toISOString(),
         disabled: false,
-        lostStreak: false,
+        lostStreak: false
       },
       { status: 500 }
     );
@@ -133,7 +133,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchemaPost.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     // Check if wallet exists in "learners" table
@@ -151,8 +151,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
           number_of_quizzes_created: 0,
           total_rewards_pending: 0,
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        },
+          updated_at: new Date().toISOString()
+        }
       ]);
     }
 
@@ -169,15 +169,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
           wallet: wallet as string,
           current_streak: 1,
           max_streak: 1,
-          last_streak_at: new Date().toISOString(),
-        },
+          last_streak_at: new Date().toISOString()
+        }
       ]);
 
       return NextResponse.json(
         { success: "Streak updated" },
         {
           status: 200,
-          headers: { "Cache-Control": "no-store" },
+          headers: { "Cache-Control": "no-store" }
         }
       );
     }
@@ -214,7 +214,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         .from("streak")
         .update({
           current_streak: currentStreak[0].current_streak + 1,
-          last_streak_at: nowMidnight.toISOString(),
+          last_streak_at: nowMidnight.toISOString()
         })
         .eq("wallet", wallet as string);
 
@@ -238,7 +238,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
           max_streak: Math.max(
             maxStreak[0].max_streak,
             currentStreak[0].current_streak + 1
-          ),
+          )
         })
         .eq("wallet", wallet as string);
 
@@ -246,7 +246,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         { success: "Streak updated." },
         {
           status: 200,
-          headers: { "Cache-Control": "no-store" },
+          headers: { "Cache-Control": "no-store" }
         }
       );
     } else {
@@ -254,7 +254,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         { success: "Streak not updated." },
         {
           status: 200,
-          headers: { "Cache-Control": "no-store" },
+          headers: { "Cache-Control": "no-store" }
         }
       );
     }

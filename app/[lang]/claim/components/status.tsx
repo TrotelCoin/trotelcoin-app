@@ -9,7 +9,7 @@ const cannotClaim =
 
 const Status = ({
   lang,
-  availableToClaim,
+  availableToClaim
 }: {
   lang: Lang;
   availableToClaim: number | null;

@@ -16,7 +16,7 @@ import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import {
   StatisticsDataType,
-  StatisticsType,
+  StatisticsType
 } from "@/types/statistics/statistics";
 import NetPromoterScore from "@/app/[lang]/statistics/components/statistics/netPromoterScore";
 import AverageMark from "@/app/[lang]/statistics/components/statistics/averageMark";
@@ -31,7 +31,7 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
     refreshInterval: refreshIntervalTime,
     revalidateIfStale: true,
     revalidateOnMount: true,
-    revalidateOnFocus: true,
+    revalidateOnFocus: true
   });
 
   useEffect(() => {
@@ -53,15 +53,15 @@ const TheAlgorithm = ({ lang }: { lang: Lang }) => {
   return (
     <>
       <div>
-        <h2 className="text-gray-900 dark:text-gray-100 font-semibold text-xl">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
           {lang === "en" ? "Statistics" : "Statistiques"}
         </h2>
-        <span className="text-gray-700 dark:text-gray-300 text-sm">
+        <span className="text-sm text-gray-700 dark:text-gray-300">
           {lang === "en"
             ? "Percentage change is computed weekly."
             : "La variation en pourcentage est calculée hebdomadairement."}
         </span>
-        <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto">
+        <div className="mx-auto mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
           <Tilt
             glareEnable={true}
             tiltMaxAngleX={5}

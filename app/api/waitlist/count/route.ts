@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -9,7 +8,8 @@ export const dynamic = "force-dynamic";
  * @returns {number} count - The number of entries in the waitlist that have not been granted.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {try {
+export async function GET(req: NextRequest, res: NextResponse) {
+  try {
     const { data } = await supabase.from("waitlist").select("*");
 
     let length: number = 0;
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest, res: NextResponse) {try {
 
     return NextResponse.json(length, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
+      headers: { "Cache-Control": "no-store" }
     });
   } catch (error) {
     console.error(error);

@@ -26,7 +26,7 @@ const ApproveButton = ({
   setErrorApproveMessage,
   isApproved,
   isPendingApproving,
-  isMax,
+  isMax
 }: {
   lang: Lang;
   amount: number;
@@ -50,18 +50,18 @@ const ApproveButton = ({
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address,
+    address: address
   });
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber]);
+  }, [blockNumber, refetchBalance]);
 
   const approve = async (amount: number) => {
     if (!amount || amount <= 0) {
@@ -82,7 +82,7 @@ const ApproveButton = ({
         address: trotelCoinAddress,
         functionName: "approve",
         chainId: polygon.id,
-        abi: trotelCoinABI,
+        abi: trotelCoinABI
       });
     } catch (error) {
       console.error(error);
@@ -103,7 +103,7 @@ const ApproveButton = ({
     } else {
       setDisabled(false);
     }
-  }, [chainError, isPendingApproving]);
+  }, [chainError, isPendingApproving, setDisabled]);
 
   return (
     <>

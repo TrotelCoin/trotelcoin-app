@@ -21,7 +21,7 @@ const To = ({
   setOpenTokenList,
   setTokenList,
   setOpenChainList,
-  setChainList,
+  setChainList
 }: {
   lang: Lang;
   toBalance: number;
@@ -41,7 +41,7 @@ const To = ({
       <div className="flex flex-col justify-center gap-2">
         <div className="flex items-center justify-between">
           <div className="flex flex-col items-start justify-center">
-            <span className="text-gray-700 dark:text-gray-300 text-sm">
+            <span className="text-sm text-gray-700 dark:text-gray-300">
               {lang === "en" ? "You receive" : "Vous recevez"}
             </span>
             <button
@@ -85,7 +85,7 @@ const To = ({
           <Skeleton loading={isLoading}>
             <input
               type="number"
-              className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full h-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent cursor-not-allowed`}
+              className={`h-full w-full cursor-not-allowed rounded-xl border-transparent bg-transparent px-2 py-0 text-4xl font-semibold text-gray-900 [appearance:textfield] focus:border-transparent focus:outline-none focus:ring-transparent dark:text-gray-100 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none`}
               onWheel={(e) => e.preventDefault()}
               value={
                 toAmount
@@ -98,7 +98,7 @@ const To = ({
             />
           </Skeleton>
 
-          <div className="flex flex-col justify-center items-end">
+          <div className="flex flex-col items-end justify-center">
             <button
               onClick={() => {
                 setTokenList("to");
@@ -109,7 +109,7 @@ const To = ({
               <div className="flex items-center justify-end gap-1">
                 {toToken.logoURI && toToken.name === "TrotelCoin" ? (
                   <>
-                    <div className="block dark:hidden w-4 h-4">
+                    <div className="block h-4 w-4 dark:hidden">
                       <Image
                         width={16}
                         height={16}
@@ -119,7 +119,7 @@ const To = ({
                         src={toToken.lightLogoURI as string}
                       />
                     </div>
-                    <div className="hidden dark:block w-4 h-4">
+                    <div className="hidden h-4 w-4 dark:block">
                       <Image
                         width={16}
                         height={16}
@@ -187,8 +187,8 @@ const To = ({
                             isZero
                               ? "text-gray-700 dark:text-gray-300"
                               : isPositive
-                              ? "text-green-500"
-                              : "text-red-500"
+                                ? "text-green-500"
+                                : "text-red-500"
                           }
                         >
                           ({percentage.toFixed(2)}%)

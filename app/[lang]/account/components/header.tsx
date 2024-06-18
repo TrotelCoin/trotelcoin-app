@@ -28,11 +28,11 @@ const Header = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     setThemeMode(theme);
-  }, [theme]);
+  }, [theme, setThemeMode]);
 
   const { data: ensName } = useEnsName({
     address: address as Address,
-    chainId: mainnet.id,
+    chainId: mainnet.id
   });
 
   useEffect(() => {
@@ -41,12 +41,12 @@ const Header = ({ lang }: { lang: Lang }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <h2 className="font-semibold text-gray-900 dark:text-gray-100 text-xl">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
           {lang === "en" ? "Hello" : "Bonjour"},{" "}
           <button
             onClick={() => open({ view: "Account" })}
-            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
           >
             <span className={`font-bold`}>
               {ensName ? (
@@ -65,14 +65,14 @@ const Header = ({ lang }: { lang: Lang }) => {
             color="primary"
             isSelected={showTrotelInUsdc}
             onValueChange={toggleShowInUsdc}
-            className="text-black dark:text-white font-semibold"
+            className="font-semibold text-black dark:text-white"
           >
             USDC
           </Switch>
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto">
+      <div className="mx-auto mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
         <Satisfaction lang={lang} />
 
         <Rank lang={lang} />

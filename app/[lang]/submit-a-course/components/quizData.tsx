@@ -11,7 +11,7 @@ const QuizData = ({
   setQuiz,
   setError,
   showError,
-  setShowError,
+  setShowError
 }: {
   lang: Lang;
   quiz: SubmitQuizData;
@@ -27,7 +27,7 @@ const QuizData = ({
           ...prev,
           questions: prev.questions.map((question, i) =>
             i === index ? { ...question, question: value } : question
-          ),
+          )
         };
       }
       return prev;
@@ -48,7 +48,7 @@ const QuizData = ({
       options: question.options.map((option: any, index: number) =>
         index === optionIndex ? value : option
       ),
-      correctAnswer: question.correctAnswer || 0,
+      correctAnswer: question.correctAnswer || 0
     };
   };
 
@@ -64,7 +64,7 @@ const QuizData = ({
         ...prev,
         questions: prev.questions.map((question, i) =>
           updateOptions(question, i, questionIndex, optionIndex, value)
-        ),
+        )
       };
     });
   };
@@ -78,7 +78,7 @@ const QuizData = ({
             i === questionIndex
               ? { ...question, correctAnswer: answerIndex }
               : question
-          ),
+          )
         };
       }
       return prev;
@@ -96,9 +96,9 @@ const QuizData = ({
               {
                 question: "",
                 options: ["", "", "", ""],
-                correctAnswer: 0,
-              },
-            ],
+                correctAnswer: 0
+              }
+            ]
           };
         }
         return prev;
@@ -111,7 +111,7 @@ const QuizData = ({
       if (prev !== null) {
         return {
           ...prev,
-          questions: prev.questions.filter((_, i) => i !== index),
+          questions: prev.questions.filter((_, i) => i !== index)
         };
       }
       return prev;
@@ -138,15 +138,13 @@ const QuizData = ({
       setError(false);
       setShowError(false);
     }
-  }, [quiz]);
+  }, [quiz, setError, setShowError]);
 
   useEffect(() => {
     if (quiz && quiz.questions.length > 0) {
       localStorage.setItem("submit_course_quiz", JSON.stringify(quiz));
     }
   }, [quiz]);
-
-
 
   return (
     <>
@@ -167,7 +165,7 @@ const QuizData = ({
                   type="button"
                   onClick={() => removeSlide(index)}
                   disabled={quiz.questions.length <= 4}
-                  className="inline-flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none"
+                  className="inline-flex rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
                 >
                   <XMarkIcon className="h-5 w-5" />
                 </button>
@@ -190,7 +188,7 @@ const QuizData = ({
                 onChange={(e) => handleQuestionChange(index, e.target.value)}
                 value={question?.question ?? ""}
                 maxLength={100}
-                className="rounded-xl bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+                className="rounded-xl border border-gray-900/10 bg-white ring-0 focus:outline-none active:border-blue-500 dark:border-gray-100/10 dark:bg-gray-800 dark:focus:outline-none dark:active:border-blue-500"
               />
             </div>
 
@@ -204,7 +202,7 @@ const QuizData = ({
                 <div key={questionIndex} className="flex items-center gap-2">
                   <button
                     onClick={() => handleAnswerChange(index, questionIndex)}
-                    className={`flex items-center gap-2 p-2 rounded-full w-10 h-10 border border-gray-900/10 dark:border-gray-100/10 ${
+                    className={`flex h-10 w-10 items-center gap-2 rounded-full border border-gray-900/10 p-2 dark:border-gray-100/10 ${
                       question.correctAnswer === questionIndex
                         ? "bg-blue-500 dark:bg-blue-300"
                         : "bg-white dark:bg-gray-800"
@@ -227,7 +225,7 @@ const QuizData = ({
                     }
                     value={option ?? ""}
                     maxLength={200}
-                    className="rounded-xl w-full bg-white dark:bg-gray-800 focus:outline-none dark:focus:outline-none ring-0 border border-gray-900/10 dark:border-gray-100/10 active:border-blue-500 dark:active:border-blue-500"
+                    className="w-full rounded-xl border border-gray-900/10 bg-white ring-0 focus:outline-none active:border-blue-500 dark:border-gray-100/10 dark:bg-gray-800 dark:focus:outline-none dark:active:border-blue-500"
                   />
                 </div>
               ))}

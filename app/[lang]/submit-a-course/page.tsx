@@ -56,8 +56,8 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
       questions: Array(4).fill({
         question: null,
         options: Array(4).fill(null),
-        correctAnswer: 0,
-      }),
+        correctAnswer: 0
+      })
     }
   );
   const [error, setError] = useState<boolean>(false);
@@ -107,7 +107,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
       subcategory: subcategory,
       tier: tier,
       course: course as SubmitCourseData[],
-      quiz: quiz,
+      quiz: quiz
     };
 
     setJson(courseJson);
@@ -120,7 +120,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
       const res = await fetch(`/api/files?title=${title}`, {
         method: "POST",
-        body: data,
+        body: data
       });
 
       const resData = await res.json();
@@ -155,7 +155,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
     // upload to ipfs and get the cid
 
     const file = new File([JSON.stringify(json)], "course.json", {
-      type: "application/json",
+      type: "application/json"
     });
 
     const cid = await uploadFile(file);
@@ -179,7 +179,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex flex-col justify-center max-w-xl w-full items-center text-gray-900 dark:text-gray-100">
+      <div className="mx-auto flex w-full max-w-xl flex-col items-center justify-center text-gray-900 dark:text-gray-100">
         {submitted ? (
           <>
             <div className="flex flex-col gap-2">
@@ -196,7 +196,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   ? "You can view the course on IPFS by clicking"
                   : "Vous pouvez voir le cours sur IPFS en cliquant"}
                 <Link
-                  className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                  className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                   href={`https://ipfs.io/ipfs/${cid}`}
                   target="_blank"
                 >
@@ -206,7 +206,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   ? "You can also see the blockchain transaction by clicking"
                   : "Vous pouvez également voir la transaction sur la blockchain en cliquant"}{" "}
                 <Link
-                  className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                  className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                   href={`https://polygonscan.com/tx/${tx}`}
                   target="_blank"
                 >
@@ -224,7 +224,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
               className="w-full"
             >
               {currentPage === 0 && (
-                <div className="flex flex-col w-full">
+                <div className="flex w-full flex-col">
                   <div className="flex flex-col gap-2">
                     <span className="text-4xl font-semibold">
                       {lang === "en"
@@ -236,7 +236,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         <>
                           Learn more about submitting a course by clicking{" "}
                           <Link
-                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                             href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                             target="_blank"
                           >
@@ -249,7 +249,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                           Apprenez-en plus sur comment proposer un cours en
                           cliquant{" "}
                           <Link
-                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                             href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                             target="_blank"
                           >
@@ -260,7 +260,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       )}
                     </span>
 
-                    <div className="flex flex-col mt-8">
+                    <div className="mt-8 flex flex-col">
                       <BasicInformations
                         address={address as Address}
                         lang={lang}
@@ -284,7 +284,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
               )}
 
               {currentPage === 1 && (
-                <div className="flex flex-col w-full">
+                <div className="flex w-full flex-col">
                   <div className="flex flex-col gap-2">
                     <span className="text-4xl font-semibold">
                       {lang === "en"
@@ -296,7 +296,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         <>
                           Learn more about submitting a course by clicking{" "}
                           <Link
-                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                             href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                             target="_blank"
                           >
@@ -309,7 +309,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                           Apprenez-en plus sur comment proposer un cours en
                           cliquant{" "}
                           <Link
-                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                             href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                             target="_blank"
                           >
@@ -320,7 +320,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       )}
                     </span>
 
-                    <div className="flex flex-col mt-8">
+                    <div className="mt-8 flex flex-col">
                       <CourseData
                         lang={lang}
                         course={course as SubmitCourseData[]}
@@ -335,7 +335,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
               )}
 
               {currentPage === 2 && (
-                <div className="flex flex-col w-full">
+                <div className="flex w-full flex-col">
                   <div className="flex flex-col gap-2">
                     <span className="text-4xl font-semibold">
                       {lang === "en"
@@ -347,7 +347,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         <>
                           Learn more about submitting a course by clicking{" "}
                           <Link
-                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                             href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                             target="_blank"
                           >
@@ -360,7 +360,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                           Apprenez-en plus sur comment proposer un cours en
                           cliquant{" "}
                           <Link
-                            className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                             href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                             target="_blank"
                           >
@@ -371,7 +371,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       )}
                     </span>
 
-                    <div className="flex flex-col mt-8">
+                    <div className="mt-8 flex flex-col">
                       <QuizData
                         lang={lang}
                         quiz={quiz}
@@ -387,7 +387,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </form>
 
             {currentPage === 3 && (
-              <div className="flex flex-col w-full">
+              <div className="flex w-full flex-col">
                 <div className="flex flex-col gap-2">
                   <span className="text-4xl font-semibold">
                     {lang === "en"
@@ -399,7 +399,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       <>
                         Learn more about submitting a course by clicking{" "}
                         <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                           href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                           target="_blank"
                         >
@@ -412,7 +412,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         Apprenez-en plus sur comment proposer un cours en
                         cliquant{" "}
                         <Link
-                          className="text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400"
+                          className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
                           href={`https://docs.trotelcoin.com/overview/proof-of-collective-intelligence`}
                           target="_blank"
                         >
@@ -423,7 +423,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     )}
                   </span>
 
-                  <div className="flex flex-col mt-8">
+                  <div className="mt-8 flex flex-col">
                     {isLoading ? (
                       <>
                         <div className="flex flex-col gap-2 text-center">
@@ -454,12 +454,12 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </div>
             )}
 
-            <div className="flex justify-between items-center w-full mt-12">
+            <div className="mt-12 flex w-full items-center justify-between">
               <button
                 disabled={currentPage <= 0}
                 onClick={() => handlePrevious()}
                 value={lang === "en" ? "Previous" : "Précédent"}
-                className="flex border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
+                className="flex rounded-xl border border-gray-900/10 bg-white px-6 py-2 text-sm font-semibold text-gray-900 hover:border-gray-900/50 hover:shadow focus:border-blue-500 focus:shadow-none dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50 dark:focus:border-blue-300"
               >
                 {lang === "en" ? "Previous" : "Précédent"}
               </button>
@@ -470,7 +470,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     value={lang === "en" ? "Submit" : "Soumettre"}
                     disabled={currentPage < 3 || isLoading}
                     onClick={() => submit()}
-                    className="flex border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
+                    className="flex rounded-xl border border-gray-900/10 bg-white px-6 py-2 text-sm font-semibold text-gray-900 hover:border-gray-900/50 hover:shadow focus:border-blue-500 focus:shadow-none dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50 dark:focus:border-blue-300"
                   >
                     {lang === "en" ? "Submit" : "Soumettre"}
                   </button>
@@ -481,7 +481,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     disabled={currentPage >= 3}
                     onClick={() => handleNext()}
                     value={lang === "en" ? "Next" : "Suivant"}
-                    className="flex border border-gray-900/10 dark:border-gray-100/10 bg-white dark:bg-gray-800 hover:shadow hover:border-gray-900/50 dark:hover:border-gray-100/50 focus:shadow-none focus:border-blue-500 dark:focus:border-blue-300 text-sm px-6 py-2 text-gray-900 dark:text-gray-100 rounded-xl font-semibold"
+                    className="flex rounded-xl border border-gray-900/10 bg-white px-6 py-2 text-sm font-semibold text-gray-900 hover:border-gray-900/50 hover:shadow focus:border-blue-500 focus:shadow-none dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:border-gray-100/50 dark:focus:border-blue-300"
                   >
                     {lang === "en" ? "Next" : "Suivant"}
                   </button>

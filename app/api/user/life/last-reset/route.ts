@@ -1,4 +1,3 @@
-
 import { supabase } from "@/utils/supabase/db";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -8,7 +7,7 @@ import { z } from "zod";
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
-  wallet: z.custom<Address>(),
+  wallet: z.custom<Address>()
 });
 
 /* GET /api/user/life/last-reset
@@ -31,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   try {
     const { wallet } = inputSchema.safeParse({
-      wallet: searchParams.get("wallet"),
+      wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
     // get reset life countdown
@@ -44,14 +43,14 @@ export async function GET(req: NextRequest, res: NextResponse) {
       const lastResetAt = data[0].last_reset_at;
       return NextResponse.json(lastResetAt, {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     } else {
       await supabase.from("life").insert({ wallet: wallet as string, life: 3 });
 
       return NextResponse.json(new Date().toISOString(), {
         status: 200,
-        headers: { "Cache-Control": "no-store" },
+        headers: { "Cache-Control": "no-store" }
       });
     }
   } catch (error) {

@@ -12,9 +12,9 @@ const ThemeSwitcher = () => {
     <>
       <BlueSimpleButton onClick={toggleTheme}>
         {theme === "dark" ? (
-          <MoonIcon className="w-5 h-5" />
+          <MoonIcon className="h-5 w-5" />
         ) : (
-          <SunIcon className="w-5 h-5" />
+          <SunIcon className="h-5 w-5" />
         )}
       </BlueSimpleButton>
     </>

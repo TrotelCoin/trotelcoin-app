@@ -13,13 +13,13 @@ export default async function auth(req: any, res: any) {
         message: {
           label: "Message",
           type: "text",
-          placeholder: "0x0",
+          placeholder: "0x0"
         },
         signature: {
           label: "Signature",
           type: "text",
-          placeholder: "0x0",
-        },
+          placeholder: "0x0"
+        }
       },
       async authorize(credentials) {
         try {
@@ -31,20 +31,20 @@ export default async function auth(req: any, res: any) {
           const result = await siwe.verify({
             signature: credentials?.signature ?? "",
             domain: nextAuthUrl.host,
-            nonce: await getCsrfToken({ req }),
+            nonce: await getCsrfToken({ req })
           });
 
           if (result.success) {
             return {
-              id: siwe.address,
+              id: siwe.address
             };
           }
           return null;
         } catch (e) {
           return null;
         }
-      },
-    }),
+      }
+    })
   ];
 
   const isDefaultSigninPage =
@@ -57,7 +57,7 @@ export default async function auth(req: any, res: any) {
   return await NextAuth(req, res, {
     providers,
     session: {
-      strategy: "jwt",
+      strategy: "jwt"
     },
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
@@ -65,7 +65,7 @@ export default async function auth(req: any, res: any) {
         session.user.address = token.sub;
         session.user.name = token.sub;
         return session;
-      },
-    },
+      }
+    }
   });
 }

@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 const ModalContainer = ({
   children,
   showScanner,
-  onClose,
+  onClose
 }: {
   children: React.ReactNode;
   showScanner: boolean;
@@ -15,7 +15,7 @@ const ModalContainer = ({
       <Transition.Root show={showScanner} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 flex z-50 items-center justify-center h-screen m-auto"
+          className="fixed inset-0 z-50 m-auto flex h-screen items-center justify-center"
           onClose={onClose}
         >
           <Transition.Child
@@ -27,7 +27,7 @@ const ModalContainer = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 backdrop-blur-sm bg-white/10 dark:bg-gray-700/10 transition-opacity" />
+            <div className="fixed inset-0 bg-white/10 backdrop-blur-sm transition-opacity dark:bg-gray-700/10" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-50 w-screen overflow-y-auto">

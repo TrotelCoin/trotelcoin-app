@@ -19,7 +19,7 @@ const SwapData = ({
   toToken,
   enableRefuel,
   sort,
-  bridgeSlippage,
+  bridgeSlippage
 }: {
   lang: Lang;
   isLoading: boolean;
@@ -40,40 +40,40 @@ const SwapData = ({
       <div className="mt-2 flex items-center px-4">
         {showMore ? (
           <>
-            <div className="flex flex-col gap-2 items-start justify-center w-full">
+            <div className="flex w-full flex-col items-start justify-center gap-2">
               <button
                 onClick={() => setShowMore(false)}
-                className="text-gray-700 dark:text-gray-300 text-xs"
+                className="text-xs text-gray-700 dark:text-gray-300"
               >
                 <div className="flex items-center gap-1 font-semibold">
                   {lang === "en" ? "See less" : "Voir moins"}{" "}
-                  <ChevronUpIcon className="w-4 h-4 text-gray-900 dark:text-gray-100" />
+                  <ChevronUpIcon className="h-4 w-4 text-gray-900 dark:text-gray-100" />
                 </div>
               </button>
 
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en"
                                 ? "Network fee"
                                 : "Frais de réseau"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <Skeleton loading={isLoading}>
-                          <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span>
                             ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
                           </span>{" "}
@@ -88,7 +88,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Native token fee for transactions on the network"
                             : "Frais en jeton natif pour les transactions sur le réseau"}
@@ -103,23 +103,23 @@ const SwapData = ({
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en"
                                 ? "Swap slippage"
                                 : "Glissement de swap"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <span>
                           <Skeleton loading={isLoading}>{slippage}%</Skeleton>
@@ -134,7 +134,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Maximum difference between expected and executed price"
                             : "Différence maximale entre le prix attendu et exécuté"}
@@ -149,23 +149,23 @@ const SwapData = ({
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en"
                                 ? "Bridge slippage"
                                 : "Glissement de pont"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <span>
                           <Skeleton loading={isLoading}>
@@ -185,7 +185,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Maximum difference between expected and executed price"
                             : "Différence maximale entre le prix attendu et exécuté"}
@@ -200,23 +200,23 @@ const SwapData = ({
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en"
                                 ? "Minimum Amount"
                                 : "Montant minimum"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <span>
                           <Skeleton loading={isLoading}>
@@ -237,7 +237,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Minimum amount of token to expect"
                             : "Montant minimum de token espéré"}
@@ -252,21 +252,21 @@ const SwapData = ({
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en" ? "Protocol" : "Protocole"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <span>
                           <Skeleton loading={isLoading}>
@@ -294,7 +294,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Protocol used for the transaction"
                             : "Protocole utilisé pour la transaction"}
@@ -309,21 +309,21 @@ const SwapData = ({
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en" ? "Refuel" : "Refuel"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <span>
                           <Skeleton loading={isLoading}>
@@ -332,8 +332,8 @@ const SwapData = ({
                                 ? "Enabled"
                                 : "Activé"
                               : lang === "en"
-                              ? "Disabled"
-                              : "Désactivé"}
+                                ? "Disabled"
+                                : "Désactivé"}
                           </Skeleton>
                         </span>
                       </span>
@@ -346,7 +346,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain"
                             : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne"}
@@ -361,21 +361,21 @@ const SwapData = ({
               <Tooltip.Provider>
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative w-full">
-                    <div className="flex items-center justify-between w-full">
+                    <div className="flex w-full items-center justify-between">
                       <div className="flex items-center gap-1">
                         <Tooltip.Trigger asChild>
                           <div className="inline-flex items-center gap-1">
                             <span
-                              className={`text-gray-700 dark:text-gray-300 text-xs cursor-help`}
+                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
                             >
                               {lang === "en" ? "Sort by" : "Trier par"}{" "}
                             </span>
-                            <QuestionMarkCircleIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           </div>
                         </Tooltip.Trigger>
                       </div>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1`}
+                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <span>
                           <Skeleton loading={isLoading}>
@@ -392,7 +392,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
                             : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
@@ -407,14 +407,14 @@ const SwapData = ({
           </>
         ) : (
           <>
-            <div className="flex items-center justify-between w-full">
+            <div className="flex w-full items-center justify-between">
               <button
                 onClick={() => setShowMore(true)}
-                className="text-gray-700 dark:text-gray-300 text-xs"
+                className="text-xs text-gray-700 dark:text-gray-300"
               >
                 <div className="flex items-center gap-1 font-semibold">
                   {lang === "en" ? "See more" : "Voir plus"}{" "}
-                  <ChevronDownIcon className="w-4 h-4 text-gray-900 dark:text-gray-100" />
+                  <ChevronDownIcon className="h-4 w-4 text-gray-900 dark:text-gray-100" />
                 </div>
               </button>
               <Tooltip.Provider>
@@ -422,10 +422,10 @@ const SwapData = ({
                   <div className="relative">
                     <Tooltip.Trigger asChild>
                       <span
-                        className={`text-gray-700 dark:text-gray-300 text-xs flex items-center gap-1 cursor-help`}
+                        className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                       >
                         <Skeleton loading={isLoading}>
-                          <BoltIcon className="w-3 h-3 text-gray-700 dark:text-gray-300" />
+                          <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span>
                             ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
                           </span>
@@ -440,7 +440,7 @@ const SwapData = ({
                         align="center"
                         className="relative max-w-xs"
                       >
-                        <div className="z-10 flex shadow-lg text-xs p-2 rounded-xl text-gray-100 bg-blue-500 backdrop-blur-xl">
+                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
                             ? "Native token fee for transactions on the network"
                             : "Frais en jeton natif pour les transactions sur le réseau"}

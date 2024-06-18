@@ -15,7 +15,7 @@ const Amount = ({
   setIsMax,
   trotelPrice,
   APR,
-  stakingPeriod,
+  stakingPeriod
 }: {
   lang: Lang;
   amount: number;
@@ -31,18 +31,18 @@ const Amount = ({
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: balance, refetch } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address,
+    address: address
   });
 
   useEffect(() => {
     refetch();
-  }, [blockNumber]);
+  }, [blockNumber, refetch]);
 
   useEffect(() => {
     if (amount && address) {
@@ -56,7 +56,7 @@ const Amount = ({
     } else {
       setIsMax(false);
     }
-  }, [amount, balance, address]);
+  }, [amount, balance, address, setIsMax]);
 
   const setMax = () => {
     const max = Number(balance?.formatted) * 0.999999;
@@ -91,7 +91,7 @@ const Amount = ({
         <div className="flex items-end gap-2">
           <input
             type="number"
-            className={`[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none bg-transparent text-4xl font-semibold text-gray-900 dark:text-gray-100 w-full px-2 py-0 border-transparent rounded-xl focus:outline-none focus:ring-transparent focus:border-transparent ${
+            className={`w-full rounded-xl border-transparent bg-transparent px-2 py-0 text-4xl font-semibold text-gray-900 [appearance:textfield] focus:border-transparent focus:outline-none focus:ring-transparent dark:text-gray-100 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${
               !address && "cursor-not-allowed"
             }`}
             value={amount ?? ""}
@@ -109,7 +109,7 @@ const Amount = ({
           {!isMax && Number(balance?.formatted) > 0 && (
             <button
               onClick={() => setMax()}
-              className="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+              className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
             >
               {lang === "en" ? "Max" : "Max"}
             </button>
@@ -117,10 +117,10 @@ const Amount = ({
         </div>
 
         <div className="flex items-center">
-          <p className="text-gray-900 dark:text-gray-100 text-sm">
+          <p className="text-sm text-gray-900 dark:text-gray-100">
             {lang === "en" ? (
               <>
-                You're going to stake{" "}
+                You&apos;re going to stake{" "}
                 <span className="font-semibold">
                   ${roundPrice(trotelPrice * amount)} TROTEL
                 </span>{" "}

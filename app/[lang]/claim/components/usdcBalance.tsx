@@ -8,7 +8,7 @@ import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const UsdcBalance = ({
   lang,
-  availableToClaim,
+  availableToClaim
 }: {
   lang: Lang;
   availableToClaim: number;

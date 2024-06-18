@@ -7,7 +7,7 @@ import {
   useBalance,
   useBlockNumber,
   useSwitchChain,
-  useWriteContract,
+  useWriteContract
 } from "wagmi";
 import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
@@ -22,7 +22,7 @@ const ApproveButton = ({
   amount,
   chainError,
   setChainError,
-  isMax,
+  isMax
 }: {
   lang: Lang;
   amount: number;
@@ -39,13 +39,13 @@ const ApproveButton = ({
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id,
+    chainId: polygon.id
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
-    address: address,
+    address: address
   });
 
   const { writeContractAsync } = useWriteContract({
@@ -59,8 +59,8 @@ const ApproveButton = ({
       onError: () => {
         setErrorMessage(true);
         setIsLoading(false);
-      },
-    },
+      }
+    }
   });
 
   const approve = async (amount: number) => {
@@ -82,7 +82,7 @@ const ApproveButton = ({
       address: trotelCoinAddress,
       functionName: "approve",
       chainId: polygon.id,
-      abi: trotelCoinABI,
+      abi: trotelCoinABI
     });
   };
 
@@ -96,7 +96,7 @@ const ApproveButton = ({
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber]);
+  }, [blockNumber, refetchBalance]);
 
   return (
     <>

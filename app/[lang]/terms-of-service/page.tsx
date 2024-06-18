@@ -7,13 +7,13 @@ import type { Lang } from "@/types/language/lang";
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <div className="mx-auto max-w-2xl text-base leading-7 text-gray-900 dark:text-gray-100 whitespace-normal break-words">
+      <div className="mx-auto max-w-2xl whitespace-normal break-words text-base leading-7 text-gray-900 dark:text-gray-100">
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
           Terms of Service
         </h1>
         <p className="mt-6 font-light">
-          These Terms of Service, also known as the "Agreement," clarify the
-          terms and conditions for accessing and using{" "}
+          These Terms of Service, also known as the &quot;Agreement,&quot;
+          clarify the terms and conditions for accessing and using{" "}
           <Link
             href={`/${lang}/home`}
             className="text-blue-500 dark:text-blue-300"
@@ -31,7 +31,8 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           </Link>
           . When you enter or use the website, it means you have read,
           understood, and agreed to follow all the rules in this Agreement. If
-          you don't agree, you can't use the website and should avoid doing so.
+          you don&apos;t agree, you can&apos;t use the website and should avoid
+          doing so.
         </p>
         <p className="mt-6">
           IMPORTANT: This Agreement includes crucial details, such as a
@@ -44,10 +45,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           The Website grants access to (a) a decentralized protocol on a public
           blockchain, specifically Polygon PoS. This protocol allows users
           interested in learning to earn rewards in TrotelCoins, the
-          cryptocurrency of the TrotelCoin's ecosystem ("the TrotelCoin
-          protocol" or the "Protocol"), as well as other services. The Website
-          serves as one method, but not the exclusive method, to access the
-          Protocol.
+          cryptocurrency of the TrotelCoin&apos;s ecosystem (&quot;the
+          TrotelCoin protocol&quot; or the &quot;Protocol&quot;), as well as
+          other services. The Website serves as one method, but not the
+          exclusive method, to access the Protocol.
         </p>
         <p className="mt-6 font-light">
           To enter the Website, you need to use non-custodial wallet software,
@@ -55,10 +56,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           the non-custodial wallet provider is regulated by the terms of service
           of that third party, not by this Agreement. Wallets are not managed,
           operated, or associated with us, and we do not possess custody or
-          control over your wallet's contents, with no capability to recover or
-          move its contents. By linking your wallet to our Website, you agree to
-          adhere to this Agreement and all the terms mentioned herein by
-          reference.
+          control over your wallet&apos;s contents, with no capability to
+          recover or move its contents. By linking your wallet to our Website,
+          you agree to adhere to this Agreement and all the terms mentioned
+          herein by reference.
         </p>
         <h2 className="mt-6 text-2xl font-bold tracking-tight">
           Modification of this Agreement
@@ -128,9 +129,9 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           TrotelCoin possesses all the intellectual property and other rights
           related to the Website and its contents, covering elements like
           software, text, images, trademarks, service marks, copyrights,
-          patents, designs, and its overall "look and feel." In contrast, the
-          Protocol consist entirely of open-source or source-available software
-          operating on public blockchains.
+          patents, designs, and its overall &quot;look and feel.&quot; In
+          contrast, the Protocol consist entirely of open-source or
+          source-available software operating on public blockchains.
         </p>
         <p className="mt-6 font-light">
           By utilizing the Website to list, post, promote, or display NFTs or
@@ -200,8 +201,8 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <li>
             Market Manipulation: Activities that violate any applicable law,
             rule, or regulation regarding the integrity of trading markets. This
-            includes manipulative tactics such as "rug pulls," pumping and
-            dumping, and wash trading.
+            includes manipulative tactics such as &quot;rug pulls,&quot; pumping
+            and dumping, and wash trading.
           </li>
           <li>
             Securities and Derivatives Violations: Activities that violate any
@@ -260,14 +261,14 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           We may share details about tokens on the Website obtained from
           third-party data partners. Additionally, we may include warning labels
           for specific tokens. However, the provision of informational materials
-          doesn't mean that trades in those tokens are solicited. We are not
-          trying to encourage you to make any purchases based on the provided
-          information. All information presented on the Website is solely for
-          informational purposes and should not be seen as investment advice or
-          a suggestion that a particular token is a safe or wise investment. You
-          should not take, or refrain from taking, any action based on the
-          information contained in the Website. While we provide token
-          information for your convenience, we do not offer investment
+          doesn&apos;t mean that trades in those tokens are solicited. We are
+          not trying to encourage you to make any purchases based on the
+          provided information. All information presented on the Website is
+          solely for informational purposes and should not be seen as investment
+          advice or a suggestion that a particular token is a safe or wise
+          investment. You should not take, or refrain from taking, any action
+          based on the information contained in the Website. While we provide
+          token information for your convenience, we do not offer investment
           recommendations or express opinions on the merits of any transaction
           or opportunity. It is your responsibility to determine whether any
           investment, investment strategy, or related transaction is suitable
@@ -282,17 +283,18 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           that we never have custody, possession, or control of your digital
           assets at any point. Certainly, referring to pending TrotelCoins means
           that we store the quantity of TrotelCoins associated with your account
-          in our database. However, it's crucial to note that these TrotelCoins
-          should be considered non-existent as they have not been publicly
-          minted on a public blockchain when they are pending. This implies that
-          you bear the sole responsibility for safeguarding the cryptographic
-          private keys to your digital asset wallets, and you should refrain
-          from sharing your wallet credentials or seed phrase with anyone. We
-          assume no responsibility or liability in connection with your use of a
-          wallet, and we provide no assurances regarding how the Website will
-          interact with any specific wallet. Similarly, any actions or omissions
-          related to your wallet are solely your responsibility, and we are not
-          accountable for any compromises that may occur.
+          in our database. However, it&apos;s crucial to note that these
+          TrotelCoins should be considered non-existent as they have not been
+          publicly minted on a public blockchain when they are pending. This
+          implies that you bear the sole responsibility for safeguarding the
+          cryptographic private keys to your digital asset wallets, and you
+          should refrain from sharing your wallet credentials or seed phrase
+          with anyone. We assume no responsibility or liability in connection
+          with your use of a wallet, and we provide no assurances regarding how
+          the Website will interact with any specific wallet. Similarly, any
+          actions or omissions related to your wallet are solely your
+          responsibility, and we are not accountable for any compromises that
+          may occur.
         </p>
         <p className="mt-6 font-light">
           This Agreement is not designed to, and does not, establish or enforce
@@ -342,10 +344,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           that individuals can create tokens, including fraudulent versions of
           existing tokens and tokens falsely asserting representation of
           projects. You also accept the risk that you might unintentionally
-          trade such tokens or others. It's important to note that so-called
-          stablecoins may not exhibit the stability they claim, might lack full
-          or sufficient collateralization, and could be vulnerable to panics and
-          runs.
+          trade such tokens or others. It&apos;s important to note that
+          so-called stablecoins may not exhibit the stability they claim, might
+          lack full or sufficient collateralization, and could be vulnerable to
+          panics and runs.
         </p>
         <p className="mt-6 font-light">
           Additionally, you grasp that smart contract transactions execute and
@@ -382,7 +384,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           do not endorse, monitor, approve, warrant, or take responsibility for
           any of these resources or promotions. If you decide to access such
           resources or engage in promotions, you do so at your own risk, and
-          it's important to note that this Agreement does not govern your
+          it&apos;s important to note that this Agreement does not govern your
           interactions or relationships with any third parties. You explicitly
           release us from any and all liability arising from your use of such
           resources or participation in promotions.
@@ -396,11 +398,11 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           demands against us for any harm, legal actions, or damages connected
           to your use of the Website. If you live in California, you also
           relinquish the rights and safeguards provided by California Civil Code
-          § 1542, which states: "[a] general release does not extend to claims
-          that the creditor or releasing party does not know or suspect to exist
-          in his or her favor at the time of executing the release and that, if
-          known by him or her, would have materially affected his or her
-          settlement with the debtor or released party."
+          § 1542, which states: &quot;[a] general release does not extend to
+          claims that the creditor or releasing party does not know or suspect
+          to exist in his or her favor at the time of executing the release and
+          that, if known by him or her, would have materially affected his or
+          her settlement with the debtor or released party.&quot;
         </p>
         <h2 className="mt-6 text-2xl font-bold tracking-tight">Indemnity</h2>
         <p className="mt-6 font-light">
@@ -410,8 +412,8 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           losses, liabilities, costs, and expenses that may arise from: (a) your
           use of the Website; (b) your breach of any term or condition in this
           Agreement, the rights of any third party, or any other relevant law,
-          rule, or regulation; and (c) any other individual's use of the Website
-          facilitated by you or through any device or account under your
+          rule, or regulation; and (c) any other individual&apos;s use of the
+          Website facilitated by you or through any device or account under your
           ownership or control.
         </p>
         <h2 className="mt-6 text-2xl font-bold tracking-tight">
@@ -434,15 +436,15 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           the Website.
         </p>
         <p className="mt-6 font-light">
-          In a similar manner, the Protocol is provided "AS IS," and you use it
-          at your own risk, without any guarantees. Despite our initial code
-          contributions to the Protocol, we do not own or control it. The
-          Protocol operates independently through smart contracts on various
-          blockchains, without any central oversight. Generally, the community
-          of TROTEL token holders manages upgrades and modifications to the
-          Protocol. No developer or entity involved in creating the Protocol
-          will be responsible for any claims or damages related to your use,
-          inability to use, or interactions with other Protocol users. This
+          In a similar manner, the Protocol is provided &quot;AS IS,&quot; and
+          you use it at your own risk, without any guarantees. Despite our
+          initial code contributions to the Protocol, we do not own or control
+          it. The Protocol operates independently through smart contracts on
+          various blockchains, without any central oversight. Generally, the
+          community of TROTEL token holders manages upgrades and modifications
+          to the Protocol. No developer or entity involved in creating the
+          Protocol will be responsible for any claims or damages related to your
+          use, inability to use, or interactions with other Protocol users. This
           includes any direct, indirect, incidental, special, exemplary,
           punitive, or consequential damages, or loss of profits,
           cryptocurrencies, tokens, or any other valuable items. We do not
@@ -496,18 +498,19 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           Any disagreement or issue arising from or related to the Website, this
           Agreement, or any acts or omissions for which you believe we are
           responsible, including (but not limited to) disputes about
-          arbitrability ("Dispute"), will be conclusively and exclusively
-          resolved through arbitration under the Arbitration Rules of a
-          recognized arbitration center in France, such as the International
-          Chamber of Commerce (ICC) International Court of Arbitration. You
-          acknowledge the obligation to settle all Disputes through binding
-          arbitration. The arbitration will be conducted confidentially by a
-          single arbitrator, chosen in accordance with the selected arbitration
-          center's rules. The arbitration proceedings will take place in France,
-          unless both parties agree on a different location. Unless otherwise
-          agreed, the arbitrator is not permitted to combine your claims with
-          those of any other party. Any judgment based on the arbitrator's
-          decision may be entered in any court with jurisdiction.
+          arbitrability (&quot;Dispute&quot;), will be conclusively and
+          exclusively resolved through arbitration under the Arbitration Rules
+          of a recognized arbitration center in France, such as the
+          International Chamber of Commerce (ICC) International Court of
+          Arbitration. You acknowledge the obligation to settle all Disputes
+          through binding arbitration. The arbitration will be conducted
+          confidentially by a single arbitrator, chosen in accordance with the
+          selected arbitration center&apos;s rules. The arbitration proceedings
+          will take place in France, unless both parties agree on a different
+          location. Unless otherwise agreed, the arbitrator is not permitted to
+          combine your claims with those of any other party. Any judgment based
+          on the arbitrator&apos;s decision may be entered in any court with
+          jurisdiction.
         </p>
         <h2 className="mt-6 text-2xl font-bold tracking-tight">
           Class Action and Jury Trial Waiver
@@ -533,7 +536,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           the applicable rules of the selected arbitration center in France. You
           agree that the courts of France are the proper forum for any appeals
           of an arbitration award or for court proceedings in the event that
-          this Agreement's binding arbitration clause is found to be
+          this Agreement&apos;s binding arbitration clause is found to be
           unenforceable.
         </p>
         <h2 className="mt-6 text-2xl font-bold tracking-tight">
@@ -549,10 +552,10 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         <h2 className="mt-6 text-2xl font-bold tracking-tight">Gas Fees</h2>
         <p className="mt-6 font-light">
           For blockchain transactions, it is necessary to pay transaction fees
-          to the relevant network, known as "Gas Fees." Unless explicitly stated
-          otherwise in the terms of another offer by TrotelCoin, you will be
-          solely responsible for covering the Gas Fees for any transaction you
-          initiate.
+          to the relevant network, known as &quot;Gas Fees.&quot; Unless
+          explicitly stated otherwise in the terms of another offer by
+          TrotelCoin, you will be solely responsible for covering the Gas Fees
+          for any transaction you initiate.
         </p>
       </div>
     </>

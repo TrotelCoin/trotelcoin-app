@@ -22,7 +22,7 @@ const ChainList = ({
   openChainList,
   setOpenChainList,
   fromChain,
-  toChain,
+  toChain
 }: {
   lang: Lang;
   setFromChain: React.Dispatch<React.SetStateAction<Chain>>;
@@ -82,7 +82,7 @@ const ChainList = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="mx-auto text-gray-900 dark:text-gray-100 max-w-xl transform divide-y divide-gray-900/10 dark:divide-gray-100/10 overflow-hidden rounded-xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-900/10 dark:border-gray-100/10 transition-all">
+            <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-900/10 overflow-hidden rounded-xl border border-gray-900/10 bg-white text-gray-900 shadow-2xl transition-all dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
               <Combobox>
                 <div className="relative">
                   <MagnifyingGlassIcon
@@ -90,7 +90,7 @@ const ChainList = ({
                     aria-hidden="true"
                   />
                   <Combobox.Input
-                    className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 dark:text-gray-100 placeholder:text-gray-700 dark:placeholder:text-gray-300 focus:ring-0 sm:text-sm"
+                    className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-700 focus:ring-0 dark:text-gray-100 dark:placeholder:text-gray-300 sm:text-sm"
                     placeholder="Search..."
                     onChange={(event) => setQuery(event.target.value)}
                   />
@@ -122,7 +122,7 @@ const ChainList = ({
                       >
                         {({ active }) => (
                           <>
-                            <div className="flex justify-between items-center w-full">
+                            <div className="flex w-full items-center justify-between">
                               <div
                                 className={classNames(
                                   "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
@@ -187,10 +187,10 @@ const ChainList = ({
                         }
                       >
                         <>
-                          <div className="flex justify-between items-center w-full">
+                          <div className="flex w-full items-center justify-between">
                             <div
                               className={
-                                "flex h-10 w-10 flex-none items-center justify-center rounded-full overflow-hidden"
+                                "flex h-10 w-10 flex-none items-center justify-center overflow-hidden rounded-full"
                               }
                             >
                               <Skeleton width="48px" height="48px" />

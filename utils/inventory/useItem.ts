@@ -2,7 +2,7 @@ import { ItemName } from "@/types/items/items";
 import axios from "axios";
 import { Address } from "viem";
 
-export const useItem = async (
+export const usingItem = async (
   item: string,
   address: Address,
   setErrorMessage: React.Dispatch<React.SetStateAction<boolean>>,

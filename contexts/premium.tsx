@@ -9,7 +9,7 @@ const PremiumContext = React.createContext({
   isNotPremium: true as boolean,
   isIntermediate: false as boolean,
   isExpert: false as boolean,
-  totalStakingAmount: null as number | null,
+  totalStakingAmount: null as number | null
 });
 
 export default PremiumContext;

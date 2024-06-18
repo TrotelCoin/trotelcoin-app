@@ -12,7 +12,7 @@ import useSWR from "swr";
 import { getCoursesRecommendations } from "@/utils/user/getCoursesRecommendations";
 import {
   findLessonCategory,
-  filterLessons,
+  filterLessons
 } from "@/utils/lessons/getInformationsFromLesson";
 import CourseSection from "@/app/[lang]/home/components/courseSection";
 import { Address } from "viem";
@@ -38,7 +38,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -49,7 +49,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
       revalidateOnMount: true,
       revalidateIfStale: true,
       revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime,
+      refreshInterval: refreshIntervalTime
     }
   );
 
@@ -63,59 +63,59 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
 
   const randomLessons = allCourses.sort(() => 0.5 - Math.random());
 
-  const handleStatus = () => {
-    const newStatus = [...status];
-    lessonsCompleted.forEach(
-      (course: { quiz_id: number; answered: boolean }) => {
-        newStatus[course.quiz_id - 1] = course.answered
-          ? "Finished"
-          : "Not started";
-      }
-    );
-    setStatus(newStatus);
-  };
-
   useEffect(() => {
+    const handleStatus = () => {
+      const newStatus = [...status];
+      lessonsCompleted.forEach(
+        (course: { quiz_id: number; answered: boolean }) => {
+          newStatus[course.quiz_id - 1] = course.answered
+            ? "Finished"
+            : "Not started";
+        }
+      );
+      setStatus(newStatus);
+    };
+
     if (lessonsCompleted && !statusMounted) {
       handleStatus();
       setStatusMounted(true);
     }
-  }, [lessonsCompleted]);
-
-  const getRecommendations = async () => {
-    const recommendedLessons = await getCoursesRecommendations(
-      address as Address,
-      lessonsLiked,
-      lessonsCompleted
-    );
-
-    const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
-      const category = lessons.find(findLessonCategory(lesson))?.category;
-      return { ...lesson, category };
-    });
-
-    if (forYouCourses.length > 0) {
-      setForYouCourses(forYouCourses);
-    } else {
-      setForYouCourses(randomLessons);
-    }
-
-    setMount(true);
-  };
+  }, [lessonsCompleted, statusMounted, status]);
 
   useEffect(() => {
+    const getRecommendations = async () => {
+      const recommendedLessons = await getCoursesRecommendations(
+        address as Address,
+        lessonsLiked,
+        lessonsCompleted
+      );
+
+      const forYouCourses = recommendedLessons.map((lesson: Lesson) => {
+        const category = lessons.find(findLessonCategory(lesson))?.category;
+        return { ...lesson, category };
+      });
+
+      if (forYouCourses.length > 0) {
+        setForYouCourses(forYouCourses);
+      } else {
+        setForYouCourses(randomLessons);
+      }
+
+      setMount(true);
+    };
+
     if (address && lessonsCompleted && lessonsLiked && !mount) {
       getRecommendations();
     }
-  }, [address, lessonsCompleted, lessonsLiked, randomLessons]);
-
-  const handleLoadingCourses = () => {
-    if (lessonsCompleted && lessonsLiked && mount) {
-      setIsLoadingCourses(false);
-    }
-  };
+  }, [address, lessonsCompleted, lessonsLiked, randomLessons, mount]);
 
   useEffect(() => {
+    const handleLoadingCourses = () => {
+      if (lessonsCompleted && lessonsLiked && mount) {
+        setIsLoadingCourses(false);
+      }
+    };
+
     handleLoadingCourses();
   }, [lessonsCompleted, lessonsLiked, mount]);
 
@@ -133,7 +133,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
         ...lesson,
         courses: lesson.courses.map((course) => {
           return { ...course, category: lesson.category };
-        }),
+        })
       };
     });
 
@@ -154,7 +154,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
         direction === "left" ? -element.clientWidth : element.clientWidth;
       element.scrollBy({
         left: scrollAmount,
-        behavior: "smooth",
+        behavior: "smooth"
       });
     }
   };
@@ -234,7 +234,7 @@ export default function Home({ params: { lang } }: { params: { lang: Lang } }) {
                   const tierOrder = {
                     Beginner: 2,
                     Intermediate: 1,
-                    Expert: 0,
+                    Expert: 0
                   };
                   return tierOrder[a.tier.en] - tierOrder[b.tier.en];
                 })}

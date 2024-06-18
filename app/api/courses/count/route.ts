@@ -9,7 +9,8 @@ export const dynamic = "force-dynamic";
  * @returns {number} totalCourses - The total number of available courses.
  * @example response - 200 - application/json
  */
-export async function GET(req: NextRequest, res: NextResponse) {const availableCourses = lessons.flatMap((lesson) =>
+export async function GET(req: NextRequest, res: NextResponse) {
+  const availableCourses = lessons.flatMap((lesson) =>
     lesson.courses.filter((course) => course.available)
   );
 
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest, res: NextResponse) {const availableC
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET",
       "Access-Control-Allow-Headers": "Content-Type",
-      "Cache-Control": "no-store",
-    },
+      "Cache-Control": "no-store"
+    }
   });
 }

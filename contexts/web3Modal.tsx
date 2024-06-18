@@ -14,7 +14,7 @@ if (!projectId) throw new Error("Project ID is not defined");
 
 export default function Web3ModalProvider({
   children,
-  initialState,
+  initialState
 }: {
   children: ReactNode;
   initialState?: State;
@@ -28,7 +28,7 @@ export default function Web3ModalProvider({
     themeMode: theme,
     enableOnramp: true,
     defaultChain: polygon,
-    termsConditionsUrl: "https://app.trotelcoin.com/en/terms-of-service",
+    termsConditionsUrl: "https://app.trotelcoin.com/en/terms-of-service"
   });
 
   return (
