@@ -35,10 +35,6 @@ const Header = ({ lang }: { lang: Lang }) => {
     chainId: mainnet.id
   });
 
-  useEffect(() => {
-    console.log("show", showTrotelInUsdc);
-  }, [showTrotelInUsdc]);
-
   return (
     <>
       <div className="flex items-center justify-between">

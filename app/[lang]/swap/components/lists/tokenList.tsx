@@ -106,8 +106,6 @@ const TokenList = ({
     .sort((a: Token, b: Token) => (b.balance as number) - (a.balance as number))
     .slice((currentPage - 1) * tokensPerPage, tokensPerPage * currentPage);
 
-  console.log("filteredTokens", filteredTokens);
-
   return (
     <Transition.Root
       show={openTokenList}
