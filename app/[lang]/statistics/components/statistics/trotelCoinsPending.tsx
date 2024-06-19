@@ -73,10 +73,12 @@ const TrotelCoinsPending = ({
               <span className="hidden md:inline">💰</span>
             </>
           ) : (
-            <>
-              <CountUp start={0} prefix="$" decimals={0} end={0} />{" "}
-              <span className="hidden md:inline">💰</span>
-            </>
+            showTrotelInUsdc && (
+              <>
+                <CountUp start={0} prefix="$" decimals={0} end={0} />{" "}
+                <span className="hidden md:inline">💰</span>
+              </>
+            )
           )}
         </span>
 
