@@ -67,11 +67,12 @@ const CourseSection = ({
 
           {viewAll && (
             <Link href={`/${lang}/category/${categoryUrl}`}>
-              <button className="flex items-center justify-center rounded-full border border-gray-900/10 bg-white px-2 py-1 text-center text-xs text-gray-900 hover:bg-gray-100 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
-                <Skeleton loading={isLoading}>
+              {" "}
+              <Skeleton loading={isLoading}>
+                <button className="flex items-center justify-center rounded-full border border-gray-900/10 bg-white px-2 py-1 text-center text-xs text-gray-900 hover:bg-gray-100 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
                   {lang === "en" ? "View all" : "Voir tout"}
-                </Skeleton>
-              </button>
+                </button>{" "}
+              </Skeleton>
             </Link>
           )}
         </div>

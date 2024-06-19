@@ -97,6 +97,12 @@ const StakingData = ({
   useEffect(() => {
     if (earnedTrotelCoinsData) {
       const earned = Number(formatEther(earnedTrotelCoinsData as bigint));
+      console.log(
+        "earned",
+        earned,
+        earnedTrotelCoinsData,
+        "earnedTrotelCoinsData"
+      );
       setEarnedTrotelCoins(earned);
     } else {
       setEarnedTrotelCoins(0);
@@ -106,6 +112,7 @@ const StakingData = ({
   useEffect(() => {
     refetchBalance();
     refetchStakings();
+
     refetchEarnedTrotelCoins();
   }, [blockNumber, refetchBalance, refetchStakings, refetchEarnedTrotelCoins]);
 
@@ -202,14 +209,12 @@ const StakingData = ({
               {showTrotelInUsdc && "$"}
               {earnedTrotelCoins &&
                 showTrotelInUsdc &&
-                roundPrice(
-                  earnedTrotelCoins * 1e-18 * trotelPrice
-                ).toLocaleString("en-US")}
+                roundPrice(earnedTrotelCoins * trotelPrice).toLocaleString(
+                  "en-US"
+                )}
               {earnedTrotelCoins &&
                 !showTrotelInUsdc &&
-                roundPrice(earnedTrotelCoins * 1e-18).toLocaleString(
-                  "en-US"
-                )}{" "}
+                roundPrice(earnedTrotelCoins).toLocaleString("en-US")}{" "}
               <TrotelCoinLogo />
             </Skeleton>
           </div>

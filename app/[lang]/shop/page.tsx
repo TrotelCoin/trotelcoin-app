@@ -152,7 +152,12 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
               {lang === "en" ? "Shop" : "Boutique"}
             </span>
             <button
-              onClick={() => handleRefresh()}
+              onClick={() => {
+                if (!refreshing) {
+                  handleRefresh();
+                }
+              }}
+              disabled={refreshing}
               className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800"
             >
               <ArrowPathIcon
