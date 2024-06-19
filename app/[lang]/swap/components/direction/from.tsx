@@ -186,7 +186,9 @@ const From = ({
               <Skeleton loading={isLoading}>
                 $
                 {fromPrice
-                  ? Number(fromPrice.toFixed(2)).toLocaleString("en-US")
+                  ? fromPrice > 1
+                    ? roundPrice(Number(fromPrice)).toLocaleString("en-US")
+                    : roundPrice(Number(fromPrice))
                   : "0"}
               </Skeleton>
             </span>
