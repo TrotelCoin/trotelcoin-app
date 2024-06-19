@@ -251,7 +251,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                         shopItem.price * (shopItem.quantity as number)}
                       {showTrotelInUsdc &&
                         roundPrice(
-                          Number(trotelPrice ?? "0") *
+                          (trotelPrice as number) *
                             shopItem.price *
                             (shopItem.quantity as number)
                         )}
@@ -260,7 +260,9 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                       <>
                         <span className="rainbow-text font-semibold">
                           $
-                          {roundPrice(priceAfterDiscount * Number(trotelPrice ?? 0)) ?? null}
+                          {roundPrice(
+                            priceAfterDiscount * (trotelPrice as number)
+                          ) ?? null}
                         </span>
                       </>
                     )}

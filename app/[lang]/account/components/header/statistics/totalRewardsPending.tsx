@@ -49,7 +49,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
                       prefix="$"
                       decimals={2}
                       end={roundPrice(
-                        totalRewardsPending * Number(storedTrotelPrice ?? "0")
+                        totalRewardsPending * (storedTrotelPrice as number)
                       )}
                       suffix=" 💰"
                     />

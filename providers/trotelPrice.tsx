@@ -24,15 +24,19 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   useEffect(() => {
-    const timer = setTimeout(
-      () => {
-        setStoredTrotelPrice(trotelPrice);
-      },
-      5 * 60 * 1000
-    ); // 5 minutes
+    if (storedTrotelPrice && storedTrotelPrice > 0) {
+      const timer = setTimeout(
+        () => {
+          setStoredTrotelPrice(trotelPrice);
+        },
+        5 * 60 * 1000
+      ); // 5 minutes
 
-    return () => clearTimeout(timer);
-  }, [trotelPrice]);
+      return () => clearTimeout(timer);
+    } else {
+      setStoredTrotelPrice(trotelPrice);
+    }
+  }, [trotelPrice, storedTrotelPrice]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: polygon.id,
@@ -117,7 +121,13 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
       storedTrotelPrice,
       setStoredTrotelPrice
     }),
-    [trotelPrice, trotelPriceLoading, showTrotelInUsdc, trotelPriceRounded, storedTrotelPrice]
+    [
+      trotelPrice,
+      trotelPriceLoading,
+      showTrotelInUsdc,
+      trotelPriceRounded,
+      storedTrotelPrice
+    ]
   );
 
   return (

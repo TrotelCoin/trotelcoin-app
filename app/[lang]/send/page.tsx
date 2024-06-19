@@ -186,7 +186,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <span className="text-sm">
                 {lang === "en" ? "Amount" : "Montant"}{" "}
                 {trotelPrice && (
-                  <>• ${roundPrice(trotelPrice * Number(amount ?? "0"))}</>
+                  <>• ${roundPrice(trotelPrice * (amount as number))}</>
                 )}
               </span>
               <input

@@ -54,7 +54,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
                       start={0}
                       end={roundPrice(
                         Number(balance?.formatted ?? "0") *
-                          Number(storedTrotelPrice ?? "0")
+                          (storedTrotelPrice as number)
                       )}
                       suffix=" 💸"
                     />

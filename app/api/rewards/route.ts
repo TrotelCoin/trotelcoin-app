@@ -185,11 +185,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     // update total rewards pending
-    const totalRewardsPending =
-      totalRewardsPendingData[0]?.total_rewards_pending ?? 0;
+    const totalRewardsPending = totalRewardsPendingData[0]
+      ?.total_rewards_pending as number;
 
-    const numberOfQuizzesAnswered =
-      numberOfQuizzesAnsweredData[0]?.number_of_quizzes_answered ?? 0;
+    const numberOfQuizzesAnswered = numberOfQuizzesAnsweredData[0]
+      ?.number_of_quizzes_answered as number;
 
     await supabase
       .from("learners")
@@ -235,7 +235,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json({ error: "Quiz not found." }, { status: 404 });
     }
 
-    const currentNumberOfAnswers = currentQuizData[0]?.number_of_answers ?? 0;
+    const currentNumberOfAnswers = currentQuizData[0]
+      ?.number_of_answers as number;
 
     // update number of answers and last answered at
     await supabase
