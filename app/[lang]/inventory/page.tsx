@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Lang } from "@/types/language/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
 import { polygon } from "viem/chains";
@@ -89,39 +89,28 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }
   }, [totalItemsData]);
 
-  const handleRefresh = async () => {
-    if (!refreshing && address && totalItems) {
+  const handleRefresh = useCallback(async () => {
+    if (address && totalItems) {
       setRefreshing(true);
       setInventories(null);
 
-      await fetchInventory(totalItems, address).then((newInventories) => {
+      try {
+        const newInventories = await fetchInventory(totalItems, address);
         setInventories(newInventories);
-      });
-
-      setFetching(false);
-      setRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    const handleRefresh = async () => {
-      if (!refreshing && address && totalItems) {
-        setRefreshing(true);
-        setInventories(null);
-
-        await fetchInventory(totalItems, address).then((newInventories) => {
-          setInventories(newInventories);
-        });
-
+      } catch (error) {
+        console.error(error);
+      } finally {
         setFetching(false);
         setRefreshing(false);
       }
-    };
+    }
+  }, [address, totalItems]);
 
+  useEffect(() => {
     if (totalItems && address) {
       handleRefresh();
     }
-  }, [address, totalItems, refreshing]);
+  }, [address, totalItems, handleRefresh]);
 
   return (
     <>
@@ -132,7 +121,12 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               {lang === "en" ? "Inventory" : "Inventaire"}
             </span>
             <button
-              onClick={() => handleRefresh()}
+              onClick={() => {
+                if (!refreshing) {
+                  handleRefresh();
+                }
+              }}
+              disabled={refreshing}
               className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800"
             >
               <ArrowPathIcon
