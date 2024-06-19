@@ -68,24 +68,8 @@ export const fetchQuote = async (
   }
 
   setGasPrice(route.totalGasFeesInUsd);
-  if (
-    fromToken &&
-    fromToken.address &&
-    getAddress(fromToken.address) === getAddress(trotelCoinAddress)
-  ) {
-    setFromPrice(trotelPrice);
-  } else {
-    setFromPrice(route.inputValueInUsd);
-  }
-  if (
-    toToken &&
-    toToken.address &&
-    getAddress(toToken.address) === getAddress(trotelCoinAddress)
-  ) {
-    setToPrice(trotelPrice);
-  } else {
-    setToPrice(route.outputValueInUsd);
-  }
+  setFromPrice(route.inputValueInUsd);
+  setToPrice(route.outputValueInUsd);
   setSwapSlippage(route.userTxs[0]?.steps?.swapSlippage);
   setBridgeSlippage(route.userTxs[0]?.steps?.bridgeSlippage);
   setProtocolName(route.userTxs[0]?.protocol?.displayName);
@@ -110,6 +94,25 @@ export const fetchQuote = async (
   const toAmount = Number(Number(route?.toAmount).toFixed(0));
 
   setToAmount(route ? toAmount : 0);
+
+  if (
+    fromAmount &&
+    fromToken &&
+    fromToken.address &&
+    getAddress(fromToken.address) === getAddress(trotelCoinAddress)
+  ) {
+    setFromPrice(trotelPrice * fromAmount);
+  }
+
+  if (
+    toAmount &&
+    toToken &&
+    toToken.address &&
+    getAddress(toToken.address) === getAddress(trotelCoinAddress)
+  ) {
+    setToPrice(trotelPrice * toAmount);
+  }
+
   setQuoteFetched(true);
   setIsLoading(false);
 };
