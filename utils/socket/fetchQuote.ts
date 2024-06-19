@@ -101,7 +101,7 @@ export const fetchQuote = async (
     fromToken.address &&
     getAddress(fromToken.address) === getAddress(trotelCoinAddress)
   ) {
-    setFromPrice(trotelPrice * fromAmount);
+    setFromPrice(trotelPrice * fromAmount * 1e-18);
   }
 
   if (
@@ -110,7 +110,7 @@ export const fetchQuote = async (
     toToken.address &&
     getAddress(toToken.address) === getAddress(trotelCoinAddress)
   ) {
-    setToPrice(trotelPrice * toAmount);
+    setToPrice(trotelPrice * toAmount * 1e-18);
   }
 
   setQuoteFetched(true);
