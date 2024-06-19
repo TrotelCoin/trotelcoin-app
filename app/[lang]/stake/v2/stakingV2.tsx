@@ -165,10 +165,7 @@ const StakingV2 = ({
             />
           </div>
           <div className="px-4 pt-4">
-            <TotalStaked
-              lang={lang}
-              storedTrotelPrice={storedTrotelPrice}
-            />
+            <TotalStaked lang={lang} storedTrotelPrice={storedTrotelPrice} />
           </div>
         </div>
 

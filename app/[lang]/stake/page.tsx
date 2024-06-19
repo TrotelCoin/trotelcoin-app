@@ -6,7 +6,6 @@ import * as Tabs from "@radix-ui/react-tabs";
 import StakingV1 from "@/app/[lang]/stake/v1/stakingV1";
 import StakingV2 from "@/app/[lang]/stake/v2/stakingV2";
 import { StakingVersion } from "@/types/web3/staking";
-import { roundPrice } from "@/utils/price/roundPrice";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
@@ -44,7 +43,7 @@ const Staking = ({ params: { lang } }: { params: { lang: Lang } }) => {
             {lang === "en" ? "Version 2" : "Version 2"}
           </Tabs.Trigger>
         </Tabs.List>
-        <div className="mt-4">
+        <div className="mt-4 w-full">
           <Tabs.Content value="v1">
             <StakingV1
               lang={lang}

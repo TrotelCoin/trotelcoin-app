@@ -197,7 +197,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                     {showTrotelInUsdc &&
                       balance &&
                       `$${roundPrice(
-                        Number(trotelPrice ?? "0") * balance
+                        (trotelPrice as number) * balance
                       ).toLocaleString("en-US")}`}{" "}
                     <span>TROTEL</span>
                   </span>
@@ -243,7 +243,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                         {showTrotelInUsdc &&
                           balance &&
                           `$${roundPrice(
-                            Number(trotelPrice ?? "0") * balance
+                            (trotelPrice as number) * balance
                           ).toLocaleString("en-US")}`}{" "}
                         <span>TROTEL</span>
                       </span>

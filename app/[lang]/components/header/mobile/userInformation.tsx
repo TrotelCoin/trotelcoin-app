@@ -47,7 +47,7 @@ const UserInformationMobile = ({
                     : "Débutant 🐣"}
             </span>
           </div>
-          <div className="flex items-center">{streak ?? 0} 🔥</div>
+          <div className="flex items-center">{streak as number} 🔥</div>
           <div className="flex items-center">
             {isPremium ? (
               <span className="mr-1 text-xl">&infin;</span>
@@ -76,19 +76,19 @@ const UserInformationMobile = ({
               {showTrotelInUsdc &&
                 userTotalRewardsPending &&
                 roundPrice(
-                  Number(userTotalRewardsPending * Number(trotelPrice ?? "0"))
+                  userTotalRewardsPending * (trotelPrice as number)
                 ).toLocaleString("en-US")}
             </span>
             <TrotelCoinLogo />
           </div>
           <div className="flex items-center">
-            {userNumberOfQuizzesAnswered ?? 0} 📚
+            {userNumberOfQuizzesAnswered as number} 📚
           </div>
           <div className="flex items-center">
             {lang === "en" ? "Level" : "Niveau"} {userLevel ?? 1} 💊
           </div>
           <div className="flex items-center">
-            {Math.floor(averageMark ?? 0)}/20 🤓
+            {Math.floor(averageMark as number)}/20 🤓
           </div>
         </div>
       </Marquee>

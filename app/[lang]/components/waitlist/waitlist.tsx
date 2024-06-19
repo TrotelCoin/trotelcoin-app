@@ -264,7 +264,7 @@ const Waitlist = ({
                               <span className="text-2xl font-semibold text-blue-500 dark:text-blue-300">
                                 <CountUp
                                   start={0}
-                                  end={position ?? 0}
+                                  end={position as number}
                                   prefix="#"
                                 />
                               </span>{" "}
@@ -330,7 +330,7 @@ const Waitlist = ({
             <div className="mx-auto flex w-full items-center justify-center p-5 text-center">
               <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                 <span className="text-blue-500 dark:text-blue-300">
-                  <CountUp start={0} end={length ?? 0} />
+                  <CountUp start={0} end={length as number} />
                 </span>{" "}
                 {lang === "en" ? (
                   <>

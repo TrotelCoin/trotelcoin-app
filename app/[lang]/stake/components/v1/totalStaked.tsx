@@ -8,11 +8,10 @@ import { polygon } from "viem/chains";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
-import { roundPrice } from "@/utils/price/roundPrice";
 
 const TotalStaked = ({
   lang,
-  storedTrotelPrice,
+  storedTrotelPrice
 }: {
   lang: Lang;
   storedTrotelPrice: number;
@@ -47,7 +46,7 @@ const TotalStaked = ({
           <span>{lang === "en" ? "Total locked" : "Total verrouillé"}</span>
           <div className="flex items-center gap-1">
             <Skeleton loading={!totalStaked}>
-              <CountUp start={0} end={totalStaked ?? 0} />
+              <CountUp start={0} end={totalStaked as number} />
               <TrotelCoinLogo />
             </Skeleton>
           </div>

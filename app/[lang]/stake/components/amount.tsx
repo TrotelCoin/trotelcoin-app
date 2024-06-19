@@ -126,7 +126,8 @@ const Amount = ({
                 </span>{" "}
                 that will earn you{" "}
                 <span className="font-semibold">
-                  ${roundPrice(Number(expectedEarnings ?? 0) * trotelPrice)} TROTEL
+                  ${roundPrice((expectedEarnings as number) * trotelPrice)}{" "}
+                  TROTEL
                 </span>{" "}
                 after a period of{" "}
                 <span className="font-semibold">{stakingPeriod} days</span>.
@@ -139,7 +140,8 @@ const Amount = ({
                 </span>{" "}
                 et vous gagnerez{" "}
                 <span className="font-semibold">
-                  ${roundPrice(Number(expectedEarnings ?? 0) * trotelPrice)} TROTEL
+                  ${roundPrice((expectedEarnings as number) * trotelPrice)}{" "}
+                  TROTEL
                 </span>{" "}
                 après une période de{" "}
                 <span className="font-semibold">{stakingPeriod} jours</span>.

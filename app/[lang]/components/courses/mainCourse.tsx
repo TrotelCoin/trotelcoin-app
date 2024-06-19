@@ -64,7 +64,7 @@ const CourseContent = ({
             </p>
             <SeparatorVertical />
             <p className="text-base leading-7 text-gray-700 dark:text-gray-300">
-              <CountUp start={0} duration={2} end={answered ?? 0} />{" "}
+              <CountUp start={0} duration={2} end={answered as number} />{" "}
               {lang === "en" ? "participants" : "participants"}
             </p>
           </div>

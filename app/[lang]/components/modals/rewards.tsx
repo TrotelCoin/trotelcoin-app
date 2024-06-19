@@ -108,7 +108,7 @@ const RewardsModal = ({
                           <div className="flex items-center justify-center gap-2">
                             <Skeleton loading={!rewards}>
                               <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                                <CountUp start={0} end={rewards ?? 0} />{" "}
+                                <CountUp start={0} end={rewards as number} />{" "}
                               </span>
                               <TrotelCoinLogo width={24} height={24} />
                             </Skeleton>
@@ -116,20 +116,21 @@ const RewardsModal = ({
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
                               ? `You just got ${
-                                  rewards ?? 0
+                                  rewards as number
                                 } TROTEL ${roundPrice(
-                                  Number(rewards ?? "0") * Number(trotelPrice ?? 0)
+                                  (rewards as number) * (trotelPrice as number)
                                 )} USDC.`
                               : `Vous venez de gagner ${
-                                  rewards ?? 0
+                                  rewards as number
                                 } TROTEL soit ${roundPrice(
-                                  Number(rewards ?? "0") * Number(trotelPrice ?? 0)
+                                  (rewards as number) * (trotelPrice as number)
                                 )} USDC.`}
                             {lang === "en"
                               ? "You have now"
                               : "Vous avez maintenant"}{" "}
                             <Skeleton loading={!userTotalRewardsPending}>
-                              {Math.floor(userTotalRewardsPending ?? 0)} TROTEL
+                              {Math.floor(userTotalRewardsPending as number)}{" "}
+                              TROTEL
                             </Skeleton>{" "}
                             {lang === "en" ? "pending." : "en attente."}
                           </p>
@@ -148,7 +149,7 @@ const RewardsModal = ({
                             <Skeleton loading={!userNumberOfQuizzesAnswered}>
                               <CountUp
                                 start={0}
-                                end={userNumberOfQuizzesAnswered ?? 0}
+                                end={userNumberOfQuizzesAnswered as number}
                               />{" "}
                               📚
                             </Skeleton>
@@ -156,7 +157,7 @@ const RewardsModal = ({
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en" ? "You scored" : "Vous avez obtenu"}{" "}
                             <Skeleton loading={!courseMark}>
-                              {Math.floor(courseMark ?? 0)}/20
+                              {Math.floor(courseMark as number)}/20
                             </Skeleton>{" "}
                             {lang === "en"
                               ? "on this course."
@@ -178,7 +179,7 @@ const RewardsModal = ({
                           </p>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             <Skeleton loading={!quizzesLeft}>
-                              {quizzesLeft ?? 0}
+                              {quizzesLeft as number}
                             </Skeleton>{" "}
                             {lang === "en"
                               ? "quizzes left until next level."

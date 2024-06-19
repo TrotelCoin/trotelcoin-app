@@ -42,10 +42,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                   {lang === "en" ? "Expert" : "Expert"}
                 </div>
                 <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  $
-                  {roundPrice(
-                    Number(trotelPrice ?? "0") * expertStakingBalance
-                  )}
+                  ${roundPrice((trotelPrice as number) * expertStakingBalance)}
                 </span>
               </div>
 

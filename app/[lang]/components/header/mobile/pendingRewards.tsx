@@ -52,7 +52,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
               userTotalRewardsPending &&
               showTrotelInUsdc &&
               roundPrice(
-                Number(userTotalRewardsPending) * Number(trotelPrice ?? "0")
+                userTotalRewardsPending * (trotelPrice as number)
               ).toLocaleString("en-US")}
             <div className="block h-4 w-4 dark:hidden">
               <Image

@@ -75,7 +75,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
       >
         <Skeleton loading={!position}>
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
-            {position ?? 0}
+            {position as number}
           </div>
         </Skeleton>
         <div className="hidden md:block">
@@ -101,12 +101,12 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
         <div className="flex items-center text-lg md:gap-2">
           <span className="hidden md:block">
             <Skeleton loading={!numberOfQuizzesAnswered}>
-              <CountUp start={0} end={numberOfQuizzesAnswered ?? 0} /> 📚
+              <CountUp start={0} end={numberOfQuizzesAnswered as number} /> 📚
             </Skeleton>
           </span>
           <span>
             <Skeleton loading={!averageMarks}>
-              <CountUp start={0} end={averageMarks ?? 0} decimals={0} />
+              <CountUp start={0} end={averageMarks as number} decimals={0} />
               /20 🤓
             </Skeleton>
           </span>
