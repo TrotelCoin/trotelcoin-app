@@ -1,10 +1,11 @@
 import { Slippage, Sort } from "@/types/web3/swap";
 import { Token } from "@/types/web3/token";
-import { Address, parseUnits } from "viem";
+import { Address, parseUnits, getAddress } from "viem";
 import { getQuote } from "@/utils/socket/getQuote";
 import { getRouteTransactionData } from "@/utils/socket/getRouteTransactionData";
 import { nativeAddress } from "@/data/web3/tokens";
 import { Chain } from "@/types/web3/chain";
+import { trotelCoinAddress } from "@/data/web3/addresses";
 
 export const fetchQuote = async (
   fromAmount: number,
@@ -18,6 +19,7 @@ export const fetchQuote = async (
   singleTxOnly: boolean,
   enableRefuel: boolean,
   slippage: Slippage,
+  trotelPrice: number,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setNoQuoteNotification: React.Dispatch<React.SetStateAction<boolean>>,
   setQuoteFetched: React.Dispatch<React.SetStateAction<boolean>>,
@@ -66,8 +68,24 @@ export const fetchQuote = async (
   }
 
   setGasPrice(route.totalGasFeesInUsd);
-  setFromPrice(route.inputValueInUsd);
-  setToPrice(route.outputValueInUsd);
+  if (
+    fromToken &&
+    fromToken.address &&
+    getAddress(fromToken.address) === getAddress(trotelCoinAddress)
+  ) {
+    setFromPrice(trotelPrice);
+  } else {
+    setFromPrice(route.inputValueInUsd);
+  }
+  if (
+    toToken &&
+    toToken.address &&
+    getAddress(toToken.address) === getAddress(trotelCoinAddress)
+  ) {
+    setToPrice(trotelPrice);
+  } else {
+    setToPrice(route.outputValueInUsd);
+  }
   setSwapSlippage(route.userTxs[0]?.steps?.swapSlippage);
   setBridgeSlippage(route.userTxs[0]?.steps?.bridgeSlippage);
   setProtocolName(route.userTxs[0]?.protocol?.displayName);

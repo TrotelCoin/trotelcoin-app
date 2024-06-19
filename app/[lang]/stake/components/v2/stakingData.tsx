@@ -97,12 +97,6 @@ const StakingData = ({
   useEffect(() => {
     if (earnedTrotelCoinsData) {
       const earned = Number(formatEther(earnedTrotelCoinsData as bigint));
-      console.log(
-        "earned",
-        earned,
-        earnedTrotelCoinsData,
-        "earnedTrotelCoinsData"
-      );
       setEarnedTrotelCoins(earned);
     } else {
       setEarnedTrotelCoins(0);
