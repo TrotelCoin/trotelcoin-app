@@ -106,6 +106,8 @@ const TokenList = ({
     .sort((a: Token, b: Token) => (b.balance as number) - (a.balance as number))
     .slice((currentPage - 1) * tokensPerPage, tokensPerPage * currentPage);
 
+  console.log("filteredTokens", filteredTokens);
+
   return (
     <Transition.Root
       show={openTokenList}
@@ -252,7 +254,9 @@ const TokenList = ({
                                 <Skeleton loading={token.balance === undefined}>
                                   {lang === "en" ? "Balance:" : "Solde:"}{" "}
                                   {token.balance
-                                    ? token.balance?.toLocaleString("en-US")
+                                    ? token.balance > 1
+                                      ? token.balance?.toLocaleString("en-US")
+                                      : token.balance
                                     : "0"}
                                 </Skeleton>
                               </span>

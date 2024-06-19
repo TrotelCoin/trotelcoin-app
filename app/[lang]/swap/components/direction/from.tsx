@@ -8,6 +8,7 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import type { Chain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import Image from "next/image";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 const From = ({
   lang,
@@ -102,7 +103,9 @@ const From = ({
                 {lang === "en" ? "Balance:" : "Solde:"}{" "}
                 <span>
                   {fromBalance
-                    ? Number(fromBalance?.toFixed(3)).toLocaleString("en-US")
+                    ? fromBalance > 1
+                      ? roundPrice(fromBalance).toLocaleString("en-US")
+                      : roundPrice(fromBalance)
                     : "0"}
                 </span>{" "}
               </Skeleton>
