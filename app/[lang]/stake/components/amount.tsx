@@ -130,7 +130,8 @@ const Amount = ({
                   TROTEL
                 </span>{" "}
                 after a period of{" "}
-                <span className="font-semibold">{stakingPeriod} days</span>.
+                <span className="font-semibold">{stakingPeriod} days</span>,
+                noting that prices may fluctuate over time.
               </>
             ) : (
               <>
@@ -144,7 +145,8 @@ const Amount = ({
                   TROTEL
                 </span>{" "}
                 après une période de{" "}
-                <span className="font-semibold">{stakingPeriod} jours</span>.
+                <span className="font-semibold">{stakingPeriod} jours</span>, en
+                notant que les prix peuvent fluctuer au fil du temps.
               </>
             )}
           </p>
