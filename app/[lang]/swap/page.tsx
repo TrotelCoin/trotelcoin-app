@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import type { Lang } from "@/types/language/lang";
 import { ChainSource, Slippage, Sort, TokenSource } from "@/types/web3/swap";
 import {
@@ -41,6 +41,7 @@ import { getFromTokenList } from "@/utils/socket/getFromTokenList";
 import { getChainList } from "@/utils/socket/getChainList";
 import { getToTokenList } from "@/utils/socket/getToTokenList";
 import { isRefuelSupported } from "@/utils/socket/isRefuelSupported";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
@@ -101,6 +102,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
+
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { switchChain } = useSwitchChain();
 
@@ -303,6 +306,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         singleTxOnly,
         enableRefuel,
         slippage,
+        trotelPrice as number,
         setIsLoading,
         setNoQuoteNotification,
         setQuoteFetched,

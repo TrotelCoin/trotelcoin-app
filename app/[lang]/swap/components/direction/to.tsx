@@ -92,9 +92,7 @@ const To = ({
               onWheel={(e) => e.preventDefault()}
               value={
                 toAmount
-                  ? toAmount >= 1
-                    ? Number((toAmount * 10 ** -toToken.decimals).toFixed(2))
-                    : Number((toAmount * 10 ** -toToken.decimals).toFixed(5))
+                  ? roundPrice(Number(toAmount * 10 ** -toToken.decimals))
                   : 0
               }
               disabled={true}
@@ -157,7 +155,9 @@ const To = ({
                 <Skeleton loading={isLoading}>
                   $
                   {toPrice
-                    ? Number(toPrice.toFixed(2)).toLocaleString("en-US")
+                    ? toPrice > 1
+                      ? roundPrice(Number(toPrice)).toLocaleString("en-US")
+                      : roundPrice(Number(toPrice))
                     : "0"}
                 </Skeleton>
               </span>
