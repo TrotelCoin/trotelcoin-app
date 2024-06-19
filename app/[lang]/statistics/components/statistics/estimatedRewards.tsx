@@ -40,10 +40,12 @@ const EstimatedRewards = ({ lang }: { lang: Lang }) => {
               <span className="hidden md:inline">🧠</span>
             </>
           ) : (
-            <>
-              <CountUp start={0} prefix="$" end={0} />{" "}
-              <span className="hidden md:inline">🧠</span>
-            </>
+            showTrotelInUsdc && (
+              <>
+                <CountUp start={0} prefix="$" end={0} />{" "}
+                <span className="hidden md:inline">🧠</span>
+              </>
+            )
           )}
         </span>
 
