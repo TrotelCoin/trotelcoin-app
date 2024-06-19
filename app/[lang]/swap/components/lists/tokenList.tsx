@@ -13,6 +13,8 @@ import { config } from "@/config/Web3ModalConfig";
 import Pagination from "@/app/[lang]/swap/components/pagination";
 import { nativeAddress } from "@/data/web3/tokens";
 import { Skeleton } from "@radix-ui/themes";
+import { formatUnits } from "viem";
+import { roundPrice } from "@/utils/price/roundPrice";
 
 function classNames(...classes: (string | boolean)[]) {
   return classes.filter(Boolean).join(" ");
@@ -59,7 +61,10 @@ const TokenList = ({
             address: address
           });
 
-          if (balance) token.balance = Number(balance?.formatted);
+          if (balance)
+            token.balance = roundPrice(
+              Number(formatUnits(balance?.value, token.decimals))
+            );
         } else {
           const balance: GetBalanceReturnType = await getBalance(config, {
             token: token.address,
@@ -67,7 +72,10 @@ const TokenList = ({
             address: address
           });
 
-          if (balance) token.balance = Number(balance?.formatted);
+          if (balance)
+            token.balance = roundPrice(
+              Number(formatUnits(balance?.value, token.decimals))
+            );
         }
 
         setIsLoadingTokensBalance(false);
