@@ -103,7 +103,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { address: userAddress } = useAccount();
 
-  const { trotelPrice } = useContext(TrotelPriceContext);
+  const { storedTrotelPrice } = useContext(TrotelPriceContext);
 
   const { switchChain } = useSwitchChain();
 
@@ -306,7 +306,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
         singleTxOnly,
         enableRefuel,
         slippage,
-        trotelPrice as number,
+        storedTrotelPrice as number,
         setIsLoading,
         setNoQuoteNotification,
         setQuoteFetched,
@@ -358,7 +358,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     quoteFetched,
     fromAmount,
     enableRefuel,
-    slippage
+    slippage,
+    storedTrotelPrice
   ]);
 
   useEffect(() => {

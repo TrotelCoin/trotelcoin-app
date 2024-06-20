@@ -51,7 +51,6 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [items, setItems] = useState<ItemTypeFinal[] | null>(null);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(true);
-  const [isHoveringBalance, setIsHoveringBalance] = useState<boolean>(false);
 
   const { address } = useAccount();
 
@@ -191,22 +190,17 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                       ))}
                 </ul>
 
-                <div
-                  onMouseEnter={() => setIsHoveringBalance(true)}
-                  onMouseLeave={() => setIsHoveringBalance(false)}
-                >
-                  <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                    {!showTrotelInUsdc &&
-                      balance &&
-                      roundPrice(balance).toLocaleString("en-US")}
-                    {showTrotelInUsdc &&
-                      balance &&
-                      `$${roundPrice(
-                        (trotelPrice as number) * balance
-                      ).toLocaleString("en-US")}`}{" "}
-                    <span>TROTEL</span>
-                  </span>
-                </div>
+                <span className="hidden text-sm font-semibold text-gray-700 dark:text-gray-300 md:block">
+                  {!showTrotelInUsdc &&
+                    balance &&
+                    roundPrice(balance).toLocaleString("en-US")}
+                  {showTrotelInUsdc &&
+                    balance &&
+                    `$${roundPrice(
+                      (trotelPrice as number) * balance
+                    ).toLocaleString("en-US")}`}{" "}
+                  <span>TROTEL</span>
+                </span>
               </div>
             </>
           )}
@@ -237,22 +231,18 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                             </li>
                           ))}
                     </ul>
-                    <div
-                      onMouseEnter={() => setIsHoveringBalance(true)}
-                      onMouseLeave={() => setIsHoveringBalance(false)}
-                    >
-                      <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                        {!showTrotelInUsdc &&
-                          balance &&
-                          roundPrice(balance).toLocaleString("en-US")}
-                        {showTrotelInUsdc &&
-                          balance &&
-                          `$${roundPrice(
-                            (trotelPrice as number) * balance
-                          ).toLocaleString("en-US")}`}{" "}
-                        <span>TROTEL</span>
-                      </span>
-                    </div>
+
+                    <span className="hidden text-sm font-semibold text-gray-700 dark:text-gray-300 md:block">
+                      {!showTrotelInUsdc &&
+                        balance &&
+                        roundPrice(balance).toLocaleString("en-US")}
+                      {showTrotelInUsdc &&
+                        balance &&
+                        `$${roundPrice(
+                          (trotelPrice as number) * balance
+                        ).toLocaleString("en-US")}`}{" "}
+                      <span>TROTEL</span>
+                    </span>
                   </div>
 
                   <div className="mt-2 flex flex-col gap-1">
