@@ -29,8 +29,8 @@ const Beginner = ({ lang }: { lang: Lang }) => {
                 <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                   Free forever
                 </span>
-                <CheckCircleIcon className="h-6 w-6 text-blue-500 dark:text-blue-300" />
               </div>
+              <CheckCircleIcon className="h-6 w-6 text-blue-500 dark:text-blue-300" />
             </div>
             <div className="mt-5 flex items-center justify-center">
               <span className="text-8xl">🐣</span>
