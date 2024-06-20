@@ -15,7 +15,7 @@ import { roundPrice } from "@/utils/price/roundPrice";
 const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   const [trotelPrice, setTrotelPrice] = useState<number | null>(null);
   const [trotelPriceLoading, setTrotelPriceLoading] = useState<boolean>(true);
-  const [showTrotelInUsdc, setShowTrotelInUsdc] = useState<boolean>(false);
+  const [showTrotelInUsdc, setShowTrotelInUsdc] = useState<boolean>(true);
   const [trotelPriceRounded, setTrotelPriceRounded] = useState<number | null>(
     null
   );
@@ -96,7 +96,7 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
     if (showTrotelInUsdc) {
       setShowTrotelInUsdc(JSON.parse(showTrotelInUsdc));
     } else {
-      setShowTrotelInUsdc(false);
+      setShowTrotelInUsdc(true);
     }
   }, []);
 
