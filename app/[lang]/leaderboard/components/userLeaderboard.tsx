@@ -56,14 +56,14 @@ const UserLeaderboardComponent = ({
   return (
     <>
       <div
-        className={`mt-4 flex items-center justify-between rounded-2xl border border-gray-900/10 bg-white p-4 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
+        className={`mt-4 grid grid-cols-3 rounded-2xl border border-gray-900/10 bg-white p-4 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
       >
         <Skeleton loading={isLoadingLeaderboard || !positions}>
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
             {getCategoryPosition(positions, category) ?? "-"}
           </div>
         </Skeleton>
-        <div className="hidden md:block">
+        <div className="hidden items-center justify-center md:flex">
           <Skeleton loading={isLoadingLeaderboard || !address}>
             {address && isAddress(address) && !ensName
               ? address
@@ -73,7 +73,7 @@ const UserLeaderboardComponent = ({
                   : "Connectez votre portefeuille")}
           </Skeleton>
         </div>
-        <div className="block md:hidden">
+        <div className="flex items-center justify-center md:hidden">
           <Skeleton loading={isLoadingLeaderboard || !address}>
             {address
               ? shortenAddress(address)
@@ -83,7 +83,7 @@ const UserLeaderboardComponent = ({
           </Skeleton>
         </div>
 
-        <div className="flex items-center text-lg md:gap-2">
+        <div className="flex items-center justify-end text-lg md:gap-2">
           <span>
             <Skeleton loading={isLoadingLeaderboard || !userLeaderboard}>
               <CountUp
