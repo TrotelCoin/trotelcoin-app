@@ -30,22 +30,22 @@ const MarksLeaderboard = ({
                   .map((entry, index) => (
                     <li
                       key={index}
-                      className="flex w-full items-center justify-between gap-4 px-6 py-4"
+                      className="grid w-full grid-cols-3 gap-4 px-6 py-4"
                     >
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
                         {index + 1}
                       </div>
-                      <div className="hidden md:block">
+                      <div className="hidden items-center justify-center md:flex">
                         {entry.ens ?? entry.wallet}
                       </div>
-                      <div className="block md:hidden">
+                      <div className="flex items-center justify-center md:hidden">
                         {entry.ens
                           ? entry.ens
                           : entry.wallet && isAddress(entry.wallet)
                             ? shortenAddress(entry.wallet)
                             : entry.wallet}
                       </div>
-                      <div className="flex items-center text-lg md:gap-2">
+                      <div className="flex items-center justify-end text-lg md:gap-2">
                         <span>
                           <CountUp
                             start={0}
