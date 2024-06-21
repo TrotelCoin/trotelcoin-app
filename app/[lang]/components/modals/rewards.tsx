@@ -36,7 +36,8 @@ const RewardsModal = ({
     userNumberOfQuizzesAnswered,
     userLevel,
     quizzesLeft,
-    userTotalRewardsPending
+    userTotalRewardsPending,
+    learningTime
   } = useContext(UserContext);
   const { trotelPrice } = useContext(TrotelPriceContext);
 
@@ -115,16 +116,16 @@ const RewardsModal = ({
                           </div>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
-                              ? `You just got ${
+                              ? `You have earned ${roundPrice(
                                   rewards as number
-                                } TROTEL ${roundPrice(
+                                )} TROTEL, valued at $${roundPrice(
                                   (rewards as number) * (trotelPrice as number)
-                                )} USDC.`
-                              : `Vous venez de gagner ${
+                                )}.`
+                              : `Vous avez gagné ${roundPrice(
                                   rewards as number
-                                } TROTEL soit ${roundPrice(
+                                )} TROTEL, d'une valeur de $${roundPrice(
                                   (rewards as number) * (trotelPrice as number)
-                                )} USDC.`}
+                                )}.`}
                             {lang === "en"
                               ? "You have now"
                               : "Vous avez maintenant"}{" "}
@@ -132,7 +133,15 @@ const RewardsModal = ({
                               {Math.floor(userTotalRewardsPending as number)}{" "}
                               TROTEL
                             </Skeleton>{" "}
-                            {lang === "en" ? "pending." : "en attente."}
+                            {lang === "en"
+                              ? `pending that worth $${roundPrice(
+                                  (userTotalRewardsPending as number) *
+                                    (trotelPrice as number)
+                                )}.`
+                              : `en attente qui valent $${roundPrice(
+                                  (userTotalRewardsPending as number) *
+                                    (trotelPrice as number)
+                                )}.`}
                           </p>
                         </div>
                       </>
@@ -209,8 +218,8 @@ const RewardsModal = ({
                           </span>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
-                              ? "You took this time to complete the course."
-                              : "Vous avez pris ce temps pour compléter le cours."}
+                              ? `You're total learning time is ${Math.floor(learningTime as number) * 1e-3} seconds.`
+                              : `Votre temps d'apprentissage total est de ${Math.floor(learningTime as number) * 1e-3} secondes.`}
                           </p>
                         </div>
                       </>
