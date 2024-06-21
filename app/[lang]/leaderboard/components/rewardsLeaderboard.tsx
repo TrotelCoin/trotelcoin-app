@@ -28,41 +28,50 @@ const RewardsLeaderboard = ({
             >
               {leaderboard &&
                 Array.isArray(leaderboard) &&
-                leaderboard.slice(0, numberOfItems).map((entry, index) => (
-                  <li
-                    key={index}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-4"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
-                      {index + 1}
-                    </div>
-                    <div className="hidden md:block">{entry.wallet}</div>
-                    <div className="block md:hidden">
-                      {entry.wallet && isAddress(entry.wallet)
-                        ? shortenAddress(entry.wallet)
-                        : entry.wallet}
-                    </div>
-                    <div className="flex items-center text-lg md:gap-2">
-                      <span>
-                        <CountUp
-                          start={0}
-                          prefix={showTrotelInUsdc ? "$" : ""}
-                          end={
-                            leaderboard &&
-                            leaderboard[index].total_rewards_pending
-                              ? showTrotelInUsdc
-                                ? leaderboard[index].total_rewards_pending *
-                                  (storedTrotelPrice as number)
-                                : leaderboard[index].total_rewards_pending
-                              : 0
-                          }
-                          decimals={2}
-                          suffix=" 💰"
-                        />
-                      </span>
-                    </div>
-                  </li>
-                ))}
+                leaderboard
+                  .sort(
+                    (a, b) => b.total_rewards_pending - a.total_rewards_pending
+                  )
+                  .slice(0, numberOfItems)
+                  .map((entry, index) => (
+                    <li
+                      key={index}
+                      className="flex w-full items-center justify-between gap-4 px-6 py-4"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
+                        {index + 1}
+                      </div>
+                      <div className="hidden md:block">
+                        {entry.ens ?? entry.wallet}
+                      </div>
+                      <div className="block md:hidden">
+                        {entry.ens
+                          ? entry.ens
+                          : entry.wallet && isAddress(entry.wallet)
+                            ? shortenAddress(entry.wallet)
+                            : entry.wallet}
+                      </div>
+                      <div className="flex items-center text-lg md:gap-2">
+                        <span>
+                          <CountUp
+                            start={0}
+                            prefix={showTrotelInUsdc ? "$" : ""}
+                            end={
+                              leaderboard &&
+                              leaderboard[index].total_rewards_pending
+                                ? showTrotelInUsdc
+                                  ? leaderboard[index].total_rewards_pending *
+                                    (storedTrotelPrice as number)
+                                  : leaderboard[index].total_rewards_pending
+                                : 0
+                            }
+                            decimals={2}
+                            suffix=" 💰"
+                          />
+                        </span>
+                      </div>
+                    </li>
+                  ))}
             </div>
           </>
         ) : (

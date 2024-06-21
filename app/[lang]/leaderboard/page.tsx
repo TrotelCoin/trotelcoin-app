@@ -5,21 +5,23 @@ import type { Lang } from "@/types/language/lang";
 import UserLeaderboard from "@/app/[lang]/leaderboard/components/userLeaderboard";
 import MarksLeaderboard from "@/app/[lang]/leaderboard/components/marksLeaderboard";
 import LeaderboardCategory from "@/app/[lang]/leaderboard/components/leaderboardCategory";
-import {
+import type {
   LeaderboardCategories,
-  LeaderboardItem
+  LeaderboardItem,
+  Positions
 } from "@/types/leaderboard/leaderboard";
 import { fetcher } from "@/utils/axios/fetcher";
 import useSWR from "swr";
-import { getEnsName } from "@wagmi/core";
-import { config } from "@/config/Web3ModalConfig";
-import { Address, isAddress } from "viem";
-import { mainnet } from "viem/chains";
 import QuizzesAnsweredLeaderboard from "@/app/[lang]/leaderboard/components/quizzesAnsweredLeaderboard";
 import RewardsLeaderboard from "@/app/[lang]/leaderboard/components/rewardsLeaderboard";
 import LearningTimeLeaderboard from "@/app/[lang]/leaderboard/components/learningTimeLeaderboard";
 import StreaksLeaderboard from "@/app/[lang]/leaderboard/components/streaksLeaderboard";
-import { sortLeaderboardFromCategory } from "@/utils/leaderboard/leaderboard";
+import {
+  getPositionsFromCategory,
+  getUserLeaderboard
+} from "@/utils/leaderboard/leaderboard";
+import { useAccount } from "wagmi";
+import type { Address } from "viem";
 
 const numberOfItems = 50;
 
@@ -29,12 +31,14 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
     null
   );
   const [ensFetched, setEnsFetched] = useState<boolean>(false);
-  const [sortedLeaderboard, setSortedLeaderboard] = useState<
-    LeaderboardItem[] | null
-  >(null);
   const [mount, setMount] = useState<boolean>(false);
   const [isLoadingLeaderboard, setIsLoadingLeaderboard] =
     useState<boolean>(true);
+  const [positions, setPositions] = useState<Positions | null>(null);
+  const [userLeaderboardItem, setUserLeaderboardItem] =
+    useState<LeaderboardItem | null>(null);
+
+  const { address } = useAccount();
 
   const { data: leaderboardData, isLoading: isFetchingLeaderboard } = useSWR(
     `/api/leaderboard`,
@@ -52,60 +56,39 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [leaderboardData, mount]);
 
   useEffect(() => {
-    const isLoading =
-      isFetchingLeaderboard || !leaderboard || !sortedLeaderboard;
+    const isLoading = isFetchingLeaderboard || !leaderboard;
 
     if (isLoading) {
       setIsLoadingLeaderboard(true);
     } else {
       setIsLoadingLeaderboard(false);
     }
-  }, [isFetchingLeaderboard, leaderboard, sortedLeaderboard]);
+  }, [isFetchingLeaderboard, leaderboard]);
 
   useEffect(() => {
-    const fetchEns = async (address: Address) => {
-      try {
-        const result = await getEnsName(config, {
-          address: address,
-          chainId: mainnet.id
-        });
-        return result ?? address;
-      } catch (error) {
-        return address;
-      }
-    };
-
-    const fetchLeaderboard = async (leaderboard: LeaderboardItem[]) => {
-      const promises = leaderboard.map(async (entry: LeaderboardItem) => {
-        if (entry.wallet && isAddress(entry.wallet)) {
-          entry.wallet = await fetchEns(entry.wallet);
-        }
-        return entry;
-      });
-
-      const updatedLeaderboard = await Promise.all(promises);
-      setEnsFetched(true);
-      setLeaderboard(updatedLeaderboard);
-    };
-
-    if (leaderboard && !ensFetched) {
-      fetchLeaderboard(leaderboard);
-    }
-  }, [leaderboard, ensFetched]);
-
-  useEffect(() => {
-    const sortLeaderboard = async () => {
-      const sorted = await sortLeaderboardFromCategory(
+    const getPositions = () => {
+      const positions: Positions = getPositionsFromCategory(
         leaderboard as LeaderboardItem[],
-        category
+        address as Address
       );
-      setSortedLeaderboard(sorted);
+
+      setPositions(positions);
+    };
+
+    const getUserLeaderboardItem = () => {
+      const userLeaderboard = getUserLeaderboard(
+        leaderboard as LeaderboardItem[],
+        address as Address
+      );
+
+      setUserLeaderboardItem(userLeaderboard);
     };
 
     if (leaderboard) {
-      sortLeaderboard();
+      getPositions();
+      getUserLeaderboardItem();
     }
-  }, [category, leaderboard]);
+  }, [leaderboard, address]);
 
   return (
     <>
@@ -116,9 +99,11 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         <UserLeaderboard
           lang={lang}
-          leaderboard={sortedLeaderboard}
           category={category}
           isLoadingLeaderboard={isLoadingLeaderboard}
+          positions={positions}
+          userLeaderboard={userLeaderboardItem}
+          address={address}
         />
 
         <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-gray-100">
@@ -134,7 +119,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         {category === "rewards" && (
           <RewardsLeaderboard
             isLoadingLeaderboard={isLoadingLeaderboard}
-            leaderboard={sortedLeaderboard as LeaderboardItem[]}
+            leaderboard={leaderboard as LeaderboardItem[]}
             numberOfItems={numberOfItems}
           />
         )}
@@ -142,7 +127,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         {category === "learningTime" && (
           <LearningTimeLeaderboard
             isLoadingLeaderboard={isLoadingLeaderboard}
-            leaderboard={sortedLeaderboard as LeaderboardItem[]}
+            leaderboard={leaderboard as LeaderboardItem[]}
             numberOfItems={numberOfItems}
           />
         )}
@@ -150,7 +135,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         {category === "numberOfQuizzesAnswered" && (
           <QuizzesAnsweredLeaderboard
             isLoadingLeaderboard={isLoadingLeaderboard}
-            leaderboard={sortedLeaderboard as LeaderboardItem[]}
+            leaderboard={leaderboard as LeaderboardItem[]}
             numberOfItems={numberOfItems}
           />
         )}
@@ -158,7 +143,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         {category === "marks" && (
           <MarksLeaderboard
             isLoadingLeaderboard={isLoadingLeaderboard}
-            leaderboard={sortedLeaderboard as LeaderboardItem[]}
+            leaderboard={leaderboard as LeaderboardItem[]}
             numberOfItems={numberOfItems}
           />
         )}
@@ -166,7 +151,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
         {category === "streaks" && (
           <StreaksLeaderboard
             isLoadingLeaderboard={isLoadingLeaderboard}
-            leaderboard={sortedLeaderboard as LeaderboardItem[]}
+            leaderboard={leaderboard as LeaderboardItem[]}
             numberOfItems={numberOfItems}
           />
         )}

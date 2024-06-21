@@ -24,36 +24,43 @@ const MarksLeaderboard = ({
             >
               {leaderboard &&
                 Array.isArray(leaderboard) &&
-                leaderboard.slice(0, numberOfItems).map((entry, index) => (
-                  <li
-                    key={index}
-                    className="flex w-full items-center justify-between gap-4 px-6 py-4"
-                  >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
-                      {index + 1}
-                    </div>
-                    <div className="hidden md:block">{entry.wallet}</div>
-                    <div className="block md:hidden">
-                      {entry.wallet && isAddress(entry.wallet)
-                        ? shortenAddress(entry.wallet)
-                        : entry.wallet}
-                    </div>
-                    <div className="flex items-center text-lg md:gap-2">
-                      <span>
-                        <CountUp
-                          start={0}
-                          end={
-                            leaderboard && leaderboard[index].average_marks
-                              ? leaderboard[index].average_marks
-                              : 0
-                          }
-                          decimals={0}
-                          suffix="/20 🤓"
-                        />
-                      </span>
-                    </div>
-                  </li>
-                ))}
+                leaderboard
+                  .sort((a, b) => b.average_marks - a.average_marks)
+                  .slice(0, numberOfItems)
+                  .map((entry, index) => (
+                    <li
+                      key={index}
+                      className="flex w-full items-center justify-between gap-4 px-6 py-4"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
+                        {index + 1}
+                      </div>
+                      <div className="hidden md:block">
+                        {entry.ens ?? entry.wallet}
+                      </div>
+                      <div className="block md:hidden">
+                        {entry.ens
+                          ? entry.ens
+                          : entry.wallet && isAddress(entry.wallet)
+                            ? shortenAddress(entry.wallet)
+                            : entry.wallet}
+                      </div>
+                      <div className="flex items-center text-lg md:gap-2">
+                        <span>
+                          <CountUp
+                            start={0}
+                            end={
+                              leaderboard && leaderboard[index].average_marks
+                                ? leaderboard[index].average_marks
+                                : 0
+                            }
+                            decimals={0}
+                            suffix="/20 🤓"
+                          />
+                        </span>
+                      </div>
+                    </li>
+                  ))}
             </div>
           </>
         ) : (
