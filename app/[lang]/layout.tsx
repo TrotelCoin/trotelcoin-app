@@ -158,7 +158,9 @@ export default function Layout({
                                     >
                                       <Waitlist lang={lang}>
                                         <Banner lang={lang} />
-                                        <Changelogs lang={lang} />
+                                        <div className="hidden">
+                                          <Changelogs lang={lang} />
+                                        </div>
                                         <Header lang={lang} />
 
                                         <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">

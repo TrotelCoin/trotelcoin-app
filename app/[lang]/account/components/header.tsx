@@ -92,7 +92,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           perspective={800}
           className="h-full"
         >
-          <NumberOfQuizzesAnswered lang={lang} />
+          <TotalRewardsPending lang={lang} />
         </Tilt>
 
         <Tilt
@@ -103,7 +103,7 @@ const Header = ({ lang }: { lang: Lang }) => {
           perspective={800}
           className="h-full"
         >
-          <TotalRewardsPending lang={lang} />
+          <NumberOfQuizzesAnswered lang={lang} />
         </Tilt>
 
         <Tilt
