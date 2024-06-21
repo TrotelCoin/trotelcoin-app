@@ -3979,6 +3979,107 @@ const quizzes: QuizData = [
         }
       }
     ]
+  },
+  {
+    quizId: 43,
+    title: "What is liquid staking?",
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is liquid staking?",
+          fr: "Qu'est-ce que le staking liquide ?"
+        },
+        options: {
+          en: [
+            "A staking method that allows users to delegate their tokens to maintain the liquidity of their tokens",
+            "A method to lock tokens permanently",
+            "A method to convert cryptocurrencies to fiat",
+            "A way to avoid staking rewards"
+          ],
+          fr: [
+            "Une méthode de staking qui permet aux utilisateurs de conserver la liquidité de leurs jetons",
+            "Une méthode pour verrouiller les jetons de manière permanente",
+            "Une méthode pour convertir les crypto-monnaies en monnaie fiduciaire",
+            "Un moyen d'éviter les récompenses de staking"
+          ]
+        }
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "What is a major drawback of traditional staking?",
+          fr: "Quel est un inconvénient majeur du staking traditionnel ?"
+        },
+        options: {
+          en: [
+            "It locks the tokens for a determined period",
+            "It generates no rewards",
+            "It decreases token value",
+            "It is only available for Bitcoin"
+          ],
+          fr: [
+            "Il bloque les jetons pendant une période déterminée",
+            "Il ne génère aucune récompense",
+            "Il diminue la valeur des jetons",
+            "Il n'est disponible que pour le Bitcoin"
+          ]
+        }
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "What do users receive when using a liquid staking pool?",
+          fr: "Que reçoivent les utilisateurslorsqu'ils utilisent une pool de staking liquide ?"
+        },
+        options: {
+          en: [
+            "Equivalent Liquid Staking Tokens (LST)",
+            "Fiat currency",
+            "Gold",
+            "Bitcoin"
+          ],
+          fr: [
+            "Des Liquid Staking Tokens (LST) équivalents",
+            "De la monnaie fiduciaire",
+            "De l'or",
+            "Du Bitcoin"
+          ]
+        }
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "Which of the following is a benefit of liquid staking?",
+          fr: "Lequel des éléments suivants est un avantage du staking liquide ?"
+        },
+        options: {
+          en: [
+            "It allows the use of derivative tokens in other DeFi protocols",
+            "It eliminates all risks",
+            "It locks tokens permanently",
+            "It avoids any form of liquidity"
+          ],
+          fr: [
+            "Il permet d'utiliser les jetons dérivés dans d'autres protocoles DeFi",
+            "Il élimine tous les risques",
+            "Il verrouille les jetons de manière permanente",
+            "Il évite toute forme de liquidité"
+          ]
+        }
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "Which platform is an example of a liquid staking platform?",
+          fr: "Quelle plateforme est un exemple de plateforme de staking liquide ?"
+        },
+        options: {
+          en: ["Lido Finance", "Coinbase", "Binance", "Kraken"],
+          fr: ["Lido Finance", "Coinbase", "Binance", "Kraken"]
+        }
+      }
+    ]
   }
 ];
 

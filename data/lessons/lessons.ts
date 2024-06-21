@@ -430,6 +430,27 @@ export const lessons: Lessons[] = [
         quizId: 15,
         available: true,
         cover: "/assets/courses/ethereum/evm.jpg"
+      },
+      {
+        title: {
+          en: "What is Liquid Staking on Ethereum?",
+          fr: "Qu'est-ce que le Staking Liquide sur Ethereum ?"
+        },
+        description: {
+          en: "Learn how Liquid Staking allows you to stake your ETH while keeping it liquid.",
+          fr: "Découvrez comment le Staking Liquide vous permet de staker vos ETH tout en les gardant liquides."
+        },
+        href: "/ethereum/liquid-staking",
+        tier: {
+          en: "Intermediate",
+          fr: "Intermédiaire"
+        },
+        date: new Date("2024-06-21"),
+        sponsored: false,
+        new: new Date("2024-06-21") > twoWeeksAgo,
+        quizId: 43,
+        available: true,
+        cover: "/assets/courses/ethereum/liquid-staking.jpg"
       }
     ]
   },
