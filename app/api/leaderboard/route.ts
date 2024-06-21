@@ -2,19 +2,55 @@ import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { isAddress } from "viem";
 import type { LeaderboardItem } from "@/types/leaderboard/leaderboard";
+import { config } from "@/config/Web3ModalConfig";
+import { getEnsName } from "@wagmi/core";
+import type { Address } from "viem";
+import { mainnet } from "viem/chains";
 
 export const dynamic = "force-dynamic";
 
-const fetchData = async (table: string, columns: string): Promise<any[]> => {
+const fetchData = async <T>(table: string, columns: string): Promise<T[]> => {
   const { data, error } = await supabase.from(table).select(columns);
+
   if (error) {
     throw new Error(error.message);
   }
-  return data ?? [];
+
+  return (data ?? []) as T[];
+};
+
+const fetchEns = async (address: Address): Promise<string | undefined> => {
+  try {
+    const result = await getEnsName(config, {
+      address: address,
+      chainId: mainnet.id
+    });
+    return result ?? undefined;
+  } catch (error) {
+    return undefined;
+  }
+};
+
+const updateLeaderboardWithEns = async (
+  leaderboard: LeaderboardItem[]
+): Promise<LeaderboardItem[]> => {
+  const updatedLeaderboard = await Promise.all(
+    leaderboard.map(async (learner) => {
+      if (isAddress(learner.wallet)) {
+        const ens = await fetchEns(learner.wallet);
+        return {
+          ...learner,
+          ens
+        };
+      }
+      return learner;
+    })
+  );
+  return updatedLeaderboard;
 };
 
 const mapAverageMarks = (
-  averageMarks: any[]
+  averageMarks: { wallet: string; marks: number }[]
 ): Record<string, { totalMarks: number; count: number }> => {
   const averageMarksMap: Record<string, { totalMarks: number; count: number }> =
     {};
@@ -29,16 +65,12 @@ const mapAverageMarks = (
 };
 
 const updateLeaderboardWithAverageMarks = (
-  leaderboard: any[],
+  leaderboard: LeaderboardItem[],
   averageMarksMap: Record<string, { totalMarks: number; count: number }>
 ) => {
   return leaderboard
     .map((learner) => {
-      if (
-        learner.wallet !== "undefined" &&
-        learner.wallet !== null &&
-        isAddress(learner.wallet)
-      ) {
+      if (isAddress(learner.wallet)) {
         const learnerMarks = averageMarksMap[learner.wallet];
         const averageMarks =
           learnerMarks && learnerMarks.count > 0
@@ -54,7 +86,7 @@ const updateLeaderboardWithAverageMarks = (
     .filter(Boolean);
 };
 
-const mapLearningTime = (diffTime: any[]): Record<string, number> => {
+const mapLearningTime = (diffTime: { wallet: string; diffTime: number }[]) => {
   const learningTimeMap: Record<string, number> = {};
   diffTime.forEach((result) => {
     if (!learningTimeMap[result.wallet]) {
@@ -66,7 +98,7 @@ const mapLearningTime = (diffTime: any[]): Record<string, number> => {
 };
 
 const updateLeaderboardWithLearningTime = (
-  leaderboard: any[],
+  leaderboard: LeaderboardItem[],
   learningTimeMap: Record<string, number>
 ) => {
   return leaderboard.map((learner) => ({
@@ -75,7 +107,7 @@ const updateLeaderboardWithLearningTime = (
   }));
 };
 
-const mapStreaks = (streaks: any[]): Record<string, number> => {
+const mapStreaks = (streaks: { wallet: string; current_streak: number }[]) => {
   const streaksMap: Record<string, number> = {};
   streaks.forEach((result) => {
     streaksMap[result.wallet] = result.current_streak || 0;
@@ -84,7 +116,7 @@ const mapStreaks = (streaks: any[]): Record<string, number> => {
 };
 
 const updateLeaderboardWithStreaks = (
-  leaderboard: any[],
+  leaderboard: LeaderboardItem[],
   streaksMap: Record<string, number>
 ) => {
   return leaderboard.map((learner) => ({
@@ -108,20 +140,30 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const diffTime = await fetchData("quizzes_times", "wallet, diffTime");
     const streaks = await fetchData("streak", "wallet, current_streak");
 
-    const averageMarksMap = mapAverageMarks(averageMarks);
+    const averageMarksMap = mapAverageMarks(
+      averageMarks as { wallet: string; marks: number }[]
+    );
     let updatedLeaderboard = updateLeaderboardWithAverageMarks(
-      leaderboard,
+      leaderboard as LeaderboardItem[],
       averageMarksMap
     );
-    const learningTimeMap = mapLearningTime(diffTime);
+    const learningTimeMap = mapLearningTime(
+      diffTime as { wallet: string; diffTime: number }[]
+    );
     updatedLeaderboard = updateLeaderboardWithLearningTime(
-      updatedLeaderboard,
+      updatedLeaderboard as LeaderboardItem[],
       learningTimeMap
     );
-    const streaksMap = mapStreaks(streaks);
+    const streaksMap = mapStreaks(
+      streaks as { wallet: string; current_streak: number }[]
+    );
     updatedLeaderboard = updateLeaderboardWithStreaks(
-      updatedLeaderboard,
+      updatedLeaderboard as LeaderboardItem[],
       streaksMap
+    );
+
+    updatedLeaderboard = await updateLeaderboardWithEns(
+      updatedLeaderboard as LeaderboardItem[]
     );
 
     return NextResponse.json(

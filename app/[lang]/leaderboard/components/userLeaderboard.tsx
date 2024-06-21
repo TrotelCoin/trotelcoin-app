@@ -1,40 +1,42 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import { useAccount, useEnsName } from "wagmi";
+import { useEnsName } from "wagmi";
 import React, { useEffect, useState, useContext } from "react";
-import { Address, isAddress, getAddress } from "viem";
+import { Address, isAddress } from "viem";
 import shortenAddress from "@/utils/addresses/shortenAddress";
 import { mainnet } from "viem/chains";
 import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
 import type {
   LeaderboardCategories,
-  LeaderboardItem
+  LeaderboardItem,
+  Positions
 } from "@/types/leaderboard/leaderboard";
 import {
   valueToDisplay,
-  categorySuffix
+  categorySuffix,
+  getCategoryPosition
 } from "@/utils/leaderboard/leaderboard";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const UserLeaderboardComponent = ({
   lang,
-  leaderboard,
   category,
-  isLoadingLeaderboard
+  isLoadingLeaderboard,
+  positions,
+  userLeaderboard,
+  address
 }: {
   lang: Lang;
-  leaderboard: LeaderboardItem[] | null;
   category: LeaderboardCategories;
   isLoadingLeaderboard: boolean;
+  positions: Positions | null;
+  userLeaderboard: LeaderboardItem | null;
+  address: Address | undefined;
 }) => {
-  const [position, setPosition] = useState<number | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
-  const [userLeaderboardItem, setUserLeaderboardItem] =
-    useState<LeaderboardItem | null>(null);
 
-  const { address } = useAccount();
   const { showTrotelInUsdc, storedTrotelPrice } =
     useContext(TrotelPriceContext);
 
@@ -51,35 +53,14 @@ const UserLeaderboardComponent = ({
     }
   }, [result]);
 
-  useEffect(() => {
-    if (address && leaderboard && Array.isArray(leaderboard)) {
-      leaderboard.map((user: LeaderboardItem, index: number) =>
-        isAddress(user.wallet) &&
-        getAddress(user.wallet) === getAddress(address)
-          ? setPosition(index + 1)
-          : null
-      );
-
-      const filteredLeaderboard = leaderboard.filter(
-        (user: LeaderboardItem) =>
-          isAddress(user.wallet) &&
-          getAddress(user.wallet) === getAddress(address)
-      );
-
-      const userLeaderboardItem = filteredLeaderboard[0];
-
-      setUserLeaderboardItem(userLeaderboardItem);
-    }
-  }, [address, leaderboard]);
-
   return (
     <>
       <div
         className={`mt-4 flex items-center justify-between rounded-2xl border border-gray-900/10 bg-white p-4 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
       >
-        <Skeleton loading={isLoadingLeaderboard || !position}>
+        <Skeleton loading={isLoadingLeaderboard || !positions}>
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
-            {position as number}
+            {getCategoryPosition(positions, category) ?? "-"}
           </div>
         </Skeleton>
         <div className="hidden md:block">
@@ -104,14 +85,14 @@ const UserLeaderboardComponent = ({
 
         <div className="flex items-center text-lg md:gap-2">
           <span>
-            <Skeleton loading={isLoadingLeaderboard || !userLeaderboardItem}>
+            <Skeleton loading={isLoadingLeaderboard || !userLeaderboard}>
               <CountUp
                 start={0}
                 prefix={category === "rewards" && showTrotelInUsdc ? "$" : ""}
                 end={
-                  userLeaderboardItem
+                  userLeaderboard
                     ? valueToDisplay(
-                        userLeaderboardItem,
+                        userLeaderboard,
                         category,
                         showTrotelInUsdc,
                         storedTrotelPrice as number
