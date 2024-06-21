@@ -1,65 +1,19 @@
-import type { Lang } from "@/types/language/lang";
-import { LeaderboardItem } from "@/types/components/leaderboard";
-import React, { useEffect, useState } from "react";
-import { isAddress, Address } from "viem";
+import React from "react";
+import { isAddress } from "viem";
 import shortenAddress from "@/utils/addresses/shortenAddress";
-import { getEnsName } from "@wagmi/core";
-import { mainnet } from "viem/chains";
-import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import { config } from "@/config/Web3ModalConfig";
-import useSWR from "swr";
 import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
+import { LeaderboardItem } from "@/types/leaderboard/leaderboard";
 
-const Leaderboard = ({ lang }: { lang: Lang }) => {
-  const [leaderboard, setLeaderboard] = useState<LeaderboardItem[] | null>(
-    null
-  );
-
-  const { data: leaderboardData, isLoading: isLoadingLeaderboard } = useSWR(
-    `/api/leaderboard`,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime
-    }
-  );
-
-  useEffect(() => {
-    if (leaderboardData) {
-      setLeaderboard(leaderboardData.updatedLeaderboard);
-    }
-  }, [leaderboardData]);
-
-  useEffect(() => {
-    const fetchEns = async (address: Address) => {
-      const result = await getEnsName(config, {
-        address: address,
-        chainId: mainnet.id
-      });
-
-      return result ?? address;
-    };
-
-    const fetchLeaderboard = async (leaderboard: LeaderboardItem[]) => {
-      const promises = leaderboard.map(async (entry: LeaderboardItem) => {
-        if (entry.wallet && isAddress(entry.wallet)) {
-          entry.wallet = await fetchEns(entry.wallet);
-        }
-        return entry;
-      });
-
-      const updatedLeaderboard = await Promise.all(promises);
-      setLeaderboard(updatedLeaderboard);
-    };
-
-    if (leaderboard) {
-      fetchLeaderboard(leaderboard);
-    }
-  }, [leaderboard]);
-
+const QuizzesAnsweredLeaderboard = ({
+  isLoadingLeaderboard,
+  leaderboard,
+  numberOfItems
+}: {
+  isLoadingLeaderboard: boolean;
+  leaderboard: LeaderboardItem[];
+  numberOfItems: number;
+}) => {
   return (
     <>
       <ul className="mt-4">
@@ -70,7 +24,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
             >
               {leaderboard &&
                 Array.isArray(leaderboard) &&
-                leaderboard.slice(0, 20).map((entry, index) => (
+                leaderboard.slice(0, numberOfItems).map((entry, index) => (
                   <li
                     key={index}
                     className="flex w-full items-center justify-between gap-4 px-6 py-4"
@@ -85,7 +39,7 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                         : entry.wallet}
                     </div>
                     <div className="flex items-center text-lg md:gap-2">
-                      <span className="hidden md:block">
+                      <span>
                         <CountUp
                           start={0}
                           end={
@@ -94,20 +48,9 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                               ? leaderboard[index].number_of_quizzes_answered
                               : 0
                           }
-                        />{" "}
-                        📚
-                      </span>
-                      <span>
-                        <CountUp
-                          start={0}
-                          end={
-                            leaderboard && leaderboard[index].average_marks
-                              ? leaderboard[index].average_marks
-                              : 0
-                          }
                           decimals={0}
+                          suffix=" 📚"
                         />
-                        /20 🤓
                       </span>
                     </div>
                   </li>
@@ -136,11 +79,8 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
                     <Skeleton>0x000000000</Skeleton>
                   </div>
                   <div className="flex items-center text-lg md:gap-2">
-                    <span className="hidden md:block">
-                      <Skeleton>0 📚</Skeleton>
-                    </span>
                     <span>
-                      <Skeleton>0/20 🤓</Skeleton>
+                      <Skeleton>0 📚</Skeleton>
                     </span>
                   </div>
                 </li>
@@ -153,4 +93,4 @@ const Leaderboard = ({ lang }: { lang: Lang }) => {
   );
 };
 
-export default Leaderboard;
+export default QuizzesAnsweredLeaderboard;

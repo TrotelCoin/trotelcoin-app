@@ -2,36 +2,41 @@
 
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useEnsName } from "wagmi";
-import React, { useEffect, useState } from "react";
-import { Address, isAddress } from "viem";
+import React, { useEffect, useState, useContext } from "react";
+import { Address, isAddress, getAddress } from "viem";
 import shortenAddress from "@/utils/addresses/shortenAddress";
 import { mainnet } from "viem/chains";
-import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
-import useSWR from "swr";
 import { Skeleton } from "@radix-ui/themes";
 import CountUp from "react-countup";
-import type { UserLeaderboard } from "@/types/leaderboard/leaderboard";
+import type {
+  LeaderboardCategories,
+  LeaderboardItem
+} from "@/types/leaderboard/leaderboard";
+import {
+  valueToDisplay,
+  categorySuffix
+} from "@/utils/leaderboard/leaderboard";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
-const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
+const UserLeaderboardComponent = ({
+  lang,
+  leaderboard,
+  category,
+  isLoadingLeaderboard
+}: {
+  lang: Lang;
+  leaderboard: LeaderboardItem[] | null;
+  category: LeaderboardCategories;
+  isLoadingLeaderboard: boolean;
+}) => {
   const [position, setPosition] = useState<number | null>(null);
-  const [numberOfQuizzesAnswered, setNumberOfQuizzesAnswered] = useState<
-    number | null
-  >(null);
-  const [averageMarks, setAverageMarks] = useState<number | null>(null);
   const [ensName, setEnsName] = useState<string | null>(null);
+  const [userLeaderboardItem, setUserLeaderboardItem] =
+    useState<LeaderboardItem | null>(null);
 
-  const { address, isConnected } = useAccount();
-
-  const { data, isLoading: isLoadingUserLeaderboard } = useSWR(
-    address ? `/api/leaderboard` : null,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime
-    }
-  );
+  const { address } = useAccount();
+  const { showTrotelInUsdc, storedTrotelPrice } =
+    useContext(TrotelPriceContext);
 
   const { data: result } = useEnsName({
     address: address as Address,
@@ -47,39 +52,38 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
   }, [result]);
 
   useEffect(() => {
-    const leaderboard = data?.updatedLeaderboard;
     if (address && leaderboard && Array.isArray(leaderboard)) {
-      leaderboard.map((user: UserLeaderboard, index: number) =>
-        user?.wallet === address ? setPosition(index + 1) : null
+      leaderboard.map((user: LeaderboardItem, index: number) =>
+        isAddress(user.wallet) &&
+        getAddress(user.wallet) === getAddress(address)
+          ? setPosition(index + 1)
+          : null
       );
 
       const filteredLeaderboard = leaderboard.filter(
-        (user: UserLeaderboard) => user?.wallet === address
+        (user: LeaderboardItem) =>
+          isAddress(user.wallet) &&
+          getAddress(user.wallet) === getAddress(address)
       );
 
-      setNumberOfQuizzesAnswered(
-        filteredLeaderboard[0]?.number_of_quizzes_answered
-      );
-      setAverageMarks(filteredLeaderboard[0]?.average_marks);
-    } else {
-      setPosition(null);
-      setNumberOfQuizzesAnswered(null);
-      setAverageMarks(null);
+      const userLeaderboardItem = filteredLeaderboard[0];
+
+      setUserLeaderboardItem(userLeaderboardItem);
     }
-  }, [address, data]);
+  }, [address, leaderboard]);
 
   return (
     <>
       <div
         className={`mt-4 flex items-center justify-between rounded-2xl border border-gray-900/10 bg-white p-4 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
       >
-        <Skeleton loading={!position}>
+        <Skeleton loading={isLoadingLeaderboard || !position}>
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
             {position as number}
           </div>
         </Skeleton>
         <div className="hidden md:block">
-          <Skeleton loading={!isConnected}>
+          <Skeleton loading={isLoadingLeaderboard || !address}>
             {address && isAddress(address) && !ensName
               ? address
               : ensName ??
@@ -89,7 +93,7 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
           </Skeleton>
         </div>
         <div className="block md:hidden">
-          <Skeleton loading={!isConnected}>
+          <Skeleton loading={isLoadingLeaderboard || !address}>
             {address
               ? shortenAddress(address)
               : lang === "en"
@@ -99,15 +103,24 @@ const UserLeaderboardComponent = ({ lang }: { lang: Lang }) => {
         </div>
 
         <div className="flex items-center text-lg md:gap-2">
-          <span className="hidden md:block">
-            <Skeleton loading={!numberOfQuizzesAnswered}>
-              <CountUp start={0} end={numberOfQuizzesAnswered as number} /> 📚
-            </Skeleton>
-          </span>
           <span>
-            <Skeleton loading={!averageMarks}>
-              <CountUp start={0} end={averageMarks as number} decimals={0} />
-              /20 🤓
+            <Skeleton loading={isLoadingLeaderboard || !userLeaderboardItem}>
+              <CountUp
+                start={0}
+                prefix={category === "rewards" && showTrotelInUsdc ? "$" : ""}
+                end={
+                  userLeaderboardItem
+                    ? valueToDisplay(
+                        userLeaderboardItem,
+                        category,
+                        showTrotelInUsdc,
+                        storedTrotelPrice as number
+                      )
+                    : 0
+                }
+                suffix={categorySuffix(category)}
+                decimals={category === "rewards" && showTrotelInUsdc ? 2 : 0}
+              />
             </Skeleton>
           </span>
         </div>
