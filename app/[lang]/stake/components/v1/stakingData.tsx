@@ -168,14 +168,15 @@ const StakingData = ({
               loading={isLoadingBalance || (!trotelPrice && showTrotelInUsdc)}
             >
               {showTrotelInUsdc && "$"}
-              {availableTrotelCoins && !showTrotelInUsdc
-                ? availableTrotelCoins.toLocaleString("en-US")
-                : 0}
-              {availableTrotelCoins && showTrotelInUsdc
-                ? roundPrice(availableTrotelCoins * trotelPrice).toLocaleString(
-                    "en-US"
-                  )
-                : 0}{" "}
+              {availableTrotelCoins &&
+                !showTrotelInUsdc &&
+                availableTrotelCoins.toLocaleString("en-US")}
+              {availableTrotelCoins &&
+                showTrotelInUsdc &&
+                roundPrice(availableTrotelCoins * trotelPrice).toLocaleString(
+                  "en-US"
+                )}{" "}
+              {!availableTrotelCoins && 0}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
@@ -189,14 +190,17 @@ const StakingData = ({
               }
             >
               {showTrotelInUsdc && "$"}
-              {stakedTrotelCoins && showTrotelInUsdc
-                ? roundPrice(
-                    stakedTrotelCoins * 1e-18 * trotelPrice
-                  ).toLocaleString("en-US")
-                : 0}
-              {stakedTrotelCoins && !showTrotelInUsdc
-                ? roundPrice(stakedTrotelCoins * 1e-18).toLocaleString("en-US")
-                : 0}{" "}
+              {stakedTrotelCoins &&
+                showTrotelInUsdc &&
+                roundPrice(
+                  stakedTrotelCoins * 1e-18 * trotelPrice
+                ).toLocaleString("en-US")}
+              {stakedTrotelCoins &&
+                !showTrotelInUsdc &&
+                roundPrice(stakedTrotelCoins * 1e-18).toLocaleString(
+                  "en-US"
+                )}{" "}
+              {!stakedTrotelCoins && 0}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
@@ -210,14 +214,17 @@ const StakingData = ({
               }
             >
               {showTrotelInUsdc && "$"}
-              {earnedTrotelCoins && showTrotelInUsdc
-                ? roundPrice(
-                    earnedTrotelCoins * 1e-18 * trotelPrice
-                  ).toLocaleString("en-US")
-                : 0}
-              {earnedTrotelCoins && !showTrotelInUsdc
-                ? roundPrice(earnedTrotelCoins * 1e-18).toLocaleString("en-US")
-                : 0}{" "}
+              {earnedTrotelCoins &&
+                showTrotelInUsdc &&
+                roundPrice(
+                  earnedTrotelCoins * 1e-18 * trotelPrice
+                ).toLocaleString("en-US")}
+              {earnedTrotelCoins &&
+                !showTrotelInUsdc &&
+                roundPrice(earnedTrotelCoins * 1e-18).toLocaleString(
+                  "en-US"
+                )}{" "}
+              {!earnedTrotelCoins && 0}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
