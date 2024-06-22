@@ -581,9 +581,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
               fromBalance={fromBalance as number}
               fromPrice={fromPrice as number}
               fromToken={fromToken}
-              setFromAmount={
-                setFromAmount as React.Dispatch<React.SetStateAction<number>>
-              }
+              setFromAmount={setFromAmount}
               isLoading={isLoading}
               fromChain={fromChain}
               userAddress={userAddress as Address}
