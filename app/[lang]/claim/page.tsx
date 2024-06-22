@@ -15,6 +15,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
 import { polygon } from "viem/chains";
 import UsdcBalance from "@/app/[lang]/claim/components/usdcBalance";
+import { Skeleton } from "@radix-ui/themes";
 
 const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
@@ -27,16 +28,15 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const chainId = useChainId();
 
-  const { data: userTotalRewardsPendingData } = useSWR(
-    address ? `/api/user/rewards?wallet=${address}` : null,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime
-    }
-  );
+  const {
+    data: userTotalRewardsPendingData,
+    isLoading: isLoadingUserTotalRewardsPending
+  } = useSWR(address ? `/api/user/rewards?wallet=${address}` : null, fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime
+  });
 
   useEffect(() => {
     if (userTotalRewardsPendingData) {
@@ -52,16 +52,15 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
     }
   }, [chainId]);
 
-  const { data: centralWalletAddressData } = useSWR(
-    "/api/central-wallet/address",
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime
-    }
-  );
+  const {
+    data: centralWalletAddressData,
+    isLoading: isLoadingCentralWalletAddress
+  } = useSWR("/api/central-wallet/address", fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime
+  });
 
   useEffect(() => {
     if (centralWalletAddressData) {
@@ -82,19 +81,25 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 lang={lang}
                 availableToClaim={availableToClaim}
                 claimed={claimed}
+                isLoading={isLoadingUserTotalRewardsPending}
               />
             </div>
             <div>
               <UsdcBalance
                 lang={lang}
                 availableToClaim={availableToClaim as number}
+                isLoading={isLoadingUserTotalRewardsPending}
               />
             </div>
             <div>
               <Balance lang={lang} />
             </div>
             <div>
-              <Status lang={lang} availableToClaim={availableToClaim} />
+              <Status
+                lang={lang}
+                availableToClaim={availableToClaim}
+                isLoading={isLoadingUserTotalRewardsPending}
+              />
             </div>
             <div>
               <AddToken lang={lang} />
@@ -103,17 +108,19 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
 
         <div className="mt-4 w-full">
-          {address ? (
-            <RewardsButton
-              centralWalletAddress={centralWalletAddress as Address}
-              lang={lang}
-              chainError={chainError}
-              setChainError={setChainError}
-              setClaimed={setClaimed}
-            />
-          ) : (
-            <Wallet lang={lang} isFull={true} isCentered={true} />
-          )}
+          <Skeleton loading={isLoadingCentralWalletAddress}>
+            {address ? (
+              <RewardsButton
+                centralWalletAddress={centralWalletAddress as Address}
+                lang={lang}
+                chainError={chainError}
+                setChainError={setChainError}
+                setClaimed={setClaimed}
+              />
+            ) : (
+              <Wallet lang={lang} isFull={true} isCentered={true} />
+            )}
+          </Skeleton>
         </div>
       </div>
     </>

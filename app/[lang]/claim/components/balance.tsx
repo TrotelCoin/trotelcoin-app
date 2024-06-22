@@ -17,7 +17,11 @@ const Balance = ({ lang }: { lang: Lang }) => {
     chainId: polygon.id
   });
 
-  const { data, refetch: refetchBalance } = useBalance({
+  const {
+    data,
+    refetch: refetchBalance,
+    isLoading: isLoadingBalance
+  } = useBalance({
     token: trotelCoinAddress,
     chainId: polygon.id,
     address: address as Address
@@ -40,7 +44,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
       <div className="flex justify-between">
         <span>{lang === "en" ? "Balance" : "Solde"}</span>
         <div>
-          <Skeleton loading={!balance}>
+          <Skeleton loading={isLoadingBalance}>
             {parseFloat(balance?.toFixed(0) as string).toLocaleString(
               "en-US"
             ) ?? "0"}{" "}

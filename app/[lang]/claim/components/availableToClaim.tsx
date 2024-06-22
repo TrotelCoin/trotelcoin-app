@@ -7,18 +7,20 @@ import { Skeleton } from "@radix-ui/themes";
 const AvailableToClaim = ({
   lang,
   availableToClaim,
-  claimed
+  claimed,
+  isLoading
 }: {
   lang: Lang;
   availableToClaim: number | null;
   claimed: boolean;
+  isLoading: boolean;
 }) => {
   return (
     <>
       <div className="flex justify-between">
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
-          <Skeleton loading={!availableToClaim}>
+          <Skeleton loading={isLoading}>
             {availableToClaim &&
             !claimed &&
             typeof availableToClaim === "number"

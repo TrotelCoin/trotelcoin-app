@@ -8,10 +8,12 @@ import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const UsdcBalance = ({
   lang,
-  availableToClaim
+  availableToClaim,
+  isLoading
 }: {
   lang: Lang;
   availableToClaim: number;
+  isLoading: boolean;
 }) => {
   const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
 
@@ -20,7 +22,7 @@ const UsdcBalance = ({
       <div className="flex justify-between">
         <span>{lang === "en" ? "Value" : "Valeur"}</span>
         <div>
-          <Skeleton loading={!availableToClaim}>
+          <Skeleton loading={isLoading || (!trotelPrice && showTrotelInUsdc)}>
             {trotelPrice && availableToClaim
               ? roundPrice(
                   Number(availableToClaim) * trotelPrice

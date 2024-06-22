@@ -45,7 +45,11 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     blockNumber: blockNumber
   });
 
-  const { data: balance, refetch: refetchBalance } = useBalance({
+  const {
+    data: balance,
+    refetch: refetchBalance,
+    isLoading: isLoadingBalance
+  } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
     address: address as Address
@@ -66,14 +70,17 @@ const StakingData = ({ lang }: { lang: Lang }) => {
     }
   }, [balance, address]);
 
-  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
-    useReadContract({
-      chainId: polygon.id,
-      abi: trotelCoinStakingV1ABI,
-      address: trotelCoinStakingV1,
-      functionName: "stakings",
-      args: [address as Address]
-    });
+  const {
+    data: getStakingDataNoTyped,
+    refetch: refetchStakings,
+    isLoading: isLoadingStakingData
+  } = useReadContract({
+    chainId: polygon.id,
+    abi: trotelCoinStakingV1ABI,
+    address: trotelCoinStakingV1,
+    functionName: "stakings",
+    args: [address as Address]
+  });
 
   useEffect(() => {
     refetchBalance();
@@ -141,9 +148,10 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
           <div>
-            <Skeleton loading={!availableTrotelCoins}>
-              {availableTrotelCoins &&
-                availableTrotelCoins.toLocaleString("en-US")}{" "}
+            <Skeleton loading={isLoadingBalance}>
+              {availableTrotelCoins
+                ? availableTrotelCoins.toLocaleString("en-US")
+                : 0}{" "}
               <span className="font-semibold">TROTEL</span>
             </Skeleton>
           </div>
@@ -151,9 +159,10 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
           <div>
-            <Skeleton loading={!stakedTrotelCoins}>
-              {stakedTrotelCoins &&
-                (stakedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
+            <Skeleton loading={isLoadingStakingData}>
+              {stakedTrotelCoins
+                ? (stakedTrotelCoins * 1e-18).toLocaleString("en-US")
+                : 0}{" "}
               <span className="font-semibold">TROTEL</span>
             </Skeleton>
           </div>
@@ -161,9 +170,10 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Rewards" : "Récompenses"}</span>
           <div>
-            <Skeleton loading={!earnedTrotelCoins}>
-              {earnedTrotelCoins &&
-                (earnedTrotelCoins * 1e-18).toLocaleString("en-US")}{" "}
+            <Skeleton loading={isLoadingStakingData}>
+              {earnedTrotelCoins
+                ? (earnedTrotelCoins * 1e-18).toLocaleString("en-US")
+                : 0}{" "}
               <span className="font-semibold">TROTEL</span>
             </Skeleton>
           </div>
@@ -171,8 +181,8 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
           <div>
-            <Skeleton loading={!timeLeft}>
-              {timeLeft && timeLeft.toLocaleString("en-US")}{" "}
+            <Skeleton loading={isLoadingStakingData}>
+              {timeLeft ? timeLeft.toLocaleString("en-US") : 0}{" "}
               <span className="font-semibold">
                 {lang === "en" ? "seconds" : "secondes"}
               </span>
@@ -182,7 +192,7 @@ const StakingData = ({ lang }: { lang: Lang }) => {
         <div className="flex justify-between">
           <span>{lang === "en" ? "Status" : "Statut"}</span>
           <div>
-            <Skeleton loading={!isStaking || !stakedTrotelCoins}>
+            <Skeleton loading={isLoadingStakingData}>
               <span
                 className={`${
                   isStaking || (stakedTrotelCoins && stakedTrotelCoins > 0)

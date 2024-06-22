@@ -22,6 +22,7 @@ import { CameraIcon } from "@heroicons/react/24/solid";
 import ScannerComponent from "./components/scanner";
 import { roundPrice } from "@/utils/price/roundPrice";
 import TrotelPriceContext from "@/contexts/trotelPrice";
+import { Skeleton } from "@radix-ui/themes";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -37,14 +38,18 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { address } = useAccount();
 
-  const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
     chainId: polygon.id
   });
 
-  const { data: balance, refetch: refetchBalance } = useBalance({
+  const {
+    data: balance,
+    refetch: refetchBalance,
+    isLoading: isLoadingBalance
+  } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
     address: address
@@ -133,7 +138,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     refetchBalance();
-  }, [blockNumber, refetchBalance]);
+    refetchSendConfirmation();
+  }, [blockNumber, refetchBalance, refetchSendConfirmation]);
 
   return (
     <>
@@ -225,18 +231,18 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
             <div className="flex items-center justify-between">
               {lang === "en" ? "Balance" : "Solde"}
-              <span>
-                {balance ? (
+              <Skeleton loading={isLoadingBalance}>
+                <span>
                   <span>
-                    {Number(
-                      Number(balance?.formatted).toFixed(0)
-                    ).toLocaleString("en-US")}
-                  </span>
-                ) : (
-                  <span>0</span>
-                )}{" "}
-                <span className="font-semibold">TROTEL</span>
-              </span>
+                    {balance
+                      ? Number(
+                          Number(balance?.formatted).toFixed(0)
+                        ).toLocaleString("en-US")
+                      : 0}
+                  </span>{" "}
+                  <span className="font-semibold">TROTEL</span>
+                </span>
+              </Skeleton>
             </div>
           </div>
         </div>
