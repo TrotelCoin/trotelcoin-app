@@ -9,8 +9,9 @@ import CountUp from "react-countup";
 
 const LevelSection = ({ lang }: { lang: Lang }) => {
   const [width, setWidth] = useState<number>(0);
-  const [userLevel, setUserLevel] = useState<number | null>(1);
-  const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(1);
+  const [userLevel, setUserLevel] = useState<number | null>(null);
+  const [quizzesRemaining, setQuizzesRemaining] = useState<number | null>(null);
+  const [quizzesRequired, setQuizzesRequired] = useState<number | null>(null);
 
   const { isNotPremium } = useContext(PremiumContext);
   const { userNumberOfQuizzesAnswered: numberOfQuizzesAnswered } =
@@ -18,17 +19,24 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     if (numberOfQuizzesAnswered) {
-      const { userLevel, quizzesRemaining } = calculateUserLevel(
-        numberOfQuizzesAnswered
-      );
+      const { userLevel, quizzesRemaining, quizzesRequired } =
+        calculateUserLevel(numberOfQuizzesAnswered);
       const width = calculateProgressPercentage(numberOfQuizzesAnswered);
+      console.log(
+        "quizzesRequired",
+        quizzesRequired,
+        "quizzesRemaining",
+        quizzesRemaining
+      );
       setWidth(width);
       setUserLevel(userLevel);
       setQuizzesRemaining(quizzesRemaining);
+      setQuizzesRequired(quizzesRequired);
     } else {
       setWidth(0);
       setUserLevel(0);
       setQuizzesRemaining(0);
+      setQuizzesRequired(0);
     }
   }, [numberOfQuizzesAnswered]);
 
@@ -64,7 +72,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
               </>
             )}
           </div>
-          <p
+          <span
             className={`hidden md:block ${
               isNotPremium && "blur duration-500 hover:blur-none"
             }`}
@@ -72,14 +80,52 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
             {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium ? (
               <>
                 <Skeleton loading={!quizzesRemaining}>
-                  <CountUp start={0} end={quizzesRemaining} />{" "}
-                  {lang === "en" ? "quizzes left" : "quiz restant"}
+                  <div className="flex items-center gap-2">
+                    <span>
+                      <CountUp start={0} end={quizzesRemaining} />{" "}
+                      {lang === "en" ? "quizzes left" : "quiz restant"}
+                    </span>
+                    <span>•</span>
+                    <span>
+                      <CountUp
+                        start={0}
+                        end={
+                          ((quizzesRequired - quizzesRemaining) /
+                            quizzesRequired) *
+                          100
+                        }
+                        suffix="%"
+                      />
+                    </span>
+                  </div>
                 </Skeleton>
               </>
             ) : (
               `${lang === "en" ? "Not premium" : "Non premium"}`
             )}
-          </p>
+          </span>
+          <span className="md:hidden">
+            {quizzesRemaining &&
+            quizzesRemaining > 0 &&
+            quizzesRequired &&
+            quizzesRequired > 0 &&
+            !isNotPremium ? (
+              <>
+                <Skeleton loading={!quizzesRemaining || !quizzesRequired}>
+                  <CountUp
+                    start={0}
+                    end={
+                      ((quizzesRequired - quizzesRemaining) / quizzesRequired) *
+                      100
+                    }
+                    suffix="%"
+                  />
+                </Skeleton>
+              </>
+            ) : (
+              `${lang === "en" ? "Not premium" : "Non premium"}`
+            )}
+          </span>
         </div>
         <div
           className={`mt-2 flex h-2 overflow-hidden rounded-full bg-gray-400 text-xs ${

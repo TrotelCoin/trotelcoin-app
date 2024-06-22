@@ -406,7 +406,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       <h2 className="mt-10 text-xl font-semibold text-gray-900 dark:text-gray-100">
         {lang === "en" ? "Badges" : "Badges"}
       </h2>
-      <div className="mt-2 flex flex-wrap items-center gap-2">
+      <div className="mt-2 flex items-center gap-2 overflow-x-auto hide-scrollbar whitespace-nowrap md:flex-wrap md:overflow-x-visible">
         <button
           onClick={() => {
             setBadges(badgesRanks);
