@@ -27,8 +27,8 @@ const From = ({
 }: {
   lang: Lang;
   fromBalance: number;
-  fromAmount: number;
-  setFromAmount: React.Dispatch<React.SetStateAction<number>>;
+  fromAmount: number | undefined;
+  setFromAmount: React.Dispatch<React.SetStateAction<number | undefined>>;
   fromToken: Token;
   fromPrice: number;
   isLoading: boolean;
@@ -126,8 +126,18 @@ const From = ({
             className={`w-full rounded-xl border-transparent bg-transparent px-2 py-0 text-4xl font-semibold text-gray-900 [appearance:textfield] focus:border-transparent focus:outline-none focus:ring-transparent dark:text-gray-100 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none ${
               !userAddress && "cursor-not-allowed"
             }`}
-            value={fromAmount < 0 ? 0 : fromAmount}
-            onChange={(e) => setFromAmount(Number(e.target.value))}
+            value={fromAmount && fromAmount < 0 ? 0 : fromAmount}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === "") {
+                setFromAmount(undefined);
+              } else {
+                const numberValue = Number(value);
+                if (!isNaN(numberValue)) {
+                  setFromAmount(numberValue);
+                }
+              }
+            }}
             placeholder={lang === "en" ? "Amount" : "Montant"}
             disabled={!userAddress}
             onWheel={(e) => (e.target as HTMLInputElement).blur()}
