@@ -5,6 +5,7 @@ import type { Address } from "viem";
 import { polygon } from "viem/chains";
 import { useBalance, useBlockNumber } from "wagmi";
 import { roundPrice } from "@/utils/price/roundPrice";
+import { formatEther } from "viem";
 
 const Amount = ({
   lang,
@@ -46,7 +47,7 @@ const Amount = ({
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(balance?.formatted) * 0.999999;
+      const max = Number(formatEther(balance?.value)) * 0.999999;
 
       if (amount === max) {
         setIsMax(true);
@@ -59,7 +60,7 @@ const Amount = ({
   }, [amount, balance, address, setIsMax]);
 
   const setMax = () => {
-    const max = Number(balance?.formatted) * 0.999999;
+    const max = Number(formatEther(balance?.value)) * 0.999999;
     setAmount(max);
   };
 
@@ -96,7 +97,15 @@ const Amount = ({
             }`}
             value={amount ?? ""}
             onChange={(e) => {
-              setAmount(Number(e.target.value));
+              const value = e.target.value;
+              if (value === "") {
+                setAmount(undefined);
+              } else {
+                const numberValue = Number(value);
+                if (!isNaN(numberValue)) {
+                  setAmount(numberValue);
+                }
+              }
             }}
             onWheel={(e) => (e.target as HTMLInputElement).blur()}
             placeholder={lang === "en" ? "Amount" : "Montant"}
@@ -106,7 +115,7 @@ const Amount = ({
           <span className="font-semibold text-gray-900 dark:text-gray-100">
             TROTEL
           </span>
-          {!isMax && Number(balance?.formatted) > 0 && (
+          {!isMax && Number(balance?.value) > 0 && (
             <button
               onClick={() => setMax()}
               className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"

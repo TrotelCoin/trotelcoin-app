@@ -20,10 +20,6 @@ const StakingV1 = ({
   storedTrotelPrice: number;
 }) => {
   const [chainError, setChainError] = useState<boolean>(false);
-  const [APR, setAPR] = useState<number | null>(null);
-  const [amount, setAmount] = useState<number | undefined>(undefined);
-  const [isMax, setIsMax] = useState<boolean>(false);
-  const [stakingPeriod, setStakingPeriod] = useState<number>(30);
 
   const { address } = useAccount();
   const chainId = useChainId();
@@ -35,25 +31,6 @@ const StakingV1 = ({
       setChainError(false);
     }
   }, [chainId]);
-
-  useEffect(() => {
-    switch (stakingPeriod) {
-      case 30:
-        setAPR(3);
-        break;
-      case 91:
-        setAPR(6);
-        break;
-      case 182:
-        setAPR(10);
-        break;
-      case 365:
-        setAPR(15);
-        break;
-      default:
-        setAPR(0);
-    }
-  }, [stakingPeriod, APR]);
 
   return (
     <>

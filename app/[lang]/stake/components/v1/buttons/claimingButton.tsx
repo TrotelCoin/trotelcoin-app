@@ -30,9 +30,6 @@ const ClaimingButton = ({
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [claimMessage, setClaimMessage] = useState<boolean>(false);
-  const [noStakedMessage, setNoStakedMessage] = useState<boolean>(false);
-  const [timeNotFinishedMessage, setTimeNotFinishedMessage] =
-    useState<boolean>(false);
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
     null
   );
@@ -84,6 +81,7 @@ const ClaimingButton = ({
   useEffect(() => {
     if (claimConfirmation && Number(claimConfirmation) > 0 && !claimConfirmed) {
       setClaimMessage(true);
+      setClaimConfirmed(true);
       setIsLoading(false);
     }
   }, [claimConfirmation, claimConfirmed]);

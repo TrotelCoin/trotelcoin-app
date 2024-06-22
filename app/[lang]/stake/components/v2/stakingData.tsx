@@ -17,9 +17,9 @@ import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
 import { roundPrice } from "@/utils/price/roundPrice";
 
-const staking =
+const stakingClass =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
-const notStaking =
+const notStakingClass =
   "inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100";
 
 const StakingData = ({
@@ -68,13 +68,9 @@ const StakingData = ({
   useEffect(() => {
     if (balance && address) {
       const availableBalance = parseFloat(
-        parseFloat(balance?.formatted).toFixed(0)
+        parseFloat(balance.formatted).toFixed(0)
       );
-      if (availableBalance > 0) {
-        setAvailableTrotelCoins(availableBalance);
-      } else {
-        setAvailableTrotelCoins(0);
-      }
+      setAvailableTrotelCoins(availableBalance > 0 ? availableBalance : 0);
     } else {
       setAvailableTrotelCoins(0);
     }
@@ -116,7 +112,6 @@ const StakingData = ({
   useEffect(() => {
     refetchBalance();
     refetchStakings();
-
     refetchEarnedTrotelCoins();
   }, [blockNumber, refetchBalance, refetchStakings, refetchEarnedTrotelCoins]);
 
@@ -134,11 +129,8 @@ const StakingData = ({
       const stakedTrotelCoins = Number(getStakingData[0]);
       const startTime = Number(getStakingData[1]);
       const duration = Number(getStakingData[2]);
-      let timeLeft: number = 0;
-      if (startTime && duration && timestamp) {
-        timeLeft = startTime + duration - timestamp;
-      }
-      const isStaking = getStakingData[0] > 0 && timeLeft > 0;
+      const timeLeft = startTime + duration - timestamp;
+      const isStaking = stakedTrotelCoins > 0 && timeLeft > 0;
 
       setStakedTrotelCoins(stakedTrotelCoins);
       setTimeLeft(Math.max(0, timeLeft));
@@ -156,115 +148,94 @@ const StakingData = ({
     }
   }, [getStakingDataNoTyped, address, timestamp]);
 
+  const displayValue = (value: number | null) =>
+    value !== null ? value.toLocaleString("en-US") : "0";
+
   return (
-    <>
-      <div className="flex flex-col flex-wrap gap-2">
-        <span className="text-2xl font-bold">
-          {lang === "en" ? "Statistics" : "Statistiques"}
-        </span>
-        <div className="flex justify-between">
-          <span>{lang === "en" ? "Available" : "Disponible"}</span>
-          <div className="flex items-center gap-1">
-            <Skeleton
-              loading={isLoadingBalance || (!trotelPrice && showTrotelInUsdc)}
-            >
-              {showTrotelInUsdc && "$"}
-              {availableTrotelCoins &&
-                !showTrotelInUsdc &&
-                availableTrotelCoins.toLocaleString("en-US")}
-              {availableTrotelCoins &&
-                showTrotelInUsdc &&
-                roundPrice(availableTrotelCoins * trotelPrice).toLocaleString(
-                  "en-US"
-                )}{" "}
-              {!availableTrotelCoins && 0}
-              <TrotelCoinLogo />
-            </Skeleton>
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
-          <div className="flex items-center gap-1">
-            <Skeleton
-              loading={
-                isLoadingStakingData || (!trotelPrice && showTrotelInUsdc)
-              }
-            >
-              {showTrotelInUsdc && "$"}
-              {stakedTrotelCoins &&
-                showTrotelInUsdc &&
-                roundPrice(
-                  stakedTrotelCoins * 1e-18 * trotelPrice
-                ).toLocaleString("en-US")}
-              {stakedTrotelCoins &&
-                !showTrotelInUsdc &&
-                roundPrice(stakedTrotelCoins * 1e-18).toLocaleString(
-                  "en-US"
-                )}{" "}
-              {!stakedTrotelCoins && 0}
-              <TrotelCoinLogo />
-            </Skeleton>
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <span>{lang === "en" ? "Earned" : "Récompenses"}</span>
-          <div className="flex items-center gap-1">
-            <Skeleton
-              loading={
-                isLoadingEarnedData || (!trotelPrice && showTrotelInUsdc)
-              }
-            >
-              {showTrotelInUsdc && "$"}
-              {earnedTrotelCoins &&
-                showTrotelInUsdc &&
-                roundPrice(earnedTrotelCoins * trotelPrice).toLocaleString(
-                  "en-US"
-                )}
-              {earnedTrotelCoins &&
-                !showTrotelInUsdc &&
-                roundPrice(earnedTrotelCoins).toLocaleString("en-US")}{" "}
-              {!earnedTrotelCoins && 0}
-              <TrotelCoinLogo />
-            </Skeleton>
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
-          <div>
-            <Skeleton loading={isLoadingStakingData}>
-              {timeLeft ? Math.floor(timeLeft / 60).toLocaleString("en-US") : 0}{" "}
-              <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
-            </Skeleton>
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <span>{lang === "en" ? "Status" : "Statut"}</span>
-          <div>
-            <Skeleton loading={isLoadingStakingData}>
-              <span
-                className={`${
-                  isStaking || (stakedTrotelCoins && stakedTrotelCoins > 0)
-                    ? staking
-                    : notStaking
-                }`}
-              >
-                {isStaking
-                  ? lang === "en"
-                    ? "Staking"
-                    : "Misé"
-                  : stakedTrotelCoins && stakedTrotelCoins > 0
-                    ? lang === "en"
-                      ? "Claimable"
-                      : "Réclamable"
-                    : lang === "en"
-                      ? "Not staking"
-                      : "Non misé"}
-              </span>
-            </Skeleton>
-          </div>
+    <div className="flex flex-col flex-wrap gap-2">
+      <span className="text-2xl font-bold">
+        {lang === "en" ? "Statistics" : "Statistiques"}
+      </span>
+      <div className="flex justify-between">
+        <span>{lang === "en" ? "Available" : "Disponible"}</span>
+        <div className="flex items-center gap-1">
+          <Skeleton
+            loading={isLoadingBalance || (!trotelPrice && showTrotelInUsdc)}
+          >
+            {showTrotelInUsdc && "$"}
+            {displayValue(
+              showTrotelInUsdc
+                ? roundPrice((availableTrotelCoins as number) * trotelPrice)
+                : availableTrotelCoins
+            )}{" "}
+            <TrotelCoinLogo />
+          </Skeleton>
         </div>
       </div>
-    </>
+      <div className="flex justify-between">
+        <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
+        <div className="flex items-center gap-1">
+          <Skeleton
+            loading={isLoadingStakingData || (!trotelPrice && showTrotelInUsdc)}
+          >
+            {showTrotelInUsdc && "$"}
+            {displayValue(
+              showTrotelInUsdc
+                ? roundPrice(
+                    (stakedTrotelCoins as number) * 1e-18 * trotelPrice
+                  )
+                : roundPrice((stakedTrotelCoins as number) * 1e-18)
+            )}{" "}
+            <TrotelCoinLogo />
+          </Skeleton>
+        </div>
+      </div>
+      <div className="flex justify-between">
+        <span>{lang === "en" ? "Earned" : "Récompenses"}</span>
+        <div className="flex items-center gap-1">
+          <Skeleton
+            loading={isLoadingEarnedData || (!trotelPrice && showTrotelInUsdc)}
+          >
+            {showTrotelInUsdc && "$"}
+            {displayValue(
+              showTrotelInUsdc
+                ? roundPrice((earnedTrotelCoins as number) * trotelPrice)
+                : roundPrice(earnedTrotelCoins as number)
+            )}{" "}
+            <TrotelCoinLogo />
+          </Skeleton>
+        </div>
+      </div>
+      <div className="flex justify-between">
+        <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
+        <div>
+          <Skeleton loading={isLoadingStakingData}>
+            {displayValue(Math.floor((timeLeft as number) / 60))}{" "}
+            <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
+          </Skeleton>
+        </div>
+      </div>
+      <div className="flex justify-between">
+        <span>{lang === "en" ? "Status" : "Statut"}</span>
+        <div>
+          <Skeleton loading={isLoadingStakingData}>
+            <span className={`${isStaking ? stakingClass : notStakingClass}`}>
+              {isStaking
+                ? lang === "en"
+                  ? "Staking"
+                  : "Misé"
+                : stakedTrotelCoins && stakedTrotelCoins > 0
+                  ? lang === "en"
+                    ? "Claimable"
+                    : "Réclamable"
+                  : lang === "en"
+                    ? "Not staking"
+                    : "Non misé"}
+            </span>
+          </Skeleton>
+        </div>
+      </div>
+    </div>
   );
 };
 
