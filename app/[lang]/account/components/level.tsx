@@ -77,7 +77,11 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
               isNotPremium && "blur duration-500 hover:blur-none"
             }`}
           >
-            {quizzesRemaining && quizzesRemaining > 0 && !isNotPremium ? (
+            {quizzesRemaining &&
+            quizzesRemaining > 0 &&
+            quizzesRequired &&
+            quizzesRequired > 0 &&
+            !isNotPremium ? (
               <>
                 <Skeleton loading={!quizzesRemaining}>
                   <div className="flex items-center gap-2">
