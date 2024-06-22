@@ -47,7 +47,7 @@ const Amount = ({
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(formatEther(balance?.value)) * 0.999999;
+      const max = Number(formatEther(balance?.value as bigint)) * 0.999999;
 
       if (amount === max) {
         setIsMax(true);
@@ -60,7 +60,7 @@ const Amount = ({
   }, [amount, balance, address, setIsMax]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value)) * 0.999999;
+    const max = Number(formatEther(balance?.value as bigint)) * 0.999999;
     setAmount(max);
   };
 
@@ -115,7 +115,7 @@ const Amount = ({
           <span className="font-semibold text-gray-900 dark:text-gray-100">
             TROTEL
           </span>
-          {!isMax && Number(balance?.value) > 0 && (
+          {!isMax && Number(balance?.value as bigint) > 0 && (
             <button
               onClick={() => setMax()}
               className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
