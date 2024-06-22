@@ -9,17 +9,19 @@ const cannotClaim =
 
 const Status = ({
   lang,
-  availableToClaim
+  availableToClaim,
+  isLoading
 }: {
   lang: Lang;
   availableToClaim: number | null;
+  isLoading: boolean;
 }) => {
   return (
     <>
       <div className="flex justify-between">
         <span>{lang === "en" ? "Status" : "Statut"}</span>
         <div>
-          <Skeleton loading={!availableToClaim}>
+          <Skeleton loading={isLoading}>
             <span
               className={`${
                 availableToClaim && availableToClaim > 0

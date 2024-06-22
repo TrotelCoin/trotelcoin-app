@@ -22,12 +22,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
       const { userLevel, quizzesRemaining, quizzesRequired } =
         calculateUserLevel(numberOfQuizzesAnswered);
       const width = calculateProgressPercentage(numberOfQuizzesAnswered);
-      console.log(
-        "quizzesRequired",
-        quizzesRequired,
-        "quizzesRemaining",
-        quizzesRemaining
-      );
+
       setWidth(width);
       setUserLevel(userLevel);
       setQuizzesRemaining(quizzesRemaining);
@@ -93,11 +88,12 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
                     <span>
                       <CountUp
                         start={0}
-                        end={
+                        end={Math.min(
+                          0,
                           ((quizzesRequired - quizzesRemaining) /
                             quizzesRequired) *
-                          100
-                        }
+                            100
+                        )}
                         suffix="%"
                       />
                     </span>
@@ -118,10 +114,11 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
                 <Skeleton loading={!quizzesRemaining || !quizzesRequired}>
                   <CountUp
                     start={0}
-                    end={
+                    end={Math.min(
+                      0,
                       ((quizzesRequired - quizzesRemaining) / quizzesRequired) *
-                      100
-                    }
+                        100
+                    )}
                     suffix="%"
                   />
                 </Skeleton>

@@ -55,7 +55,11 @@ const StakingData = ({
     blockNumber: blockNumber
   });
 
-  const { data: balance, refetch: refetchBalance } = useBalance({
+  const {
+    data: balance,
+    refetch: refetchBalance,
+    isLoading: isLoadingBalance
+  } = useBalance({
     chainId: polygon.id,
     token: trotelCoinAddress,
     address: address as Address
@@ -76,23 +80,29 @@ const StakingData = ({
     }
   }, [balance, address]);
 
-  const { data: getStakingDataNoTyped, refetch: refetchStakings } =
-    useReadContract({
-      chainId: polygon.id,
-      abi: trotelCoinStakingV2ABI,
-      address: trotelCoinStakingV2,
-      functionName: "stakings",
-      args: [address as Address]
-    });
+  const {
+    data: getStakingDataNoTyped,
+    refetch: refetchStakings,
+    isLoading: isLoadingStakingData
+  } = useReadContract({
+    chainId: polygon.id,
+    abi: trotelCoinStakingV2ABI,
+    address: trotelCoinStakingV2,
+    functionName: "stakings",
+    args: [address as Address]
+  });
 
-  const { data: earnedTrotelCoinsData, refetch: refetchEarnedTrotelCoins } =
-    useReadContract({
-      chainId: polygon.id,
-      abi: trotelCoinStakingV2ABI,
-      address: trotelCoinStakingV2,
-      functionName: "getUserReward",
-      args: [address as Address]
-    });
+  const {
+    data: earnedTrotelCoinsData,
+    refetch: refetchEarnedTrotelCoins,
+    isLoading: isLoadingEarnedData
+  } = useReadContract({
+    chainId: polygon.id,
+    abi: trotelCoinStakingV2ABI,
+    address: trotelCoinStakingV2,
+    functionName: "getUserReward",
+    args: [address as Address]
+  });
 
   useEffect(() => {
     if (earnedTrotelCoinsData) {
@@ -156,19 +166,17 @@ const StakingData = ({
           <span>{lang === "en" ? "Available" : "Disponible"}</span>
           <div className="flex items-center gap-1">
             <Skeleton
-              loading={
-                !availableTrotelCoins || (!trotelPrice && showTrotelInUsdc)
-              }
+              loading={isLoadingBalance || (!trotelPrice && showTrotelInUsdc)}
             >
               {showTrotelInUsdc && "$"}
-              {availableTrotelCoins &&
-                !showTrotelInUsdc &&
-                availableTrotelCoins.toLocaleString("en-US")}
-              {availableTrotelCoins &&
-                showTrotelInUsdc &&
-                roundPrice(availableTrotelCoins * trotelPrice).toLocaleString(
-                  "en-US"
-                )}{" "}
+              {availableTrotelCoins && !showTrotelInUsdc
+                ? availableTrotelCoins.toLocaleString("en-US")
+                : 0}
+              {availableTrotelCoins && showTrotelInUsdc
+                ? roundPrice(availableTrotelCoins * trotelPrice).toLocaleString(
+                    "en-US"
+                  )
+                : 0}{" "}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
@@ -177,19 +185,19 @@ const StakingData = ({
           <span>{lang === "en" ? "Deposit" : "Dépôt"}</span>
           <div className="flex items-center gap-1">
             <Skeleton
-              loading={!stakedTrotelCoins || (!trotelPrice && showTrotelInUsdc)}
+              loading={
+                isLoadingStakingData || (!trotelPrice && showTrotelInUsdc)
+              }
             >
               {showTrotelInUsdc && "$"}
-              {stakedTrotelCoins &&
-                showTrotelInUsdc &&
-                roundPrice(
-                  stakedTrotelCoins * 1e-18 * trotelPrice
-                ).toLocaleString("en-US")}
-              {stakedTrotelCoins &&
-                !showTrotelInUsdc &&
-                roundPrice(stakedTrotelCoins * 1e-18).toLocaleString(
-                  "en-US"
-                )}{" "}
+              {stakedTrotelCoins && showTrotelInUsdc
+                ? roundPrice(
+                    stakedTrotelCoins * 1e-18 * trotelPrice
+                  ).toLocaleString("en-US")
+                : 0}
+              {stakedTrotelCoins && !showTrotelInUsdc
+                ? roundPrice(stakedTrotelCoins * 1e-18).toLocaleString("en-US")
+                : 0}{" "}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
@@ -198,17 +206,19 @@ const StakingData = ({
           <span>{lang === "en" ? "Earned" : "Récompenses"}</span>
           <div className="flex items-center gap-1">
             <Skeleton
-              loading={!earnedTrotelCoins || (!trotelPrice && showTrotelInUsdc)}
+              loading={
+                isLoadingEarnedData || (!trotelPrice && showTrotelInUsdc)
+              }
             >
               {showTrotelInUsdc && "$"}
-              {earnedTrotelCoins &&
-                showTrotelInUsdc &&
-                roundPrice(earnedTrotelCoins * trotelPrice).toLocaleString(
-                  "en-US"
-                )}
-              {earnedTrotelCoins &&
-                !showTrotelInUsdc &&
-                roundPrice(earnedTrotelCoins).toLocaleString("en-US")}{" "}
+              {earnedTrotelCoins && showTrotelInUsdc
+                ? roundPrice(earnedTrotelCoins * trotelPrice).toLocaleString(
+                    "en-US"
+                  )
+                : 0}
+              {earnedTrotelCoins && !showTrotelInUsdc
+                ? roundPrice(earnedTrotelCoins).toLocaleString("en-US")
+                : 0}{" "}
               <TrotelCoinLogo />
             </Skeleton>
           </div>
@@ -216,8 +226,8 @@ const StakingData = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
           <div>
-            <Skeleton loading={!timeLeft}>
-              {timeLeft && Math.floor(timeLeft / 60).toLocaleString("en-US")}{" "}
+            <Skeleton loading={isLoadingStakingData}>
+              {timeLeft ? Math.floor(timeLeft / 60).toLocaleString("en-US") : 0}{" "}
               <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
             </Skeleton>
           </div>
@@ -225,7 +235,7 @@ const StakingData = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "Status" : "Statut"}</span>
           <div>
-            <Skeleton loading={!isStaking || !stakedTrotelCoins}>
+            <Skeleton loading={isLoadingStakingData}>
               <span
                 className={`${
                   isStaking || (stakedTrotelCoins && stakedTrotelCoins > 0)
