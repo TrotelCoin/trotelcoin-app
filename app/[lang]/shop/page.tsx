@@ -210,7 +210,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
               {!refreshing ? (
                 <>
                   <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                    <ul className="flex flex-wrap items-center gap-2">
+                    <ul className="hide-scrollbar flex items-center gap-2 overflow-x-auto whitespace-nowrap md:flex-wrap md:overflow-x-visible">
                       {categories &&
                         categories
                           .filter((category) => !category.disabled)

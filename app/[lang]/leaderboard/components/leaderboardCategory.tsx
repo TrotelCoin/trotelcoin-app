@@ -13,7 +13,7 @@ const LeaderboardCategory = ({
 }) => {
   return (
     <>
-      <div className="mt-2 flex flex-wrap items-center gap-2">
+      <div className="mt-2 flex md:flex-wrap whitespace-nowrap items-center gap-2 hide-scrollbar overflow-x-auto md:overflow-x-visible">
         <button
           onClick={() => {
             setCategory("rewards");
