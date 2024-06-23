@@ -5,7 +5,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Chain, isAddressEqual } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
+
+const testnetAddresses = [
+  "0x8333c1B5131CC694c3A238E41e50cbc236e73DbC",
+  "0x747923D9eC6c94521aCccc6F3d065C3772f3fa6b",
+  "0x184aBB8CaA01E856228773889ab832DcC9884FE1",
+  "0xA9Ddd1a0856051554f89C09B39B7bB7fAcB61538",
+  "0xBa2aDDf6DD24E88Fdd404e3c22cCd50ed1A3ae40"
+];
 
 const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const [chain, setChain] = useState<Chain>(polygon);
@@ -26,13 +33,11 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
     if (chain && address) {
       switchChain({ chainId: chain.id });
 
-      if (
-        isAddressEqual(address, contracts[polygonAmoy.id].trotelCoinDAOAddress)
-      ) {
-        setShowTestnet(true);
-      } else {
-        setShowTestnet(false);
-      }
+      const isTestnetAddress = testnetAddresses.some((testnetAddress) =>
+        isAddressEqual(address, testnetAddress)
+      );
+
+      setShowTestnet(isTestnetAddress);
     }
   }, [chain, switchChain, address]);
 

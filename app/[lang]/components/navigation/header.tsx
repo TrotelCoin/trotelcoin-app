@@ -230,6 +230,19 @@ const Header = ({ lang }: { lang: Lang }) => {
                         </div>
 
                         <div className="mt-10 flex flex-col gap-4">
+                          {showTestnet && (
+                            <>
+                              <Switch
+                                isSelected={chain.id === polygonAmoy.id}
+                                onChange={handleTestnet}
+                                color="success"
+                                size="sm"
+                              >
+                                Testnet
+                              </Switch>
+                            </>
+                          )}
+
                           <AccountMobile
                             lang={lang}
                             setMobileMenuOpen={setMobileMenuOpen}
@@ -245,19 +258,6 @@ const Header = ({ lang }: { lang: Lang }) => {
                             setMobileMenuOpen={setMobileMenuOpen}
                           />
                         </div>
-
-                        {showTestnet && (
-                          <div className="mt-4">
-                            <Switch
-                              isSelected={chain.id === polygonAmoy.id}
-                              onChange={handleTestnet}
-                              color="success"
-                              size="sm"
-                            >
-                              Testnet
-                            </Switch>
-                          </div>
-                        )}
                       </div>
                     </Dialog.Panel>
                   </Transition.Child>
