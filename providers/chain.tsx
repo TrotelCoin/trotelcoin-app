@@ -14,6 +14,20 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
 
+  const handleTestnet = () => {
+    if (chain.id === polygon.id) {
+      setChain(polygonAmoy);
+    } else {
+      setChain(polygon);
+    }
+  };
+
+  useEffect(() => {
+    if (chain) {
+      switchChain({ chainId: chain.id });
+    }
+  }, [chain, switchChain]);
+
   const contextValue = useMemo(
     () => ({
       chain,
@@ -21,22 +35,6 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
     }),
     [chain, setChain]
   );
-
-  const handleTestnet = () => {
-    if (chain.id === polygon.id) {
-      setChain(polygonAmoy);
-      switchChain({ chainId: polygonAmoy.id });
-    } else {
-      setChain(polygon);
-      switchChain({ chainId: polygon.id });
-    }
-  };
-
-  useEffect(() => {
-    if (chain && !testnetEnabled) {
-      switchChain({ chainId: chain.id });
-    }
-  }, [chain, switchChain]);
 
   return (
     <>
