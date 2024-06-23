@@ -55,7 +55,6 @@ export const config = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  enableCoinbase: true,
   enableEmail: true,
   auth: {
     showWallets: true,
