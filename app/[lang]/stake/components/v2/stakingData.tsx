@@ -43,7 +43,6 @@ const StakingData = ({
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isStaking, setIsStaking] = useState<boolean | null>(null);
   const [timestamp, setTimestamp] = useState<number | null>(null);
-  const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
@@ -118,12 +117,11 @@ const StakingData = ({
   }, [blockNumber, refetchBalance, refetchStakings, refetchEarnedTrotelCoins]);
 
   useEffect(() => {
-    if (block && !blockFetched) {
+    if (block) {
       const timestamp = Number(block.timestamp);
       setTimestamp(timestamp);
-      setBlockFetched(true);
     }
-  }, [block, blockFetched]);
+  }, [block]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address && timestamp) {
@@ -132,14 +130,14 @@ const StakingData = ({
       const startTime = Number(getStakingData[1]);
       const duration = Number(getStakingData[2]);
       const timeLeft = startTime + duration - timestamp;
-      const isStaking = stakedTrotelCoins > 0 && timeLeft > 0;
+      const isStaking = stakedTrotelCoins > 0;
 
       setStakedTrotelCoins(stakedTrotelCoins);
-      setTimeLeft(Math.max(0, timeLeft));
+      setTimeLeft(timeLeft);
       setIsStaking(isStaking);
 
       const interval = setInterval(() => {
-        setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
+        setTimeLeft((prev) => (prev as number) - 1);
       }, 1000);
 
       return () => clearInterval(interval);
@@ -212,7 +210,7 @@ const StakingData = ({
         <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
         <div>
           <Skeleton loading={isLoadingStakingData}>
-            {displayValue(Math.floor((timeLeft as number) / 60))}{" "}
+            {displayValue(Math.floor(Math.max(0, timeLeft as number) / 60))}{" "}
             <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
           </Skeleton>
         </div>
@@ -222,11 +220,14 @@ const StakingData = ({
         <div>
           <Skeleton loading={isLoadingStakingData}>
             <span className={`${isStaking ? stakingClass : notStakingClass}`}>
-              {isStaking
+              {isStaking && !!timeLeft && timeLeft > 0
                 ? lang === "en"
                   ? "Staking"
                   : "Misé"
-                : stakedTrotelCoins && stakedTrotelCoins > 0
+                : !!stakedTrotelCoins &&
+                    stakedTrotelCoins > 0 &&
+                    !!timeLeft &&
+                    timeLeft <= 0
                   ? lang === "en"
                     ? "Claimable"
                     : "Réclamable"

@@ -34,8 +34,8 @@ const BlockNumber = ({ lang }: { lang: Lang }) => {
               <Tooltip.Content sideOffset={5} side="left" align="center">
                 <div className="rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                   {lang === "en"
-                    ? "Current block number on Polygon"
-                    : "Numéro de bloc actuel sur Polygon"}
+                    ? `Current block number on ${chain.name}`
+                    : `Numéro de bloc actuel sur ${chain.name}`}
                 </div>
                 <Tooltip.Arrow className="fill-blue-500" />
               </Tooltip.Content>

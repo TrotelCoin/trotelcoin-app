@@ -249,7 +249,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {address ? (
           <BlueSimpleButton
-            disabled={disabled}
+            disabled={disabled || isLoading}
             onClick={async () => {
               const amountDecimals = parseEther(String(amount));
 

@@ -25,7 +25,11 @@ const TotalStaked = ({
     chainId: chain.id
   });
 
-  const { data: balance, refetch } = useBalance({
+  const {
+    data: balance,
+    refetch,
+    isLoading: isLoadingTotalStaked
+  } = useBalance({
     chainId: chain.id,
     token: contracts[chain.id].trotelCoinAddress,
     address: contracts[chain.id].trotelCoinStakingV1
@@ -47,7 +51,7 @@ const TotalStaked = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "Total locked" : "Total verrouillé"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!totalStaked}>
+            <Skeleton loading={isLoadingTotalStaked}>
               <CountUp start={0} end={totalStaked as number} />
               <TrotelCoinLogo />
             </Skeleton>
@@ -57,7 +61,7 @@ const TotalStaked = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "TVL" : "TVL"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!storedTrotelPrice || !totalStaked}>
+            <Skeleton loading={!storedTrotelPrice || isLoadingTotalStaked}>
               {storedTrotelPrice && totalStaked ? (
                 <CountUp
                   start={0}

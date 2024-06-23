@@ -3,9 +3,10 @@
 import ChainContext from "@/contexts/chain";
 import { Switch } from "@nextui-org/switch";
 import React, { useEffect, useMemo, useState } from "react";
-import { Chain } from "viem";
+import { Address, Chain, isAddressEqual } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
-import { useSwitchChain } from "wagmi";
+import { useAccount, useSwitchChain } from "wagmi";
+import { contracts } from "@/data/web3/addresses";
 
 const testnetEnabled =
   process.env.NODE_ENV !== "production" ||
@@ -15,6 +16,7 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const [chain, setChain] = useState<Chain>(polygon);
 
   const { switchChain } = useSwitchChain();
+  const { address } = useAccount();
 
   const contextValue = useMemo(
     () => ({
@@ -45,7 +47,11 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
       <ChainContext.Provider value={contextValue}>
         {children}
 
-        {testnetEnabled && (
+        {(testnetEnabled ||
+          isAddressEqual(
+            address as Address,
+            contracts[polygonAmoy.id].trotelCoinDAOAddress
+          )) && (
           <div className="fixed bottom-0 left-0 p-4">
             <Switch
               isSelected={chain.id === polygonAmoy.id}

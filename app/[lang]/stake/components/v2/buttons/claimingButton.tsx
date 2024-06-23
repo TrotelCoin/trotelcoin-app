@@ -38,8 +38,6 @@ const ClaimingButton = ({
   const [disabled, setDisabled] = useState<boolean>(true);
   const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [timestamp, setTimestamp] = useState<number | null>(null);
-  const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
@@ -54,7 +52,11 @@ const ClaimingButton = ({
     blockNumber: blockNumber
   });
 
-  const { writeContractAsync, data: claimHash } = useWriteContract({
+  const {
+    writeContractAsync,
+    isPending,
+    data: claimHash
+  } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setClaimConfirmed(false);
@@ -99,21 +101,19 @@ const ClaimingButton = ({
   }, [blockNumber, address, refetchStakings, refetchClaimConfirmation]);
 
   useEffect(() => {
-    if (block && !blockFetched) {
-      const timestamp = Number(block.timestamp);
-      setTimestamp(timestamp);
-      setBlockFetched(true);
-    }
-  }, [block, blockFetched]);
+    let timestamp;
 
-  useEffect(() => {
+    if (block) {
+      timestamp = Number(block.timestamp);
+    }
+
     if (getStakingDataNoTyped && address && timestamp) {
       const getStakingData = getStakingDataNoTyped as any[];
       const stakedTrotelCoins = Number(getStakingData[0]);
       const startTime = Number(getStakingData[1]);
       const duration = Number(getStakingData[2]);
       let timeLeft: number = 0;
-      if (startTime && duration && timestamp) {
+      if (startTime && duration) {
         timeLeft = startTime + duration - timestamp;
       }
 
@@ -124,12 +124,25 @@ const ClaimingButton = ({
         setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
       }, 1000);
 
+      const enabled =
+        address &&
+        !!stakedTrotelCoins &&
+        stakedTrotelCoins > 0 &&
+        !!timeLeft &&
+        timeLeft <= 0;
+
+      if (enabled) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+
       return () => clearInterval(interval);
     } else {
       setStakedTrotelCoins(0);
       setTimeLeft(0);
     }
-  }, [getStakingDataNoTyped, address, timestamp]);
+  }, [getStakingDataNoTyped, address, block, address]);
 
   const claim = async () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
@@ -150,28 +163,13 @@ const ClaimingButton = ({
     });
   };
 
-  useEffect(() => {
-    if (
-      address &&
-      stakedTrotelCoins &&
-      stakedTrotelCoins > 0 &&
-      timeLeft &&
-      timeLeft <= 0 &&
-      !isLoading
-    ) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [stakedTrotelCoins, timeLeft, address, isLoading]);
-
   return (
     <>
       <BlueButton
         lang={lang}
         onClick={() => claim()}
-        isLoading={isLoading}
-        disabled={disabled}
+        isLoading={isLoading || isPending}
+        disabled={disabled || isLoading}
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
 

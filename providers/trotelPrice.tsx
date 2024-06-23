@@ -8,6 +8,7 @@ import trotelCoinPolygonUniswapV3PoolABI from "@/abi/polygon/uniswap/trotelCoinP
 import usdcPolygonUniswapV3PoolABI from "@/abi/polygon/uniswap/usdcPolygonUniswapV3Pool";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
+import { polygonAmoy } from "viem/chains";
 
 const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   const [trotelPrice, setTrotelPrice] = useState<number | null>(null);
@@ -36,6 +37,14 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
       setStoredTrotelPrice(trotelPrice);
     }
   }, [trotelPrice, storedTrotelPrice]);
+
+  useEffect(() => {
+    if (chain.id === polygonAmoy.id) {
+      setShowTrotelInUsdc(false);
+      setStoredTrotelPrice(1);
+      setTrotelPriceLoading(false);
+    }
+  }, [chain]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: chain.id,

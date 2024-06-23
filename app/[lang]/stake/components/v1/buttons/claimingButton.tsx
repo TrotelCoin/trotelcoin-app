@@ -36,8 +36,6 @@ const ClaimingButton = ({
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [timestamp, setTimestamp] = useState<number | null>(null);
-  const [blockFetched, setBlockFetched] = useState<boolean>(false);
   const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -103,21 +101,19 @@ const ClaimingButton = ({
   }, [blockNumber, address, refetchStakings, refetchClaimConfirmation]);
 
   useEffect(() => {
-    if (block && !blockFetched) {
-      const timestamp = Number(block.timestamp);
-      setTimestamp(timestamp);
-      setBlockFetched(true);
-    }
-  }, [block, blockFetched]);
+    let timestamp;
 
-  useEffect(() => {
-    if (getStakingDataNoTyped && address) {
+    if (block) {
+      timestamp = Number(block.timestamp);
+    }
+
+    if (getStakingDataNoTyped && address && timestamp) {
       const getStakingData = getStakingDataNoTyped as any[];
       const stakedTrotelCoins = Number(getStakingData[0]);
       const startTime = Number(getStakingData[1]);
       const duration = Number(getStakingData[2]);
 
-      const timeLeft = startTime + duration - (timestamp as number);
+      const timeLeft = startTime + duration - timestamp;
 
       setStakedTrotelCoins(stakedTrotelCoins);
       setTimeLeft(Math.max(0, timeLeft));
@@ -126,12 +122,25 @@ const ClaimingButton = ({
         setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
       }, 1000);
 
+      const enabled =
+        address &&
+        !!stakedTrotelCoins &&
+        stakedTrotelCoins > 0 &&
+        !!timeLeft &&
+        timeLeft <= 0;
+
+      if (enabled) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+
       return () => clearInterval(interval);
     } else {
       setStakedTrotelCoins(0);
       setTimeLeft(0);
     }
-  }, [getStakingDataNoTyped, address, timestamp]);
+  }, [getStakingDataNoTyped, address, block]);
 
   const claim = async () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
@@ -151,20 +160,6 @@ const ClaimingButton = ({
       abi: trotelCoinStakingV1ABI
     });
   };
-
-  useEffect(() => {
-    if (
-      address &&
-      stakedTrotelCoins &&
-      stakedTrotelCoins > 0 &&
-      timeLeft &&
-      timeLeft <= 0
-    ) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [stakedTrotelCoins, timeLeft, address]);
 
   return (
     <>
