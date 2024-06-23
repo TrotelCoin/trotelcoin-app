@@ -23,6 +23,7 @@ import { roundPrice } from "@/utils/price/roundPrice";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { Skeleton } from "@radix-ui/themes";
 import ChainContext from "@/contexts/chain";
+import maxParameter from "@/data/web3/maxParameter";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -86,7 +87,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(formatEther(balance?.value as bigint));
+      const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
 
       if (amount === max) {
         setIsMax(true);
@@ -99,7 +100,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [amount, balance, address]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value as bigint));
+    const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
     setAmount(max);
   };
 
