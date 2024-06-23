@@ -12,11 +12,11 @@ import {
 } from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { Hash, isAddress, parseEther } from "viem";
+import { Hash, isAddress, parseEther, formatEther } from "viem";
 import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { loadingFlashClass } from "@/style/loading";
-import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import { CameraIcon } from "@heroicons/react/24/solid";
 import ScannerComponent from "./components/scanner";
 import { roundPrice } from "@/utils/price/roundPrice";
@@ -86,7 +86,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(balance?.formatted) * 0.999999;
+      const max = Number(formatEther(balance?.value as bigint));
 
       if (amount === max) {
         setIsMax(true);
@@ -99,7 +99,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [amount, balance, address]);
 
   const setMax = () => {
-    const max = Number(balance?.formatted) * 0.999999;
+    const max = Number(formatEther(balance?.value as bigint));
     setAmount(max);
   };
 
@@ -212,7 +212,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
               TROTEL
             </span>
 
-            {!isMax && Number(balance?.formatted) > 0 && (
+            {!isMax && Number(balance?.value as bigint) > 0 && (
               <button
                 onClick={() => setMax()}
                 className="cursor-pointer text-sm text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
@@ -251,7 +251,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <BlueSimpleButton
             disabled={disabled || isLoading}
             onClick={async () => {
-              const amountDecimals = parseEther(String(amount));
+              const amountDecimals = parseEther(Number(amount).toFixed(18));
 
               await writeContractAsync({
                 address: contracts[chain.id].trotelCoinAddress,
@@ -290,8 +290,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
       )}
 
-      <Success
-        show={successMessage}
+      <SuccessNotification
+        display={successMessage}
         onClose={() => setSuccessMessage(false)}
         lang={lang}
         title={lang === "en" ? "Sent" : "Envoyé"}
@@ -301,8 +301,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "La transaction a bien été envoyée à la blockchain"
         }
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}

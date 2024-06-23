@@ -5,7 +5,6 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useWriteContract,
-  useSwitchChain,
   useBlockNumber,
   useTransactionConfirmations,
   useBlock,
@@ -13,8 +12,8 @@ import {
 } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
-import Success from "@/app/[lang]/components/modals/success";
-import Fail from "@/app/[lang]/components/modals/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address, Hash, parseEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
@@ -44,7 +43,7 @@ const IncreaseStakingButton = ({
   const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({ watch: true });
-  const { switchChain } = useSwitchChain();
+
   const { data: block } = useBlock({
     chainId: chain.id,
     blockNumber: blockNumber
@@ -135,7 +134,7 @@ const IncreaseStakingButton = ({
       return;
     }
 
-    const stakingAmount = parseEther(amount.toString());
+    const stakingAmount = parseEther(amount.toFixed(18));
 
     await writeContractAsync({
       address: contracts[chain.id].trotelCoinStakingV2,
@@ -163,8 +162,8 @@ const IncreaseStakingButton = ({
         text={lang === "en" ? "Increase staking" : "Augmentez votre mise"}
         isLoading={isLoading}
       />
-      <Success
-        show={stakeMessage}
+      <SuccessNotification
+        display={stakeMessage}
         lang={lang}
         onClose={() => setStakeMessage(false)}
         title={lang === "en" ? "Success" : "Succès"}
@@ -174,8 +173,8 @@ const IncreaseStakingButton = ({
             : "Vous avez augmentez vos TrotelCoins staké"
         }
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -185,11 +184,10 @@ const IncreaseStakingButton = ({
             : "Votre transaction a échoué, assurez-vous d'avoir approuvé d'abord"
         }
       />
-      <Fail
-        show={chainError && Boolean(address)}
+      <FailNotification
+        display={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

@@ -16,8 +16,7 @@ import {
 import { polygonChain } from "@/data/web3/chains";
 import { polygon } from "viem/chains";
 import { Address, formatUnits, Hash } from "viem";
-import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import WidgetTitle from "@/app/[lang]/components/widget/widgetTitle";
 import "animate.css";
 import SwapButton from "@/app/[lang]/swap/components/buttons/swapButton";
@@ -684,8 +683,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
           toChain={toChain}
         />
 
-        <Fail
-          show={errorMessage}
+        <FailNotification
+          display={errorMessage}
           onClose={() => setErrorMessage(false)}
           lang={lang}
           title={lang === "en" ? "Error" : "Erreur"}
@@ -693,8 +692,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
             lang === "en" ? "An error occurred" : "Une erreur s'est produite"
           }
         />
-        <Success
-          show={approveMessage}
+        <SuccessNotification
+          display={approveMessage}
           onClose={() => setApproveMessage(false)}
           lang={lang}
           title={lang === "en" ? "Success" : "Succès"}
@@ -704,8 +703,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
               : "Vous avez approuvé le montant"
           }
         />
-        <Success
-          show={swappedMessage}
+        <SuccessNotification
+          display={swappedMessage}
           onClose={() => setSwappedMessage(false)}
           lang={lang}
           title={lang === "en" ? "Success" : "Succès"}

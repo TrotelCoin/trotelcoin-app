@@ -3,7 +3,7 @@
 import type { Lang } from "@/types/language/lang";
 import { useAccount } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import "animate.css";
@@ -176,23 +176,23 @@ const Rewards = ({
         </div>
       )}
 
-      <Fail
+      <FailNotification
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en"
             ? "An error occured while claiming your rewards."
             : "Une erreur est survenue lors de la réclamation de vos récompenses."
         }
-        show={claimingError}
+        display={claimingError}
         onClose={() => setClaimingError(false)}
         lang={lang}
       />
-      <Fail
+      <FailNotification
         title={lang === "en" ? "Sign in" : "Connectez-vous"}
         message={
           lang === "en" ? "You need to sign in." : "Vous devez vous connecter."
         }
-        show={isLearnerDisconnected}
+        display={isLearnerDisconnected}
         onClose={() => setIsLearnerDisconnected(false)}
         lang={lang}
       />

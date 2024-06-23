@@ -8,7 +8,7 @@ import QuizComponent from "@/app/[lang]/components/courses/quiz/quizComponent";
 import PremiumContext from "@/contexts/premium";
 import UserContext from "@/contexts/user";
 import { loadingFlashClass } from "@/style/loading";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import Wallet from "@/app/[lang]/components/header/wallet";
 
 const Quiz = ({
@@ -90,8 +90,8 @@ const Quiz = ({
         </div>
       )}
 
-      <Success
-        show={isTotallyCorrect && showCorrectMessage}
+      <SuccessNotification
+        display={isTotallyCorrect && showCorrectMessage}
         onClose={() => setShowCorrectMessage(false)}
         lang={lang}
         title={lang === "en" ? "Congratulations!" : "Félicitations !"}

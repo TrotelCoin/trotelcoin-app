@@ -1,7 +1,7 @@
 "use client";
 
 import BlueButton from "@/app/[lang]/components/buttons/blue";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import { Lang } from "@/types/language/lang";
@@ -11,7 +11,7 @@ import useSWR from "swr";
 import { useAccount } from "wagmi";
 import { usingItem } from "@/utils/inventory/useItem";
 import { Address } from "viem";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import StreakContext from "@/contexts/streak";
 import WarningConfirmation from "@/app/[lang]/components/modals/confirmation/warning";
 import { Skeleton } from "@radix-ui/themes";
@@ -151,8 +151,8 @@ const InventoryItem = ({
               );
             }}
           />
-          <Fail
-            show={errorMessage}
+          <FailNotification
+            display={errorMessage}
             onClose={() => setErrorMessage(false)}
             lang={lang}
             title={lang === "en" ? "Error" : "Erreur"}
@@ -162,8 +162,8 @@ const InventoryItem = ({
                 : "Une erreur est survenue, veuillez réessayer"
             }
           />
-          <Fail
-            show={notConnectedMessage}
+          <FailNotification
+            display={notConnectedMessage}
             onClose={() => setNotConnectedMessage(false)}
             lang={lang}
             title={lang === "en" ? "Error" : "Erreur"}
@@ -173,8 +173,8 @@ const InventoryItem = ({
                 : "Veuillez connecter votre portefeuille"
             }
           />
-          <Success
-            show={itemsUsedMessage}
+          <SuccessNotification
+            display={itemsUsedMessage}
             onClose={() => setItemsUsedMessage(false)}
             lang={lang}
             title={lang === "en" ? "Success" : "Succès"}

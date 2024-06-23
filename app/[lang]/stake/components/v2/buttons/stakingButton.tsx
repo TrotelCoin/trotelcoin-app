@@ -6,14 +6,13 @@ import {
   useAccount,
   useWriteContract,
   useReadContract,
-  useSwitchChain,
   useBlockNumber,
   useTransactionConfirmations
 } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
-import Success from "@/app/[lang]/components/modals/success";
-import Fail from "@/app/[lang]/components/modals/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address, Hash, parseEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
@@ -43,7 +42,6 @@ const StakingButton = ({
 
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
-  const { switchChain } = useSwitchChain();
   const { chain } = useContext(ChainContext);
 
   const { writeContractAsync, data: stakeHash } = useWriteContract({
@@ -122,6 +120,9 @@ const StakingButton = ({
     let stakingDuration = 0;
 
     switch (stakingPeriod) {
+      case 5:
+        stakingDuration = 300;
+        break;
       case 30:
         stakingDuration = 2592000;
         break;
@@ -145,7 +146,7 @@ const StakingButton = ({
         break;
     }
 
-    const stakingAmount = parseEther(amount.toString());
+    const stakingAmount = parseEther(amount.toFixed(18));
 
     await writeContractAsync({
       address: contracts[chain.id].trotelCoinStakingV2,
@@ -179,8 +180,8 @@ const StakingButton = ({
         text={lang === "en" ? "Stake" : "Staker"}
         isLoading={isLoading}
       />
-      <Success
-        show={stakeMessage}
+      <SuccessNotification
+        display={stakeMessage}
         lang={lang}
         onClose={() => setStakeMessage(false)}
         title={lang === "en" ? "Success" : "Succès"}
@@ -190,8 +191,8 @@ const StakingButton = ({
             : "Vous avez staké vos TrotelCoins"
         }
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -201,11 +202,10 @@ const StakingButton = ({
             : "Votre transaction a échoué, assurez-vous d'avoir approuvé d'abord"
         }
       />
-      <Fail
-        show={chainError && Boolean(address)}
+      <FailNotification
+        display={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

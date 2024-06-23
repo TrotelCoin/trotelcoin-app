@@ -15,7 +15,7 @@ import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
 import useSWR from "swr";
 import { fetcher } from "@/utils/axios/fetcher";
 import { useAccount } from "wagmi";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { postQuizResult } from "@/utils/quizzes/postQuizResult";
 import { postQuizTime } from "@/utils/quizzes/postQuizTime";
 import { Address } from "viem";
@@ -342,8 +342,8 @@ const QuizComponent = ({
         </>
       )}
 
-      <Fail
-        show={
+      <FailNotification
+        display={
           showMessage &&
           !isCorrect &&
           !isIntermediate &&
@@ -373,8 +373,8 @@ const QuizComponent = ({
               }`
         }
       />
-      <Fail
-        show={captchaMessage}
+      <FailNotification
+        display={captchaMessage}
         onClose={() => setCaptchaMessage(false)}
         lang={lang}
         title={lang === "en" ? "Missing captcha" : "Captcha manquant"}

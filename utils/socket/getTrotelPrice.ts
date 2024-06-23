@@ -22,7 +22,12 @@ export const getTrotelPrice = async (
   setPriceLoading(true);
 
   const fromAmountDecimals: number = fromAmount
-    ? Number(parseUnits(String(fromAmount), fromToken.decimals))
+    ? Number(
+        parseUnits(
+          Number(fromAmount).toFixed(fromToken.decimals),
+          fromToken.decimals
+        )
+      )
     : 0;
 
   const quote = await getQuote(

@@ -6,13 +6,12 @@ import {
   useAccount,
   useBalance,
   useBlockNumber,
-  useSwitchChain,
   useWriteContract
 } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
-import Fail from "@/app/[lang]/components/modals/fail";
-import { parseEther } from "viem";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import { parseEther, formatEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
@@ -34,7 +33,6 @@ const ApproveButton = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const { switchChain } = useSwitchChain();
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
 
@@ -73,9 +71,11 @@ const ApproveButton = ({
     let approveAmount;
 
     if (isMax && balance) {
-      approveAmount = parseEther(balance?.formatted);
+      approveAmount = parseEther(
+        Number(formatEther(balance?.value)).toFixed(18)
+      );
     } else {
-      approveAmount = parseEther(String(amount));
+      approveAmount = parseEther(Number(amount).toFixed(18));
     }
 
     await writeContractAsync({
@@ -109,8 +109,8 @@ const ApproveButton = ({
         isLoading={isLoading}
       />
 
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -118,10 +118,9 @@ const ApproveButton = ({
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
         }
       />
-      <Fail
-        show={chainError && Boolean(address)}
+      <FailNotification
+        display={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

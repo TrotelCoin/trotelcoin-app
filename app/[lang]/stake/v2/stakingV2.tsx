@@ -56,6 +56,9 @@ const StakingV2 = ({
 
   useEffect(() => {
     switch (stakingPeriod) {
+      case 5:
+        setAPR(0);
+        break;
       case 30:
         setAPR(3);
         break;

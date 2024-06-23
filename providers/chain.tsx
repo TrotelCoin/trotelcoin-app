@@ -1,7 +1,6 @@
 "use client";
 
 import ChainContext from "@/contexts/chain";
-import { Switch } from "@nextui-org/switch";
 import React, { useEffect, useMemo, useState } from "react";
 import { Chain, isAddressEqual } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
@@ -10,6 +9,7 @@ import { contracts } from "@/data/web3/addresses";
 
 const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const [chain, setChain] = useState<Chain>(polygon);
+  const [showTestnet, setShowTestnet] = useState(false);
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
@@ -25,38 +25,32 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (chain) {
       switchChain({ chainId: chain.id });
+
+      if (
+        address &&
+        isAddressEqual(address, contracts[polygonAmoy.id].trotelCoinDAOAddress)
+      ) {
+        setShowTestnet(true);
+      } else {
+        setShowTestnet(false);
+      }
     }
   }, [chain, switchChain]);
 
   const contextValue = useMemo(
     () => ({
       chain,
-      setChain
+      setChain,
+      handleTestnet,
+      showTestnet
     }),
-    [chain, setChain]
+    [chain, setChain, handleTestnet, showTestnet]
   );
 
   return (
     <>
       <ChainContext.Provider value={contextValue}>
         {children}
-
-        {address &&
-          isAddressEqual(
-            address,
-            contracts[polygonAmoy.id].trotelCoinDAOAddress
-          ) && (
-            <div className="fixed bottom-0 left-0 p-4">
-              <Switch
-                isSelected={chain.id === polygonAmoy.id}
-                onChange={handleTestnet}
-                color="success"
-                size="sm"
-              >
-                Testnet
-              </Switch>
-            </div>
-          )}
       </ChainContext.Provider>
     </>
   );

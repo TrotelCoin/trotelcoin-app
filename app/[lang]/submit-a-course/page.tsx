@@ -14,7 +14,7 @@ import QuizData from "@/app/[lang]/submit-a-course/components/quizData";
 import type { CourseJSON, SubmitCourseData } from "@/types/courses/courses";
 import PreviewCourseData from "@/app/[lang]/submit-a-course/components/preview";
 import { loadingFlashClass } from "@/style/loading";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 
 const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const storedTitle: string = localStorage.getItem(
@@ -162,7 +162,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     // submit to the blockchain (json and cid)
 
-    // show success message
+    // display success message
 
     // remove local storage
     localStorage.removeItem("submit_course_title");
@@ -492,7 +492,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         )}
       </div>
 
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
@@ -501,9 +501,9 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "Une erreur est survenue avec le fichier JSON. Vérifiez que vous avez bien rempli chaque champ."
         }
         onClose={() => setJsonError(false)}
-        show={jsonError}
+        display={jsonError}
       />
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
@@ -512,9 +512,9 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "Une erreur est survenue lors de l'envoi du fichier. Veuillez réessayer."
         }
         onClose={() => setUploadError(false)}
-        show={uploadError}
+        display={uploadError}
       />
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
@@ -523,7 +523,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "Votre portefeuille semble être déconnecté."
         }
         onClose={() => setAddressError(false)}
-        show={addressError}
+        display={addressError}
       />
     </>
   );

@@ -13,7 +13,7 @@ import CountUp from "react-countup/";
 import Link from "next/link";
 import UserContext from "@/contexts/user";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address } from "viem";
 import { isMailCorrect } from "@/utils/waitlist/isMailCorrect";
 import { handleNotify } from "@/utils/waitlist/handleNotify";
@@ -355,7 +355,7 @@ const Waitlist = ({
         </>
       )}
 
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
@@ -363,7 +363,7 @@ const Waitlist = ({
             ? "An error occured, check your mail"
             : "Une erreur est survenue, vérifiez votre mail"
         }
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
       />
     </>
