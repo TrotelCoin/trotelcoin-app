@@ -17,20 +17,17 @@ import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
-import { polygonAmoy } from "viem/chains";
 
 const RewardsButton = ({
   lang,
   centralWalletAddress,
   chainError,
-  setChainError,
-  setClaimed
+  setChainError
 }: {
   lang: Lang;
   centralWalletAddress: Address;
   chainError: boolean;
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
-  setClaimed: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
@@ -86,10 +83,9 @@ const RewardsButton = ({
     ) {
       setSuccessMessage(true);
       setIsLoading(false);
-      setClaimed(true);
       setTransactionConfirmed(true);
     }
-  }, [transactionConfirmation, setClaimed, transactionConfirmed]);
+  }, [transactionConfirmation, transactionConfirmed]);
 
   useEffect(() => {
     if (isError) {
@@ -152,11 +148,12 @@ const RewardsButton = ({
           .then((response) => response.data.hash);
 
         setTransactionHash(hash);
-        if (chain.id !== polygonAmoy.id) {
+
+        if (!chain.testnet) {
           setAvailableToClaim(0);
         }
 
-        if (chain.id !== polygonAmoy.id) {
+        if (!chain.testnet) {
           // reset database pending rewards
           await axios
             .post(`/api/user/rewards/reset?wallet=${address}`)

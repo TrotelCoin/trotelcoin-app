@@ -7,12 +7,10 @@ import { Skeleton } from "@radix-ui/themes";
 const AvailableToClaim = ({
   lang,
   availableToClaim,
-  claimed,
   isLoading
 }: {
   lang: Lang;
   availableToClaim: number | null;
-  claimed: boolean;
   isLoading: boolean;
 }) => {
   return (
@@ -21,9 +19,7 @@ const AvailableToClaim = ({
         <span>{lang === "en" ? "Pending" : "En attente"}</span>
         <div>
           <Skeleton loading={isLoading}>
-            {availableToClaim &&
-            !claimed &&
-            typeof availableToClaim === "number"
+            {availableToClaim && typeof availableToClaim === "number"
               ? availableToClaim.toFixed(0).toLocaleString()
               : "0"}{" "}
             <span className="font-semibold">TROTEL</span>

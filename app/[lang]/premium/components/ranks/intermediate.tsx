@@ -53,7 +53,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
     abi: abis[chain.id].trotelCoin,
     functionName: "allowance",
     chainId: chain.id,
-    args: [address as Address, contracts[chain.id].trotelCoinIntermediateAddress],
+    args: [
+      address as Address,
+      contracts[chain.id].trotelCoinIntermediateAddress
+    ],
     account: address as Address
   });
 
