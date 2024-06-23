@@ -12,8 +12,8 @@ import {
   useTransactionConfirmations
 } from "wagmi";
 import "animate.css";
-import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import { contracts } from "@/data/web3/addresses";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/language/lang";
@@ -270,7 +270,10 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: chain.id,
-                        args: [contracts[chain.id].trotelCoinExpertAddress, holdingRequirement]
+                        args: [
+                          contracts[chain.id].trotelCoinExpertAddress,
+                          holdingRequirement
+                        ]
                       });
                     }}
                     text={lang === "en" ? "Approve" : "Approuver"}
@@ -305,8 +308,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
         </div>
       </Tilt>
       {lang === "fr" ? (
-        <Fail
-          show={isEligibleMessage}
+        <FailNotification
+          display={isEligibleMessage}
           title="Vous n'êtes pas éligible"
           message={`Vous avez besoin de ${
             holdingRequirement
@@ -319,8 +322,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       ) : (
-        <Fail
-          show={isEligibleMessage}
+        <FailNotification
+          display={isEligibleMessage}
           title="You're not eligible"
           message={`You need ${
             holdingRequirement
@@ -333,8 +336,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       )}
-      <Fail
-        show={isNotConnectedMessage}
+      <FailNotification
+        display={isNotConnectedMessage}
         title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
           lang === "en" ? "You are not connected." : "Vous n'êtes pas connecté."
@@ -342,15 +345,15 @@ const Expert = ({ lang }: { lang: Lang }) => {
         onClose={() => setIsNotConnectedMessage(false)}
         lang={lang}
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur est survenue"}
       />
-      <Success
-        show={isEligibleMessageSuccess}
+      <SuccessNotification
+        display={isEligibleMessageSuccess}
         title={lang === "en" ? "Eligible" : "Éligible"}
         message={
           lang === "en"
@@ -360,8 +363,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
         onClose={() => setIsEligibleMessageSuccess(false)}
         lang={lang}
       />
-      <Success
-        show={isClaimedMessage}
+      <SuccessNotification
+        display={isClaimedMessage}
         onClose={() => setIsClaimedMessage(false)}
         title={lang === "en" ? "Expert" : "Expert"}
         message={
@@ -371,8 +374,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
         }
         lang={lang}
       />
-      <Success
-        show={approvedMessage}
+      <SuccessNotification
+        display={approvedMessage}
         onClose={() => setApprovedMessage(false)}
         title={lang === "en" ? "Approved" : "Approuvé"}
         message={

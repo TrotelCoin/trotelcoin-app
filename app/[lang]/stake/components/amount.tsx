@@ -49,7 +49,7 @@ const Amount = ({
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(formatEther(balance?.value as bigint)) * 0.999999;
+      const max = Number(formatEther(balance?.value as bigint));
 
       if (amount === max) {
         setIsMax(true);
@@ -62,7 +62,7 @@ const Amount = ({
   }, [amount, balance, address, setIsMax]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value as bigint)) * 0.999999;
+    const max = Number(formatEther(balance?.value as bigint));
     setAmount(max);
   };
 

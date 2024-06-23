@@ -11,13 +11,13 @@ export default function WarningNotification({
   message,
   lang,
   display,
-  onDismiss
+  onClose
 }: {
   title: string;
   message: string;
   lang: Lang;
   display: boolean;
-  onDismiss?: () => void;
+  onClose?: () => void;
 }) {
   const [show, setShow] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(100);
@@ -43,8 +43,8 @@ export default function WarningNotification({
 
       const timer = setTimeout(() => {
         setShow(false);
-        if (onDismiss) {
-          onDismiss();
+        if (onClose) {
+          onClose();
         }
       }, duration);
 
@@ -61,7 +61,7 @@ export default function WarningNotification({
         clearInterval(progressTimer);
       };
     }
-  }, [show, onDismiss]);
+  }, [show, onClose]);
 
   return (
     <>
@@ -111,8 +111,8 @@ export default function WarningNotification({
                       className="-mr-2 -mt-2 inline-flex rounded-full p-2 text-gray-700 hover:bg-gray-100 focus:outline-none dark:text-gray-300 dark:hover:bg-gray-800"
                       onClick={() => {
                         setShow(false);
-                        if (onDismiss) {
-                          onDismiss();
+                        if (onClose) {
+                          onClose();
                         }
                       }}
                     >

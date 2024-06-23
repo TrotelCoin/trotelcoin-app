@@ -9,15 +9,16 @@ import {
   useBlockNumber
 } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address, Hash, parseEther } from "viem";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import "animate.css";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
+import { polygonAmyos } from "viem/chains";
 
 const RewardsButton = ({
   lang,
@@ -134,7 +135,7 @@ const RewardsButton = ({
         // make transaction to pay central wallet
         await sendTransactionAsync({
           to: centralWalletAddress,
-          value: parseEther(gasAmount)
+          value: parseEther(Number(gasAmount).toFixed(18))
         });
 
         setAvailableToClaim(0);
@@ -148,15 +149,17 @@ const RewardsButton = ({
 
         setTransactionHash(hash);
 
-        // reset database pending rewards
-        await axios
-          .post(`/api/user/rewards/reset?wallet=${address}`)
-          .then((response) => {
-            if (!response.data.success) {
-              setErrorMessage(true);
-              setIsLoading(false);
-            }
-          });
+        if (chain.id !== polygonAmyos.id) {
+          // reset database pending rewards
+          await axios
+            .post(`/api/user/rewards/reset?wallet=${address}`)
+            .then((response) => {
+              if (!response.data.success) {
+                setErrorMessage(true);
+                setIsLoading(false);
+              }
+            });
+        }
       } catch (error) {
         console.error(error);
         setErrorMessage(true);
@@ -188,7 +191,7 @@ const RewardsButton = ({
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
 
-      <Success
+      <SuccessNotification
         show={successMessage}
         onClose={() => setSuccessMessage(false)}
         lang={lang}
@@ -199,7 +202,7 @@ const RewardsButton = ({
             : "Vous avez obtenu vos TrotelCoins"
         }
       />
-      <Fail
+      <FailNotification
         show={nothingToClaimMessage}
         onClose={() => setNothingToClaimMessage(false)}
         lang={lang}
@@ -210,7 +213,7 @@ const RewardsButton = ({
             : "Vous n'avez rien à récupérer"
         }
       />
-      <Fail
+      <FailNotification
         show={errorMessage}
         lang={lang}
         onClose={() => setErrorMessage(false)}
@@ -221,7 +224,7 @@ const RewardsButton = ({
             : "Il y a eu une erreur en récupérant vos récompenses"
         }
       />
-      <Fail
+      <FailNotification
         show={noAddressMessage}
         onClose={() => setNoAddressMessage(false)}
         lang={lang}
@@ -232,7 +235,7 @@ const RewardsButton = ({
             : "Vous n'avez pas connecté votre portefeuille"
         }
       />
-      <Fail
+      <FailNotification
         show={chainError && Boolean(address)}
         onClose={() => {
           switchChain({ chainId: chain.id });

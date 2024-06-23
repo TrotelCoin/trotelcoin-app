@@ -43,7 +43,7 @@ const From = ({
 
   const setMax = () => {
     if (fromBalance && fromToken) {
-      const max = fromBalance * 0.999999;
+      const max = fromBalance;
 
       setFromAmount(Number(max));
     }
@@ -51,7 +51,7 @@ const From = ({
 
   useEffect(() => {
     if (fromBalance && fromToken) {
-      const max = fromBalance * 0.999999;
+      const max = fromBalance;
 
       if (fromAmount === max) {
         setIsMax(true);

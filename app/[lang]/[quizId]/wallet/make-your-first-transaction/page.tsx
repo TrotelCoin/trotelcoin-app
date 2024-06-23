@@ -10,8 +10,8 @@ import {
   useTransactionConfirmations
 } from "wagmi";
 import { Hash, parseEther } from "viem";
-import Success from "@/app/[lang]/components/modals/success";
-import Fail from "@/app/[lang]/components/modals/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
 import Link from "next/link";
@@ -151,19 +151,19 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </>
             )}
 
-            <Success
+            <SuccessNotification
               title="Success"
               message="The transaction has been done. Congrats!"
               lang={lang}
               onClose={() => setSuccessMessage(false)}
-              show={successMessage}
+              display={successMessage}
             />
-            <Fail
+            <FailNotification
               title="Error"
               message="An error occured"
               lang={lang}
               onClose={() => setErrorMessage(false)}
-              show={errorMessage}
+              display={errorMessage}
             />
           </>
         )
@@ -241,19 +241,19 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
               </>
             )}
 
-            <Success
+            <SuccessNotification
               title="Succès"
               message="La transaction a été effectuée. Félicitations!"
               lang={lang}
               onClose={() => setSuccessMessage(false)}
-              show={successMessage}
+              display={successMessage}
             />
-            <Fail
+            <FailNotification
               title="Erreur"
               message="Une erreur est survenue"
               lang={lang}
               onClose={() => setErrorMessage(false)}
-              show={errorMessage}
+              display={errorMessage}
             />
           </>
         )

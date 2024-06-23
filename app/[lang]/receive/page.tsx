@@ -5,7 +5,7 @@ import { useAccount } from "wagmi";
 import QRCode from "react-qr-code";
 import { Lang } from "@/types/language/lang";
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import shortenAddress from "@/utils/addresses/shortenAddress";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
@@ -94,8 +94,8 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
         </div>
       </div>
 
-      <Success
-        show={addressCopied}
+      <SuccessNotification
+        display={addressCopied}
         onClose={() => setAddressCopied(false)}
         title={lang === "en" ? "Address copied" : "Adresse copiée"}
         lang={lang}

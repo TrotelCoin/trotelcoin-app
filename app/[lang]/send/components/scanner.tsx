@@ -5,8 +5,8 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Lang } from "@/types/language/lang";
 import ModalContainer from "@/app/[lang]/components/modals/container";
 import { Dialog } from "@headlessui/react";
-import Success from "@/app/[lang]/components/modals/success";
-import Fail from "@/app/[lang]/components/modals/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 
 const ScannerComponent = ({
   lang,
@@ -63,7 +63,7 @@ const ScannerComponent = ({
         </Dialog.Panel>
       </ModalContainer>
 
-      <Success
+      <SuccessNotification
         show={scannedMessage}
         lang={lang}
         onClose={() => setScannedMessage(false)}
@@ -74,7 +74,7 @@ const ScannerComponent = ({
             : "Vous avez scanné l'addresse"
         }
       />
-      <Fail
+      <FailNotification
         show={errorMessage}
         lang={lang}
         onClose={() => setErrorMessage(false)}

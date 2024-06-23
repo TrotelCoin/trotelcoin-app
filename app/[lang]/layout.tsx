@@ -154,7 +154,7 @@ export default function Layout({
                               <LifeProvider lang={lang}>
                                 <StreakProvider lang={lang}>
                                   <LanguageProvider>
-                                    <NotificationProvider lang={lang}>
+                                    <NotificationProvider>
                                       <Suspense
                                         fallback={<Loading lang={lang} />}
                                       >

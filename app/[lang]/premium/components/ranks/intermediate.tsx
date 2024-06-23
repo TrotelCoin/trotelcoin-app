@@ -12,8 +12,8 @@ import {
   useTransactionConfirmations
 } from "wagmi";
 import "animate.css";
-import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
@@ -290,7 +290,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     isLoading={isPending}
                     onClick={async () => {
                       await writeContractAsync({
-                        address: contracts[chain.id].trotelCoinIntermediateAddress,
+                        address:
+                          contracts[chain.id].trotelCoinIntermediateAddress,
                         abi: trotelCoinIntermediateABI,
                         functionName: "mint",
                         chainId: chain.id,
@@ -311,8 +312,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         </div>
       </Tilt>
       {lang === "fr" ? (
-        <Fail
-          show={isEligibleMessage}
+        <FailNotification
+          display={isEligibleMessage}
           title="Vous n'êtes pas éligible"
           message={`Vous avez besoin de ${
             holdingRequirement
@@ -325,8 +326,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       ) : (
-        <Fail
-          show={isEligibleMessage}
+        <FailNotification
+          display={isEligibleMessage}
           title="You're not eligible"
           message={`You need ${
             holdingRequirement
@@ -339,8 +340,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
           lang={lang}
         />
       )}
-      <Fail
-        show={isNotConnectedMessage}
+      <FailNotification
+        display={isNotConnectedMessage}
         onClose={() => setIsNotConnectedMessage(false)}
         title={lang === "en" ? "Not connected" : "Non connecté"}
         message={
@@ -348,15 +349,15 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         }
         lang={lang}
       />
-      <Fail
-        show={errorMessage}
+      <FailNotification
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "An error occured" : "Une erreur a survenue"}
       />
-      <Success
-        show={isEligibleMessageSuccess}
+      <SuccessNotification
+        display={isEligibleMessageSuccess}
         title={lang === "en" ? "Eligible" : "Éligible"}
         message={
           lang === "en"
@@ -366,8 +367,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         onClose={() => setIsEligibleMessageSuccess(false)}
         lang={lang}
       />
-      <Success
-        show={isClaimedMessage}
+      <SuccessNotification
+        display={isClaimedMessage}
         onClose={() => setIsClaimedMessage(false)}
         title={lang === "en" ? "Intermediate" : "Intermédiaire"}
         message={
@@ -377,8 +378,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
         }
         lang={lang}
       />
-      <Success
-        show={approvedMessage}
+      <SuccessNotification
+        display={approvedMessage}
         onClose={() => setApprovedMessage(false)}
         title={lang === "en" ? "Approved" : "Approuvé"}
         message={

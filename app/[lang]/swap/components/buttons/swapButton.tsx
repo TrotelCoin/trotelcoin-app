@@ -70,7 +70,7 @@ const SwapButton = ({
                 args: [
                   allowanceTarget,
                   parseUnits(
-                    String(fromAmount + 1 * 10 ** fromToken.decimals),
+                    Number(fromAmount).toFixed(fromToken.decimals),
                     fromToken.decimals
                   )
                 ]

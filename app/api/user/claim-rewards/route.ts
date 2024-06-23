@@ -58,7 +58,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       abi: trotelCoinABI,
       functionName: "mint",
       account: account,
-      args: [userAddress, parseEther(String(amount))]
+      args: [userAddress, parseEther(Number(amount).toFixed(18))]
     });
 
     // make transaction

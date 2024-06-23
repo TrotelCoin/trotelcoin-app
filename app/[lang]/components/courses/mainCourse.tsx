@@ -7,7 +7,7 @@ import CourseTitle from "@/app/[lang]/components/courses/courseTitle";
 import Disclaimer from "@/app/[lang]/components/courses/disclaimer";
 import { ShareIcon } from "@heroicons/react/20/solid";
 import CountUp from "react-countup";
-import Success from "@/app/[lang]/components/modals/success";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import SeparatorVertical from "@/app/[lang]/components/separator/vertical";
 import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
@@ -103,7 +103,7 @@ const CourseContent = ({
         />
       </div>
 
-      <Success
+      <SuccessNotification
         show={copied}
         onClose={() => setCopied(false)}
         lang={lang}

@@ -11,7 +11,7 @@ import {
 } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { parseEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
@@ -73,9 +73,9 @@ const ApproveButton = ({
     let approveAmount;
 
     if (isMax && balance) {
-      approveAmount = parseEther(balance?.formatted);
+      approveAmount = parseEther(formatEther(balance?.value).toFixed(18));
     } else {
-      approveAmount = parseEther(String(amount));
+      approveAmount = parseEther(Number(amount).toFixed(18));
     }
 
     await writeContractAsync({
@@ -109,7 +109,7 @@ const ApproveButton = ({
         isLoading={isLoading}
       />
 
-      <Fail
+      <FailNotification
         show={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
@@ -118,7 +118,7 @@ const ApproveButton = ({
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
         }
       />
-      <Fail
+      <FailNotification
         show={chainError && Boolean(address)}
         onClose={() => {
           switchChain({ chainId: chain.id });

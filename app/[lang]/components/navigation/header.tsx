@@ -23,6 +23,9 @@ import StreakContext from "@/contexts/streak";
 import LifeContext from "@/contexts/life";
 import PremiumContext from "@/contexts/premium";
 import { loadingFlashClass } from "@/style/loading";
+import ChainContext from "@/contexts/chain";
+import { Switch } from "@nextui-org/switch";
+import { polygonAmoy } from "viem/chains";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -34,6 +37,7 @@ const Header = ({ lang }: { lang: Lang }) => {
   const { userTotalRewardsPending, userNumberOfQuizzesAnswered, isLoggedIn } =
     useContext(UserContext);
   const { isPremium } = useContext(PremiumContext);
+  const { chain, handleTestnet, showTestnet } = useContext(ChainContext);
 
   const navigation = [
     {
@@ -212,6 +216,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                               {lang === "en" ? "Menu" : "Menu"}
                             </Dialog.Title>
                           </div>
+
                           <div className="flex flex-1 items-center justify-end gap-2">
                             <div className="flex items-center gap-2 lg:hidden">
                               <AudioSelector />
@@ -223,6 +228,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                             </BlueSimpleButton>
                           </div>
                         </div>
+
                         <div className="mt-10 flex flex-col gap-4">
                           <AccountMobile
                             lang={lang}
@@ -239,6 +245,19 @@ const Header = ({ lang }: { lang: Lang }) => {
                             setMobileMenuOpen={setMobileMenuOpen}
                           />
                         </div>
+
+                        {showTestnet && (
+                          <div className="mt-4">
+                            <Switch
+                              isSelected={chain.id === polygonAmoy.id}
+                              onChange={handleTestnet}
+                              color="success"
+                              size="sm"
+                            >
+                              Testnet
+                            </Switch>
+                          </div>
+                        )}
                       </div>
                     </Dialog.Panel>
                   </Transition.Child>

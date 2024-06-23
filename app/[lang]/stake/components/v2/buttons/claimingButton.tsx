@@ -14,8 +14,8 @@ import {
 import { Address, Hash } from "viem";
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
-import Success from "@/app/[lang]/components/modals/success";
-import Fail from "@/app/[lang]/components/modals/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
@@ -173,7 +173,7 @@ const ClaimingButton = ({
         text={lang === "en" ? "Claim" : "Réclamer"}
       />
 
-      <Success
+      <SuccessNotification
         show={claimMessage}
         lang={lang}
         onClose={() => setClaimMessage(false)}
@@ -184,14 +184,14 @@ const ClaimingButton = ({
             : "Vous avez réclamé vos récompenses"
         }
       />
-      <Fail
+      <FailNotification
         show={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "There was an error" : "Il y a eu une erreur"}
       />
-      <Fail
+      <FailNotification
         show={chainError && Boolean(address)}
         onClose={() => {
           switchChain({ chainId: chain.id });

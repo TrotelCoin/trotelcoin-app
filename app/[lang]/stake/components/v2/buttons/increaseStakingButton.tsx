@@ -13,8 +13,8 @@ import {
 } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
-import Success from "@/app/[lang]/components/modals/success";
-import Fail from "@/app/[lang]/components/modals/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address, Hash, parseEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
@@ -135,7 +135,7 @@ const IncreaseStakingButton = ({
       return;
     }
 
-    const stakingAmount = parseEther(amount.toString());
+    const stakingAmount = parseEther(amount.toFixed(18));
 
     await writeContractAsync({
       address: contracts[chain.id].trotelCoinStakingV2,
@@ -163,7 +163,7 @@ const IncreaseStakingButton = ({
         text={lang === "en" ? "Increase staking" : "Augmentez votre mise"}
         isLoading={isLoading}
       />
-      <Success
+      <SuccessNotification
         show={stakeMessage}
         lang={lang}
         onClose={() => setStakeMessage(false)}
@@ -174,7 +174,7 @@ const IncreaseStakingButton = ({
             : "Vous avez augmentez vos TrotelCoins staké"
         }
       />
-      <Fail
+      <FailNotification
         show={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
@@ -185,7 +185,7 @@ const IncreaseStakingButton = ({
             : "Votre transaction a échoué, assurez-vous d'avoir approuvé d'abord"
         }
       />
-      <Fail
+      <FailNotification
         show={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {

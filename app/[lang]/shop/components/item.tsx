@@ -19,8 +19,8 @@ import { contracts } from "@/data/web3/addresses";
 import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
 import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
-import Fail from "@/app/[lang]/components/modals/fail";
-import Success from "@/app/[lang]/components/modals/success";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import { Skeleton } from "@radix-ui/themes";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
@@ -308,7 +308,9 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     text={lang === "en" ? "Approve" : "Approuver"}
                     onClick={() => {
                       const amount = parseEther(
-                        String(shopItem.price * (shopItem.quantity ?? 1))
+                        Number(
+                          shopItem.price * (shopItem.quantity ?? 1)
+                        ).toFixed(18)
                       );
                       approve({
                         address: contracts[chain.id].trotelCoinAddress,
@@ -345,7 +347,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         </Popover.Root>
       </Tilt>
 
-      <Success
+      <SuccessNotification
         lang={lang}
         title={lang === "en" ? "Approved" : "Approuvé"}
         message={
@@ -353,21 +355,21 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
             ? "You approved the transaction"
             : "Vous avez approuvé la transaction"
         }
-        show={approveMessage}
+        display={approveMessage}
         onClose={() => setApproveMessage(false)}
       />
-      <Fail
+      <FailNotification
         lang={lang}
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
         }
       />
-      <Success
+      <SuccessNotification
         lang={lang}
-        show={buyMessage}
+        display={buyMessage}
         onClose={() => setBuyMessage(false)}
         title={lang === "en" ? "Success" : "Succès"}
         message={

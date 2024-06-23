@@ -14,7 +14,7 @@ import QuizData from "@/app/[lang]/submit-a-course/components/quizData";
 import type { CourseJSON, SubmitCourseData } from "@/types/courses/courses";
 import PreviewCourseData from "@/app/[lang]/submit-a-course/components/preview";
 import { loadingFlashClass } from "@/style/loading";
-import Fail from "@/app/[lang]/components/modals/fail";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 
 const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const storedTitle: string = localStorage.getItem(
@@ -492,7 +492,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         )}
       </div>
 
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
@@ -503,7 +503,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         onClose={() => setJsonError(false)}
         show={jsonError}
       />
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
@@ -514,7 +514,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         onClose={() => setUploadError(false)}
         show={uploadError}
       />
-      <Fail
+      <FailNotification
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
