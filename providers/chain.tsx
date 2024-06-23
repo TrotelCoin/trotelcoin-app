@@ -3,7 +3,7 @@
 import ChainContext from "@/contexts/chain";
 import { Switch } from "@nextui-org/switch";
 import React, { useEffect, useMemo, useState } from "react";
-import { Address, Chain, isAddressEqual } from "viem";
+import { Chain, isAddressEqual } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
@@ -41,21 +41,22 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
       <ChainContext.Provider value={contextValue}>
         {children}
 
-        {isAddressEqual(
-          address as Address,
-          contracts[polygonAmoy.id].trotelCoinDAOAddress
-        ) && (
-          <div className="fixed bottom-0 left-0 p-4">
-            <Switch
-              isSelected={chain.id === polygonAmoy.id}
-              onChange={handleTestnet}
-              color="success"
-              size="sm"
-            >
-              Testnet
-            </Switch>
-          </div>
-        )}
+        {address &&
+          isAddressEqual(
+            address,
+            contracts[polygonAmoy.id].trotelCoinDAOAddress
+          ) && (
+            <div className="fixed bottom-0 left-0 p-4">
+              <Switch
+                isSelected={chain.id === polygonAmoy.id}
+                onChange={handleTestnet}
+                color="success"
+                size="sm"
+              >
+                Testnet
+              </Switch>
+            </div>
+          )}
       </ChainContext.Provider>
     </>
   );
