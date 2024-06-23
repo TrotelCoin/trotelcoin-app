@@ -65,19 +65,17 @@ const UserInformationMobile = ({
           </div>
           <div className="flex items-center gap-1">
             <span>
-              {showTrotelInUsdc && "$"}
-
-              {userTotalRewardsPending &&
-                !showTrotelInUsdc &&
-                roundPrice(Number(userTotalRewardsPending)).toLocaleString(
-                  "en-US"
-                )}
-
-              {showTrotelInUsdc &&
-                userTotalRewardsPending &&
-                roundPrice(
-                  userTotalRewardsPending * (trotelPrice as number)
-                ).toLocaleString("en-US")}
+              {showTrotelInUsdc ? (
+                <>
+                  $
+                  {roundPrice(
+                    (userTotalRewardsPending as number) *
+                      (trotelPrice as number)
+                  )}
+                </>
+              ) : (
+                <>{roundPrice(userTotalRewardsPending as number)}</>
+              )}
             </span>
             <TrotelCoinLogo />
           </div>
