@@ -8,14 +8,14 @@ import {
   useBlockNumber,
   useBlock
 } from "wagmi";
-import React, { useEffect, useState } from "react";
-import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
+import React, { useContext, useEffect, useState } from "react";
+import { contracts } from "@/data/web3/addresses";
 import { Address, formatEther } from "viem";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
-import { polygon } from "viem/chains";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
 import { roundPrice } from "@/utils/price/roundPrice";
+import ChainContext from "@/contexts/chain";
 
 const stakingClass =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -43,15 +43,16 @@ const StakingData = ({
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [isStaking, setIsStaking] = useState<boolean | null>(null);
   const [timestamp, setTimestamp] = useState<number | null>(null);
-  const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
   const { data: block } = useBlock({
-    chainId: polygon.id,
+    chainId: chain.id,
     blockNumber: blockNumber
   });
 
@@ -60,8 +61,8 @@ const StakingData = ({
     refetch: refetchBalance,
     isLoading: isLoadingBalance
   } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
     address: address as Address
   });
 
@@ -81,9 +82,9 @@ const StakingData = ({
     refetch: refetchStakings,
     isLoading: isLoadingStakingData
   } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address as Address]
   });
@@ -93,9 +94,9 @@ const StakingData = ({
     refetch: refetchEarnedTrotelCoins,
     isLoading: isLoadingEarnedData
   } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "getUserReward",
     args: [address as Address]
   });
@@ -116,12 +117,11 @@ const StakingData = ({
   }, [blockNumber, refetchBalance, refetchStakings, refetchEarnedTrotelCoins]);
 
   useEffect(() => {
-    if (block && !blockFetched) {
+    if (block) {
       const timestamp = Number(block.timestamp);
       setTimestamp(timestamp);
-      setBlockFetched(true);
     }
-  }, [block, blockFetched]);
+  }, [block]);
 
   useEffect(() => {
     if (getStakingDataNoTyped && address && timestamp) {
@@ -130,14 +130,14 @@ const StakingData = ({
       const startTime = Number(getStakingData[1]);
       const duration = Number(getStakingData[2]);
       const timeLeft = startTime + duration - timestamp;
-      const isStaking = stakedTrotelCoins > 0 && timeLeft > 0;
+      const isStaking = stakedTrotelCoins > 0;
 
       setStakedTrotelCoins(stakedTrotelCoins);
-      setTimeLeft(Math.max(0, timeLeft));
+      setTimeLeft(timeLeft);
       setIsStaking(isStaking);
 
       const interval = setInterval(() => {
-        setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
+        setTimeLeft((prev) => (prev as number) - 1);
       }, 1000);
 
       return () => clearInterval(interval);
@@ -210,7 +210,7 @@ const StakingData = ({
         <span>{lang === "en" ? "Time left" : "Temps restant"}</span>
         <div>
           <Skeleton loading={isLoadingStakingData}>
-            {displayValue(Math.floor((timeLeft as number) / 60))}{" "}
+            {displayValue(Math.floor(Math.max(0, timeLeft as number) / 60))}{" "}
             <span className="text-xs">{lang === "en" ? "mins" : "mins"}</span>
           </Skeleton>
         </div>
@@ -220,11 +220,14 @@ const StakingData = ({
         <div>
           <Skeleton loading={isLoadingStakingData}>
             <span className={`${isStaking ? stakingClass : notStakingClass}`}>
-              {isStaking
+              {isStaking && !!timeLeft && timeLeft > 0
                 ? lang === "en"
                   ? "Staking"
                   : "Misé"
-                : stakedTrotelCoins && stakedTrotelCoins > 0
+                : !!stakedTrotelCoins &&
+                    stakedTrotelCoins > 0 &&
+                    !!timeLeft &&
+                    timeLeft <= 0
                   ? lang === "en"
                     ? "Claimable"
                     : "Réclamable"

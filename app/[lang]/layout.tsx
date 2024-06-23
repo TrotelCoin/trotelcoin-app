@@ -40,6 +40,7 @@ import { headers } from "next/headers";
 import Waitlist from "@/app/[lang]/components/waitlist/waitlist";
 import { refreshIntervalTime } from "@/utils/axios/fetcher";
 import TrotelPriceProvider from "@/providers/trotelPrice";
+import ChainProvider from "@/providers/chain";
 
 export const metadata: Metadata = {
   title: "TrotelCoin App",
@@ -146,39 +147,41 @@ export default function Layout({
                 <AudioProvider>
                   <Web3ModalProvider initialState={initialState}>
                     <SessionProviderComponent session={session}>
-                      <TrotelPriceProvider>
-                        <PremiumProvider>
-                          <UserProvider lang={lang}>
-                            <LifeProvider lang={lang}>
-                              <StreakProvider lang={lang}>
-                                <LanguageProvider>
-                                  <NotificationProvider lang={lang}>
-                                    <Suspense
-                                      fallback={<Loading lang={lang} />}
-                                    >
-                                      <Waitlist lang={lang}>
-                                        <Banner lang={lang} />
-                                        <div className="hidden">
-                                          <Changelogs lang={lang} />
-                                        </div>
-                                        <Header lang={lang} />
+                      <ChainProvider>
+                        <TrotelPriceProvider>
+                          <PremiumProvider>
+                            <UserProvider lang={lang}>
+                              <LifeProvider lang={lang}>
+                                <StreakProvider lang={lang}>
+                                  <LanguageProvider>
+                                    <NotificationProvider lang={lang}>
+                                      <Suspense
+                                        fallback={<Loading lang={lang} />}
+                                      >
+                                        <Waitlist lang={lang}>
+                                          <Banner lang={lang} />
+                                          <div className="hidden">
+                                            <Changelogs lang={lang} />
+                                          </div>
+                                          <Header lang={lang} />
 
-                                        <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">
-                                          {children}
-                                        </main>
+                                          <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">
+                                            {children}
+                                          </main>
 
-                                        <Footer lang={lang} />
-                                        <MobileFooter lang={lang} />
-                                        <BlockNumber lang={lang} />
-                                      </Waitlist>
-                                    </Suspense>
-                                  </NotificationProvider>
-                                </LanguageProvider>
-                              </StreakProvider>
-                            </LifeProvider>
-                          </UserProvider>
-                        </PremiumProvider>
-                      </TrotelPriceProvider>
+                                          <Footer lang={lang} />
+                                          <MobileFooter lang={lang} />
+                                          <BlockNumber lang={lang} />
+                                        </Waitlist>
+                                      </Suspense>
+                                    </NotificationProvider>
+                                  </LanguageProvider>
+                                </StreakProvider>
+                              </LifeProvider>
+                            </UserProvider>
+                          </PremiumProvider>
+                        </TrotelPriceProvider>
+                      </ChainProvider>
                     </SessionProviderComponent>
                   </Web3ModalProvider>
                 </AudioProvider>

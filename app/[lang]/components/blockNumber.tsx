@@ -1,15 +1,17 @@
 "use client";
 
-import React from "react";
-import { polygon } from "viem/chains";
+import React, { useContext } from "react";
 import { useBlockNumber } from "wagmi";
 import { loadingFlashClass } from "@/style/loading";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Lang } from "@/types/language/lang";
+import ChainContext from "@/contexts/chain";
 
 const BlockNumber = ({ lang }: { lang: Lang }) => {
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
-    chainId: polygon.id,
+    chainId: chain.id,
     watch: true
   });
 
@@ -32,8 +34,8 @@ const BlockNumber = ({ lang }: { lang: Lang }) => {
               <Tooltip.Content sideOffset={5} side="left" align="center">
                 <div className="rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                   {lang === "en"
-                    ? "Current block number on Polygon"
-                    : "Numéro de bloc actuel sur Polygon"}
+                    ? `Current block number on ${chain.name}`
+                    : `Numéro de bloc actuel sur ${chain.name}`}
                 </div>
                 <Tooltip.Arrow className="fill-blue-500" />
               </Tooltip.Content>

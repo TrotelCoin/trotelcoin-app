@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import type { Lang } from "@/types/language/lang";
 import RewardsButton from "@/app/[lang]/claim/components/buttons/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/claim/components/availableToClaim";
@@ -13,9 +13,9 @@ import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
-import { polygon } from "viem/chains";
 import UsdcBalance from "@/app/[lang]/claim/components/usdcBalance";
 import { Skeleton } from "@radix-ui/themes";
+import ChainContext from "@/contexts/chain";
 
 const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
@@ -25,6 +25,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [chainError, setChainError] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
 
   const chainId = useChainId();
 
@@ -47,10 +48,10 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [userTotalRewardsPendingData]);
 
   useEffect(() => {
-    if (chainId !== polygon.id) {
+    if (chainId !== chain.id) {
       setChainError(true);
     }
-  }, [chainId]);
+  }, [chainId, chain]);
 
   const {
     data: centralWalletAddressData,

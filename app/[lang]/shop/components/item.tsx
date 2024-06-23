@@ -15,16 +15,16 @@ import {
   useTransactionConfirmations,
   useWriteContract
 } from "wagmi";
-import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
-import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { formatEther, Hash, parseEther } from "viem";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
 import { Skeleton } from "@radix-ui/themes";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
+import ChainContext from "@/contexts/chain";
 
 const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
@@ -46,13 +46,14 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const { switchChainAsync } = useSwitchChain();
 
   const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
+  const { chain } = useContext(ChainContext);
 
   useEffect(() => {
-    if (chainId !== polygon.id) {
+    if (chainId !== chain.id) {
       setDisabled(true);
       const switchChain = async () => {
         await switchChainAsync({
-          chainId: polygon.id
+          chainId: chain.id
         });
       };
 
@@ -60,20 +61,20 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     } else {
       setDisabled(false);
     }
-  }, [chainId, switchChainAsync]);
+  }, [chainId, switchChainAsync, chain]);
 
   const { data: blockNumber } = useBlockNumber({
-    chainId: polygon.id,
+    chainId: chain.id,
     watch: true
   });
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
-    address: trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinAddress,
     abi: trotelCoinABI,
     functionName: "allowance",
-    chainId: polygon.id,
+    chainId: chain.id,
     account: address,
-    args: [address, trotelCoinShop]
+    args: [address, contracts[chain.id].trotelCoinShop]
   });
 
   useEffect(() => {
@@ -116,7 +117,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
 
   const { data: approveConfirmation, refetch: refetchApprovedConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: approveHash as Hash
     });
 
@@ -158,7 +159,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
 
   const { data: purchaseConfirmation, refetch: refetchPurchaseConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: purchaseHash as Hash
     });
 
@@ -311,11 +312,11 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     onClick={() => {
                       const amount = parseEther(String(shopItem.price));
                       approve({
-                        address: trotelCoinAddress,
+                        address: contracts[chain.id].trotelCoinAddress,
                         abi: trotelCoinABI,
                         functionName: "approve",
-                        chainId: polygon.id,
-                        args: [trotelCoinShop, amount]
+                        chainId: chain.id,
+                        args: [contracts[chain.id].trotelCoinShop, amount]
                       });
                     }}
                     isLoading={isLoading || approved}
@@ -327,10 +328,10 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     text={lang === "en" ? `Buy` : `Acheter`}
                     onClick={() => {
                       buyItem({
-                        address: trotelCoinShop,
+                        address: contracts[chain.id].trotelCoinShop,
                         abi: trotelCoinShopABI,
                         functionName: "buyItem",
-                        chainId: polygon.id,
+                        chainId: chain.id,
                         args: [shopItem.id, shopItem.quantity],
                         account: address
                       });

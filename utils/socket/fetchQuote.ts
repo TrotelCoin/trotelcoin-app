@@ -5,7 +5,7 @@ import { getQuote } from "@/utils/socket/getQuote";
 import { getRouteTransactionData } from "@/utils/socket/getRouteTransactionData";
 import { nativeAddress } from "@/data/web3/tokens";
 import { Chain } from "@/types/web3/chain";
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 
 export const fetchQuote = async (
   fromAmount: number,
@@ -99,7 +99,9 @@ export const fetchQuote = async (
     fromAmount &&
     fromToken &&
     fromToken.address &&
-    getAddress(fromToken.address) === getAddress(trotelCoinAddress)
+    contracts[fromChain.chainId].trotelCoinAddress &&
+    getAddress(fromToken.address) ===
+      getAddress(contracts[fromChain.chainId].trotelCoinAddress)
   ) {
     setFromPrice(trotelPrice * fromAmount * 1e-18);
   }
@@ -108,7 +110,9 @@ export const fetchQuote = async (
     toAmount &&
     toToken &&
     toToken.address &&
-    getAddress(toToken.address) === getAddress(trotelCoinAddress)
+    contracts[toChain.chainId].trotelCoinAddress &&
+    getAddress(toToken.address) ===
+      getAddress(contracts[toChain.chainId].trotelCoinAddress)
   ) {
     setToPrice(trotelPrice * toAmount * 1e-18);
   }

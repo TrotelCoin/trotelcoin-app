@@ -1,7 +1,7 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useWriteContract,
@@ -11,14 +11,14 @@ import {
   useBlock,
   useReadContract
 } from "wagmi";
-import { trotelCoinStakingV2 } from "@/data/web3/addresses";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, Hash, parseEther } from "viem";
 import "animate.css";
-import { polygon } from "wagmi/chains";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
+import ChainContext from "@/contexts/chain";
 
 const IncreaseStakingButton = ({
   lang,
@@ -41,18 +41,20 @@ const IncreaseStakingButton = ({
   const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({ watch: true });
   const { switchChain } = useSwitchChain();
   const { data: block } = useBlock({
-    chainId: polygon.id,
+    chainId: chain.id,
     blockNumber: blockNumber
   });
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: trotelCoinStakingV2,
+      address: contracts[chain.id].trotelCoinStakingV2,
       abi: trotelCoinStakingV2ABI,
-      chainId: polygon.id,
+      chainId: chain.id,
       functionName: "stakings",
       args: [address as Address]
     });
@@ -106,7 +108,7 @@ const IncreaseStakingButton = ({
   const { data: stakeConfirmation, refetch: refetchStakeConfirmation } =
     useTransactionConfirmations({
       hash: stakeHash as Hash,
-      chainId: polygon.id
+      chainId: chain.id
     });
 
   useEffect(() => {
@@ -136,9 +138,9 @@ const IncreaseStakingButton = ({
     const stakingAmount = parseEther(amount.toString());
 
     await writeContractAsync({
-      address: trotelCoinStakingV2,
+      address: contracts[chain.id].trotelCoinStakingV2,
       functionName: "increaseStaking",
-      chainId: polygon.id,
+      chainId: chain.id,
       abi: trotelCoinStakingV2ABI,
       args: [stakingAmount]
     });
@@ -187,7 +189,7 @@ const IncreaseStakingButton = ({
         show={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain({ chainId: polygon.id });
+          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

@@ -88,7 +88,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
                     <span>
                       <CountUp
                         start={0}
-                        end={Math.min(
+                        end={Math.max(
                           0,
                           ((quizzesRequired - quizzesRemaining) /
                             quizzesRequired) *
@@ -114,7 +114,7 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
                 <Skeleton loading={!quizzesRemaining || !quizzesRequired}>
                   <CountUp
                     start={0}
-                    end={Math.min(
+                    end={Math.max(
                       0,
                       ((quizzesRequired - quizzesRemaining) / quizzesRequired) *
                         100

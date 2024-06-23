@@ -1,5 +1,5 @@
 import { createPublicClient, http, createWalletClient } from "viem";
-import { mainnet, polygon, polygonMumbai } from "viem/chains";
+import { mainnet, polygon, polygonAmoy } from "viem/chains";
 
 export const publicClient = createPublicClient({
   chain: polygon,
@@ -11,7 +11,7 @@ export const publicClient = createPublicClient({
 });
 
 export const testPublicClient = createPublicClient({
-  chain: polygonMumbai,
+  chain: polygonAmoy,
   transport: http("", {
     batch: {
       wait: 16
@@ -29,7 +29,7 @@ export const walletClient = createWalletClient({
 });
 
 export const testWalletClient = createWalletClient({
-  chain: polygonMumbai,
+  chain: polygonAmoy,
   transport: http("", {
     batch: {
       wait: 16

@@ -1,20 +1,22 @@
 "use client";
 
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
-import React, { useEffect, useState } from "react";
-import { polygon } from "viem/chains";
+import React, { useContext, useEffect, useState } from "react";
 import { Address } from "viem";
 import { Skeleton } from "@radix-ui/themes";
+import ChainContext from "@/contexts/chain";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const [balance, setBalance] = useState<number | null>(null);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const {
@@ -22,8 +24,8 @@ const Balance = ({ lang }: { lang: Lang }) => {
     refetch: refetchBalance,
     isLoading: isLoadingBalance
   } = useBalance({
-    token: trotelCoinAddress,
-    chainId: polygon.id,
+    token: contracts[chain.id].trotelCoinAddress,
+    chainId: chain.id,
     address: address as Address
   });
 

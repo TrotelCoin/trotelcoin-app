@@ -1,27 +1,28 @@
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useContext } from "react";
 import { Address } from "viem";
-import { polygon } from "viem/chains";
 import CountUp from "react-countup";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
+import ChainContext from "@/contexts/chain";
 
 const Balance = ({ lang }: { lang: Lang }) => {
   const { address } = useAccount();
 
   const { showTrotelInUsdc, storedTrotelPrice } =
     useContext(TrotelPriceContext);
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: balance, refetch } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
     address: address as Address
   });
 

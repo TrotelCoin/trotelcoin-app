@@ -2,12 +2,12 @@
 
 import type { Lang } from "@/types/language/lang";
 import { useBalance, useBlockNumber } from "wagmi";
-import React, { useEffect, useState } from "react";
-import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
+import React, { useContext, useEffect, useState } from "react";
+import { contracts } from "@/data/web3/addresses";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
+import ChainContext from "@/contexts/chain";
 
 const TotalStaked = ({
   lang,
@@ -18,15 +18,21 @@ const TotalStaked = ({
 }) => {
   const [totalStaked, setTotalStaked] = useState<number | null>(null);
 
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
-  const { data: balance, refetch } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
-    address: trotelCoinStakingV2
+  const {
+    data: balance,
+    refetch,
+    isLoading: isLoadingTotalStaked
+  } = useBalance({
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinStakingV2
   });
 
   useEffect(() => {
@@ -46,7 +52,7 @@ const TotalStaked = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "Total locked" : "Total verrouillé"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!totalStaked}>
+            <Skeleton loading={isLoadingTotalStaked}>
               <CountUp start={0} end={totalStaked as number} />
               <TrotelCoinLogo />
             </Skeleton>
@@ -56,7 +62,7 @@ const TotalStaked = ({
         <div className="flex justify-between">
           <span>{lang === "en" ? "TVL" : "TVL"}</span>
           <div className="flex items-center gap-1">
-            <Skeleton loading={!storedTrotelPrice || !totalStaked}>
+            <Skeleton loading={!storedTrotelPrice || isLoadingTotalStaked}>
               {storedTrotelPrice && totalStaked ? (
                 <CountUp
                   start={0}

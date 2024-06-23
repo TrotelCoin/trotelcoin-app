@@ -1,12 +1,12 @@
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StakingData from "@/app/[lang]/stake/components/v1/stakingData";
 import ClaimingButton from "@/app/[lang]/stake/components/v1/buttons/claimingButton";
 import TotalStaked from "@/app/[lang]/stake/components/v1/totalStaked";
-import { polygon } from "viem/chains";
 import { useAccount, useChainId } from "wagmi";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
+import ChainContext from "@/contexts/chain";
 
 const StakingV1 = ({
   lang,
@@ -23,14 +23,15 @@ const StakingV1 = ({
 
   const { address } = useAccount();
   const chainId = useChainId();
+  const { chain } = useContext(ChainContext);
 
   useEffect(() => {
-    if (chainId !== polygon.id) {
+    if (chainId !== chain.id) {
       setChainError(true);
     } else {
       setChainError(false);
     }
-  }, [chainId]);
+  }, [chainId, chain]);
 
   return (
     <>

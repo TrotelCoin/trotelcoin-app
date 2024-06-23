@@ -1,12 +1,12 @@
 "use client";
 
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React from "react";
 import { polygon } from "viem/chains";
 
 const token = {
-  address: trotelCoinAddress,
+  address: contracts[polygon.id].trotelCoinAddress,
   decimals: 18,
   name: "TrotelCoin",
   symbol: "TROTEL",

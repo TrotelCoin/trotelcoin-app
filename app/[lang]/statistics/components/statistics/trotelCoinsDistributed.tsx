@@ -1,16 +1,16 @@
 "use client";
 
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import CountUp from "react-countup";
-import { polygon } from "viem/chains";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { useToken } from "wagmi";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
 import TrotelPriceContext from "@/contexts/trotelPrice";
+import ChainContext from "@/contexts/chain";
 
 const stat: StatisticsType = "distributed_trotelcoins";
 
@@ -28,11 +28,11 @@ const TrotelCoinsDistributed = ({
 
   const { storedTrotelPrice, showTrotelInUsdc } =
     useContext(TrotelPriceContext);
+  const { chain } = useContext(ChainContext);
 
   const { data } = useToken({
-    chainId: polygon.id,
-
-    address: trotelCoinAddress
+    chainId: chain.id,
+    address: contracts[chain.id].trotelCoinAddress
   });
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinIntermediateABI from "@/abi/premium/trotelCoinIntermediate";
+import trotelCoinIntermediateABI from "@/abi/polygon/premium/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {
@@ -11,21 +11,18 @@ import {
   useBlockNumber,
   useTransactionConfirmations
 } from "wagmi";
-import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
-import {
-  trotelCoinAddress,
-  trotelCoinIntermediateAddress
-} from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import PremiumContext from "@/contexts/premium";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import ChainContext from "@/contexts/chain";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -45,18 +42,19 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { address } = useAccount();
   const { isIntermediate } = useContext(PremiumContext);
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinAddress,
     abi: trotelCoinABI,
     functionName: "allowance",
-    chainId: polygon.id,
-    args: [address, trotelCoinIntermediateAddress],
+    chainId: chain.id,
+    args: [address, contracts[chain.id].trotelCoinIntermediateAddress],
     account: address as Address
   });
 
@@ -79,7 +77,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
     useTransactionConfirmations({
       hash: approveHash as Hash,
-      chainId: polygon.id
+      chainId: chain.id
     });
 
   useEffect(() => {
@@ -96,16 +94,16 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
-    chainId: polygon.id,
-    token: trotelCoinAddress
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress
   });
 
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
-      address: trotelCoinIntermediateAddress,
+      address: contracts[chain.id].trotelCoinIntermediateAddress,
       abi: trotelCoinIntermediateABI,
       functionName: "holdingRequirement",
-      chainId: polygon.id,
+      chainId: chain.id,
       account: address as Address
     }
   );
@@ -127,7 +125,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: claimHash as Hash
     });
 
@@ -141,10 +139,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
-      address: trotelCoinIntermediateAddress,
+      address: contracts[chain.id].trotelCoinIntermediateAddress,
       abi: trotelCoinIntermediateABI,
       functionName: "balanceOf",
-      chainId: polygon.id,
+      chainId: chain.id,
       args: [address],
       account: address as Address
     });
@@ -271,12 +269,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     isLoading={isLoadingApproval || approved}
                     onClick={async () => {
                       await approvingAsync({
-                        address: trotelCoinAddress,
+                        address: contracts[chain.id].trotelCoinAddress,
                         abi: trotelCoinABI,
                         functionName: "approve",
-                        chainId: polygon.id,
+                        chainId: chain.id,
                         args: [
-                          trotelCoinIntermediateAddress,
+                          contracts[chain.id].trotelCoinIntermediateAddress,
                           holdingRequirement
                         ]
                       });
@@ -292,10 +290,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     isLoading={isPending}
                     onClick={async () => {
                       await writeContractAsync({
-                        address: trotelCoinIntermediateAddress,
+                        address: contracts[chain.id].trotelCoinIntermediateAddress,
                         abi: trotelCoinIntermediateABI,
                         functionName: "mint",
-                        chainId: polygon.id,
+                        chainId: chain.id,
                         args: [address]
                       });
                     }}

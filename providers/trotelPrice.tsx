@@ -1,16 +1,14 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { useReadContract, useBlockNumber } from "wagmi";
-import { polygon } from "viem/chains";
-import {
-  trotelCoinPolygonUniswapV3Pool,
-  usdcPolygonUniswapV3Pool
-} from "@/data/web3/addresses";
-import trotelCoinPolygonUniswapV3PoolABI from "@/abi/uniswap/trotelCoinPolygonUniswapV3Pool";
-import usdcPolygonUniswapV3PoolABI from "@/abi/uniswap/usdcPolygonUniswapV3Pool";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinPolygonUniswapV3PoolABI from "@/abi/polygon/uniswap/trotelCoinPolygonUniswapV3Pool";
+import usdcPolygonUniswapV3PoolABI from "@/abi/polygon/uniswap/usdcPolygonUniswapV3Pool";
 import { roundPrice } from "@/utils/price/roundPrice";
+import ChainContext from "@/contexts/chain";
+import { polygonAmoy } from "viem/chains";
 
 const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   const [trotelPrice, setTrotelPrice] = useState<number | null>(null);
@@ -22,6 +20,8 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   const [storedTrotelPrice, setStoredTrotelPrice] = useState<number | null>(
     null
   );
+
+  const { chain } = useContext(ChainContext);
 
   useEffect(() => {
     if (storedTrotelPrice && storedTrotelPrice > 0) {
@@ -38,23 +38,31 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [trotelPrice, storedTrotelPrice]);
 
+  useEffect(() => {
+    if (chain.id === polygonAmoy.id) {
+      setShowTrotelInUsdc(false);
+      setStoredTrotelPrice(1);
+      setTrotelPriceLoading(false);
+    }
+  }, [chain]);
+
   const { data: blockNumber } = useBlockNumber({
-    chainId: polygon.id,
+    chainId: chain.id,
     watch: true
   });
 
   const { data: trotelSlot0, refetch: refetchTrotelSlot0 } = useReadContract({
     abi: trotelCoinPolygonUniswapV3PoolABI,
-    address: trotelCoinPolygonUniswapV3Pool,
+    address: contracts[chain.id].trotelCoinPolygonUniswapV3Pool,
     functionName: "slot0",
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: usdcSlot0, refetch: refetchUsdcSlot0 } = useReadContract({
     abi: usdcPolygonUniswapV3PoolABI,
-    address: usdcPolygonUniswapV3Pool,
+    address: contracts[chain.id].usdcPolygonUniswapV3Pool,
     functionName: "slot0",
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   function returnPrice(

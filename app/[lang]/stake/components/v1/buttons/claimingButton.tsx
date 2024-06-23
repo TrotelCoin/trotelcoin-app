@@ -1,7 +1,7 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useWriteContract,
@@ -12,13 +12,13 @@ import {
   useTransactionConfirmations
 } from "wagmi";
 import { Address, Hash } from "viem";
-import { trotelCoinStakingV1 } from "@/data/web3/addresses";
-import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinStakingV1ABI from "@/abi/polygon/staking/trotelCoinStakingV1";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";
-import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
+import ChainContext from "@/contexts/chain";
 
 const ClaimingButton = ({
   lang,
@@ -36,19 +36,19 @@ const ClaimingButton = ({
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
-  const [timestamp, setTimestamp] = useState<number | null>(null);
-  const [blockFetched, setBlockFetched] = useState<boolean>(false);
   const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
   const { data: block } = useBlock({
-    chainId: polygon.id,
+    chainId: chain.id,
     blockNumber: blockNumber
   });
 
@@ -74,7 +74,7 @@ const ClaimingButton = ({
 
   const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: claimHash as Hash
     });
 
@@ -88,9 +88,9 @@ const ClaimingButton = ({
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: trotelCoinStakingV1,
+      address: contracts[chain.id].trotelCoinStakingV1,
       abi: trotelCoinStakingV1ABI,
-      chainId: polygon.id,
+      chainId: chain.id,
       functionName: "stakings",
       args: [address as Address]
     });
@@ -101,21 +101,19 @@ const ClaimingButton = ({
   }, [blockNumber, address, refetchStakings, refetchClaimConfirmation]);
 
   useEffect(() => {
-    if (block && !blockFetched) {
-      const timestamp = Number(block.timestamp);
-      setTimestamp(timestamp);
-      setBlockFetched(true);
-    }
-  }, [block, blockFetched]);
+    let timestamp;
 
-  useEffect(() => {
-    if (getStakingDataNoTyped && address) {
+    if (block) {
+      timestamp = Number(block.timestamp);
+    }
+
+    if (getStakingDataNoTyped && address && timestamp) {
       const getStakingData = getStakingDataNoTyped as any[];
       const stakedTrotelCoins = Number(getStakingData[0]);
       const startTime = Number(getStakingData[1]);
       const duration = Number(getStakingData[2]);
 
-      const timeLeft = startTime + duration - (timestamp as number);
+      const timeLeft = startTime + duration - timestamp;
 
       setStakedTrotelCoins(stakedTrotelCoins);
       setTimeLeft(Math.max(0, timeLeft));
@@ -124,12 +122,25 @@ const ClaimingButton = ({
         setTimeLeft((prev) => Math.max(0, prev ? prev - 1 : 0));
       }, 1000);
 
+      const enabled =
+        address &&
+        !!stakedTrotelCoins &&
+        stakedTrotelCoins > 0 &&
+        !!timeLeft &&
+        timeLeft <= 0;
+
+      if (enabled) {
+        setDisabled(false);
+      } else {
+        setDisabled(true);
+      }
+
       return () => clearInterval(interval);
     } else {
       setStakedTrotelCoins(0);
       setTimeLeft(0);
     }
-  }, [getStakingDataNoTyped, address, timestamp]);
+  }, [getStakingDataNoTyped, address, block]);
 
   const claim = async () => {
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
@@ -143,26 +154,12 @@ const ClaimingButton = ({
     }
 
     await writeContractAsync({
-      address: trotelCoinStakingV1,
+      address: contracts[chain.id].trotelCoinStakingV1,
       functionName: "unstake",
-      chainId: polygon.id,
+      chainId: chain.id,
       abi: trotelCoinStakingV1ABI
     });
   };
-
-  useEffect(() => {
-    if (
-      address &&
-      stakedTrotelCoins &&
-      stakedTrotelCoins > 0 &&
-      timeLeft &&
-      timeLeft <= 0
-    ) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [stakedTrotelCoins, timeLeft, address]);
 
   return (
     <>
@@ -195,7 +192,7 @@ const ClaimingButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: polygon.id });
+          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

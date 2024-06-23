@@ -1,9 +1,8 @@
 "use client";
 
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
-import { polygon } from "viem/chains";
 import {
   useAccount,
   useBalance,
@@ -14,7 +13,7 @@ import {
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Hash, isAddress, parseEther } from "viem";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { loadingFlashClass } from "@/style/loading";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
@@ -23,6 +22,7 @@ import ScannerComponent from "./components/scanner";
 import { roundPrice } from "@/utils/price/roundPrice";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { Skeleton } from "@radix-ui/themes";
+import ChainContext from "@/contexts/chain";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);
@@ -37,12 +37,12 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [sendConfirmed, setSendConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
-
+  const { chain } = useContext(ChainContext);
   const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const {
@@ -50,8 +50,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
     refetch: refetchBalance,
     isLoading: isLoadingBalance
   } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
     address: address
   });
 
@@ -72,7 +72,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: sendConfirmation, refetch: refetchSendConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: sendHash as Hash
     });
 
@@ -249,16 +249,16 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {address ? (
           <BlueSimpleButton
-            disabled={disabled}
+            disabled={disabled || isLoading}
             onClick={async () => {
               const amountDecimals = parseEther(String(amount));
 
               await writeContractAsync({
-                address: trotelCoinAddress,
+                address: contracts[chain.id].trotelCoinAddress,
                 abi: trotelCoinABI,
                 functionName: "transfer",
                 args: [recipient, amountDecimals],
-                chainId: polygon.id
+                chainId: chain.id
               });
             }}
           >

@@ -1,8 +1,8 @@
 import { publicClient } from "@/utils/viem/clients";
 import { NextRequest, NextResponse } from "next/server";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -10,7 +10,8 @@ export const dynamic = "force-dynamic";
 const inputSchema = z.object({
   address: z.custom<Address>(),
   amount: z.number(),
-  centralWalletAddress: z.custom<Address>()
+  centralWalletAddress: z.custom<Address>(),
+  chainId: z.number()
 });
 
 /* GET /api/central-wallet/reward-gas
@@ -24,20 +25,22 @@ const inputSchema = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   try {
-    const { userAddress, amount, centralWalletAddress } = inputSchema.safeParse(
+    const { userAddress, amount, centralWalletAddress, chainId } = inputSchema.safeParse(
       {
         address: searchParams.get("address"),
         amount: Number(searchParams.get("amount")),
-        centralWalletAddress: searchParams.get("centralWalletAddress")
+        centralWalletAddress: searchParams.get("centralWalletAddress"),
+        chainId: Number(searchParams.get("chainId"))
       }
     ).data as unknown as {
       userAddress: Address;
       amount: number;
       centralWalletAddress: Address;
+      chainId: number;
     };
 
     const gas = await publicClient.estimateContractGas({
-      address: trotelCoinAddress,
+      address: contracts[chainId].trotelCoinAddress,
       abi: trotelCoinABI,
       functionName: "mint",
       account: centralWalletAddress,

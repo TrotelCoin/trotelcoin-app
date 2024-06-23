@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { walletClient, publicClient } from "@/utils/viem/clients";
-import { trotelCoinAddress } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { Address, parseEther } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { z } from "zod";
@@ -15,7 +15,10 @@ const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
 const inputSchema = z.object({
   address: z.custom<Address>(),
-  amount: z.number().max(100000, "Amount exceed the limit of claiming rewards.")
+  amount: z
+    .number()
+    .max(100000, "Amount exceed the limit of claiming rewards."),
+  chainId: z.number()
 });
 
 /* POST /api/user/claim-rewards
@@ -39,14 +42,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { userAddress, amount } = inputSchema.safeParse({
+    const { userAddress, amount, chainId } = inputSchema.safeParse({
       address: searchParams.get("address"),
-      amount: Number(searchParams.get("amount"))
-    }).data as unknown as { userAddress: Address; amount: number };
+      amount: Number(searchParams.get("amount")),
+      chainId: Number(searchParams.get("chainId"))
+    }).data as unknown as {
+      userAddress: Address;
+      amount: number;
+      chainId: number;
+    };
 
     // prepare transaction
     const { request } = await publicClient.simulateContract({
-      address: trotelCoinAddress,
+      address: contracts[chainId].trotelCoinAddress,
       abi: trotelCoinABI,
       functionName: "mint",
       account: account,

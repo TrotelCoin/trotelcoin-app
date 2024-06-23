@@ -4,7 +4,7 @@ import { cookieStorage, createStorage, http } from "wagmi";
 import {
   mainnet,
   polygon,
-  polygonMumbai,
+  polygonAmoy,
   optimism,
   bsc,
   base,
@@ -35,7 +35,7 @@ const metadata = {
 const chains = [
   mainnet,
   polygon,
-  polygonMumbai,
+  polygonAmoy,
   optimism,
   bsc,
   base,
@@ -63,7 +63,7 @@ export const config = defaultWagmiConfig({
   transports: {
     [mainnet.id]: http("", { batch: { wait: 16 } }),
     [polygon.id]: http("", { batch: { wait: 16 } }),
-    [polygonMumbai.id]: http("", { batch: { wait: 16 } }),
+    [polygonAmoy.id]: http("", { batch: { wait: 16 } }),
     [optimism.id]: http("", { batch: { wait: 16 } }),
     [bsc.id]: http("", { batch: { wait: 16 } }),
     [base.id]: http("", { batch: { wait: 16 } }),
