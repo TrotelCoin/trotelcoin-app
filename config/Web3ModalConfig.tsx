@@ -55,7 +55,12 @@ export const config = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  enableEmail: true, // seems unstable
+  enableCoinbase: true,
+  enableEmail: true,
+  auth: {
+    showWallets: true,
+    socials: ["google", "apple", "discord", "facebook", "github", "x"]
+  },
   ssr: true,
   storage: createStorage({
     storage: cookieStorage
