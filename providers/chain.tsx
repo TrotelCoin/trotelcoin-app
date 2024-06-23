@@ -23,11 +23,10 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    if (chain) {
+    if (chain && address) {
       switchChain({ chainId: chain.id });
 
       if (
-        address &&
         isAddressEqual(address, contracts[polygonAmoy.id].trotelCoinDAOAddress)
       ) {
         setShowTestnet(true);
@@ -35,7 +34,7 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
         setShowTestnet(false);
       }
     }
-  }, [chain, switchChain]);
+  }, [chain, switchChain, address]);
 
   const contextValue = useMemo(
     () => ({
