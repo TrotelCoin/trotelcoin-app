@@ -1,5 +1,5 @@
 import { Address } from "viem";
-import { polygon } from "viem/chains";
+import { polygon, polygonAmoy } from "viem/chains";
 
 export const contracts: {
   [key: number]: {
@@ -39,5 +39,23 @@ export const contracts: {
       "0x360103Feb052aCDa1F09BDFB3D73a0C1B9662C78" as Address,
     usdcPolygonUniswapV3Pool:
       "0xA374094527e1673A86dE625aa59517c5dE346d32" as Address
+  },
+  [polygonAmoy.id]: {
+    trotelCoinAddress: "0x2f11C864bc051d98d68dE363d45E60A8292eb7B2" as Address,
+    trotelCoinEarlyAddress:
+      "0x1dbA61acC450F754cB74CE1eE348055f27CaCC3F" as Address,
+    trotelCoinIntermediateAddress: "0x0" as Address,
+    trotelCoinExpertAddress: "0x0" as Address,
+    trotelCoinLearningAddress: "0x0" as Address,
+    trotelCoinStakingV1:
+      "0x5C015461e36FD609b1317E56F4ABe710Cc413fFC" as Address,
+    trotelCoinStakingV2:
+      "0x2b0f0A73C65f25Ab3786C091021532Ed051290Ea" as Address,
+    usdcAddress: "0x0" as Address,
+    trotelCoinDAOAddress:
+      "0x8333c1B5131CC694c3A238E41e50cbc236e73DbC" as Address,
+    trotelCoinShop: "0x0329836925281AD78b83Ea63EBEe13154b3bD097" as Address,
+    trotelCoinPolygonUniswapV3Pool: "0x0" as Address,
+    usdcPolygonUniswapV3Pool: "0x0" as Address
   }
 };
