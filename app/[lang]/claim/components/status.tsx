@@ -29,15 +29,10 @@ const Status = ({
                   : cannotClaim
               }`}
             >
-              {availableToClaim && availableToClaim > 0
+              {!!availableToClaim && availableToClaim > 0
                 ? "Claimable"
                 : "Not claimable"}
             </span>
-            {!availableToClaim && (
-              <span className="text-xs text-gray-700 dark:text-gray-300">
-                {lang === "en" ? "Not claimable" : "Non réclamable"}
-              </span>
-            )}
           </Skeleton>
         </div>
       </div>
