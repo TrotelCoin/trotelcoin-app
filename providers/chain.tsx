@@ -15,7 +15,7 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const { address } = useAccount();
 
   const handleTestnet = () => {
-    if (chain.id === polygon.id) {
+    if (chain.id !== polygonAmoy.id) {
       setChain(polygonAmoy);
     } else {
       setChain(polygon);
