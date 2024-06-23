@@ -5,9 +5,8 @@ import Item from "@/app/[lang]/shop/components/item";
 import { Lang } from "@/types/language/lang";
 import type { ShopCategories, Category } from "@/types/shop/shop";
 import { useAccount, useBalance, useBlockNumber, useReadContract } from "wagmi";
-import { polygon } from "viem/chains";
-import { trotelCoinAddress, trotelCoinShop } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
 import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import ItemSkeleton from "@/app/[lang]/shop/components/itemSkeleton";
@@ -15,6 +14,7 @@ import { ItemType, ItemTypeFinal } from "@/types/items/items";
 import { loadingFlashClass } from "@/style/loading";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
+import ChainContext from "@/contexts/chain";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -55,22 +55,23 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const { address } = useAccount();
 
   const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: allCategories, refetch: refetchCategories } = useReadContract({
-    chainId: polygon.id,
-    address: trotelCoinShop,
+    chainId: chain.id,
+    address: contracts[chain.id].trotelCoinShop,
     functionName: "getAllCategories",
     abi: trotelCoinShopABI
   });
 
   const { data: allItems, refetch: refetchItems } = useReadContract({
-    chainId: polygon.id,
-    address: trotelCoinShop,
+    chainId: chain.id,
+    address: contracts[chain.id].trotelCoinShop,
     abi: trotelCoinShopABI,
     functionName: "getAllItems"
   });
@@ -124,9 +125,9 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [allCategories, allItems]);
 
   const { data: balanceData, refetch: refetchBalance } = useBalance({
-    chainId: polygon.id,
+    chainId: chain.id,
     address: address,
-    token: trotelCoinAddress
+    token: contracts[chain.id].trotelCoinAddress
   });
 
   useEffect(() => {

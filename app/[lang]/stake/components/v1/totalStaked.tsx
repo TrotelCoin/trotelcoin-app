@@ -2,12 +2,12 @@
 
 import type { Lang } from "@/types/language/lang";
 import { useBalance, useBlockNumber } from "wagmi";
-import React, { useEffect, useState } from "react";
-import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
+import React, { useContext, useEffect, useState } from "react";
+import { contracts } from "@/data/web3/addresses";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
+import ChainContext from "@/contexts/chain";
 
 const TotalStaked = ({
   lang,
@@ -18,15 +18,17 @@ const TotalStaked = ({
 }) => {
   const [totalStaked, setTotalStaked] = useState<number | null>(null);
 
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: balance, refetch } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
-    address: trotelCoinStakingV1
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinStakingV1
   });
 
   useEffect(() => {

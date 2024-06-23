@@ -9,14 +9,13 @@ import {
   useSendTransaction,
   useTransactionConfirmations
 } from "wagmi";
-import { polygon } from "viem/chains";
-import { trotelCoinDAOAddress } from "@/data/web3/addresses";
 import { Hash, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
 import Link from "next/link";
+import ChainContext from "@/contexts/chain";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
@@ -28,9 +27,11 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [showHash, setShowHash] = useState<boolean>(false);
   const { isLoggedIn } = useContext(UserContext);
 
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { sendTransactionAsync, data: transactionHash } = useSendTransaction({
@@ -55,7 +56,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
     data: transactionConfirmation,
     refetch: refetchTransactionConfirmation
   } = useTransactionConfirmations({
-    chainId: polygon.id,
+    chainId: chain.id,
     hash: transactionHash as Hash
   });
 
@@ -126,7 +127,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   text="Send transaction"
                   onClick={async () => {
                     await sendTransactionAsync({
-                      chainId: polygon.id,
+                      chainId: chain.id,
                       to: trotelCoinDAOAddress,
                       value: parseEther("0.01")
                     });
@@ -216,7 +217,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   text="Envoyer la transaction"
                   onClick={async () => {
                     await sendTransactionAsync({
-                      chainId: polygon.id,
+                      chainId: chain.id,
                       to: trotelCoinDAOAddress,
                       value: parseEther("0.01")
                     });

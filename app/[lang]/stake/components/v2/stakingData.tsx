@@ -8,14 +8,14 @@ import {
   useBlockNumber,
   useBlock
 } from "wagmi";
-import React, { useEffect, useState } from "react";
-import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
+import React, { useContext, useEffect, useState } from "react";
+import { contracts } from "@/data/web3/addresses";
 import { Address, formatEther } from "viem";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
-import { polygon } from "viem/chains";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
 import { roundPrice } from "@/utils/price/roundPrice";
+import ChainContext from "@/contexts/chain";
 
 const stakingClass =
   "inline-flex items-center rounded-xl bg-green-400 px-2 py-1 text-xs font-medium text-gray-100";
@@ -46,12 +46,14 @@ const StakingData = ({
   const [blockFetched, setBlockFetched] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
   const { data: block } = useBlock({
-    chainId: polygon.id,
+    chainId: chain.id,
     blockNumber: blockNumber
   });
 
@@ -60,8 +62,8 @@ const StakingData = ({
     refetch: refetchBalance,
     isLoading: isLoadingBalance
   } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
     address: address as Address
   });
 
@@ -81,9 +83,9 @@ const StakingData = ({
     refetch: refetchStakings,
     isLoading: isLoadingStakingData
   } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address as Address]
   });
@@ -93,9 +95,9 @@ const StakingData = ({
     refetch: refetchEarnedTrotelCoins,
     isLoading: isLoadingEarnedData
   } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "getUserReward",
     args: [address as Address]
   });

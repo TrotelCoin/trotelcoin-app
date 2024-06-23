@@ -8,16 +8,16 @@ import {
   useTransactionConfirmations,
   useBlockNumber
 } from "wagmi";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, Hash, parseEther } from "viem";
 import Success from "@/app/[lang]/components/modals/success";
 import "animate.css";
-import { polygon } from "viem/chains";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
+import ChainContext from "@/contexts/chain";
 
 const RewardsButton = ({
   lang,
@@ -46,17 +46,18 @@ const RewardsButton = ({
     useState<boolean>(false);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const {
     data: transactionConfirmation,
     refetch: refetchTransactionConfirmation
   } = useTransactionConfirmations({
-    chainId: polygon.id,
+    chainId: chain.id,
     hash: transactionHash as Hash
   });
 
@@ -234,7 +235,7 @@ const RewardsButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: polygon.id });
+          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

@@ -2,39 +2,38 @@
 
 import type { Lang } from "@/types/language/lang";
 import Course from "@/app/[lang]/components/courses/courseScreen/course";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
-import {
-  trotelCoinStakingV1,
-  trotelCoinStakingV2
-} from "@/data/web3/addresses";
-import { polygon } from "wagmi/chains";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
+import trotelCoinStakingV1ABI from "@/abi/polygon/staking/trotelCoinStakingV1";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import { formatEther } from "viem";
+import ChainContext from "@/contexts/chain";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
   const [totalAmount, setTotalAmount] = useState<number | null>(null);
 
+  const { chain } = useContext(ChainContext);
+
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({
-    chainId: polygon.id,
+    chainId: chain.id,
     watch: true
   });
 
   const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV1ABI,
-    address: trotelCoinStakingV1,
+    address: contracts[chain.id].trotelCoinStakingV1,
     functionName: "stakings",
     args: [address]
   });
 
   const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address]
   });

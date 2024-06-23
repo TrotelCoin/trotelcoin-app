@@ -1,23 +1,19 @@
 "use client";
 
 import { useAccount, useReadContract, useBlockNumber } from "wagmi";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import PremiumContext from "@/contexts/premium";
-import {
-  trotelCoinEarlyAddress,
-  trotelCoinStakingV1,
-  trotelCoinStakingV2
-} from "@/data/web3/addresses";
-import { polygon } from "viem/chains";
-import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
-import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinEarlyABI from "@/abi/polygon/premium/trotelCoinEarly";
+import trotelCoinStakingV1ABI from "@/abi/polygon/staking/trotelCoinStakingV1";
 import { formatEther } from "viem";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import {
   expertStakingBalance,
   intermediateStakingBalance
 } from "@/data/staking/premium";
+import ChainContext from "@/contexts/chain";
 
 const PremiumProvider = ({ children }: { children: ReactNode }) => {
   const [totalStakingAmount, setTotalStakingAmount] = useState<number | null>(
@@ -25,31 +21,32 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: early, refetch: refetchEarly } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinEarlyABI,
-    address: trotelCoinEarlyAddress,
+    address: contracts[chain.id].trotelCoinEarlyAddress,
     functionName: "balanceOf",
     args: [address]
   });
   const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV1ABI,
-    address: trotelCoinStakingV1,
+    address: contracts[chain.id].trotelCoinStakingV1,
     functionName: "stakings",
     args: [address]
   });
 
   const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address]
   });

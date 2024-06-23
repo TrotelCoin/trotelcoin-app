@@ -7,9 +7,8 @@ import Image from "next/image";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import ThemeContext from "@/contexts/theme";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import { polygon } from "viem/chains";
-import trotelCoinEarlyABI from "@/abi/premium/trotelCoinEarly";
-import { trotelCoinEarlyAddress } from "@/data/web3/addresses";
+import trotelCoinEarlyABI from "@/abi/polygon/premium/trotelCoinEarly";
+import { contracts } from "@/data/web3/addresses";
 import CountUp from "react-countup/";
 import Link from "next/link";
 import UserContext from "@/contexts/user";
@@ -22,6 +21,7 @@ import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import "animate.css";
 import Loading from "@/app/[lang]/components/loading";
+import ChainContext from "@/contexts/chain";
 
 const discordIcon = (
   props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
@@ -89,9 +89,11 @@ const Waitlist = ({
   const [length, setLength] = useState<number | null>(null);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { isEarly } = useContext(PremiumContext);
@@ -99,9 +101,9 @@ const Waitlist = ({
   const { isLoggedIn } = useContext(UserContext);
 
   const { data: earlyData, refetch } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinEarlyABI,
-    address: trotelCoinEarlyAddress,
+    address: contracts[chain.id].trotelCoinEarly,
     functionName: "totalSupply"
   });
 

@@ -1,12 +1,11 @@
-import { trotelCoinAddress, trotelCoinStakingV1 } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Badge, Badges, BadgesNames } from "@/types/components/badges";
 import type { Lang } from "@/types/language/lang";
 import { Address, formatEther } from "viem";
-import { polygon } from "viem/chains";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 import { useContext, useEffect, useState } from "react";
-import trotelCoinStakingV1ABI from "@/abi/staking/trotelCoinStakingV1";
+import trotelCoinStakingV1ABI from "@/abi/polygon/staking/trotelCoinStakingV1";
 import PremiumContext from "@/contexts/premium";
 import StreakContext from "@/contexts/streak";
 import UserContext from "@/contexts/user";
@@ -14,6 +13,7 @@ import {
   expertStakingBalance,
   intermediateStakingBalance
 } from "@/data/staking/premium";
+import ChainContext from "@/contexts/chain";
 
 const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [trotelCoinBalance, setTrotelCoinBalance] = useState<number | null>(
@@ -26,25 +26,26 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const [badgesName, setBadgesName] = useState<BadgesNames>("ranks");
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
   const { averageMark, learningTime } = useContext(UserContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
-    chainId: polygon.id,
+    chainId: chain.id,
     address: address as Address,
-    token: trotelCoinAddress
+    token: contracts[chain.id].trotelCoinAddress
   });
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: trotelCoinStakingV1,
+      address: contracts[chain.id].trotelCoinStakingV1,
       functionName: "stakings",
       args: [address as Address],
-      chainId: polygon.id,
+      chainId: chain.id,
       abi: trotelCoinStakingV1ABI
     });
 
@@ -406,7 +407,7 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
       <h2 className="mt-10 text-xl font-semibold text-gray-900 dark:text-gray-100">
         {lang === "en" ? "Badges" : "Badges"}
       </h2>
-      <div className="mt-2 flex items-center gap-2 overflow-x-auto hide-scrollbar whitespace-nowrap md:flex-wrap md:overflow-x-visible">
+      <div className="hide-scrollbar mt-2 flex items-center gap-2 overflow-x-auto whitespace-nowrap md:flex-wrap md:overflow-x-visible">
         <button
           onClick={() => {
             setBadges(badgesRanks);

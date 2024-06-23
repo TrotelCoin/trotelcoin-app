@@ -1,7 +1,7 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useBalance,
@@ -9,13 +9,13 @@ import {
   useSwitchChain,
   useWriteContract
 } from "wagmi";
-import { trotelCoinAddress, trotelCoinStakingV2 } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { parseEther } from "viem";
 import "animate.css";
-import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
+import ChainContext from "@/contexts/chain";
 
 const ApproveButton = ({
   lang,
@@ -36,15 +36,16 @@ const ApproveButton = ({
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: balance, refetch: refetchBalance } = useBalance({
-    chainId: polygon.id,
-    token: trotelCoinAddress,
+    chainId: chain.id,
+    token: contracts[chain.id].trotelCoinAddress,
     address: address
   });
 
@@ -78,10 +79,10 @@ const ApproveButton = ({
     }
 
     await writeContractAsync({
-      args: [trotelCoinStakingV2, approveAmount],
-      address: trotelCoinAddress,
+      args: [contracts[chain.id].trotelCoinStakingV2, approveAmount],
+      address: contracts[chain.id].trotelCoinAddress,
       functionName: "approve",
-      chainId: polygon.id,
+      chainId: chain.id,
       abi: trotelCoinABI
     });
   };
@@ -120,7 +121,7 @@ const ApproveButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: polygon.id });
+          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

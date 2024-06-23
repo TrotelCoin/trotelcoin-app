@@ -1,10 +1,10 @@
-import { trotelCoinAddress } from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import type { Token } from "@/types/web3/token";
 import type { Address } from "viem";
 import { polygon } from "viem/chains";
 
 export const trotelCoinPolygon: Token = {
-  address: trotelCoinAddress,
+  address: contracts[polygon.id].trotelCoinAddress,
   decimals: 18,
   symbol: "TROTEL",
   name: "TrotelCoin",

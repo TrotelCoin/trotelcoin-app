@@ -1,16 +1,16 @@
 "use client";
 
-import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
-import { trotelCoinExpertAddress } from "@/data/web3/addresses";
+import trotelCoinExpertABI from "@/abi/polygon/premium/trotelCoinExpert";
+import { contracts } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { polygon } from "viem/chains";
 import { useReadContract, useBlockNumber } from "wagmi";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
+import ChainContext from "@/contexts/chain";
 
 const stat: StatisticsType = "expert";
 
@@ -23,14 +23,16 @@ const Expert = ({
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
 
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: expert, refetch } = useReadContract({
-    chainId: polygon.id,
-    address: trotelCoinExpertAddress,
+    chainId: chain.id,
+    address: contracts[chain.id].trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "totalSupply"
   });

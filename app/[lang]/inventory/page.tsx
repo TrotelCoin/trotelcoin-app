@@ -3,9 +3,8 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Lang } from "@/types/language/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import { polygon } from "viem/chains";
-import { trotelCoinShop } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/shop/trotelCoinShop";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
 import { fetchInventory } from "@/utils/inventory/fetchInventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/inventory/components/inventoryItem";
@@ -16,6 +15,7 @@ import useSWR from "swr";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/style/loading";
+import ChainContext from "@/contexts/chain";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
@@ -28,10 +28,11 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: numberOfUsedItemsData } = useSWR(
@@ -69,10 +70,10 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [numberOfUsedItemsData, inventories]);
 
   const { data: totalItemsData, refetch: refetchTotalItems } = useReadContract({
-    address: trotelCoinShop,
+    address: contracts[chain.id].trotelCoinShop,
     abi: trotelCoinShopABI,
     functionName: "getTotalItems",
-    chainId: polygon.id,
+    chainId: chain.id,
     account: address
   });
 
@@ -95,7 +96,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
       setInventories(null);
 
       try {
-        const newInventories = await fetchInventory(totalItems, address);
+        const newInventories = await fetchInventory(totalItems, address, chain);
         setInventories(newInventories);
       } catch (error) {
         console.error(error);

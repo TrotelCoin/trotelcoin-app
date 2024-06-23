@@ -1,15 +1,17 @@
 "use client";
 
-import React from "react";
-import { polygon } from "viem/chains";
+import React, { useContext } from "react";
 import { useBlockNumber } from "wagmi";
 import { loadingFlashClass } from "@/style/loading";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Lang } from "@/types/language/lang";
+import ChainContext from "@/contexts/chain";
 
 const BlockNumber = ({ lang }: { lang: Lang }) => {
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
-    chainId: polygon.id,
+    chainId: chain.id,
     watch: true
   });
 

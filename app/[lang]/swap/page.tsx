@@ -35,7 +35,7 @@ import TokenList from "@/app/[lang]/swap/components/lists/tokenList";
 import Settings from "@/app/[lang]/swap/components/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/swap/components/lists/chainList";
-import allowanceAbi from "@/abi/misc/erc20/allowance";
+import allowanceAbi from "@/abi/polygon/misc/erc20/allowance";
 import { fetchQuote } from "@/utils/socket/fetchQuote";
 import { getFromTokenList } from "@/utils/socket/getFromTokenList";
 import { getChainList } from "@/utils/socket/getChainList";

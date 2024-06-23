@@ -1,6 +1,6 @@
 "use client";
 
-import trotelCoinExpertABI from "@/abi/premium/trotelCoinExpert";
+import trotelCoinExpertABI from "@/abi/polygon/premium/trotelCoinExpert";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {
@@ -11,21 +11,18 @@ import {
   useBlockNumber,
   useTransactionConfirmations
 } from "wagmi";
-import { polygon } from "wagmi/chains";
 import "animate.css";
 import Fail from "@/app/[lang]/components/modals/fail";
 import Success from "@/app/[lang]/components/modals/success";
-import {
-  trotelCoinAddress,
-  trotelCoinExpertAddress
-} from "@/data/web3/addresses";
+import { contracts } from "@/data/web3/addresses";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import PremiumContext from "@/contexts/premium";
 import Link from "next/link";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import ChainContext from "@/contexts/chain";
 
 const Expert = ({ lang }: { lang: Lang }) => {
   const [isEligible, setIsEligible] = useState<boolean>(false);
@@ -45,18 +42,19 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   const { address } = useAccount();
   const { isExpert } = useContext(PremiumContext);
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinAddress,
     abi: trotelCoinABI,
     functionName: "allowance",
-    chainId: polygon.id,
-    args: [address, trotelCoinExpertAddress],
+    chainId: chain.id,
+    args: [address, contracts[chain.id].trotelCoinExpertAddress],
     account: address as Address
   });
 
@@ -78,7 +76,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const { data: approveConfirmation, refetch: refetchApproveConfirmation } =
     useTransactionConfirmations({
       hash: approveHash as Hash,
-      chainId: polygon.id
+      chainId: chain.id
     });
 
   useEffect(() => {
@@ -95,16 +93,16 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
-    chainId: polygon.id,
+    chainId: chain.id,
     token: trotelCoinAddress
   });
 
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
-      address: trotelCoinExpertAddress,
+      address: contracts[chain.id].trotelCoinExpertAddress,
       abi: trotelCoinExpertABI,
       functionName: "holdingRequirement",
-      chainId: polygon.id,
+      chainId: chain.id,
       account: address as Address
     }
   );
@@ -125,7 +123,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
 
   const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: claimHash as Hash
     });
 
@@ -138,10 +136,10 @@ const Expert = ({ lang }: { lang: Lang }) => {
   }, [claimConfirmation, claimConfirmed]);
 
   const { data: claimed, refetch: refetchBalanceExpert } = useReadContract({
-    address: trotelCoinExpertAddress,
+    address: contracts[chain.id].trotelCoinExpertAddress,
     abi: trotelCoinExpertABI,
     functionName: "balanceOf",
-    chainId: polygon.id,
+    chainId: chain.id,
     args: [address],
     account: address as Address
   });
@@ -271,7 +269,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         address: trotelCoinAddress,
                         abi: trotelCoinABI,
                         functionName: "approve",
-                        chainId: polygon.id,
+                        chainId: chain.id,
                         args: [trotelCoinExpertAddress, holdingRequirement]
                       });
                     }}
@@ -289,7 +287,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                         address: trotelCoinExpertAddress,
                         abi: trotelCoinExpertABI,
                         functionName: "mint",
-                        chainId: polygon.id,
+                        chainId: chain.id,
                         args: [address]
                       });
                     }}

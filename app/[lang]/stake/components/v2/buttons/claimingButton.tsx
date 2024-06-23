@@ -1,7 +1,7 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useWriteContract,
@@ -12,13 +12,13 @@ import {
   useTransactionConfirmations
 } from "wagmi";
 import { Address, Hash } from "viem";
-import { trotelCoinStakingV2 } from "@/data/web3/addresses";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import "animate.css";
-import { polygon } from "viem/chains";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
+import ChainContext from "@/contexts/chain";
 
 const ClaimingButton = ({
   lang,
@@ -43,12 +43,14 @@ const ClaimingButton = ({
 
   const { address } = useAccount();
   const { switchChain } = useSwitchChain();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
   const { data: block } = useBlock({
-    chainId: polygon.id,
+    chainId: chain.id,
     blockNumber: blockNumber
   });
 
@@ -70,7 +72,7 @@ const ClaimingButton = ({
 
   const { data: claimConfirmation, refetch: refetchClaimConfirmation } =
     useTransactionConfirmations({
-      chainId: polygon.id,
+      chainId: chain.id,
       hash: claimHash as Hash
     });
 
@@ -84,9 +86,9 @@ const ClaimingButton = ({
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: trotelCoinStakingV2,
+      address: contracts[chain.id].trotelCoinStakingV2,
       abi: trotelCoinStakingV2ABI,
-      chainId: polygon.id,
+      chainId: chain.id,
       functionName: "stakings",
       args: [address as Address]
     });
@@ -143,7 +145,7 @@ const ClaimingButton = ({
     await writeContractAsync({
       address: trotelCoinStakingV2,
       functionName: "unstake",
-      chainId: polygon.id,
+      chainId: chain.id,
       abi: trotelCoinStakingV2ABI
     });
   };
@@ -194,7 +196,7 @@ const ClaimingButton = ({
       <Fail
         show={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: polygon.id });
+          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

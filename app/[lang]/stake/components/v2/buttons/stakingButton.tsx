@@ -1,7 +1,7 @@
 "use client";
 
 import type { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useWriteContract,
@@ -10,14 +10,14 @@ import {
   useBlockNumber,
   useTransactionConfirmations
 } from "wagmi";
-import { trotelCoinStakingV2 } from "@/data/web3/addresses";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
 import Success from "@/app/[lang]/components/modals/success";
 import Fail from "@/app/[lang]/components/modals/fail";
 import { Address, Hash, parseEther } from "viem";
 import "animate.css";
-import { polygon } from "wagmi/chains";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
+import ChainContext from "@/contexts/chain";
 
 const StakingButton = ({
   lang,
@@ -44,6 +44,7 @@ const StakingButton = ({
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
   const { switchChain } = useSwitchChain();
+  const { chain } = useContext(ChainContext);
 
   const { writeContractAsync, data: stakeHash } = useWriteContract({
     mutation: {
@@ -64,7 +65,7 @@ const StakingButton = ({
   const { data: stakeConfirmation, refetch: refetchStakeConfirmation } =
     useTransactionConfirmations({
       hash: stakeHash as Hash,
-      chainId: polygon.id
+      chainId: chain.id
     });
 
   useEffect(() => {
@@ -76,9 +77,9 @@ const StakingButton = ({
   }, [stakeConfirmation, stakeConfirmed]);
 
   const { data: getStakingDataNoTyped, refetch } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address as Address]
   });
@@ -147,9 +148,9 @@ const StakingButton = ({
     const stakingAmount = parseEther(amount.toString());
 
     await writeContractAsync({
-      address: trotelCoinStakingV2,
+      address: contracts[chain.id].trotelCoinStakingV2,
       functionName: "stake",
-      chainId: polygon.id,
+      chainId: chain.id,
       abi: trotelCoinStakingV2ABI,
       args: [stakingAmount, stakingDuration]
     });
@@ -204,7 +205,7 @@ const StakingButton = ({
         show={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain({ chainId: polygon.id });
+          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

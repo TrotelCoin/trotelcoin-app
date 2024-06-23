@@ -1,9 +1,8 @@
 import { Lang } from "@/types/language/lang";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useChainId, useReadContract } from "wagmi";
 import Amount from "@/app/[lang]/stake/components/amount";
 import { Address, formatEther } from "viem";
-import { polygon } from "viem/chains";
 import Period from "@/app/[lang]/stake/components/v2/period";
 import StakingData from "@/app/[lang]/stake/components/v2/stakingData";
 import TotalStaked from "@/app/[lang]/stake/components/v2/totalStaked";
@@ -12,9 +11,10 @@ import ClaimingButton from "@/app/[lang]/stake/components/v2/buttons/claimingBut
 import ApproveButton from "@/app/[lang]/stake/components/v2/buttons/approveButton";
 import IncreaseStakingButton from "@/app/[lang]/stake/components/v2/buttons/increaseStakingButton";
 import StakingButton from "@/app/[lang]/stake/components/v2/buttons/stakingButton";
-import trotelCoinStakingV2ABI from "@/abi/staking/trotelCoinStakingV2";
-import { trotelCoinStakingV2, trotelCoinAddress } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/trotelcoin/trotelCoin";
+import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
+import { contracts } from "@/data/web3/addresses";
+import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import ChainContext from "@/contexts/chain";
 
 const StakingV2 = ({
   lang,
@@ -36,15 +36,17 @@ const StakingV2 = ({
   const [isStaking, setIsStaking] = useState<boolean>(false);
 
   const { address } = useAccount();
+  const { chain } = useContext(ChainContext);
+
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: polygon.id
+    chainId: chain.id
   });
 
   const chainId = useChainId();
 
   useEffect(() => {
-    if (chainId !== polygon.id) {
+    if (chainId !== chain.id) {
       setChainError(true);
     } else {
       setChainError(false);
@@ -77,10 +79,10 @@ const StakingV2 = ({
   }, [stakingPeriod, APR]);
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
-    chainId: polygon.id,
-    args: [address, trotelCoinStakingV2],
+    chainId: chain.id,
+    args: [address, contracts[chain.id].trotelCoinStakingV2],
     abi: trotelCoinABI,
-    address: trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinAddress,
     functionName: "allowance"
   });
 
@@ -99,9 +101,9 @@ const StakingV2 = ({
   }, [allowanceData, amount]);
 
   const { data: stakingsData, refetch: refetchStakings } = useReadContract({
-    chainId: polygon.id,
+    chainId: chain.id,
     abi: trotelCoinStakingV2ABI,
-    address: trotelCoinStakingV2,
+    address: contracts[chain.id].trotelCoinStakingV2,
     args: [address],
     functionName: "stakings"
   });
