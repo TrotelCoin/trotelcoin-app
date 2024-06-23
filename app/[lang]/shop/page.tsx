@@ -158,7 +158,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 }
               }}
               disabled={refreshing}
-              className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800"
+              className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <ArrowPathIcon
                 className={`h-5 w-5 text-gray-900 dark:text-gray-100 ${
