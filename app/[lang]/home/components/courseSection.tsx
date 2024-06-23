@@ -38,7 +38,7 @@ const CourseSection = ({
   categoryUrl?: string;
 }) => {
   return (
-    <div className="my-10">
+    <div className="mb-10">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
