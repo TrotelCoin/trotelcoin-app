@@ -94,7 +94,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: chain.id,
-    token: trotelCoinAddress
+    token: contracts[chain.id].trotelCoinAddress
   });
 
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
@@ -266,11 +266,11 @@ const Expert = ({ lang }: { lang: Lang }) => {
                     isLoading={isLoadingApproval || approved}
                     onClick={async () => {
                       await approvingAsync({
-                        address: trotelCoinAddress,
+                        address: contracts[chain.id].trotelCoinAddress,
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: chain.id,
-                        args: [trotelCoinExpertAddress, holdingRequirement]
+                        args: [contracts[chain.id].trotelCoinExpertAddress, holdingRequirement]
                       });
                     }}
                     text={lang === "en" ? "Approve" : "Approuver"}
@@ -284,7 +284,7 @@ const Expert = ({ lang }: { lang: Lang }) => {
                     isLoading={isPending}
                     onClick={async () => {
                       await writeContractAsync({
-                        address: trotelCoinExpertAddress,
+                        address: contracts[chain.id].trotelCoinExpertAddress,
                         abi: trotelCoinExpertABI,
                         functionName: "mint",
                         chainId: chain.id,

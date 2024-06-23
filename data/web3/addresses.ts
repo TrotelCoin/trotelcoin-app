@@ -1,7 +1,22 @@
 import { Address } from "viem";
 import { polygon } from "viem/chains";
 
-export const contracts = {
+export const contracts: {
+  [key: number]: {
+    trotelCoinAddress: Address;
+    trotelCoinEarlyAddress: Address;
+    trotelCoinIntermediateAddress: Address;
+    trotelCoinExpertAddress: Address;
+    trotelCoinLearningAddress: Address;
+    trotelCoinStakingV1: Address;
+    trotelCoinStakingV2: Address;
+    usdcAddress: Address;
+    trotelCoinDAOAddress: Address;
+    trotelCoinShop: Address;
+    trotelCoinPolygonUniswapV3Pool: Address;
+    usdcPolygonUniswapV3Pool: Address;
+  };
+} = {
   [polygon.id]: {
     trotelCoinAddress: "0x85057d5a8d063f9075Ba963101D76352051675E5" as Address,
     trotelCoinEarlyAddress:

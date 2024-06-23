@@ -10,7 +10,9 @@ const Loading = ({ lang }: { lang: Lang }) => {
     <div
       className={`flex h-screen items-center justify-center bg-gray-900 text-white`}
     >
-      <span className={`${loadingFlashClass}`}>{lang === "en" ? "Ready to learn?" : "Prêt à apprendre?"}</span>
+      <span className={`${loadingFlashClass}`}>
+        {lang === "en" ? "Ready to learn?" : "Prêt à apprendre?"}
+      </span>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const TrotelCoinsDistributed = ({
 
   const { data } = useToken({
     chainId: chain.id,
-    address: contracts[chain.id].trotelCoinAddress,
+    address: contracts[chain.id].trotelCoinAddress
   });
 
   useEffect(() => {

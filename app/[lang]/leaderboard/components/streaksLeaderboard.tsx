@@ -35,10 +35,10 @@ const StreaksLeaderboard = ({
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-500 text-gray-100">
                         {index + 1}
                       </div>
-                      <div className="hidden md:flex justify-center items-center">
+                      <div className="hidden items-center justify-center md:flex">
                         {entry.ens ?? entry.wallet}
                       </div>
-                      <div className="flex justify-center items-center md:hidden">
+                      <div className="flex items-center justify-center md:hidden">
                         {entry.ens
                           ? entry.ens
                           : entry.wallet && isAddress(entry.wallet)

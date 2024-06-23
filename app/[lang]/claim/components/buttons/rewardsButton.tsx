@@ -142,7 +142,7 @@ const RewardsButton = ({
         // make minting transaction
         const hash = await axios
           .post(
-            `/api/user/claim-rewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`
+            `/api/user/claim-rewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}&chainId=${chain.id}`
           )
           .then((response) => response.data.hash);
 

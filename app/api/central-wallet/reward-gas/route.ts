@@ -10,7 +10,8 @@ export const dynamic = "force-dynamic";
 const inputSchema = z.object({
   address: z.custom<Address>(),
   amount: z.number(),
-  centralWalletAddress: z.custom<Address>()
+  centralWalletAddress: z.custom<Address>(),
+  chainId: z.number()
 });
 
 /* GET /api/central-wallet/reward-gas
@@ -24,16 +25,18 @@ const inputSchema = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   try {
-    const { userAddress, amount, centralWalletAddress } = inputSchema.safeParse(
+    const { userAddress, amount, centralWalletAddress, chainId } = inputSchema.safeParse(
       {
         address: searchParams.get("address"),
         amount: Number(searchParams.get("amount")),
-        centralWalletAddress: searchParams.get("centralWalletAddress")
+        centralWalletAddress: searchParams.get("centralWalletAddress"),
+        chainId: Number(searchParams.get("chainId"))
       }
     ).data as unknown as {
       userAddress: Address;
       amount: number;
       centralWalletAddress: Address;
+      chainId: number;
     };
 
     const gas = await publicClient.estimateContractGas({

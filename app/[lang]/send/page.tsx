@@ -254,7 +254,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
               const amountDecimals = parseEther(String(amount));
 
               await writeContractAsync({
-                address: trotelCoinAddress,
+                address: contracts[chain.id].trotelCoinAddress,
                 abi: trotelCoinABI,
                 functionName: "transfer",
                 args: [recipient, amountDecimals],

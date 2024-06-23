@@ -16,6 +16,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
 import Link from "next/link";
 import ChainContext from "@/contexts/chain";
+import { contracts } from "@/data/web3/addresses";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
@@ -128,7 +129,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   onClick={async () => {
                     await sendTransactionAsync({
                       chainId: chain.id,
-                      to: trotelCoinDAOAddress,
+                      to: contracts[chain.id].trotelCoinDAOAddress,
                       value: parseEther("0.01")
                     });
                   }}
@@ -218,7 +219,7 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   onClick={async () => {
                     await sendTransactionAsync({
                       chainId: chain.id,
-                      to: trotelCoinDAOAddress,
+                      to: contracts[chain.id].trotelCoinDAOAddress,
                       value: parseEther("0.01")
                     });
                   }}

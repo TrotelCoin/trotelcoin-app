@@ -61,7 +61,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     } else {
       setDisabled(false);
     }
-  }, [chainId, switchChainAsync]);
+  }, [chainId, switchChainAsync, chain]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: chain.id,
@@ -312,11 +312,11 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     onClick={() => {
                       const amount = parseEther(String(shopItem.price));
                       approve({
-                        address: trotelCoinAddress,
+                        address: contracts[chain.id].trotelCoinAddress,
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: chain.id,
-                        args: [trotelCoinShop, amount]
+                        args: [contracts[chain.id].trotelCoinShop, amount]
                       });
                     }}
                     isLoading={isLoading || approved}
@@ -328,7 +328,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     text={lang === "en" ? `Buy` : `Acheter`}
                     onClick={() => {
                       buyItem({
-                        address: trotelCoinShop,
+                        address: contracts[chain.id].trotelCoinShop,
                         abi: trotelCoinShopABI,
                         functionName: "buyItem",
                         chainId: chain.id,

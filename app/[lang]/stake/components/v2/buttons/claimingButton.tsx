@@ -143,7 +143,7 @@ const ClaimingButton = ({
     }
 
     await writeContractAsync({
-      address: trotelCoinStakingV2,
+      address: contracts[chain.id].trotelCoinStakingV2,
       functionName: "unstake",
       chainId: chain.id,
       abi: trotelCoinStakingV2ABI

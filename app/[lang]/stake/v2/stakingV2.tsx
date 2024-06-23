@@ -51,7 +51,7 @@ const StakingV2 = ({
     } else {
       setChainError(false);
     }
-  }, [chainId]);
+  }, [chainId, chain]);
 
   useEffect(() => {
     switch (stakingPeriod) {

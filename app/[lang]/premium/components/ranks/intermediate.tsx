@@ -139,7 +139,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
-      address: trotelCoinIntermediateAddress,
+      address: contracts[chain.id].trotelCoinIntermediateAddress,
       abi: trotelCoinIntermediateABI,
       functionName: "balanceOf",
       chainId: chain.id,
@@ -269,12 +269,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     isLoading={isLoadingApproval || approved}
                     onClick={async () => {
                       await approvingAsync({
-                        address: trotelCoinAddress,
+                        address: contracts[chain.id].trotelCoinAddress,
                         abi: trotelCoinABI,
                         functionName: "approve",
                         chainId: chain.id,
                         args: [
-                          trotelCoinIntermediateAddress,
+                          contracts[chain.id].trotelCoinIntermediateAddress,
                           holdingRequirement
                         ]
                       });
@@ -290,7 +290,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     isLoading={isPending}
                     onClick={async () => {
                       await writeContractAsync({
-                        address: trotelCoinIntermediateAddress,
+                        address: contracts[chain.id].trotelCoinIntermediateAddress,
                         abi: trotelCoinIntermediateABI,
                         functionName: "mint",
                         chainId: chain.id,

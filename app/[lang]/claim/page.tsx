@@ -51,7 +51,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
     if (chainId !== chain.id) {
       setChainError(true);
     }
-  }, [chainId]);
+  }, [chainId, chain]);
 
   const {
     data: centralWalletAddressData,

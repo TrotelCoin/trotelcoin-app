@@ -31,7 +31,7 @@ const StakingV1 = ({
     } else {
       setChainError(false);
     }
-  }, [chainId]);
+  }, [chainId, chain]);
 
   return (
     <>

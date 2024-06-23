@@ -103,7 +103,7 @@ const Waitlist = ({
   const { data: earlyData, refetch } = useReadContract({
     chainId: chain.id,
     abi: trotelCoinEarlyABI,
-    address: contracts[chain.id].trotelCoinEarly,
+    address: contracts[chain.id].trotelCoinEarlyAddress,
     functionName: "totalSupply"
   });
 

@@ -42,11 +42,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { userAddress, amount } = inputSchema.safeParse({
+    const { userAddress, amount, chainId } = inputSchema.safeParse({
       address: searchParams.get("address"),
       amount: Number(searchParams.get("amount")),
       chainId: Number(searchParams.get("chainId"))
-    }).data as unknown as { userAddress: Address; amount: number };
+    }).data as unknown as {
+      userAddress: Address;
+      amount: number;
+      chainId: number;
+    };
 
     // prepare transaction
     const { request } = await publicClient.simulateContract({

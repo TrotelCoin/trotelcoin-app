@@ -105,7 +105,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
         setRefreshing(false);
       }
     }
-  }, [address, totalItems]);
+  }, [address, totalItems, chain]);
 
   useEffect(() => {
     if (totalItems && address) {
