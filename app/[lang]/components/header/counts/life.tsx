@@ -45,7 +45,7 @@ const LifeCount = ({ lang }: { lang: Lang }) => {
               <p className="font-semibold">
                 {lang === "en" ? "Your lives" : "Vos vies"}
               </p>
-              <Link href={`/${lang}/shop/ranks`}>
+              <Link href={`/${lang}/premium`}>
                 <BlueButton
                   lang={lang}
                   onClick={() => setIsHoveringLife(false)}

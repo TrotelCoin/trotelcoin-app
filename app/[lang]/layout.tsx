@@ -197,6 +197,12 @@ export default function Layout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+
+        <Script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "b7c8bd3de82644159e2a34e96da6037d"}'
+        />
       </html>
     </>
   );

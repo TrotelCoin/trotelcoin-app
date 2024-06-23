@@ -33,27 +33,31 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {totalRewardsPending && !showTrotelInUsdc && (
-                  <span>
-                    <CountUp
-                      start={0}
-                      end={roundPrice(totalRewardsPending)}
-                      suffix=" 💰"
-                    />
-                  </span>
-                )}
-                {totalRewardsPending && showTrotelInUsdc && (
-                  <span>
-                    <CountUp
-                      start={0}
-                      prefix="$"
-                      decimals={2}
-                      end={roundPrice(
-                        totalRewardsPending * (storedTrotelPrice as number)
-                      )}
-                      suffix=" 💰"
-                    />
-                  </span>
+                {showTrotelInUsdc ? (
+                  <>
+                    <span>
+                      <CountUp
+                        start={0}
+                        end={roundPrice(totalRewardsPending as number)}
+                        suffix=" 💰"
+                      />
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span>
+                      <CountUp
+                        start={0}
+                        prefix="$"
+                        decimals={2}
+                        end={roundPrice(
+                          (totalRewardsPending as number) *
+                            (storedTrotelPrice as number)
+                        )}
+                        suffix=" 💰"
+                      />
+                    </span>
+                  </>
                 )}
               </span>
             </>
