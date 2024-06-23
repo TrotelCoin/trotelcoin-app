@@ -11,7 +11,6 @@ import { Address, parseEther, getAddress, Chain } from "viem";
 import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
 import { getServerSession } from "next-auth";
-import { polygonAmoy } from "viem/chains";
 
 export const dynamic = "force-dynamic";
 
@@ -56,7 +55,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     let hash;
 
     // prepare transaction
-    if (chain !== polygonAmoy) {
+    if (!chain.testnet) {
       const { request } = await publicClient.simulateContract({
         address: contracts[chain.id].trotelCoinAddress,
         abi: abis[chain.id].trotelCoin,

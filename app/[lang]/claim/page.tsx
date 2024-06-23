@@ -21,7 +21,6 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
-  const [claimed, setClaimed] = useState<boolean>(false);
   const [chainError, setChainError] = useState<boolean>(false);
 
   const { address } = useAccount();
@@ -81,7 +80,6 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <AvailableToClaim
                 lang={lang}
                 availableToClaim={availableToClaim}
-                claimed={claimed}
                 isLoading={isLoadingUserTotalRewardsPending}
               />
             </div>
@@ -116,7 +114,6 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 lang={lang}
                 chainError={chainError}
                 setChainError={setChainError}
-                setClaimed={setClaimed}
               />
             ) : (
               <Wallet lang={lang} isFull={true} isCentered={true} />

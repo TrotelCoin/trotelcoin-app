@@ -25,7 +25,6 @@ import PremiumContext from "@/contexts/premium";
 import { loadingFlashClass } from "@/style/loading";
 import ChainContext from "@/contexts/chain";
 import { Switch } from "@nextui-org/switch";
-import { polygonAmoy } from "viem/chains";
 
 const Header = ({ lang }: { lang: Lang }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -233,7 +232,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                           {showTestnet && (
                             <>
                               <Switch
-                                isSelected={chain.id === polygonAmoy.id}
+                                isSelected={chain.testnet}
                                 onChange={handleTestnet}
                                 color="success"
                                 size="sm"

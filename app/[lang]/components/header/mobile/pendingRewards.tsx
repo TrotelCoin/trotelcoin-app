@@ -8,12 +8,12 @@ import useSWR from "swr";
 import { Address } from "viem";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
+import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 
 const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
   const [chainError, setChainError] = useState<boolean>(false);
   const [centralWalletAddress, setCentralWalletAddress] =
     useState<Address | null>(null);
-  const [claimed, setClaimed] = useState<boolean>(false);
 
   const { userTotalRewardsPending } = useContext(UserContext);
   const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
@@ -41,39 +41,24 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
         <div className="flex items-center justify-between gap-2 p-4">
           <h3>{lang === "en" ? "Your rewards" : "Vos récompenses"}</h3>
           <div className="flex items-center gap-2">
-            {showTrotelInUsdc && "$"}
-            {!claimed &&
-              userTotalRewardsPending &&
-              !showTrotelInUsdc &&
-              roundPrice(Number(userTotalRewardsPending)).toLocaleString(
-                "en-US"
-              )}
-            {!claimed &&
-              userTotalRewardsPending &&
-              showTrotelInUsdc &&
-              roundPrice(
-                userTotalRewardsPending * (trotelPrice as number)
-              ).toLocaleString("en-US")}
-            <div className="block h-4 w-4 dark:hidden">
-              <Image
-                width={16}
-                height={16}
-                className="rounded-full"
-                aria-hidden="true"
-                alt="Token logo"
-                src="/assets/logo/trotelcoin.svg"
-              />
-            </div>
-            <div className="hidden h-4 w-4 dark:block">
-              <Image
-                width={16}
-                height={16}
-                className="rounded-full"
-                aria-hidden="true"
-                alt="Token logo"
-                src="/assets/logo/trotelcoin-dark.jpg"
-              />
-            </div>
+            {showTrotelInUsdc ? (
+              <>
+                $
+                {roundPrice(
+                  Number(
+                    (trotelPrice as number) *
+                      (userTotalRewardsPending as number)
+                  )
+                ).toLocaleString("en-US")}
+              </>
+            ) : (
+              <>
+                {roundPrice(
+                  Number(userTotalRewardsPending as number)
+                ).toLocaleString("en-US")}
+              </>
+            )}
+            <TrotelCoinLogo />
           </div>
         </div>
         <div className="flex w-full items-center justify-center gap-4 p-4">
@@ -82,7 +67,6 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
             lang={lang}
             chainError={chainError}
             setChainError={setChainError}
-            setClaimed={setClaimed}
           />
         </div>
       </div>

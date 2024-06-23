@@ -38,7 +38,7 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   }, [trotelPrice, storedTrotelPrice]);
 
   useEffect(() => {
-    if (chain.id === polygonAmoy.id) {
+    if (chain.testnet) {
       setShowTrotelInUsdc(false);
       setStoredTrotelPrice(1);
       setTrotelPriceLoading(false);
