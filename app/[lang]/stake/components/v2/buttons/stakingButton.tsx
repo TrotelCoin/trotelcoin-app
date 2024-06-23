@@ -122,6 +122,9 @@ const StakingButton = ({
     let stakingDuration = 0;
 
     switch (stakingPeriod) {
+      case 5:
+        stakingDuration = 300;
+        break;
       case 30:
         stakingDuration = 2592000;
         break;
