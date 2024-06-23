@@ -164,7 +164,7 @@ const IncreaseStakingButton = ({
         isLoading={isLoading}
       />
       <SuccessNotification
-        show={stakeMessage}
+        display={stakeMessage}
         lang={lang}
         onClose={() => setStakeMessage(false)}
         title={lang === "en" ? "Success" : "Succès"}
@@ -175,7 +175,7 @@ const IncreaseStakingButton = ({
         }
       />
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -186,7 +186,7 @@ const IncreaseStakingButton = ({
         }
       />
       <FailNotification
-        show={chainError && Boolean(address)}
+        display={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
           switchChain({ chainId: chain.id });

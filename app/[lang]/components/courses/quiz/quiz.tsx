@@ -91,7 +91,7 @@ const Quiz = ({
       )}
 
       <SuccessNotification
-        show={isTotallyCorrect && showCorrectMessage}
+        display={isTotallyCorrect && showCorrectMessage}
         onClose={() => setShowCorrectMessage(false)}
         lang={lang}
         title={lang === "en" ? "Congratulations!" : "Félicitations !"}

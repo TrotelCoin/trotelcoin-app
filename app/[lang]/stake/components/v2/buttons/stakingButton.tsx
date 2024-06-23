@@ -180,7 +180,7 @@ const StakingButton = ({
         isLoading={isLoading}
       />
       <SuccessNotification
-        show={stakeMessage}
+        display={stakeMessage}
         lang={lang}
         onClose={() => setStakeMessage(false)}
         title={lang === "en" ? "Success" : "Succès"}
@@ -191,7 +191,7 @@ const StakingButton = ({
         }
       />
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -202,7 +202,7 @@ const StakingButton = ({
         }
       />
       <FailNotification
-        show={chainError && Boolean(address)}
+        display={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
           switchChain({ chainId: chain.id });

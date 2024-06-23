@@ -64,7 +64,7 @@ const ScannerComponent = ({
       </ModalContainer>
 
       <SuccessNotification
-        show={scannedMessage}
+        display={scannedMessage}
         lang={lang}
         onClose={() => setScannedMessage(false)}
         title={lang === "en" ? "Address scanned" : "Addresse scannée"}
@@ -75,7 +75,7 @@ const ScannerComponent = ({
         }
       />
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         lang={lang}
         onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}

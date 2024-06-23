@@ -12,7 +12,7 @@ import {
 import { contracts } from "@/data/web3/addresses";
 import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
-import { parseEther } from "viem";
+import { parseEther, formatEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
@@ -73,7 +73,9 @@ const ApproveButton = ({
     let approveAmount;
 
     if (isMax && balance) {
-      approveAmount = parseEther(formatEther(balance?.value).toFixed(18));
+      approveAmount = parseEther(
+        Number(formatEther(balance?.value)).toFixed(18)
+      );
     } else {
       approveAmount = parseEther(Number(amount).toFixed(18));
     }
@@ -110,7 +112,7 @@ const ApproveButton = ({
       />
 
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -119,7 +121,7 @@ const ApproveButton = ({
         }
       />
       <FailNotification
-        show={chainError && Boolean(address)}
+        display={chainError && Boolean(address)}
         onClose={() => {
           switchChain({ chainId: chain.id });
           setChainError(false);

@@ -172,7 +172,7 @@ const ClaimingButton = ({
       />
 
       <SuccessNotification
-        show={claimMessage}
+        display={claimMessage}
         lang={lang}
         onClose={() => setClaimMessage(false)}
         title={lang === "en" ? "Success" : "Succès"}
@@ -183,14 +183,14 @@ const ClaimingButton = ({
         }
       />
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "There was an error" : "Il y a eu une erreur"}
       />
       <FailNotification
-        show={chainError && Boolean(address)}
+        display={chainError && Boolean(address)}
         onClose={() => {
           switchChain({ chainId: chain.id });
           setChainError(false);

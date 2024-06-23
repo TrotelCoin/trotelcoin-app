@@ -1,5 +1,6 @@
 import type { Lang } from "@/types/language/lang";
-import React from "react";
+import React, { useContext } from "react";
+import ChainContext from "@/contexts/chain";
 
 const Period = ({
   lang,
@@ -10,9 +11,25 @@ const Period = ({
   stakingPeriod: number;
   setStakingPeriod: (stakingPeriod: number) => void;
 }) => {
+  const { showTestnet } = useContext(ChainContext);
+
   return (
     <>
       <ul className="flex flex-wrap gap-2">
+        {showTestnet && (
+          <li>
+            <button
+              onClick={() => setStakingPeriod(5)}
+              className={`${
+                stakingPeriod === 5
+                  ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+              } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
+            >
+              {lang === "en" ? "5 minutes" : "5 minutes"}
+            </button>
+          </li>
+        )}
         <li>
           <button
             onClick={() => setStakingPeriod(30)}

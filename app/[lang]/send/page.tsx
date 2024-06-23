@@ -12,7 +12,7 @@ import {
 } from "wagmi";
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { Hash, isAddress, parseEther } from "viem";
+import { Hash, isAddress, parseEther, formatEther } from "viem";
 import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
 import { loadingFlashClass } from "@/style/loading";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
@@ -86,7 +86,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(formatEther(balance?.value));
+      const max = Number(formatEther(balance?.value as bigint));
 
       if (amount === max) {
         setIsMax(true);
@@ -99,7 +99,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [amount, balance, address]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value));
+    const max = Number(formatEther(balance?.value as bigint));
     setAmount(max);
   };
 
@@ -291,7 +291,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       )}
 
       <SuccessNotification
-        show={successMessage}
+        display={successMessage}
         onClose={() => setSuccessMessage(false)}
         lang={lang}
         title={lang === "en" ? "Sent" : "Envoyé"}
@@ -302,7 +302,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
         }
       />
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         onClose={() => setErrorMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}

@@ -162,7 +162,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
     // submit to the blockchain (json and cid)
 
-    // show success message
+    // display success message
 
     // remove local storage
     localStorage.removeItem("submit_course_title");
@@ -501,7 +501,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "Une erreur est survenue avec le fichier JSON. Vérifiez que vous avez bien rempli chaque champ."
         }
         onClose={() => setJsonError(false)}
-        show={jsonError}
+        display={jsonError}
       />
       <FailNotification
         lang={lang}
@@ -512,7 +512,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "Une erreur est survenue lors de l'envoi du fichier. Veuillez réessayer."
         }
         onClose={() => setUploadError(false)}
-        show={uploadError}
+        display={uploadError}
       />
       <FailNotification
         lang={lang}
@@ -523,7 +523,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
             : "Votre portefeuille semble être déconnecté."
         }
         onClose={() => setAddressError(false)}
-        show={addressError}
+        display={addressError}
       />
     </>
   );

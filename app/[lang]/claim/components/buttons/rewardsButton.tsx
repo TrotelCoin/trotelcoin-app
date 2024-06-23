@@ -18,7 +18,7 @@ import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
-import { polygonAmyos } from "viem/chains";
+import { polygonAmoy } from "viem/chains";
 
 const RewardsButton = ({
   lang,
@@ -149,7 +149,7 @@ const RewardsButton = ({
 
         setTransactionHash(hash);
 
-        if (chain.id !== polygonAmyos.id) {
+        if (chain.id !== polygonAmoy.id) {
           // reset database pending rewards
           await axios
             .post(`/api/user/rewards/reset?wallet=${address}`)
@@ -192,7 +192,7 @@ const RewardsButton = ({
       />
 
       <SuccessNotification
-        show={successMessage}
+        display={successMessage}
         onClose={() => setSuccessMessage(false)}
         lang={lang}
         title={lang === "en" ? "Success" : "Succès"}
@@ -203,7 +203,7 @@ const RewardsButton = ({
         }
       />
       <FailNotification
-        show={nothingToClaimMessage}
+        display={nothingToClaimMessage}
         onClose={() => setNothingToClaimMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -214,7 +214,7 @@ const RewardsButton = ({
         }
       />
       <FailNotification
-        show={errorMessage}
+        display={errorMessage}
         lang={lang}
         onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -225,7 +225,7 @@ const RewardsButton = ({
         }
       />
       <FailNotification
-        show={noAddressMessage}
+        display={noAddressMessage}
         onClose={() => setNoAddressMessage(false)}
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
@@ -236,7 +236,7 @@ const RewardsButton = ({
         }
       />
       <FailNotification
-        show={chainError && Boolean(address)}
+        display={chainError && Boolean(address)}
         onClose={() => {
           switchChain({ chainId: chain.id });
           setChainError(false);

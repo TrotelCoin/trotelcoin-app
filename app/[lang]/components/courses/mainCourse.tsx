@@ -104,7 +104,7 @@ const CourseContent = ({
       </div>
 
       <SuccessNotification
-        show={copied}
+        display={copied}
         onClose={() => setCopied(false)}
         lang={lang}
         title={lang === "en" ? "Share" : "Partagez"}

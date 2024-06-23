@@ -109,7 +109,7 @@ const CoursesSatisfaction = ({
       <SuccessNotification
         lang={lang}
         display={satisfactionMessage}
-        onDismiss={() => setSatisfactionMessage(false)}
+        onClose={() => setSatisfactionMessage(false)}
         title={lang === "en" ? "Thank you!" : "Merci !"}
         message={
           lang === "en"
@@ -120,7 +120,7 @@ const CoursesSatisfaction = ({
       <FailNotification
         lang={lang}
         display={errorMessage}
-        onDismiss={() => setErrorMessage(false)}
+        onClose={() => setErrorMessage(false)}
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en"
