@@ -9,6 +9,7 @@ import type { Chain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import Image from "next/image";
 import { roundPrice } from "@/utils/price/roundPrice";
+import maxParameter from "@/web3/maxParameter";
 
 const From = ({
   lang,
@@ -51,7 +52,7 @@ const From = ({
 
   useEffect(() => {
     if (fromBalance && fromToken) {
-      const max = fromBalance;
+      const max = fromBalance * maxParameter;
 
       if (fromAmount === max) {
         setIsMax(true);

@@ -6,6 +6,7 @@ import { useBalance, useBlockNumber } from "wagmi";
 import { roundPrice } from "@/utils/price/roundPrice";
 import { formatEther } from "viem";
 import ChainContext from "@/contexts/chain";
+import maxParameter from "@/web3/maxParameter";
 
 const Amount = ({
   lang,
@@ -49,7 +50,7 @@ const Amount = ({
 
   useEffect(() => {
     if (amount && address) {
-      const max = Number(formatEther(balance?.value as bigint));
+      const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
 
       if (amount === max) {
         setIsMax(true);
@@ -62,7 +63,7 @@ const Amount = ({
   }, [amount, balance, address, setIsMax]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value as bigint));
+    const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
     setAmount(max);
   };
 

@@ -15,19 +15,79 @@ module.exports = withMDX(
     pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
 
     images: {
-      domains: [
-        "coingecko.com",
-        "assets.coingecko.com",
-        "cryptologos.cc",
-        "raw.githubusercontent.com",
-        "media.socket.tech",
-        "arbiscan.io",
-        "s2.coinmarketcap.com",
-        "optimistic.etherscan.io",
-        "gnosisscan.io",
-        "bscscan.com",
-        "tokens.1inch.io",
-        "bridgelogos.s3.ap-south-1.amazonaws.com"
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "coingecko.com",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "assets.coingecko.com",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "cryptologos.cc",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "raw.githubusercontent.com",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "media.socket.tech",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "arbiscan.io",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "s2.coinmarketcap.com",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "optimistic.etherscan.io",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "gnosisscan.io",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "bscscan.com",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "tokens.1inch.io",
+          port: "",
+          pathname: "/**"
+        },
+        {
+          protocol: "https",
+          hostname: "bridgelogos.s3.ap-south-1.amazonaws.com",
+          port: "",
+          pathname: "/**"
+        }
       ]
     },
 
