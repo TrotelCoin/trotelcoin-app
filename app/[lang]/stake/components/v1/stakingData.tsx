@@ -9,9 +9,9 @@ import {
   useBlock
 } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import { Address } from "viem";
-import trotelCoinStakingV1ABI from "@/abi/polygon/staking/trotelCoinStakingV1";
+import abis from "@/abis/abis";
 import {
   oneYear,
   sixMonths,
@@ -90,7 +90,7 @@ const StakingData = ({
     isLoading: isLoadingStakingData
   } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV1ABI,
+    abi: abis[chain.id].trotelCoinStakingV1,
     address: contracts[chain.id].trotelCoinStakingV1,
     functionName: "stakings",
     args: [address as Address]

@@ -7,8 +7,8 @@ import Image from "next/image";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import ThemeContext from "@/contexts/theme";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import trotelCoinEarlyABI from "@/abi/polygon/premium/trotelCoinEarly";
-import { contracts } from "@/data/web3/addresses";
+import abis from "@/abis/abis";
+import contracts from "@/data/web3/addresses";
 import CountUp from "react-countup/";
 import Link from "next/link";
 import UserContext from "@/contexts/user";
@@ -102,7 +102,7 @@ const Waitlist = ({
 
   const { data: earlyData, refetch } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinEarlyABI,
+    abi: abis[chain.id].trotelCoinEarly,
     address: contracts[chain.id].trotelCoinEarlyAddress,
     functionName: "totalSupply"
   });

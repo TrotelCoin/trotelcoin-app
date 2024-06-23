@@ -11,9 +11,8 @@ import ClaimingButton from "@/app/[lang]/stake/components/v2/buttons/claimingBut
 import ApproveButton from "@/app/[lang]/stake/components/v2/buttons/approveButton";
 import IncreaseStakingButton from "@/app/[lang]/stake/components/v2/buttons/increaseStakingButton";
 import StakingButton from "@/app/[lang]/stake/components/v2/buttons/stakingButton";
-import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 import ChainContext from "@/contexts/chain";
 
 const StakingV2 = ({
@@ -84,8 +83,8 @@ const StakingV2 = ({
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
     chainId: chain.id,
-    args: [address, contracts[chain.id].trotelCoinStakingV2],
-    abi: trotelCoinABI,
+    args: [address as Address, contracts[chain.id].trotelCoinStakingV2],
+    abi: abis[chain.id].trotelCoin,
     address: contracts[chain.id].trotelCoinAddress,
     functionName: "allowance"
   });
@@ -106,9 +105,9 @@ const StakingV2 = ({
 
   const { data: stakingsData, refetch: refetchStakings } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV2ABI,
+    abi: abis[chain.id].trotelCoinStakingV2,
     address: contracts[chain.id].trotelCoinStakingV2,
-    args: [address],
+    args: [address as Address],
     functionName: "stakings"
   });
 

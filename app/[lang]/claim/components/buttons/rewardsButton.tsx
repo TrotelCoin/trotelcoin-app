@@ -125,6 +125,12 @@ const RewardsButton = ({
       return;
     }
 
+    if (!chain || !centralWalletAddress) {
+      setErrorMessage(true);
+      setIsLoading(false);
+      return;
+    }
+
     if (availableToClaim && availableToClaim > 0) {
       const gasAmount: string = "0.02";
 
@@ -135,16 +141,20 @@ const RewardsButton = ({
           value: parseEther(Number(gasAmount).toFixed(18))
         });
 
-        setAvailableToClaim(0);
-
         // make minting transaction
         const hash = await axios
           .post(
-            `/api/user/claim-rewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}&chainId=${chain.id}`
+            `/api/user/claim-rewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
+            {
+              chain: chain
+            }
           )
           .then((response) => response.data.hash);
 
         setTransactionHash(hash);
+        if (chain.id !== polygonAmoy.id) {
+          setAvailableToClaim(0);
+        }
 
         if (chain.id !== polygonAmoy.id) {
           // reset database pending rewards
@@ -160,7 +170,6 @@ const RewardsButton = ({
       } catch (error) {
         console.error(error);
         setErrorMessage(true);
-      } finally {
         setIsLoading(false);
       }
     } else {
@@ -170,7 +179,7 @@ const RewardsButton = ({
   };
 
   useEffect(() => {
-    if (address && availableToClaim && availableToClaim > 0 && !isLoading) {
+    if (address && !!availableToClaim && availableToClaim > 0 && !isLoading) {
       setDisabled(false);
     } else {
       setDisabled(true);

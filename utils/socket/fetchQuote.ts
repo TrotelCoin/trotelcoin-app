@@ -5,7 +5,7 @@ import { getQuote } from "@/utils/socket/getQuote";
 import { getRouteTransactionData } from "@/utils/socket/getRouteTransactionData";
 import { nativeAddress } from "@/data/web3/tokens";
 import { Chain } from "@/types/web3/chain";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 
 export const fetchQuote = async (
   fromAmount: number,

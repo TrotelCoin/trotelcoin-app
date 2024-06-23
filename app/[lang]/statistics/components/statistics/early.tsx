@@ -1,7 +1,7 @@
 "use client";
 
-import trotelCoinEarlyABI from "@/abi/polygon/premium/trotelCoinEarly";
-import { contracts } from "@/data/web3/addresses";
+import abis from "@/abis/abis";
+import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React, { useContext, useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -33,7 +33,7 @@ const Early = ({
   const { data: early, refetch } = useReadContract({
     chainId: chain.id,
     address: contracts[chain.id].trotelCoinEarlyAddress,
-    abi: trotelCoinEarlyABI,
+    abi: abis[chain.id].trotelCoinEarly,
     functionName: "totalSupply"
   });
 

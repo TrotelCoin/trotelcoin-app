@@ -3,9 +3,8 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { useReadContract, useBlockNumber } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinPolygonUniswapV3PoolABI from "@/abi/polygon/uniswap/trotelCoinPolygonUniswapV3Pool";
-import usdcPolygonUniswapV3PoolABI from "@/abi/polygon/uniswap/usdcPolygonUniswapV3Pool";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
 import { polygonAmoy } from "viem/chains";
@@ -52,14 +51,14 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const { data: trotelSlot0, refetch: refetchTrotelSlot0 } = useReadContract({
-    abi: trotelCoinPolygonUniswapV3PoolABI,
+    abi: abis[chain.id].trotelCoinPolygonUniswapV3Pool,
     address: contracts[chain.id].trotelCoinPolygonUniswapV3Pool,
     functionName: "slot0",
     chainId: chain.id
   });
 
   const { data: usdcSlot0, refetch: refetchUsdcSlot0 } = useReadContract({
-    abi: usdcPolygonUniswapV3PoolABI,
+    abi: abis[chain.id].usdcPolygonUniswapV3Pool,
     address: contracts[chain.id].usdcPolygonUniswapV3Pool,
     functionName: "slot0",
     chainId: chain.id

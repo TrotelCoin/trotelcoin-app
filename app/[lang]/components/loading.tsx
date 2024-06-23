@@ -8,7 +8,7 @@ import React from "react";
 const Loading = ({ lang }: { lang: Lang }) => {
   return (
     <div
-      className={`flex h-screen items-center justify-center bg-gray-900 text-white`}
+      className={`flex h-screen items-center justify-center bg-white text-black dark:bg-gray-900 dark:text-white`}
     >
       <span className={`${loadingFlashClass}`}>
         {lang === "en" ? "Ready to learn?" : "Prêt à apprendre?"}

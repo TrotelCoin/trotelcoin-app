@@ -34,7 +34,7 @@ import TokenList from "@/app/[lang]/swap/components/lists/tokenList";
 import Settings from "@/app/[lang]/swap/components/settings";
 import { Chain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/swap/components/lists/chainList";
-import allowanceAbi from "@/abi/polygon/misc/erc20/allowance";
+import abis from "@/abis/abis";
 import { fetchQuote } from "@/utils/socket/fetchQuote";
 import { getFromTokenList } from "@/utils/socket/getFromTokenList";
 import { getChainList } from "@/utils/socket/getChainList";
@@ -441,10 +441,10 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
     address: fromToken.address,
-    abi: allowanceAbi,
+    abi: abis[fromChain.chainId].allowance,
     chainId: fromChain.chainId,
     functionName: "allowance",
-    args: [userAddress, approvalData?.allowanceTarget]
+    args: [userAddress as Address, approvalData?.allowanceTarget]
   });
 
   useEffect(() => {

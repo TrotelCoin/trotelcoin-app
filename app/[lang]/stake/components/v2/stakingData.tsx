@@ -9,9 +9,9 @@ import {
   useBlock
 } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import { Address, formatEther } from "viem";
-import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
+import abis from "@/abis/abis";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
 import { roundPrice } from "@/utils/price/roundPrice";
@@ -83,7 +83,7 @@ const StakingData = ({
     isLoading: isLoadingStakingData
   } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV2ABI,
+    abi: abis[chain.id].trotelCoinStakingV2,
     address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address as Address]
@@ -95,7 +95,7 @@ const StakingData = ({
     isLoading: isLoadingEarnedData
   } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV2ABI,
+    abi: abis[chain.id].trotelCoinStakingV2,
     address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "getUserReward",
     args: [address as Address]

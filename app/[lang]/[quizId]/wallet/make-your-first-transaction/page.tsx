@@ -16,7 +16,7 @@ import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
 import Link from "next/link";
 import ChainContext from "@/contexts/chain";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);

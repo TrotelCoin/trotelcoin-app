@@ -3,8 +3,8 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Lang } from "@/types/language/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 import { fetchInventory } from "@/utils/inventory/fetchInventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/inventory/components/inventoryItem";
@@ -28,7 +28,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
-  const { chain } = useContext(ChainContext);
+  const { chain, showTestnet } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -71,7 +71,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: totalItemsData, refetch: refetchTotalItems } = useReadContract({
     address: contracts[chain.id].trotelCoinShop,
-    abi: trotelCoinShopABI,
+    abi: abis[chain.id].trotelCoinShop,
     functionName: "getTotalItems",
     chainId: chain.id,
     account: address
@@ -128,7 +128,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 }
               }}
               disabled={refreshing}
-              className="rounded-full p-2 hover:bg-white dark:hover:bg-gray-800"
+              className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <ArrowPathIcon
                 className={`h-5 w-5 text-gray-900 dark:text-gray-100 ${

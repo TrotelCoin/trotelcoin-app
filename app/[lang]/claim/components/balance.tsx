@@ -1,6 +1,6 @@
 "use client";
 
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";

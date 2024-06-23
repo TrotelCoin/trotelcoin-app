@@ -1,7 +1,7 @@
 "use client";
 
-import trotelCoinExpertABI from "@/abi/polygon/premium/trotelCoinExpert";
-import { contracts } from "@/data/web3/addresses";
+import abis from "@/abis/abis";
+import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React, { useContext, useEffect, useState } from "react";
 import CountUp from "react-countup";
@@ -33,7 +33,7 @@ const Expert = ({
   const { data: expert, refetch } = useReadContract({
     chainId: chain.id,
     address: contracts[chain.id].trotelCoinExpertAddress,
-    abi: trotelCoinExpertABI,
+    abi: abis[chain.id].trotelCoinExpert,
     functionName: "totalSupply"
   });
 

@@ -1,4 +1,4 @@
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import type { Token } from "@/types/web3/token";
 import type { Address } from "viem";
 import { polygon } from "viem/chains";

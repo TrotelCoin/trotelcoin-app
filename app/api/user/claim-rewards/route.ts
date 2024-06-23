@@ -1,30 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
-import { walletClient, publicClient } from "@/utils/viem/clients";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
-import { Address, parseEther } from "viem";
-import { privateKeyToAccount } from "viem/accounts";
+import {
+  walletClient,
+  publicClient,
+  testPublicClient,
+  testWalletClient
+} from "@/utils/viem/clients";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
+import { Address, parseEther, getAddress, Chain } from "viem";
+import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
-
 import { getServerSession } from "next-auth";
-import { getToken } from "next-auth/jwt";
+import { polygonAmoy } from "viem/chains";
 
 export const dynamic = "force-dynamic";
 
 const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
 
 const inputSchema = z.object({
-  address: z.custom<Address>(),
+  userAddress: z.custom<Address>(),
   amount: z
     .number()
     .max(100000, "Amount exceed the limit of claiming rewards."),
-  chainId: z.number()
+  chain: z.custom<Chain>()
 });
 
 /* POST /api/user/claim-rewards
  * Mints a specific amount of TrotelCoin to a user's address.
  * @param {string} address - The address of the user.
  * @param {number} amount - The amount of TrotelCoin to mint.
+ * @param {Chain} chain - The chain of the user.
  * @returns {string} hash - The hash of the transaction.
  * @example response - 200 - application/json
  */
@@ -32,9 +37,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
   const session = await getServerSession();
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  if (!session || !token) {
+  if (!session) {
     return NextResponse.json(
       { error: "You need to be logged in." },
       { status: 401 }
@@ -42,27 +46,41 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { userAddress, amount, chainId } = inputSchema.safeParse({
-      address: searchParams.get("address"),
+    const body = await req.json();
+    const { userAddress, amount, chain } = inputSchema.parse({
+      userAddress: searchParams.get("address"),
       amount: Number(searchParams.get("amount")),
-      chainId: Number(searchParams.get("chainId"))
-    }).data as unknown as {
-      userAddress: Address;
-      amount: number;
-      chainId: number;
-    };
-
-    // prepare transaction
-    const { request } = await publicClient.simulateContract({
-      address: contracts[chainId].trotelCoinAddress,
-      abi: trotelCoinABI,
-      functionName: "mint",
-      account: account,
-      args: [userAddress, parseEther(Number(amount).toFixed(18))]
+      chain: body.chain
     });
 
-    // make transaction
-    const hash = await walletClient.writeContract(request);
+    let hash;
+
+    // prepare transaction
+    if (chain !== polygonAmoy) {
+      const { request } = await publicClient.simulateContract({
+        address: contracts[chain.id].trotelCoinAddress,
+        abi: abis[chain.id].trotelCoin,
+        functionName: "mint",
+        account: account as Account,
+        args: [getAddress(userAddress), parseEther(Number(amount).toFixed(18))],
+        chain: chain
+      });
+
+      // make transaction
+      hash = await walletClient.writeContract(request);
+    } else {
+      const { request } = await testPublicClient.simulateContract({
+        address: contracts[chain.id].trotelCoinAddress,
+        abi: abis[chain.id].trotelCoin,
+        functionName: "mint",
+        account: account as Account,
+        args: [getAddress(userAddress), parseEther(Number(amount).toFixed(18))],
+        chain: chain
+      });
+
+      // make transaction
+      hash = await testWalletClient.writeContract(request);
+    }
 
     return NextResponse.json({ success: true, hash: hash }, { status: 200 });
   } catch (error) {
