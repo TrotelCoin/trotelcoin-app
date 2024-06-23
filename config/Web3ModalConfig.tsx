@@ -55,9 +55,10 @@ export const config = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  enableEmail: true,
   auth: {
+    email: true,
     showWallets: true,
+    walletFeatures: true,
     socials: ["google", "apple", "discord", "facebook", "github", "x"]
   },
   ssr: true,
