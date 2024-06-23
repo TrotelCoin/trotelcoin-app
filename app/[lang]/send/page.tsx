@@ -23,7 +23,7 @@ import { roundPrice } from "@/utils/price/roundPrice";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { Skeleton } from "@radix-ui/themes";
 import ChainContext from "@/contexts/chain";
-import maxParameter from "@/web3/maxParameter";
+import maxParameter from "@/data/web3/maxParameter";
 
 const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [amount, setAmount] = useState<number | undefined>(undefined);

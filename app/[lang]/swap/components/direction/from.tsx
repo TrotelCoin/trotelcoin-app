@@ -9,7 +9,7 @@ import type { Chain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import Image from "next/image";
 import { roundPrice } from "@/utils/price/roundPrice";
-import maxParameter from "@/web3/maxParameter";
+import maxParameter from "@/data/web3/maxParameter";
 
 const From = ({
   lang,

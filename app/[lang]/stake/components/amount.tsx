@@ -6,7 +6,7 @@ import { useBalance, useBlockNumber } from "wagmi";
 import { roundPrice } from "@/utils/price/roundPrice";
 import { formatEther } from "viem";
 import ChainContext from "@/contexts/chain";
-import maxParameter from "@/web3/maxParameter";
+import maxParameter from "@/data/web3/maxParameter";
 
 const Amount = ({
   lang,
