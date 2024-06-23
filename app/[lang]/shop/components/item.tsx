@@ -32,7 +32,6 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [approveMessage, setApproveMessage] = useState<boolean>(false);
-  const [approved, setApproved] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [buyMessage, setBuyMessage] = useState<boolean>(false);
   const [priceAfterDiscount, setPriceAfterDiscount] = useState<number | null>(
@@ -108,7 +107,6 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         setIsLoading(true);
       },
       onError: () => {
-        setApproved(false);
         setIsLoading(false);
         setErrorMessage(true);
       }
@@ -128,7 +126,6 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       !approveConfirmed
     ) {
       setApproveMessage(true);
-      setApproved(true);
       setIsLoading(false);
       setApproveConfirmed(true);
     }
@@ -310,7 +307,9 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     lang={lang}
                     text={lang === "en" ? "Approve" : "Approuver"}
                     onClick={() => {
-                      const amount = parseEther(String(shopItem.price));
+                      const amount = parseEther(
+                        String(shopItem.price * (shopItem.quantity ?? 1))
+                      );
                       approve({
                         address: contracts[chain.id].trotelCoinAddress,
                         abi: trotelCoinABI,
@@ -319,7 +318,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                         args: [contracts[chain.id].trotelCoinShop, amount]
                       });
                     }}
-                    isLoading={isLoading || approved}
+                    isLoading={isLoading}
                     disabled={disabled}
                   />
                 ) : (
