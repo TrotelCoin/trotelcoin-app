@@ -8,10 +8,6 @@ import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 
-const testnetEnabled =
-  process.env.NODE_ENV !== "production" ||
-  process.env.VERCEL_ENV !== "production";
-
 const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const [chain, setChain] = useState<Chain>(polygon);
 
@@ -47,11 +43,10 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
       <ChainContext.Provider value={contextValue}>
         {children}
 
-        {(testnetEnabled ||
-          isAddressEqual(
-            address as Address,
-            contracts[polygonAmoy.id].trotelCoinDAOAddress
-          )) && (
+        {isAddressEqual(
+          address as Address,
+          contracts[polygonAmoy.id].trotelCoinDAOAddress
+        ) && (
           <div className="fixed bottom-0 left-0 p-4">
             <Switch
               isSelected={chain.id === polygonAmoy.id}
