@@ -8,15 +8,25 @@ import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
 
-const testnetEnabled =
-  process.env.NODE_ENV !== "production" ||
-  process.env.VERCEL_ENV !== "production";
-
 const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const [chain, setChain] = useState<Chain>(polygon);
 
   const { switchChain } = useSwitchChain();
   const { address } = useAccount();
+
+  const handleTestnet = () => {
+    if (chain.id === polygon.id) {
+      setChain(polygonAmoy);
+    } else {
+      setChain(polygon);
+    }
+  };
+
+  useEffect(() => {
+    if (chain) {
+      switchChain({ chainId: chain.id });
+    }
+  }, [chain, switchChain]);
 
   const contextValue = useMemo(
     () => ({
@@ -26,32 +36,15 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
     [chain, setChain]
   );
 
-  const handleTestnet = () => {
-    if (chain.id === polygon.id) {
-      setChain(polygonAmoy);
-      switchChain({ chainId: polygonAmoy.id });
-    } else {
-      setChain(polygon);
-      switchChain({ chainId: polygon.id });
-    }
-  };
-
-  useEffect(() => {
-    if (chain && !testnetEnabled) {
-      switchChain({ chainId: chain.id });
-    }
-  }, [chain, switchChain]);
-
   return (
     <>
       <ChainContext.Provider value={contextValue}>
         {children}
 
-        {(testnetEnabled ||
-          isAddressEqual(
-            address as Address,
-            contracts[polygonAmoy.id].trotelCoinDAOAddress
-          )) && (
+        {isAddressEqual(
+          address as Address,
+          contracts[polygonAmoy.id].trotelCoinDAOAddress
+        ) && (
           <div className="fixed bottom-0 left-0 p-4">
             <Switch
               isSelected={chain.id === polygonAmoy.id}

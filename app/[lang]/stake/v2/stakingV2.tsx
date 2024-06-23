@@ -34,6 +34,7 @@ const StakingV2 = ({
   const [stakingPeriod, setStakingPeriod] = useState<number>(30);
   const [needApproval, setNeedApproval] = useState<boolean>(true);
   const [isStaking, setIsStaking] = useState<boolean>(false);
+  const [fetchedAPR, setFetchedAPR] = useState<number | null>(null);
 
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
@@ -111,9 +112,16 @@ const StakingV2 = ({
   useEffect(() => {
     if (stakingsData) {
       const stakedBalance = Number((stakingsData as any)[0]);
+      const fetchedAPR = Number((stakingsData as any)[4]);
 
       if (stakedBalance > 0) {
         setIsStaking(true);
+      }
+
+      if (fetchedAPR) {
+        setFetchedAPR(fetchedAPR);
+      } else {
+        setFetchedAPR(3);
       }
     }
   }, [stakingsData]);
@@ -129,19 +137,22 @@ const StakingV2 = ({
         <div className="flex w-full flex-col flex-wrap divide-y divide-gray-900/10 rounded-xl border border-gray-900/10 bg-white py-4 text-gray-900 backdrop-blur-xl dark:divide-gray-100/10 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100">
           <div className="flex flex-col gap-4 px-4">
             <span className="text-4xl font-bold text-green-500 dark:text-green-300">
-              {APR}%{" "}
+              {isStaking ? fetchedAPR : APR}%{" "}
               <span className="text-base text-gray-700 dark:text-gray-300">
                 APR
               </span>
             </span>
 
-            <div>
-              <Period
-                lang={lang}
-                stakingPeriod={stakingPeriod}
-                setStakingPeriod={setStakingPeriod}
-              />
-            </div>
+            {!isStaking && (
+              <div>
+                <Period
+                  lang={lang}
+                  stakingPeriod={stakingPeriod}
+                  setStakingPeriod={setStakingPeriod}
+                />
+              </div>
+            )}
+
             <div>
               <Amount
                 lang={lang}

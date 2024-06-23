@@ -84,10 +84,10 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
   const isEarly: boolean = earlyBalance > 0;
 
   const isIntermediate = totalStakingAmount
-    ? totalStakingAmount > intermediateStakingBalance
+    ? totalStakingAmount >= intermediateStakingBalance
     : false; // 10,000 TROTEL
   const isExpert = totalStakingAmount
-    ? totalStakingAmount > expertStakingBalance
+    ? totalStakingAmount >= expertStakingBalance
     : false; // 50,000 TROTEL
 
   const isNotPremium = !isIntermediate && !isExpert;
