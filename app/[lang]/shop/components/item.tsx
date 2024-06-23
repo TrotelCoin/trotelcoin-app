@@ -11,7 +11,6 @@ import {
   useBlockNumber,
   useChainId,
   useReadContract,
-  useSwitchChain,
   useTransactionConfirmations,
   useWriteContract
 } from "wagmi";
@@ -42,25 +41,9 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
 
   const { address } = useAccount();
   const chainId = useChainId();
-  const { switchChainAsync } = useSwitchChain();
 
   const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
   const { chain } = useContext(ChainContext);
-
-  useEffect(() => {
-    if (chainId !== chain.id) {
-      setDisabled(true);
-      const switchChain = async () => {
-        await switchChainAsync({
-          chainId: chain.id
-        });
-      };
-
-      switchChain();
-    } else {
-      setDisabled(false);
-    }
-  }, [chainId, switchChainAsync, chain]);
 
   const { data: blockNumber } = useBlockNumber({
     chainId: chain.id,

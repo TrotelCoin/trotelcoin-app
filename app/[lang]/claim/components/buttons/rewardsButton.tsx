@@ -3,7 +3,6 @@
 import type { Lang } from "@/types/language/lang";
 import {
   useAccount,
-  useSwitchChain,
   useSendTransaction,
   useTransactionConfirmations,
   useBlockNumber
@@ -91,8 +90,6 @@ const RewardsButton = ({
       setTransactionConfirmed(true);
     }
   }, [transactionConfirmation, setClaimed, transactionConfirmed]);
-
-  const { switchChain } = useSwitchChain();
 
   useEffect(() => {
     if (isError) {
@@ -238,7 +235,6 @@ const RewardsButton = ({
       <FailNotification
         display={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

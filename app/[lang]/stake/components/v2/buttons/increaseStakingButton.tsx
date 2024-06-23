@@ -5,7 +5,6 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   useAccount,
   useWriteContract,
-  useSwitchChain,
   useBlockNumber,
   useTransactionConfirmations,
   useBlock,
@@ -44,7 +43,7 @@ const IncreaseStakingButton = ({
   const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({ watch: true });
-  const { switchChain } = useSwitchChain();
+
   const { data: block } = useBlock({
     chainId: chain.id,
     blockNumber: blockNumber
@@ -189,7 +188,6 @@ const IncreaseStakingButton = ({
         display={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

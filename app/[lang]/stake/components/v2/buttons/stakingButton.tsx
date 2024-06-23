@@ -6,7 +6,6 @@ import {
   useAccount,
   useWriteContract,
   useReadContract,
-  useSwitchChain,
   useBlockNumber,
   useTransactionConfirmations
 } from "wagmi";
@@ -43,7 +42,6 @@ const StakingButton = ({
 
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
-  const { switchChain } = useSwitchChain();
   const { chain } = useContext(ChainContext);
 
   const { writeContractAsync, data: stakeHash } = useWriteContract({
@@ -208,7 +206,6 @@ const StakingButton = ({
         display={chainError && Boolean(address)}
         lang={lang}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         title={lang === "en" ? "Error" : "Erreur"}

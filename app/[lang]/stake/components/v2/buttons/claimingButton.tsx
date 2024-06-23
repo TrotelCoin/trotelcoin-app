@@ -6,7 +6,6 @@ import {
   useAccount,
   useWriteContract,
   useReadContract,
-  useSwitchChain,
   useBlockNumber,
   useBlock,
   useTransactionConfirmations
@@ -40,7 +39,7 @@ const ClaimingButton = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { address } = useAccount();
-  const { switchChain } = useSwitchChain();
+
   const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
@@ -194,7 +193,6 @@ const ClaimingButton = ({
       <FailNotification
         display={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}

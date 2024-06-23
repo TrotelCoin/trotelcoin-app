@@ -6,7 +6,6 @@ import {
   useAccount,
   useBalance,
   useBlockNumber,
-  useSwitchChain,
   useWriteContract
 } from "wagmi";
 import { contracts } from "@/data/web3/addresses";
@@ -34,7 +33,6 @@ const ApproveButton = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-  const { switchChain } = useSwitchChain();
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
 
@@ -123,7 +121,6 @@ const ApproveButton = ({
       <FailNotification
         display={chainError && Boolean(address)}
         onClose={() => {
-          switchChain({ chainId: chain.id });
           setChainError(false);
         }}
         lang={lang}
