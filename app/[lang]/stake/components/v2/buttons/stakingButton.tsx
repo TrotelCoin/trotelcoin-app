@@ -9,8 +9,8 @@ import {
   useBlockNumber,
   useTransactionConfirmations
 } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address, Hash, parseEther } from "viem";
@@ -76,7 +76,7 @@ const StakingButton = ({
 
   const { data: getStakingDataNoTyped, refetch } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV2ABI,
+    abi: abis[chain.id].trotelCoinStakingV2,
     address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
     args: [address as Address]
@@ -152,7 +152,7 @@ const StakingButton = ({
       address: contracts[chain.id].trotelCoinStakingV2,
       functionName: "stake",
       chainId: chain.id,
-      abi: trotelCoinStakingV2ABI,
+      abi: abis[chain.id].trotelCoinStakingV2,
       args: [stakingAmount, stakingDuration]
     });
   };

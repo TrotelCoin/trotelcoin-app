@@ -8,8 +8,8 @@ import {
   useBlockNumber,
   useWriteContract
 } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { parseEther, formatEther } from "viem";
 import "animate.css";
@@ -83,7 +83,7 @@ const ApproveButton = ({
       address: contracts[chain.id].trotelCoinAddress,
       functionName: "approve",
       chainId: chain.id,
-      abi: trotelCoinABI
+      abi: abis[chain.id].trotelCoin
     });
   };
 

@@ -1,6 +1,6 @@
-import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
+import abis from "@/abis/abis";
 import { config } from "@/config/Web3ModalConfig";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import { readContract } from "@wagmi/core";
 import { Address, Chain, formatEther } from "viem";
 
@@ -22,7 +22,7 @@ export const fetchInventory = async (
     try {
       const userQuantity = (await readContract(config, {
         address: contracts[chain.id].trotelCoinShop,
-        abi: trotelCoinShopABI,
+        abi: abis[chain.id].trotelCoinShop,
         functionName: "getItemQuantity",
         chainId: chain.id,
         account: address,
@@ -31,7 +31,7 @@ export const fetchInventory = async (
 
       const userItem = (await readContract(config, {
         address: contracts[chain.id].trotelCoinShop,
-        abi: trotelCoinShopABI,
+        abi: abis[chain.id].trotelCoinShop,
         functionName: "getItemInformations",
         chainId: chain.id,
         account: address,

@@ -1,6 +1,6 @@
 "use client";
 
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import CountUp from "react-countup";

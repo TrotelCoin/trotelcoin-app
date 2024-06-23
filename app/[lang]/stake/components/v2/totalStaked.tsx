@@ -3,7 +3,7 @@
 import type { Lang } from "@/types/language/lang";
 import { useBalance, useBlockNumber } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";

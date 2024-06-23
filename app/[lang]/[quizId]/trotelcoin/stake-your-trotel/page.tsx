@@ -4,11 +4,10 @@ import type { Lang } from "@/types/language/lang";
 import Course from "@/app/[lang]/components/courses/courseScreen/course";
 import { useContext, useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import trotelCoinStakingV1ABI from "@/abi/polygon/staking/trotelCoinStakingV1";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinStakingV2ABI from "@/abi/polygon/staking/trotelCoinStakingV2";
-import { formatEther } from "viem";
+import contracts from "@/data/web3/addresses";
+import { formatEther, Address } from "viem";
 import ChainContext from "@/contexts/chain";
+import abis from "@/abis/abis";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
@@ -24,18 +23,18 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV1ABI,
+    abi: abis[chain.id].trotelCoinStakingV1,
     address: contracts[chain.id].trotelCoinStakingV1,
     functionName: "stakings",
-    args: [address]
+    args: [address as Address]
   });
 
   const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
     chainId: chain.id,
-    abi: trotelCoinStakingV2ABI,
+    abi: abis[chain.id].trotelCoinStakingV2,
     address: contracts[chain.id].trotelCoinStakingV2,
     functionName: "stakings",
-    args: [address]
+    args: [address as Address]
   });
 
   useEffect(() => {

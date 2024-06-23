@@ -1,6 +1,6 @@
 "use client";
 
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import {
@@ -13,7 +13,7 @@ import {
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Hash, isAddress, parseEther, formatEther } from "viem";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import abis from "@/abis/abis";
 import { loadingFlashClass } from "@/style/loading";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
@@ -256,9 +256,9 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
               await writeContractAsync({
                 address: contracts[chain.id].trotelCoinAddress,
-                abi: trotelCoinABI,
+                abi: abis[chain.id].trotelCoin,
                 functionName: "transfer",
-                args: [recipient, amountDecimals],
+                args: [recipient as string, amountDecimals],
                 chainId: chain.id
               });
             }}

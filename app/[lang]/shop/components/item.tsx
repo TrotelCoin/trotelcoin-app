@@ -14,10 +14,9 @@ import {
   useTransactionConfirmations,
   useWriteContract
 } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
-import { formatEther, Hash, parseEther } from "viem";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
+import { formatEther, Hash, parseEther, Address } from "viem";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import { Skeleton } from "@radix-ui/themes";
@@ -52,11 +51,11 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
     address: contracts[chain.id].trotelCoinAddress,
-    abi: trotelCoinABI,
+    abi: abis[chain.id].trotelCoin,
     functionName: "allowance",
     chainId: chain.id,
     account: address,
-    args: [address, contracts[chain.id].trotelCoinShop]
+    args: [address as Address, contracts[chain.id].trotelCoinShop]
   });
 
   useEffect(() => {
@@ -297,7 +296,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                       );
                       approve({
                         address: contracts[chain.id].trotelCoinAddress,
-                        abi: trotelCoinABI,
+                        abi: abis[chain.id].trotelCoin,
                         functionName: "approve",
                         chainId: chain.id,
                         args: [contracts[chain.id].trotelCoinShop, amount]
@@ -313,10 +312,10 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     onClick={() => {
                       buyItem({
                         address: contracts[chain.id].trotelCoinShop,
-                        abi: trotelCoinShopABI,
+                        abi: abis[chain.id].trotelCoinShop,
                         functionName: "buyItem",
                         chainId: chain.id,
-                        args: [shopItem.id, shopItem.quantity],
+                        args: [shopItem.id, shopItem.quantity as number],
                         account: address
                       });
                     }}

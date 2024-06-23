@@ -5,8 +5,8 @@ import Item from "@/app/[lang]/shop/components/item";
 import { Lang } from "@/types/language/lang";
 import type { ShopCategories, Category } from "@/types/shop/shop";
 import { useAccount, useBalance, useBlockNumber, useReadContract } from "wagmi";
-import { contracts } from "@/data/web3/addresses";
-import trotelCoinShopABI from "@/abi/polygon/shop/trotelCoinShop";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import ItemSkeleton from "@/app/[lang]/shop/components/itemSkeleton";
@@ -66,13 +66,13 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
     chainId: chain.id,
     address: contracts[chain.id].trotelCoinShop,
     functionName: "getAllCategories",
-    abi: trotelCoinShopABI
+    abi: abis[chain.id].trotelCoinShop
   });
 
   const { data: allItems, refetch: refetchItems } = useReadContract({
     chainId: chain.id,
     address: contracts[chain.id].trotelCoinShop,
-    abi: trotelCoinShopABI,
+    abi: abis[chain.id].trotelCoinShop,
     functionName: "getAllItems"
   });
 

@@ -1,7 +1,7 @@
 import { Address } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 
-export const contracts: {
+const contracts: {
   [key: number]: {
     trotelCoinAddress: Address;
     trotelCoinEarlyAddress: Address;
@@ -59,3 +59,5 @@ export const contracts: {
     usdcPolygonUniswapV3Pool: "0x0" as Address
   }
 };
+
+export default contracts;

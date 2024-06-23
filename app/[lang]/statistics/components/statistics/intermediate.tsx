@@ -1,7 +1,7 @@
 "use client";
 
-import trotelCoinIntermediateABI from "@/abi/polygon/premium/trotelCoinIntermediate";
-import { contracts } from "@/data/web3/addresses";
+import abis from "@/abis/abis";
+import contracts from "@/data/web3/addresses";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import type { Lang } from "@/types/language/lang";
@@ -33,7 +33,7 @@ const Intermediate = ({
   const { data: intermediate, refetch } = useReadContract({
     chainId: chain.id,
     address: contracts[chain.id].trotelCoinIntermediateAddress,
-    abi: trotelCoinIntermediateABI,
+    abi: abis[chain.id].trotelCoinIntermediate,
     functionName: "totalSupply"
   });
 

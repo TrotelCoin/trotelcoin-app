@@ -2,11 +2,11 @@
 
 import ChainContext from "@/contexts/chain";
 import React, { useEffect, useMemo, useState } from "react";
-import { Chain, isAddressEqual } from "viem";
+import { Chain, isAddressEqual, Address } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
 
-const testnetAddresses = [
+const testnetAddresses: Address[] = [
   "0x8333c1B5131CC694c3A238E41e50cbc236e73DbC",
   "0x747923D9eC6c94521aCccc6F3d065C3772f3fa6b",
   "0x184aBB8CaA01E856228773889ab832DcC9884FE1",

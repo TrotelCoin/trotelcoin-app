@@ -1,8 +1,8 @@
 import { publicClient } from "@/utils/viem/clients";
 import { NextRequest, NextResponse } from "next/server";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import abis from "@/abis/abis";
 import { Address, parseEther } from "viem";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
@@ -40,10 +40,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
     const gas = await publicClient.estimateContractGas({
       address: contracts[chainId].trotelCoinAddress,
-      abi: trotelCoinABI,
+      abi: abis[chainId].trotelCoin,
       functionName: "mint",
       account: centralWalletAddress,
-      args: [userAddress, parseEther(Number(amount).toFixed(18))]
+      args: [userAddress as Address, parseEther(Number(amount).toFixed(18))]
     });
 
     return NextResponse.json(parseFloat(gas.toString()), {

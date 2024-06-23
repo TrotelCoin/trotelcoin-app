@@ -1,6 +1,5 @@
 "use client";
 
-import trotelCoinIntermediateABI from "@/abi/polygon/premium/trotelCoinIntermediate";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {
@@ -14,14 +13,14 @@ import {
 import "animate.css";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
-import { contracts } from "@/data/web3/addresses";
+import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import PremiumContext from "@/contexts/premium";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import trotelCoinABI from "@/abi/polygon/trotelcoin/trotelCoin";
+import abis from "@/abis/abis";
 import ChainContext from "@/contexts/chain";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
@@ -51,10 +50,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
     address: contracts[chain.id].trotelCoinAddress,
-    abi: trotelCoinABI,
+    abi: abis[chain.id].trotelCoin,
     functionName: "allowance",
     chainId: chain.id,
-    args: [address, contracts[chain.id].trotelCoinIntermediateAddress],
+    args: [address as Address, contracts[chain.id].trotelCoinIntermediateAddress],
     account: address as Address
   });
 
@@ -101,7 +100,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
       address: contracts[chain.id].trotelCoinIntermediateAddress,
-      abi: trotelCoinIntermediateABI,
+      abi: abis[chain.id].trotelCoinIntermediate,
       functionName: "holdingRequirement",
       chainId: chain.id,
       account: address as Address
@@ -140,10 +139,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
       address: contracts[chain.id].trotelCoinIntermediateAddress,
-      abi: trotelCoinIntermediateABI,
+      abi: abis[chain.id].trotelCoinIntermediate,
       functionName: "balanceOf",
       chainId: chain.id,
-      args: [address],
+      args: [address as Address],
       account: address as Address
     });
 
@@ -270,7 +269,7 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     onClick={async () => {
                       await approvingAsync({
                         address: contracts[chain.id].trotelCoinAddress,
-                        abi: trotelCoinABI,
+                        abi: abis[chain.id].trotelCoin,
                         functionName: "approve",
                         chainId: chain.id,
                         args: [
@@ -292,10 +291,10 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                       await writeContractAsync({
                         address:
                           contracts[chain.id].trotelCoinIntermediateAddress,
-                        abi: trotelCoinIntermediateABI,
+                        abi: abis[chain.id].trotelCoinIntermediate,
                         functionName: "mint",
                         chainId: chain.id,
-                        args: [address]
+                        args: [address as Address]
                       });
                     }}
                     text={lang === "en" ? "Buy the NFT" : "Achetez le NFT"}
