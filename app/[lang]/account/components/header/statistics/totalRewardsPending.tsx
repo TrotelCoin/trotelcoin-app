@@ -33,7 +33,7 @@ const TotalRewardsPending = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {showTrotelInUsdc ? (
+                {!showTrotelInUsdc ? (
                   <>
                     <span>
                       <CountUp
