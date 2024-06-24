@@ -34,6 +34,9 @@ const StakingV2 = ({
   const [needApproval, setNeedApproval] = useState<boolean>(true);
   const [isStaking, setIsStaking] = useState<boolean>(false);
   const [fetchedAPR, setFetchedAPR] = useState<number | null>(null);
+  const [fetchedStakingPeriod, setFetchedStakingPeriod] = useState<
+    number | null
+  >(null);
 
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
@@ -114,6 +117,7 @@ const StakingV2 = ({
   useEffect(() => {
     if (stakingsData) {
       const stakedBalance = Number((stakingsData as any)[0]);
+      const fetchedStakingPeriod = Number((stakingsData as any)[2]); // in seconds
       const fetchedAPR = Number((stakingsData as any)[4]);
 
       if (stakedBalance > 0) {
@@ -124,6 +128,14 @@ const StakingV2 = ({
         setFetchedAPR(fetchedAPR);
       } else {
         setFetchedAPR(3);
+      }
+
+      if (fetchedStakingPeriod) {
+        const days = fetchedStakingPeriod / 60 / 60 / 24;
+
+        setFetchedStakingPeriod(days);
+      } else {
+        setFetchedStakingPeriod(30);
       }
     }
   }, [stakingsData]);
@@ -164,8 +176,10 @@ const StakingV2 = ({
                 isMax={isMax}
                 setIsMax={setIsMax}
                 trotelPrice={trotelPrice}
-                APR={APR as number}
-                stakingPeriod={stakingPeriod}
+                APR={isStaking ? (fetchedAPR as number) : (APR as number)}
+                stakingPeriod={
+                  isStaking ? (fetchedStakingPeriod as number) : stakingPeriod
+                }
               />
             </div>
           </div>
