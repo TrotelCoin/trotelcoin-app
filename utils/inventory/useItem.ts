@@ -8,7 +8,7 @@ export const usingItem = async (
   setErrorMessage: React.Dispatch<React.SetStateAction<boolean>>,
   setItemsUsedMessage: React.Dispatch<React.SetStateAction<boolean>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setQuantity: React.Dispatch<React.SetStateAction<number | null>>
+  setQuantity: React.Dispatch<React.SetStateAction<number>>
 ) => {
   setIsLoading(true);
 
@@ -76,7 +76,7 @@ export const usingItem = async (
       );
 
       setItemsUsedMessage(true);
-      setQuantity((prev) => (prev ? prev - 1 : null));
+      setQuantity((prev) => prev - 1);
     } catch (error) {
       console.error(error);
       setErrorMessage(true);

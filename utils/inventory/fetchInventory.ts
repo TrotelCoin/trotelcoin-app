@@ -16,6 +16,7 @@ export const fetchInventory = async (
     quantity: number;
     emoji: string;
     disabled: boolean;
+    id: number;
   }[] = [];
 
   for (let item = 1; item <= totalItems; item++) {
@@ -44,6 +45,7 @@ export const fetchInventory = async (
       const discount: number = Number(formatEther(userItem?.discount));
       const emoji: string = userItem?.emoji;
       const disabled: boolean = userItem?.disabled;
+      const id: number = item;
 
       const itemFormatted = {
         name: name,
@@ -51,7 +53,8 @@ export const fetchInventory = async (
         discount: discount,
         quantity: itemQuantity,
         emoji: emoji,
-        disabled: disabled
+        disabled: disabled,
+        id: id
       };
 
       newInventories.push(itemFormatted);
