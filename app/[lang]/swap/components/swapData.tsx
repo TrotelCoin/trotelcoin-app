@@ -1,11 +1,11 @@
 import { Lang } from "@/types/language/lang";
 import React, { useState } from "react";
-import { BoltIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { BoltIcon, InformationCircleIcon } from "@heroicons/react/24/solid";
 import { Skeleton } from "@radix-ui/themes";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { Token } from "@/types/web3/token";
 import Image from "next/image";
-import * as Tooltip from "@radix-ui/react-tooltip";
+import * as Popover from "@radix-ui/react-popover";
 import { Slippage, Sort } from "@/types/web3/swap";
 
 const SwapData = ({
@@ -35,6 +35,18 @@ const SwapData = ({
 }) => {
   const [showMore, setShowMore] = useState<boolean>(false);
 
+  const [feePopoverOpen, setFeePopoverOpen] = useState<boolean>(false);
+  const [slippagePopoverOpen, setSlippagePopoverOpen] =
+    useState<boolean>(false);
+  const [bridgeSlippagePopoverOpen, setBridgeSlippagePopoverOpen] =
+    useState<boolean>(false);
+  const [minimumAmountPopoverOpen, setMinimumAmountPopoverOpen] =
+    useState<boolean>(false);
+  const [protocolPopoverOpen, setProtocolPopoverOpen] =
+    useState<boolean>(false);
+  const [refuelPopoverOpen, setRefuelPopoverOpen] = useState<boolean>(false);
+  const [sortPopoverOpen, setSortPopoverOpen] = useState<boolean>(false);
+
   return (
     <>
       <div className="mt-2 flex items-center px-4">
@@ -51,358 +63,391 @@ const SwapData = ({
                 </div>
               </button>
 
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en"
-                                ? "Network fee"
-                                : "Frais de réseau"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
-                      </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+              <Popover.Root
+                open={feePopoverOpen}
+                onOpenChange={setFeePopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setFeePopoverOpen(true)}
+                        onMouseLeave={() => setFeePopoverOpen(false)}
                       >
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en" ? "Network fee" : "Frais de réseau"}{" "}
+                          </span>
+                        </div>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <Skeleton loading={isLoading}>
+                        <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                        <span>
+                          ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
+                        </span>{" "}
+                      </Skeleton>
+                    </span>
+                  </div>
+
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Native token fee for transactions on the network"
+                          : "Frais en jeton natif pour les transactions sur le réseau"}
+                      </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
+
+              <Popover.Root
+                open={slippagePopoverOpen}
+                onOpenChange={setSlippagePopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setSlippagePopoverOpen(true)}
+                        onMouseLeave={() => setSlippagePopoverOpen(false)}
+                      >
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en"
+                              ? "Swap slippage"
+                              : "Glissement de swap"}{" "}
+                          </span>
+                        </div>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <span>
+                        <Skeleton loading={isLoading}>{slippage}%</Skeleton>
+                      </span>
+                    </span>
+                  </div>
+
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Maximum difference between expected and executed price"
+                          : "Différence maximale entre le prix attendu et exécuté"}
+                      </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
+
+              <Popover.Root
+                open={bridgeSlippagePopoverOpen}
+                onOpenChange={setBridgeSlippagePopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setBridgeSlippagePopoverOpen(true)}
+                        onMouseLeave={() => setBridgeSlippagePopoverOpen(false)}
+                      >
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en"
+                              ? "Bridge slippage"
+                              : "Glissement de pont"}{" "}
+                          </span>
+                        </div>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <span>
                         <Skeleton loading={isLoading}>
-                          <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          <span>
-                            ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
-                          </span>{" "}
+                          {bridgeSlippage
+                            ? Number(bridgeSlippage.toFixed(3))
+                            : 0}
+                          %
                         </Skeleton>
                       </span>
-                    </div>
-
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
-                      >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Native token fee for transactions on the network"
-                            : "Frais en jeton natif pour les transactions sur le réseau"}
-                        </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
+                    </span>
                   </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
 
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en"
-                                ? "Swap slippage"
-                                : "Glissement de swap"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Maximum difference between expected and executed price"
+                          : "Différence maximale entre le prix attendu et exécuté"}
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>{slippage}%</Skeleton>
-                        </span>
-                      </span>
-                    </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
 
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
+              <Popover.Root
+                open={minimumAmountPopoverOpen}
+                onOpenChange={setMinimumAmountPopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setMinimumAmountPopoverOpen(true)}
+                        onMouseLeave={() => setMinimumAmountPopoverOpen(false)}
                       >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Maximum difference between expected and executed price"
-                            : "Différence maximale entre le prix attendu et exécuté"}
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en"
+                              ? "Minimum Amount"
+                              : "Montant minimum"}{" "}
+                          </span>
                         </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <span>
+                        <Skeleton loading={isLoading}>
+                          {minimumAmountOut
+                            ? Number(
+                                minimumAmountOut * 10 ** -toToken.decimals
+                              ).toFixed(2)
+                            : "0"}
+                        </Skeleton>
+                      </span>
+                    </span>
                   </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
 
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en"
-                                ? "Bridge slippage"
-                                : "Glissement de pont"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Minimum amount of token to expect"
+                          : "Montant minimum de token espéré"}
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
-                            {bridgeSlippage
-                              ? Number(bridgeSlippage.toFixed(3))
-                              : 0}
-                            %
-                          </Skeleton>
-                        </span>
-                      </span>
-                    </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
 
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
+              <Popover.Root
+                open={protocolPopoverOpen}
+                onOpenChange={setProtocolPopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setProtocolPopoverOpen(true)}
+                        onMouseLeave={() => setProtocolPopoverOpen(false)}
                       >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Maximum difference between expected and executed price"
-                            : "Différence maximale entre le prix attendu et exécuté"}
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en" ? "Protocol" : "Protocole"}{" "}
+                          </span>
                         </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <span>
+                        <Skeleton loading={isLoading}>
+                          {protocolName ?? "Unknown"}
+                        </Skeleton>
+                      </span>
+                      {protocolIcon && (
+                        <>
+                          <Image
+                            alt="Protocol logo"
+                            className="rounded-full"
+                            width={12}
+                            height={12}
+                            src={protocolIcon}
+                          />
+                        </>
+                      )}
+                    </span>
                   </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
 
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en"
-                                ? "Minimum Amount"
-                                : "Montant minimum"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Protocol used for the transaction"
+                          : "Protocole utilisé pour la transaction"}
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
-                            {minimumAmountOut
-                              ? Number(
-                                  minimumAmountOut * 10 ** -toToken.decimals
-                                ).toFixed(2)
-                              : "0"}
-                          </Skeleton>
-                        </span>
-                      </span>
-                    </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
 
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
+              <Popover.Root
+                open={refuelPopoverOpen}
+                onOpenChange={setRefuelPopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setRefuelPopoverOpen(true)}
+                        onMouseLeave={() => setRefuelPopoverOpen(false)}
                       >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Minimum amount of token to expect"
-                            : "Montant minimum de token espéré"}
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en" ? "Refuel" : "Refuel"}{" "}
+                          </span>
                         </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <span>
+                        <Skeleton loading={isLoading}>
+                          {enableRefuel
+                            ? lang === "en"
+                              ? "Enabled"
+                              : "Activé"
+                            : lang === "en"
+                              ? "Disabled"
+                              : "Désactivé"}
+                        </Skeleton>
+                      </span>
+                    </span>
                   </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
 
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en" ? "Protocol" : "Protocole"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain"
+                          : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne"}
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
-                            {protocolName ?? "Unknown"}
-                          </Skeleton>
-                        </span>
-                        {protocolIcon && (
-                          <>
-                            <Image
-                              alt="Protocol logo"
-                              className="rounded-full"
-                              width={12}
-                              height={12}
-                              src={protocolIcon}
-                            />
-                          </>
-                        )}
-                      </span>
-                    </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
 
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
+              <Popover.Root
+                open={sortPopoverOpen}
+                onOpenChange={setSortPopoverOpen}
+              >
+                <div className="relative w-full">
+                  <div className="flex w-full items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Popover.Trigger
+                        asChild
+                        onMouseEnter={() => setSortPopoverOpen(true)}
+                        onMouseLeave={() => setSortPopoverOpen(false)}
                       >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Protocol used for the transaction"
-                            : "Protocole utilisé pour la transaction"}
+                        <div className="inline-flex items-center gap-1">
+                          <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                          <span
+                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                          >
+                            {lang === "en" ? "Sort by" : "Trier par"}{" "}
+                          </span>
                         </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
+                      </Popover.Trigger>
+                    </div>
+                    <span
+                      className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <span>
+                        <Skeleton loading={isLoading}>
+                          {sort.charAt(0).toUpperCase() + sort.slice(1)}
+                        </Skeleton>
+                      </span>
+                    </span>
                   </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
 
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en" ? "Refuel" : "Refuel"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="left"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
+                          : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
-                            {enableRefuel
-                              ? lang === "en"
-                                ? "Enabled"
-                                : "Activé"
-                              : lang === "en"
-                                ? "Disabled"
-                                : "Désactivé"}
-                          </Skeleton>
-                        </span>
-                      </span>
-                    </div>
-
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
-                      >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain"
-                            : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne"}
-                        </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
-                  </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
-
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative w-full">
-                    <div className="flex w-full items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        <Tooltip.Trigger asChild>
-                          <div className="inline-flex items-center gap-1">
-                            <span
-                              className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
-                            >
-                              {lang === "en" ? "Sort by" : "Trier par"}{" "}
-                            </span>
-                            <QuestionMarkCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          </div>
-                        </Tooltip.Trigger>
-                      </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
-                            {sort.charAt(0).toUpperCase() + sort.slice(1)}
-                          </Skeleton>
-                        </span>
-                      </span>
-                    </div>
-
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="left"
-                        align="center"
-                        className="relative max-w-xs"
-                      >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
-                            : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
-                        </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
-                  </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
             </div>
           </>
         ) : (
@@ -417,40 +462,46 @@ const SwapData = ({
                   <ChevronDownIcon className="h-4 w-4 text-gray-900 dark:text-gray-100" />
                 </div>
               </button>
-              <Tooltip.Provider>
-                <Tooltip.Root delayDuration={0}>
-                  <div className="relative">
-                    <Tooltip.Trigger asChild>
-                      <span
-                        className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <Skeleton loading={isLoading}>
-                          <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
-                          <span>
-                            ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
-                          </span>
-                        </Skeleton>
-                      </span>
-                    </Tooltip.Trigger>
 
-                    <Tooltip.Portal>
-                      <Tooltip.Content
-                        sideOffset={5}
-                        side="right"
-                        align="center"
-                        className="relative max-w-xs"
-                      >
-                        <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                          {lang === "en"
-                            ? "Native token fee for transactions on the network"
-                            : "Frais en jeton natif pour les transactions sur le réseau"}
-                        </div>
-                        <Tooltip.Arrow className="fill-blue-500" />
-                      </Tooltip.Content>
-                    </Tooltip.Portal>
-                  </div>
-                </Tooltip.Root>
-              </Tooltip.Provider>
+              <Popover.Root
+                open={feePopoverOpen}
+                onOpenChange={setFeePopoverOpen}
+              >
+                <div className="relative">
+                  <Popover.Trigger
+                    asChild
+                    onMouseEnter={() => setFeePopoverOpen(true)}
+                    onMouseLeave={() => setFeePopoverOpen(false)}
+                  >
+                    <span
+                      className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                    >
+                      <Skeleton loading={isLoading}>
+                        <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
+                        <span>
+                          ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
+                        </span>
+                      </Skeleton>
+                    </span>
+                  </Popover.Trigger>
+
+                  <Popover.Portal>
+                    <Popover.Content
+                      sideOffset={5}
+                      side="right"
+                      align="center"
+                      className="relative max-w-xs"
+                    >
+                      <div className="z-10 flex rounded-xl bg-blue-500 p-2 text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                        {lang === "en"
+                          ? "Native token fee for transactions on the network"
+                          : "Frais en jeton natif pour les transactions sur le réseau"}
+                      </div>
+                      <Popover.Arrow className="fill-blue-500" />
+                    </Popover.Content>
+                  </Popover.Portal>
+                </div>
+              </Popover.Root>
             </div>
           </>
         )}

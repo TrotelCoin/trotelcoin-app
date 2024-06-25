@@ -77,7 +77,7 @@ const cards = {
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   return (
     <>
-      <Course cards={cards} lang={lang} conditionIsOkay={true} />
+      <Course lang={lang} cards={cards} conditionIsOkay={true} />
     </>
   );
 };
