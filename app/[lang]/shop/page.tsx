@@ -15,7 +15,6 @@ import { loadingFlashClass } from "@/style/loading";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
-import { naturalSort } from "@/utils/inventory/sort";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -255,7 +254,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                             (item) =>
                               item.categoryId === category.id && !item.disabled
                           )
-                          .sort((a, b) => naturalSort(a.name, b.name))
+                          .sort((a, b) => a.price - b.price)
                           .map((item, index) => (
                             <Item key={index} lang={lang} shopItem={item} />
                           ))}

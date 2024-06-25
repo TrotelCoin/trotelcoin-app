@@ -189,136 +189,128 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         perspective={800}
         className="h-full"
       >
-        <Popover.Root>
-          <div
-            className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
-          >
-            <div className="w-full h-full p-4 sm:p-6">
-              <div className="flex w-full h-full items-center justify-between">
-                <div className="flex flex-col">
-                  <div
-                    className={`text-xl font-semibold text-gray-900 dark:text-gray-100`}
-                  >
-                    <Skeleton loading={!shopItem.name}>
-                      {shopItem.name}
-                    </Skeleton>
-                  </div>
-
-                  <div className="text-xs text-gray-900 dark:text-gray-100">
-                    <Skeleton loading={!shopItem.description}>
-                      {shopItem.description}
-                    </Skeleton>
-                  </div>
-                </div>
+        <div
+          className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
+        >
+          <div className="flex h-full w-full flex-col justify-between p-4 sm:p-6">
+            <div className="flex flex-col">
+              <div
+                className={`text-xl font-semibold text-gray-900 dark:text-gray-100`}
+              >
+                <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
               </div>
 
-              <div className="inline-flex items-center gap-1">
-                <Skeleton loading={!shopItem.price || !shopItem.quantity}>
-                  <span className="text-xs text-gray-700 dark:text-gray-300">
-                    <span className={`${priceAfterDiscount && "line-through"}`}>
-                      {showTrotelInUsdc && "$"}
-                      {!showTrotelInUsdc &&
-                        shopItem.price * (shopItem.quantity as number)}
-                      {showTrotelInUsdc &&
-                        roundPrice(
-                          (trotelPrice as number) *
-                            shopItem.price *
-                            (shopItem.quantity as number)
-                        )}
-                    </span>{" "}
-                    {priceAfterDiscount && showTrotelInUsdc && (
-                      <>
-                        <span className="rainbow-text font-semibold">
-                          $
-                          {roundPrice(
-                            priceAfterDiscount * (trotelPrice as number)
-                          ) ?? null}
-                        </span>
-                      </>
-                    )}
-                    {priceAfterDiscount && !showTrotelInUsdc && (
-                      <>
-                        <span className="rainbow-text font-semibold">
-                          {priceAfterDiscount ?? null}
-                        </span>
-                      </>
-                    )}
-                  </span>
-                  <div className="block h-3 w-3 dark:hidden">
-                    <Image
-                      width={16}
-                      height={16}
-                      className="rounded-full"
-                      aria-hidden="true"
-                      alt="Token logo"
-                      src="/assets/logo/trotelcoin.svg"
-                    />
-                  </div>
-                  <div className="hidden h-3 w-3 dark:block">
-                    <Image
-                      width={16}
-                      height={16}
-                      className="rounded-full"
-                      aria-hidden="true"
-                      alt="Token logo"
-                      src="/assets/logo/trotelcoin-dark.jpg"
-                    />
-                  </div>{" "}
+              <div className="text-xs text-gray-900 dark:text-gray-100">
+                <Skeleton loading={!shopItem.description}>
+                  {shopItem.description}
                 </Skeleton>
               </div>
+            </div>
 
-              <div className="my-8 flex items-center justify-center">
-                <span className="text-4xl">
-                  <Skeleton loading={!shopItem.emoji}>
-                    {shopItem.emoji}
-                  </Skeleton>
+            <div className="inline-flex items-center gap-1">
+              <Skeleton loading={!shopItem.price || !shopItem.quantity}>
+                <span className="text-xs text-gray-700 dark:text-gray-300">
+                  <span className={`${priceAfterDiscount && "line-through"}`}>
+                    {showTrotelInUsdc && "$"}
+                    {!showTrotelInUsdc &&
+                      shopItem.price * (shopItem.quantity as number)}
+                    {showTrotelInUsdc &&
+                      roundPrice(
+                        (trotelPrice as number) *
+                          shopItem.price *
+                          (shopItem.quantity as number)
+                      )}
+                  </span>{" "}
+                  {priceAfterDiscount && showTrotelInUsdc && (
+                    <>
+                      <span className="rainbow-text font-semibold">
+                        $
+                        {roundPrice(
+                          priceAfterDiscount * (trotelPrice as number)
+                        ) ?? null}
+                      </span>
+                    </>
+                  )}
+                  {priceAfterDiscount && !showTrotelInUsdc && (
+                    <>
+                      <span className="rainbow-text font-semibold">
+                        {priceAfterDiscount ?? null}
+                      </span>
+                    </>
+                  )}
                 </span>
-              </div>
+                <div className="block h-3 w-3 dark:hidden">
+                  <Image
+                    width={16}
+                    height={16}
+                    className="rounded-full"
+                    aria-hidden="true"
+                    alt="Token logo"
+                    src="/assets/logo/trotelcoin.svg"
+                  />
+                </div>
+                <div className="hidden h-3 w-3 dark:block">
+                  <Image
+                    width={16}
+                    height={16}
+                    className="rounded-full"
+                    aria-hidden="true"
+                    alt="Token logo"
+                    src="/assets/logo/trotelcoin-dark.jpg"
+                  />
+                </div>{" "}
+              </Skeleton>
+            </div>
 
-              <div className="flex flex-col">
-                {needApproval ? (
-                  <BlueButton
-                    lang={lang}
-                    text={lang === "en" ? "Approve" : "Approuver"}
-                    onClick={() => {
-                      const amount = parseEther(
-                        Number(
-                          shopItem.price * (shopItem.quantity ?? 1)
-                        ).toFixed(18)
-                      );
-                      approve({
-                        address: contracts[chain.id].trotelCoinAddress,
-                        abi: abis[chain.id].trotelCoin,
-                        functionName: "approve",
-                        chainId: chain.id,
-                        args: [contracts[chain.id].trotelCoinShop, amount]
-                      });
-                    }}
-                    isLoading={isLoading}
-                    disabled={disabled}
-                  />
-                ) : (
-                  <BlueButton
-                    lang={lang}
-                    text={lang === "en" ? `Buy` : `Acheter`}
-                    onClick={() => {
-                      buyItem({
-                        address: contracts[chain.id].trotelCoinShop,
-                        abi: abis[chain.id].trotelCoinShop,
-                        functionName: "buyItem",
-                        chainId: chain.id,
-                        args: [shopItem.id, shopItem.quantity as number],
-                        account: address
-                      });
-                    }}
-                    isLoading={isLoading}
-                    disabled={disabled || needApproval}
-                  />
-                )}
-              </div>
+            <div className="my-8 flex items-center justify-center">
+              <span className="text-4xl">
+                <Skeleton loading={!shopItem.emoji}>{shopItem.emoji}</Skeleton>
+              </span>
+            </div>
+
+            <div className="flex flex-col">
+              {needApproval ? (
+                <BlueButton
+                  lang={lang}
+                  text={lang === "en" ? "Approve" : "Approuver"}
+                  onClick={() => {
+                    const amount = parseEther(
+                      Number(shopItem.price * (shopItem.quantity ?? 1)).toFixed(
+                        18
+                      )
+                    );
+                    approve({
+                      address: contracts[chain.id].trotelCoinAddress,
+                      abi: abis[chain.id].trotelCoin,
+                      functionName: "approve",
+                      chainId: chain.id,
+                      args: [contracts[chain.id].trotelCoinShop, amount]
+                    });
+                  }}
+                  isLoading={isLoading}
+                  disabled={disabled}
+                />
+              ) : (
+                <BlueButton
+                  lang={lang}
+                  text={lang === "en" ? `Buy` : `Acheter`}
+                  onClick={() => {
+                    buyItem({
+                      address: contracts[chain.id].trotelCoinShop,
+                      abi: abis[chain.id].trotelCoinShop,
+                      functionName: "buyItem",
+                      chainId: chain.id,
+                      args: [shopItem.id, shopItem.quantity as number],
+                      account: address
+                    });
+                  }}
+                  isLoading={isLoading}
+                  disabled={disabled || needApproval}
+                />
+              )}
             </div>
           </div>
-        </Popover.Root>
+        </div>
       </Tilt>
 
       <SuccessNotification

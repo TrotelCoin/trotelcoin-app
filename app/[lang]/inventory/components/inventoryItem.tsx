@@ -35,6 +35,7 @@ const InventoryItem = ({
   const [itemsUsedMessage, setItemsUsedMessage] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hourglassDisabled, setHourglassDisabled] = useState<boolean>(false);
+  const [watchDisabled, setWatchDisabled] = useState<boolean>(false);
   const [useItemConfirmation, setUseItemConfirmation] =
     useState<boolean>(false);
   const [useItemConfirmed, setUseItemConfirmed] = useState<boolean>(false);
@@ -88,7 +89,7 @@ const InventoryItem = ({
   }, [useItemConfirmationData, blockNumber, refetchUseItemConfirmation]);
 
   useEffect(() => {
-    if (item.name === "Hourglass") {
+    if (item.name === "Hourglass" || item.name === "Watch") {
       if (lostStreakAt) {
         const now = new Date();
 
@@ -100,11 +101,19 @@ const InventoryItem = ({
         } else {
           setHourglassDisabled(false);
         }
+
+        if (differenceInDays > 7) {
+          setWatchDisabled(true);
+        } else {
+          setWatchDisabled(false);
+        }
       } else {
         setHourglassDisabled(true);
+        setWatchDisabled(true);
       }
     } else {
       setHourglassDisabled(false);
+      setWatchDisabled(false);
     }
   }, [lostStreakAt, item]);
 
@@ -144,11 +153,13 @@ const InventoryItem = ({
                   </Skeleton>
                 </div>
               </div>
+
               <div className="my-8 flex items-center justify-center">
                 <span className="text-4xl">
                   <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
                 </span>
               </div>
+
               <div className="flex flex-col">
                 <BlueButton
                   lang={lang}
@@ -158,7 +169,8 @@ const InventoryItem = ({
                     isLoading ||
                     item.implicitQuantity === 0 ||
                     hourglassDisabled ||
-                    isPending
+                    isPending ||
+                    watchDisabled
                   }
                   onClick={() => {
                     setUseItemConfirmation(true);
