@@ -5,6 +5,8 @@ export type InventoryItemType = {
   quantity: bigint;
   emoji: string;
   id: number;
+  description: string;
+  implicitQuantity?: number;
 };
 
 export type InventoryItemTypeFinal = {
@@ -14,4 +16,6 @@ export type InventoryItemTypeFinal = {
   quantity: number;
   emoji: string;
   id: number;
+  description: string;
+  implicitQuantity?: number;
 };

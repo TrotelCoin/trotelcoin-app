@@ -2,7 +2,6 @@ import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import Tilt from "react-parallax-tilt";
 import * as Popover from "@radix-ui/react-popover";
-import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { ItemTypeFinal } from "@/types/items/items";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import Image from "next/image";
@@ -196,33 +195,26 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
           >
             <div className="w-full px-4 py-5 sm:p-6">
               <div className="flex w-full items-center justify-between">
-                <div
-                  className={`text-2xl font-semibold text-gray-900 dark:text-gray-100`}
-                >
-                  <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
-                </div>
-                <Popover.Trigger asChild>
-                  <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
-                </Popover.Trigger>
-                <Popover.Portal>
-                  <Popover.Content
-                    className="focus:outline-none"
-                    side="bottom"
-                    align="center"
-                    sideOffset={5}
+                <div className="flex flex-col">
+                  <div
+                    className={`text-xl font-semibold text-gray-900 dark:text-gray-100`}
                   >
-                    <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                      <Skeleton loading={!shopItem.description}>
-                        {shopItem.description}
-                      </Skeleton>
-                    </div>
-                    <Popover.Arrow className="fill-blue-500" />
-                  </Popover.Content>
-                </Popover.Portal>
+                    <Skeleton loading={!shopItem.name}>
+                      {shopItem.name}
+                    </Skeleton>
+                  </div>
+
+                  <div className="text-xs text-gray-900 dark:text-gray-100">
+                    <Skeleton loading={!shopItem.description}>
+                      {shopItem.description}
+                    </Skeleton>
+                  </div>
+                </div>
               </div>
+
               <div className="inline-flex items-center gap-1">
                 <Skeleton loading={!shopItem.price || !shopItem.quantity}>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                  <span className="text-xs text-gray-700 dark:text-gray-300">
                     <span className={`${priceAfterDiscount && "line-through"}`}>
                       {showTrotelInUsdc && "$"}
                       {!showTrotelInUsdc &&
@@ -274,13 +266,15 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                   </div>{" "}
                 </Skeleton>
               </div>
+
               <div className="my-8 flex items-center justify-center">
-                <span className="text-6xl">
+                <span className="text-4xl">
                   <Skeleton loading={!shopItem.emoji}>
                     {shopItem.emoji}
                   </Skeleton>
                 </span>
               </div>
+
               <div className="flex flex-col">
                 {needApproval ? (
                   <BlueButton
