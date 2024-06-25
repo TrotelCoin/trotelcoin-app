@@ -65,10 +65,10 @@ const UserLeaderboardComponent = ({
         </Skeleton>
         <div className="hidden items-center justify-center md:flex">
           <Skeleton loading={isLoadingLeaderboard || !address}>
-            {address && isAddress(address) && !ensName
-              ? address
-              : ensName ??
-                (lang === "en"
+            {ensName ??
+              (address && isAddress(address)
+                ? address
+                : lang === "en"
                   ? "Connect your wallet"
                   : "Connectez votre portefeuille")}
           </Skeleton>

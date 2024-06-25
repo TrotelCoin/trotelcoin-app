@@ -9,7 +9,6 @@ import Image from "next/image";
 import {
   useAccount,
   useBlockNumber,
-  useChainId,
   useReadContract,
   useTransactionConfirmations,
   useWriteContract
@@ -37,9 +36,9 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   );
   const [approveConfirmed, setApproveConfirmed] = useState<boolean>(false);
   const [purchaseConfirmed, setPurchaseConfirmed] = useState<boolean>(false);
+  const [isPopoverHovered, setIsPopoverHovered] = useState<boolean>(false);
 
   const { address } = useAccount();
-  const chainId = useChainId();
 
   const { trotelPrice, showTrotelInUsdc } = useContext(TrotelPriceContext);
   const { chain } = useContext(ChainContext);
@@ -192,7 +191,10 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         perspective={800}
         className="h-full"
       >
-        <Popover.Root>
+        <Popover.Root
+          open={isPopoverHovered}
+          onOpenChange={setIsPopoverHovered}
+        >
           <div
             className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
           >
@@ -203,8 +205,12 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                 >
                   <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
                 </div>
-                <Popover.Trigger asChild>
-                  <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
+                <Popover.Trigger
+                  asChild
+                  onMouseEnter={() => setIsPopoverHovered(true)}
+                  onMouseLeave={() => setIsPopoverHovered(false)}
+                >
+                  <InformationCircleIcon className="h-6 w-6 cursor-help text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
                 </Popover.Trigger>
                 <Popover.Portal>
                   <Popover.Content

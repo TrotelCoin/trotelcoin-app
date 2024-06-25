@@ -5,13 +5,12 @@ import * as Popover from "@radix-ui/react-popover";
 import {
   ChevronDownIcon,
   Cog6ToothIcon,
-  QuestionMarkCircleIcon
+  InformationCircleIcon
 } from "@heroicons/react/20/solid";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Sort } from "@/types/web3/swap";
 import AudioContext from "@/contexts/audio";
 import type { Slippage } from "@/types/web3/swap";
-import * as Tooltip from "@radix-ui/react-tooltip";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -38,6 +37,10 @@ const Settings = ({
 }) => {
   const { playAudio } = useContext(AudioContext);
 
+  const [sortPopoverOpen, setSortPopoverOpen] = useState<boolean>(false);
+  const [slippagePopoverOpen, setSlippagePopoverOpen] = useState<boolean>(false);
+  const [refuelPopoverOpen, setRefuelPopoverOpen] = useState<boolean>(false);
+
   return (
     <>
       <Popover.Root>
@@ -63,30 +66,35 @@ const Settings = ({
             <div className="flex flex-col gap-4 px-4 py-4">
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
-                  <Tooltip.Provider>
-                    <Tooltip.Root delayDuration={0}>
-                      <Tooltip.Trigger className="inline-flex cursor-help items-center gap-1">
-                        <span className="text-sm text-gray-900 dark:text-gray-100">
-                          {lang === "en" ? "Sort by" : "Trier par"}
-                        </span>
-                        <QuestionMarkCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-                      </Tooltip.Trigger>
-                      <Tooltip.Portal>
-                        <Tooltip.Content
-                          side="left"
-                          align="center"
-                          sideOffset={5}
-                        >
-                          <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow backdrop-blur-xl">
-                            {lang === "en"
-                              ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
-                              : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
-                          </div>
-                          <Tooltip.Arrow className="fill-blue-500" />
-                        </Tooltip.Content>
-                      </Tooltip.Portal>
-                    </Tooltip.Root>
-                  </Tooltip.Provider>
+                  <Popover.Root
+                    open={sortPopoverOpen}
+                    onOpenChange={setSortPopoverOpen}
+                  >
+                    <Popover.Trigger
+                      onMouseEnter={() => setSortPopoverOpen(true)}
+                      onMouseLeave={() => setSortPopoverOpen(false)}
+                      className="inline-flex cursor-help items-center gap-1"
+                    >
+                      <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+                      <span className="text-sm text-gray-900 dark:text-gray-100">
+                        {lang === "en" ? "Sort by" : "Trier par"}
+                      </span>
+                    </Popover.Trigger>
+                    <Popover.Portal>
+                      <Popover.Content
+                        side="left"
+                        align="center"
+                        sideOffset={5}
+                      >
+                        <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow backdrop-blur-xl">
+                          {lang === "en"
+                            ? "Sort the route by the best output amount, the lowest gas price, or fastest time"
+                            : "Trier la route par le meilleur montant de sortie, le prix de gaz le plus faible ou le temps le plus rapide"}
+                        </div>
+                        <Popover.Arrow className="fill-blue-500" />
+                      </Popover.Content>
+                    </Popover.Portal>
+                  </Popover.Root>
                 </div>
                 <Popover.Root>
                   <Popover.Trigger className="inline-flex items-center">
@@ -143,30 +151,37 @@ const Settings = ({
 
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
-                  <Tooltip.Provider>
-                    <Tooltip.Root delayDuration={0}>
-                      <Tooltip.Trigger className="inline-flex cursor-help items-center gap-1">
-                        <span className="text-sm text-gray-900 dark:text-gray-100">
-                          {lang === "en" ? "Slippage" : "Glissement"}{" "}
-                        </span>
-                        <QuestionMarkCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-                      </Tooltip.Trigger>
-                      <Tooltip.Portal>
-                        <Tooltip.Content
-                          side="left"
-                          align="center"
-                          sideOffset={5}
-                        >
-                          <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                            {lang === "en"
-                              ? "Maximum difference between expected and executed price"
-                              : "Différence maximale entre le prix attendu et exécuté"}
-                          </div>
-                          <Tooltip.Arrow className="fill-blue-500" />
-                        </Tooltip.Content>
-                      </Tooltip.Portal>
-                    </Tooltip.Root>
-                  </Tooltip.Provider>
+                  <Popover.Root
+                    open={slippagePopoverOpen}
+                    onOpenChange={setSlippagePopoverOpen}
+                  >
+                    <Popover.Trigger
+                      onMouseEnter={() => setSlippagePopoverOpen(true)}
+                      onMouseLeave={() => setSlippagePopoverOpen(false)}
+                      className="inline-flex cursor-help items-center gap-1"
+                    >
+                      <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+                      <span className="text-sm text-gray-900 dark:text-gray-100">
+                        {lang === "en"
+                          ? "Slippage tolerance"
+                          : "Tolérance de glissement"}
+                      </span>
+                    </Popover.Trigger>
+                    <Popover.Portal>
+                      <Popover.Content
+                        side="left"
+                        align="center"
+                        sideOffset={5}
+                      >
+                        <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow-lg backdrop-blur-xl">
+                          {lang === "en"
+                            ? "The maximum slippage you are willing to accept"
+                            : "Le glissement maximal que vous êtes prêt à accepter"}
+                        </div>
+                        <Popover.Arrow className="fill-blue-500" />
+                      </Popover.Content>
+                    </Popover.Portal>
+                  </Popover.Root>
                 </div>
                 <ul className="inline-flex flex-wrap items-center gap-2">
                   <li>
@@ -210,32 +225,35 @@ const Settings = ({
 
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
-                  <Tooltip.Provider>
-                    <Tooltip.Root delayDuration={0}>
-                      <Tooltip.Trigger className="inline-flex cursor-help items-center gap-1">
-                        <span className="text-sm text-gray-900 dark:text-gray-100">
+                  <Popover.Root
+                    open={refuelPopoverOpen}
+                    onOpenChange={setRefuelPopoverOpen}
+                  >
+                    <Popover.Trigger
+                      onMouseEnter={() => setRefuelPopoverOpen(true)}
+                      onMouseLeave={() => setRefuelPopoverOpen(false)}
+                      className="inline-flex cursor-help items-center gap-1"
+                    >
+                      <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+                      <span className="text-sm text-gray-900 dark:text-gray-100">
+                        {lang === "en" ? "Auto-refuel" : "Auto-ravitaillement"}
+                      </span>
+                    </Popover.Trigger>
+                    <Popover.Portal>
+                      <Popover.Content
+                        side="left"
+                        align="center"
+                        sideOffset={5}
+                      >
+                        <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow-lg backdrop-blur-xl">
                           {lang === "en"
-                            ? "Enable Refuel"
-                            : "Activer le Refuel"}{" "}
-                        </span>
-                        <QuestionMarkCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-                      </Tooltip.Trigger>
-                      <Tooltip.Portal>
-                        <Tooltip.Content
-                          side="left"
-                          align="center"
-                          sideOffset={5}
-                        >
-                          <div className="flex max-w-xs flex-col rounded-xl bg-blue-500 p-2 text-center text-xs text-gray-100 shadow-lg backdrop-blur-xl">
-                            {lang === "en"
-                              ? "When you move tokens to a new chain, you may not have the native token for transactions. Refuel allows to request funds or bridge the token from another chain"
-                              : "Lorsque vous transférez des jetons vers une nouvelle chaîne, vous pourriez ne pas détenir le jeton natif pour les transactions. Refuel permet de demander des fonds ou transférer le jeton depuis une autre chaîne"}
-                          </div>
-                          <Tooltip.Arrow className="fill-blue-500" />
-                        </Tooltip.Content>
-                      </Tooltip.Portal>
-                    </Tooltip.Root>
-                  </Tooltip.Provider>
+                            ? "Automatically top up the gas tank when it runs low"
+                            : "Recharge automatiquement le réservoir de gaz lorsqu'il est faible"}
+                        </div>
+                        <Popover.Arrow className="fill-blue-500" />
+                      </Popover.Content>
+                    </Popover.Portal>
+                  </Popover.Root>
                 </div>
                 <Switch.Root
                   checked={enableRefuel}
