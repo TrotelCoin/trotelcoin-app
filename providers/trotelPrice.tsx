@@ -7,7 +7,6 @@ import contracts from "@/data/web3/addresses";
 import abis from "@/abis/abis";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
-import { polygonAmoy } from "viem/chains";
 
 const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   const [trotelPrice, setTrotelPrice] = useState<number | null>(null);

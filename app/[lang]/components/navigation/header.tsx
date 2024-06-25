@@ -232,7 +232,7 @@ const Header = ({ lang }: { lang: Lang }) => {
                           {showTestnet && (
                             <>
                               <Switch
-                                isSelected={chain.testnet}
+                                isSelected={!!chain.testnet}
                                 onChange={handleTestnet}
                                 color="success"
                                 size="sm"
