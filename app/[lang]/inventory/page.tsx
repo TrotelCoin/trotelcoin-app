@@ -15,7 +15,6 @@ import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/style/loading";
 import ChainContext from "@/contexts/chain";
 import { fetchImplicitQuantity } from "@/utils/inventory/fetchImplicitQuantity";
-import { naturalSort } from "@/utils/inventory/sort";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
@@ -125,12 +124,10 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <>
                 <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
                   {inventories
-                    .filter((item) => item.quantity !== null)
-                    .sort((a, b) => naturalSort(a.name, b.name))
-                    .concat(
-                      inventories
-                        .filter((item) => item.quantity === null)
-                        .sort((a, b) => naturalSort(a.name, b.name))
+                    .sort(
+                      (a, b) =>
+                        (b.implicitQuantity ?? b.quantity) -
+                        (a.implicitQuantity ?? a.quantity)
                     )
                     .map((item: InventoryItemTypeFinal, index: number) => (
                       <InventoryItem lang={lang} item={item} key={index} />
