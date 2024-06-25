@@ -7,7 +7,7 @@ import {
   Cog6ToothIcon,
   InformationCircleIcon
 } from "@heroicons/react/20/solid";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Sort } from "@/types/web3/swap";
 import AudioContext from "@/contexts/audio";
 import type { Slippage } from "@/types/web3/swap";
@@ -37,10 +37,6 @@ const Settings = ({
 }) => {
   const { playAudio } = useContext(AudioContext);
 
-  const [sortPopoverOpen, setSortPopoverOpen] = useState<boolean>(false);
-  const [slippagePopoverOpen, setSlippagePopoverOpen] = useState<boolean>(false);
-  const [refuelPopoverOpen, setRefuelPopoverOpen] = useState<boolean>(false);
-
   return (
     <>
       <Popover.Root>
@@ -66,15 +62,8 @@ const Settings = ({
             <div className="flex flex-col gap-4 px-4 py-4">
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
-                  <Popover.Root
-                    open={sortPopoverOpen}
-                    onOpenChange={setSortPopoverOpen}
-                  >
-                    <Popover.Trigger
-                      onMouseEnter={() => setSortPopoverOpen(true)}
-                      onMouseLeave={() => setSortPopoverOpen(false)}
-                      className="inline-flex cursor-help items-center gap-1"
-                    >
+                  <Popover.Root>
+                    <Popover.Trigger className="inline-flex cursor-help items-center gap-1">
                       <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
                       <span className="text-sm text-gray-900 dark:text-gray-100">
                         {lang === "en" ? "Sort by" : "Trier par"}
@@ -151,15 +140,8 @@ const Settings = ({
 
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
-                  <Popover.Root
-                    open={slippagePopoverOpen}
-                    onOpenChange={setSlippagePopoverOpen}
-                  >
-                    <Popover.Trigger
-                      onMouseEnter={() => setSlippagePopoverOpen(true)}
-                      onMouseLeave={() => setSlippagePopoverOpen(false)}
-                      className="inline-flex cursor-help items-center gap-1"
-                    >
+                  <Popover.Root>
+                    <Popover.Trigger className="inline-flex cursor-help items-center gap-1">
                       <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
                       <span className="text-sm text-gray-900 dark:text-gray-100">
                         {lang === "en"
@@ -225,15 +207,8 @@ const Settings = ({
 
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
-                  <Popover.Root
-                    open={refuelPopoverOpen}
-                    onOpenChange={setRefuelPopoverOpen}
-                  >
-                    <Popover.Trigger
-                      onMouseEnter={() => setRefuelPopoverOpen(true)}
-                      onMouseLeave={() => setRefuelPopoverOpen(false)}
-                      className="inline-flex cursor-help items-center gap-1"
-                    >
+                  <Popover.Root>
+                    <Popover.Trigger className="inline-flex cursor-help items-center gap-1">
                       <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
                       <span className="text-sm text-gray-900 dark:text-gray-100">
                         {lang === "en" ? "Auto-refuel" : "Auto-ravitaillement"}

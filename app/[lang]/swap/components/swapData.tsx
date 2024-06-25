@@ -35,18 +35,6 @@ const SwapData = ({
 }) => {
   const [showMore, setShowMore] = useState<boolean>(false);
 
-  const [feePopoverOpen, setFeePopoverOpen] = useState<boolean>(false);
-  const [slippagePopoverOpen, setSlippagePopoverOpen] =
-    useState<boolean>(false);
-  const [bridgeSlippagePopoverOpen, setBridgeSlippagePopoverOpen] =
-    useState<boolean>(false);
-  const [minimumAmountPopoverOpen, setMinimumAmountPopoverOpen] =
-    useState<boolean>(false);
-  const [protocolPopoverOpen, setProtocolPopoverOpen] =
-    useState<boolean>(false);
-  const [refuelPopoverOpen, setRefuelPopoverOpen] = useState<boolean>(false);
-  const [sortPopoverOpen, setSortPopoverOpen] = useState<boolean>(false);
-
   return (
     <>
       <div className="mt-2 flex items-center px-4">
@@ -63,18 +51,11 @@ const SwapData = ({
                 </div>
               </button>
 
-              <Popover.Root
-                open={feePopoverOpen}
-                onOpenChange={setFeePopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setFeePopoverOpen(true)}
-                        onMouseLeave={() => setFeePopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -115,18 +96,11 @@ const SwapData = ({
                 </div>
               </Popover.Root>
 
-              <Popover.Root
-                open={slippagePopoverOpen}
-                onOpenChange={setSlippagePopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setSlippagePopoverOpen(true)}
-                        onMouseLeave={() => setSlippagePopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -166,18 +140,11 @@ const SwapData = ({
                 </div>
               </Popover.Root>
 
-              <Popover.Root
-                open={bridgeSlippagePopoverOpen}
-                onOpenChange={setBridgeSlippagePopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setBridgeSlippagePopoverOpen(true)}
-                        onMouseLeave={() => setBridgeSlippagePopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -222,18 +189,11 @@ const SwapData = ({
                 </div>
               </Popover.Root>
 
-              <Popover.Root
-                open={minimumAmountPopoverOpen}
-                onOpenChange={setMinimumAmountPopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setMinimumAmountPopoverOpen(true)}
-                        onMouseLeave={() => setMinimumAmountPopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -279,18 +239,11 @@ const SwapData = ({
                 </div>
               </Popover.Root>
 
-              <Popover.Root
-                open={protocolPopoverOpen}
-                onOpenChange={setProtocolPopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setProtocolPopoverOpen(true)}
-                        onMouseLeave={() => setProtocolPopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -341,18 +294,11 @@ const SwapData = ({
                 </div>
               </Popover.Root>
 
-              <Popover.Root
-                open={refuelPopoverOpen}
-                onOpenChange={setRefuelPopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setRefuelPopoverOpen(true)}
-                        onMouseLeave={() => setRefuelPopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -398,18 +344,11 @@ const SwapData = ({
                 </div>
               </Popover.Root>
 
-              <Popover.Root
-                open={sortPopoverOpen}
-                onOpenChange={setSortPopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative w-full">
                   <div className="flex w-full items-center justify-between">
                     <div className="flex items-center gap-1">
-                      <Popover.Trigger
-                        asChild
-                        onMouseEnter={() => setSortPopoverOpen(true)}
-                        onMouseLeave={() => setSortPopoverOpen(false)}
-                      >
+                      <Popover.Trigger asChild>
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
@@ -463,16 +402,9 @@ const SwapData = ({
                 </div>
               </button>
 
-              <Popover.Root
-                open={feePopoverOpen}
-                onOpenChange={setFeePopoverOpen}
-              >
+              <Popover.Root>
                 <div className="relative">
-                  <Popover.Trigger
-                    asChild
-                    onMouseEnter={() => setFeePopoverOpen(true)}
-                    onMouseLeave={() => setFeePopoverOpen(false)}
-                  >
+                  <Popover.Trigger asChild>
                     <span
                       className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                     >
