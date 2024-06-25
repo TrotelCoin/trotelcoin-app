@@ -48,7 +48,7 @@ const Wallet = ({
         domain: window.location.host,
         address: address,
         statement:
-          "Sign in with your wallet to the TrotelCoin app. This will allow you to access your account and perform transactions. This operation is free of charge.",
+          "Sign in to the TrotelCoin app. This will allow you to access your account and perform transactions. This operation is free of charge.",
         uri: window.location.origin,
         version: "1",
         chainId: chainId,
@@ -80,7 +80,7 @@ const Wallet = ({
             lang={lang}
             onClick={() => handleLogin()}
             isFull={isFull}
-            text={lang === "en" ? "Sign in" : "Connexion"}
+            text={lang === "en" ? "Log in" : "S'identifier"}
           />
         </>
       )}
@@ -108,7 +108,7 @@ const Wallet = ({
               } rounded-xl border-b-4 border-blue-700 bg-blue-500 px-6 py-2 text-center text-sm font-semibold text-gray-100 backdrop-blur-xl hover:bg-blue-500/80 active:mt-1 active:border-none`}
               onClick={() => open()}
             >
-              {lang === "en" ? "Sign in" : "Se connecter"}
+              {lang === "en" ? "Connect" : "Se connecter"}
             </button>
           </div>
         </>
