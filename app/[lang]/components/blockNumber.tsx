@@ -20,7 +20,7 @@ const BlockNumber = ({ lang }: { lang: Lang }) => {
       {blockNumber && (
         <Tooltip.Provider>
           <Tooltip.Root delayDuration={0}>
-            <Tooltip.Trigger className="cursor-help" asChild>
+            <Tooltip.Trigger className="cursor-pointer" asChild>
               <div
                 className={`fixed bottom-0 right-0 mb-5 mr-5 hidden items-center gap-1 text-xs text-blue-500 dark:text-blue-300 lg:flex`}
               >

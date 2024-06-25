@@ -59,7 +59,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en" ? "Network fee" : "Frais de réseau"}{" "}
                           </span>
@@ -104,7 +104,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en"
                               ? "Swap slippage"
@@ -148,7 +148,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en"
                               ? "Bridge slippage"
@@ -197,7 +197,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en"
                               ? "Minimum Amount"
@@ -247,7 +247,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en" ? "Protocol" : "Protocole"}{" "}
                           </span>
@@ -302,7 +302,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en" ? "Refuel" : "Refuel"}{" "}
                           </span>
@@ -352,7 +352,7 @@ const SwapData = ({
                         <div className="inline-flex items-center gap-1">
                           <InformationCircleIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span
-                            className={`cursor-help text-xs text-gray-700 dark:text-gray-300`}
+                            className={`cursor-pointer text-xs text-gray-700 dark:text-gray-300`}
                           >
                             {lang === "en" ? "Sort by" : "Trier par"}{" "}
                           </span>
@@ -406,7 +406,7 @@ const SwapData = ({
                 <div className="relative">
                   <Popover.Trigger asChild>
                     <span
-                      className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                      className={`flex cursor-pointer items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
                     >
                       <Skeleton loading={isLoading}>
                         <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
