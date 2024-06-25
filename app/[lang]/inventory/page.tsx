@@ -22,13 +22,12 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [inventories, setInventories] = useState<
     InventoryItemTypeFinal[] | null
   >(null);
-  const [hide, setHide] = useState<boolean>(false);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(true);
 
   const { address } = useAccount();
   const { isLoggedIn } = useContext(UserContext);
-  const { chain, showTestnet } = useContext(ChainContext);
+  const { chain } = useContext(ChainContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -58,14 +57,6 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
       inventories.forEach((item) => {
         allQuantity += item.quantity;
       });
-
-      if (numberOfAllUsed === allQuantity) {
-        setHide(true);
-      } else {
-        setHide(false);
-      }
-    } else {
-      setHide(false);
     }
   }, [numberOfUsedItemsData, inventories]);
 
@@ -137,7 +128,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               />
             </button>
           </div>
-          {((inventories && inventories.length > 0 && !hide) || fetching) && (
+          {((inventories && inventories.length > 0) || fetching) && (
             <>
               <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en"
@@ -150,7 +141,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
         {!fetching && (
           <>
-            {inventories && inventories.length > 0 && !hide ? (
+            {inventories && inventories.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   {inventories.map(

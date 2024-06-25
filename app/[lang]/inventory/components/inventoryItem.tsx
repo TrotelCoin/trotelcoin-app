@@ -8,13 +8,21 @@ import { Lang } from "@/types/language/lang";
 import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import useSWR from "swr";
-import { useAccount } from "wagmi";
+import {
+  useAccount,
+  useBlockNumber,
+  useTransactionConfirmations,
+  useWriteContract
+} from "wagmi";
 import { usingItem } from "@/utils/inventory/useItem";
-import { Address } from "viem";
+import { Address, Hash } from "viem";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import StreakContext from "@/contexts/streak";
 import WarningConfirmation from "@/app/[lang]/components/modals/confirmation/warning";
 import { Skeleton } from "@radix-ui/themes";
+import ChainContext from "@/contexts/chain";
+import contracts from "@/data/web3/addresses";
+import abis from "@/abis/abis";
 
 const InventoryItem = ({
   lang,
@@ -23,7 +31,7 @@ const InventoryItem = ({
   lang: Lang;
   item: InventoryItemTypeFinal;
 }) => {
-  const [quantity, setQuantity] = useState<number | null>(null);
+  const [quantity, setQuantity] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnectedMessage, setNotConnectedMessage] =
     useState<boolean>(false);
@@ -32,9 +40,51 @@ const InventoryItem = ({
   const [hourglassDisabled, setHourglassDisabled] = useState<boolean>(false);
   const [useItemConfirmation, setUseItemConfirmation] =
     useState<boolean>(false);
+  const [useItemConfirmed, setUseItemConfirmed] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { lostStreakAt } = useContext(StreakContext);
+  const { chain } = useContext(ChainContext);
+
+  const { data: blockNumber } = useBlockNumber({
+    chainId: chain.id,
+    watch: true
+  });
+
+  const {
+    writeContractAsync,
+    isPending,
+    data: useItemHash
+  } = useWriteContract({
+    mutation: {
+      onError: () => {
+        setErrorMessage(true);
+      },
+      onMutate() {
+        setIsLoading(true);
+      },
+      onSuccess: () => {
+        setIsLoading(true);
+      }
+    }
+  });
+
+  const { data: useItemConfirmationData, refetch: refetchUseItemConfirmation } =
+    useTransactionConfirmations({
+      hash: useItemHash as Hash,
+      chainId: chain.id
+    });
+
+  useEffect(() => {
+    if (
+      useItemConfirmationData &&
+      Number(useItemConfirmationData) > 0 &&
+      !useItemConfirmed
+    ) {
+      setUseItemConfirmation(true);
+      setUseItemConfirmed(true);
+    }
+  }, [useItemConfirmationData, useItemConfirmed]);
 
   const { data: numberOfUsedItemsData } = useSWR(
     address && item
@@ -50,12 +100,19 @@ const InventoryItem = ({
   );
 
   useEffect(() => {
+    refetchUseItemConfirmation();
+  }, [useItemConfirmationData, blockNumber, refetchUseItemConfirmation]);
+
+  useEffect(() => {
     if (item && numberOfUsedItemsData) {
       const numberOfUsedItems = numberOfUsedItemsData;
       setQuantity(item.quantity - numberOfUsedItems);
     } else {
       setQuantity(item.quantity);
     }
+
+    console.log("item", item);
+    console.log("numberOfUsedItemsData", numberOfUsedItemsData);
   }, [item, numberOfUsedItemsData]);
 
   useEffect(() => {
@@ -81,66 +138,67 @@ const InventoryItem = ({
 
   return (
     <>
-      {quantity && quantity > 0 ? (
-        <>
-          <Tilt
-            glareEnable={true}
-            tiltMaxAngleX={5}
-            tiltMaxAngleY={5}
-            glareMaxOpacity={0.15}
-            perspective={800}
-            className="h-full"
+      <>
+        <Tilt
+          glareEnable={true}
+          tiltMaxAngleX={5}
+          tiltMaxAngleY={5}
+          glareMaxOpacity={0.15}
+          perspective={800}
+          className="h-full"
+        >
+          <div
+            className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
           >
-            <div
-              className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
-            >
-              <div className="w-full px-4 py-5 sm:p-6">
-                <div className="flex w-full items-center justify-between">
-                  <div className={`rainbow-text text-2xl font-semibold`}>
-                    <Skeleton loading={!item.name}>{item.name}</Skeleton>
-                  </div>
-                  <Skeleton loading={!quantity}>
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-sm text-gray-100">
-                      {quantity}
-                    </div>
-                  </Skeleton>
+            <div className="w-full px-4 py-5 sm:p-6">
+              <div className="flex w-full items-center justify-between">
+                <div className={`rainbow-text text-2xl font-semibold`}>
+                  <Skeleton loading={!item.name}>{item.name}</Skeleton>
                 </div>
-                <div className="my-8 flex items-center justify-center">
-                  <span className="text-6xl">
-                    <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
-                  </span>
-                </div>
-                <div className="flex flex-col">
-                  <BlueButton
-                    lang={lang}
-                    isLoading={isLoading}
-                    disabled={
-                      !address ||
-                      isLoading ||
-                      quantity === 0 ||
-                      hourglassDisabled
-                    }
-                    onClick={() => {
-                      setUseItemConfirmation(true);
-                    }}
-                    text={lang === "en" ? "Use" : "Utiliser"}
-                  />
+                <div
+                  className={`flex h-6 w-6 items-center justify-center rounded-full text-sm text-gray-100 ${quantity > 0 ? "bg-blue-500" : "bg-gray-500"}`}
+                >
+                  {quantity}
                 </div>
               </div>
+              <div className="my-8 flex items-center justify-center">
+                <span className="text-6xl">
+                  <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <BlueButton
+                  lang={lang}
+                  isLoading={isLoading || isPending}
+                  disabled={
+                    !address ||
+                    isLoading ||
+                    quantity === 0 ||
+                    hourglassDisabled ||
+                    isPending
+                  }
+                  onClick={() => {
+                    setUseItemConfirmation(true);
+                  }}
+                  text={lang === "en" ? "Use" : "Utiliser"}
+                />
+              </div>
             </div>
-          </Tilt>
+          </div>
+        </Tilt>
 
-          <WarningConfirmation
-            lang={lang}
-            show={useItemConfirmation}
-            title={lang === "en" ? "Use the item" : "Utiliser l'objet"}
-            message={
-              lang === "en"
-                ? "You will use the selected item. Refund is not possible so make sure that you want to use it"
-                : "Vous allez utiliser l'objet sélectionné. Le remboursement n'est pas possible donc soyez sûr de vouloir l'utiliser"
-            }
-            onClose={() => setUseItemConfirmation(false)}
-            onConfirm={() => {
+        <WarningConfirmation
+          lang={lang}
+          show={useItemConfirmation}
+          title={lang === "en" ? "Use the item" : "Utiliser l'objet"}
+          message={
+            lang === "en"
+              ? "You will use the selected item. Refund is not possible so make sure that you want to use it"
+              : "Vous allez utiliser l'objet sélectionné. Le remboursement n'est pas possible donc soyez sûr de vouloir l'utiliser"
+          }
+          onClose={() => setUseItemConfirmation(false)}
+          onConfirm={async () => {
+            if (!chain.testnet) {
               usingItem(
                 item.name,
                 address as Address,
@@ -149,43 +207,58 @@ const InventoryItem = ({
                 setIsLoading,
                 setQuantity
               );
-            }}
-          />
-          <FailNotification
-            display={errorMessage}
-            onClose={() => setErrorMessage(false)}
-            lang={lang}
-            title={lang === "en" ? "Error" : "Erreur"}
-            message={
-              lang === "en"
-                ? "An error occured, please try again"
-                : "Une erreur est survenue, veuillez réessayer"
+            } else {
+              await writeContractAsync({
+                abi: abis[chain.id].trotelCoinShop,
+                address: contracts[chain.id].trotelCoinShop,
+                chainId: chain.id,
+                functionName: "useItem",
+                args: [item.id]
+              }).catch((error) => {
+                console.error(error);
+                setErrorMessage(true);
+                setIsLoading(false);
+              });
+              setItemsUsedMessage(true);
+              setIsLoading(false);
+              setQuantity(quantity - 1);
             }
-          />
-          <FailNotification
-            display={notConnectedMessage}
-            onClose={() => setNotConnectedMessage(false)}
-            lang={lang}
-            title={lang === "en" ? "Error" : "Erreur"}
-            message={
-              lang === "en"
-                ? "Please connect your wallet"
-                : "Veuillez connecter votre portefeuille"
-            }
-          />
-          <SuccessNotification
-            display={itemsUsedMessage}
-            onClose={() => setItemsUsedMessage(false)}
-            lang={lang}
-            title={lang === "en" ? "Success" : "Succès"}
-            message={
-              lang === "en"
-                ? "You have used the item"
-                : "Vous avez utilisé l'objet"
-            }
-          />
-        </>
-      ) : null}
+          }}
+        />
+        <FailNotification
+          display={errorMessage}
+          onClose={() => setErrorMessage(false)}
+          lang={lang}
+          title={lang === "en" ? "Error" : "Erreur"}
+          message={
+            lang === "en"
+              ? "An error occured, please try again"
+              : "Une erreur est survenue, veuillez réessayer"
+          }
+        />
+        <FailNotification
+          display={notConnectedMessage}
+          onClose={() => setNotConnectedMessage(false)}
+          lang={lang}
+          title={lang === "en" ? "Error" : "Erreur"}
+          message={
+            lang === "en"
+              ? "Please connect your wallet"
+              : "Veuillez connecter votre portefeuille"
+          }
+        />
+        <SuccessNotification
+          display={itemsUsedMessage}
+          onClose={() => setItemsUsedMessage(false)}
+          lang={lang}
+          title={lang === "en" ? "Success" : "Succès"}
+          message={
+            lang === "en"
+              ? "You have used the item"
+              : "Vous avez utilisé l'objet"
+          }
+        />
+      </>
     </>
   );
 };
