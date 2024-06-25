@@ -11,11 +11,11 @@ import InventoryItem from "@/app/[lang]/inventory/components/inventoryItem";
 import InventoryItemSkeleton from "@/app/[lang]/inventory/components/inventoryItemSkeleton";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import UserContext from "@/contexts/user";
-import useSWR from "swr";
-import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/style/loading";
 import ChainContext from "@/contexts/chain";
+import { fetchImplicitQuantity } from "@/utils/inventory/fetchImplicitQuantity";
+import { naturalSort } from "@/utils/inventory/sort";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
@@ -34,32 +34,6 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     chainId: chain.id
   });
 
-  const { data: numberOfUsedItemsData } = useSWR(
-    address ? `/api/user/items/all-used-items?wallet=${address}` : null,
-    fetcher,
-    {
-      revalidateIfStale: true,
-      revalidateOnMount: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime
-    }
-  );
-
-  useEffect(() => {
-    if (numberOfUsedItemsData && inventories) {
-      let numberOfAllUsed: number = 0;
-      let allQuantity: number = 0;
-
-      numberOfUsedItemsData.forEach((item: { number_of_use: number }) => {
-        numberOfAllUsed += item.number_of_use;
-      });
-
-      inventories.forEach((item) => {
-        allQuantity += item.quantity;
-      });
-    }
-  }, [numberOfUsedItemsData, inventories]);
-
   const { data: totalItemsData, refetch: refetchTotalItems } = useReadContract({
     address: contracts[chain.id].trotelCoinShop,
     abi: abis[chain.id].trotelCoinShop,
@@ -67,6 +41,12 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     chainId: chain.id,
     account: address
   });
+
+  useEffect(() => {
+    if (address && inventories) {
+      fetchImplicitQuantity(address, inventories);
+    }
+  }, [address, inventories]);
 
   useEffect(() => {
     refetchTotalItems();
@@ -106,7 +86,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex max-w-4xl flex-col gap-4">
+      <div className="mx-auto flex max-w-5xl flex-col gap-4">
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
@@ -143,12 +123,13 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <>
             {inventories && inventories.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {inventories.map(
-                    (item: InventoryItemTypeFinal, index: number) => (
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+                  {inventories
+                    .sort((a, b) => naturalSort(a.name, b.name))
+                    .sort((a, b) => b.quantity - a.quantity)
+                    .map((item: InventoryItemTypeFinal, index: number) => (
                       <InventoryItem lang={lang} item={item} key={index} />
-                    )
-                  )}
+                    ))}
                 </div>
               </>
             ) : refreshing ? (
@@ -181,8 +162,8 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
         )}
 
         {fetching && (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, index) => (
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: 8 }).map((_, index) => (
               <InventoryItemSkeleton key={index} />
             ))}
           </div>

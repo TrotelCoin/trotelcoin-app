@@ -10,13 +10,14 @@ export const fetchInventory = async (
   chain: Chain
 ) => {
   let newInventories: {
+    id: number;
     name: string;
     price: number;
     discount: number;
     quantity: number;
     emoji: string;
     disabled: boolean;
-    id: number;
+    description: string;
   }[] = [];
 
   for (let item = 1; item <= totalItems; item++) {
@@ -39,13 +40,14 @@ export const fetchInventory = async (
         args: [item]
       })) as any;
 
+      const id: number = item;
       const itemQuantity = Number(userQuantity);
       const name: string = userItem?.name;
       const price: number = Number(formatEther(userItem?.price));
       const discount: number = Number(formatEther(userItem?.discount));
       const emoji: string = userItem?.emoji;
       const disabled: boolean = userItem?.disabled;
-      const id: number = item;
+      const description: string = userItem?.description;
 
       const itemFormatted = {
         name: name,
@@ -54,7 +56,8 @@ export const fetchInventory = async (
         quantity: itemQuantity,
         emoji: emoji,
         disabled: disabled,
-        id: id
+        id: id,
+        description: description
       };
 
       newInventories.push(itemFormatted);

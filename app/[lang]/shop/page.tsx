@@ -15,6 +15,7 @@ import { loadingFlashClass } from "@/style/loading";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
+import { naturalSort } from "@/utils/inventory/sort";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -145,7 +146,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   return (
     <>
-      <div className="mx-auto flex max-w-4xl flex-col gap-8">
+      <div className="mx-auto flex max-w-5xl flex-col gap-8">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
@@ -170,7 +171,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
           {fetching && (
             <>
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
                 <ul className="flex flex-wrap items-center gap-2">
                   {categories &&
                     categories
@@ -247,13 +248,14 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   </div>
 
                   <div className="mt-2 flex flex-col gap-1">
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
                       {items &&
                         items
                           .filter(
                             (item) =>
                               item.categoryId === category.id && !item.disabled
                           )
+                          .sort((a, b) => naturalSort(a.name, b.name))
                           .map((item, index) => (
                             <Item key={index} lang={lang} shopItem={item} />
                           ))}
@@ -281,8 +283,8 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
           {fetching && (
             <>
               <div className="mt-2 flex flex-col gap-1">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {Array.from({ length: 3 }).map((_, index) => (
+                <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
+                  {Array.from({ length: 8 }).map((_, index) => (
                     <ItemSkeleton key={index} />
                   ))}
                 </div>

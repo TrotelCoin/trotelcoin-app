@@ -2,12 +2,10 @@
 
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
-import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import { Lang } from "@/types/language/lang";
 import React, { useContext, useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
-import useSWR from "swr";
 import {
   useAccount,
   useBlockNumber,
@@ -31,7 +29,6 @@ const InventoryItem = ({
   lang: Lang;
   item: InventoryItemTypeFinal;
 }) => {
-  const [quantity, setQuantity] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [notConnectedMessage, setNotConnectedMessage] =
     useState<boolean>(false);
@@ -86,34 +83,9 @@ const InventoryItem = ({
     }
   }, [useItemConfirmationData, useItemConfirmed]);
 
-  const { data: numberOfUsedItemsData } = useSWR(
-    address && item
-      ? `/api/user/items/count?address=${address}&item=${item.name}`
-      : null,
-    fetcher,
-    {
-      refreshInterval: refreshIntervalTime,
-      revalidateIfStale: true,
-      revalidateOnMount: true,
-      revalidateOnReconnect: true
-    }
-  );
-
   useEffect(() => {
     refetchUseItemConfirmation();
   }, [useItemConfirmationData, blockNumber, refetchUseItemConfirmation]);
-
-  useEffect(() => {
-    if (item && numberOfUsedItemsData) {
-      const numberOfUsedItems = numberOfUsedItemsData;
-      setQuantity(item.quantity - numberOfUsedItems);
-    } else {
-      setQuantity(item.quantity);
-    }
-
-    console.log("item", item);
-    console.log("numberOfUsedItemsData", numberOfUsedItemsData);
-  }, [item, numberOfUsedItemsData]);
 
   useEffect(() => {
     if (item.name === "Hourglass") {
@@ -150,19 +122,30 @@ const InventoryItem = ({
           <div
             className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
           >
-            <div className="w-full px-4 py-5 sm:p-6">
-              <div className="flex w-full items-center justify-between">
-                <div className={`rainbow-text text-2xl font-semibold`}>
-                  <Skeleton loading={!item.name}>{item.name}</Skeleton>
+            <div className="flex h-full w-full flex-col justify-between p-4 sm:p-6">
+              <div className="flex flex-col">
+                <div className="flex w-full items-center gap-2">
+                  <div
+                    className={`text-xl font-semibold text-black dark:text-white`}
+                  >
+                    <Skeleton loading={!item.name}>
+                      {item.name}{" "}
+                      <span className="text-xs text-gray-900 dark:text-gray-100">
+                        {(item.implicitQuantity ?? item.quantity) > 0 && (
+                          <>({item.implicitQuantity ?? item.quantity} left)</>
+                        )}
+                      </span>
+                    </Skeleton>
+                  </div>
                 </div>
-                <div
-                  className={`flex h-6 w-6 items-center justify-center rounded-full text-sm text-gray-100 ${quantity > 0 ? "bg-blue-500" : "bg-gray-500"}`}
-                >
-                  {quantity}
+                <div className="text-xs text-gray-900 dark:text-gray-100">
+                  <Skeleton loading={!item.description}>
+                    {item.description}
+                  </Skeleton>
                 </div>
               </div>
               <div className="my-8 flex items-center justify-center">
-                <span className="text-6xl">
+                <span className="text-4xl">
                   <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
                 </span>
               </div>
@@ -173,7 +156,7 @@ const InventoryItem = ({
                   disabled={
                     !address ||
                     isLoading ||
-                    quantity === 0 ||
+                    item.implicitQuantity === 0 ||
                     hourglassDisabled ||
                     isPending
                   }
@@ -204,8 +187,7 @@ const InventoryItem = ({
                 address as Address,
                 setErrorMessage,
                 setItemsUsedMessage,
-                setIsLoading,
-                setQuantity
+                setIsLoading
               );
             } else {
               await writeContractAsync({
@@ -221,7 +203,6 @@ const InventoryItem = ({
               });
               setItemsUsedMessage(true);
               setIsLoading(false);
-              setQuantity(quantity - 1);
             }
           }}
         />
