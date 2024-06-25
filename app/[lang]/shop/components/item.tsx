@@ -193,8 +193,8 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
           <div
             className={`flex h-full w-full items-center justify-center overflow-hidden rounded-xl border border-gray-900/10 bg-white backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800`}
           >
-            <div className="w-full px-4 py-5 sm:p-6">
-              <div className="flex w-full items-center justify-between">
+            <div className="w-full h-full p-4 sm:p-6">
+              <div className="flex w-full h-full items-center justify-between">
                 <div className="flex flex-col">
                   <div
                     className={`text-xl font-semibold text-gray-900 dark:text-gray-100`}
