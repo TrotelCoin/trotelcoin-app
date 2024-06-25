@@ -125,8 +125,13 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <>
                 <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
                   {inventories
+                    .filter((item) => item.quantity !== null)
                     .sort((a, b) => naturalSort(a.name, b.name))
-                    .sort((a, b) => b.quantity - a.quantity)
+                    .concat(
+                      inventories
+                        .filter((item) => item.quantity === null)
+                        .sort((a, b) => naturalSort(a.name, b.name))
+                    )
                     .map((item: InventoryItemTypeFinal, index: number) => (
                       <InventoryItem lang={lang} item={item} key={index} />
                     ))}
