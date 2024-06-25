@@ -1,7 +1,7 @@
 "use client";
 
 import ChainContext from "@/contexts/chain";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Chain, isAddressEqual, Address } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
@@ -16,40 +16,52 @@ const testnetAddresses: Address[] = [
 
 const ChainProvider = ({ children }: { children: React.ReactNode }) => {
   const [chain, setChain] = useState<Chain>(polygon);
-  const [showTestnet, setShowTestnet] = useState(false);
 
-  const { switchChain } = useSwitchChain();
+  const { switchChainAsync } = useSwitchChain();
   const { address } = useAccount();
 
-  const handleTestnet = () => {
-    if (!chain.testnet) {
-      setChain(polygonAmoy);
-    } else {
-      setChain(polygon);
-    }
-  };
-
   useEffect(() => {
+    const switchingChain = async () => {
+      if (chain && address) {
+        await switchChainAsync({ chainId: chain.id }).catch((error) => {
+          console.error(error);
+          throw new Error("Failed to switch chain");
+        });
+      }
+    };
+
     if (chain && address) {
-      switchChain({ chainId: chain.id });
-
-      const isTestnetAddress = testnetAddresses.some((testnetAddress) =>
-        isAddressEqual(address, testnetAddress)
-      );
-
-      setShowTestnet(isTestnetAddress);
+      switchingChain();
     }
-  }, [chain, switchChain, address]);
+  }, [chain, switchChainAsync, address]);
 
-  const contextValue = useMemo(
-    () => ({
+  const showTestnet = useMemo(() => {
+    return (
+      address &&
+      testnetAddresses.some((testnetAddress) =>
+        isAddressEqual(address, testnetAddress)
+      )
+    );
+  }, [address]);
+
+  const handleTestnet = useCallback(() => {
+    setChain((currentChain) => {
+      return currentChain.testnet ? polygon : polygonAmoy;
+    });
+  }, []);
+
+  const contextValue = useMemo(() => {
+    return {
       chain,
       setChain,
       handleTestnet,
-      showTestnet
-    }),
-    [chain, setChain, handleTestnet, showTestnet]
-  );
+      showTestnet:
+        !!address &&
+        testnetAddresses.some((testnetAddress) =>
+          isAddressEqual(address, testnetAddress)
+        )
+    };
+  }, [chain, setChain, handleTestnet, address]);
 
   return (
     <>

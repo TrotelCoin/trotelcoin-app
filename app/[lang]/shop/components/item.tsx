@@ -202,7 +202,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                   <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
                 </div>
                 <Popover.Trigger asChild>
-                  <InformationCircleIcon className="h-6 w-6 cursor-help text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
+                  <InformationCircleIcon className="h-6 w-6 cursor-pointer text-gray-900 hover:text-gray-700 dark:text-gray-100 dark:hover:text-gray-300" />
                 </Popover.Trigger>
                 <Popover.Portal>
                   <Popover.Content

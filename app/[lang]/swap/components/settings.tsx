@@ -63,7 +63,7 @@ const Settings = ({
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
                   <Popover.Root>
-                    <Popover.Trigger className="inline-flex cursor-help items-center gap-1">
+                    <Popover.Trigger className="inline-flex cursor-pointer items-center gap-1">
                       <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
                       <span className="text-sm text-gray-900 dark:text-gray-100">
                         {lang === "en" ? "Sort by" : "Trier par"}
@@ -141,7 +141,7 @@ const Settings = ({
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
                   <Popover.Root>
-                    <Popover.Trigger className="inline-flex cursor-help items-center gap-1">
+                    <Popover.Trigger className="inline-flex cursor-pointer items-center gap-1">
                       <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
                       <span className="text-sm text-gray-900 dark:text-gray-100">
                         {lang === "en"
@@ -208,7 +208,7 @@ const Settings = ({
               <div className="flex w-full items-center justify-between gap-24">
                 <div>
                   <Popover.Root>
-                    <Popover.Trigger className="inline-flex cursor-help items-center gap-1">
+                    <Popover.Trigger className="inline-flex cursor-pointer items-center gap-1">
                       <InformationCircleIcon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
                       <span className="text-sm text-gray-900 dark:text-gray-100">
                         {lang === "en" ? "Auto-refuel" : "Auto-ravitaillement"}
