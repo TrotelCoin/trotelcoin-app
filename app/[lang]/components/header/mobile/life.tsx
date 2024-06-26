@@ -13,7 +13,7 @@ const LifeMobile = ({
   setMobileMenuOpen: (open: boolean) => void;
 }) => {
   const { life, lifeCooldown } = useContext(LifeContext);
-  const { isIntermediate, isExpert } = useContext(PremiumContext);
+  const { isIntermediate, isExpert, isPremium } = useContext(PremiumContext);
 
   return (
     <>
@@ -39,11 +39,16 @@ const LifeMobile = ({
             <BlueButton
               lang={lang}
               isFull={true}
+              disabled={isPremium}
               onClick={() => setMobileMenuOpen(false)}
               text={
-                lang === "en"
-                  ? "Get unlimited lives"
-                  : "Obtenez vies illimitées"
+                isPremium
+                  ? lang === "en"
+                    ? "You're already premium"
+                    : "Vous êtes déjà premium"
+                  : lang === "en"
+                    ? "Get unlimited lives"
+                    : "Obtenez vies illimitées"
               }
             />
           </Link>
