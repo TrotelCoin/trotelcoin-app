@@ -139,11 +139,13 @@ const InventoryItem = ({
                   >
                     <Skeleton loading={!item.name}>
                       {item.name}{" "}
-                      <span className="text-xs text-gray-900 dark:text-gray-100">
-                        {(item.implicitQuantity ?? item.quantity) > 0 && (
-                          <>({item.implicitQuantity ?? item.quantity} left)</>
-                        )}
-                      </span>
+                      <Skeleton loading={!item.implicitQuantity}>
+                        <span className="text-xs text-gray-900 dark:text-gray-100">
+                          {(item.implicitQuantity as number) > 0 && (
+                            <>({item.implicitQuantity as number} left)</>
+                          )}
+                        </span>
+                      </Skeleton>
                     </Skeleton>
                   </div>
                 </div>
