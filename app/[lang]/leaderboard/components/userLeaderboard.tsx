@@ -20,6 +20,12 @@ import {
 } from "@/utils/leaderboard/leaderboard";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 
+const renderEns = (ensName: string, address: Address) => {
+  if (ensName) return ensName;
+  if (address) return address;
+  return lang === "en" ? "Connect your wallet" : "Connectez votre portefeuille";
+};
+
 const UserLeaderboardComponent = ({
   lang,
   category,
@@ -65,12 +71,7 @@ const UserLeaderboardComponent = ({
         </Skeleton>
         <div className="hidden items-center justify-center md:flex">
           <Skeleton loading={isLoadingLeaderboard || !address}>
-            {ensName ??
-              (address && isAddress(address)
-                ? address
-                : lang === "en"
-                  ? "Connect your wallet"
-                  : "Connectez votre portefeuille")}
+            {renderEns(ensName as string, address as Address)}
           </Skeleton>
         </div>
         <div className="flex items-center justify-center md:hidden">
