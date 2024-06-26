@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SOCKET_API_KEY } from "@/config/socket";
 
 export const getFromTokenList = async (
   fromChainId: number,
@@ -9,7 +10,7 @@ export const getFromTokenList = async (
       `https://api.socket.tech/v2/token-lists/from-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
       {
         headers: {
-          "API-KEY": process.env.SOCKET_API_KEY as string,
+          "API-KEY": SOCKET_API_KEY,
           Accept: "application/json",
           "Content-Type": "application/json"
         }

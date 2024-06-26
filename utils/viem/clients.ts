@@ -6,16 +6,16 @@ import {
   webSocket
 } from "viem";
 import { mainnet, polygon, polygonAmoy } from "viem/chains";
+import { rpcs } from "@/config/rpcs";
 
 export const publicClient = createPublicClient({
   chain: polygon,
   transport: fallback([
-    webSocket(
-      `wss://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
-    ),
-    webSocket(
-      `wss://polygon-mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
-    ),
+    webSocket(rpcs[polygon.id].transports.wss[0]),
+    webSocket(rpcs[polygon.id].transports.wss[1]),
+    http(rpcs[polygon.id].transports.https[0]),
+    http(rpcs[polygon.id].transports.https[1]),
+    http(rpcs[polygon.id].transports.https[2]),
     http("", {
       batch: {
         wait: 16
@@ -27,12 +27,11 @@ export const publicClient = createPublicClient({
 export const testPublicClient = createPublicClient({
   chain: polygonAmoy,
   transport: fallback([
-    webSocket(
-      `wss://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
-    ),
-    webSocket(
-      `wss://polygon-amoy.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
-    ),
+    webSocket(rpcs[polygonAmoy.id].transports.wss[0]),
+    webSocket(rpcs[polygonAmoy.id].transports.wss[1]),
+    http(rpcs[polygonAmoy.id].transports.https[0]),
+    http(rpcs[polygonAmoy.id].transports.https[1]),
+    http(rpcs[polygonAmoy.id].transports.https[2]),
     http("", {
       batch: {
         wait: 16
@@ -54,12 +53,11 @@ export const testWalletClient = createWalletClient({
 export const ensClient = createPublicClient({
   chain: mainnet,
   transport: fallback([
-    webSocket(
-      `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
-    ),
-    webSocket(
-      `wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
-    ),
+    webSocket(rpcs[mainnet.id].transports.wss[0]),
+    webSocket(rpcs[mainnet.id].transports.wss[1]),
+    http(rpcs[mainnet.id].transports.https[0]),
+    http(rpcs[mainnet.id].transports.https[1]),
+    http(rpcs[mainnet.id].transports.https[2]),
     http("", {
       batch: {
         wait: 16

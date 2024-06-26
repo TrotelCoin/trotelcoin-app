@@ -1,6 +1,7 @@
 import { Slippage, Sort } from "@/types/web3/swap";
 import axios from "axios";
 import { Address } from "viem";
+import { SOCKET_API_KEY } from "@/config/socket";
 
 export const getQuote = async (
   fromChainId: number,
@@ -20,7 +21,7 @@ export const getQuote = async (
       `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}&bridgeWithGas=${enableRefuel}&defaultSwapSlippage=${slippage}`,
       {
         headers: {
-          "API-KEY": process.env.SOCKET_API_KEY as string,
+          "API-KEY": SOCKET_API_KEY,
           Accept: "application/json",
           "Content-Type": "application/json"
         }
