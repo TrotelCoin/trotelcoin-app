@@ -1,4 +1,5 @@
 import axios from "axios";
+import { SOCKET_API_KEY } from "@/config/socket";
 
 export const getRouteTransactionData = async (
   route: any,
@@ -10,7 +11,7 @@ export const getRouteTransactionData = async (
       { route: route },
       {
         headers: {
-          "API-KEY": process.env.SOCKET_API_KEY as string,
+          "API-KEY": SOCKET_API_KEY,
           Accept: "application/json",
           "Content-Type": "application/json"
         }

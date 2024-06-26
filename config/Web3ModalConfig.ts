@@ -2,6 +2,7 @@ import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { cookieStorage, createStorage } from "wagmi";
 import { mainnet, polygon, polygonAmoy } from "viem/chains";
 import { fallback, http, webSocket } from "@wagmi/core";
+import { rpcs } from "@/config/rpcs";
 
 export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string;
 
@@ -33,12 +34,11 @@ export const config = defaultWagmiConfig({
   }),
   transports: {
     [mainnet.id]: fallback([
-      webSocket(
-        `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
-      ),
-      webSocket(
-        `wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
-      ),
+      webSocket(rpcs[mainnet.id].transports.wss[0]),
+      webSocket(rpcs[mainnet.id].transports.wss[1]),
+      http(rpcs[mainnet.id].transports.https[0]),
+      http(rpcs[mainnet.id].transports.https[1]),
+      http(rpcs[mainnet.id].transports.https[2]),
       http("", {
         batch: {
           wait: 16
@@ -46,12 +46,11 @@ export const config = defaultWagmiConfig({
       })
     ]),
     [polygon.id]: fallback([
-      webSocket(
-        `wss://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
-      ),
-      webSocket(
-        `wss://polygon-mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
-      ),
+      webSocket(rpcs[polygon.id].transports.wss[0]),
+      webSocket(rpcs[polygon.id].transports.wss[1]),
+      http(rpcs[polygon.id].transports.https[0]),
+      http(rpcs[polygon.id].transports.https[1]),
+      http(rpcs[polygon.id].transports.https[2]),
       http("", {
         batch: {
           wait: 16
@@ -59,12 +58,11 @@ export const config = defaultWagmiConfig({
       })
     ]),
     [polygonAmoy.id]: fallback([
-      webSocket(
-        `wss://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
-      ),
-      webSocket(
-        `wss://polygon-amoy.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
-      ),
+      webSocket(rpcs[polygonAmoy.id].transports.wss[0]),
+      webSocket(rpcs[polygonAmoy.id].transports.wss[1]),
+      http(rpcs[polygonAmoy.id].transports.https[0]),
+      http(rpcs[polygonAmoy.id].transports.https[1]),
+      http(rpcs[polygonAmoy.id].transports.https[2]),
       http("", {
         batch: {
           wait: 16

@@ -11,10 +11,15 @@ import { Address, parseEther, getAddress, Chain } from "viem";
 import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
 import { getServerSession } from "next-auth";
+import dotenv from "dotenv";
 
 export const dynamic = "force-dynamic";
 
-const account = privateKeyToAccount(process.env.PRIVATE_KEY_WALLET as Address);
+dotenv.config();
+
+const privateKey = process.env.PRIVATE_KEY_WALLET as Address;
+
+const account = privateKeyToAccount(privateKey);
 
 const inputSchema = z.object({
   userAddress: z.custom<Address>(),

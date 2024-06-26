@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Address } from "viem";
+import { SOCKET_API_KEY } from "@/config/socket";
 
 export const getApprovalTransactionData = async (
   chainId: number,
@@ -13,7 +14,7 @@ export const getApprovalTransactionData = async (
       `https://api.socket.tech/v2/approval/build-tx?chainID=${chainId}&owner=${owner}&allowanceTarget=${allowanceTarget}&tokenAddress=${tokenAddress}&amount=${amount}`,
       {
         headers: {
-          "API-KEY": process.env.SOCKET_API_KEY as string,
+          "API-KEY": SOCKET_API_KEY,
           Accept: "application/json",
           "Content-Type": "application/json"
         }
