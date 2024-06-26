@@ -1,9 +1,9 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
-import { cookieStorage, createStorage, http } from "wagmi";
+import { cookieStorage, createStorage } from "wagmi";
 import { mainnet, polygon, polygonAmoy } from "viem/chains";
-import { fallback, webSocket } from "@wagmi/core";
+import { fallback, http, webSocket } from "@wagmi/core";
 
-export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID;
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string;
 
 if (!projectId) throw new Error("Project ID is not defined");
 
@@ -33,16 +33,34 @@ export const config = defaultWagmiConfig({
   }),
   transports: {
     [mainnet.id]: fallback([
-      webSocket(process.env.MAINNET_ALCHEMY_URL),
-      http("", { batch: { wait: 16 } })
+      webSocket(
+        `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+      ),
+      http("", {
+        batch: {
+          wait: 16
+        }
+      })
     ]),
     [polygon.id]: fallback([
-      webSocket(process.env.POLYGON_ALCHEMY_URL),
-      http("", { batch: { wait: 16 } })
+      webSocket(
+        `wss://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+      ),
+      http("", {
+        batch: {
+          wait: 16
+        }
+      })
     ]),
     [polygonAmoy.id]: fallback([
-      webSocket(process.env.POLYGON_AMOY_ALCHEMY_URL),
-      http("", { batch: { wait: 16 } })
+      webSocket(
+        `wss://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+      ),
+      http("", {
+        batch: {
+          wait: 16
+        }
+      })
     ])
   }
 });

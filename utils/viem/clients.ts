@@ -10,7 +10,9 @@ import { mainnet, polygon, polygonAmoy } from "viem/chains";
 export const publicClient = createPublicClient({
   chain: polygon,
   transport: fallback([
-    webSocket(process.env.POLYGON_ALCHEMY_URL),
+    webSocket(
+      `wss://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+    ),
     http("", {
       batch: {
         wait: 16
@@ -22,7 +24,9 @@ export const publicClient = createPublicClient({
 export const testPublicClient = createPublicClient({
   chain: polygonAmoy,
   transport: fallback([
-    webSocket(process.env.POLYGON_AMOY_ALCHEMY_URL),
+    webSocket(
+      `wss://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+    ),
     http("", {
       batch: {
         wait: 16
@@ -33,32 +37,20 @@ export const testPublicClient = createPublicClient({
 
 export const walletClient = createWalletClient({
   chain: polygon,
-  transport: fallback([
-    webSocket(process.env.POLYGON_ALCHEMY_URL),
-    http("", {
-      batch: {
-        wait: 16
-      }
-    })
-  ])
+  transport: http()
 });
 
 export const testWalletClient = createWalletClient({
   chain: polygonAmoy,
-  transport: fallback([
-    webSocket(process.env.POLYGON_AMOY_ALCHEMY_URL),
-    http("", {
-      batch: {
-        wait: 16
-      }
-    })
-  ])
+  transport: http()
 });
 
 export const ensClient = createPublicClient({
   chain: mainnet,
   transport: fallback([
-    webSocket(process.env.MAINNET_ALCHEMY_URL),
+    webSocket(
+      `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+    ),
     http("", {
       batch: {
         wait: 16
