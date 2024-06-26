@@ -36,6 +36,9 @@ export const config = defaultWagmiConfig({
       webSocket(
         `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
       ),
+      webSocket(
+        `wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
+      ),
       http("", {
         batch: {
           wait: 16
@@ -46,6 +49,9 @@ export const config = defaultWagmiConfig({
       webSocket(
         `wss://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
       ),
+      webSocket(
+        `wss://polygon-mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
+      ),
       http("", {
         batch: {
           wait: 16
@@ -55,6 +61,9 @@ export const config = defaultWagmiConfig({
     [polygonAmoy.id]: fallback([
       webSocket(
         `wss://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+      ),
+      webSocket(
+        `wss://polygon-amoy.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
       ),
       http("", {
         batch: {

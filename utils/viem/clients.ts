@@ -13,6 +13,9 @@ export const publicClient = createPublicClient({
     webSocket(
       `wss://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
     ),
+    webSocket(
+      `wss://polygon-mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
+    ),
     http("", {
       batch: {
         wait: 16
@@ -26,6 +29,9 @@ export const testPublicClient = createPublicClient({
   transport: fallback([
     webSocket(
       `wss://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+    ),
+    webSocket(
+      `wss://polygon-amoy.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
     ),
     http("", {
       batch: {
@@ -50,6 +56,9 @@ export const ensClient = createPublicClient({
   transport: fallback([
     webSocket(
       `wss://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY as string}`
+    ),
+    webSocket(
+      `wss://mainnet.infura.io/ws/v3/${process.env.INFURA_API_KEY as string}`
     ),
     http("", {
       batch: {

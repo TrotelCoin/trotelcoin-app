@@ -20,7 +20,7 @@ export const getQuote = async (
       `https://api.socket.tech/v2/quote?fromChainId=${fromChainId}&fromTokenAddress=${fromTokenAddress}&toChainId=${toChainId}&toTokenAddress=${toTokenAddress}&fromAmount=${fromAmount}&userAddress=${userAddress}&uniqueRoutesPerBridge=${uniqueRoutesPerBridge}&sort=${sort}&singleTxOnly=${singleTxOnly}&bridgeWithGas=${enableRefuel}&defaultSwapSlippage=${slippage}`,
       {
         headers: {
-          "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+          "API-KEY": process.env.SOCKET_API_KEY as string,
           Accept: "application/json",
           "Content-Type": "application/json"
         }
