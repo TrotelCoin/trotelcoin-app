@@ -87,6 +87,7 @@ const Waitlist = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [position, setPosition] = useState<number | null>(null);
   const [length, setLength] = useState<number | null>(null);
+  const [addedToWaitlist, setAddedToWaitlist] = useState<boolean>(false);
 
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
@@ -202,6 +203,7 @@ const Waitlist = ({
                 </div>
               )}
             </Link>
+
             <div className="inline-flex items-center gap-4">
               {socials.map((item, index) => (
                 <Link
@@ -216,11 +218,12 @@ const Waitlist = ({
               ))}
             </div>
           </nav>
+
           {!isEarly && (
             <>
               <div className="flex h-screen items-center justify-center overflow-hidden bg-white text-center dark:bg-gray-900">
                 <div className="mx-8 flex max-w-4xl flex-col gap-4">
-                  {!isWaiting && (
+                  {!isWaiting && !addedToWaitlist && (
                     <div className="flex justify-center">
                       <div className="animate__animated animate__bounceIn relative rounded-full px-3 py-1 text-xs leading-6 text-gray-700 ring-1 ring-gray-700 dark:text-gray-300 dark:ring-gray-300">
                         <span className="font-semibold">
@@ -236,7 +239,8 @@ const Waitlist = ({
                       </div>
                     </div>
                   )}
-                  {!isWaiting && (
+
+                  {!isWaiting && !addedToWaitlist && (
                     <span className="animate__animated animate__fadeIn text-5xl font-semibold text-gray-900 dark:text-gray-100 lg:text-6xl">
                       <>
                         <span className="text-blue-500 dark:text-blue-300">
@@ -250,6 +254,7 @@ const Waitlist = ({
                       </>
                     </span>
                   )}
+
                   {!isWaiting && (
                     <span className="animate__animated animate__fadeIn text-sm text-gray-700 dark:text-gray-300">
                       {lang === "en"
@@ -257,9 +262,12 @@ const Waitlist = ({
                         : "Rejoignez la liste d'attente maintenant pour commencer à apprendre."}
                     </span>
                   )}
-                  <div className={`${!isWaiting && "mt-4"}`}>
-                    {isLoggedIn ? (
-                      isWaiting ? (
+
+                  <div
+                    className={`${!isWaiting && !addedToWaitlist && "mt-4"}`}
+                  >
+                    {isLoggedIn || addedToWaitlist ? (
+                      isWaiting || addedToWaitlist ? (
                         <>
                           <div className="flex flex-col">
                             <span className="text-xl text-gray-900 dark:text-gray-100">
@@ -305,14 +313,21 @@ const Waitlist = ({
                             disabled={disabled}
                             isLoading={isLoading}
                             onClick={async () => {
-                              const position = await handleNotify(
+                              await handleNotify(
                                 address as Address,
                                 mail as string,
                                 setIsLoading,
                                 setErrorMessage,
                                 setIsWaiting
-                              );
-                              setPosition(position);
+                              )
+                                .then((position) => {
+                                  setAddedToWaitlist(true);
+                                  setPosition(position);
+                                })
+                                .catch((error) => {
+                                  console.error(error);
+                                  setAddedToWaitlist(false);
+                                });
                             }}
                             lang={lang}
                             text={lang === "en" ? "Notify me" : "Me notifier"}

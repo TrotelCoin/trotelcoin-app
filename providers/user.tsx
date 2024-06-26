@@ -42,7 +42,7 @@ const UserProvider = ({
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
   useEffect(() => {
-    if (session && address) {
+    if (!!session && !!address) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
