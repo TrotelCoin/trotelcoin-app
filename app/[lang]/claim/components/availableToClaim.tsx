@@ -22,7 +22,7 @@ const AvailableToClaim = ({
             {availableToClaim && typeof availableToClaim === "number"
               ? availableToClaim.toFixed(0).toLocaleString()
               : "0"}{" "}
-            <span className="font-semibold">TROTEL</span>
+            TROTEL
           </Skeleton>
         </div>
       </div>

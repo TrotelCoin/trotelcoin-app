@@ -1,56 +1,58 @@
 "use client";
 
+import ChainContext from "@/contexts/chain";
 import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
-import React from "react";
+import React, { useContext, useState } from "react";
+import { createWalletClient, custom } from "viem";
 import { polygon } from "viem/chains";
+import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import "viem/window";
 
-const token = {
+const options = {
   address: contracts[polygon.id].trotelCoinAddress,
   decimals: 18,
-  name: "TrotelCoin",
   symbol: "TROTEL",
   image: "ipfs://Qmf2dXFJ5XjxUamA3SAnFamYGccEdjZmsVZxkkdDBRqhzd/trotelcoin.png"
 };
 
-declare global {
-  interface Window {
-    ethereum: any;
-  }
-}
-
-const switchToPolygon = async () => {
-  try {
-    await window.ethereum.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: polygon.id }]
-    });
-  } catch (switchError) {
-    console.error(switchError);
-  }
-};
-
 const AddToken = ({ lang }: { lang: Lang }) => {
-  const addToken = async () => {
-    try {
-      if (window.ethereum) {
-        await switchToPolygon();
-      }
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
 
-      await window.ethereum.request({
-        method: "wallet_watchAsset",
-        params: {
-          type: "ERC20",
-          options: {
-            address: token.address,
-            symbol: token.symbol,
-            decimals: token.decimals,
-            image: token.image
-          }
-        }
+  const { chain } = useContext(ChainContext);
+
+  const client = createWalletClient({
+    chain: chain,
+    transport: custom(window.ethereum!)
+  });
+
+  const switchToPolygon = async () => {
+    // only support polygon for now
+    await client
+      .switchChain({
+        id: polygon.id
+      })
+      .catch((error) => {
+        console.error(error);
+        throw new Error("Failed to switch chain");
       });
-    } catch (error) {
-      console.error(error);
+  };
+
+  const addToken = async () => {
+    await switchToPolygon();
+
+    const success = await client
+      .watchAsset({
+        type: "ERC20",
+        options: options
+      })
+      .catch((error) => {
+        console.error(error);
+        throw new Error("Failed to add token");
+      });
+
+    if (!success) {
+      setErrorMessage(true);
     }
   };
 
@@ -66,6 +68,18 @@ const AddToken = ({ lang }: { lang: Lang }) => {
             : "Ajouter le token à votre portefeuille"}
         </span>
       </div>
+
+      <FailNotification
+        display={errorMessage}
+        onClose={() => setErrorMessage(false)}
+        lang={lang}
+        title={lang === "en" ? "Error" : "Erreur"}
+        message={
+          lang === "en"
+            ? "We couldn't add the token to your wallet"
+            : "Nous n'avons pas pu ajouter le token à votre portefeuille"
+        }
+      />
     </>
   );
 };

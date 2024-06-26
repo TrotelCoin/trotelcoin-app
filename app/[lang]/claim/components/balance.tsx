@@ -50,7 +50,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
             {parseFloat(balance?.toFixed(0) as string).toLocaleString(
               "en-US"
             ) ?? "0"}{" "}
-            <span className="font-semibold">TROTEL</span>
+            TROTEL
           </Skeleton>
         </div>
       </div>

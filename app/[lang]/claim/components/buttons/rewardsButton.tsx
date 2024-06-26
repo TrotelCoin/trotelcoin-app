@@ -17,6 +17,7 @@ import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
+import claimingRewardsFee from "@/data/rewards/claimingFee";
 
 const RewardsButton = ({
   lang,
@@ -128,7 +129,7 @@ const RewardsButton = ({
     }
 
     if (availableToClaim && availableToClaim > 0) {
-      const gasAmount: string = "0.02";
+      const gasAmount: string = claimingRewardsFee.toString();
 
       try {
         // make transaction to pay central wallet

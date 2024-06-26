@@ -16,6 +16,7 @@ import "animate.css";
 import UsdcBalance from "@/app/[lang]/claim/components/usdcBalance";
 import { Skeleton } from "@radix-ui/themes";
 import ChainContext from "@/contexts/chain";
+import Fee from "@/app/[lang]/claim/components/fee";
 
 const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [centralWalletAddress, setCentralWalletAddress] =
@@ -92,6 +93,9 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
             </div>
             <div>
               <Balance lang={lang} />
+            </div>
+            <div>
+              <Fee lang={lang} />
             </div>
             <div>
               <Status
