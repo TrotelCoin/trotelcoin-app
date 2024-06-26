@@ -13,7 +13,6 @@ import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import "animate.css";
-import UsdcBalance from "@/app/[lang]/claim/components/usdcBalance";
 import { Skeleton } from "@radix-ui/themes";
 import ChainContext from "@/contexts/chain";
 import Fee from "@/app/[lang]/claim/components/fee";
@@ -81,13 +80,6 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <AvailableToClaim
                 lang={lang}
                 availableToClaim={availableToClaim}
-                isLoading={isLoadingUserTotalRewardsPending}
-              />
-            </div>
-            <div>
-              <UsdcBalance
-                lang={lang}
-                availableToClaim={availableToClaim as number}
                 isLoading={isLoadingUserTotalRewardsPending}
               />
             </div>
