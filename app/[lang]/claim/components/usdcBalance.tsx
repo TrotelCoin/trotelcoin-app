@@ -20,15 +20,14 @@ const UsdcBalance = ({
   return (
     <>
       <div className="flex justify-between">
-        <span>{lang === "en" ? "Value" : "Valeur"}</span>
+        <span>{lang === "en" ? "USD Value" : "Valeur USD"}</span>
         <div>
           <Skeleton loading={isLoading || (!trotelPrice && showTrotelInUsdc)}>
             {trotelPrice && availableToClaim
-              ? roundPrice(
+              ? `$${roundPrice(
                   Number(availableToClaim) * trotelPrice
-                ).toLocaleString("en-US")
-              : "0"}{" "}
-            <span className="font-semibold">USDC</span>
+                ).toLocaleString("en-US")}`
+              : "$0"}{" "}
           </Skeleton>
         </div>
       </div>
