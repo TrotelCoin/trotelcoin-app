@@ -9,7 +9,7 @@ export const getToTokenList = async (
       `https://api.socket.tech/v2/token-lists/to-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
       {
         headers: {
-          "API-KEY": process.env.NEXT_PUBLIC_SOCKET_API_KEY as string,
+          "API-KEY": process.env.SOCKET_API_KEY as string,
           Accept: "application/json",
           "Content-Type": "application/json"
         }
