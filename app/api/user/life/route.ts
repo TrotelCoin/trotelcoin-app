@@ -3,8 +3,6 @@ import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-import { getServerSession } from "next-auth";
-
 export const dynamic = "force-dynamic";
 
 const inputSchema = z.object({
@@ -19,15 +17,6 @@ const inputSchema = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
-  const session = await getServerSession();
-
-  if (!session) {
-    return NextResponse.json(
-      { error: "You need to be logged in." },
-      { status: 401 }
-    );
-  }
 
   let life = 3;
 

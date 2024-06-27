@@ -10,7 +10,6 @@ import abis from "@/abis/abis";
 import { Address, parseEther, getAddress, Chain } from "viem";
 import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
-import { getServerSession } from "next-auth";
 import dotenv from "dotenv";
 
 export const dynamic = "force-dynamic";
@@ -39,15 +38,6 @@ const inputSchema = z.object({
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
-  const session = await getServerSession();
-
-  if (!session) {
-    return NextResponse.json(
-      { error: "You need to be logged in." },
-      { status: 401 }
-    );
-  }
 
   try {
     const body = await req.json();

@@ -1,8 +1,7 @@
 import * as dotenv from "dotenv";
 import { polygon, polygonAmoy, mainnet } from "viem/chains";
-import { resolve } from "path";
 
-dotenv.config({ path: resolve(__dirname, "../.env") });
+dotenv.config();
 
 // General RPCs
 const ALCHEMY_API_KEY = process.env.ALCHEMY_API_KEY as string;

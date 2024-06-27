@@ -23,7 +23,7 @@ export const handleClaimRewards = async (
   // update database rewards by calling api and if success
   const rewards = await axios
     .post(
-      `/api/rewards?wallet=${address}&quizId=${quizId}&multipliers=${
+      `/api/user/rewards?wallet=${address}&quizId=${quizId}&multipliers=${
         multipliers ?? 1
       }`
     )

@@ -1,5 +1,4 @@
 import { supabase } from "@/utils/supabase/db";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
@@ -24,15 +23,6 @@ const inputSchemaGet = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
-  const session = await getServerSession();
-
-  if (!session) {
-    return NextResponse.json(
-      { error: "You need to be logged in." },
-      { status: 401 }
-    );
-  }
 
   try {
     const { wallet } = inputSchemaGet.safeParse({
@@ -74,15 +64,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
  */
 export async function POST(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
-
-  const session = await getServerSession();
-
-  if (!session) {
-    return NextResponse.json(
-      { error: "You need to be logged in." },
-      { status: 401 }
-    );
-  }
 
   try {
     const { quizId, wallet, diffTime } = inputSchemaPost.safeParse({
