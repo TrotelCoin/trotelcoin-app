@@ -7,7 +7,7 @@ export const getFromTokenList = async (
 ) => {
   const response = await axios
     .get(
-      `https://api.socket.tech/v2/token-lists/from-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}`,
+      `https://api.socket.tech/v2/token-lists/from-token-list?fromChainId=${fromChainId}&toChainId=${toChainId}&isShortList=true`,
       {
         headers: {
           "API-KEY": SOCKET_API_KEY,
