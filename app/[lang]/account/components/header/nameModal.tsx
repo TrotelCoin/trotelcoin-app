@@ -58,7 +58,10 @@ const NameModal = ({
 
     if (nameError === null) {
       await axios
-        .post(`/api/database/postUsername?name=${name}&wallet=${address}`)
+        .post(`/api/database/postUsername`, {
+          name: name,
+          wallet: address
+        })
         .then((response) => {
           localStorage.setItem("username", name);
           setNameIsLoading(false);

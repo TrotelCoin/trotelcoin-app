@@ -1,14 +1,17 @@
 import { NextResponse, NextRequest } from "next/server";
+import { z } from "zod";
+import * as dotenv from "dotenv";
 
-/*
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-*/
+dotenv.config();
+
+const PINATA_JWT = process.env.PINATA_JWT as string;
 
 export const dynamic = "force-dynamic";
+
+const FormDataSchema = z.object({
+  title: z.string().optional(),
+  file: z.instanceof(File)
+});
 
 /* POST /api/files
  * Uploads a file to IPFS using Pinata.
@@ -16,25 +19,40 @@ export const dynamic = "force-dynamic";
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
-  const title: string = searchParams.get("title") ?? "Untitled";
   try {
     const data = await req.formData();
+    const title: string = data.get("title")?.toString() ?? "Untitled";
     const file: File | null = data.get("file") as unknown as File;
-    data.append("file", file);
-    data.append(
+
+    const formDataResult = FormDataSchema.safeParse({
+      title,
+      file
+    });
+
+    if (!formDataResult.success) {
+      return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
+    }
+
+    const validatedData = formDataResult.data;
+
+    const pinataData = new FormData();
+    pinataData.append("file", validatedData.file);
+    pinataData.append(
       "pinataMetadata",
-      JSON.stringify({ name: `TrotelCoin | ${title}` })
+      JSON.stringify({
+        name: `TrotelCoin | ${validatedData.title ?? "Untitled"}`
+      })
     );
+
     const res = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.PINATA_JWT}`
+        Authorization: `Bearer ${PINATA_JWT}`
       },
-      body: data
+      body: pinataData
     });
+
     const { IpfsHash } = await res.json();
-    console.log(IpfsHash);
 
     return NextResponse.json({ IpfsHash }, { status: 200 });
   } catch (error) {

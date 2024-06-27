@@ -72,12 +72,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
+  const body = await req.json();
 
   try {
     const { wallet, mail } = inputSchemaPost.safeParse({
-      wallet: searchParams.get("wallet"),
-      mail: searchParams.get("mail")
+      wallet: body.wallet,
+      mail: body.mail
     }).data as unknown as { wallet: Address; mail: string };
 
     // check if learners exist

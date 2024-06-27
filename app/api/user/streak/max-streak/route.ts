@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import { z } from "zod";
+import { isUserAuthenticated } from "@/utils/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -16,6 +17,13 @@ const inputSchema = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (!isUserAuthenticated(req)) {
+    return NextResponse.json(
+      { error: "You are not authenticated." },
+      { status: 401 }
+    );
+  }
 
   try {
     const { wallet } = inputSchema.safeParse({

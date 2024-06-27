@@ -7,7 +7,10 @@ export const postQuizResult = async (
   numberOfWrongAnswers: number,
   totalQuestions: number
 ) => {
-  await axios.post(
-    `/api/user/quizzes/mark?quizId=${quizId}&wallet=${address}&numberOfWrongAnswers=${numberOfWrongAnswers}&totalQuestions=${totalQuestions}`
-  );
+  await axios.post(`/api/user/quizzes/mark`, {
+    quizId,
+    wallet: address,
+    numberOfWrongAnswers,
+    totalQuestions
+  });
 };

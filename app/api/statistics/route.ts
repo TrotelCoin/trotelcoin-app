@@ -40,11 +40,11 @@ const inputSchema = z.object({
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
+  const body = await req.json();
   try {
     const { stats, value } = inputSchema.safeParse({
-      stats: searchParams.get("stats"),
-      value: Number(searchParams.get("value"))
+      stats: body.stats,
+      value: body.value
     }).data as unknown as { stats: StatisticsType; value: number };
 
     const { data: stat } = await supabase

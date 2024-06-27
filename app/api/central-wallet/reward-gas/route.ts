@@ -43,7 +43,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
       abi: abis[chainId].trotelCoin,
       functionName: "mint",
       account: centralWalletAddress,
-      args: [userAddress as Address, parseEther(Number(amount).toFixed(18))]
+      args: [userAddress, parseEther(Number(amount).toFixed(18))]
     });
 
     return NextResponse.json(parseFloat(gas.toString()), {

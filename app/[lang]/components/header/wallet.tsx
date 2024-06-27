@@ -67,9 +67,13 @@ const Wallet = ({
       window.alert(error);
     }
 
-    await axios.post(`/api/learner?wallet=${address}`).catch((error) => {
-      console.error(error);
-    });
+    await axios
+      .post(`/api/learner`, {
+        wallet: address
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (

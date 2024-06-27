@@ -1,9 +1,5 @@
-import remainingRewards from "@/data/rewards/remainingRewards";
-import { checkIfCourseIsAvailable } from "@/utils/quizzes/checkIfCourseIsAvailable";
-import { calculateRewards } from "@/utils/rewards/calculateRewards";
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
-import { Address } from "viem";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";

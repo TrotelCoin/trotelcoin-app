@@ -23,12 +23,10 @@ const inputSchema = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
   try {
-    const { data } = inputSchema.safeParse({
+    const { quizId, lang } = inputSchema.safeParse({
       quizId: Number(searchParams.get("quizId")),
       lang: searchParams.get("lang")
-    });
-
-    const { quizId, lang } = data as { quizId: number; lang: Lang };
+    }).data as unknown as { quizId: number; lang: Lang };
 
     const quiz: QuizAnswer = answers.find(
       (answer) => answer.quizId === quizId

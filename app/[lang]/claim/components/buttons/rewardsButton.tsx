@@ -140,12 +140,12 @@ const RewardsButton = ({
 
         // make minting transaction
         const hash = await axios
-          .post(
-            `/api/user/claim-rewards?address=${address}&amount=${availableToClaim}&centralWalletAddress=${centralWalletAddress}`,
-            {
-              chain: chain
-            }
-          )
+          .post(`/api/user/claim-rewards`, {
+            chain: chain,
+            amount: availableToClaim,
+            address: address,
+            centralWalletAddress: centralWalletAddress
+          })
           .then((response) => response.data.hash);
 
         setTransactionHash(hash);
@@ -157,7 +157,9 @@ const RewardsButton = ({
         if (!chain.testnet) {
           // reset database pending rewards
           await axios
-            .post(`/api/user/rewards/reset?wallet=${address}`)
+            .post(`/api/user/rewards/reset`, {
+              wallet: address
+            })
             .then((response) => {
               if (!response.data.success) {
                 setErrorMessage(true);

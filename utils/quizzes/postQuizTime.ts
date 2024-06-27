@@ -6,7 +6,9 @@ export const postQuizTime = async (
   address: Address,
   diffTime: number
 ) => {
-  await axios.post(
-    `/api/user/quizzes/time?quizId=${quizId}&wallet=${address}&diffTime=${diffTime}`
-  );
+  await axios.post(`/api/user/quizzes/time`, {
+    quizId,
+    wallet: address,
+    diffTime
+  });
 };

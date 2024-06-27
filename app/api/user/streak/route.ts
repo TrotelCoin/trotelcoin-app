@@ -2,6 +2,7 @@ import { supabase } from "@/utils/supabase/db";
 import { Address } from "viem";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { isUserAuthenticated } from "@/utils/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,13 @@ const inputSchemaGet = z.object({
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
+
+  if (!isUserAuthenticated(req)) {
+    return NextResponse.json(
+      { error: "You are not authenticated." },
+      { status: 401 }
+    );
+  }
 
   let lostStreak: boolean = false;
 
@@ -118,11 +126,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
+  const body = await req.json();
+
+  if (!isUserAuthenticated(req)) {
+    return NextResponse.json(
+      { error: "You are not authenticated." },
+      { status: 401 }
+    );
+  }
 
   try {
     const { wallet } = inputSchemaPost.safeParse({
-      wallet: searchParams.get("wallet")
+      wallet: body.wallet
     }).data as unknown as { wallet: Address };
 
     // Check if wallet exists in "learners" table

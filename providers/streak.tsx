@@ -106,7 +106,9 @@ const StreakProvider = ({
     setIsStreakLoading(true);
 
     await axios
-      .post(`/api/user/streak?wallet=${address}`)
+      .post(`/api/user/streak`, {
+        wallet: address
+      })
       .then(() => {
         setStreak((streak) => (streak ? streak + 1 : 0));
         setMaxStreak((maxStreak) =>

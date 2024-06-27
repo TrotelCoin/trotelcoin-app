@@ -29,9 +29,11 @@ const CoursesSatisfaction = ({
     if (rating) {
       try {
         await axios
-          .post(
-            `/api/user/course/satisfaction?quizId=${quizId}&rating=${rating}&wallet=${address}`
-          )
+          .post(`/api/user/course/satisfaction`, {
+            rating: rating,
+            quizId: quizId,
+            wallet: address
+          })
           .then(() => {
             setSatisfactionMessage(true);
             setRated(true);
