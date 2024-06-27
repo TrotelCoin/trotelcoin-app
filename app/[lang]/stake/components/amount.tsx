@@ -49,8 +49,8 @@ const Amount = ({
   }, [blockNumber, refetch]);
 
   useEffect(() => {
-    if (amount && address) {
-      const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
+    if (amount && address && balance) {
+      const max = Number(formatEther(balance?.value)) * maxParameter;
 
       if (amount === max) {
         setIsMax(true);
@@ -63,7 +63,9 @@ const Amount = ({
   }, [amount, balance, address, setIsMax]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
+    if (!balance) return;
+
+    const max = Number(formatEther(balance?.value)) * maxParameter;
     setAmount(max);
   };
 

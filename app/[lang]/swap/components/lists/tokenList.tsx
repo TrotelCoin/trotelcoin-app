@@ -63,7 +63,7 @@ const TokenList = ({
 
           if (balance)
             token.balance = roundPrice(
-              Number(formatUnits(balance?.value, token.decimals))
+              Number(formatUnits(balance?.value ?? 0, token.decimals))
             );
         } else {
           const balance: GetBalanceReturnType = await getBalance(config, {
@@ -74,7 +74,7 @@ const TokenList = ({
 
           if (balance)
             token.balance = roundPrice(
-              Number(formatUnits(balance?.value, token.decimals))
+              Number(formatUnits(balance?.value ?? 0, token.decimals))
             );
         }
 

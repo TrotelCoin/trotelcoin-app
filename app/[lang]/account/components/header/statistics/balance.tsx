@@ -44,7 +44,9 @@ const Balance = ({ lang }: { lang: Lang }) => {
                     <CountUp
                       start={0}
                       end={roundPrice(
-                        Number(formatEther(balance?.value as bigint) ?? "0")
+                        Number(
+                          formatEther(balance ? balance?.value : BigInt(0))
+                        )
                       )}
                       suffix=" 💸"
                     />
@@ -56,8 +58,9 @@ const Balance = ({ lang }: { lang: Lang }) => {
                       prefix="$"
                       start={0}
                       end={roundPrice(
-                        Number(formatEther(balance?.value as bigint)) *
-                          (storedTrotelPrice as number)
+                        Number(
+                          formatEther(balance ? balance?.value : BigInt(0))
+                        ) * (storedTrotelPrice as number)
                       )}
                       suffix=" 💸"
                     />
