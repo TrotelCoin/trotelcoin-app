@@ -1,7 +1,7 @@
 import { supabase } from "@/utils/supabase/db";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
-import { isUserAuthenticated } from "@/utils/auth";
+import { isUserAuthenticated } from "@/utils/auth/auth";
 import { z } from "zod";
 
 export const dynamic = "force-dynamic";
