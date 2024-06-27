@@ -1,8 +1,11 @@
 import { ethers } from "ethers";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
+import * as dotenv from "dotenv";
 
 export const dynamic = "force-dynamic";
+
+dotenv.config();
 
 const centralWallet = new ethers.Wallet(
   process.env.PRIVATE_KEY_WALLET as Address

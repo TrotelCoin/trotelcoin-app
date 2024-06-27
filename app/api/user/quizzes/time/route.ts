@@ -1,8 +1,8 @@
 import { supabase } from "@/utils/supabase/db";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
+import { isAuthenticated } from "@/utils/auth/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -25,11 +25,9 @@ const inputSchemaGet = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
-  const session = await getServerSession();
-
-  if (!session) {
+  if (!isAuthenticated(req)) {
     return NextResponse.json(
-      { error: "You need to be logged in." },
+      { error: "You are not authenticated." },
       { status: 401 }
     );
   }
@@ -73,22 +71,20 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
+  const body = await req.json();
 
-  const session = await getServerSession();
-
-  if (!session) {
+  if (!isAuthenticated(req)) {
     return NextResponse.json(
-      { error: "You need to be logged in." },
+      { error: "You are not authenticated." },
       { status: 401 }
     );
   }
 
   try {
     const { quizId, wallet, diffTime } = inputSchemaPost.safeParse({
-      quizId: Number(searchParams.get("quizId")),
-      wallet: searchParams.get("wallet"),
-      diffTime: Number(searchParams.get("diffTime"))
+      quizId: body.quizId,
+      wallet: body.wallet,
+      diffTime: body.diffTime
     }).data as unknown as { quizId: number; wallet: Address; diffTime: number };
 
     const { data } = await supabase

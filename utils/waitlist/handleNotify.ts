@@ -22,7 +22,10 @@ export const handleNotify = async (
   }
 
   const position = await axios
-    .post(`/api/waitlist?wallet=${address}&mail=${mail}`)
+    .post(`/api/waitlist`, {
+      wallet: address,
+      mail
+    })
     .catch((error) => {
       console.error(error);
       setErrorMessage(true);

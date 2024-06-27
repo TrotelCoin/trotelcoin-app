@@ -15,6 +15,7 @@ import type { CourseJSON, SubmitCourseData } from "@/types/courses/courses";
 import PreviewCourseData from "@/app/[lang]/submit-a-course/components/preview";
 import { loadingFlashClass } from "@/style/loading";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
+import axios from "axios";
 
 const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const storedTitle: string = localStorage.getItem(
@@ -116,14 +117,16 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const uploadFile = async (file: File) => {
     try {
       const data = new FormData();
-      data.set("file", file);
+      data.append("title", title as string);
+      data.append("file", file);
 
-      const res = await fetch(`/api/files?title=${title}`, {
-        method: "POST",
-        body: data
+      const res = await axios.post(`/api/files`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
       });
 
-      const resData = await res.json();
+      const resData = res.data;
       setCid(resData.IpfsHash);
 
       return resData.IpfsHash;

@@ -2,7 +2,7 @@ import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useContext } from "react";
-import { Address } from "viem";
+import { Address, formatEther } from "viem";
 import CountUp from "react-countup";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
@@ -39,23 +39,28 @@ const Balance = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {balance && !showTrotelInUsdc && (
+                {!showTrotelInUsdc && (
                   <span>
                     <CountUp
                       start={0}
-                      end={roundPrice(Number(balance?.formatted ?? "0"))}
+                      end={roundPrice(
+                        Number(
+                          formatEther(balance ? balance?.value : BigInt(0))
+                        )
+                      )}
                       suffix=" 💸"
                     />
                   </span>
                 )}
-                {balance && showTrotelInUsdc && (
+                {showTrotelInUsdc && (
                   <span>
                     <CountUp
                       prefix="$"
                       start={0}
                       end={roundPrice(
-                        Number(balance?.formatted ?? "0") *
-                          (storedTrotelPrice as number)
+                        Number(
+                          formatEther(balance ? balance?.value : BigInt(0))
+                        ) * (storedTrotelPrice as number)
                       )}
                       suffix=" 💸"
                     />

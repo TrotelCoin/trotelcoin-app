@@ -15,64 +15,81 @@ export const usingItem = async (
     try {
       switch (item as ItemName) {
         case "Potion":
-          await axios.post(`/api/user/items/use-potion?wallet=${address}`);
+          await axios.post(`/api/user/items/use-potion`, {
+            wallet: address
+          });
           break;
         case "Castle":
-          await axios.post(
-            `/api/user/items/use-shields?wallet=${address}&shieldName=${item}`
-          );
+          await axios.post(`/api/user/items/use-shields`, {
+            wallet: address,
+            shieldName: item
+          });
           break;
         case "Watch":
-          await axios.post(`/api/user/items/use-watch?wallet=${address}`);
+          await axios.post(`/api/user/items/use-watch`, {
+            wallet: address
+          });
           break;
         case "Clock":
-          await axios.post(`/api/user/items/use-clock?wallet=${address}`);
+          await axios.post(`/api/user/items/use-clock`, {
+            wallet: address
+          });
           break;
         case "Closed Lock":
-          await axios.post(
-            `/api/user/items/use-shields?wallet=${address}&shieldName=${item}`
-          );
+          await axios.post(`/api/user/items/use-shields`, {
+            wallet: address,
+            shieldName: item
+          });
           break;
         case "Hourglass":
-          await axios.post(`/api/user/items/use-hourglass?wallet=${address}`);
+          await axios.post(`/api/user/items/use-hourglass`, {
+            wallet: address
+          });
           break;
         case "King":
-          await axios.post(
-            `/api/user/items/use-shields?wallet=${address}&shieldName=${item}`
-          );
+          await axios.post(`/api/user/items/use-shields`, {
+            wallet: address,
+            shieldName: item
+          });
           break;
         case "Shield":
-          await axios.post(
-            `/api/user/items/use-shields?wallet=${address}&shieldName=${item}`
-          );
+          await axios.post(`/api/user/items/use-shields`, {
+            wallet: address,
+            shieldName: item
+          });
           break;
         case "x2":
-          await axios.post(
-            `/api/user/items/use-multipliers?wallet=${address}&multipliersName=${item}`
-          );
+          await axios.post(`/api/user/items/use-multipliers`, {
+            wallet: address,
+            multipliersName: item
+          });
           break;
         case "x5":
-          await axios.post(
-            `/api/user/items/use-multipliers?wallet=${address}&multipliersName=${item}`
-          );
+          await axios.post(`/api/user/items/use-multipliers`, {
+            wallet: address,
+            multipliersName: item
+          });
           break;
         case "x10":
-          await axios.post(
-            `/api/user/items/use-multipliers?wallet=${address}&multipliersName=${item}`
-          );
+          await axios.post(`/api/user/items/use-multipliers`, {
+            wallet: address,
+            multipliersName: item
+          });
           break;
         case "x25":
-          await axios.post(
-            `/api/user/items/use-multipliers?wallet=${address}&multipliersName=${item}`
-          );
+          await axios.post(`/api/user/items/use-multipliers`, {
+            wallet: address,
+            multipliersName: item
+          });
           break;
         default:
           break;
       }
 
-      await axios.post(
-        `/api/user/item/number-of-used?address=${address}&item=${item}`
-      );
+      await axios.post(`/api/user/item/number-of-used`, {
+        address: address,
+        item: item
+      });
 
       setItemsUsedMessage(true);
     } catch (error) {

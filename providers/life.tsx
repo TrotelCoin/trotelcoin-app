@@ -26,7 +26,9 @@ const LifeProvider = ({
   const { isNotPremium } = useContext(PremiumContext);
 
   const updateLife = async () => {
-    await axios.post(`/api/user/life?wallet=${address}`);
+    await axios.post(`/api/user/life`, {
+      wallet: address
+    });
 
     setLife(life ? life - 1 : 0);
   };

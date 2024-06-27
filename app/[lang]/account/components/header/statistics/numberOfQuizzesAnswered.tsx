@@ -16,19 +16,13 @@ const NumberOfQuizzesAnswered = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {numberOfQuizzesAnswered ? (
-                  <span>
-                    <CountUp
-                      start={0}
-                      end={numberOfQuizzesAnswered}
-                      suffix=" 📚"
-                    />
-                  </span>
-                ) : (
-                  <span>
-                    <span>0</span> 📚
-                  </span>
-                )}
+                <span>
+                  <CountUp
+                    start={0}
+                    end={numberOfQuizzesAnswered as number}
+                    suffix=" 📚"
+                  />
+                </span>
               </span>
             </>
           </span>

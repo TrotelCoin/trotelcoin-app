@@ -55,9 +55,7 @@ const QuizzesAnsweredLeaderboard = ({
                             start={0}
                             end={
                               leaderboard &&
-                              leaderboard[index].number_of_quizzes_answered
-                                ? leaderboard[index].number_of_quizzes_answered
-                                : 0
+                              leaderboard[index]?.number_of_quizzes_answered
                             }
                             decimals={0}
                             suffix=" 📚"

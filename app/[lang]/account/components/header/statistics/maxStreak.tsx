@@ -15,15 +15,9 @@ const MaxStreak = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {maxStreak ? (
-                  <span>
-                    <CountUp start={0} end={maxStreak} suffix=" 🔥" />
-                  </span>
-                ) : (
-                  <span>
-                    <span>0</span> 🔥
-                  </span>
-                )}
+                <span>
+                  <CountUp start={0} end={maxStreak as number} suffix=" 🔥" />
+                </span>
               </span>
             </>
           </span>

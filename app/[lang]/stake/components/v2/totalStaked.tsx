@@ -63,16 +63,11 @@ const TotalStaked = ({
           <span>{lang === "en" ? "TVL" : "TVL"}</span>
           <div className="flex items-center gap-1">
             <Skeleton loading={!storedTrotelPrice || isLoadingTotalStaked}>
-              {storedTrotelPrice && totalStaked ? (
-                <CountUp
-                  start={0}
-                  prefix="$"
-                  end={storedTrotelPrice * totalStaked}
-                />
-              ) : (
-                <CountUp start={0} end={0} />
-              )}
-
+              <CountUp
+                start={0}
+                prefix="$"
+                end={storedTrotelPrice * (totalStaked as number)}
+              />
               <TrotelCoinLogo />
             </Skeleton>
           </div>

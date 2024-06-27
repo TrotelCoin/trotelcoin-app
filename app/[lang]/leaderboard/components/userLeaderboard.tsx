@@ -92,16 +92,12 @@ const UserLeaderboardComponent = ({
               <CountUp
                 start={0}
                 prefix={category === "rewards" && showTrotelInUsdc ? "$" : ""}
-                end={
-                  userLeaderboard
-                    ? valueToDisplay(
-                        userLeaderboard,
-                        category,
-                        showTrotelInUsdc,
-                        storedTrotelPrice as number
-                      )
-                    : 0
-                }
+                end={valueToDisplay(
+                  userLeaderboard as LeaderboardItem,
+                  category,
+                  showTrotelInUsdc,
+                  storedTrotelPrice as number
+                )}
                 suffix={categorySuffix(category)}
                 decimals={category === "rewards" && showTrotelInUsdc ? 2 : 0}
               />

@@ -10,7 +10,7 @@ export const loadQuizData = async (quizId: number, lang: Lang) => {
       });
 
     const answersData = await axios
-      .get(`/api/answers?lang=${lang}&quizId=${quizId}`)
+      .get(`/api/answers?quizId=${quizId}&lang=${lang}`)
       .then((response) => {
         return response.data;
       });

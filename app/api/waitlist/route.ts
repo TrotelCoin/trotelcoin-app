@@ -1,5 +1,4 @@
 import { supabase } from "@/utils/supabase/db";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { Address } from "viem";
 import { z } from "zod";
@@ -73,21 +72,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
-
-  const session = await getServerSession();
-
-  if (!session) {
-    return NextResponse.json(
-      { error: "You need to be logged in." },
-      { status: 401 }
-    );
-  }
+  const body = await req.json();
 
   try {
     const { wallet, mail } = inputSchemaPost.safeParse({
-      wallet: searchParams.get("wallet"),
-      mail: searchParams.get("mail")
+      wallet: body.wallet,
+      mail: body.mail
     }).data as unknown as { wallet: Address; mail: string };
 
     // check if learners exist

@@ -227,13 +227,13 @@ const Waitlist = ({
                     <div className="flex justify-center">
                       <div className="animate__animated animate__bounceIn relative rounded-full px-3 py-1 text-xs leading-6 text-gray-700 ring-1 ring-gray-700 dark:text-gray-300 dark:ring-gray-300">
                         <span className="font-semibold">
-                          {early ? (
-                            <>
-                              <CountUp start={0} end={early} suffix="+" />
-                            </>
-                          ) : (
-                            <>0+</>
-                          )}
+                          <>
+                            <CountUp
+                              start={0}
+                              end={early as number}
+                              suffix="+"
+                            />
+                          </>
                         </span>{" "}
                         {lang === "en" ? "learners already" : "étudiants déjà"}
                       </div>

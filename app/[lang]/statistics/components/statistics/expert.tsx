@@ -64,16 +64,8 @@ const Expert = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {expert ? (
-            <>
-              <CountUp start={0} end={Number(expert.toString())} />{" "}
-              <span className="hidden md:inline">🦊</span>
-            </>
-          ) : (
-            <span>
-              0 <span className="hidden md:inline">🦊</span>
-            </span>
-          )}
+          <CountUp start={0} end={Number(expert as number)} />{" "}
+          <span className="hidden md:inline">🦊</span>
         </span>
 
         <span>{lang === "en" ? "Expert" : "Expert"}</span>

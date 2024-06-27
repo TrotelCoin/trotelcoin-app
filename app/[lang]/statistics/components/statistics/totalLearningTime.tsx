@@ -51,20 +51,12 @@ const TotalLearningTime = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {totalLearningTime ? (
-            <>
-              <CountUp
-                start={0}
-                end={Math.floor((totalLearningTime * 1e-3) / 60)}
-                suffix="m"
-              />{" "}
-              <span className="hidden md:inline">⏳</span>
-            </>
-          ) : (
-            <span>
-              0 <span className="hidden md:inline">⏳</span>
-            </span>
-          )}
+          <CountUp
+            start={0}
+            end={Math.floor(((totalLearningTime as number) * 1e-3) / 60)}
+            suffix="m"
+          />{" "}
+          <span className="hidden md:inline">⏳</span>
         </span>
 
         <span>{lang === "en" ? "Learning time" : "Temps d'apprentissage"}</span>

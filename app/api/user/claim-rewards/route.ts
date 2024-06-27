@@ -10,8 +10,8 @@ import abis from "@/abis/abis";
 import { Address, parseEther, getAddress, Chain } from "viem";
 import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
-import { getServerSession } from "next-auth";
 import dotenv from "dotenv";
+import { isAuthenticated } from "@/utils/auth/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -38,22 +38,19 @@ const inputSchema = z.object({
  * @example response - 200 - application/json
  */
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { searchParams } = new URL(req.url);
+  const body = await req.json();
 
-  const session = await getServerSession();
-
-  if (!session) {
+  if (!isAuthenticated(req)) {
     return NextResponse.json(
-      { error: "You need to be logged in." },
+      { error: "You are not authenticated." },
       { status: 401 }
     );
   }
 
   try {
-    const body = await req.json();
     const { userAddress, amount, chain } = inputSchema.parse({
-      userAddress: searchParams.get("address"),
-      amount: Number(searchParams.get("amount")),
+      userAddress: body.userAddress,
+      amount: body.amount,
       chain: body.chain
     });
 

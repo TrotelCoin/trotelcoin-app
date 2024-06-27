@@ -72,16 +72,12 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
               isNotPremium && "blur duration-500 hover:blur-none"
             }`}
           >
-            {quizzesRemaining &&
-            quizzesRemaining > 0 &&
-            quizzesRequired &&
-            quizzesRequired > 0 &&
-            !isNotPremium ? (
+            {!isNotPremium ? (
               <>
                 <Skeleton loading={!quizzesRemaining}>
                   <div className="flex items-center gap-2">
                     <span>
-                      <CountUp start={0} end={quizzesRemaining} />{" "}
+                      <CountUp start={0} end={quizzesRemaining as number} />{" "}
                       {lang === "en" ? "quizzes left" : "quiz restant"}
                     </span>
                     <span>•</span>
@@ -90,8 +86,9 @@ const LevelSection = ({ lang }: { lang: Lang }) => {
                         start={0}
                         end={Math.max(
                           0,
-                          ((quizzesRequired - quizzesRemaining) /
-                            quizzesRequired) *
+                          (((quizzesRequired as number) -
+                            (quizzesRemaining as number)) /
+                            (quizzesRequired as number)) *
                             100
                         )}
                         suffix="%"

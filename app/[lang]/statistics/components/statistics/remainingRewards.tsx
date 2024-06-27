@@ -51,16 +51,8 @@ const RemainingRewards = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {remainingRewards ? (
-            <>
-              <CountUp start={0} end={Math.floor(remainingRewards)} />{" "}
-              <span className="hidden md:inline">✨</span>
-            </>
-          ) : (
-            <span>
-              0 <span className="hidden md:inline">✨</span>
-            </span>
-          )}
+          <CountUp start={0} end={Math.floor(remainingRewards as number)} />{" "}
+          <span className="hidden md:inline">✨</span>
         </span>
 
         <span>{lang === "en" ? "Current cycle" : "Cycle en cours"}</span>

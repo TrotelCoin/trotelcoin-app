@@ -38,13 +38,9 @@ const TotalRewards = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {tokensEarned ? (
-                  <span>
-                    <CountUp start={0} end={Math.floor(tokensEarned)} />
-                  </span>
-                ) : (
-                  <span>0</span>
-                )}
+                <span>
+                  <CountUp start={0} end={Math.floor(tokensEarned as number)} />
+                </span>
               </span>
             </>
           </span>

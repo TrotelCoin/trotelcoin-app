@@ -57,13 +57,10 @@ const RewardsLeaderboard = ({
                             start={0}
                             prefix={showTrotelInUsdc ? "$" : ""}
                             end={
-                              leaderboard &&
-                              leaderboard[index].total_rewards_pending
-                                ? showTrotelInUsdc
-                                  ? leaderboard[index].total_rewards_pending *
-                                    (storedTrotelPrice as number)
-                                  : leaderboard[index].total_rewards_pending
-                                : 0
+                              leaderboard && showTrotelInUsdc
+                                ? leaderboard[index]?.total_rewards_pending *
+                                  (storedTrotelPrice as number)
+                                : leaderboard[index]?.total_rewards_pending
                             }
                             decimals={2}
                             suffix=" 💰"

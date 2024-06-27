@@ -86,8 +86,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [sendConfirmation, sendConfirmed]);
 
   useEffect(() => {
-    if (amount && address) {
-      const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
+    if (amount && address && balance) {
+      const max = Number(formatEther(balance?.value)) * maxParameter;
 
       if (amount === max) {
         setIsMax(true);
@@ -100,7 +100,9 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
   }, [amount, balance, address]);
 
   const setMax = () => {
-    const max = Number(formatEther(balance?.value as bigint)) * maxParameter;
+    if (!balance) return;
+
+    const max = Number(formatEther(balance?.value)) * maxParameter;
     setAmount(max);
   };
 
@@ -130,7 +132,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
       !amount &&
       recipient === "" &&
       (amount as number) <= 0 &&
-      Number(balance?.formatted) <= 0 &&
+      Number(balance?.value) <= 0 &&
       !isAddress(recipient as string) &&
       isLoading;
 
@@ -237,7 +239,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   <span>
                     {balance
                       ? Number(
-                          Number(balance?.formatted).toFixed(0)
+                          Math.floor(Number(formatEther(balance?.value)))
                         ).toLocaleString("en-US")
                       : 0}
                   </span>{" "}
