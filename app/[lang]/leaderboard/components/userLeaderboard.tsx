@@ -3,7 +3,7 @@
 import type { Lang } from "@/types/language/lang";
 import { useEnsName } from "wagmi";
 import React, { useEffect, useState, useContext } from "react";
-import { Address, isAddress } from "viem";
+import { Address } from "viem";
 import shortenAddress from "@/utils/addresses/shortenAddress";
 import { mainnet } from "viem/chains";
 import { Skeleton } from "@radix-ui/themes";
@@ -19,12 +19,6 @@ import {
   getCategoryPosition
 } from "@/utils/leaderboard/leaderboard";
 import TrotelPriceContext from "@/contexts/trotelPrice";
-
-const renderEns = (ensName: string, address: Address) => {
-  if (ensName) return ensName;
-  if (address) return address;
-  return lang === "en" ? "Connect your wallet" : "Connectez votre portefeuille";
-};
 
 const UserLeaderboardComponent = ({
   lang,
@@ -58,6 +52,14 @@ const UserLeaderboardComponent = ({
       setEnsName(null);
     }
   }, [result]);
+
+  const renderEns = (ensName: string, address: Address) => {
+    if (ensName) return ensName;
+    if (address) return address;
+    return lang === "en"
+      ? "Connect your wallet"
+      : "Connectez votre portefeuille";
+  };
 
   return (
     <>
