@@ -22,30 +22,28 @@ const EstimatedRewards = ({ lang }: { lang: Lang }) => {
         className={`flex h-full flex-col items-center justify-center rounded-xl border border-gray-900/10 bg-white px-2 py-10 text-center text-gray-900 backdrop-blur-xl dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100`}
       >
         <span className="text-2xl font-semibold md:text-4xl">
-          {remainingRewards && !showTrotelInUsdc && (
+          {!showTrotelInUsdc && (
             <>
-              <CountUp start={0} end={remainingRewards / 10} /> {"< 🧠 <"}
-              <CountUp start={0} end={remainingRewards / 4} />
+              <CountUp start={0} end={(remainingRewards as number) / 10} />{" "}
+              {"< 🧠 <"}
+              <CountUp start={0} end={(remainingRewards as number) / 4} />
             </>
           )}
 
-          {remainingRewards && showTrotelInUsdc && storedTrotelPrice ? (
+          {showTrotelInUsdc && (
             <>
               <CountUp
                 start={0}
                 prefix="$"
-                end={(storedTrotelPrice * remainingRewards) / 7}
+                end={
+                  ((storedTrotelPrice as number) *
+                    (remainingRewards as number)) /
+                  7
+                }
                 decimals={3}
               />{" "}
               <span className="hidden md:inline">🧠</span>
             </>
-          ) : (
-            showTrotelInUsdc && (
-              <>
-                <CountUp start={0} prefix="$" end={0} />{" "}
-                <span className="hidden md:inline">🧠</span>
-              </>
-            )
           )}
         </span>
 

@@ -51,16 +51,8 @@ const AverageMark = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {averageMark ? (
-            <>
-              <CountUp start={0} end={averageMark} suffix="/20" />{" "}
-              <span className="hidden md:inline">🎓</span>
-            </>
-          ) : (
-            <span>
-              0/20 <span className="hidden md:inline">🎓</span>
-            </span>
-          )}
+          <CountUp start={0} end={averageMark as number} suffix="/20" />{" "}
+          <span className="hidden md:inline">🎓</span>
         </span>
 
         <span>{lang === "en" ? "Average mark" : "Note moyenne"}</span>

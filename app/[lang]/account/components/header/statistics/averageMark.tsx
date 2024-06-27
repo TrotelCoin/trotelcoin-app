@@ -15,15 +15,9 @@ const AverageMark = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {averageMark ? (
-                  <span>
-                    <CountUp start={0} end={averageMark} suffix="/20 🎓" />
-                  </span>
-                ) : (
-                  <span>
-                    <span>0/20</span> 🎓
-                  </span>
-                )}
+                <span>
+                  <CountUp start={0} end={averageMark as number} suffix="/20 🎓" />
+                </span>
               </span>
             </>
           </span>

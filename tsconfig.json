@@ -33,8 +33,7 @@
     ".next/types/**/*.ts",
     "app/404.js",
     "utils/walletContext.js",
-    "middleware.js",
-    "app/api/captcha/create"
+    "middleware.js"
   ],
   "exclude": ["node_modules"]
 }

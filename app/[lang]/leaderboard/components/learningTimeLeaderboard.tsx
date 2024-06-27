@@ -50,9 +50,8 @@ const LearningTimeLeaderboard = ({
                           <CountUp
                             start={0}
                             end={
-                              leaderboard && leaderboard[index].learning_time
-                                ? leaderboard[index].learning_time / 60000
-                                : 0
+                              leaderboard &&
+                              leaderboard[index]?.learning_time / 60000
                             }
                             decimals={0}
                             suffix="m ⏳"

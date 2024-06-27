@@ -51,16 +51,8 @@ const CoursesCount = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {coursesCount ? (
-            <>
-              <CountUp start={0} end={coursesCount} />{" "}
-              <span className="hidden md:inline">📖</span>
-            </>
-          ) : (
-            <span>
-              0 <span className="hidden md:inline">📖</span>
-            </span>
-          )}
+          <CountUp start={0} end={coursesCount as number} />{" "}
+          <span className="hidden md:inline">📖</span>
         </span>
 
         <span>{lang === "en" ? "Courses" : "Cours"}</span>

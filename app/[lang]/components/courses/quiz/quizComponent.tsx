@@ -9,8 +9,6 @@ import PremiumContext from "@/contexts/premium";
 import AudioContext from "@/contexts/audio";
 import UserContext from "@/contexts/user";
 import { loadingFlashClass } from "@/style/loading";
-import ThemeContext from "@/contexts/theme";
-import ReCAPTCHA from "react-google-recaptcha";
 import { CheckIcon, ShieldCheckIcon } from "@heroicons/react/24/solid";
 import useSWR from "swr";
 import { fetcher } from "@/utils/axios/fetcher";
@@ -19,8 +17,6 @@ import FailNotification from "@/app/[lang]/components/modals/notifications/fail"
 import { postQuizResult } from "@/utils/quizzes/postQuizResult";
 import { postQuizTime } from "@/utils/quizzes/postQuizTime";
 import { Address } from "viem";
-
-const debug = process.env.NODE_ENV !== "production";
 
 const QuizComponent = ({
   lang,
@@ -45,7 +41,6 @@ const QuizComponent = ({
   setCourseMark: React.Dispatch<SetStateAction<number | null>>;
   setCourseTime: React.Dispatch<SetStateAction<number>>;
 }) => {
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
@@ -56,7 +51,6 @@ const QuizComponent = ({
     null
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [captchaMessage, setCaptchaMessage] = useState<boolean>(false);
   const [optionClass, setOptionClass] = useState<string>(
     "bg-gray-100 dark:bg-gray-800 border-b-4 border-gray-300 dark:border-gray-700 active:border-none active:my-1 text-gray-900 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-700"
   );
@@ -71,7 +65,6 @@ const QuizComponent = ({
   const { isLoggedIn } = useContext(UserContext);
   const { isIntermediate, isExpert } = useContext(PremiumContext);
   const { playAudio } = useContext(AudioContext);
-  const { theme } = useContext(ThemeContext);
 
   const { data } = useSWR(
     address ? `/api/user/items/shield-enabled?wallet=${address}` : null,
@@ -117,11 +110,6 @@ const QuizComponent = ({
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = answer;
     setAnswers(newAnswers);
-
-    if (!isCaptchaVerified && !debug) {
-      setCaptchaMessage(true);
-      return;
-    }
 
     if (correctAnswers[currentQuestion] === answer) {
       setOptionClass(
@@ -196,11 +184,6 @@ const QuizComponent = ({
     }
   };
 
-  const handleCaptchaVerify = () => {
-    setIsCaptchaVerified(true);
-    setCaptchaMessage(false);
-  };
-
   useEffect(() => {
     const fetchQuizData = async () => {
       const result = await loadQuizData(quizId, lang);
@@ -242,7 +225,7 @@ const QuizComponent = ({
 
   return (
     <>
-      {(isCaptchaVerified || debug) && !isTotallyCorrect && (
+      {!isTotallyCorrect && (
         <>
           {shuffledQuestions &&
             shuffledQuestions[currentQuestion] &&
@@ -330,17 +313,6 @@ const QuizComponent = ({
           )}
         </>
       )}
-      {!isTotallyCorrect && !isCaptchaVerified && questions && !debug && (
-        <>
-          <ReCAPTCHA
-            sitekey={
-              process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_SITE_KEY as string
-            }
-            onChange={handleCaptchaVerify}
-            theme={theme}
-          />
-        </>
-      )}
 
       <FailNotification
         display={
@@ -371,17 +343,6 @@ const QuizComponent = ({
                   ? `Vous avez ${life ?? 3} HP restants.`
                   : ""
               }`
-        }
-      />
-      <FailNotification
-        display={captchaMessage}
-        onClose={() => setCaptchaMessage(false)}
-        lang={lang}
-        title={lang === "en" ? "Missing captcha" : "Captcha manquant"}
-        message={
-          lang === "en"
-            ? "The captcha is missing. You must complete it to continue."
-            : "Le captcha est manquant. Vous devez le compléter pour continuer."
         }
       />
     </>

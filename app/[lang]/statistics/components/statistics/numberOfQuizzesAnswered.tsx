@@ -59,16 +59,11 @@ const NumberOfQuizzesAnswered = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {numberOfQuizzesAnswered ? (
-            <>
-              <CountUp start={0} end={Math.floor(numberOfQuizzesAnswered)} />{" "}
-              <span className="hidden md:inline">📚</span>
-            </>
-          ) : (
-            <span>
-              0 <span className="hidden md:inline">📚</span>
-            </span>
-          )}
+          <CountUp
+            start={0}
+            end={Math.floor(numberOfQuizzesAnswered as number)}
+          />{" "}
+          <span className="hidden md:inline">📚</span>
         </span>
 
         <span>{lang === "en" ? "Quizzes answered" : "Quiz répondus"}</span>

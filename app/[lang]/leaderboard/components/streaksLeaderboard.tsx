@@ -49,11 +49,7 @@ const StreaksLeaderboard = ({
                         <span>
                           <CountUp
                             start={0}
-                            end={
-                              leaderboard && leaderboard[index].streak
-                                ? leaderboard[index].streak
-                                : 0
-                            }
+                            end={leaderboard && leaderboard[index]?.streak}
                             decimals={0}
                             suffix=" 🔥"
                           />

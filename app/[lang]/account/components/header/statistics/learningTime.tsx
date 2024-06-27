@@ -15,19 +15,13 @@ const LearningTime = ({ lang }: { lang: Lang }) => {
           <span className="text-2xl md:text-4xl">
             <>
               <span className="font-semibold">
-                {learningTime ? (
-                  <span>
-                    <CountUp
-                      start={0}
-                      end={Math.floor((learningTime * 1e-3) / 60)}
-                      suffix="m ⏳"
-                    />
-                  </span>
-                ) : (
-                  <span>
-                    <span>0</span>m ⏳
-                  </span>
-                )}
+                <span>
+                  <CountUp
+                    start={0}
+                    end={Math.floor(((learningTime as number) * 1e-3) / 60)}
+                    suffix="m ⏳"
+                  />
+                </span>
               </span>
             </>
           </span>

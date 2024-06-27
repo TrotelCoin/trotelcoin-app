@@ -55,30 +55,25 @@ const TrotelCoinsPending = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          {trotelCoinsPending && !showTrotelInUsdc && (
+          {!showTrotelInUsdc && (
             <>
-              <CountUp start={0} end={trotelCoinsPending} />{" "}
+              <CountUp start={0} end={trotelCoinsPending as number} />{" "}
               <span className="hidden md:inline">💰</span>
             </>
           )}
 
-          {trotelCoinsPending && showTrotelInUsdc && storedTrotelPrice ? (
+          {showTrotelInUsdc && (
             <>
               <CountUp
                 start={0}
                 prefix="$"
                 decimals={2}
-                end={trotelCoinsPending * storedTrotelPrice}
+                end={
+                  (trotelCoinsPending as number) * (storedTrotelPrice as number)
+                }
               />{" "}
               <span className="hidden md:inline">💰</span>
             </>
-          ) : (
-            showTrotelInUsdc && (
-              <>
-                <CountUp start={0} prefix="$" decimals={0} end={0} />{" "}
-                <span className="hidden md:inline">💰</span>
-              </>
-            )
           )}
         </span>
 

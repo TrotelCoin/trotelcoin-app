@@ -50,9 +50,7 @@ const MarksLeaderboard = ({
                           <CountUp
                             start={0}
                             end={
-                              leaderboard && leaderboard[index].average_marks
-                                ? leaderboard[index].average_marks
-                                : 0
+                              leaderboard && leaderboard[index]?.average_marks
                             }
                             decimals={0}
                             suffix="/20 🤓"
