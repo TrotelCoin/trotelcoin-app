@@ -11,7 +11,7 @@ import { Address, parseEther, getAddress, Chain } from "viem";
 import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
 import dotenv from "dotenv";
-import { isUserAuthenticated } from "@/utils/auth/auth";
+import { isAuthenticated } from "@/utils/auth/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +40,7 @@ const inputSchema = z.object({
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
 
-  if (!isUserAuthenticated(req)) {
+  if (!isAuthenticated(req)) {
     return NextResponse.json(
       { error: "You are not authenticated." },
       { status: 401 }

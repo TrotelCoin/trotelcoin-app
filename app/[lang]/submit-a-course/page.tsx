@@ -117,8 +117,8 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const uploadFile = async (file: File) => {
     try {
       const data = new FormData();
-      formData.append("title", title);
-      formData.append("file", file);
+      data.append("title", title as string);
+      data.append("file", file);
 
       const res = await axios.post(`/api/files`, data, {
         headers: {
@@ -126,7 +126,7 @@ const SubmitACourse = ({ params: { lang } }: { params: { lang: Lang } }) => {
         }
       });
 
-      const resData = await res.json();
+      const resData = res.data;
       setCid(resData.IpfsHash);
 
       return resData.IpfsHash;
