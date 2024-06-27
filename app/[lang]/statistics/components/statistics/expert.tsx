@@ -64,7 +64,7 @@ const Expert = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          <CountUp start={0} end={Number(expert?.toString())} />{" "}
+          <CountUp start={0} end={Number(expert as number)} />{" "}
           <span className="hidden md:inline">🦊</span>
         </span>
 

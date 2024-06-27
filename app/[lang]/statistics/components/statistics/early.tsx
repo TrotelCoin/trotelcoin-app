@@ -64,7 +64,7 @@ const Early = ({
           isLoading={!evolution}
         />
         <span className="text-2xl font-semibold md:text-4xl">
-          <CountUp start={0} end={Number(early?.toString())} />{" "}
+          <CountUp start={0} end={Number(early as number)} />{" "}
           <span className="hidden md:inline">🤫</span>
         </span>
         <span>{lang === "en" ? "Early access" : "Accès anticipé"}</span>
