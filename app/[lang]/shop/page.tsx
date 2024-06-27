@@ -118,9 +118,9 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
       );
       const allItemsWithPotions = [...updatedItems, ...potions];
       setItems(allItemsWithPotions);
+      setFetching(false);
     }
 
-    setFetching(false);
     setRefreshing(false);
   }, [allCategories, allItems]);
 
