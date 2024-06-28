@@ -108,7 +108,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           anotherWindow: false
         },
         {
-          name: lang === "en" ? "Claim your TROTEL" : "Réclamez vos TROTEL",
+          name: lang === "en" ? "Claim TROTEL" : "Réclamez vos TROTEL",
           href: `/${lang}/claim`,
           display: true,
           id: 2,
