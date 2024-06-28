@@ -36,7 +36,7 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
     } else {
       setChain(polygon);
     }
-  }, [chain, switchChain, address]);
+  }, [chain, switchChainAsync, address]);
 
   const handleTestnet = useCallback(() => {
     setChain((currentChain) => {
