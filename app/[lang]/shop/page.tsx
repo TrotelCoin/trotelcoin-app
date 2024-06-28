@@ -15,6 +15,7 @@ import { loadingFlashClass } from "@/style/loading";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
+import { Skeleton } from "@radix-ui/themes";
 
 const potions: ItemTypeFinal[] = [
   {
@@ -172,23 +173,15 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
             <>
               <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
                 <ul className="flex flex-wrap items-center gap-2">
-                  {categories &&
-                    categories
-                      .filter((category) => !category.disabled)
-                      .map((cat, index) => (
-                        <li key={index}>
-                          <button
-                            onClick={() => setCategory(cat as ShopCategories)}
-                            className={`${
-                              category.id === cat.id
-                                ? "bg-gray-900 text-gray-300 hover:bg-gray-900 dark:bg-white dark:text-gray-700 dark:hover:bg-white"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
-                            } inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium ring-1 ring-inset ring-gray-500/10`}
-                          >
-                            {cat.name}
-                          </button>
-                        </li>
-                      ))}
+                  {Array.from(Array(4).keys()).map((index) => (
+                    <li key={index}>
+                      <Skeleton>
+                        <button className="inline-flex items-center rounded-xl bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-500/10 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600">
+                          Category
+                        </button>
+                      </Skeleton>
+                    </li>
+                  ))}
                 </ul>
 
                 <span className="hidden text-sm font-semibold text-gray-700 dark:text-gray-300 md:block">
