@@ -26,7 +26,9 @@ const inputSchemaGet = z.object({
 export async function GET(req: NextRequest, res: NextResponse) {
   const { searchParams } = new URL(req.url);
 
-  if (!isAuthenticated(req)) {
+  const isAuthorized: boolean = await isAuthenticated(req);
+
+  if (!isAuthorized) {
     return NextResponse.json(
       { error: "You are not authenticated." },
       { status: 401 }
@@ -128,7 +130,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
 
-  if (!isAuthenticated(req)) {
+  const isAuthorized: boolean = await isAuthenticated(req);
+
+  if (!isAuthorized) {
     return NextResponse.json(
       { error: "You are not authenticated." },
       { status: 401 }

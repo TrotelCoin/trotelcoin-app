@@ -17,18 +17,23 @@ import useSWR from "swr";
 import axios from "axios";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 import claimingRewardsFee from "@/data/rewards/claimingFee";
 
 const RewardsButton = ({
   lang,
   centralWalletAddress,
   chainError,
-  setChainError
+  setChainError,
+  timeLeft,
+  isWeeklyReserveEmpty
 }: {
   lang: Lang;
   centralWalletAddress: Address;
   chainError: boolean;
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
+  timeLeft: number | null;
+  isWeeklyReserveEmpty: boolean;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
@@ -37,7 +42,6 @@ const RewardsButton = ({
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const [noAddressMessage, setNoAddressMessage] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<boolean>(false);
-  const [errorHappened, setErrorHappened] = useState<boolean>(false);
   const [disabled, setDisabled] = useState<boolean>(true);
   const [transactionHash, setTransactionHash] = useState<Hash | null>(null);
   const [transactionConfirmed, setTransactionConfirmed] =
@@ -45,6 +49,7 @@ const RewardsButton = ({
 
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -67,7 +72,6 @@ const RewardsButton = ({
       onError: () => {
         setErrorMessage(true);
         setIsLoading(false);
-        setErrorHappened(true);
       }
     }
   });
@@ -142,31 +146,14 @@ const RewardsButton = ({
         const hash = await axios
           .post(`/api/user/claim-rewards`, {
             chain: chain,
-            amount: availableToClaim,
-            address: address,
-            centralWalletAddress: centralWalletAddress
+            wallet: address,
+            trotelPrice: trotelPrice
           })
           .then((response) => response.data.hash);
 
         setTransactionHash(hash);
 
-        if (!chain.testnet) {
-          setAvailableToClaim(0);
-        }
-
-        if (!chain.testnet) {
-          // reset database pending rewards
-          await axios
-            .post(`/api/user/rewards/reset`, {
-              wallet: address
-            })
-            .then((response) => {
-              if (!response.data.success) {
-                setErrorMessage(true);
-                setIsLoading(false);
-              }
-            });
-        }
+        setAvailableToClaim(0);
       } catch (error) {
         console.error(error);
         setErrorMessage(true);
@@ -179,12 +166,20 @@ const RewardsButton = ({
   };
 
   useEffect(() => {
-    if (address && !!availableToClaim && availableToClaim > 0 && !isLoading) {
+    if (
+      address &&
+      !!availableToClaim &&
+      availableToClaim > 0 &&
+      !isLoading &&
+      timeLeft &&
+      timeLeft <= 0 &&
+      !isWeeklyReserveEmpty
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [address, availableToClaim, isLoading]);
+  }, [address, availableToClaim, isLoading, timeLeft, isWeeklyReserveEmpty]);
 
   return (
     <>
@@ -194,7 +189,15 @@ const RewardsButton = ({
         isLoading={isLoading}
         disabled={disabled}
         isFull={true}
-        text={lang === "en" ? "Claim" : "Réclamer"}
+        text={
+          isWeeklyReserveEmpty
+            ? lang === "en"
+              ? "Weekly Reserve Empty"
+              : "Réserve Hebdomadaire Vide"
+            : lang === "en"
+              ? "Claim"
+              : "Réclamer"
+        }
       />
 
       <SuccessNotification

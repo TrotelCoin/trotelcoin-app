@@ -24,7 +24,9 @@ const inputSchema = z.object({
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
 
-  if (!isAuthenticated(req)) {
+  const isAuthorized: boolean = await isAuthenticated(req);
+
+  if (!isAuthorized) {
     return NextResponse.json(
       { error: "You are not authenticated." },
       { status: 401 }

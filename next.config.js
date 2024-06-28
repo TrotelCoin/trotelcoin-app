@@ -105,11 +105,6 @@ module.exports = withMDX(
       return config;
     },
 
-    logging: {
-      fetches: {
-        fullUrl: process.env.NODE_ENV !== "production"
-      }
-    },
     async redirects() {
       return [
         {
