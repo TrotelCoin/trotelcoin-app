@@ -31,19 +31,25 @@ export const valueToDisplay = (
 ) => {
   switch (category) {
     case "rewards":
+      const totalRewards = userLeaderboardItem?.total_rewards_pending ?? 0;
       if (showTrotelInUsdc) {
-        return storedTrotelPrice * userLeaderboardItem.total_rewards_pending;
+        return storedTrotelPrice * totalRewards;
       } else {
-        return userLeaderboardItem.total_rewards_pending;
+        return totalRewards;
       }
     case "learningTime":
-      return userLeaderboardItem.learning_time / 60000;
+      const learningTime = userLeaderboardItem?.learning_time ?? 0;
+      return learningTime / 60000;
     case "marks":
-      return userLeaderboardItem.average_marks;
+      const averageMarks = userLeaderboardItem?.average_marks ?? 0;
+      return averageMarks;
     case "numberOfQuizzesAnswered":
-      return userLeaderboardItem.number_of_quizzes_answered;
+      const numberOfQuizzesAnswered =
+        userLeaderboardItem?.number_of_quizzes_answered ?? 0;
+      return numberOfQuizzesAnswered;
     case "streaks":
-      return userLeaderboardItem.streak;
+      const streak = userLeaderboardItem?.streak ?? 0;
+      return streak;
     default:
       return 0;
   }
