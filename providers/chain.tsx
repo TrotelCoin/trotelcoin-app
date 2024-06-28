@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Chain, isAddressEqual, Address } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
+import { isSupportedChain } from "@/utils/chains/isSupportedChain";
 
 const testnetAddresses: Address[] = [
   "0x8333c1B5131CC694c3A238E41e50cbc236e73DbC",
@@ -30,19 +31,12 @@ const ChainProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    if (chain && address) {
+    if (chain && address && isSupportedChain(chain.id)) {
       switchingChain();
+    } else {
+      setChain(polygon);
     }
-  }, [chain, switchChainAsync, address]);
-
-  const showTestnet = useMemo(() => {
-    return (
-      address &&
-      testnetAddresses.some((testnetAddress) =>
-        isAddressEqual(address, testnetAddress)
-      )
-    );
-  }, [address]);
+  }, [chain, switchChain, address]);
 
   const handleTestnet = useCallback(() => {
     setChain((currentChain) => {
