@@ -71,20 +71,21 @@ const UserLeaderboardComponent = ({
             {getCategoryPosition(positions, category) ?? "-"}
           </div>
         </Skeleton>
-        <div className="hidden items-center justify-center md:flex">
-          <Skeleton loading={isLoadingLeaderboard || !address}>
-            {renderEns(ensName as string, address as Address)}
-          </Skeleton>
-        </div>
-        <div className="flex items-center justify-center md:hidden">
-          <Skeleton loading={isLoadingLeaderboard || !address}>
-            {address
+
+        <Skeleton loading={isLoadingLeaderboard || !address}>
+          <div className="hidden items-center justify-center md:flex">
+            {!isLoadingLeaderboard &&
+              address &&
+              renderEns(ensName as string, address)}
+          </div>
+          <div className="flex items-center justify-center md:hidden">
+            {address && !isLoadingLeaderboard
               ? shortenAddress(address)
               : lang === "en"
                 ? "Connect your wallet"
                 : "Connectez votre portefeuille"}
-          </Skeleton>
-        </div>
+          </div>
+        </Skeleton>
 
         <div className="flex items-center justify-end text-lg md:gap-2">
           <span>
