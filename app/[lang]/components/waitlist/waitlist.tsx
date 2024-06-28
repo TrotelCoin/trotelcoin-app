@@ -72,6 +72,8 @@ const socials = [
   }
 ];
 
+const isDev = process.env.NODE_ENV !== "production";
+
 const Waitlist = ({
   children,
   lang
@@ -169,7 +171,7 @@ const Waitlist = ({
     }
   }, [mail, isLoading]);
 
-  if (isEarly) {
+  if (isEarly || isDev) {
     return <>{children}</>;
   }
 

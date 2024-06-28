@@ -10,11 +10,15 @@ const cannotClaim =
 const Status = ({
   lang,
   availableToClaim,
-  isLoading
+  isLoading,
+  timeLeft,
+  isWeeklyReserveEmpty
 }: {
   lang: Lang;
   availableToClaim: number | null;
   isLoading: boolean;
+  timeLeft: number | null;
+  isWeeklyReserveEmpty: boolean;
 }) => {
   return (
     <>
@@ -24,14 +28,30 @@ const Status = ({
           <Skeleton loading={isLoading}>
             <span
               className={`${
-                availableToClaim && availableToClaim > 0
+                !!availableToClaim &&
+                availableToClaim > 0 &&
+                !!timeLeft &&
+                timeLeft <= 0 &&
+                !isWeeklyReserveEmpty
                   ? canClaim
                   : cannotClaim
               }`}
             >
-              {!!availableToClaim && availableToClaim > 0
-                ? "Claimable"
-                : "Not claimable"}
+              {!!availableToClaim &&
+              availableToClaim > 0 &&
+              !!timeLeft &&
+              timeLeft <= 0 &&
+              !isWeeklyReserveEmpty
+                ? lang === "en"
+                  ? "Claimable"
+                  : "Réclamable"
+                : isWeeklyReserveEmpty
+                  ? lang === "en"
+                    ? "Empty reserve"
+                    : "Réserve vide"
+                  : lang === "en"
+                    ? "Not claimable"
+                    : "Non réclamable"}
             </span>
           </Skeleton>
         </div>
