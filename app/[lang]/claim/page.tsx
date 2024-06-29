@@ -215,6 +215,7 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
                 setChainError={setChainError}
                 timeLeft={timeLeft}
                 isWeeklyReserveEmpty={isWeeklyReserveEmpty}
+                setLastMintedDate={setLastMintedDate}
               />
             ) : (
               <Wallet lang={lang} isFull={true} isCentered={true} />
