@@ -172,7 +172,8 @@ const InventoryItem = ({
                     <Skeleton loading={!item.implicitQuantity}>
                       <span className="text-xs text-gray-900 dark:text-gray-100">
                         <>
-                          ({Math.max(0, item.implicitQuantity as number)} left)
+                          ({Math.max(0, implicitQuantity)}{" "}
+                          {lang === "en" ? "left" : "restant"})
                         </>
                       </span>
                     </Skeleton>
