@@ -184,17 +184,17 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
                   ))}
                 </ul>
 
-                <span className="hidden text-sm font-semibold text-gray-700 dark:text-gray-300 md:block">
-                  {!showTrotelInUsdc &&
-                    balance &&
-                    roundPrice(balance).toLocaleString("en-US")}
-                  {showTrotelInUsdc &&
-                    balance &&
-                    `$${roundPrice(
-                      (trotelPrice as number) * balance
-                    ).toLocaleString("en-US")}`}{" "}
-                  <span>TROTEL</span>
-                </span>
+                <Skeleton loading={!balance}>
+                  <span className="hidden text-sm font-semibold text-gray-700 dark:text-gray-300 md:block">
+                    {!showTrotelInUsdc &&
+                      roundPrice(balance as number).toLocaleString("en-US")}
+                    {showTrotelInUsdc &&
+                      `$${roundPrice(
+                        (trotelPrice as number) * (balance as number)
+                      ).toLocaleString("en-US")}`}{" "}
+                    <span>TROTEL</span>
+                  </span>
+                </Skeleton>
               </div>
             </>
           )}
