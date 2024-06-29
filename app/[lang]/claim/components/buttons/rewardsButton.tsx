@@ -26,7 +26,8 @@ const RewardsButton = ({
   chainError,
   setChainError,
   timeLeft,
-  isWeeklyReserveEmpty
+  isWeeklyReserveEmpty,
+  setLastMintedDate
 }: {
   lang: Lang;
   centralWalletAddress: Address;
@@ -34,6 +35,7 @@ const RewardsButton = ({
   setChainError: React.Dispatch<React.SetStateAction<boolean>>;
   timeLeft: number | null;
   isWeeklyReserveEmpty: boolean;
+  setLastMintedDate: React.Dispatch<React.SetStateAction<Date | null>>;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [availableToClaim, setAvailableToClaim] = useState<number | null>(null);
@@ -154,6 +156,8 @@ const RewardsButton = ({
         setTransactionHash(hash);
 
         setAvailableToClaim(0);
+        setLastMintedDate(new Date());
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
         setErrorMessage(true);

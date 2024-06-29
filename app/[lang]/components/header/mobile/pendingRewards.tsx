@@ -155,6 +155,7 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
             setChainError={setChainError}
             timeLeft={timeLeft}
             isWeeklyReserveEmpty={isWeeklyReserveEmpty}
+            setLastMintedDate={setLastMintedDate}
           />
         </div>
       </div>
