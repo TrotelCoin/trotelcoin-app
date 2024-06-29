@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useContext, use } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import type { Lang } from "@/types/language/lang";
 import RewardsButton from "@/app/[lang]/claim/components/buttons/rewardsButton";
 import AvailableToClaim from "@/app/[lang]/claim/components/availableToClaim";
@@ -68,14 +68,14 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   useEffect(() => {
     if (!isLoadingWeeklyDistributedAmount) {
-      if (weeklyDistributedAmountData) {
+      if (weeklyDistributedAmountData !== null) {
         const weeklyDistributedAmount = Number(weeklyDistributedAmountData);
 
-        if (weeklyDistributedAmountData > 100000) {
+        if (weeklyDistributedAmount > 100000) {
           setIsWeeklyReserveEmpty(true);
+        } else {
+          setIsWeeklyReserveEmpty(false);
         }
-      } else {
-        setIsWeeklyReserveEmpty(false);
       }
     } else {
       setIsWeeklyReserveEmpty(true);
@@ -198,8 +198,8 @@ const Claim = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <span className="inline-flex items-center gap-1 text-sm text-gray-900 dark:text-gray-100">
                 <ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />
                 {lang === "en"
-                  ? "You can't claim more than 1,000 TROTEL per week."
-                  : "Vous ne pouvez pas réclamer plus de 1,000 TROTEL par semaine."}
+                  ? "Maximum 1,000 TROTEL per week."
+                  : "Maximum 1,000 TROTEL par semaine."}
               </span>
             </div>
           </div>

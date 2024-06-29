@@ -2,7 +2,6 @@ import type { Lang } from "@/types/language/lang";
 import React, { useContext, useState, useEffect } from "react";
 import UserContext from "@/contexts/user";
 import RewardsButton from "@/app/[lang]/claim/components/buttons/rewardsButton";
-import Image from "next/image";
 import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 import useSWR from "swr";
 import { Address } from "viem";
@@ -60,14 +59,14 @@ const PendingRewardsMobile = ({ lang }: { lang: Lang }) => {
 
   useEffect(() => {
     if (!isLoadingWeeklyDistributedAmount) {
-      if (weeklyDistributedAmountData) {
+      if (weeklyDistributedAmountData !== null) {
         const weeklyDistributedAmount = Number(weeklyDistributedAmountData);
 
-        if (weeklyDistributedAmountData > 100000) {
+        if (weeklyDistributedAmount > 100000) {
           setIsWeeklyReserveEmpty(true);
+        } else {
+          setIsWeeklyReserveEmpty(false);
         }
-      } else {
-        setIsWeeklyReserveEmpty(false);
       }
     } else {
       setIsWeeklyReserveEmpty(true);

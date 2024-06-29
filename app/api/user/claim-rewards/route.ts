@@ -212,12 +212,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       .eq("wallet", wallet);
 
     // log the event in the database
-    await supabase.from("minted_rewards").insert({
-      wallet: wallet,
-      amount: amount,
-      minted_at: new Date().toISOString(),
-      trotel_price: trotelPrice
-    });
+    if (!chain.testnet) {
+      await supabase.from("minted_rewards").insert({
+        wallet: wallet,
+        amount: amount,
+        minted_at: new Date().toISOString(),
+        trotel_price: trotelPrice
+      });
+    }
 
     return NextResponse.json({ success: true, hash: hash }, { status: 200 });
   } catch (error) {
