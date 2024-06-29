@@ -39,6 +39,9 @@ const InventoryItem = ({
   const [useItemConfirmation, setUseItemConfirmation] =
     useState<boolean>(false);
   const [useItemConfirmed, setUseItemConfirmed] = useState<boolean>(false);
+  const [implicitQuantity, setImplicitQuantity] = useState<number>(
+    item.implicitQuantity ?? 0
+  );
 
   const { address } = useAccount();
   const { lostStreakAt } = useContext(StreakContext);
@@ -117,6 +120,34 @@ const InventoryItem = ({
     }
   }, [lostStreakAt, item]);
 
+  const handleItemUse = async () => {
+    if (!chain.testnet) {
+      usingItem(
+        item.name,
+        address as Address,
+        setErrorMessage,
+        setItemsUsedMessage,
+        setIsLoading
+      );
+    } else {
+      await writeContractAsync({
+        abi: abis[chain.id].trotelCoinShop,
+        address: contracts[chain.id].trotelCoinShop,
+        chainId: chain.id,
+        functionName: "useItem",
+        args: [item.id]
+      }).catch((error) => {
+        console.error(error);
+        setErrorMessage(true);
+      });
+
+      setItemsUsedMessage(true);
+      setImplicitQuantity((prevQuantity) => Math.max(0, prevQuantity - 1));
+    }
+
+    setIsLoading(false);
+  };
+
   return (
     <>
       <>
@@ -135,17 +166,16 @@ const InventoryItem = ({
               <div className="flex flex-col">
                 <div className="flex w-full items-center gap-2">
                   <div
-                    className={`text-xl font-semibold text-black dark:text-white`}
+                    className={`flex items-center gap-1 text-xl font-semibold text-black dark:text-white`}
                   >
-                    <Skeleton loading={!item.name}>
-                      {item.name}{" "}
-                      <Skeleton loading={!item.implicitQuantity}>
-                        <span className="text-xs text-gray-900 dark:text-gray-100">
-                          {(item.implicitQuantity as number) > 0 && (
-                            <>({item.implicitQuantity as number} left)</>
-                          )}
-                        </span>
-                      </Skeleton>
+                    <Skeleton loading={!item.name}>{item.name}</Skeleton>
+                    <Skeleton loading={!item.implicitQuantity}>
+                      <span className="text-xs text-gray-900 dark:text-gray-100">
+                        <>
+                          ({Math.max(0, implicitQuantity)}{" "}
+                          {lang === "en" ? "left" : "restant"})
+                        </>
+                      </span>
                     </Skeleton>
                   </div>
                 </div>
@@ -194,31 +224,7 @@ const InventoryItem = ({
               : "Vous allez utiliser l'objet sélectionné. Le remboursement n'est pas possible donc soyez sûr de vouloir l'utiliser"
           }
           onClose={() => setUseItemConfirmation(false)}
-          onConfirm={async () => {
-            if (!chain.testnet) {
-              usingItem(
-                item.name,
-                address as Address,
-                setErrorMessage,
-                setItemsUsedMessage,
-                setIsLoading
-              );
-            } else {
-              await writeContractAsync({
-                abi: abis[chain.id].trotelCoinShop,
-                address: contracts[chain.id].trotelCoinShop,
-                chainId: chain.id,
-                functionName: "useItem",
-                args: [item.id]
-              }).catch((error) => {
-                console.error(error);
-                setErrorMessage(true);
-                setIsLoading(false);
-              });
-              setItemsUsedMessage(true);
-              setIsLoading(false);
-            }
-          }}
+          onConfirm={handleItemUse}
         />
         <FailNotification
           display={errorMessage}
