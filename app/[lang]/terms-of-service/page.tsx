@@ -5,18 +5,23 @@ import Link from "next/link";
 import type { Lang } from "@/types/language/lang";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
+  const lastUpdated = "June 30, 2024";
+
   return (
     <>
       <div className="mx-auto max-w-2xl whitespace-normal break-words text-base leading-7 text-gray-900 dark:text-gray-100">
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
           Terms of Service
         </h1>
+        <span className="text-gray-600 dark:text-gray-400">
+          Last updated: {lastUpdated}
+        </span>
         <p className="mt-6 font-light">
           These Terms of Service, also known as the &quot;Agreement,&quot;
           clarify the terms and conditions for accessing and using{" "}
           <Link
             href={`/${lang}/home`}
-            className="text-blue-500 dark:text-blue-300"
+            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
           >
             https://app.trotelcoin.com
           </Link>
@@ -25,7 +30,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           <Link
             href="https://trotelcoin.com"
             target="_blank"
-            className="text-blue-500 dark:text-blue-300"
+            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
           >
             https://trotelcoin.com
           </Link>
@@ -70,7 +75,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           updated version of the Agreement at{" "}
           <Link
             href={`/${lang}/terms-of-service`}
-            className="text-blue-500 dark:text-blue-300"
+            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
           >
             https://app.trotelcoin.com/terms-of-service
           </Link>
@@ -485,7 +490,7 @@ const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
           reach out to us by sending an email to{" "}
           <Link
             href="mailto:hello@trotelcoin.com"
-            className="text-blue-500 dark:text-blue-300"
+            className="text-blue-500 hover:text-blue-400 dark:text-blue-300 dark:hover:text-blue-400"
           >
             hello@trotelcoin.com
           </Link>

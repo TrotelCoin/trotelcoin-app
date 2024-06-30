@@ -81,17 +81,17 @@ export default function Footer({ lang }: { lang: Lang }) {
           anotherWindow: false
         },
         {
-          name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
-          href: `/${lang}/terms-of-service`,
+          name:
+            lang === "en" ? "Privacy policy" : "Politique de confidentialité",
+          href: `/${lang}/privacy-policy`,
           display: true,
           id: 6,
           anotherWindow: false
         },
         {
-          name:
-            lang === "en" ? "Privacy policy" : "Politique de confidentialité",
-          href: `/${lang}/privacy-policy`,
-          display: false,
+          name: lang === "en" ? "Terms of service" : "Conditions d'utilisation",
+          href: `/${lang}/terms-of-service`,
+          display: true,
           id: 7,
           anotherWindow: false
         }

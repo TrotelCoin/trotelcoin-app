@@ -14,7 +14,7 @@ const RenderCourses = (
   quizId: number,
   status: string[],
   index: number,
-  category: string
+  isLoadingFinishedCourses: boolean
 ) => {
   const [isHovering, setIsHovering] = useState<boolean>(false);
 
@@ -116,6 +116,7 @@ const RenderCourses = (
                 </div>
               </div>
             )}
+
             {course.sponsored && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl bg-orange-400 px-2 py-1 text-xs font-medium text-gray-100">
@@ -123,6 +124,7 @@ const RenderCourses = (
                 </div>
               </div>
             )}
+
             {course.new && (
               <div className="px-1">
                 <div className="gradient-animation inline-flex items-center rounded-xl px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-900/20 dark:text-gray-900 dark:ring-transparent">
@@ -130,6 +132,7 @@ const RenderCourses = (
                 </div>
               </div>
             )}
+
             {(tier === "Beginner" || tier === "Débutant") && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
@@ -137,6 +140,7 @@ const RenderCourses = (
                 </div>
               </div>
             )}
+
             {(tier === "Intermediate" || tier === "Intermédiaire") && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl bg-blue-400 px-2 py-1 text-xs font-medium text-gray-100">
@@ -144,6 +148,7 @@ const RenderCourses = (
                 </div>
               </div>
             )}
+
             {tier === "Expert" && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl bg-red-400 px-2 py-1 text-xs font-medium text-gray-100">
@@ -151,6 +156,27 @@ const RenderCourses = (
                 </div>
               </div>
             )}
+
+            <div className="px-1">
+              <div
+                className={`inline-flex items-center rounded-xl ${status[quizId - 1] === "Finished" ? "bg-green-400" : "bg-gray-500"} text-xs font-medium text-gray-900 dark:text-gray-100`}
+              >
+                <Skeleton loading={isLoadingFinishedCourses}>
+                  {isLoadingFinishedCourses
+                    ? lang === "en"
+                      ? "Not started"
+                      : "Pas commencé"
+                    : status[quizId - 1] === "Finished"
+                      ? lang === "en"
+                        ? "Finished"
+                        : "Terminé"
+                      : lang === "en"
+                        ? "Not started"
+                        : "Pas commencé"}
+                </Skeleton>
+              </div>
+            </div>
+
             {!course.available && (
               <div className="px-1">
                 <div className="inline-flex items-center rounded-xl bg-transparent text-xs font-medium text-gray-900 dark:text-gray-100">

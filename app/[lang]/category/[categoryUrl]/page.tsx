@@ -32,16 +32,17 @@ const Page = ({
 
   const { isIntermediate, isExpert } = useContext(PremiumContext);
 
-  const { data: lessonsCompleted } = useSWR(
-    address ? `/api/user/courses/courses-completed?wallet=${address}` : null,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateIfStale: true,
-      revalidateOnReconnect: true,
-      refreshInterval: refreshIntervalTime
-    }
-  );
+  const { data: lessonsCompleted, isLoading: isLoadingFinishedCourses } =
+    useSWR(
+      address ? `/api/user/courses/courses-completed?wallet=${address}` : null,
+      fetcher,
+      {
+        revalidateOnMount: true,
+        revalidateIfStale: true,
+        revalidateOnReconnect: true,
+        refreshInterval: refreshIntervalTime
+      }
+    );
 
   useEffect(() => {
     lessonsCompleted?.map((course: { quiz_id: number; answered: boolean }) => {
@@ -100,7 +101,7 @@ const Page = ({
                     course.quizId,
                     status,
                     index,
-                    lesson.category
+                    isLoadingFinishedCourses
                   )
                 )}
             </div>

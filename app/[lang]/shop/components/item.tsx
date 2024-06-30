@@ -1,7 +1,6 @@
 import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import Tilt from "react-parallax-tilt";
-import * as Popover from "@radix-ui/react-popover";
 import type { ItemTypeFinal } from "@/types/items/items";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import Image from "next/image";
