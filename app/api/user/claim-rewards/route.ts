@@ -77,7 +77,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 const postInputSchema = z.object({
   wallet: z.custom<Address>(),
   chain: z.custom<Chain>(),
-  trotelPrice: z.number()
+  trotelPrice: z.number().nullable()
 });
 
 /* POST /api/user/claim-rewards
@@ -108,7 +108,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }).data as unknown as {
       wallet: Address;
       chain: Chain;
-      trotelPrice: number;
+      trotelPrice: number | null;
     };
 
     const { data: userLastMintedDateData } = await supabase

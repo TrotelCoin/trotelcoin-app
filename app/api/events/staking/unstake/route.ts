@@ -32,8 +32,8 @@ export async function GET() {
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
   amount: z.number(),
-  reward: z.number(),
-  trotelPrice: z.number(),
+  reward: z.number().nullable(),
+  trotelPrice: z.number().nullable(),
   chainId: z.number()
 });
 
@@ -55,8 +55,8 @@ export async function POST(req: NextRequest) {
       inputSchema.safeParse(body).data as unknown as {
         wallet: Address;
         amount: number;
-        reward: number;
-        trotelPrice: number;
+        reward: number | null;
+        trotelPrice: number | null;
         chainId: number;
       };
 
