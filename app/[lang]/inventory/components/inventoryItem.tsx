@@ -166,7 +166,7 @@ const InventoryItem = ({
               <div className="flex flex-col">
                 <div className="flex w-full items-center gap-2">
                   <div
-                    className={`flex items-center gap-1 text-xl font-semibold text-black dark:text-white`}
+                    className={`flex items-end gap-1 text-xl font-semibold text-black dark:text-white`}
                   >
                     <Skeleton loading={!item.name}>
                       {item.name}{" "}
