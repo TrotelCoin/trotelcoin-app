@@ -36,7 +36,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }).data as unknown as { wallet: Address };
 
     const { data } = await supabase
-      .from("shields")
+      .from("life_shields")
       .select("start_time, wallet, shield_name")
       .eq("wallet", wallet);
 
@@ -54,16 +54,16 @@ export async function GET(req: NextRequest, res: NextResponse) {
         let hours: number = 0;
 
         switch (shieldItem.shield_name as Shield) {
-          case "Closed Lock":
+          case "1h Shield":
             hours = 1;
             break;
-          case "Shield":
+          case "24h Shield":
             hours = 24;
             break;
-          case "Castle":
+          case "72h Shield":
             hours = 72;
             break;
-          case "King":
+          case "1w Shield":
             hours = 168;
             break;
           default:

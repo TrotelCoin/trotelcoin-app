@@ -19,10 +19,10 @@ import { Skeleton } from "@radix-ui/themes";
 
 const potions: ItemTypeFinal[] = [
   {
-    name: "3 Potions",
-    price: 100,
+    name: "3 Life Potions",
+    price: 1000,
     discount: 10,
-    emoji: "🧪",
+    emoji: "💙",
     description: "Restores 3 life points",
     id: 1,
     categoryId: 1,
@@ -30,10 +30,10 @@ const potions: ItemTypeFinal[] = [
     disabled: false
   },
   {
-    name: "10 Potions",
-    price: 100,
+    name: "10 Life Potions",
+    price: 1000,
     discount: 10,
-    emoji: "🧪",
+    emoji: "💙",
     description: "Restores 10 life points",
     id: 1,
     categoryId: 1,
@@ -44,7 +44,7 @@ const potions: ItemTypeFinal[] = [
 
 const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [category, setCategory] = useState<ShopCategories>({
-    name: "potions",
+    name: "lifePotions",
     id: 1
   });
   const [balance, setBalance] = useState<number | null>(null);

@@ -34,7 +34,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     }).data as unknown as { wallet: Address };
 
     const { data } = await supabase
-      .from("multipliers")
+      .from("rewards_multipliers")
       .select("multipliers, wallet, start_time")
       .eq("wallet", wallet);
 

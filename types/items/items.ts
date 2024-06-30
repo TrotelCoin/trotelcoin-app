@@ -19,17 +19,17 @@ export type ItemTypeFinal = {
   disabled: boolean;
 };
 
-export type Shield = "Closed Lock" | "Shield" | "Castle" | "King";
+export type Shield = "1h Shield" | "24h Shield" | "72h Shield" | "1w Shield";
 
 export type ItemName =
-  | "Potion"
-  | "Castle"
-  | "Watch"
-  | "Clock"
-  | "Closed Lock"
-  | "Hourglass"
-  | "King"
-  | "Shield"
+  | "Life Potion"
+  | "72h Lost Backup"
+  | "1w Lost Backup"
+  | "Ultimate Lost Backup"
+  | "1h Shield"
+  | "24h Shield"
+  | "72h Shield"
+  | "1w Shield"
   | "x2"
   | "x5"
   | "x10"
