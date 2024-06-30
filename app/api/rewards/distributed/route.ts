@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
  */
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    const { data } = await supabase.from("minted_rewards").select("amount");
+    const { data } = await supabase.from("rewards_logs").select("amount");
 
     if (!data) {
       return NextResponse.json(0, { status: 404 });

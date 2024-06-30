@@ -213,7 +213,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     // log the event in the database
     if (!chain.testnet) {
-      await supabase.from("minted_rewards").insert({
+      await supabase.from("rewards_logs").insert({
         wallet: wallet,
         amount: amount,
         minted_at: new Date().toISOString(),

@@ -17,6 +17,8 @@ import { Address, Hash, parseEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
+import axios from "axios";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const StakingButton = ({
   lang,
@@ -43,6 +45,7 @@ const StakingButton = ({
   const { address } = useAccount();
   const { data: blockNumber } = useBlockNumber({ watch: true });
   const { chain } = useContext(ChainContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { writeContractAsync, data: stakeHash } = useWriteContract({
     mutation: {
@@ -155,6 +158,25 @@ const StakingButton = ({
       abi: abis[chain.id].trotelCoinStakingV2,
       args: [stakingAmount, stakingDuration]
     });
+
+    await axios
+      .post(
+        "/api/events/staking/stake",
+        {
+          wallet: address,
+          amount: amount,
+          duration: stakingDuration,
+          trotelPrice: trotelPrice
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {
