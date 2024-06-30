@@ -1,16 +1,14 @@
 "use client";
 
-import abis from "@/abis/abis";
-import contracts from "@/data/web3/addresses";
 import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import type { Lang } from "@/types/language/lang";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { useReadContract, useBlockNumber } from "wagmi";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
 import { StatisticsType } from "@/types/statistics/statistics";
-import ChainContext from "@/contexts/chain";
+import useSWR from "swr";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
 
 const stat: StatisticsType = "intermediate";
 
@@ -22,27 +20,29 @@ const Intermediate = ({
   statsMap: Map<StatisticsType, number>;
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
+  const [intermediate, setIntermediate] = useState<number | null>(null);
 
-  const { chain } = useContext(ChainContext);
-
-  const { data: blockNumber } = useBlockNumber({
-    watch: true,
-    chainId: chain.id
-  });
-
-  const { data: intermediate, refetch } = useReadContract({
-    chainId: chain.id,
-    address: contracts[chain.id].trotelCoinIntermediateAddress,
-    abi: abis[chain.id].trotelCoinIntermediate,
-    functionName: "totalSupply"
-  });
+  const { data: numberOfIntermediate } = useSWR(
+    `/api/statistics/intermediate`,
+    fetcher,
+    {
+      revalidateOnMount: true,
+      revalidateIfStale: true,
+      revalidateOnReconnect: true,
+      refreshInterval: refreshIntervalTime
+    }
+  );
 
   useEffect(() => {
-    refetch();
-  }, [blockNumber, refetch]);
+    if (!!numberOfIntermediate) {
+      setIntermediate(numberOfIntermediate);
+    } else {
+      setIntermediate(null);
+    }
+  }, [numberOfIntermediate]);
 
   useEffect(() => {
-    if (intermediate && statsMap instanceof Map && statsMap.has(stat)) {
+    if (!!intermediate && statsMap instanceof Map && statsMap.has(stat)) {
       updateStatistics(stat, intermediate as number);
       updateEvolution(
         intermediate as number,

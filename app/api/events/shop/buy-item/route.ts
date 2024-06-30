@@ -3,6 +3,7 @@ import { supabase } from "@/utils/supabase/db";
 import { z } from "zod";
 import { Address } from "viem";
 import type { ShopLog } from "@/types/events/shop";
+import type { ShopEvent } from "@/types/staking/events";
 
 /** GET /api/events/shop/buy-item
  * Every shop event
@@ -14,7 +15,7 @@ export async function GET() {
     const { data: shop_logs } = await supabase
       .from("shop_logs")
       .select("*")
-      .eq("event", "Buy Item");
+      .eq("event", "Buy Item" as ShopEvent);
 
     const shopLogs: ShopLog[] = shop_logs as unknown as ShopLog[];
 
@@ -64,7 +65,7 @@ export async function POST(req: NextRequest) {
 
     const { data: result } = await supabase.from("shop_logs").insert({
       wallet,
-      event: "Buy Item",
+      event: "Buy Item" as ShopEvent,
       item_id: itemId,
       quantity,
       price,

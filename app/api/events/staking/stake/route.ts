@@ -3,6 +3,7 @@ import { supabase } from "@/utils/supabase/db";
 import { z } from "zod";
 import { Address } from "viem";
 import type { StakingLog } from "@/types/events/staking";
+import type { StakingEvent } from "@/types/staking/events";
 
 /** GET /api/events/staking/stake
  * Every staking event
@@ -14,7 +15,7 @@ export async function GET() {
     const { data: staking_logs } = await supabase
       .from("staking_logs")
       .select("*")
-      .eq("event", "Stake");
+      .eq("event", "Stake" as StakingEvent);
 
     const stakingLogs: StakingLog[] = staking_logs as unknown as StakingLog[];
 
@@ -61,7 +62,7 @@ export async function POST(req: NextRequest) {
 
     const { data: result } = await supabase.from("staking_logs").insert({
       wallet,
-      event: "Stake",
+      event: "Stake" as StakingEvent,
       amount,
       duration,
       trotel_price: trotelPrice,
