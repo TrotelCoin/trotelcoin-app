@@ -14,7 +14,6 @@ import UserContext from "@/contexts/user";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { loadingFlashClass } from "@/style/loading";
 import ChainContext from "@/contexts/chain";
-import { fetchImplicitQuantity } from "@/utils/inventory/fetchImplicitQuantity";
 
 const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [totalItems, setTotalItems] = useState<number | null>(null);
@@ -40,12 +39,6 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
     chainId: chain.id,
     account: address
   });
-
-  useEffect(() => {
-    if (address && inventories) {
-      fetchImplicitQuantity(address, inventories);
-    }
-  }, [address, inventories]);
 
   useEffect(() => {
     refetchTotalItems();
@@ -124,11 +117,7 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
               <>
                 <div className="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
                   {inventories
-                    .sort(
-                      (a, b) =>
-                        (b.implicitQuantity ?? b.quantity) -
-                        (a.implicitQuantity ?? a.quantity)
-                    )
+                    .sort((a, b) => b.quantity - a.quantity)
                     .map((item: InventoryItemTypeFinal, index: number) => (
                       <InventoryItem lang={lang} item={item} key={index} />
                     ))}

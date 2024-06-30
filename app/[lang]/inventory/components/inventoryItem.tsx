@@ -39,9 +39,6 @@ const InventoryItem = ({
   const [useItemConfirmation, setUseItemConfirmation] =
     useState<boolean>(false);
   const [useItemConfirmed, setUseItemConfirmed] = useState<boolean>(false);
-  const [implicitQuantity, setImplicitQuantity] = useState<number>(
-    item.implicitQuantity ?? 0
-  );
 
   const { address } = useAccount();
   const { lostStreakAt } = useContext(StreakContext);
@@ -121,29 +118,20 @@ const InventoryItem = ({
   }, [lostStreakAt, item]);
 
   const handleItemUse = async () => {
-    if (!chain.testnet) {
-      usingItem(
-        item.name,
-        address as Address,
-        setErrorMessage,
-        setItemsUsedMessage,
-        setIsLoading
-      );
-    } else {
-      await writeContractAsync({
-        abi: abis[chain.id].trotelCoinShop,
-        address: contracts[chain.id].trotelCoinShop,
-        chainId: chain.id,
-        functionName: "useItem",
-        args: [item.id]
-      }).catch((error) => {
+    await writeContractAsync({
+      abi: abis[chain.id].trotelCoinShop,
+      address: contracts[chain.id].trotelCoinShop,
+      chainId: chain.id,
+      functionName: "useItem",
+      args: [item.id]
+    })
+      .then(() => {
+        setItemsUsedMessage(true);
+      })
+      .catch((error) => {
         console.error(error);
         setErrorMessage(true);
       });
-
-      setItemsUsedMessage(true);
-      setImplicitQuantity((prevQuantity) => Math.max(0, prevQuantity - 1));
-    }
 
     setIsLoading(false);
   };
@@ -166,19 +154,19 @@ const InventoryItem = ({
               <div className="flex flex-col">
                 <div className="flex w-full items-center gap-2">
                   <div
-                    className={`flex items-end gap-1 text-xl font-semibold text-black dark:text-white`}
+                    className={`flex items-center gap-1 text-xl font-semibold text-black dark:text-white`}
                   >
                     <Skeleton loading={!item.name}>
-                      {item.name}{" "}
-                      <Skeleton loading={!item.implicitQuantity}>
+                      <span>
+                        {item.name}{" "}
                         <span className="text-xs text-gray-900 dark:text-gray-100">
                           <>
-                            ({Math.max(0, implicitQuantity)}{" "}
+                            ({Math.max(0, item.quantity)}{" "}
                             {lang === "en" ? "left" : "restant"})
                           </>
                         </span>
-                      </Skeleton>
-                    </Skeleton>
+                      </span>
+                    </Skeleton>{" "}
                   </div>
                 </div>
                 <Skeleton loading={!item.description}>
@@ -201,7 +189,7 @@ const InventoryItem = ({
                   disabled={
                     !address ||
                     isLoading ||
-                    item.implicitQuantity === 0 ||
+                    item.quantity <= 0 ||
                     hourglassDisabled ||
                     isPending ||
                     watchDisabled
