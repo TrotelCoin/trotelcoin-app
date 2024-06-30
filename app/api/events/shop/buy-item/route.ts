@@ -12,7 +12,7 @@ import type { ShopLog } from "@/types/events/shop";
 export async function GET() {
   try {
     const { data: shop_logs } = await supabase
-      .from("staking_logs")
+      .from("shop_logs")
       .select("*")
       .eq("event", "Buy Item");
 
@@ -39,7 +39,7 @@ const inputSchema = z.object({
 
 /** POST /api/events/shop/buy-item
  * Increases the staking amount of a user.
- * @param {string} wallet - The wallet address of the user.
+ * @param {Address} wallet - The wallet address of the user.
  * @param {number} itemId - The ID of the item to buy.
  * @param {number} quantity - The quantity of the item to buy.
  * @param {number} price - The price of the item.
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
         chainId: number;
       };
 
-    const { data: result } = await supabase.from("staking_logs").insert({
+    const { data: result } = await supabase.from("shop_logs").insert({
       wallet,
       event: "Buy Item",
       item_id: itemId,

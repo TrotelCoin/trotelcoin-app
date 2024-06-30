@@ -166,7 +166,8 @@ const StakingButton = ({
           wallet: address,
           amount: amount,
           duration: stakingDuration,
-          trotelPrice: trotelPrice
+          trotelPrice: trotelPrice,
+          chainId: chain.id
         },
         {
           headers: {
