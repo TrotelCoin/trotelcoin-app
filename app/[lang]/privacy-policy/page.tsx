@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Lang } from "@/types/language/lang";
 
 const Page = ({ params: { lang } }: { params: { lang: Lang } }) => {
-  const lastUpdated = "June 14, 2024";
+  const lastUpdated = "June 30, 2024";
   const mail = "hello@trotelcoin.com";
 
   return (
