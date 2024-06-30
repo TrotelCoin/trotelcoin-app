@@ -168,27 +168,28 @@ const InventoryItem = ({
                   <div
                     className={`flex items-center gap-1 text-xl font-semibold text-black dark:text-white`}
                   >
-                    <Skeleton loading={!item.name}>{item.name}</Skeleton>
-                    <Skeleton loading={!item.implicitQuantity}>
-                      <span className="text-xs text-gray-900 dark:text-gray-100">
-                        <>
-                          ({Math.max(0, implicitQuantity)}{" "}
-                          {lang === "en" ? "left" : "restant"})
-                        </>
-                      </span>
+                    <Skeleton loading={!item.name}>
+                      {item.name}{" "}
+                      <Skeleton loading={!item.implicitQuantity}>
+                        <span className="text-xs text-gray-900 dark:text-gray-100">
+                          <>
+                            ({Math.max(0, implicitQuantity)}{" "}
+                            {lang === "en" ? "left" : "restant"})
+                          </>
+                        </span>
+                      </Skeleton>
                     </Skeleton>
                   </div>
                 </div>
                 <Skeleton loading={!item.description}>
                   <div className="text-xs text-gray-900 dark:text-gray-100">
                     {item.description}
-                  </div>{" "}
+                  </div>
                 </Skeleton>
               </div>
 
               <div className="my-8 flex items-center justify-center">
                 <Skeleton loading={!item.emoji}>
-                  {" "}
                   <span className="text-4xl">{item.emoji}</span>
                 </Skeleton>
               </div>
