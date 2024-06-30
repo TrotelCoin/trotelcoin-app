@@ -36,19 +36,19 @@ const Pagination = ({
       <div className="hidden sm:block">
         <p className="text-sm text-gray-700 dark:text-gray-300">
           {lang === "en" ? "Showing" : "Affichage"}{" "}
-          <span className="font-medium">
-            <Skeleton loading={!page}>{page}</Skeleton>
-          </span>{" "}
+          <Skeleton loading={!page}>
+            <span className="font-medium">{page}</span>
+          </Skeleton>{" "}
           {lang === "en" ? "to" : "à"}{" "}
-          <span className="font-medium">
-            <Skeleton loading={!list || !list.length || !itemsPerPage}>
+          <Skeleton loading={!list || !list.length || !itemsPerPage}>
+            <span className="font-medium">
               {Math.ceil(list.length / itemsPerPage)}
-            </Skeleton>
-          </span>{" "}
+            </span>
+          </Skeleton>{" "}
           {lang === "en" ? "of" : "de"}{" "}
-          <span className="font-medium">
-            <Skeleton loading={!list || !list.length}>{list.length}</Skeleton>
-          </span>{" "}
+          <Skeleton loading={!list || !list.length}>
+            <span className="font-medium">{list.length}</span>
+          </Skeleton>{" "}
           {lang === "en" ? "results" : "résultats"}
         </p>
       </div>

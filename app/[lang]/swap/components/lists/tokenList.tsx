@@ -248,16 +248,16 @@ const TokenList = ({
                                   {token.symbol}
                                 </p>
                               </div>
-                              <span className="text-xs text-gray-700 dark:text-gray-300">
-                                <Skeleton loading={token.balance === undefined}>
+                              <Skeleton loading={token.balance === undefined}>
+                                <span className="text-xs text-gray-700 dark:text-gray-300">
                                   {lang === "en" ? "Balance:" : "Solde:"}{" "}
                                   {token.balance
                                     ? token.balance > 1
                                       ? token.balance?.toLocaleString("en-US")
                                       : token.balance
                                     : "0"}
-                                </Skeleton>
-                              </span>
+                                </span>
+                              </Skeleton>
                             </div>
                           </>
                         )}
@@ -289,26 +289,30 @@ const TokenList = ({
                               </div>
 
                               <div className="ml-4 flex-auto">
-                                <p
-                                  className={
-                                    "text-sm font-medium text-gray-700 dark:text-gray-300"
-                                  }
-                                >
-                                  <Skeleton>TrotelCoin</Skeleton>
-                                </p>
-                                <p
-                                  className={
-                                    "text-sm text-gray-700 dark:text-gray-300"
-                                  }
-                                >
-                                  <Skeleton>TROTEL</Skeleton>
-                                </p>
-                              </div>
-                              <span className="text-xs text-gray-700 dark:text-gray-300">
                                 <Skeleton>
-                                  {lang === "en" ? "Balance: 0" : "Solde: 0"}{" "}
+                                  <p
+                                    className={
+                                      "text-sm font-medium text-gray-700 dark:text-gray-300"
+                                    }
+                                  >
+                                    TrotelCoin
+                                  </p>
                                 </Skeleton>
-                              </span>
+                                <Skeleton>
+                                  <p
+                                    className={
+                                      "text-sm text-gray-700 dark:text-gray-300"
+                                    }
+                                  >
+                                    TROTEL
+                                  </p>
+                                </Skeleton>
+                              </div>
+                              <Skeleton>
+                                <span className="text-xs text-gray-700 dark:text-gray-300">
+                                  {lang === "en" ? "Balance: 0" : "Solde: 0"}{" "}
+                                </span>
+                              </Skeleton>
                             </div>
                           </>
                         </Combobox.Option>

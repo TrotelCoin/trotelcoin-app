@@ -32,15 +32,17 @@ const inputSchema = z.object({
   wallet: z.custom<Address>(),
   amount: z.number(),
   duration: z.number(),
-  trotelPrice: z.number()
+  trotelPrice: z.number(),
+  chainId: z.number()
 });
 
 /** POST /api/events/staking/stake
  * Stakes an amount of TROTEL for a duration.
- * @param {string} wallet - The wallet address of the user.
+ * @param {Address} wallet - The wallet address of the user.
  * @param {number} amount - The amount to stake.
  * @param {number} duration - The duration of the staking.
  * @param {number} trotelPrice - The price of TROTEL.
+ * @param {number} chainId - The chain ID of the network.
  * @returns {object} staking_log - The staking log of the user.
  * @example response - 200 - application/json
  */
@@ -48,14 +50,14 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
 
   try {
-    const { wallet, amount, duration, trotelPrice } = inputSchema.safeParse(
-      body
-    ).data as unknown as {
-      wallet: Address;
-      amount: number;
-      duration: number;
-      trotelPrice: number;
-    };
+    const { wallet, amount, duration, trotelPrice, chainId } =
+      inputSchema.safeParse(body).data as unknown as {
+        wallet: Address;
+        amount: number;
+        duration: number;
+        trotelPrice: number;
+        chainId: number;
+      };
 
     const { data: result } = await supabase.from("staking_logs").insert({
       wallet,
@@ -63,6 +65,7 @@ export async function POST(req: NextRequest) {
       amount,
       duration,
       trotel_price: trotelPrice,
+      chain_id: chainId,
       event_at: new Date().toISOString()
     });
 

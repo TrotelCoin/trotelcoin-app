@@ -45,14 +45,14 @@ const Balance = ({ lang }: { lang: Lang }) => {
     <>
       <div className="flex justify-between">
         <span>{lang === "en" ? "Balance" : "Solde"}</span>
-        <div>
-          <Skeleton loading={isLoadingBalance}>
+        <Skeleton loading={isLoadingBalance}>
+          <div>
             {parseFloat(balance?.toFixed(0) as string).toLocaleString(
               "en-US"
             ) ?? "0"}{" "}
             TROTEL
-          </Skeleton>
-        </div>
+          </div>{" "}
+        </Skeleton>
       </div>
     </>
   );

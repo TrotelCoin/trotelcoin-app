@@ -99,8 +99,8 @@ const From = ({
             </div>
           </div>
           <div className="flex items-center gap-1">
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              <Skeleton loading={isLoading}>
+            <Skeleton loading={isLoading}>
+              <span className="text-sm text-gray-700 dark:text-gray-300">
                 {lang === "en" ? "Balance:" : "Solde:"}{" "}
                 <span>
                   {fromBalance
@@ -109,8 +109,8 @@ const From = ({
                       : roundPrice(fromBalance)
                     : "0"}
                 </span>{" "}
-              </Skeleton>
-            </span>
+              </span>
+            </Skeleton>
             {!isMax && fromBalance > 0 && (
               <button
                 onClick={() => setMax()}
@@ -193,16 +193,16 @@ const From = ({
               </div>
             </button>
 
-            <span className={`text-xs`}>
-              <Skeleton loading={isLoading}>
+            <Skeleton loading={isLoading}>
+              <span className={`text-xs`}>
                 $
                 {fromPrice
                   ? fromPrice > 1
                     ? roundPrice(Number(fromPrice)).toLocaleString("en-US")
                     : roundPrice(Number(fromPrice))
                   : "0"}
-              </Skeleton>
-            </span>
+              </span>
+            </Skeleton>
           </div>
         </div>
       </div>

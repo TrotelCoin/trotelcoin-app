@@ -166,9 +166,14 @@ const ClaimingButton = ({
       setStakedTrotelCoins(0);
       setTimeLeft(0);
     }
-  }, [getStakingDataNoTyped, address, block]);
+  }, [getStakingDataNoTyped, address, block, getUserRewardsDataNoTyped]);
 
   const claim = async () => {
+    if (!address) {
+      setErrorMessage(true);
+      return;
+    }
+
     if (!stakedTrotelCoins || stakedTrotelCoins <= 0) {
       setErrorMessage(true);
       return;

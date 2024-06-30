@@ -197,20 +197,25 @@ const ChainList = ({
                             </div>
 
                             <div className="ml-4 flex-auto">
-                              <p
-                                className={
-                                  "text-sm font-medium text-gray-700 dark:text-gray-300"
-                                }
-                              >
-                                <Skeleton>Polygon</Skeleton>
-                              </p>
-                              <p
-                                className={
-                                  "text-sm text-gray-700 dark:text-gray-300"
-                                }
-                              >
-                                <Skeleton>POL</Skeleton>
-                              </p>
+                              <Skeleton>
+                                <p
+                                  className={
+                                    "text-sm font-medium text-gray-700 dark:text-gray-300"
+                                  }
+                                >
+                                  Polygon
+                                </p>
+                              </Skeleton>
+
+                              <Skeleton>
+                                <p
+                                  className={
+                                    "text-sm text-gray-700 dark:text-gray-300"
+                                  }
+                                >
+                                  POL
+                                </p>
+                              </Skeleton>
                             </div>
                           </div>
                         </>

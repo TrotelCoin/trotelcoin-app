@@ -179,17 +179,18 @@ const InventoryItem = ({
                     </Skeleton>
                   </div>
                 </div>
-                <div className="text-xs text-gray-900 dark:text-gray-100">
-                  <Skeleton loading={!item.description}>
+                <Skeleton loading={!item.description}>
+                  <div className="text-xs text-gray-900 dark:text-gray-100">
                     {item.description}
-                  </Skeleton>
-                </div>
+                  </div>{" "}
+                </Skeleton>
               </div>
 
               <div className="my-8 flex items-center justify-center">
-                <span className="text-4xl">
-                  <Skeleton loading={!item.emoji}>{item.emoji}</Skeleton>
-                </span>
+                <Skeleton loading={!item.emoji}>
+                  {" "}
+                  <span className="text-4xl">{item.emoji}</span>
+                </Skeleton>
               </div>
 
               <div className="flex flex-col">

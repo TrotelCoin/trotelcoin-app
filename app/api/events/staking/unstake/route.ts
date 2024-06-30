@@ -39,7 +39,7 @@ const inputSchema = z.object({
 
 /** POST /api/events/staking/unstake
  * Increases the staking amount of a user.
- * @param {string} wallet - The wallet address of the user.
+ * @param {Address} wallet - The wallet address of the user.
  * @param {number} amount - The amount to stake.
  * @param {number} reward - The reward to stake.
  * @param {number} trotelPrice - The price of TROTEL.

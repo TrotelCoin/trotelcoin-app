@@ -69,16 +69,16 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <Skeleton loading={isLoading}>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
                           <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span>
                             ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
                           </span>{" "}
-                        </Skeleton>
-                      </span>
+                        </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -118,13 +118,13 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>{slippage}%</Skeleton>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
+                          <span>{slippage}%</span>
                         </span>
-                      </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -164,18 +164,18 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
+                          <span>
                             {bridgeSlippage
                               ? Number(bridgeSlippage.toFixed(3))
                               : 0}
                             %
-                          </Skeleton>
+                          </span>
                         </span>
-                      </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -215,19 +215,19 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
+                          <span>
                             {minimumAmountOut
                               ? Number(
                                   minimumAmountOut * 10 ** -toToken.decimals
                                 ).toFixed(2)
                               : "0"}
-                          </Skeleton>
+                          </span>
                         </span>
-                      </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -265,26 +265,25 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
-                            {protocolName ?? "Unknown"}
-                          </Skeleton>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
+                          <span>{protocolName ?? "Unknown"}</span>
+
+                          {protocolIcon && (
+                            <>
+                              <Image
+                                alt="Protocol logo"
+                                className="rounded-full"
+                                width={12}
+                                height={12}
+                                src={protocolIcon}
+                              />
+                            </>
+                          )}
                         </span>
-                        {protocolIcon && (
-                          <>
-                            <Image
-                              alt="Protocol logo"
-                              className="rounded-full"
-                              width={12}
-                              height={12}
-                              src={protocolIcon}
-                            />
-                          </>
-                        )}
-                      </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -322,11 +321,11 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
+                          <span>
                             {enableRefuel
                               ? lang === "en"
                                 ? "Enabled"
@@ -334,9 +333,9 @@ const SwapData = ({
                               : lang === "en"
                                 ? "Disabled"
                                 : "Désactivé"}
-                          </Skeleton>
+                          </span>
                         </span>
-                      </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -374,15 +373,15 @@ const SwapData = ({
                           </div>
                         </Tooltip.Trigger>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <span>
-                          <Skeleton loading={isLoading}>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
+                          <span>
                             {sort.charAt(0).toUpperCase() + sort.slice(1)}
-                          </Skeleton>
+                          </span>
                         </span>
-                      </span>
+                      </Skeleton>
                     </div>
 
                     <Tooltip.Portal>
@@ -421,16 +420,16 @@ const SwapData = ({
                 <Tooltip.Root delayDuration={0}>
                   <div className="relative">
                     <Tooltip.Trigger asChild>
-                      <span
-                        className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
-                      >
-                        <Skeleton loading={isLoading}>
+                      <Skeleton loading={isLoading}>
+                        <span
+                          className={`flex cursor-help items-center gap-1 text-xs text-gray-700 dark:text-gray-300`}
+                        >
                           <BoltIcon className="h-3 w-3 text-gray-700 dark:text-gray-300" />
                           <span>
                             ${gasPrice ? Number(gasPrice.toFixed(3)) : 0}
                           </span>
-                        </Skeleton>
-                      </span>
+                        </span>
+                      </Skeleton>
                     </Tooltip.Trigger>
 
                     <Tooltip.Portal>

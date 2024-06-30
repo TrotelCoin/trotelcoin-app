@@ -71,8 +71,8 @@ const To = ({
               </div>
             </button>
           </div>
-          <span className="text-sm text-gray-700 dark:text-gray-300">
-            <Skeleton loading={isLoading}>
+          <Skeleton loading={isLoading}>
+            <span className="text-sm text-gray-700 dark:text-gray-300">
               {lang === "en" ? "Balance:" : "Solde:"}{" "}
               <span>
                 {toBalance
@@ -81,8 +81,8 @@ const To = ({
                     : roundPrice(toBalance)
                   : "0"}
               </span>{" "}
-            </Skeleton>
-          </span>
+            </span>
+          </Skeleton>
         </div>
         <div className="flex items-end gap-4">
           <Skeleton loading={isLoading}>
@@ -151,19 +151,19 @@ const To = ({
             </button>
 
             <div className="flex items-center gap-1">
-              <span className={`text-xs`}>
-                <Skeleton loading={isLoading}>
+              <Skeleton loading={isLoading}>
+                <span className={`text-xs`}>
                   $
                   {toPrice
                     ? toPrice > 1
                       ? roundPrice(Number(toPrice)).toLocaleString("en-US")
                       : roundPrice(Number(toPrice))
                     : "0"}
-                </Skeleton>
-              </span>
+                </span>
+              </Skeleton>
               {
-                <span className={`text-xs`}>
-                  <Skeleton loading={isLoading}>
+                <Skeleton loading={isLoading}>
+                  <span className={`text-xs`}>
                     {(() => {
                       let percentage = 0;
                       if (
@@ -198,8 +198,8 @@ const To = ({
                         </span>
                       );
                     })()}
-                  </Skeleton>
-                </span>
+                  </span>
+                </Skeleton>
               }
             </div>
           </div>
