@@ -41,9 +41,11 @@ const CourseSection = ({
     <div className="mb-10">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-            <Skeleton loading={isLoading}>{title}</Skeleton>
-          </h2>
+          <Skeleton loading={isLoading}>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+              {title}
+            </h2>
+          </Skeleton>
         </div>
         <div className="flex items-center gap-2">
           <div className="hidden items-center gap-2 md:flex">
@@ -67,11 +69,10 @@ const CourseSection = ({
 
           {viewAll && (
             <Link href={`/${lang}/category/${categoryUrl}`}>
-              {" "}
               <Skeleton loading={isLoading}>
                 <button className="flex items-center justify-center rounded-full border border-gray-900/10 bg-white px-2 py-1 text-center text-xs text-gray-900 hover:bg-gray-100 dark:border-gray-100/10 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700">
                   {lang === "en" ? "View all" : "Voir tout"}
-                </button>{" "}
+                </button>
               </Skeleton>
             </Link>
           )}

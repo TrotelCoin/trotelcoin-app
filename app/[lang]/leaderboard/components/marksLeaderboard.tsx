@@ -82,11 +82,11 @@ const MarksLeaderboard = ({
                   <div className="block md:hidden">
                     <Skeleton>0x000000000</Skeleton>
                   </div>
-                  <div className="flex items-center text-lg md:gap-2">
-                    <span>
-                      <Skeleton>0/20 🤓</Skeleton>
-                    </span>
-                  </div>
+                  <Skeleton>
+                    <div className="flex items-center text-lg md:gap-2">
+                      <span>0/20 🤓</span>
+                    </div>
+                  </Skeleton>
                 </li>
               ))}
             </div>

@@ -69,14 +69,14 @@ const Page = ({
           <div className="mb-10" key={index}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-                  <Skeleton loading={!lesson.category}>
+                <Skeleton loading={!lesson.category}>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                     {lesson.category}
-                  </Skeleton>
-                </h2>
+                  </h2>{" "}
+                </Skeleton>
                 <SeparatorVertical />
-                <span className="text-base leading-7 text-gray-700 dark:text-gray-300">
-                  <Skeleton loading={!lesson.courses}>
+                <Skeleton loading={!lesson.courses}>
+                  <span className="text-base leading-7 text-gray-700 dark:text-gray-300">
                     <CountUp
                       start={0}
                       end={
@@ -85,8 +85,8 @@ const Page = ({
                       }
                     />{" "}
                     {lang === "en" ? "lessons" : "leçons"}
-                  </Skeleton>
-                </span>
+                  </span>{" "}
+                </Skeleton>
               </div>
             </div>
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

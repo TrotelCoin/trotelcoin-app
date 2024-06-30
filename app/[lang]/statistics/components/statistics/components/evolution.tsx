@@ -41,9 +41,9 @@ const Evolution = ({
           </>
         ) : (
           <>
-            <span className="text-xs">
-              <Skeleton>0%</Skeleton>
-            </span>
+            <Skeleton>
+              <span className="text-xs">0%</span>
+            </Skeleton>
           </>
         )}
       </div>

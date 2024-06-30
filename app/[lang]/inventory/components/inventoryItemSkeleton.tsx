@@ -11,9 +11,11 @@ const InventoryItemSkeleton = () => {
       >
         <div className="w-full px-4 py-5 sm:p-6">
           <div className="flex w-full items-center justify-between">
-            <div className={`rainbow-text text-2xl font-semibold`}>
-              <Skeleton>Item name</Skeleton>
-            </div>
+            <Skeleton>
+              <div className={`rainbow-text text-2xl font-semibold`}>
+                Item name
+              </div>
+            </Skeleton>
             <Skeleton>
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-sm text-gray-100">
                 0
@@ -21,9 +23,9 @@ const InventoryItemSkeleton = () => {
             </Skeleton>
           </div>
           <div className="my-8 flex items-center justify-center">
-            <span className="text-6xl">
-              <Skeleton>🔗</Skeleton>
-            </span>
+            <Skeleton>
+              <span className="text-6xl">🔗</span>
+            </Skeleton>
           </div>
           <div className="flex flex-col">
             <Skeleton>

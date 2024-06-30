@@ -158,11 +158,12 @@ const Rewards = ({
 
       {claimingLoading && !claimingError && (
         <div className="animate__animated animate__FadeIn mx-auto border-t border-gray-900/10 py-10 dark:border-gray-100/10">
-          <span className={`font-semibold text-gray-900 dark:text-gray-100`}>
-            <Skeleton>
+          <Skeleton>
+            {" "}
+            <span className={`font-semibold text-gray-900 dark:text-gray-100`}>
               {lang === "en" ? "Loading..." : "Chargement..."}
-            </Skeleton>
-          </span>
+            </span>{" "}
+          </Skeleton>
         </div>
       )}
 

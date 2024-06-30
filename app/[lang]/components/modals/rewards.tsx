@@ -154,15 +154,15 @@ const RewardsModal = ({
                               ? "Quizzes answered"
                               : "Quiz répondus"}
                           </h2>
-                          <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                            <Skeleton loading={!userNumberOfQuizzesAnswered}>
+                          <Skeleton loading={!userNumberOfQuizzesAnswered}>
+                            <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
                               <CountUp
                                 start={0}
                                 end={userNumberOfQuizzesAnswered as number}
                               />{" "}
                               📚
-                            </Skeleton>
-                          </p>
+                            </p>{" "}
+                          </Skeleton>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en" ? "You scored" : "Vous avez obtenu"}{" "}
                             <Skeleton loading={!courseMark}>
@@ -181,11 +181,11 @@ const RewardsModal = ({
                           <h2 className="font-bold text-gray-900 dark:text-gray-100">
                             {lang === "en" ? "Level" : "Niveau"}
                           </h2>
-                          <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                            <Skeleton loading={!userLevel}>
+                          <Skeleton loading={!userLevel}>
+                            <p className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
                               <CountUp start={0} end={userLevel ?? 1} /> 💊
-                            </Skeleton>
-                          </p>
+                            </p>
+                          </Skeleton>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             <Skeleton loading={!quizzesLeft}>
                               {quizzesLeft as number}
@@ -205,17 +205,17 @@ const RewardsModal = ({
                               ? "Learning time"
                               : "Temps d'apprentissage"}
                           </h2>
-                          <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                            <Skeleton loading={!courseTime}>
+                          <Skeleton loading={!courseTime}>
+                            <span className="text-2xl font-semibold text-gray-700 dark:text-gray-300">
                               <CountUp
                                 start={0}
                                 end={
                                   courseTime ? Math.floor(courseTime * 1e-3) : 0
                                 }
                                 suffix="s ⏳"
-                              />
-                            </Skeleton>{" "}
-                          </span>
+                              />{" "}
+                            </span>
+                          </Skeleton>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
                               ? `You're total learning time is ${Math.floor(learningTime as number) * 1e-3} seconds.`

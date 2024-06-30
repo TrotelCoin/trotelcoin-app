@@ -34,31 +34,31 @@ export const config = defaultWagmiConfig({
   }),
   transports: {
     [mainnet.id]: fallback([
-      webSocket(rpcs[mainnet.id].transports.wss[0]),
-      webSocket(rpcs[mainnet.id].transports.wss[1]),
       http("", {
         batch: {
           wait: 16
         }
-      })
+      }),
+      webSocket(rpcs[mainnet.id].transports.wss[0]),
+      webSocket(rpcs[mainnet.id].transports.wss[1])
     ]),
     [polygon.id]: fallback([
-      webSocket(rpcs[polygon.id].transports.wss[0]),
-      webSocket(rpcs[polygon.id].transports.wss[1]),
       http("", {
         batch: {
           wait: 16
         }
-      })
+      }),
+      webSocket(rpcs[polygon.id].transports.wss[0]),
+      webSocket(rpcs[polygon.id].transports.wss[1])
     ]),
     [polygonAmoy.id]: fallback([
-      webSocket(rpcs[polygonAmoy.id].transports.wss[0]),
-      webSocket(rpcs[polygonAmoy.id].transports.wss[1]),
       http("", {
         batch: {
           wait: 16
         }
-      })
+      }),
+      webSocket(rpcs[polygonAmoy.id].transports.wss[0]),
+      webSocket(rpcs[polygonAmoy.id].transports.wss[1])
     ])
   }
 });

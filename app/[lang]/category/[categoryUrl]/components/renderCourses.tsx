@@ -93,14 +93,20 @@ const RenderCourses = (
         <div className="flex h-1/2 w-full flex-col justify-between p-4">
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
-              <div className={`font-semibold text-gray-900 dark:text-gray-100`}>
-                <Skeleton loading={!title}>{title}</Skeleton>
-              </div>
+              <Skeleton loading={!title}>
+                <div
+                  className={`font-semibold text-gray-900 dark:text-gray-100`}
+                >
+                  {title}
+                </div>
+              </Skeleton>
             </div>
             <div>
-              <div className={`text-xs text-gray-700 dark:text-gray-300`}>
-                <Skeleton loading={!description}>{description}</Skeleton>
-              </div>
+              <Skeleton loading={!description}>
+                <div className={`text-xs text-gray-700 dark:text-gray-300`}>
+                  {description}
+                </div>
+              </Skeleton>
             </div>
           </div>
           <Marquee
@@ -111,9 +117,11 @@ const RenderCourses = (
           >
             {!course && (
               <div className="px-1">
-                <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
-                  <Skeleton loading={true}>Rank 🐣</Skeleton>
-                </div>
+                <Skeleton>
+                  <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
+                    Rank 🐣
+                  </div>
+                </Skeleton>
               </div>
             )}
 
@@ -158,10 +166,10 @@ const RenderCourses = (
             )}
 
             <div className="px-1">
-              <div
-                className={`inline-flex items-center rounded-xl ${status[quizId - 1] === "Finished" ? "bg-green-400" : "bg-gray-500"} text-xs font-medium text-gray-900 dark:text-gray-100`}
-              >
-                <Skeleton loading={isLoadingFinishedCourses}>
+              <Skeleton loading={isLoadingFinishedCourses}>
+                <div
+                  className={`inline-flex items-center rounded-xl ${status[quizId - 1] === "Finished" ? "bg-green-400" : "bg-gray-500"} text-xs font-medium text-gray-900 dark:text-gray-100`}
+                >
                   {isLoadingFinishedCourses
                     ? lang === "en"
                       ? "Not started"
@@ -173,8 +181,8 @@ const RenderCourses = (
                       : lang === "en"
                         ? "Not started"
                         : "Pas commencé"}
-                </Skeleton>
-              </div>
+                </div>{" "}
+              </Skeleton>
             </div>
 
             {!course.available && (

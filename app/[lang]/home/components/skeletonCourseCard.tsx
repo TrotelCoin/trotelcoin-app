@@ -16,24 +16,30 @@ const SkeletonCourseCard = ({ isLoading }: { isLoading: boolean }) => {
           <div className="flex h-full w-full flex-col justify-between p-4">
             <div className="flex flex-col">
               <div className="flex items-center gap-0.5">
-                <div className="flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300">
-                  <Skeleton loading={isLoading}>Category</Skeleton>
-                </div>
+                <Skeleton loading={isLoading}>
+                  <div className="flex items-center gap-1 text-xs text-gray-700 dark:text-gray-300">
+                    Category
+                  </div>
+                </Skeleton>
               </div>
 
               <div className="flex items-center">
-                <div
-                  className={`font-semibold text-gray-900 dark:text-gray-100`}
-                >
-                  <Skeleton loading={isLoading}>Title of the course</Skeleton>
-                </div>
+                <Skeleton loading={isLoading}>
+                  <div
+                    className={`font-semibold text-gray-900 dark:text-gray-100`}
+                  >
+                    Title of the course
+                  </div>
+                </Skeleton>
               </div>
             </div>
 
             <div className="px-1">
-              <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
-                <Skeleton loading={isLoading}>Rank 🐣</Skeleton>
-              </div>
+              <Skeleton loading={isLoading}>
+                <div className="inline-flex items-center rounded-xl bg-gray-500 px-2 py-1 text-xs font-medium text-gray-100">
+                  Rank 🐣
+                </div>
+              </Skeleton>
             </div>
           </div>
         </div>

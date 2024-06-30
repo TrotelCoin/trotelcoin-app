@@ -228,17 +228,19 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
         >
           <div className="flex h-full w-full flex-col justify-between p-4 sm:p-6">
             <div className="flex flex-col">
-              <div
-                className={`text-xl font-semibold text-gray-900 dark:text-gray-100`}
-              >
-                <Skeleton loading={!shopItem.name}>{shopItem.name}</Skeleton>
-              </div>
+              <Skeleton loading={!shopItem.name}>
+                <div
+                  className={`text-xl font-semibold text-gray-900 dark:text-gray-100`}
+                >
+                  {shopItem.name}
+                </div>
+              </Skeleton>
 
-              <div className="text-xs text-gray-900 dark:text-gray-100">
-                <Skeleton loading={!shopItem.description}>
+              <Skeleton loading={!shopItem.description}>
+                <div className="text-xs text-gray-900 dark:text-gray-100">
                   {shopItem.description}
-                </Skeleton>
-              </div>
+                </div>{" "}
+              </Skeleton>
             </div>
 
             <div className="inline-flex items-center gap-1">
@@ -292,14 +294,14 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                     alt="Token logo"
                     src="/assets/logo/trotelcoin-dark.jpg"
                   />
-                </div>{" "}
+                </div>
               </Skeleton>
             </div>
 
             <div className="my-8 flex items-center justify-center">
-              <span className="text-4xl">
-                <Skeleton loading={!shopItem.emoji}>{shopItem.emoji}</Skeleton>
-              </span>
+              <Skeleton loading={!shopItem.emoji}>
+                <span className="text-4xl">{shopItem.emoji}</span>
+              </Skeleton>
             </div>
 
             <div className="flex flex-col">
