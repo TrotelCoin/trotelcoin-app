@@ -32,7 +32,7 @@ const inputSchema = z.object({
   wallet: z.custom<Address>(),
   amount: z.number(),
   duration: z.number(),
-  trotelPrice: z.number(),
+  trotelPrice: z.number().nullable(),
   chainId: z.number()
 });
 
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
         wallet: Address;
         amount: number;
         duration: number;
-        trotelPrice: number;
+        trotelPrice: number | null;
         chainId: number;
       };
 

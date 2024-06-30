@@ -10,7 +10,7 @@ import {
   useBlock,
   useTransactionConfirmations
 } from "wagmi";
-import { Address, Hash } from "viem";
+import { Address, Hash, formatEther } from "viem";
 import contracts from "@/data/web3/addresses";
 import abis from "@/abis/abis";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
@@ -195,8 +195,8 @@ const ClaimingButton = ({
     await axios
       .post("/api/events/staking/unstake", {
         wallet: address,
-        amount: stakedTrotelCoins,
-        reward: rewards,
+        amount: formatEther(BigInt(stakedTrotelCoins)),
+        reward: rewards ? formatEther(BigInt(rewards)) : null,
         trotelPrice: trotelPrice,
         chainId: chain.id
       })

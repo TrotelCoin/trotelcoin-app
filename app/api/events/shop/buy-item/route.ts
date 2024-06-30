@@ -33,7 +33,7 @@ const inputSchema = z.object({
   itemId: z.number(),
   quantity: z.number(),
   price: z.number(),
-  trotelPrice: z.number(),
+  trotelPrice: z.number().nullable(),
   chainId: z.number()
 });
 
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
         itemId: number;
         quantity: number;
         price: number;
-        trotelPrice: number;
+        trotelPrice: number | null;
         chainId: number;
       };
 

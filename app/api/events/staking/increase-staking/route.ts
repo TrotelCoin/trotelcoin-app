@@ -32,7 +32,7 @@ export async function GET() {
 const inputSchema = z.object({
   wallet: z.custom<Address>(),
   amount: z.number(),
-  trotelPrice: z.number(),
+  trotelPrice: z.number().nullable(),
   chainId: z.number()
 });
 
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
       .data as unknown as {
       wallet: Address;
       amount: number;
-      trotelPrice: number;
+      trotelPrice: number | null;
       chainId: number;
     };
 
