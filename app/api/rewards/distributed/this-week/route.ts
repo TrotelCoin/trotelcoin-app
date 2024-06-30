@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { data } = await supabase
-      .from("minted_rewards")
+      .from("rewards_logs")
       .select("amount, minted_at");
 
     if (!data) {
