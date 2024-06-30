@@ -7,37 +7,38 @@ export const translateItemName = (
   lang: Lang,
   setDisplayedName: React.Dispatch<SetStateAction<string | null>>
 ) => {
+  let item = "";
+
   switch (name as ItemName) {
-    case "Potion":
-      const potion = lang === "en" ? "Potion" : "Potion";
-      setDisplayedName(potion);
+    case "Life Potion":
+      item = lang === "en" ? "Life Potion" : "Potion de vie";
       break;
-    case "Hourglass":
-      const hourglass = lang === "en" ? "Hourglass" : "Sablier";
-      setDisplayedName(hourglass);
+    case "72h Lost Backup":
+      item = lang === "en" ? "72h Lost Backup" : "Sauvegarde de 72h";
       break;
-    case "Clock":
-      const clock = lang === "en" ? "Clock" : "Horloge";
-      setDisplayedName(clock);
+    case "1w Lost Backup":
+      item = lang === "en" ? "1w Lost Backup" : "Sauvegarde de 1w";
       break;
-    case "Closed Lock":
-      const closedLock = lang === "en" ? "Closed Lock" : "Serrure";
-      setDisplayedName(closedLock);
+    case "Ultimate Lost Backup":
+      const closedLock = (item =
+        lang === "en" ? "Ultimate Lost Backup" : "Sauvegarde ultime");
       break;
-    case "Shield":
-      const shield = lang === "en" ? "Shield" : "Bouclier";
-      setDisplayedName(shield);
+    case "1h Shield":
+      item = lang === "en" ? "1h Shield" : "Bouclier de 1h";
       break;
-    case "Castle":
-      const castle = lang === "en" ? "Castle" : "Château";
-      setDisplayedName(castle);
+    case "24h Shield":
+      item = lang === "en" ? "24h Shield" : "Bouclier de 24h";
       break;
-    case "King":
-      const king = lang === "en" ? "King" : "Roi";
-      setDisplayedName(king);
+    case "72h Shield":
+      item = lang === "en" ? "72h Shield" : "Bouclier de 72h";
+      break;
+    case "1w Shield":
+      item = lang === "en" ? "1w Shield" : "Bouclier de 1w";
       break;
     default:
-      setDisplayedName(name);
+      item = name;
       break;
   }
+
+  setDisplayedName(item);
 };

@@ -1,4 +1,8 @@
-export type ShopCategoriesName = "potions" | "clocks" | "shields";
+export type ShopCategoriesName =
+  | "lifePotions"
+  | "streakBackups"
+  | "lifeShields"
+  | "rewardMultipliers";
 
 export type ShopCategories = {
   name: ShopCategoriesName;

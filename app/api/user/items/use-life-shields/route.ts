@@ -12,7 +12,7 @@ const inputSchema = z.object({
   shieldName: z.custom<Shield>()
 });
 
-/* POST /api/user/items/use-shields
+/* POST /api/user/items/use-life-shields
  * Activates a shield for the user.
  * @param {string} wallet - The wallet address of the user.
  * @param {string} shieldName - The name of the shield to activate.
@@ -38,13 +38,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }).data as unknown as { wallet: Address; shieldName: string };
 
     const { data: walletData } = await supabase
-      .from("shields")
+      .from("life_shields")
       .select("wallet")
       .eq("wallet", wallet)
       .eq("shield_name", shieldName);
 
     if (walletData && walletData.length === 0) {
-      await supabase.from("shields").insert({
+      await supabase.from("life_shields").insert({
         wallet: wallet,
         shield_name: shieldName,
         start_time: new Date().toISOString()
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     await supabase
-      .from("shields")
+      .from("life_shields")
       .update({
         shield_name: shieldName,
         start_time: new Date().toISOString()

@@ -10,7 +10,7 @@ const inputSchema = z.object({
   wallet: z.custom<Address>()
 });
 
-/* POST /api/user/items/use-potion
+/* POST /api/user/items/use-life-potion
  * Restores the user's life.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} message - Indicates the result of the operation.

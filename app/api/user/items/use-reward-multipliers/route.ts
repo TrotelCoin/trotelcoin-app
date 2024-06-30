@@ -11,7 +11,7 @@ const inputSchema = z.object({
   multipliersName: z.string()
 });
 
-/* POST /api/user/items/use-multipliers
+/* POST /api/user/items/use-reward-multipliers
  * Activates multipliers for the user.
  * @param {string} wallet - The wallet address of the user.
  * @param {string} multipliersName - The name of the multipliers to activate.
@@ -56,13 +56,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     const { data: walletData } = await supabase
-      .from("multipliers")
+      .from("rewards_multipliers")
       .select("wallet")
       .eq("wallet", wallet)
       .eq("multipliers", multipliers);
 
     if (walletData && walletData.length === 0) {
-      await supabase.from("multipliers").insert({
+      await supabase.from("rewards_multipliers").insert({
         wallet: wallet,
         multipliers: multipliers,
         start_time: new Date().toISOString()
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 
     await supabase
-      .from("multipliers")
+      .from("rewards_multipliers")
       .update({
         multipliers: multipliers,
         start_time: new Date().toISOString()

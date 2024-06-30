@@ -10,7 +10,7 @@ const inputSchema = z.object({
   wallet: z.custom<Address>()
 });
 
-/* POST /api/user/items/use-watch
+/* POST /api/user/items/use-1w-lost-backup
  * Restores the user's max streak.
  * @param {string} wallet - The wallet address of the user.
  * @returns {string} message - Indicates the result of the operation.
