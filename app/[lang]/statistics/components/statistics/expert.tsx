@@ -1,16 +1,14 @@
 "use client";
 
-import abis from "@/abis/abis";
-import contracts from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import { useReadContract, useBlockNumber } from "wagmi";
 import Evolution from "@/app/[lang]/statistics/components/statistics/components/evolution";
-import { updateEvolution } from "@/utils/statistics/updateEvolution";
 import { updateStatistics } from "@/utils/statistics/updateStatistics";
 import { StatisticsType } from "@/types/statistics/statistics";
-import ChainContext from "@/contexts/chain";
+import useSWR from "swr";
+import { fetcher, refreshIntervalTime } from "@/utils/axios/fetcher";
+import { updateEvolution } from "@/utils/statistics/updateEvolution";
 
 const stat: StatisticsType = "expert";
 
@@ -22,27 +20,23 @@ const Expert = ({
   statsMap: Map<StatisticsType, number>;
 }) => {
   const [evolution, setEvolution] = useState<number | null>(null);
+  const [expert, setExpert] = useState<number | null>(null);
 
-  const { chain } = useContext(ChainContext);
-
-  const { data: blockNumber } = useBlockNumber({
-    watch: true,
-    chainId: chain.id
-  });
-
-  const { data: expert, refetch } = useReadContract({
-    chainId: chain.id,
-    address: contracts[chain.id].trotelCoinExpertAddress,
-    abi: abis[chain.id].trotelCoinExpert,
-    functionName: "totalSupply"
+  const { data: numberOfExpert } = useSWR(`/api/statistics/expert`, fetcher, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
+    refreshInterval: refreshIntervalTime
   });
 
   useEffect(() => {
-    refetch();
-  }, [blockNumber, refetch]);
+    if (!!numberOfExpert) {
+      setExpert(numberOfExpert);
+    }
+  }, [numberOfExpert]);
 
   useEffect(() => {
-    if (expert && statsMap instanceof Map && statsMap.has(stat)) {
+    if (!!expert && statsMap instanceof Map && statsMap.has(stat)) {
       updateStatistics(stat, expert as number);
       updateEvolution(
         expert as number,
