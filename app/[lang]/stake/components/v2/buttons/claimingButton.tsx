@@ -18,6 +18,8 @@ import FailNotification from "@/app/[lang]/components/modals/notifications/fail"
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
+import axios from "axios";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const ClaimingButton = ({
   lang,
@@ -37,10 +39,12 @@ const ClaimingButton = ({
   const [disabled, setDisabled] = useState<boolean>(true);
   const [claimConfirmed, setClaimConfirmed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [rewards, setRewards] = useState<number | null>(null);
 
   const { address } = useAccount();
 
   const { chain } = useContext(ChainContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
@@ -94,10 +98,26 @@ const ClaimingButton = ({
       args: [address as Address]
     });
 
+  const { data: getUserRewardsDataNoTyped, refetch: refetchUserRewards } =
+    useReadContract({
+      address: contracts[chain.id].trotelCoinStakingV2,
+      abi: abis[chain.id].trotelCoinStakingV2,
+      chainId: chain.id,
+      functionName: "getUserReward",
+      args: [address as Address]
+    });
+
   useEffect(() => {
     refetchStakings();
     refetchClaimConfirmation();
-  }, [blockNumber, address, refetchStakings, refetchClaimConfirmation]);
+    refetchUserRewards();
+  }, [
+    blockNumber,
+    address,
+    refetchStakings,
+    refetchClaimConfirmation,
+    refetchUserRewards
+  ]);
 
   useEffect(() => {
     let timestamp;
@@ -114,6 +134,11 @@ const ClaimingButton = ({
       let timeLeft: number = 0;
       if (startTime && duration) {
         timeLeft = startTime + duration - timestamp;
+      }
+
+      if (getUserRewardsDataNoTyped) {
+        const rewards = Number((getUserRewardsDataNoTyped as any[])[0]);
+        setRewards(rewards);
       }
 
       setStakedTrotelCoins(stakedTrotelCoins);
@@ -161,6 +186,18 @@ const ClaimingButton = ({
       chainId: chain.id,
       args: []
     });
+
+    await axios
+      .post("/api/events/staking/unstake", {
+        wallet: address,
+        amount: stakedTrotelCoins,
+        reward: rewards,
+        trotelPrice: trotelPrice,
+        chainId: chain.id
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (

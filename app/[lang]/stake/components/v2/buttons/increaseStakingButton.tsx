@@ -18,6 +18,8 @@ import { Address, Hash, parseEther } from "viem";
 import "animate.css";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import ChainContext from "@/contexts/chain";
+import axios from "axios";
+import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const IncreaseStakingButton = ({
   lang,
@@ -41,6 +43,7 @@ const IncreaseStakingButton = ({
 
   const { address } = useAccount();
   const { chain } = useContext(ChainContext);
+  const { trotelPrice } = useContext(TrotelPriceContext);
 
   const { data: blockNumber } = useBlockNumber({ watch: true });
 
@@ -143,6 +146,17 @@ const IncreaseStakingButton = ({
       abi: abis[chain.id].trotelCoinStakingV2,
       args: [stakingAmount]
     });
+
+    await axios
+      .post("/api/events/staking/increase-staking", {
+        wallet: address,
+        amount: amount,
+        trotelPrice: trotelPrice,
+        chainId: chain.id
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   useEffect(() => {

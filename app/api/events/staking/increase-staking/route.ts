@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Address } from "viem";
 import type { StakingLog } from "@/types/events/staking";
 
-/** GET /api/user/staking/stake
+/** GET /api/events/staking/increase-staking
  * Every staking event
  * @returns {object} staking_logs - The staking logs.
  * @example response - 200 - application/json
@@ -36,7 +36,7 @@ const inputSchema = z.object({
   chainId: z.number()
 });
 
-/** POST /api/user/staking/increase-staking
+/** POST /api/events/staking/increase-staking
  * Increases the staking amount of a user.
  * @param {string} wallet - The wallet address of the user.
  * @param {number} amount - The amount to stake.

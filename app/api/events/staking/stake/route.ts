@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Address } from "viem";
 import type { StakingLog } from "@/types/events/staking";
 
-/** GET /api/user/staking/stake
+/** GET /api/events/staking/stake
  * Every staking event
  * @returns {object} staking_logs - The staking logs.
  * @example response - 200 - application/json
@@ -35,7 +35,7 @@ const inputSchema = z.object({
   trotelPrice: z.number()
 });
 
-/** POST /api/user/staking/stake
+/** POST /api/events/staking/stake
  * Stakes an amount of TROTEL for a duration.
  * @param {string} wallet - The wallet address of the user.
  * @param {number} amount - The amount to stake.

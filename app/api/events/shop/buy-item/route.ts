@@ -4,7 +4,7 @@ import { z } from "zod";
 import { Address } from "viem";
 import type { ShopLog } from "@/types/events/shop";
 
-/** GET /api/user/shop/buy-item
+/** GET /api/events/shop/buy-item
  * Every shop event
  * @returns {object} shop_logs - The shop logs.
  * @example response - 200 - application/json
@@ -37,7 +37,7 @@ const inputSchema = z.object({
   chainId: z.number()
 });
 
-/** POST /api/user/shop/buy-item
+/** POST /api/events/shop/buy-item
  * Increases the staking amount of a user.
  * @param {string} wallet - The wallet address of the user.
  * @param {number} itemId - The ID of the item to buy.

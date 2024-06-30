@@ -20,6 +20,7 @@ import { Skeleton } from "@radix-ui/themes";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
+import axios from "axios";
 
 const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   const [allowance, setAllowance] = useState<number | null>(null);
@@ -131,6 +132,40 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
       }
     }
   });
+
+  const handleBuyItem = async () => {
+    if (!address) {
+      setErrorMessage(true);
+      return;
+    }
+
+    if (shopItem.quantity && shopItem.quantity <= 0) {
+      setErrorMessage(true);
+      return;
+    }
+
+    await buyItem({
+      address: contracts[chain.id].trotelCoinShop,
+      abi: abis[chain.id].trotelCoinShop,
+      functionName: "buyItem",
+      chainId: chain.id,
+      args: [shopItem.id, shopItem.quantity as number],
+      account: address
+    });
+
+    await axios
+      .post(`/api/events/shop/buy-item`, {
+        wallet: address,
+        itemId: shopItem.id,
+        quantity: shopItem.quantity,
+        price: shopItem.price,
+        trotelPrice: trotelPrice,
+        chainId: chain.id
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const { data: purchaseConfirmation, refetch: refetchPurchaseConfirmation } =
     useTransactionConfirmations({
@@ -294,14 +329,7 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                   lang={lang}
                   text={lang === "en" ? `Buy` : `Acheter`}
                   onClick={() => {
-                    buyItem({
-                      address: contracts[chain.id].trotelCoinShop,
-                      abi: abis[chain.id].trotelCoinShop,
-                      functionName: "buyItem",
-                      chainId: chain.id,
-                      args: [shopItem.id, shopItem.quantity as number],
-                      account: address
-                    });
+                    handleBuyItem();
                   }}
                   isLoading={isLoading}
                   disabled={disabled || needApproval}
