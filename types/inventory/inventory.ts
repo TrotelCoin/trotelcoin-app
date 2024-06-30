@@ -6,7 +6,6 @@ export type InventoryItemType = {
   emoji: string;
   id: number;
   description: string;
-  implicitQuantity?: number;
 };
 
 export type InventoryItemTypeFinal = {
@@ -17,5 +16,4 @@ export type InventoryItemTypeFinal = {
   emoji: string;
   id: number;
   description: string;
-  implicitQuantity?: number;
 };
