@@ -75,6 +75,9 @@ const CourseContent = ({
                   title: title,
                   text: `Wanna learn about ${title}? \n\nCheck out this TrotelCoin course and start earning cryptocurrencies! \n\n${URL}`
                 });
+              } else {
+                const twitterURL = `https://twitter.com/intent/tweet?text=Wanna learn about ${title}? \n\nCheck out this TrotelCoin course and start earning cryptocurrencies! \n\n${URL}`;
+                window.open(twitterURL, "_blank");
               }
             }}
             className="rounded-full bg-white p-2 text-gray-900 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-100 dark:hover:bg-gray-800"
