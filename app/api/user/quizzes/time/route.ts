@@ -86,7 +86,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
   try {
     const { quizId, wallet, diffTime } = inputSchemaPost.safeParse({
-      quizId: body.quizId,
+      quizId: Number(body.quizId),
       wallet: body.wallet,
       diffTime: body.diffTime
     }).data as unknown as { quizId: number; wallet: Address; diffTime: number };

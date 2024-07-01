@@ -66,11 +66,11 @@ export async function POST(req: NextRequest) {
     const { data: result } = await supabase.from("shop_logs").insert({
       wallet,
       event: "Buy Item" as ShopEvent,
-      item_id: itemId,
+      item_id: Number(itemId),
       quantity,
       price,
-      trotel_price: trotelPrice,
-      chain_id: chainId,
+      trotel_price: Number(trotelPrice),
+      chain_id: Number(chainId),
       event_at: new Date().toISOString()
     });
 

@@ -125,7 +125,7 @@ const RewardsModal = ({
                                   rewards as number
                                 )} TROTEL, d'une valeur de $${roundPrice(
                                   (rewards as number) * (trotelPrice as number)
-                                )}.`}
+                                )}.`}{" "}
                             {lang === "en"
                               ? "You have now"
                               : "Vous avez maintenant"}{" "}
@@ -218,8 +218,8 @@ const RewardsModal = ({
                           </Skeleton>
                           <p className="text-sm text-gray-700 dark:text-gray-300">
                             {lang === "en"
-                              ? `You're total learning time is ${Math.floor(learningTime as number) * 1e-3} seconds.`
-                              : `Votre temps d'apprentissage total est de ${Math.floor(learningTime as number) * 1e-3} secondes.`}
+                              ? `You're total learning time is ${Math.floor((learningTime as number) * 1e-3)} seconds.`
+                              : `Votre temps d'apprentissage total est de ${Math.floor((learningTime as number) * 1e-3)} secondes.`}
                           </p>
                         </div>
                       </>

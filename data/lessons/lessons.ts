@@ -477,7 +477,7 @@ export const lessons: Lessons[] = [
         new: new Date("2024-07-01") > twoWeeksAgo,
         quizId: 44,
         available: true,
-        cover: "/assets/courses/solana/introduction-to-solana.jpg"
+        cover: "/assets/courses/solana/introduction-to-solana.png"
       }
     ]
   },
