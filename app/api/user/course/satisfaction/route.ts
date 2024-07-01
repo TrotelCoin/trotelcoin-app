@@ -37,7 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { wallet, rating, quizId } = inputSchema.safeParse({
       wallet: body.wallet,
       rating: body.rating,
-      quizId: body.quizId
+      quizId: Number(body.quizId)
     }).data as unknown as { wallet: Address; rating: number; quizId: number };
 
     const { data: verification } = await supabase

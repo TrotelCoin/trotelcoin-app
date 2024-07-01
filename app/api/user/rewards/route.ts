@@ -9,7 +9,7 @@ import { calculateRewards } from "@/utils/rewards/calculateRewards";
 
 export const dynamic = "force-dynamic";
 
-const inputSchema = z.object({
+const getInputSchema = z.object({
   wallet: z.custom<Address>()
 });
 
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { wallet } = inputSchema.safeParse({
+    const { wallet } = getInputSchema.safeParse({
       wallet: searchParams.get("wallet")
     }).data as unknown as { wallet: Address };
 
@@ -57,6 +57,12 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
+const postInputSchema = z.object({
+  wallet: z.custom<Address>(),
+  quizId: z.number(),
+  multipliers: z.number()
+});
+
 /* POST /api/user/rewards
  * Updates the rewards of a user.
  * @param {string} wallet - The wallet of the user.
@@ -78,9 +84,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    const { wallet, quizId, multipliers } = inputSchema.safeParse({
+    const { wallet, quizId, multipliers } = postInputSchema.safeParse({
       wallet: body.wallet,
-      quizId: body.quizId,
+      quizId: Number(body.quizId),
       multipliers: body.multipliers
     }).data as unknown as {
       wallet: Address;

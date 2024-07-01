@@ -37,7 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { quizId, numberOfWrongAnswers, totalQuestions, wallet } =
       inputSchema.safeParse({
-        quizId: body.quizId,
+        quizId: Number(body.quizId),
         numberOfWrongAnswers: body.numberOfWrongAnswers,
         totalQuestions: body.totalQuestions,
         wallet: body.wallet
