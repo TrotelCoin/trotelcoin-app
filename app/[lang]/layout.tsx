@@ -11,7 +11,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import NextTopLoader from "nextjs-toploader";
 import Banner from "@/app/[lang]/components/banner/banner";
-import Changelogs from "@/app/[lang]/components/changelogs/changelogs";
 import Footer from "@/app/[lang]/components/navigation/footer";
 import Header from "@/app/[lang]/components/navigation/header";
 import Loading from "@/app/[lang]/components/loading";
@@ -160,9 +159,6 @@ export default function Layout({
                                       >
                                         <Waitlist lang={lang}>
                                           <Banner lang={lang} />
-                                          <div className="hidden">
-                                            <Changelogs lang={lang} />
-                                          </div>
                                           <Header lang={lang} />
 
                                           <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">

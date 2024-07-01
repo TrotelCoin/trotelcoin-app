@@ -4080,6 +4080,128 @@ const quizzes: QuizData = [
         }
       }
     ]
+  },
+  {
+    title: "What is Solana: a high-performance blockchain?",
+    quizId: 44,
+    questions: [
+      {
+        questionId: 1,
+        question: {
+          en: "What is Solana primarily designed for?",
+          fr: "À quoi Solana est-elle principalement conçue ?"
+        },
+        options: {
+          en: [
+            "To make transactions faster and cheaper",
+            "To support Bitcoin mining",
+            "To act as a centralized database",
+            "To provide social media services"
+          ],
+          fr: [
+            "Pour rendre les transactions plus rapides et moins chères",
+            "Pour soutenir le minage de Bitcoin",
+            "Pour agir comme une base de données centralisée",
+            "Pour fournir des services pour les réseaux sociaux"
+          ]
+        }
+      },
+      {
+        questionId: 2,
+        question: {
+          en: "Who founded Solana?",
+          fr: "Qui a fondé Solana ?"
+        },
+        options: {
+          en: [
+            "Anatoly Yakovenko",
+            "Vitalik Buterin",
+            "Satoshi Nakamoto",
+            "Charlie Lee"
+          ],
+          fr: [
+            "Anatoly Yakovenko",
+            "Vitalik Buterin",
+            "Satoshi Nakamoto",
+            "Charlie Lee"
+          ]
+        }
+      },
+      {
+        questionId: 3,
+        question: {
+          en: "When was Solana launched?",
+          fr: "Quand Solana a-t-elle été lancée ?"
+        },
+        options: {
+          en: ["March 2020", "January 2018", "June 2019", "December 2021"],
+          fr: ["Mars 2020", "Janvier 2018", "Juin 2019", "Décembre 2021"]
+        }
+      },
+      {
+        questionId: 4,
+        question: {
+          en: "What is the transaction speed of Solana?",
+          fr: "Quelle est la vitesse de transaction de Solana ?"
+        },
+        options: {
+          en: [
+            "Up to 65,000 transactions per second",
+            "Up to 1,000 transactions per second",
+            "Up to 10,000 transactions per second",
+            "Up to 1,000,000 transactions per second"
+          ],
+          fr: [
+            "Jusqu'à 65 000 transactions par seconde",
+            "Jusqu'à 1 000 transactions par seconde",
+            "Jusqu'à 10 000 transactions par seconde",
+            "Jusqu'à 1 000 000 transactions par seconde"
+          ]
+        }
+      },
+      {
+        questionId: 5,
+        question: {
+          en: "What unique feature does Solana use for its architecture?",
+          fr: "Quelle caractéristique unique Solana utilise-t-elle pour son architecture ?"
+        },
+        options: {
+          en: [
+            "Proof of History",
+            "Proof of Work",
+            "Proof of Burn",
+            "Proof of Capacity"
+          ],
+          fr: [
+            "Proof of History",
+            "Proof of Work",
+            "Proof of Burn",
+            "Proof of Capacity"
+          ]
+        }
+      },
+      {
+        questionId: 6,
+        question: {
+          en: "What is the purpose of the SOL token?",
+          fr: "Quel est l'objectif du token SOL ?"
+        },
+        options: {
+          en: [
+            "To pay transaction fees and participate as a validator",
+            "To mine new blocks",
+            "To govern the blockchain",
+            "To act as a stablecoin"
+          ],
+          fr: [
+            "Pour payer les frais de transaction et participer en tant que validateur",
+            "Pour miner de nouveaux blocs",
+            "Pour gouverner la blockchain",
+            "Pour agir en tant que stablecoin"
+          ]
+        }
+      }
+    ]
   }
 ];
 

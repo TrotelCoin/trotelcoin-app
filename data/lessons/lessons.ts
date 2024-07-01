@@ -455,6 +455,33 @@ export const lessons: Lessons[] = [
     ]
   },
   {
+    category: "Solana",
+    categoryUrl: "solana",
+    courses: [
+      {
+        title: {
+          en: "What is Solana: a high-performance blockchain?",
+          fr: "Qu'est-ce que Solana : une blockchain haute performance ?"
+        },
+        description: {
+          en: "Learn about Solana, a high-performance blockchain designed for decentralized applications.",
+          fr: "Découvrez Solana, une blockchain haute performance conçue pour les applications décentralisées."
+        },
+        href: "/solana/introduction-to-solana",
+        tier: {
+          en: "Beginner",
+          fr: "Débutant"
+        },
+        date: new Date("2024-07-01"),
+        sponsored: false,
+        new: new Date("2024-07-01") > twoWeeksAgo,
+        quizId: 44,
+        available: true,
+        cover: "/assets/courses/solana/introduction-to-solana.jpg"
+      }
+    ]
+  },
+  {
     category: "NFTs",
     categoryUrl: "nfts",
     courses: [
