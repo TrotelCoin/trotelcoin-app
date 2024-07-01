@@ -33,7 +33,8 @@ export type LessonCategory =
   | "Trading"
   | "Investing"
   | "New Courses"
-  | "BIM Finance";
+  | "BIM Finance"
+  | "Solana";
 
 export interface Lessons {
   category: LessonCategory;

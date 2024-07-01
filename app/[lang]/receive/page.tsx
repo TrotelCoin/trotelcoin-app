@@ -26,7 +26,7 @@ const Receive = ({ params: { lang } }: { params: { lang: Lang } }) => {
         console.error("Error sharing", error);
       }
     } else {
-      const url = `https://twitter.com/intent/tweet?text=Want to send me some TROTEL? \n\nStart your crypto learning journey with TrotelCoin today at https://app.trotelcoin.com. \n\nLet's dive into the world of Web3 together! \n\nHere's my crypto address: ${address}`;
+      const url = `https://twitter.com/intent/tweet?text=Want to send me some TROTEL? \n\n\nStart your crypto learning journey with TrotelCoin today at https://app.trotelcoin.com. \n\n\nLet's dive into the world of Web3 together! \n\n\nHere's my crypto address: ${address}`;
       window.open(url, "_blank");
     }
   };
