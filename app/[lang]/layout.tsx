@@ -157,18 +157,16 @@ export default function Layout({
                                       <Suspense
                                         fallback={<Loading lang={lang} />}
                                       >
-                                        <Waitlist lang={lang}>
-                                          <Banner lang={lang} />
-                                          <Header lang={lang} />
+                                        <Banner lang={lang} />
+                                        <Header lang={lang} />
 
-                                          <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">
-                                            {children}
-                                          </main>
+                                        <main className="lg:py-18 max-w-5xl px-4 py-12 lg:mx-auto lg:px-8">
+                                          {children}
+                                        </main>
 
-                                          <Footer lang={lang} />
-                                          <MobileFooter lang={lang} />
-                                          <BlockNumber lang={lang} />
-                                        </Waitlist>
+                                        <Footer lang={lang} />
+                                        <MobileFooter lang={lang} />
+                                        <BlockNumber lang={lang} />
                                       </Suspense>
                                     </NotificationProvider>
                                   </LanguageProvider>
