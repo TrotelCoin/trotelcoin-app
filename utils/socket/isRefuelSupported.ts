@@ -21,7 +21,12 @@ export const isRefuelSupported = async (
     return Number(chain.id) === Number(toChain.id);
   });
 
-  if (!fromChainResponse || !toChainResponse || fromChainResponse.length === 0 || toChainResponse.length === 0) {
+  if (
+    !fromChainResponse ||
+    !toChainResponse ||
+    fromChainResponse.length === 0 ||
+    toChainResponse.length === 0
+  ) {
     return false;
   }
 
