@@ -134,7 +134,7 @@ const ChainList = ({
                                 <div
                                   className={classNames(
                                     "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
-                                    chain.icon
+                                    chain.icon as string
                                   )}
                                 >
                                   <img
@@ -143,7 +143,7 @@ const ChainList = ({
                                     className="rounded-full"
                                     aria-hidden="true"
                                     alt="Chain logo"
-                                    src={chain.icon}
+                                    src={chain.icon as string}
                                   />
                                 </div>
 
@@ -166,8 +166,7 @@ const ChainList = ({
                                         : "text-gray-700 dark:text-gray-300"
                                     )}
                                   >
-                                    {convertSocketChainToExtendedChain(chain)
-                                      ?.nativeCurrency?.symbol ?? ""}
+                                    {chain?.nativeCurrency?.symbol ?? ""}
                                   </p>
                                 </div>
                                 {(chain.id === fromChain.id &&

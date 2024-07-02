@@ -21,9 +21,13 @@ export const isRefuelSupported = async (
     return Number(chain.id) === Number(toChain.id);
   });
 
+  if (!fromChainResponse || !toChainResponse || fromChainResponse.length === 0 || toChainResponse.length === 0) {
+    return false;
+  }
+
   const refuelEnabled: boolean =
-    fromChainResponse[0].refuel.sendingEnabled &&
-    toChainResponse[0].refuel.receivingEnabled;
+    (fromChainResponse[0]?.refuel?.sendingEnabled as boolean) &&
+    (toChainResponse[0]?.refuel?.receivingEnabled as boolean);
 
   return refuelEnabled;
 };
