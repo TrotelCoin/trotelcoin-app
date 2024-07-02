@@ -19,19 +19,9 @@ const StakingV1 = ({
   showTrotelInUsdc: boolean;
   storedTrotelPrice: number;
 }) => {
-  const [chainError, setChainError] = useState<boolean>(false);
-
   const { address } = useAccount();
   const chainId = useChainId();
   const { chain } = useContext(ChainContext);
-
-  useEffect(() => {
-    if (chainId !== chain.id) {
-      setChainError(true);
-    } else {
-      setChainError(false);
-    }
-  }, [chainId, chain]);
 
   return (
     <>
@@ -52,11 +42,7 @@ const StakingV1 = ({
         <div className="mt-4 w-full">
           {address ? (
             <div className="grid grid-cols-1">
-              <ClaimingButton
-                lang={lang}
-                chainError={chainError}
-                setChainError={setChainError}
-              />
+              <ClaimingButton lang={lang} />
             </div>
           ) : (
             <Wallet lang={lang} isFull={true} isCentered={true} />

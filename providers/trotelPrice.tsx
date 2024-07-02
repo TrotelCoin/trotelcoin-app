@@ -3,10 +3,11 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 import { useReadContract, useBlockNumber } from "wagmi";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import { roundPrice } from "@/utils/price/roundPrice";
 import ChainContext from "@/contexts/chain";
+import { polygon } from "viem/chains";
 
 const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
   const [trotelPrice, setTrotelPrice] = useState<number | null>(null);
@@ -36,29 +37,21 @@ const TrotelPriceProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [trotelPrice, storedTrotelPrice]);
 
-  useEffect(() => {
-    if (chain.testnet) {
-      setShowTrotelInUsdc(false);
-      setStoredTrotelPrice(1);
-      setTrotelPriceLoading(false);
-    }
-  }, [chain]);
-
   const { data: blockNumber } = useBlockNumber({
     chainId: chain.id,
     watch: true
   });
 
   const { data: trotelSlot0, refetch: refetchTrotelSlot0 } = useReadContract({
-    abi: abis[chain.id].trotelCoinPolygonUniswapV3Pool,
-    address: contracts[chain.id].trotelCoinPolygonUniswapV3Pool,
+    abi: getAbi(chain.id, "trotelCoinPolygonUniswapV3Pool"),
+    address: getContractAddress(chain.id, "trotelCoinPolygonUniswapV3Pool"),
     functionName: "slot0",
     chainId: chain.id
   });
 
   const { data: usdcSlot0, refetch: refetchUsdcSlot0 } = useReadContract({
-    abi: abis[chain.id].usdcPolygonUniswapV3Pool,
-    address: contracts[chain.id].usdcPolygonUniswapV3Pool,
+    abi: getAbi(chain.id, "usdcPolygonUniswapV3Pool"),
+    address: getContractAddress(chain.id, "usdcPolygonUniswapV3Pool"),
     functionName: "slot0",
     chainId: chain.id
   });

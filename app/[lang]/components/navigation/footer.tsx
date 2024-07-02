@@ -108,37 +108,30 @@ export default function Footer({ lang }: { lang: Lang }) {
           anotherWindow: false
         },
         {
-          name: lang === "en" ? "Claim TROTEL" : "Réclamez vos TROTEL",
-          href: `/${lang}/claim`,
-          display: true,
-          id: 2,
-          anotherWindow: false
-        },
-        {
           name: lang === "en" ? "Buy TROTEL" : "Achetez des TROTEL",
           href: `/${lang}/buy`,
           display: true,
-          id: 3,
+          id: 2,
           anotherWindow: false
         },
         {
           name: lang === "en" ? "Stake TROTEL" : "Stakez vos TROTEL",
           href: `/${lang}/stake`,
           display: true,
-          id: 4,
+          id: 3,
           anotherWindow: false
         },
         {
           name: lang === "en" ? "Send TROTEL" : "Envoyez vos TROTEL",
           href: `/${lang}/send`,
           display: true,
-          id: 5
+          id: 4
         },
         {
           name: lang === "en" ? "Receive TROTEL" : "Recevez des TROTEL",
           href: `/${lang}/receive`,
           display: true,
-          id: 6
+          id: 5
         }
       ]
     },

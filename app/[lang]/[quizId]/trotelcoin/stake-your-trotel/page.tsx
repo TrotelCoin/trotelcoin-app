@@ -4,10 +4,10 @@ import type { Lang } from "@/types/language/lang";
 import Course from "@/app/[lang]/components/courses/courseScreen/course";
 import { useContext, useEffect, useState } from "react";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import { formatEther, Address } from "viem";
 import ChainContext from "@/contexts/chain";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 
 const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [condition, setCondition] = useState<boolean>(false);
@@ -23,16 +23,16 @@ const CoursePage = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV1,
-    address: contracts[chain.id].trotelCoinStakingV1,
+    abi: getAbi(chain.id, "trotelCoinStakingV1"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV1"),
     functionName: "stakings",
     args: [address as Address]
   });
 
   const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV2,
-    address: contracts[chain.id].trotelCoinStakingV2,
+    abi: getAbi(chain.id, "trotelCoinStakingV2"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV2"),
     functionName: "stakings",
     args: [address as Address]
   });

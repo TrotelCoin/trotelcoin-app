@@ -1,6 +1,6 @@
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import { config } from "@/config/Web3ModalConfig";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import { readContract } from "@wagmi/core";
 import { Address, Chain, formatEther } from "viem";
 
@@ -23,8 +23,8 @@ export const fetchInventory = async (
   for (let item = 1; item <= totalItems; item++) {
     try {
       const userQuantity = (await readContract(config, {
-        address: contracts[chain.id].trotelCoinShop,
-        abi: abis[chain.id].trotelCoinShop,
+        address: getContractAddress(chain.id, "trotelCoinShop"),
+        abi: getAbi(chain.id, "trotelCoinShop"),
         functionName: "getItemQuantity",
         chainId: chain.id,
         account: address,
@@ -32,8 +32,8 @@ export const fetchInventory = async (
       })) as bigint;
 
       const userItem = (await readContract(config, {
-        address: contracts[chain.id].trotelCoinShop,
-        abi: abis[chain.id].trotelCoinShop,
+        address: getContractAddress(chain.id, "trotelCoinShop"),
+        abi: getAbi(chain.id, "trotelCoinShop"),
         functionName: "getItemInformations",
         chainId: chain.id,
         account: address,

@@ -11,8 +11,8 @@ import {
   useTransactionConfirmations,
   useWriteContract
 } from "wagmi";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import { formatEther, Hash, parseEther, Address } from "viem";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
@@ -47,12 +47,12 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
   });
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
-    address: contracts[chain.id].trotelCoinAddress,
-    abi: abis[chain.id].trotelCoin,
+    address: getContractAddress(chain.id, "trotelCoinAddress"),
+    abi: getAbi(chain.id, "trotelCoin"),
     functionName: "allowance",
     chainId: chain.id,
     account: address,
-    args: [address as Address, contracts[chain.id].trotelCoinShop]
+    args: [address as Address, getContractAddress(chain.id, "trotelCoinShop")]
   });
 
   useEffect(() => {
@@ -145,8 +145,8 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
     }
 
     await buyItem({
-      address: contracts[chain.id].trotelCoinShop,
-      abi: abis[chain.id].trotelCoinShop,
+      address: getContractAddress(chain.id, "trotelCoinShop"),
+      abi: getAbi(chain.id, "trotelCoinShop"),
       functionName: "buyItem",
       chainId: chain.id,
       args: [shopItem.id, shopItem.quantity as number],
@@ -316,11 +316,11 @@ const Item = ({ lang, shopItem }: { lang: Lang; shopItem: ItemTypeFinal }) => {
                       )
                     );
                     approve({
-                      address: contracts[chain.id].trotelCoinAddress,
-                      abi: abis[chain.id].trotelCoin,
+                      address: getContractAddress(chain.id, "trotelCoinAddress"),
+                      abi: getAbi(chain.id, "trotelCoin"),
                       functionName: "approve",
                       chainId: chain.id,
-                      args: [contracts[chain.id].trotelCoinShop, amount]
+                      args: [getContractAddress(chain.id, "trotelCoinShop"), amount]
                     });
                   }}
                   isLoading={isLoading}

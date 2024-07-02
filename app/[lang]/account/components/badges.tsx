@@ -1,11 +1,11 @@
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import type { Badge, Badges, BadgesNames } from "@/types/components/badges";
 import type { Lang } from "@/types/language/lang";
 import { Address, formatEther } from "viem";
 import { useReadContract, useBalance, useAccount, useBlockNumber } from "wagmi";
 import BadgesList from "@/app/[lang]/account/components/badges/badgesList";
 import { useContext, useEffect, useState } from "react";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import PremiumContext from "@/contexts/premium";
 import StreakContext from "@/contexts/streak";
 import UserContext from "@/contexts/user";
@@ -37,16 +37,16 @@ const BadgesSection = ({ lang }: { lang: Lang }) => {
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: chain.id,
     address: address as Address,
-    token: contracts[chain.id].trotelCoinAddress
+    token: getContractAddress(chain.id, "trotelCoinAddress")
   });
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: contracts[chain.id].trotelCoinStakingV1,
+      address: getContractAddress(chain.id, "trotelCoinStakingV1"),
       functionName: "stakings",
       args: [address as Address],
       chainId: chain.id,
-      abi: abis[chain.id].trotelCoinStakingV1
+      abi: getAbi(chain.id, "trotelCoinStakingV1")
     });
 
   useEffect(() => {

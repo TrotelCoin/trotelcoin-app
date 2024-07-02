@@ -8,8 +8,8 @@ import {
   useBlockNumber,
   useWriteContract
 } from "wagmi";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { parseEther, formatEther } from "viem";
 import "animate.css";
@@ -19,14 +19,10 @@ import ChainContext from "@/contexts/chain";
 const ApproveButton = ({
   lang,
   amount,
-  chainError,
-  setChainError,
   isMax
 }: {
   lang: Lang;
   amount: number;
-  chainError: boolean;
-  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
   isMax: boolean;
 }) => {
   const [disabled, setDisabled] = useState<boolean>(false);
@@ -43,7 +39,7 @@ const ApproveButton = ({
 
   const { data: balance, refetch: refetchBalance } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
     address: address
   });
 
@@ -79,11 +75,11 @@ const ApproveButton = ({
     }
 
     await writeContractAsync({
-      args: [contracts[chain.id].trotelCoinStakingV2, approveAmount],
-      address: contracts[chain.id].trotelCoinAddress,
+      args: [getContractAddress(chain.id, "trotelCoinStakingV2"), approveAmount],
+      address: getContractAddress(chain.id, "trotelCoinAddress"),
       functionName: "approve",
       chainId: chain.id,
-      abi: abis[chain.id].trotelCoin
+      abi: getAbi(chain.id, "trotelCoin")
     });
   };
 
@@ -116,19 +112,6 @@ const ApproveButton = ({
         title={lang === "en" ? "Error" : "Erreur"}
         message={
           lang === "en" ? "An error occurred" : "Une erreur s'est produite"
-        }
-      />
-      <FailNotification
-        display={chainError && Boolean(address)}
-        onClose={() => {
-          setChainError(false);
-        }}
-        lang={lang}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "You are on the wrong network"
-            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>

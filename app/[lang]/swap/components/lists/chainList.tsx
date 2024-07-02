@@ -3,7 +3,8 @@ import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Lang } from "@/types/language/lang";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import type { Chain } from "@/types/web3/chain";
+import type { ExtendedChain } from "@/types/web3/chain";
+import { convertSocketChainToExtendedChain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Skeleton } from "@radix-ui/themes";
@@ -25,28 +26,34 @@ const ChainList = ({
   toChain
 }: {
   lang: Lang;
-  setFromChain: React.Dispatch<React.SetStateAction<Chain>>;
-  setToChain: React.Dispatch<React.SetStateAction<Chain>>;
-  fromChains: Chain[];
-  toChains: Chain[];
+  setFromChain: React.Dispatch<React.SetStateAction<ExtendedChain>>;
+  setToChain: React.Dispatch<React.SetStateAction<ExtendedChain>>;
+  fromChains: ExtendedChain[];
+  toChains: ExtendedChain[];
   chainList: ChainSource;
   openChainList: boolean;
   setOpenChainList: React.Dispatch<React.SetStateAction<boolean>>;
-  fromChain: Chain;
-  toChain: Chain;
+  fromChain: ExtendedChain;
+  toChain: ExtendedChain;
 }) => {
   const [query, setQuery] = useState("");
 
-  const chains: Chain[] = chainList === "from" ? fromChains : toChains;
+  const chains: ExtendedChain[] = chainList === "from" ? fromChains : toChains;
 
-  const filteredChains = chains.filter(
-    (chain: Chain) =>
+  const filteredChains = chains.filter((chain: ExtendedChain) => {
+    return (
       chain.name.toLowerCase().includes(query.toLowerCase()) ||
-      chain.chainId.toString().toLowerCase().includes(query.toLowerCase()) ||
-      chain.currency.address.toLowerCase().includes(query.toLowerCase()) ||
-      chain.currency.symbol.toLowerCase().includes(query.toLowerCase()) ||
-      chain.currency.name.toLowerCase().includes(query.toLowerCase())
-  );
+      chain.id.toString().toLowerCase().includes(query.toLowerCase()) ||
+      (chain.nativeCurrency.address &&
+        chain.nativeCurrency.address
+          .toLowerCase()
+          .includes(query.toLowerCase())) ||
+      (chain.nativeCurrency && chain.nativeCurrency.symbol)
+        .toLowerCase()
+        .includes(query.toLowerCase()) ||
+      chain.nativeCurrency.name.toLowerCase().includes(query.toLowerCase())
+    );
+  });
 
   return (
     <Transition.Root
@@ -101,77 +108,80 @@ const ChainList = ({
                     static
                     className="max-h-96 transform-gpu scroll-py-3 overflow-y-auto p-3"
                   >
-                    {filteredChains.map((chain: Chain, index: number) => (
-                      <Combobox.Option
-                        key={index}
-                        value={chain.name}
-                        onClick={() => {
-                          if (chainList === "from") {
-                            setFromChain(chain);
-                          } else {
-                            setToChain(chain);
+                    {filteredChains.map(
+                      (chain: ExtendedChain, index: number) => (
+                        <Combobox.Option
+                          key={index}
+                          value={chain.name}
+                          onClick={() => {
+                            if (chainList === "from") {
+                              setFromChain(chain);
+                            } else {
+                              setToChain(chain);
+                            }
+                            setOpenChainList(false);
+                          }}
+                          className={({ active }) =>
+                            classNames(
+                              "flex cursor-pointer select-none rounded-xl p-3",
+                              active && "bg-gray-100 dark:bg-gray-700"
+                            )
                           }
-                          setOpenChainList(false);
-                        }}
-                        className={({ active }) =>
-                          classNames(
-                            "flex cursor-pointer select-none rounded-xl p-3",
-                            active && "bg-gray-100 dark:bg-gray-700"
-                          )
-                        }
-                      >
-                        {({ active }) => (
-                          <>
-                            <div className="flex w-full items-center justify-between">
-                              <div
-                                className={classNames(
-                                  "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
-                                  chain.icon
-                                )}
-                              >
-                                <img
-                                  width={48}
-                                  height={48}
-                                  className="rounded-full"
-                                  aria-hidden="true"
-                                  alt="Chain logo"
-                                  src={chain.icon}
-                                />
-                              </div>
+                        >
+                          {({ active }) => (
+                            <>
+                              <div className="flex w-full items-center justify-between">
+                                <div
+                                  className={classNames(
+                                    "flex h-10 w-10 flex-none items-center justify-center rounded-xl",
+                                    chain.icon
+                                  )}
+                                >
+                                  <img
+                                    width={48}
+                                    height={48}
+                                    className="rounded-full"
+                                    aria-hidden="true"
+                                    alt="Chain logo"
+                                    src={chain.icon}
+                                  />
+                                </div>
 
-                              <div className="ml-4 flex-auto">
-                                <p
-                                  className={classNames(
-                                    "text-sm font-medium",
-                                    active
-                                      ? "text-gray-900 dark:text-gray-100"
-                                      : "text-gray-700 dark:text-gray-300"
-                                  )}
-                                >
-                                  {chain.name}
-                                </p>
-                                <p
-                                  className={classNames(
-                                    "text-sm",
-                                    active
-                                      ? "text-gray-700 dark:text-gray-300"
-                                      : "text-gray-700 dark:text-gray-300"
-                                  )}
-                                >
-                                  {chain.currency.symbol}
-                                </p>
+                                <div className="ml-4 flex-auto">
+                                  <p
+                                    className={classNames(
+                                      "text-sm font-medium",
+                                      active
+                                        ? "text-gray-900 dark:text-gray-100"
+                                        : "text-gray-700 dark:text-gray-300"
+                                    )}
+                                  >
+                                    {chain?.name}
+                                  </p>
+                                  <p
+                                    className={classNames(
+                                      "text-sm",
+                                      active
+                                        ? "text-gray-700 dark:text-gray-300"
+                                        : "text-gray-700 dark:text-gray-300"
+                                    )}
+                                  >
+                                    {convertSocketChainToExtendedChain(chain)
+                                      ?.nativeCurrency?.symbol ?? ""}
+                                  </p>
+                                </div>
+                                {(chain.id === fromChain.id &&
+                                  chainList === "from") ||
+                                  (chain.id === toChain.id &&
+                                    chainList === "to" && (
+                                      <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
+                                    ))}
                               </div>
-                              {((chain.chainId === fromChain.chainId &&
-                                chainList === "from") ||
-                                (chain.chainId === toChain.chainId &&
-                                  chainList === "to")) && (
-                                <CheckIcon className="h-6 w-6 text-gray-700 dark:text-gray-300" />
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </Combobox.Option>
-                    ))}
+                            </>
+                          )}
+                        </Combobox.Option>
+                      )
+                    )}
                   </Combobox.Options>
                 ) : (
                   <Combobox.Options

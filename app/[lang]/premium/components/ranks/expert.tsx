@@ -1,6 +1,6 @@
 "use client";
 
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import React, { useContext, useEffect, useState } from "react";
 import { Address, formatEther, Hash } from "viem";
 import {
@@ -14,7 +14,7 @@ import {
 import "animate.css";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
@@ -49,11 +49,11 @@ const Expert = ({ lang }: { lang: Lang }) => {
   });
 
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: contracts[chain.id].trotelCoinAddress,
-    abi: abis[chain.id].trotelCoin,
+    address: getContractAddress(chain.id, "trotelCoinAddress"),
+    abi: getAbi(chain.id, "trotelCoin"),
     functionName: "allowance",
     chainId: chain.id,
-    args: [address as Address, contracts[chain.id].trotelCoinExpertAddress],
+    args: [address as Address, getContractAddress(chain.id, "trotelCoinExpertAddress")],
     account: address as Address
   });
 
@@ -93,13 +93,13 @@ const Expert = ({ lang }: { lang: Lang }) => {
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress
+    token: getContractAddress(chain.id, "trotelCoinAddress")
   });
 
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
-      address: contracts[chain.id].trotelCoinExpertAddress,
-      abi: abis[chain.id].trotelCoinExpert,
+      address: getContractAddress(chain.id, "trotelCoinExpertAddress"),
+      abi: getAbi(chain.id, "trotelCoinExpert"),
       functionName: "holdingRequirement",
       chainId: chain.id,
       account: address as Address
@@ -135,8 +135,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
   }, [claimConfirmation, claimConfirmed]);
 
   const { data: claimed, refetch: refetchBalanceExpert } = useReadContract({
-    address: contracts[chain.id].trotelCoinExpertAddress,
-    abi: abis[chain.id].trotelCoinExpert,
+    address: getContractAddress(chain.id, "trotelCoinExpertAddress"),
+    abi: getAbi(chain.id, "trotelCoinExpert"),
     functionName: "balanceOf",
     chainId: chain.id,
     args: [address as Address],
@@ -265,12 +265,12 @@ const Expert = ({ lang }: { lang: Lang }) => {
                     isLoading={isLoadingApproval || approved}
                     onClick={async () => {
                       await approvingAsync({
-                        address: contracts[chain.id].trotelCoinAddress,
-                        abi: abis[chain.id].trotelCoin,
+                        address: getContractAddress(chain.id, "trotelCoinAddress"),
+                        abi: getAbi(chain.id, "trotelCoin"),
                         functionName: "approve",
                         chainId: chain.id,
                         args: [
-                          contracts[chain.id].trotelCoinExpertAddress,
+                          getContractAddress(chain.id, "trotelCoinExpertAddress"),
                           holdingRequirement
                         ]
                       });
@@ -286,8 +286,8 @@ const Expert = ({ lang }: { lang: Lang }) => {
                     isLoading={isPending}
                     onClick={async () => {
                       await writeContractAsync({
-                        address: contracts[chain.id].trotelCoinExpertAddress,
-                        abi: abis[chain.id].trotelCoinExpert,
+                        address: getContractAddress(chain.id, "trotelCoinExpertAddress"),
+                        abi: getAbi(chain.id, "trotelCoinExpert"),
                         functionName: "mint",
                         chainId: chain.id,
                         args: [address as Address]

@@ -1,6 +1,6 @@
 "use client";
 
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import CountUp from "react-countup";
@@ -32,7 +32,7 @@ const TrotelCoinsDistributed = ({
 
   const { data } = useToken({
     chainId: chain.id,
-    address: contracts[chain.id].trotelCoinAddress
+    address: getContractAddress(chain.id, "trotelCoinAddress")
   });
 
   useEffect(() => {

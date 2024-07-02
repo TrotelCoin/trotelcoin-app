@@ -1,11 +1,11 @@
 import { Slippage, Sort } from "@/types/web3/swap";
 import { Token } from "@/types/web3/token";
-import { Address, parseUnits, getAddress } from "viem";
+import { Address, parseUnits, isAddressEqual } from "viem";
 import { getQuote } from "@/utils/socket/getQuote";
 import { getRouteTransactionData } from "@/utils/socket/getRouteTransactionData";
 import { nativeAddress } from "@/data/web3/tokens";
-import { Chain } from "@/types/web3/chain";
-import contracts from "@/data/web3/addresses";
+import type { Chain } from "viem";
+import { getContractAddress } from "@/data/web3/addresses";
 
 export const fetchQuote = async (
   fromAmount: number,
@@ -49,9 +49,9 @@ export const fetchQuote = async (
     : 0;
 
   const quote = await getQuote(
-    fromChain.chainId,
+    fromChain.id,
     fromToken.address,
-    toChain.chainId,
+    toChain.id,
     toToken.address,
     fromAmountDecimals,
     userAddress,
@@ -104,9 +104,11 @@ export const fetchQuote = async (
     fromAmount &&
     fromToken &&
     fromToken.address &&
-    contracts[fromChain.chainId].trotelCoinAddress &&
-    getAddress(fromToken.address) ===
-      getAddress(contracts[fromChain.chainId].trotelCoinAddress)
+    getContractAddress(fromChain.id, "trotelCoinAddress") &&
+    isAddressEqual(
+      fromToken.address,
+      getContractAddress(fromChain.id, "trotelCoinAddress")
+    )
   ) {
     setFromPrice(trotelPrice * fromAmount * 1e-18);
   }
@@ -115,9 +117,11 @@ export const fetchQuote = async (
     toAmount &&
     toToken &&
     toToken.address &&
-    contracts[toChain.chainId].trotelCoinAddress &&
-    getAddress(toToken.address) ===
-      getAddress(contracts[toChain.chainId].trotelCoinAddress)
+    getContractAddress(toChain.id, "trotelCoinAddress") &&
+    isAddressEqual(
+      toToken.address,
+      getContractAddress(toChain.id, "trotelCoinAddress")
+    )
   ) {
     setToPrice(trotelPrice * toAmount * 1e-18);
   }

@@ -11,8 +11,8 @@ import ClaimingButton from "@/app/[lang]/stake/components/v2/buttons/claimingBut
 import ApproveButton from "@/app/[lang]/stake/components/v2/buttons/approveButton";
 import IncreaseStakingButton from "@/app/[lang]/stake/components/v2/buttons/increaseStakingButton";
 import StakingButton from "@/app/[lang]/stake/components/v2/buttons/stakingButton";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import ChainContext from "@/contexts/chain";
 
 const StakingV2 = ({
@@ -26,7 +26,6 @@ const StakingV2 = ({
   showTrotelInUsdc: boolean;
   storedTrotelPrice: number;
 }) => {
-  const [chainError, setChainError] = useState<boolean>(false);
   const [amount, setAmount] = useState<number | undefined>(undefined);
   const [isMax, setIsMax] = useState<boolean>(false);
   const [APR, setAPR] = useState<number | null>(null);
@@ -47,14 +46,6 @@ const StakingV2 = ({
   });
 
   const chainId = useChainId();
-
-  useEffect(() => {
-    if (chainId !== chain.id) {
-      setChainError(true);
-    } else {
-      setChainError(false);
-    }
-  }, [chainId, chain]);
 
   useEffect(() => {
     switch (stakingPeriod) {
@@ -86,9 +77,9 @@ const StakingV2 = ({
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
     chainId: chain.id,
-    args: [address as Address, contracts[chain.id].trotelCoinStakingV2],
-    abi: abis[chain.id].trotelCoin,
-    address: contracts[chain.id].trotelCoinAddress,
+    args: [address as Address, getContractAddress(chain.id, "trotelCoinStakingV2")],
+    abi: getAbi(chain.id, "trotelCoin"),
+    address: getContractAddress(chain.id, "trotelCoinAddress"),
     functionName: "allowance"
   });
 
@@ -108,8 +99,8 @@ const StakingV2 = ({
 
   const { data: stakingsData, refetch: refetchStakings } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV2,
-    address: contracts[chain.id].trotelCoinStakingV2,
+    abi: getAbi(chain.id, "trotelCoinStakingV2"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV2"),
     args: [address as Address],
     functionName: "stakings"
   });
@@ -206,31 +197,21 @@ const StakingV2 = ({
                   <ApproveButton
                     lang={lang}
                     amount={amount as number}
-                    chainError={chainError}
-                    setChainError={setChainError}
                     isMax={isMax}
                   />
                 ) : isStaking ? (
                   <IncreaseStakingButton
                     lang={lang}
                     amount={amount as number}
-                    chainError={chainError}
-                    setChainError={setChainError}
                   />
                 ) : (
                   <StakingButton
                     lang={lang}
                     stakingPeriod={stakingPeriod}
                     amount={amount as number}
-                    chainError={chainError}
-                    setChainError={setChainError}
                   />
                 )}
-                <ClaimingButton
-                  lang={lang}
-                  chainError={chainError}
-                  setChainError={setChainError}
-                />
+                <ClaimingButton lang={lang} />
               </div>
             </>
           ) : (

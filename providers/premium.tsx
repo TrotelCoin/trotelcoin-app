@@ -4,8 +4,8 @@ import { useAccount, useReadContract, useBlockNumber } from "wagmi";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import PremiumContext from "@/contexts/premium";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import { formatEther, Address } from "viem";
 import {
   expertStakingBalance,
@@ -28,23 +28,23 @@ const PremiumProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: early, refetch: refetchEarly } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinEarly,
-    address: contracts[chain.id].trotelCoinEarlyAddress,
+    abi: getAbi(chain.id, "trotelCoinEarly"),
+    address: getContractAddress(chain.id, "trotelCoinEarlyAddress"),
     functionName: "balanceOf",
     args: [address as Address]
   });
   const { data: stakingsDataV1, refetch: refetchStakingV1 } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV1,
-    address: contracts[chain.id].trotelCoinStakingV1,
+    abi: getAbi(chain.id, "trotelCoinStakingV1"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV1"),
     functionName: "stakings",
     args: [address as Address]
   });
 
   const { data: stakingsDataV2, refetch: refetchStakingV2 } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV2,
-    address: contracts[chain.id].trotelCoinStakingV2,
+    abi: getAbi(chain.id, "trotelCoinStakingV2"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV2"),
     functionName: "stakings",
     args: [address as Address]
   });

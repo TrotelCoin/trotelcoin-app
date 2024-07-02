@@ -3,8 +3,8 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { Lang } from "@/types/language/lang";
 import { useAccount, useBlockNumber, useReadContract } from "wagmi";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import { fetchInventory } from "@/utils/inventory/fetchInventory";
 import type { InventoryItemTypeFinal } from "@/types/inventory/inventory";
 import InventoryItem from "@/app/[lang]/inventory/components/inventoryItem";
@@ -33,8 +33,8 @@ const Inventory = ({ params: { lang } }: { params: { lang: Lang } }) => {
   });
 
   const { data: totalItemsData, refetch: refetchTotalItems } = useReadContract({
-    address: contracts[chain.id].trotelCoinShop,
-    abi: abis[chain.id].trotelCoinShop,
+    address: getContractAddress(chain.id, "trotelCoinShop"),
+    abi: getAbi(chain.id, "trotelCoinShop"),
     functionName: "getTotalItems",
     chainId: chain.id,
     account: address

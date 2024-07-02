@@ -2,10 +2,10 @@
 
 import ChainContext from "@/contexts/chain";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Chain, isAddressEqual, Address } from "viem";
+import { isAddressEqual, Address } from "viem";
+import { ExtendedChain } from "@/types/web3/chain";
 import { polygon, polygonAmoy } from "viem/chains";
 import { useAccount, useSwitchChain } from "wagmi";
-import { isSupportedChain } from "@/utils/chains/isSupportedChain";
 
 const testnetAddresses: Address[] = [
   "0x8333c1B5131CC694c3A238E41e50cbc236e73DbC",
@@ -16,27 +16,22 @@ const testnetAddresses: Address[] = [
 ];
 
 const ChainProvider = ({ children }: { children: React.ReactNode }) => {
-  const [chain, setChain] = useState<Chain>(polygon);
+  const [chain, setChain] = useState<ExtendedChain>(polygon);
 
   const { switchChainAsync } = useSwitchChain();
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
 
   useEffect(() => {
     const switchingChain = async () => {
-      if (chain && address) {
-        await switchChainAsync({ chainId: chain.id }).catch((error) => {
-          console.error(error);
-          throw new Error("Failed to switch chain");
-        });
-      }
+      await switchChainAsync({ chainId: chain.id }).catch((error) => {
+        console.error(error);
+      });
     };
 
-    if (chain && address && isSupportedChain(chain.id)) {
+    if (chain && isConnected) {
       switchingChain();
-    } else {
-      setChain(polygon);
     }
-  }, [chain, switchChainAsync, address]);
+  }, [chain, switchChainAsync, isConnected]);
 
   const handleTestnet = useCallback(() => {
     setChain((currentChain) => {

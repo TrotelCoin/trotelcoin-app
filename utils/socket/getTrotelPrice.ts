@@ -2,7 +2,7 @@ import { Slippage, Sort } from "@/types/web3/swap";
 import { Token } from "@/types/web3/token";
 import { Address, formatUnits, parseUnits } from "viem";
 import { getQuote } from "@/utils/socket/getQuote";
-import { Chain } from "@/types/web3/chain";
+import type { Chain } from "viem";
 
 export const getTrotelPrice = async (
   fromAmount: number,
@@ -31,9 +31,9 @@ export const getTrotelPrice = async (
     : 0;
 
   const quote = await getQuote(
-    fromChain.chainId,
+    fromChain.id,
     fromToken.address,
-    toChain.chainId,
+    toChain.id,
     toToken.address,
     fromAmountDecimals,
     userAddress,

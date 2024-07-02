@@ -9,9 +9,9 @@ import {
   useBlock
 } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import { Address, formatEther } from "viem";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
 import { roundPrice } from "@/utils/price/roundPrice";
@@ -62,7 +62,7 @@ const StakingData = ({
     isLoading: isLoadingBalance
   } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
     address: address as Address
   });
 
@@ -83,8 +83,8 @@ const StakingData = ({
     isLoading: isLoadingStakingData
   } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV2,
-    address: contracts[chain.id].trotelCoinStakingV2,
+    abi: getAbi(chain.id, "trotelCoinStakingV2"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV2"),
     functionName: "stakings",
     args: [address as Address]
   });
@@ -95,8 +95,8 @@ const StakingData = ({
     isLoading: isLoadingEarnedData
   } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV2,
-    address: contracts[chain.id].trotelCoinStakingV2,
+    abi: getAbi(chain.id, "trotelCoinStakingV2"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV2"),
     functionName: "getUserReward",
     args: [address as Address]
   });
