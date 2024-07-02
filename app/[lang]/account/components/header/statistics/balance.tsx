@@ -1,4 +1,4 @@
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import { useAccount, useBalance, useBlockNumber } from "wagmi";
 import React, { useEffect, useContext } from "react";
@@ -22,7 +22,7 @@ const Balance = ({ lang }: { lang: Lang }) => {
 
   const { data: balance, refetch } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
     address: address as Address
   });
 

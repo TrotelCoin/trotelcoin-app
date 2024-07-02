@@ -10,8 +10,8 @@ import {
   useBlock,
   useReadContract
 } from "wagmi";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import { Address, Hash, parseEther } from "viem";
@@ -23,14 +23,10 @@ import TrotelPriceContext from "@/contexts/trotelPrice";
 
 const IncreaseStakingButton = ({
   lang,
-  amount,
-  chainError,
-  setChainError
+  amount
 }: {
   lang: Lang;
   amount: number;
-  chainError: boolean;
-  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [stakeMessage, setStakeMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
@@ -54,8 +50,8 @@ const IncreaseStakingButton = ({
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: contracts[chain.id].trotelCoinStakingV2,
-      abi: abis[chain.id].trotelCoinStakingV2,
+      address: getContractAddress(chain.id, "trotelCoinStakingV2"),
+      abi: getAbi(chain.id, "trotelCoinStakingV2"),
       chainId: chain.id,
       functionName: "stakings",
       args: [address as Address]
@@ -140,10 +136,10 @@ const IncreaseStakingButton = ({
     const stakingAmount = parseEther(amount.toFixed(18));
 
     await writeContractAsync({
-      address: contracts[chain.id].trotelCoinStakingV2,
+      address: getContractAddress(chain.id, "trotelCoinStakingV2"),
       functionName: "increaseStaking",
       chainId: chain.id,
-      abi: abis[chain.id].trotelCoinStakingV2,
+      abi: getAbi(chain.id, "trotelCoinStakingV2"),
       args: [stakingAmount]
     });
 
@@ -196,19 +192,6 @@ const IncreaseStakingButton = ({
           lang === "en"
             ? "Your transaction failed, make sure you approved first"
             : "Votre transaction a échoué, assurez-vous d'avoir approuvé d'abord"
-        }
-      />
-      <FailNotification
-        display={chainError && Boolean(address)}
-        lang={lang}
-        onClose={() => {
-          setChainError(false);
-        }}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "You are on the wrong network"
-            : "Vous êtes sur le mauvais réseau"
         }
       />
     </>

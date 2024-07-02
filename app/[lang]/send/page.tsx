@@ -1,6 +1,6 @@
 "use client";
 
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import { Lang } from "@/types/language/lang";
 import React, { useEffect, useState, useContext } from "react";
 import {
@@ -13,7 +13,7 @@ import {
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import Wallet from "@/app/[lang]/components/header/wallet";
 import { Hash, isAddress, parseEther, formatEther } from "viem";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import { loadingFlashClass } from "@/style/loading";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
@@ -52,7 +52,7 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
     isLoading: isLoadingBalance
   } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
     address: address
   });
 
@@ -257,8 +257,8 @@ const Send = ({ params: { lang } }: { params: { lang: Lang } }) => {
               const amountDecimals = parseEther(Number(amount).toFixed(18));
 
               await writeContractAsync({
-                address: contracts[chain.id].trotelCoinAddress,
-                abi: abis[chain.id].trotelCoin,
+                address: getContractAddress(chain.id, "trotelCoinAddress"),
+                abi: getAbi(chain.id, "trotelCoin"),
                 functionName: "transfer",
                 args: [recipient as string, amountDecimals],
                 chainId: chain.id

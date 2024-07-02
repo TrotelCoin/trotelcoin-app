@@ -1,4 +1,4 @@
-export type SocketChain = {
+export type Chain = {
   chainId: number;
   name: string;
   icon: string;

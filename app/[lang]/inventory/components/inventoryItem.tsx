@@ -19,8 +19,8 @@ import StreakContext from "@/contexts/streak";
 import WarningConfirmation from "@/app/[lang]/components/modals/confirmation/warning";
 import { Skeleton } from "@radix-ui/themes";
 import ChainContext from "@/contexts/chain";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 
 const InventoryItem = ({
   lang,
@@ -119,8 +119,8 @@ const InventoryItem = ({
 
   const handleItemUse = async () => {
     await writeContractAsync({
-      abi: abis[chain.id].trotelCoinShop,
-      address: contracts[chain.id].trotelCoinShop,
+      abi: getAbi(chain.id, "trotelCoinShop"),
+      address: getContractAddress(chain.id, "trotelCoinShop"),
       chainId: chain.id,
       functionName: "useItem",
       args: [item.id]

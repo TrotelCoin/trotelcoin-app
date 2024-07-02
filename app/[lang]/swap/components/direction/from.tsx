@@ -5,7 +5,7 @@ import { Skeleton } from "@radix-ui/themes";
 import { Token } from "@/types/web3/token";
 import { TokenSource } from "@/types/web3/swap";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import type { Chain } from "@/types/web3/chain";
+import type { ExtendedChain } from "@/types/web3/chain";
 import type { ChainSource } from "@/types/web3/swap";
 import Image from "next/image";
 import { roundPrice } from "@/utils/price/roundPrice";
@@ -33,7 +33,7 @@ const From = ({
   fromToken: Token;
   fromPrice: number;
   isLoading: boolean;
-  fromChain: Chain;
+  fromChain: ExtendedChain;
   userAddress: Address;
   setOpenTokenList: React.Dispatch<React.SetStateAction<boolean>>;
   setTokenList: React.Dispatch<React.SetStateAction<TokenSource>>;

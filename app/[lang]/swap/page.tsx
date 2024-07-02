@@ -10,7 +10,6 @@ import {
   useBlockNumber,
   useReadContract,
   useWriteContract,
-  useSwitchChain,
   useTransactionConfirmations
 } from "wagmi";
 import { polygonChain } from "@/data/web3/chains";
@@ -32,21 +31,22 @@ import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import SwapData from "@/app/[lang]/swap/components/swapData";
 import TokenList from "@/app/[lang]/swap/components/lists/tokenList";
 import Settings from "@/app/[lang]/swap/components/settings";
-import { Chain } from "@/types/web3/chain";
+import type { ExtendedChain } from "@/types/web3/chain";
 import ChainList from "@/app/[lang]/swap/components/lists/chainList";
-import abis from "@/abis/abis";
+import { allowanceABI } from "@/abis/abis";
 import { fetchQuote } from "@/utils/socket/fetchQuote";
 import { getFromTokenList } from "@/utils/socket/getFromTokenList";
 import { getChainList } from "@/utils/socket/getChainList";
 import { getToTokenList } from "@/utils/socket/getToTokenList";
 import { isRefuelSupported } from "@/utils/socket/isRefuelSupported";
 import TrotelPriceContext from "@/contexts/trotelPrice";
+import ChainContext from "@/contexts/chain";
 
 const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [fromPrice, setFromPrice] = useState<number | null>(null);
   const [fromAmount, setFromAmount] = useState<number | undefined>(undefined);
-  const [fromChain, setFromChain] = useState<Chain>(polygonChain);
-  const [toChain, setToChain] = useState<Chain>(polygonChain);
+  const [fromChain, setFromChain] = useState<ExtendedChain>(polygonChain);
+  const [toChain, setToChain] = useState<ExtendedChain>(polygonChain);
   const [fromToken, setFromToken] = useState<Token>(usdcPolygon);
   const [toPrice, setToPrice] = useState<number | null>(null);
   const [toToken, setToToken] = useState<Token>(trotelCoinPolygon);
@@ -79,8 +79,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   const [openTokenList, setOpenTokenList] = useState<boolean>(false);
   const [chainList, setChainList] = useState<ChainSource>("from");
   const [openChainList, setOpenChainList] = useState<boolean>(false);
-  const [fromChains, setFromChains] = useState<Chain[]>([]);
-  const [toChains, setToChains] = useState<Chain[]>([]);
+  const [fromChains, setFromChains] = useState<ExtendedChain[]>([]);
+  const [toChains, setToChains] = useState<ExtendedChain[]>([]);
   const [bridgeSlippage, setBridgeSlippage] = useState<number | null>(null);
   const [slippage, setSlippage] = useState<Slippage>("2");
   const [isApproved, setIsApproved] = useState<boolean>(false);
@@ -101,45 +101,43 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     useState<boolean>(false);
 
   const { address: userAddress } = useAccount();
-
+  const { setChain } = useContext(ChainContext);
   const { storedTrotelPrice } = useContext(TrotelPriceContext);
-
-  const { switchChain } = useSwitchChain();
 
   useEffect(() => {
     if (fromChain) {
-      switchChain({ chainId: fromChain.chainId });
+      setChain(fromChain);
     } else {
-      switchChain({ chainId: polygon.id });
+      setChain(polygon);
     }
-  }, [userAddress, fromChain, switchChain]);
+  }, [userAddress, fromChain, setChain]);
 
   const { data: blockNumber } = useBlockNumber({
     watch: true,
-    chainId: fromChain.chainId
+    chainId: fromChain.id
   });
 
   const { data: fromBalanceData, refetch: refetchFrom } = useBalance({
     address: userAddress,
     token: fromToken.address,
-    chainId: fromChain.chainId
+    chainId: fromChain.id
   });
 
   const { data: toBalanceData, refetch: refetchTo } = useBalance({
     address: userAddress,
     token: toToken.address,
-    chainId: toChain.chainId
+    chainId: toChain.id
   });
 
   const { data: fromNativeBalanceData, refetch: refetchFromNative } =
     useBalance({
       address: userAddress,
-      chainId: fromChain.chainId
+      chainId: fromChain.id
     });
 
   const { data: toNativeBalanceData, refetch: refetchToNative } = useBalance({
     address: userAddress,
-    chainId: toChain.chainId
+    chainId: toChain.id
   });
 
   const exchangeTokens = () => {
@@ -149,25 +147,31 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   };
 
   useEffect(() => {
-    if (fromBalanceData && fromToken.address !== fromChain.currency.address) {
+    if (
+      fromBalanceData &&
+      fromToken.address !== fromChain.nativeCurrency.address
+    ) {
       const balance = Number(fromBalanceData?.formatted);
       setFromBalance(balance);
     }
 
-    if (toBalanceData && toToken.address !== toChain.currency.address) {
+    if (toBalanceData && toToken.address !== toChain.nativeCurrency.address) {
       const balance = Number(toBalanceData?.formatted);
       setToBalance(balance);
     }
 
     if (
       fromNativeBalanceData &&
-      fromToken.address === fromChain.currency.address
+      fromToken.address === fromChain.nativeCurrency.address
     ) {
       const balance = Number(fromNativeBalanceData?.formatted);
       setFromBalance(balance);
     }
 
-    if (toNativeBalanceData && toToken.address === toChain.currency.address) {
+    if (
+      toNativeBalanceData &&
+      toToken.address === toChain.nativeCurrency.address
+    ) {
       const balance = Number(toNativeBalanceData?.formatted);
       setToBalance(balance);
     }
@@ -365,35 +369,32 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
     const fetchTokensList = async () => {
       setIsLoadingTokens(true);
 
-      const fromTokens = await getFromTokenList(
-        fromChain.chainId,
-        toChain.chainId
-      );
-      const toTokens = await getToTokenList(fromChain.chainId, toChain.chainId);
+      const fromTokens = await getFromTokenList(fromChain.id, toChain.id);
+      const toTokens = await getToTokenList(fromChain.id, toChain.id);
 
       if (fromTokens && toTokens) {
         setFromTokens(fromTokens.result);
         setToTokens(toTokens.result);
         setFromToken(fromTokens.result[0]);
-        if (toChain.chainId === polygon.id) {
+        if (toChain.id === polygon.id) {
           setToToken(trotelCoinPolygon);
         } else {
           setToToken(toTokens.result[0]);
         }
       }
 
-      if (fromChain.chainId === polygon.id) {
+      if (fromChain.id === polygon.id) {
         fromTokens.result.unshift(trotelCoinPolygon);
       }
 
-      if (toChain.chainId === polygon.id) {
+      if (toChain.id === polygon.id) {
         toTokens.result.unshift(trotelCoinPolygon);
       }
 
       setIsLoadingTokens(false);
     };
 
-    if (fromChain.chainId && toChain.chainId) {
+    if (fromChain.id && toChain.id) {
       fetchTokensList();
     }
   }, [fromChain, toChain]);
@@ -405,12 +406,26 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
       const fromChains = await getChainList();
       const toChains = await getChainList();
 
+      const extendedFromChains = fromChains.result.map(
+        (chain: ExtendedChain) => {
+          return {
+            ...chain
+          };
+        }
+      );
+
+      const extendedToChains = toChains.result.map((chain: ExtendedChain) => {
+        return {
+          ...chain
+        };
+      });
+
       if (fromChains) {
-        setFromChains(fromChains.result);
+        setFromChains(extendedFromChains);
       }
 
       if (toChains) {
-        setToChains(toChains.result);
+        setToChains(extendedToChains);
       }
 
       setIsLoadingChains(false);
@@ -422,11 +437,7 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
   useEffect(() => {
     if (txHash) {
       const txStatus = setInterval(async () => {
-        const status = await getBridgeStatus(
-          txHash,
-          fromChain.chainId,
-          toChain.chainId
-        );
+        const status = await getBridgeStatus(txHash, fromChain.id, toChain.id);
 
         if (!status) {
           return;
@@ -441,8 +452,8 @@ const Swap = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: allowanceData, refetch: refetchAllowance } = useReadContract({
     address: fromToken.address,
-    abi: abis[fromChain.chainId].allowance,
-    chainId: fromChain.chainId,
+    abi: allowanceABI,
+    chainId: fromChain.id,
     functionName: "allowance",
     args: [userAddress as Address, approvalData?.allowanceTarget]
   });

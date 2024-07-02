@@ -5,8 +5,8 @@ import Item from "@/app/[lang]/shop/components/item";
 import { Lang } from "@/types/language/lang";
 import type { ShopCategories, Category } from "@/types/shop/shop";
 import { useAccount, useBalance, useBlockNumber, useReadContract } from "wagmi";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import { formatEther } from "viem";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import ItemSkeleton from "@/app/[lang]/shop/components/itemSkeleton";
@@ -65,15 +65,15 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
 
   const { data: allCategories, refetch: refetchCategories } = useReadContract({
     chainId: chain.id,
-    address: contracts[chain.id].trotelCoinShop,
+    address: getContractAddress(chain.id, "trotelCoinShop"),
     functionName: "getAllCategories",
-    abi: abis[chain.id].trotelCoinShop
+    abi: getAbi(chain.id, "trotelCoinShop")
   });
 
   const { data: allItems, refetch: refetchItems } = useReadContract({
     chainId: chain.id,
-    address: contracts[chain.id].trotelCoinShop,
-    abi: abis[chain.id].trotelCoinShop,
+    address: getContractAddress(chain.id, "trotelCoinShop"),
+    abi: getAbi(chain.id, "trotelCoinShop"),
     functionName: "getAllItems"
   });
 
@@ -132,7 +132,7 @@ const Shop = ({ params: { lang } }: { params: { lang: Lang } }) => {
   } = useBalance({
     chainId: chain.id,
     address: address,
-    token: contracts[chain.id].trotelCoinAddress
+    token: getContractAddress(chain.id, "trotelCoinAddress")
   });
 
   useEffect(() => {

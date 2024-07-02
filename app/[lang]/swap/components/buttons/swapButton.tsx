@@ -3,9 +3,10 @@ import type { Lang } from "@/types/language/lang";
 import React from "react";
 import { Address, parseUnits } from "viem";
 import Wallet from "@/app/[lang]/components/header/wallet";
-import { Chain } from "@/types/web3/chain";
+import type { Chain } from "viem";
 import { Token } from "@/types/web3/token";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
+import { allowanceABI } from "@/abis/abis";
 import { nativeAddress } from "@/data/web3/tokens";
 
 const SwapButton = ({
@@ -64,9 +65,9 @@ const SwapButton = ({
             onClick={async () => {
               await approvingAsync({
                 address: fromToken.address,
-                abi: abis[fromChain.chainId].allowance,
+                abi: allowanceABI,
                 functionName: "approve",
-                chainId: fromChain.chainId,
+                chainId: fromChain.id,
                 args: [
                   allowanceTarget,
                   parseUnits(

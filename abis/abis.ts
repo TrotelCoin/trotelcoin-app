@@ -16,9 +16,6 @@ import trotelCoinPolygonUniswapV3PoolPolygon from "@/abis/polygon/uniswap-v3/tro
 import usdcPolygonUniswapV3PoolPolygon from "@/abis/polygon/uniswap-v3/usdcPolygonUniswapV3Pool";
 
 // Polygon Amoy ABIs
-import allowancePolygonAmoy from "@/abis/polygon-amoy/misc/erc20/allowance";
-import approvePolygonAmoy from "@/abis/polygon-amoy/misc/erc20/approve";
-import usdcPolygonAmoy from "@/abis/polygon-amoy/misc/tokens/usdc";
 import trotelCoinEarlyPolygonAmoy from "@/abis/polygon-amoy/premium/trotelCoinEarly";
 import trotelCoinShopPolygonAmoy from "@/abis/polygon-amoy/shop/trotelCoinShop";
 import trotelCoinShopV1PolygonAmoy from "@/abis/polygon-amoy/shop/trotelCoinShopV1";
@@ -26,11 +23,15 @@ import trotelCoinStakingV1TestPolygonAmoy from "@/abis/polygon-amoy/staking/trot
 import trotelCoinStakingV2TestPolygonAmoy from "@/abis/polygon-amoy/staking/trotelCoinStakingV2Test";
 import trotelCoinPolygonAmoy from "@/abis/polygon-amoy/trotelcoin/trotelCoin";
 
+// Export all ABIs
+export {
+  allowancePolygon as allowanceABI,
+  approvePolygon as approveABI,
+  usdcPolygon as usdcABI
+};
+
 const abis: {
   [key: number]: {
-    allowance?: any;
-    approve?: any;
-    usdc?: any;
     trotelCoinEarly: any;
     trotelCoinExpert?: any;
     trotelCoinIntermediate?: any;
@@ -44,9 +45,6 @@ const abis: {
   };
 } = {
   [polygon.id]: {
-    allowance: allowancePolygon,
-    approve: approvePolygon,
-    usdc: usdcPolygon,
     trotelCoinEarly: trotelCoinEarlyPolygon,
     trotelCoinExpert: trotelCoinExpertPolygon,
     trotelCoinIntermediate: trotelCoinIntermediatePolygon,
@@ -59,9 +57,6 @@ const abis: {
     usdcPolygonUniswapV3Pool: usdcPolygonUniswapV3PoolPolygon
   },
   [polygonAmoy.id]: {
-    allowance: allowancePolygonAmoy,
-    approve: approvePolygonAmoy,
-    usdc: usdcPolygonAmoy,
     trotelCoinEarly: trotelCoinEarlyPolygonAmoy,
     trotelCoinShop: trotelCoinShopPolygonAmoy,
     trotelCoinShopV1: trotelCoinShopV1PolygonAmoy,
@@ -71,4 +66,25 @@ const abis: {
   }
 };
 
+export type AbiKey =
+  | "trotelCoinEarly"
+  | "trotelCoinExpert"
+  | "trotelCoinIntermediate"
+  | "trotelCoinShop"
+  | "trotelCoinShopV1"
+  | "trotelCoinStakingV1"
+  | "trotelCoinStakingV2"
+  | "trotelCoin"
+  | "trotelCoinPolygonUniswapV3Pool"
+  | "usdcPolygonUniswapV3Pool";
+
+function getAbi(chainId: number, key: AbiKey) {
+  const abi = abis[chainId]?.[key];
+  if (!abi) {
+    throw new Error(`ABI not found for chainId: ${chainId} and key: ${key}`);
+  }
+  return abi;
+}
+
 export default abis;
+export { getAbi };

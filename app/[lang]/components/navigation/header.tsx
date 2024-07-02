@@ -16,7 +16,6 @@ import BlueButton from "@/app/[lang]/components/buttons/blue";
 import AudioSelector from "@/app/[lang]/components/selectors/audio";
 import BlueSimpleButton from "@/app/[lang]/components/buttons/blueSimple";
 import { XMarkIcon } from "@heroicons/react/20/solid";
-import PendingRewardsMobile from "@/app/[lang]/components/header/mobile/pendingRewards";
 import UserInformationMobile from "@/app/[lang]/components/header/mobile/userInformation";
 import UserContext from "@/contexts/user";
 import StreakContext from "@/contexts/streak";
@@ -246,7 +245,6 @@ const Header = ({ lang }: { lang: Lang }) => {
                             lang={lang}
                             setMobileMenuOpen={setMobileMenuOpen}
                           />
-                          <PendingRewardsMobile lang={lang} />
                           <StreakMobile lang={lang} />
                           <LifeMobile
                             lang={lang}

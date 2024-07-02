@@ -13,14 +13,14 @@ import {
 import "animate.css";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import Tilt from "react-parallax-tilt";
 import BlueButton from "@/app/[lang]/components/buttons/blue";
 import PremiumContext from "@/contexts/premium";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import ChainContext from "@/contexts/chain";
 
 const Intermediate = ({ lang }: { lang: Lang }) => {
@@ -49,13 +49,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   });
 
   const { data: allowance, refetch: refetchAllowance } = useReadContract({
-    address: contracts[chain.id].trotelCoinAddress,
-    abi: abis[chain.id].trotelCoin,
+    address: getContractAddress(chain.id, "trotelCoinAddress"),
+    abi: getAbi(chain.id, "trotelCoin"),
     functionName: "allowance",
     chainId: chain.id,
     args: [
       address as Address,
-      contracts[chain.id].trotelCoinIntermediateAddress
+      getContractAddress(chain.id, "trotelCoinIntermediateAddress")
     ],
     account: address as Address
   });
@@ -97,13 +97,13 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
   const { data, refetch: refetchBalance } = useBalance({
     address: address as Address,
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress
+    token: getContractAddress(chain.id, "trotelCoinAddress")
   });
 
   const { data: holdingRequirement, refetch: refetchHolding } = useReadContract(
     {
-      address: contracts[chain.id].trotelCoinIntermediateAddress,
-      abi: abis[chain.id].trotelCoinIntermediate,
+      address: getContractAddress(chain.id, "trotelCoinIntermediateAddress"),
+      abi: getAbi(chain.id, "trotelCoinIntermediate"),
       functionName: "holdingRequirement",
       chainId: chain.id,
       account: address as Address
@@ -141,8 +141,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
 
   const { data: claimed, refetch: refetchBalanceIntermediate } =
     useReadContract({
-      address: contracts[chain.id].trotelCoinIntermediateAddress,
-      abi: abis[chain.id].trotelCoinIntermediate,
+      address: getContractAddress(chain.id, "trotelCoinIntermediateAddress"),
+      abi: getAbi(chain.id, "trotelCoinIntermediate"),
       functionName: "balanceOf",
       chainId: chain.id,
       args: [address as Address],
@@ -271,12 +271,12 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     isLoading={isLoadingApproval || approved}
                     onClick={async () => {
                       await approvingAsync({
-                        address: contracts[chain.id].trotelCoinAddress,
-                        abi: abis[chain.id].trotelCoin,
+                        address: getContractAddress(chain.id, "trotelCoinAddress"),
+                        abi: getAbi(chain.id, "trotelCoin"),
                         functionName: "approve",
                         chainId: chain.id,
                         args: [
-                          contracts[chain.id].trotelCoinIntermediateAddress,
+                          getContractAddress(chain.id, "trotelCoinIntermediateAddress"),
                           holdingRequirement
                         ]
                       });
@@ -293,8 +293,8 @@ const Intermediate = ({ lang }: { lang: Lang }) => {
                     onClick={async () => {
                       await writeContractAsync({
                         address:
-                          contracts[chain.id].trotelCoinIntermediateAddress,
-                        abi: abis[chain.id].trotelCoinIntermediate,
+                          getContractAddress(chain.id, "trotelCoinIntermediateAddress"),
+                        abi: getAbi(chain.id, "trotelCoinIntermediate"),
                         functionName: "mint",
                         chainId: chain.id,
                         args: [address as Address]

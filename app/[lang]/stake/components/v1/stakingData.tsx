@@ -9,9 +9,9 @@ import {
   useBlock
 } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import { Address } from "viem";
-import abis from "@/abis/abis";
+import { getAbi } from "@/abis/abis";
 import {
   oneYear,
   sixMonths,
@@ -69,7 +69,7 @@ const StakingData = ({
     isLoading: isLoadingBalance
   } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
     address: address as Address
   });
 
@@ -90,8 +90,8 @@ const StakingData = ({
     isLoading: isLoadingStakingData
   } = useReadContract({
     chainId: chain.id,
-    abi: abis[chain.id].trotelCoinStakingV1,
-    address: contracts[chain.id].trotelCoinStakingV1,
+    abi: getAbi(chain.id, "trotelCoinStakingV1"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV1"),
     functionName: "stakings",
     args: [address as Address]
   });

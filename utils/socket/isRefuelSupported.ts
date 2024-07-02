@@ -1,16 +1,24 @@
-import { SocketChain } from "@/types/socket/socket";
-import { Chain } from "@/types/web3/chain";
+import type { ExtendedChain, SocketChain } from "@/types/web3/chain";
+import { convertSocketChainToExtendedChain } from "@/types/web3/chain";
 import { fetchSupportedChains } from "@/utils/socket/fetchSupportedChains";
 
-export const isRefuelSupported = async (fromChain: Chain, toChain: Chain) => {
+export const isRefuelSupported = async (
+  fromChain: ExtendedChain,
+  toChain: ExtendedChain
+) => {
   const { result: chains } = await fetchSupportedChains();
 
-  const fromChainResponse = chains.filter((chain: SocketChain) => {
-    return chain.chainId === fromChain.chainId;
+  let extendedChains: ExtendedChain[] = [];
+  chains.map((chain: SocketChain) => {
+    extendedChains.push(convertSocketChainToExtendedChain(chain));
   });
 
-  const toChainResponse = chains.filter((chain: SocketChain) => {
-    return chain.chainId === toChain.chainId;
+  const fromChainResponse = extendedChains.filter((chain: ExtendedChain) => {
+    return Number(chain.id) === Number(fromChain.id);
+  });
+
+  const toChainResponse = extendedChains.filter((chain: ExtendedChain) => {
+    return Number(chain.id) === Number(toChain.id);
   });
 
   const refuelEnabled: boolean =

@@ -1,4 +1,4 @@
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import type { Lang } from "@/types/language/lang";
 import React, { useContext, useEffect, useState } from "react";
 import type { Address } from "viem";
@@ -40,7 +40,7 @@ const Amount = ({
 
   const { data: balance, refetch } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
     address: address
   });
 

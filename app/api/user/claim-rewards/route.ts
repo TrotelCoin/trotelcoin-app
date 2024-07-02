@@ -5,8 +5,8 @@ import {
   testPublicClient,
   testWalletClient
 } from "@/utils/viem/clients";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import { Address, parseEther, getAddress, Chain } from "viem";
 import { privateKeyToAccount, Account } from "viem/accounts";
 import { z } from "zod";
@@ -181,8 +181,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // prepare transaction
     if (!chain.testnet) {
       const { request } = await publicClient.simulateContract({
-        address: contracts[chain.id].trotelCoinAddress,
-        abi: abis[chain.id].trotelCoin,
+        address: getContractAddress(chain.id, "trotelCoinAddress"),
+        abi: getAbi(chain.id, "trotelCoin"),
         functionName: "mint",
         account: account as Account,
         args: [getAddress(wallet), parseEther(Number(amount).toFixed(18))],
@@ -193,8 +193,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       hash = await walletClient.writeContract(request);
     } else {
       const { request } = await testPublicClient.simulateContract({
-        address: contracts[chain.id].trotelCoinAddress,
-        abi: abis[chain.id].trotelCoin,
+        address: getContractAddress(chain.id, "trotelCoinAddress"),
+        abi: getAbi(chain.id, "trotelCoin"),
         functionName: "mint",
         account: account as Account,
         args: [getAddress(wallet), parseEther(Number(amount).toFixed(18))],

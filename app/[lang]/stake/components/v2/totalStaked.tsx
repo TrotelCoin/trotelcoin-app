@@ -3,7 +3,7 @@
 import type { Lang } from "@/types/language/lang";
 import { useBalance, useBlockNumber } from "wagmi";
 import React, { useContext, useEffect, useState } from "react";
-import contracts from "@/data/web3/addresses";
+import { getContractAddress } from "@/data/web3/addresses";
 import CountUp from "react-countup";
 import TrotelCoinLogo from "@/app/[lang]/components/trotelCoinLogo";
 import { Skeleton } from "@radix-ui/themes";
@@ -31,8 +31,8 @@ const TotalStaked = ({
     isLoading: isLoadingTotalStaked
   } = useBalance({
     chainId: chain.id,
-    token: contracts[chain.id].trotelCoinAddress,
-    address: contracts[chain.id].trotelCoinStakingV2
+    token: getContractAddress(chain.id, "trotelCoinAddress"),
+    address: getContractAddress(chain.id, "trotelCoinStakingV2")
   });
 
   useEffect(() => {

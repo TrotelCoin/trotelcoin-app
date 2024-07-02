@@ -11,8 +11,8 @@ import {
   useTransactionConfirmations
 } from "wagmi";
 import { Address, Hash, formatEther } from "viem";
-import contracts from "@/data/web3/addresses";
-import abis from "@/abis/abis";
+import { getContractAddress } from "@/data/web3/addresses";
+import { getAbi } from "@/abis/abis";
 import SuccessNotification from "@/app/[lang]/components/modals/notifications/success";
 import FailNotification from "@/app/[lang]/components/modals/notifications/fail";
 import "animate.css";
@@ -21,15 +21,7 @@ import ChainContext from "@/contexts/chain";
 import axios from "axios";
 import TrotelPriceContext from "@/contexts/trotelPrice";
 
-const ClaimingButton = ({
-  lang,
-  chainError,
-  setChainError
-}: {
-  lang: Lang;
-  chainError: boolean;
-  setChainError: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const ClaimingButton = ({ lang }: { lang: Lang }) => {
   const [claimMessage, setClaimMessage] = useState<boolean>(false);
   const [stakedTrotelCoins, setStakedTrotelCoins] = useState<number | null>(
     null
@@ -91,8 +83,8 @@ const ClaimingButton = ({
 
   const { data: getStakingDataNoTyped, refetch: refetchStakings } =
     useReadContract({
-      address: contracts[chain.id].trotelCoinStakingV2,
-      abi: abis[chain.id].trotelCoinStakingV2,
+      address: getContractAddress(chain.id, "trotelCoinStakingV2"),
+      abi: getAbi(chain.id, "trotelCoinStakingV2"),
       chainId: chain.id,
       functionName: "stakings",
       args: [address as Address]
@@ -100,8 +92,8 @@ const ClaimingButton = ({
 
   const { data: getUserRewardsDataNoTyped, refetch: refetchUserRewards } =
     useReadContract({
-      address: contracts[chain.id].trotelCoinStakingV2,
-      abi: abis[chain.id].trotelCoinStakingV2,
+      address: getContractAddress(chain.id, "trotelCoinStakingV2"),
+      abi: getAbi(chain.id, "trotelCoinStakingV2"),
       chainId: chain.id,
       functionName: "getUserReward",
       args: [address as Address]
@@ -185,8 +177,8 @@ const ClaimingButton = ({
     }
 
     await writeContractAsync({
-      abi: abis[chain.id].trotelCoinStakingV2,
-      address: contracts[chain.id].trotelCoinStakingV2,
+      abi: getAbi(chain.id, "trotelCoinStakingV2"),
+      address: getContractAddress(chain.id, "trotelCoinStakingV2"),
       functionName: "unstake",
       chainId: chain.id,
       args: []
@@ -232,19 +224,6 @@ const ClaimingButton = ({
         lang={lang}
         title={lang === "en" ? "Error" : "Erreur"}
         message={lang === "en" ? "There was an error" : "Il y a eu une erreur"}
-      />
-      <FailNotification
-        display={chainError && Boolean(address)}
-        onClose={() => {
-          setChainError(false);
-        }}
-        lang={lang}
-        title={lang === "en" ? "Error" : "Erreur"}
-        message={
-          lang === "en"
-            ? "You are on the wrong network"
-            : "Vous êtes sur le mauvais réseau"
-        }
       />
     </>
   );
